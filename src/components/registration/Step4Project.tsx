@@ -65,21 +65,6 @@ const Step4Project = () => {
           <p className="text-xs text-muted-foreground font-sans mt-1">{store.motivation.length}/500 caractères</p>
         </div>
 
-        {/* Bullets */}
-        <div>
-          <Label className="font-sans text-sm font-semibold mb-3 block">3 points clés de votre profil</Label>
-          <div className="space-y-2">
-            {store.bullets.map((bullet, i) => (
-              <Input
-                key={i}
-                value={bullet}
-                onChange={e => updateBullet(i, e.target.value)}
-                placeholder={`Point ${i + 1}...`}
-              />
-            ))}
-          </div>
-        </div>
-
         {/* Cabinets cibles */}
         <div>
           <Label className="font-sans text-sm font-semibold mb-3 block">Cabinets cibles</Label>
