@@ -29,7 +29,7 @@ const StepProgress = ({ currentStep, totalSteps = 7 }: StepProgressProps) => {
                 <div
                   className={cn(
                     "absolute top-4 right-1/2 w-full h-0.5 -z-10",
-                    isCompleted || isActive ? "bg-carter-red" : "bg-border"
+                    isCompleted || isActive ? "bg-carter-accent" : "bg-border"
                   )}
                 />
               )}
