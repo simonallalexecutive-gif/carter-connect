@@ -8,47 +8,44 @@ type Tab = 'candidat' | 'cabinet';
 const candidatBenefits = [
   {
     number: '01',
-    title: 'Informations en temps réel',
-    desc: 'Marché, mouvements, opportunités — une vision constante et actualisée du marché juridique.',
+    title: 'Connecté en temps réel au marché',
+    desc: 'Restez visible auprès des meilleurs cabinets tout en préservant votre anonymat. Seuls votre domaine d\'activité, votre séniorité et les grandes lignes de votre projet sont dévoilés — jamais votre identité.',
   },
   {
     number: '02',
-    title: 'Visibilité marché',
-    desc: 'Dynamiques de recrutement, benchmarks et tendances du marché juridique haut de gamme.',
+    title: 'Devenez acteur de votre carrière',
+    desc: 'Chaque nouvelle opportunité vous est transmise en priorité. Vous décidez — ou non — d\'alerter Carter pour en savoir plus. Aucune démarche n\'est engagée sans votre initiative.',
   },
   {
     number: '03',
     title: 'Accompagnement sur mesure',
-    desc: 'Un consultant dédié à chaque étape, de la détection de l\'opportunité à la décision finale.',
-  },
-  {
-    number: '04',
-    title: 'Discrétion absolue',
-    desc: 'Votre profil n\'est jamais diffusé sans votre consentement explicite.',
+    desc: 'Conseil, transparence, benchmark, feedback : un consultant dédié vous accompagne à chaque étape, jusqu\'à la signature de votre prochaine collaboration.',
   },
 ];
 
 const cabinetBenefits = [
   {
     number: '01',
-    title: 'Vivier ultra-qualifié toute l\'année',
-    desc: 'Chaque profil est validé manuellement par Carter. Accédez à un vivier actif pour tous vos besoins annuels.',
+    title: 'Visualisez les profils en un clin d\'œil',
+    desc: 'Accédez aux profils à l\'écoute du marché dans votre spécialité. Expertise, séniorité, projet : l\'essentiel est là. Manifestez — ou non — votre intérêt en toute discrétion.',
   },
   {
     number: '02',
-    title: '0% de commission au placement',
-    desc: 'Abonnement annuel illimité sans commission par placement. Contre 20–45K€ HT par recrutement en modèle traditionnel.',
+    title: 'Carter orchestre chaque étape',
+    desc: 'Dès qu\'un profil retient votre attention, Carter prend le relais : validation de la pertinence, mise en relation, gestion intégrale du processus jusqu\'à l\'aboutissement.',
   },
   {
     number: '03',
-    title: 'Confidentialité absolue',
-    desc: 'Votre recherche comme les profils consultés restent strictement anonymisés. Levée de rideau uniquement avec l\'accord du candidat.',
+    title: 'Économique, efficace, confidentiel',
+    desc: 'Un abonnement annuel, un vivier premium toute l\'année pour tous vos départements. Pas de commission au placement, pas de surprise.',
   },
-  {
-    number: '04',
-    title: 'Accès prioritaire aux profils',
-    desc: 'Les membres Carter sont notifiés en premier des nouveaux profils disponibles avant toute diffusion externe.',
-  },
+];
+
+const sharedValues = [
+  'Accompagnement sur mesure',
+  'Interlocuteur de confiance',
+  'Confidentialité totale',
+  'Préservation de l\'anonymat',
 ];
 
 const BenefitsSection = () => {
