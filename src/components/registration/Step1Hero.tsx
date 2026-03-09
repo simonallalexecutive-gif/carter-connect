@@ -42,7 +42,7 @@ const Step1Hero = () => {
           >
             <div className="carter-divider mx-auto mb-10" />
             <span className="font-serif text-3xl tracking-[-0.02em] text-foreground block mb-8">
-              Carter
+              Logan
             </span>
             <h1 className="text-3xl md:text-5xl font-serif font-normal text-foreground mb-4 leading-tight tracking-[-0.02em]">
               Rejoignez le réseau<br />
