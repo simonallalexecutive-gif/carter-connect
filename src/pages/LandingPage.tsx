@@ -101,7 +101,7 @@ const LandingPage = () => (
     <BenefitsSection />
 
     {/* Commitments */}
-    <section className="carter-section bg-background">
+    <section className="carter-section bg-secondary">
       <div className="carter-container">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
