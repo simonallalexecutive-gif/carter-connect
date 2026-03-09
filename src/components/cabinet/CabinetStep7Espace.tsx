@@ -238,7 +238,7 @@ const CabinetStep7Espace = () => {
               {/* CTA */}
               <div className="bg-foreground rounded-md p-4 text-center mt-2">
                 <div className="text-sm font-bold text-white mb-1.5">Ce profil vous intéresse ?</div>
-                <p className="text-[11px] text-white/45 mb-3.5 leading-relaxed">CARTER qualifie l'opportunité des deux côtés avant toute mise en relation.</p>
+                <p className="text-[11px] text-white/45 mb-3.5 leading-relaxed">LOGAN qualifie l'opportunité des deux côtés avant toute mise en relation.</p>
                 <button
                   onClick={() => {
                     setDrawerProfile(null);
