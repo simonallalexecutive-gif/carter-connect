@@ -7,7 +7,7 @@ const Header = () => {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-black">
-      <div className="carter-container flex items-center gap-10 h-20">
+      <div className="carter-container flex items-center justify-between h-20">
         <Link to="/" className="flex items-center">
           <span className="font-serif text-2xl tracking-[-0.02em] text-white">Logan</span>
         </Link>
