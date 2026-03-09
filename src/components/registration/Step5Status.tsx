@@ -87,7 +87,7 @@ const Step5Status = () => {
               <RadioGroupItem value="confidentiel" className="mt-0.5" />
               <div>
                 <span className="font-sans font-medium text-sm">Confidentiel</span>
-                <p className="text-xs text-muted-foreground font-sans font-light mt-1">Profil visible uniquement par Carter. Aucun cabinet ne peut consulter votre profil.</p>
+                <p className="text-xs text-muted-foreground font-sans font-light mt-1">Profil visible uniquement par Logan. Aucun cabinet ne peut consulter votre profil.</p>
               </div>
             </label>
             <label className="flex items-start gap-3 p-5 rounded-sm border border-border hover:border-accent/30 transition-colors duration-300 cursor-pointer bg-card">
