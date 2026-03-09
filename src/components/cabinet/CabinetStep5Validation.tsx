@@ -61,7 +61,7 @@ const CabinetStep5Validation = () => {
       </div>
       <h2 className="font-serif text-3xl md:text-4xl font-normal text-foreground leading-tight mb-2.5">Validation & aperçu</h2>
       <p className="text-sm text-muted-foreground font-light leading-relaxed mb-10 max-w-xl">
-        Vérifiez votre demande et visualisez comment votre recherche apparaîtra aux candidats sur la plateforme CARTER.
+        Vérifiez votre demande et visualisez comment votre recherche apparaîtra aux candidats sur la plateforme LOGAN.
       </p>
 
       {/* Recap */}
