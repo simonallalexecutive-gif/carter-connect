@@ -96,7 +96,7 @@ const BenefitsSection = () => {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          className="grid md:grid-cols-2 gap-px bg-border rounded-lg overflow-hidden"
+          className="grid md:grid-cols-3 gap-px bg-border rounded-lg overflow-hidden"
         >
           {benefits.map((b, i) => (
             <motion.div
@@ -111,6 +111,36 @@ const BenefitsSection = () => {
               <p className="font-sans text-sm text-muted-foreground font-light leading-relaxed">{b.desc}</p>
             </motion.div>
           ))}
+        </motion.div>
+
+        {/* Shared values — ce qui nous réunit */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="mt-20 border border-border rounded-lg p-10 md:p-14 text-center"
+        >
+          <p className="text-xs font-sans font-medium tracking-[0.2em] uppercase text-muted-foreground mb-6">
+            Ce qui nous réunit
+          </p>
+          <div className="flex flex-wrap justify-center gap-3 mb-8">
+            {sharedValues.map((v, i) => (
+              <motion.span
+                key={v}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.08 }}
+                className="border border-border rounded-sm px-5 py-2.5 text-sm font-sans text-foreground font-medium"
+              >
+                {v}
+              </motion.span>
+            ))}
+          </div>
+          <p className="font-serif text-lg md:text-xl text-foreground/80 italic max-w-md mx-auto">
+            Parce qu'un bon recrutement ne se fait pas attendre.
+          </p>
         </motion.div>
       </div>
     </section>
