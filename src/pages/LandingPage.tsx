@@ -88,7 +88,7 @@ const LandingPage = () => (
           className="text-center mb-16"
         >
           <h2 className="text-3xl md:text-4xl font-serif text-foreground mb-4">
-            Pourquoi <em className="text-carter-red">Carter</em> ?
+            Pourquoi <em className="text-carter-accent">Carter</em> ?
           </h2>
           <p className="text-muted-foreground font-sans max-w-lg mx-auto">
             Un service pensé pour les exigences du marché juridique haut de gamme.
