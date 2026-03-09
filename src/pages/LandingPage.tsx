@@ -78,14 +78,21 @@ const LandingPage = () => (
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.2, duration: 1.5 }}
-        className="relative z-10 pb-12 overflow-hidden"
+        className="relative z-10 pb-16 overflow-hidden"
       >
-        <div className="flex animate-marquee whitespace-nowrap">
-          {[...firmNames, ...firmNames].map((name, i) => (
-            <span key={i} className="mx-8 md:mx-12 text-[11px] font-sans font-light tracking-[0.2em] uppercase text-white/15 select-none flex-shrink-0">
-              {name}
-            </span>
-          ))}
+        <p className="text-[10px] font-sans font-medium tracking-[0.3em] uppercase text-white/25 text-center mb-8">
+          Ils recrutent via Carter
+        </p>
+        <div className="relative">
+          <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-black to-transparent z-10" />
+          <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-black to-transparent z-10" />
+          <div className="flex animate-marquee whitespace-nowrap items-center">
+            {[...firmNames, ...firmNames].map((name, i) => (
+              <span key={i} className="mx-10 md:mx-14 text-base md:text-lg font-serif font-normal text-white/20 select-none flex-shrink-0 tracking-[0.02em]">
+                {name}
+              </span>
+            ))}
+          </div>
         </div>
       </motion.div>
     </section>
