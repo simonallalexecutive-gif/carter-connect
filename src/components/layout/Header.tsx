@@ -28,7 +28,7 @@ const Header = () => {
               </button>
             ) : (
               <Link to="/auth" className="font-sans text-[13px] font-light text-white/80 hover:text-white border border-white/20 hover:border-white/40 rounded-sm px-4 py-2 transition-colors duration-300">
-                Connexion
+                Request a demo
               </Link>
             )
           )}
