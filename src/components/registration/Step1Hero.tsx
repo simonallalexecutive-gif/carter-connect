@@ -14,17 +14,20 @@ const Step1Hero = () => {
         transition={{ duration: 0.55, ease: [0.22, 0.68, 0, 1.2] }}
         className="text-center max-w-2xl"
       >
-        <div className="flex justify-center mb-8">
-          <div className="w-16 h-16 rounded-2xl bg-carter-accent/20 flex items-center justify-center">
-            <Scale className="w-8 h-8 text-carter-accent" />
+        <div className="flex justify-center mb-10">
+          <div className="flex items-center gap-3">
+            <Scale className="w-10 h-10 text-carter-accent" />
+            <span className="font-sans text-3xl font-light tracking-[0.15em] uppercase text-cream-light">
+              Carter
+            </span>
           </div>
         </div>
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif text-cream-light mb-6 leading-tight">
+        <h1 className="text-3xl md:text-4xl lg:text-5xl font-sans font-extralight text-cream-light mb-6 leading-tight tracking-tight">
           Rejoignez le réseau<br />
-          <span className="italic text-carter-accent">Carter</span>
+          <span className="text-carter-accent font-light">confidentiel</span>
         </h1>
-        <p className="text-lg md:text-xl text-cream-light/70 font-sans font-light mb-10 max-w-lg mx-auto">
-          La plateforme confidentielle de mise en relation entre avocats d'affaires et cabinets de premier plan.
+        <p className="text-base md:text-lg text-cream-light/50 font-sans font-light mb-10 max-w-lg mx-auto leading-relaxed">
+          La plateforme de mise en relation entre avocats d'affaires et cabinets de premier plan.
         </p>
         <motion.div
           initial={{ opacity: 0, y: 10 }}
@@ -34,7 +37,7 @@ const Step1Hero = () => {
           <Button
             onClick={nextStep}
             size="lg"
-            className="bg-carter-accent hover:bg-carter-accent-light text-accent-foreground font-sans text-base px-10 py-6 rounded-xl"
+            className="bg-carter-accent hover:bg-carter-accent-light text-accent-foreground font-sans text-sm font-medium px-10 py-6 rounded-lg tracking-wide"
           >
             Commencer mon inscription
           </Button>
@@ -43,7 +46,7 @@ const Step1Hero = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5 }}
-          className="mt-8 text-sm text-cream-light/40 font-sans"
+          className="mt-8 text-xs text-cream-light/30 font-sans font-light tracking-wide"
         >
           Inscription confidentielle · Profil validé sous 48h
         </motion.p>

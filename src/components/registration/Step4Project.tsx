@@ -21,24 +21,24 @@ const Step4Project = () => {
       className="max-w-2xl mx-auto px-4 py-8"
     >
       <h2 className="text-3xl font-serif text-foreground mb-2">Votre projet</h2>
-      <p className="text-muted-foreground font-sans mb-8">Ce que vous recherchez et ce qui vous anime.</p>
+      <p className="text-muted-foreground font-sans font-light mb-8">Ce que vous recherchez et ce qui vous anime.</p>
 
       <div className="space-y-8">
         {/* Qualités */}
         <div>
-          <Label className="font-sans text-sm font-semibold mb-3 block">Qualités appréciées dans un cabinet</Label>
+          <Label className="font-sans text-sm font-medium mb-3 block">Qualités appréciées dans un cabinet</Label>
           <ChipSelector
             options={QUALITES}
             selected={store.qualitesAppreciees}
             onChange={v => store.setField('qualitesAppreciees', v)}
             maxSelect={5}
           />
-          <p className="text-xs text-muted-foreground font-sans mt-1">Max 5 sélections</p>
+          <p className="text-xs text-muted-foreground font-sans font-light mt-1">Max 5 sélections</p>
         </div>
 
         {/* Axes */}
         <div>
-          <Label className="font-sans text-sm font-semibold mb-3 block">Axes d'amélioration souhaités</Label>
+          <Label className="font-sans text-sm font-medium mb-3 block">Axes d'amélioration souhaités</Label>
           <ChipSelector
             options={AXES}
             selected={store.axesAmelioration}
@@ -49,19 +49,19 @@ const Step4Project = () => {
 
         {/* Motivation */}
         <div>
-          <Label className="font-sans text-sm">Motivation / Contexte de la recherche *</Label>
+          <Label className="font-sans text-sm font-light">Motivation / Contexte de la recherche *</Label>
           <Textarea
             value={store.motivation}
             onChange={e => store.setField('motivation', e.target.value)}
             placeholder="Décrivez votre motivation et le contexte de votre recherche..."
             className="mt-1 min-h-[120px]"
           />
-          <p className="text-xs text-muted-foreground font-sans mt-1">{store.motivation.length}/500 caractères</p>
+          <p className="text-xs text-muted-foreground font-sans font-light mt-1">{store.motivation.length}/500 caractères</p>
         </div>
 
         {/* Cabinets cibles */}
         <div>
-          <Label className="font-sans text-sm font-semibold mb-3 block">Cabinets cibles</Label>
+          <Label className="font-sans text-sm font-medium mb-3 block">Cabinets cibles</Label>
           <AutocompleteInput
             data={CABINETS}
             value={store.cabinetsCibles}
@@ -74,7 +74,7 @@ const Step4Project = () => {
 
         {/* No-Go */}
         <div>
-          <Label className="font-sans text-sm font-semibold mb-3 block">No-Go (critères rédhibitoires)</Label>
+          <Label className="font-sans text-sm font-medium mb-3 block">Critères rédhibitoires (No-Go)</Label>
           <ChipSelector
             options={NOGO_SUGGESTIONS}
             selected={store.noGo}
@@ -89,13 +89,13 @@ const Step4Project = () => {
             checked={store.processusCours === 'oui'}
             onCheckedChange={v => store.setField('processusCours', v ? 'oui' : '')}
           />
-          <Label htmlFor="processus" className="font-sans text-sm cursor-pointer">J'ai des processus en cours avec d'autres cabinets</Label>
+          <Label htmlFor="processus" className="font-sans text-sm font-light cursor-pointer">J'ai des processus en cours avec d'autres cabinets</Label>
         </div>
 
         {/* Navigation */}
         <div className="flex justify-between pt-4">
-          <Button variant="outline" onClick={store.prevStep} className="font-sans">Retour</Button>
-          <Button onClick={store.nextStep} disabled={!canProceed} className="bg-carter-accent hover:bg-carter-accent-light text-accent-foreground font-sans">
+          <Button variant="outline" onClick={store.prevStep} className="font-sans font-light">Retour</Button>
+          <Button onClick={store.nextStep} disabled={!canProceed} className="bg-carter-accent hover:bg-carter-accent-light text-accent-foreground font-sans font-medium">
             Continuer
           </Button>
         </div>
