@@ -7,10 +7,10 @@ export function usePQE(mois: number | null, annee: number | null): SeniorityInfo
     const now = new Date();
     const years = ((now.getFullYear() - annee) * 12 + (now.getMonth() - (mois - 1))) / 12;
     const rounded = Math.round(years * 10) / 10;
-    if (years < 3) return { label: 'Junior', years: rounded, colorClass: 'bg-emerald-100 text-emerald-800' };
-    if (years < 6) return { label: 'Mid Level', years: rounded, colorClass: 'bg-amber-100 text-amber-800' };
-    if (years < 10) return { label: 'Senior', years: rounded, colorClass: 'bg-blue-100 text-blue-800' };
-    if (years < 15) return { label: 'Counsel', years: rounded, colorClass: 'bg-purple-100 text-purple-800' };
-    return { label: 'Associé', years: rounded, colorClass: 'bg-primary text-primary-foreground' };
+    if (years < 3) return { label: 'Junior', years: rounded, colorClass: 'bg-accent/15 text-accent border border-accent/20' };
+    if (years < 6) return { label: 'Mid Level', years: rounded, colorClass: 'bg-accent/15 text-accent border border-accent/20' };
+    if (years < 10) return { label: 'Senior', years: rounded, colorClass: 'bg-foreground/10 text-foreground border border-foreground/20' };
+    if (years < 15) return { label: 'Counsel', years: rounded, colorClass: 'bg-foreground/10 text-foreground border border-foreground/20' };
+    return { label: 'Associé', years: rounded, colorClass: 'bg-foreground text-background' };
   }, [mois, annee]);
 }
