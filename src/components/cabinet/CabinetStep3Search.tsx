@@ -253,7 +253,7 @@ const CabinetStep3Search = () => {
                 <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-muted-foreground">€/an</span>
               </div>
             </div>
-            <p className="text-[11px] text-muted-foreground mt-1.5">Transmis par CARTER uniquement si le candidat est en discussion avancée.</p>
+            <p className="text-[11px] text-muted-foreground mt-1.5">Transmis par LOGAN uniquement si le candidat est en discussion avancée.</p>
           </div>
 
           <div className="mb-6">
