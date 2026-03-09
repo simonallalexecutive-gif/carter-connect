@@ -58,7 +58,14 @@ const Step1Hero = () => {
               ].map(opt => (
                 <button
                   key={opt.label}
-                  onClick={() => !opt.disabled && setView(opt.loginView)}
+                  onClick={() => {
+                    if (opt.disabled) return;
+                    if (opt.loginView === 'login-cabinet') {
+                      navigate('/cabinet');
+                    } else {
+                      setView(opt.loginView);
+                    }
+                  }}
                   disabled={opt.disabled}
                   className={cn(
                     "group relative p-8 rounded-sm border text-left transition-all duration-500",
