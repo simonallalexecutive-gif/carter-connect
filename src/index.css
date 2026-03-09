@@ -70,37 +70,45 @@
 
   /* Light mode for registration form */
   .theme-light {
-    --background: 40 20% 97%;
-    --foreground: 30 12% 12%;
+    --background: 40 15% 97%;
+    --foreground: 220 15% 15%;
 
     --card: 0 0% 100%;
-    --card-foreground: 30 12% 12%;
+    --card-foreground: 220 15% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 30 12% 12%;
+    --popover-foreground: 220 15% 15%;
 
-    --primary: 30 12% 12%;
-    --primary-foreground: 40 20% 97%;
+    --primary: 220 15% 15%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 38 18% 93%;
-    --secondary-foreground: 30 12% 12%;
+    --secondary: 38 12% 93%;
+    --secondary-foreground: 220 15% 15%;
 
-    --muted: 38 14% 91%;
-    --muted-foreground: 30 8% 45%;
+    --muted: 38 10% 91%;
+    --muted-foreground: 220 8% 40%;
 
-    --accent: 38 55% 42%;
+    --accent: 38 50% 38%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 60% 45%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 38 14% 87%;
-    --input: 38 14% 87%;
-    --ring: 38 55% 42%;
+    --border: 220 10% 80%;
+    --input: 220 10% 78%;
+    --ring: 38 50% 38%;
 
-    --carter-gold: 38 55% 42%;
-    --carter-gold-muted: 38 30% 35%;
-    --carter-gold-bright: 38 55% 52%;
+    --carter-gold: 38 50% 38%;
+    --carter-gold-muted: 38 30% 30%;
+    --carter-gold-bright: 38 50% 48%;
+
+    --carter-text-primary: 220 15% 15%;
+    --carter-text-secondary: 220 8% 40%;
+    --carter-text-tertiary: 220 6% 55%;
+
+    --carter-border: 220 10% 80%;
+    --carter-border-subtle: 220 8% 88%;
+    --carter-border-accent: 38 30% 60%;
   }
 }
 
