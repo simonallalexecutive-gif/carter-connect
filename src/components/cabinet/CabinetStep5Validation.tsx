@@ -5,7 +5,7 @@ import { SENIORITY_MAP } from '@/lib/cabinetConstants';
 import { cn } from '@/lib/utils';
 
 const CONF_MAP: Record<string, string> = {
-  confidentielle: 'Confidentielle (CARTER proactif)',
+  confidentielle: 'Confidentielle (LOGAN proactif)',
   semi: 'Semi-confidentielle',
   ouverte: 'Ouverte',
 };
@@ -61,7 +61,7 @@ const CabinetStep5Validation = () => {
       </div>
       <h2 className="font-serif text-3xl md:text-4xl font-normal text-foreground leading-tight mb-2.5">Validation & aperçu</h2>
       <p className="text-sm text-muted-foreground font-light leading-relaxed mb-10 max-w-xl">
-        Vérifiez votre demande et visualisez comment votre recherche apparaîtra aux candidats sur la plateforme CARTER.
+        Vérifiez votre demande et visualisez comment votre recherche apparaîtra aux candidats sur la plateforme LOGAN.
       </p>
 
       {/* Recap */}
@@ -104,7 +104,7 @@ const CabinetStep5Validation = () => {
         <div className="bg-foreground rounded-lg overflow-hidden">
           {/* Header */}
           <div className="p-6 border-b border-white/[0.06]">
-            <div className="text-[8px] tracking-[0.16em] uppercase text-white/30 mb-2">Opportunité · Présentée par CARTER</div>
+            <div className="text-[8px] tracking-[0.16em] uppercase text-white/30 mb-2">Opportunité · Présentée par LOGAN</div>
             <div className="font-serif text-xl font-bold text-white mb-1.5">
               {senStr !== '—' ? `${senStr} · ` : ''}{dept}
             </div>
@@ -162,7 +162,7 @@ const CabinetStep5Validation = () => {
           {/* CTA */}
           <div className="p-6 text-center">
             <p className="text-[11px] text-white/30 mb-3.5 leading-relaxed">
-              CARTER qualifie l'opportunité des deux côtés avant toute mise en relation.<br />
+              LOGAN qualifie l'opportunité des deux côtés avant toute mise en relation.<br />
               Votre identité reste confidentielle jusqu'à accord mutuel.
             </p>
             <button className="w-full py-3 bg-white text-foreground font-bold text-sm rounded cursor-default">
@@ -179,8 +179,8 @@ const CabinetStep5Validation = () => {
         <div className="flex flex-col gap-2.5">
           {[
             "Je confirme les informations renseignées sur mon cabinet et mes besoins de recrutement.",
-            "Je comprends que les profils sont strictement anonymisés et que toute levée de confidentialité est conditionnée à l'accord du candidat, orchestrée par CARTER.",
-            "J'accepte les conditions générales d'utilisation de la plateforme CARTER et la politique de confidentialité.",
+            "Je comprends que les profils sont strictement anonymisés et que toute levée de confidentialité est conditionnée à l'accord du candidat, orchestrée par LOGAN.",
+            "J'accepte les conditions générales d'utilisation de la plateforme LOGAN et la politique de confidentialité.",
           ].map((text, i) => (
             <button
               key={i}

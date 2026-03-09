@@ -17,9 +17,9 @@ const CabinetStep6Confirm = () => {
         <Check className="w-8 h-8 text-background" strokeWidth={2.5} />
       </div>
 
-      <h2 className="font-serif text-3xl font-bold text-foreground mb-3">Demande transmise à CARTER</h2>
+      <h2 className="font-serif text-3xl font-bold text-foreground mb-3">Demande transmise à LOGAN</h2>
       <p className="text-sm text-muted-foreground leading-relaxed font-light max-w-md mx-auto mb-8">
-        Votre demande d'accès a bien été envoyée. Un consultant CARTER vous contacte sous <strong className="font-semibold text-foreground">48h</strong> pour valider votre compte, vous présenter les profils disponibles et vous remettre vos accès.
+        Votre demande d'accès a bien été envoyée. Un consultant LOGAN vous contacte sous <strong className="font-semibold text-foreground">48h</strong> pour valider votre compte, vous présenter les profils disponibles et vous remettre vos accès.
       </p>
 
       <div className="grid grid-cols-3 gap-3 max-w-[460px] mx-auto mb-9">
@@ -36,9 +36,9 @@ const CabinetStep6Confirm = () => {
       </div>
 
       <div className="bg-foreground rounded p-4 max-w-[440px] mx-auto mb-7 text-left">
-        <div className="text-[11px] text-white/40 mb-1">Votre contact CARTER</div>
-        <div className="font-serif text-base text-white font-semibold">Équipe CARTER Advisory</div>
-        <div className="text-xs text-white/60 mt-1">contact@carter-advisory.com</div>
+        <div className="text-[11px] text-white/40 mb-1">Votre contact LOGAN</div>
+        <div className="font-serif text-base text-white font-semibold">Équipe LOGAN Advisory</div>
+        <div className="text-xs text-white/60 mt-1">contact@logan-advisory.com</div>
       </div>
 
       <div className="border-t border-border pt-6 max-w-[440px] mx-auto">

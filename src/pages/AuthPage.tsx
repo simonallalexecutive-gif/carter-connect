@@ -68,8 +68,8 @@ const AuthPage = () => {
             </h1>
             <p className="text-sm text-muted-foreground font-sans">
               {isLogin
-                ? 'Accédez à votre espace Carter'
-                : 'Rejoignez le réseau confidentiel Carter'}
+                ? 'Accédez à votre espace Logan'
+                : 'Rejoignez le réseau confidentiel Logan'}
             </p>
           </div>
 

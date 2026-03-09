@@ -14,7 +14,7 @@ const candidatBenefits = [
   {
     number: '02',
     title: 'Devenez acteur de votre carrière',
-    desc: 'Chaque nouvelle opportunité vous est transmise en priorité. Vous décidez — ou non — d\'alerter Carter pour en savoir plus. Aucune démarche n\'est engagée sans votre initiative.',
+    desc: 'Chaque nouvelle opportunité vous est transmise en priorité. Vous décidez — ou non — d\'alerter Logan pour en savoir plus. Aucune démarche n\'est engagée sans votre initiative.',
   },
   {
     number: '03',
@@ -31,8 +31,8 @@ const cabinetBenefits = [
   },
   {
     number: '02',
-    title: 'Carter orchestre chaque étape',
-    desc: 'Dès qu\'un profil retient votre attention, Carter prend le relais : validation de la pertinence, mise en relation, gestion intégrale du processus jusqu\'à l\'aboutissement.',
+    title: 'Logan orchestre chaque étape',
+    desc: 'Dès qu\'un profil retient votre attention, Logan prend le relais : validation de la pertinence, mise en relation, gestion intégrale du processus jusqu\'à l\'aboutissement.',
   },
   {
     number: '03',
@@ -65,7 +65,7 @@ const BenefitsSection = () => {
           <div className="carter-divider mb-8" />
           <h2 className="text-3xl md:text-5xl font-serif font-normal text-foreground leading-tight tracking-[-0.02em] mb-10">
             Pourquoi rejoindre<br />
-            <em className="text-muted-foreground font-normal">Carter</em>
+            <em className="text-muted-foreground font-normal">Logan</em>
           </h2>
 
           {/* Tabs */}

@@ -34,8 +34,8 @@ const Step5Status = () => {
           <div className="space-y-6">
             {[
               { num: '01', title: 'Notification confidentielle', desc: 'Un cabinet manifeste un intérêt pour votre profil. Vous êtes notifié sans que votre identité ne soit révélée.' },
-              { num: '02', title: 'Votre décision', desc: 'Vous choisissez de répondre favorablement ou non. Par exemple : "Oui, un échange à ce sujet avec Carter pourrait m\'intéresser."' },
-              { num: '03', title: 'Accompagnement Carter', desc: 'Carter prend contact avec vous, s\'assure de la cohérence de l\'opportunité avec votre projet, puis organise la mise en relation et gère le processus jusqu\'à son terme.' },
+              { num: '02', title: 'Votre décision', desc: 'Vous choisissez de répondre favorablement ou non. Par exemple : "Oui, un échange à ce sujet avec Logan pourrait m\'intéresser."' },
+              { num: '03', title: 'Accompagnement Logan', desc: 'Logan prend contact avec vous, s\'assure de la cohérence de l\'opportunité avec votre projet, puis organise la mise en relation et gère le processus jusqu\'à son terme.' },
             ].map(step => (
               <div key={step.num} className="flex items-start gap-4">
                 <span className="text-xs font-sans font-medium text-accent tracking-[0.15em] mt-1 flex-shrink-0">{step.num}</span>
@@ -87,7 +87,7 @@ const Step5Status = () => {
               <RadioGroupItem value="confidentiel" className="mt-0.5" />
               <div>
                 <span className="font-sans font-medium text-sm">Confidentiel</span>
-                <p className="text-xs text-muted-foreground font-sans font-light mt-1">Profil visible uniquement par Carter. Aucun cabinet ne peut consulter votre profil.</p>
+                <p className="text-xs text-muted-foreground font-sans font-light mt-1">Profil visible uniquement par Logan. Aucun cabinet ne peut consulter votre profil.</p>
               </div>
             </label>
             <label className="flex items-start gap-3 p-5 rounded-sm border border-border hover:border-accent/30 transition-colors duration-300 cursor-pointer bg-card">
@@ -115,8 +115,8 @@ const Step5Status = () => {
 
           {[
             { id: 'consentExact', field: 'consentementExactitude' as const, text: 'Je confirme que toutes les informations renseignées sont exactes et à jour.' },
-            { id: 'consentMER', field: 'consentementMiseEnRelation' as const, text: 'J\'autorise Carter à utiliser mon profil pour des mises en relation confidentielles, avec mon accord préalable systématique avant toute transmission.' },
-            { id: 'consent', field: 'consentement' as const, text: 'J\'accepte que mes données soient traitées par Carter conformément à la politique de confidentialité et au RGPD. Je peux demander la suppression de mon compte et de mes données à tout moment.' },
+            { id: 'consentMER', field: 'consentementMiseEnRelation' as const, text: 'J\'autorise Logan à utiliser mon profil pour des mises en relation confidentielles, avec mon accord préalable systématique avant toute transmission.' },
+            { id: 'consent', field: 'consentement' as const, text: 'J\'accepte que mes données soient traitées par Logan conformément à la politique de confidentialité et au RGPD. Je peux demander la suppression de mon compte et de mes données à tout moment.' },
           ].map(consent => (
             <div key={consent.id} className="flex items-start gap-3">
               <Checkbox

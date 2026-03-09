@@ -9,7 +9,7 @@ const Footer = () => (
       <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 pb-16 border-b border-white/10">
         {/* Brand */}
         <div className="md:col-span-4">
-          <span className="font-serif text-2xl text-white tracking-[-0.02em] block mb-4">Carter</span>
+          <span className="font-serif text-2xl text-white tracking-[-0.02em] block mb-4">Logan</span>
           <p className="font-sans text-xs text-white/40 font-light leading-relaxed max-w-xs">
             Réseau confidentiel de mise en relation entre avocats d'affaires et cabinets de premier plan.
           </p>
@@ -37,7 +37,7 @@ const Footer = () => (
         <div className="md:col-span-3">
           <p className="text-[10px] font-sans font-medium tracking-[0.2em] uppercase text-white/30 mb-6">Contact</p>
           <ul className="space-y-3">
-            <li className="font-sans text-sm text-white/50 font-light">contact@carter.law</li>
+            <li className="font-sans text-sm text-white/50 font-light">contact@logan.law</li>
             <li className="font-sans text-sm text-white/50 font-light">+33 1 00 00 00 00</li>
             <li className="font-sans text-sm text-white/50 font-light leading-relaxed">
               12 rue de la Paix<br />75002 Paris
@@ -63,7 +63,7 @@ const Footer = () => (
       {/* Bottom bar */}
       <div className="flex flex-col md:flex-row items-center justify-between gap-4 pt-8">
         <p className="text-[11px] font-sans font-light text-white/25">
-          © {new Date().getFullYear()} Carter. Tous droits réservés.
+          © {new Date().getFullYear()} Logan. Tous droits réservés.
         </p>
         <div className="flex gap-6">
           {['Mentions légales', 'Politique de confidentialité', 'CGU'].map((item) => (

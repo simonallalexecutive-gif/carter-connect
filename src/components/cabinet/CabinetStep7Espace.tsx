@@ -129,7 +129,7 @@ const CabinetStep7Espace = () => {
                   NOUVEAU
                 </span>
               )}
-              <div className="text-[9px] text-muted-foreground tracking-[0.08em] mb-3 font-sans">ID CARTER · {p.id}</div>
+              <div className="text-[9px] text-muted-foreground tracking-[0.08em] mb-3 font-sans">ID LOGAN · {p.id}</div>
               <div className="font-serif text-base font-bold text-foreground mb-1.5 leading-tight">{p.title}</div>
               <div className="text-[11px] text-muted-foreground mb-3.5">{p.origin} · {p.natFlag} · Droit applicable : Paris</div>
               <div className="flex flex-wrap gap-1 mb-3.5">
@@ -238,11 +238,11 @@ const CabinetStep7Espace = () => {
               {/* CTA */}
               <div className="bg-foreground rounded-md p-4 text-center mt-2">
                 <div className="text-sm font-bold text-white mb-1.5">Ce profil vous intéresse ?</div>
-                <p className="text-[11px] text-white/45 mb-3.5 leading-relaxed">CARTER qualifie l'opportunité des deux côtés avant toute mise en relation.</p>
+                <p className="text-[11px] text-white/45 mb-3.5 leading-relaxed">LOGAN qualifie l'opportunité des deux côtés avant toute mise en relation.</p>
                 <button
                   onClick={() => {
                     setDrawerProfile(null);
-                    toast.success(`Intérêt transmis à CARTER pour le profil ${drawerProfile.id}`);
+                    toast.success(`Intérêt transmis à LOGAN pour le profil ${drawerProfile.id}`);
                   }}
                   className="w-full py-2.5 bg-white text-foreground font-bold text-xs rounded tracking-[0.03em] hover:bg-white/90 transition-colors"
                 >

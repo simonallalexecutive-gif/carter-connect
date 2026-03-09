@@ -110,7 +110,7 @@ export const CONF_OPTIONS = [
     key: 'confidentielle',
     title: 'Confidentielle',
     badge: 'Recommandé',
-    desc: 'CARTER agit de manière proactive en votre nom. Les candidats ne voient pas votre recherche — CARTER les approche directement selon votre brief.',
+    desc: 'LOGAN agit de manière proactive en votre nom. Les candidats ne voient pas votre recherche — LOGAN les approche directement selon votre brief.',
   },
   {
     key: 'semi',
@@ -157,9 +157,9 @@ export const PALIERS = [
 export const INCLUDED_FEATURES = [
   'Accès illimité à la plateforme pour tout le cabinet',
   'Tous les départements inclus — sans surcoût',
-  'Profils anonymisés, qualifiés par CARTER',
+  'Profils anonymisés, qualifiés par LOGAN',
   'Recherches actives illimitées simultanées',
-  'Consultant CARTER dédié à chaque étape',
+  'Consultant LOGAN dédié à chaque étape',
   '0% de commission au placement — garanti',
   'Notifications prioritaires — nouveaux profils',
   'Reporting mensuel & suivi des recrutements',

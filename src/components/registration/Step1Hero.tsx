@@ -42,7 +42,7 @@ const Step1Hero = () => {
           >
             <div className="carter-divider mx-auto mb-10" />
             <span className="font-serif text-3xl tracking-[-0.02em] text-foreground block mb-8">
-              Carter
+              Logan
             </span>
             <h1 className="text-3xl md:text-5xl font-serif font-normal text-foreground mb-4 leading-tight tracking-[-0.02em]">
               Rejoignez le réseau<br />
@@ -90,7 +90,7 @@ const Step1Hero = () => {
           >
             <div className="carter-divider mx-auto mb-10" />
             <span className="font-serif text-2xl tracking-[-0.02em] text-foreground block mb-6">
-              Carter
+              Logan
             </span>
             <h2 className="text-2xl md:text-3xl font-serif font-normal text-foreground mb-2 tracking-[-0.02em]">
               {isCabinet ? 'Espace cabinet' : 'Espace candidat'}
@@ -113,7 +113,7 @@ const Step1Hero = () => {
                   <Input
                     value={code}
                     onChange={e => setCode(e.target.value)}
-                    placeholder={isCabinet ? 'Votre identifiant cabinet' : 'Votre identifiant Carter'}
+                    placeholder={isCabinet ? 'Votre identifiant cabinet' : 'Votre identifiant Logan'}
                     className="mt-2 bg-background/50 border-border"
                   />
                 </div>

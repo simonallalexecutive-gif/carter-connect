@@ -21,7 +21,7 @@ const Step7Confirm = () => {
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
         className="text-center max-w-lg"
       >
-        <span className="font-serif text-xl tracking-[-0.02em] text-foreground block mb-12">Carter</span>
+        <span className="font-serif text-xl tracking-[-0.02em] text-foreground block mb-12">Logan</span>
 
         <motion.div
           initial={{ scale: 0 }}
@@ -37,7 +37,7 @@ const Step7Confirm = () => {
         </h1>
 
         <p className="text-base text-muted-foreground font-sans font-light mb-8 leading-relaxed">
-          Votre profil sera examiné par l'équipe Carter sous <strong className="text-foreground font-medium">48 heures ouvrées</strong>.
+          Votre profil sera examiné par l'équipe Logan sous <strong className="text-foreground font-medium">48 heures ouvrées</strong>.
         </p>
 
         <div className="rounded-sm p-6 text-left mb-10 bg-card border border-border">

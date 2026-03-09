@@ -22,7 +22,7 @@ const CabinetStep3Search = () => {
       </div>
       <h2 className="font-serif text-3xl md:text-4xl font-normal text-foreground leading-tight mb-2.5">Ma recherche</h2>
       <p className="text-sm text-muted-foreground font-light leading-relaxed mb-10 max-w-xl">
-        Décrivez le profil que vous recherchez et le contexte de votre recrutement. Plus vous êtes précis, plus le matching CARTER est efficace.
+        Décrivez le profil que vous recherchez et le contexte de votre recrutement. Plus vous êtes précis, plus le matching LOGAN est efficace.
       </p>
 
       {/* Tabs */}
@@ -241,7 +241,7 @@ const CabinetStep3Search = () => {
         <div className="animate-fade-in">
           <div className="mb-6">
             <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2 block">
-              Rétrocession proposée <span className="font-normal normal-case tracking-normal text-[10px] text-border">facultatif — confidentiel CARTER</span>
+              Rétrocession proposée <span className="font-normal normal-case tracking-normal text-[10px] text-border">facultatif — confidentiel LOGAN</span>
             </label>
             <div className="grid grid-cols-2 gap-3">
               <div className="relative">
@@ -253,7 +253,7 @@ const CabinetStep3Search = () => {
                 <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-muted-foreground">€/an</span>
               </div>
             </div>
-            <p className="text-[11px] text-muted-foreground mt-1.5">Transmis par CARTER uniquement si le candidat est en discussion avancée.</p>
+            <p className="text-[11px] text-muted-foreground mt-1.5">Transmis par LOGAN uniquement si le candidat est en discussion avancée.</p>
           </div>
 
           <div className="mb-6">
@@ -324,7 +324,7 @@ const CabinetStep3Search = () => {
           <div className="mb-6">
             <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2 block">Niveau de confidentialité de votre recherche</label>
             <p className="text-[11px] text-muted-foreground mb-4 leading-relaxed">
-              Choisissez ce que les candidats voient de votre recherche. CARTER reste en toute hypothèse le seul à connaître votre identité jusqu'à la levée de rideau.
+              Choisissez ce que les candidats voient de votre recherche. LOGAN reste en toute hypothèse le seul à connaître votre identité jusqu'à la levée de rideau.
             </p>
             <div className="flex flex-col gap-3">
               {CONF_OPTIONS.map((c) => (

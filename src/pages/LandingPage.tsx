@@ -35,14 +35,14 @@ const commitments = [
   },
   {
     title: 'Accès exclusif en temps réel',
-    text: 'Toutes les nouvelles opportunités sont transmises en priorité aux membres du réseau Carter avant toute diffusion.',
+    text: 'Toutes les nouvelles opportunités sont transmises en priorité aux membres du réseau Logan avant toute diffusion.',
   },
 ];
 
 const steps = [
   { number: '01', title: 'Créez votre profil', desc: 'Inscription en quelques minutes, entièrement confidentielle.' },
   { number: '02', title: 'Profil anonymisé', desc: 'Les cabinets consultent votre profil sans connaître votre identité.' },
-  { number: '03', title: 'Mise en relation', desc: 'Carter orchestre les échanges avec les cabinets intéressés, avec votre accord préalable.' },
+  { number: '03', title: 'Mise en relation', desc: 'Logan orchestre les échanges avec les cabinets intéressés, avec votre accord préalable.' },
 ];
 
 const LandingPage = () => (
@@ -57,7 +57,7 @@ const LandingPage = () => (
             Réseau confidentiel
           </motion.p>
           <motion.h1 variants={fadeUp} className="text-5xl md:text-7xl lg:text-[5.5rem] font-serif font-normal text-white leading-[1.08] mb-8 tracking-[-0.01em]">
-            Welcome to{' '}<em className="font-normal">Carter</em>
+            Welcome to{' '}<em className="font-normal" style={{ color: 'hsl(345, 80%, 40%)' }}>Logan</em>
           </motion.h1>
           <motion.p variants={fadeUp} className="text-base md:text-lg text-white/60 font-sans font-light max-w-lg mb-14 leading-relaxed">
             La plateforme confidentielle de mise en relation entre avocats d'affaires et cabinets de premier plan.
@@ -65,7 +65,7 @@ const LandingPage = () => (
           <motion.div variants={fadeUp}>
             <Link to="/inscription">
               <Button size="lg" className="bg-transparent text-white border border-white/30 hover:bg-white hover:text-black font-sans text-sm font-medium px-8 py-6 rounded-sm tracking-wide group transition-all duration-300">
-                Rejoindre Carter
+                Rejoindre Logan
                 <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
               </Button>
             </Link>
@@ -81,7 +81,7 @@ const LandingPage = () => (
         className="relative z-10 pb-16 overflow-hidden"
       >
         <p className="text-[10px] font-sans font-medium tracking-[0.3em] uppercase text-white/25 text-center mb-8">
-          Ils recrutent via Carter
+          Ils recrutent via Logan
         </p>
         <div className="relative">
           <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-black to-transparent z-10" />

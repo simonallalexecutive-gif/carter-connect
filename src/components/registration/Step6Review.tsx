@@ -62,7 +62,7 @@ const Step6Review = () => {
       className="max-w-2xl mx-auto px-6 py-10"
     >
       {/* Carter header */}
-      <span className="font-serif text-xl tracking-[-0.02em] text-foreground block mb-8">Carter</span>
+      <span className="font-serif text-xl tracking-[-0.02em] text-foreground block mb-8">Logan</span>
 
       <div className="carter-divider mb-6" />
       <h2 className="text-3xl font-serif text-foreground mb-2 font-normal tracking-[-0.02em]">Récapitulatif</h2>
@@ -73,7 +73,7 @@ const Step6Review = () => {
         {[
           { key: 'recap' as const, label: 'Récapitulatif', icon: Check },
           { key: 'cabinet' as const, label: 'Vue cabinet', icon: Eye },
-          { key: 'carter' as const, label: 'Vue Carter', icon: Lock },
+          { key: 'carter' as const, label: 'Vue Logan', icon: Lock },
         ].map(tab => (
           <button
             key={tab.key}
@@ -253,7 +253,7 @@ const Step6Review = () => {
           <div className="border border-accent/20 rounded-sm p-4 bg-accent/5">
             <p className="text-sm font-sans font-light text-foreground flex items-center gap-2">
               <Lock className="w-4 h-4 text-accent" />
-              Vue interne Carter — toutes les informations sont visibles par notre équipe uniquement.
+              Vue interne Logan — toutes les informations sont visibles par notre équipe uniquement.
             </p>
           </div>
 

@@ -15,11 +15,11 @@ const stagger = {
 
 const benefits = [
   { title: 'Visibilité continue du marché', desc: 'Informations en temps réel sur la dynamique des profils disponibles — sans attendre une candidature.' },
-  { title: 'Vivier ultra-qualifié toute l\'année', desc: 'Chaque profil est validé manuellement par CARTER. Accédez à un vivier actif pour tous vos besoins annuels.' },
-  { title: 'Accompagnement à chaque étape', desc: 'Un consultant CARTER dédié à vos côtés — de la publication de votre recherche au placement final.' },
+  { title: 'Vivier ultra-qualifié toute l\'année', desc: 'Chaque profil est validé manuellement par LOGAN. Accédez à un vivier actif pour tous vos besoins annuels.' },
+  { title: 'Accompagnement à chaque étape', desc: 'Un consultant LOGAN dédié à vos côtés — de la publication de votre recherche au placement final.' },
   { title: 'Solution plus économique', desc: 'Abonnement annuel illimité sans commission par placement. Contre 20–45K€ HT par recrutement en modèle traditionnel.' },
   { title: 'Confidentialité absolue', desc: 'Votre recherche comme les profils consultés restent strictement anonymisés. La levée de rideau se fait uniquement avec l\'accord du candidat.' },
-  { title: 'Accès prioritaire aux opportunités', desc: 'Les membres CARTER sont notifiés en premier des nouveaux profils disponibles avant toute diffusion externe.' },
+  { title: 'Accès prioritaire aux opportunités', desc: 'Les membres LOGAN sont notifiés en premier des nouveaux profils disponibles avant toute diffusion externe.' },
 ];
 
 const stats = [
@@ -43,7 +43,7 @@ const CabinetStep1Hero = () => {
         <motion.div variants={stagger} initial="hidden" animate="visible">
           {/* Badge */}
           <motion.div variants={fadeUp} className="inline-flex items-center gap-2 border border-white/10 rounded-sm px-3 py-1.5 mb-10">
-            <span className="font-serif text-xs font-bold text-white/80 tracking-[0.1em]">CARTER</span>
+            <span className="font-serif text-xs font-bold text-white/80 tracking-[0.1em]">LOGAN</span>
             <span className="w-px h-3 bg-white/20" />
             <span className="text-[9px] text-white/40 tracking-[0.12em] uppercase">Réseau Privé · Espace Cabinet</span>
           </motion.div>
@@ -52,7 +52,7 @@ const CabinetStep1Hero = () => {
             Welcome to
           </motion.h1>
           <motion.h1 variants={fadeUp} className="font-serif text-4xl md:text-5xl font-normal text-white/70 italic leading-[1.04] tracking-[-0.01em] mb-6">
-            CARTER
+            LOGAN
           </motion.h1>
 
           <motion.p variants={fadeUp} className="text-base text-white/70 leading-relaxed max-w-xl mb-2 font-sans font-light">
@@ -81,7 +81,7 @@ const CabinetStep1Hero = () => {
               size="lg"
               className="bg-white text-black hover:bg-white/90 font-sans text-sm font-bold px-8 py-6 rounded-sm tracking-wide group"
             >
-              Rejoindre CARTER
+              Rejoindre LOGAN
               <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
             </Button>
             <span className="text-xs text-white/30 italic font-sans">Inscription en 4 étapes · Activation sous 48h</span>
