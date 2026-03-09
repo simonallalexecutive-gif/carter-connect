@@ -33,8 +33,20 @@ const Footer = () => (
           </ul>
         </div>
 
-        {/* CTA */}
+        {/* Contact */}
         <div className="md:col-span-3">
+          <p className="text-[10px] font-sans font-medium tracking-[0.2em] uppercase text-white/30 mb-6">Contact</p>
+          <ul className="space-y-3">
+            <li className="font-sans text-sm text-white/50 font-light">contact@carter.law</li>
+            <li className="font-sans text-sm text-white/50 font-light">+33 1 00 00 00 00</li>
+            <li className="font-sans text-sm text-white/50 font-light leading-relaxed">
+              12 rue de la Paix<br />75002 Paris
+            </li>
+          </ul>
+        </div>
+
+        {/* CTA — à droite */}
+        <div className="md:col-span-3 md:text-right">
           <p className="text-[10px] font-sans font-medium tracking-[0.2em] uppercase text-white/30 mb-6">Échangeons</p>
           <p className="font-sans text-sm text-white/50 font-light leading-relaxed mb-6">
             Vous souhaitez en savoir plus ?<br />Prenons rendez-vous.
@@ -45,18 +57,6 @@ const Footer = () => (
               <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
             </Button>
           </Link>
-        </div>
-
-        {/* Contact — à droite */}
-        <div className="md:col-span-3 md:text-right">
-          <p className="text-[10px] font-sans font-medium tracking-[0.2em] uppercase text-white/30 mb-6">Contact</p>
-          <ul className="space-y-3">
-            <li className="font-sans text-sm text-white/50 font-light">contact@carter.law</li>
-            <li className="font-sans text-sm text-white/50 font-light">+33 1 00 00 00 00</li>
-            <li className="font-sans text-sm text-white/50 font-light leading-relaxed">
-              12 rue de la Paix<br />75002 Paris
-            </li>
-          </ul>
         </div>
       </div>
 
