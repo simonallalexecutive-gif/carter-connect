@@ -324,7 +324,7 @@ const CabinetStep3Search = () => {
           <div className="mb-6">
             <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2 block">Niveau de confidentialité de votre recherche</label>
             <p className="text-[11px] text-muted-foreground mb-4 leading-relaxed">
-              Choisissez ce que les candidats voient de votre recherche. CARTER reste en toute hypothèse le seul à connaître votre identité jusqu'à la levée de rideau.
+              Choisissez ce que les candidats voient de votre recherche. LOGAN reste en toute hypothèse le seul à connaître votre identité jusqu'à la levée de rideau.
             </p>
             <div className="flex flex-col gap-3">
               {CONF_OPTIONS.map((c) => (
