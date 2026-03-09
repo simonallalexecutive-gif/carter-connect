@@ -56,12 +56,11 @@ const LandingPage = () => (
           animate="visible"
           className="max-w-3xl"
         >
-          <motion.p variants={fadeUp} className="text-carter-red font-sans text-sm font-semibold tracking-widest uppercase mb-6">
+          <motion.p variants={fadeUp} className="text-carter-accent font-sans text-sm font-semibold tracking-widest uppercase mb-6">
             Réseau confidentiel
           </motion.p>
           <motion.h1 variants={fadeUp} className="text-4xl md:text-6xl lg:text-7xl font-serif text-cream-light leading-[1.1] mb-6">
-            La mobilité des avocats<br />
-            d'affaires, <em className="text-carter-red">réinventée</em>
+            Welcome to <em className="text-carter-accent">Carter</em>
           </motion.h1>
           <motion.p variants={fadeUp} className="text-lg md:text-xl text-cream-light/60 font-sans font-light max-w-xl mb-10">
             Carter met en relation les meilleurs avocats d'affaires avec les cabinets les plus prestigieux, en toute confidentialité.
