@@ -4,23 +4,49 @@ import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Checkbox } from '@/components/ui/checkbox';
+import { Calendar } from '@/components/ui/calendar';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import ChipSelector from '@/components/shared/ChipSelector';
 import AutocompleteInput from '@/components/shared/AutocompleteInput';
 import { QUALITES, AXES, NOGO_SUGGESTIONS, CABINETS } from '@/lib/constants';
-import { CalendarCheck } from 'lucide-react';
+import { CalendarCheck, CalendarIcon } from 'lucide-react';
+import { cn } from '@/lib/utils';
+import { format } from 'date-fns';
+import { fr } from 'date-fns/locale';
+import { useState } from 'react';
 
-const CRENEAUX_RDV = [
-  "Lundi matin", "Lundi après-midi",
-  "Mardi matin", "Mardi après-midi",
-  "Mercredi matin", "Mercredi après-midi",
-  "Jeudi matin", "Jeudi après-midi",
-  "Vendredi matin", "Vendredi après-midi",
+const CRENEAUX_HEURES = [
+  "09:00", "09:30", "10:00", "10:30", "11:00", "11:30",
+  "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00",
 ];
 
 const Step4Project = () => {
   const store = useRegistrationStore();
+  const [rdvDate, setRdvDate] = useState<Date | undefined>();
+  const [rdvHeure, setRdvHeure] = useState('');
 
   const canProceed = store.motivation.length >= 20;
+
+  const handleDateSelect = (date: Date | undefined) => {
+    setRdvDate(date);
+    if (date && rdvHeure) {
+      store.setField('creneauPrefere', `${format(date, 'EEEE d MMMM yyyy', { locale: fr })} à ${rdvHeure}`);
+    }
+  };
+
+  const handleHeureSelect = (heure: string) => {
+    setRdvHeure(heure);
+    if (rdvDate) {
+      store.setField('creneauPrefere', `${format(rdvDate, 'EEEE d MMMM yyyy', { locale: fr })} à ${heure}`);
+    }
+  };
+
+  // Disable weekends
+  const disabledDays = (date: Date) => {
+    const day = date.getDay();
+    return day === 0 || day === 6 || date < new Date();
+  };
 
   return (
     <motion.div
@@ -101,7 +127,7 @@ const Step4Project = () => {
           <Label htmlFor="processus" className="font-sans text-sm font-light cursor-pointer">J'ai des processus en cours avec d'autres cabinets</Label>
         </div>
 
-        {/* RDV Carter */}
+        {/* RDV Carter — Calendar */}
         <div className="carter-card p-6 space-y-4">
           <div className="flex items-center gap-3">
             <CalendarCheck className="w-5 h-5 text-carter-accent" />
@@ -119,22 +145,67 @@ const Step4Project = () => {
             <Label htmlFor="rdv" className="font-sans text-sm font-medium cursor-pointer">Je souhaite prendre rendez-vous</Label>
           </div>
           {store.souhaitePrendreRdv && (
-            <div>
-              <Label className="font-sans text-sm font-light mb-2 block">Créneaux préférés</Label>
-              <div className="grid grid-cols-2 gap-2">
-                {CRENEAUX_RDV.map(c => (
-                  <label key={c} className="flex items-center gap-2 cursor-pointer">
-                    <input
-                      type="radio"
-                      name="creneau"
-                      checked={store.creneauPrefere === c}
-                      onChange={() => store.setField('creneauPrefere', c)}
-                      className="accent-[hsl(var(--carter-accent))]"
+            <div className="space-y-4 animate-fade-in">
+              {/* Date picker */}
+              <div>
+                <Label className="font-sans text-sm font-light mb-2 block">Choisir une date</Label>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button
+                      variant="outline"
+                      className={cn(
+                        "w-full justify-start text-left font-sans font-light",
+                        !rdvDate && "text-muted-foreground"
+                      )}
+                    >
+                      <CalendarIcon className="mr-2 h-4 w-4" />
+                      {rdvDate ? format(rdvDate, "EEEE d MMMM yyyy", { locale: fr }) : "Sélectionner une date"}
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-0" align="start">
+                    <Calendar
+                      mode="single"
+                      selected={rdvDate}
+                      onSelect={handleDateSelect}
+                      disabled={disabledDays}
+                      initialFocus
+                      className={cn("p-3 pointer-events-auto")}
                     />
-                    <span className="font-sans text-sm font-light">{c}</span>
-                  </label>
-                ))}
+                  </PopoverContent>
+                </Popover>
               </div>
+
+              {/* Time slot */}
+              {rdvDate && (
+                <div className="animate-fade-in">
+                  <Label className="font-sans text-sm font-light mb-2 block">Choisir un créneau horaire</Label>
+                  <div className="grid grid-cols-4 sm:grid-cols-5 gap-2">
+                    {CRENEAUX_HEURES.map(h => (
+                      <button
+                        key={h}
+                        type="button"
+                        onClick={() => handleHeureSelect(h)}
+                        className={cn(
+                          "px-3 py-2 rounded-lg text-sm font-sans font-light border transition-all",
+                          rdvHeure === h
+                            ? "bg-carter-accent text-accent-foreground border-carter-accent"
+                            : "border-border hover:border-carter-accent/40 text-foreground"
+                        )}
+                      >
+                        {h}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Summary */}
+              {rdvDate && rdvHeure && (
+                <div className="bg-carter-accent-pale rounded-lg p-3 text-sm font-sans font-light text-foreground animate-fade-in">
+                  <span className="font-medium">Créneau sélectionné :</span>{' '}
+                  {format(rdvDate, "EEEE d MMMM yyyy", { locale: fr })} à {rdvHeure}
+                </div>
+              )}
             </div>
           )}
         </div>

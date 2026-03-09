@@ -11,13 +11,13 @@ import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import { useMemo } from 'react';
 
 const CHART_COLORS = [
-  'hsl(197, 70%, 22%)',
+  'hsl(210, 55%, 35%)',
   'hsl(220, 62%, 15%)',
-  'hsl(197, 55%, 35%)',
+  'hsl(210, 45%, 45%)',
   'hsl(220, 56%, 28%)',
-  'hsl(197, 40%, 45%)',
+  'hsl(210, 35%, 55%)',
   'hsl(220, 40%, 40%)',
-  'hsl(197, 30%, 55%)',
+  'hsl(210, 25%, 60%)',
   'hsl(220, 30%, 50%)',
 ];
 
