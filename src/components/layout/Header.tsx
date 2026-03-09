@@ -15,7 +15,7 @@ const Header = () => {
     )}>
       <div className="carter-container flex items-center justify-between h-16">
         <Link to="/" className="flex items-center gap-2.5">
-          <Scale className={cn("w-6 h-6", isDark ? "text-carter-red" : "text-carter-red")} />
+          <Scale className={cn("w-6 h-6", isDark ? "text-carter-accent" : "text-carter-accent")} />
           <span className={cn(
             "font-serif text-xl font-bold",
             isDark ? "text-cream-light" : "text-foreground"
