@@ -108,7 +108,7 @@ const Step5Status = () => {
               className="mt-0.5"
             />
             <label htmlFor="consent" className="text-sm font-sans text-muted-foreground cursor-pointer">
-              J'accepte que mes données soient traitées par Carter dans le cadre de ma recherche de mobilité professionnelle, conformément à la politique de confidentialité et au RGPD. Je peux demander la suppression de mon compte et de mes données à tout moment.
+              J'accepte que mes données soient traitées par Carter dans le cadre de ma recherche professionnelle, conformément à la politique de confidentialité et au RGPD. Je peux demander la suppression de mon compte et de mes données à tout moment.
             </label>
           </div>
         </div>
