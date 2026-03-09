@@ -88,7 +88,7 @@ export const AXES = [
 
 export const NOGO_SUGGESTIONS = [
   "Pas de télétravail", "Contentieux uniquement", "Pas de management",
-  "Billable hours élevés", "Pas de mobilité", "Cabinet < 20 avocats",
+  "Billable hours élevés", "Pas de changement géographique", "Cabinet < 20 avocats",
   "Pas de transactionnel", "Hors Paris"
 ];
 

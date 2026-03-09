@@ -15,7 +15,7 @@ const Header = () => {
     )}>
       <div className="carter-container flex items-center justify-between h-16">
         <Link to="/" className="flex items-center gap-2.5">
-          <Scale className={cn("w-6 h-6", isDark ? "text-carter-accent" : "text-carter-accent")} />
+          <Scale className={cn("w-6 h-6", isDark ? "text-carter-accent" : "text-carter-accentaccent")} />
           <span className={cn(
             "font-serif text-xl font-bold",
             isDark ? "text-cream-light" : "text-foreground"
@@ -27,7 +27,7 @@ const Header = () => {
           <Link to="/inscription">
             <Button
               size="sm"
-              className="bg-carter-red hover:bg-carter-red-light text-accent-foreground font-sans text-sm"
+              className="bg-caccent hover:bg-carter-accenter-red-light text-accent-foreground font-sans text-sm"
             >
               Rejoindre Carter
             </Button>
