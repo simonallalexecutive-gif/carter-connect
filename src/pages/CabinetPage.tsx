@@ -1,4 +1,5 @@
 import { useCabinetStore } from '@/stores/cabinetStore';
+import { Link } from 'react-router-dom';
 import Footer from '@/components/layout/Footer';
 import CabinetStepProgress from '@/components/cabinet/CabinetStepProgress';
 import CabinetStep1Hero from '@/components/cabinet/CabinetStep1Hero';
