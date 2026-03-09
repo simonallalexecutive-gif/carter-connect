@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 const Header = () => (
   <header className="fixed top-0 left-0 right-0 z-50 bg-black">
-    <div className="carter-container flex items-center justify-between h-20">
+    <div className="w-full px-6 sm:px-8 lg:px-10 flex items-center justify-between h-20">
       <Link to="/" className="flex items-center">
         <span className="font-serif text-2xl tracking-[-0.02em] text-white">Carter</span>
       </Link>
