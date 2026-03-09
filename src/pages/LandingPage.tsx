@@ -57,7 +57,7 @@ const LandingPage = () => (
             Réseau confidentiel
           </motion.p>
           <motion.h1 variants={fadeUp} className="text-5xl md:text-7xl lg:text-[5.5rem] font-serif font-normal text-white leading-[1.08] mb-8 tracking-[-0.01em]">
-            Welcome to{' '}<em className="font-normal" style={{ color: 'hsl(345, 80%, 40%)' }}>Logan</em>
+            Welcome to{' '}<em className="font-normal text-white/70">Logan</em>
           </motion.h1>
           <motion.p variants={fadeUp} className="text-base md:text-lg text-white/60 font-sans font-light max-w-lg mb-14 leading-relaxed">
             La plateforme confidentielle de mise en relation entre avocats d'affaires et cabinets de premier plan.
