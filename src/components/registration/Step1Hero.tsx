@@ -34,7 +34,7 @@ const Step1Hero = () => {
           <Button
             onClick={nextStep}
             size="lg"
-            className="bg-carter-red hover:bg-carter-red-light text-accent-foreground font-sans text-base px-10 py-6 rounded-xl"
+            className="bg-carter-accent hover:bg-carter-accent-light text-accent-foreground font-sans text-base px-10 py-6 rounded-xl"
           >
             Commencer mon inscription
           </Button>

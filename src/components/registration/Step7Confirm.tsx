@@ -33,7 +33,7 @@ const Step7Confirm = () => {
 
         <div className="carter-card p-6 text-left mb-8 bg-cream-light/5 border-cream-light/10">
           <div className="flex items-start gap-3">
-            <Mail className="w-5 h-5 text-carter-red mt-0.5" />
+            <Mail className="w-5 h-5 text-carter-accent mt-0.5" />
             <div>
               <p className="text-sm font-sans text-cream-light/80">
                 Un email de confirmation vous a été envoyé. Vous recevrez une notification dès que votre profil sera validé.

@@ -153,7 +153,7 @@ const Step2Identity = () => {
         {/* Navigation */}
         <div className="flex justify-between pt-4">
           <Button variant="outline" onClick={store.prevStep} className="font-sans">Retour</Button>
-          <Button onClick={store.nextStep} disabled={!canProceed} className="bg-carter-red hover:bg-carter-red-light text-accent-foreground font-sans">
+          <Button onClick={store.nextStep} disabled={!canProceed} className="bg-carter-accent hover:bg-carter-accent-light text-accent-foreground font-sans">
             Continuer
           </Button>
         </div>
