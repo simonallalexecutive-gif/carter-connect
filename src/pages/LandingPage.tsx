@@ -67,7 +67,7 @@ const LandingPage = () => (
           </motion.p>
           <motion.div variants={fadeUp} className="flex flex-col sm:flex-row gap-4">
             <Link to="/inscription">
-              <Button size="lg" className="bg-carter-red hover:bg-carter-red-light text-accent-foreground font-sans text-base px-8 py-6 rounded-xl">
+              <Button size="lg" className="bg-carter-accent hover:bg-carter-accent-light text-accent-foreground font-sans text-base px-8 py-6 rounded-xl">
                 Rejoindre Carter
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
