@@ -4,7 +4,8 @@ import { cn } from '@/lib/utils';
 const Header = () => {
   const location = useLocation();
   const isHome = location.pathname === '/';
-  const isDark = isHome || location.pathname === '/inscription';
+  const isDark = isHome;
+  const isInscription = location.pathname === '/inscription';
 
   return (
     <header className={cn(
