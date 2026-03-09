@@ -14,7 +14,7 @@ const candidatBenefits = [
   {
     number: '02',
     title: 'Devenez acteur de votre carrière',
-    desc: 'Chaque nouvelle opportunité vous est transmise en priorité. Vous décidez — ou non — d\'alerter Carter pour en savoir plus. Aucune démarche n\'est engagée sans votre initiative.',
+    desc: 'Chaque nouvelle opportunité vous est transmise en priorité. Vous décidez — ou non — d\'alerter Logan pour en savoir plus. Aucune démarche n\'est engagée sans votre initiative.',
   },
   {
     number: '03',
