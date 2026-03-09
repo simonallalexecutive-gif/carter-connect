@@ -46,7 +46,7 @@ const LandingPage = () => (
     {/* Hero */}
     <section className="gradient-navy min-h-screen flex items-center relative overflow-hidden">
       <div className="absolute inset-0 opacity-5">
-        <div className="absolute top-1/4 right-1/4 w-96 h-96 rounded-full bg-carter-red blur-3xl" />
+        <div className="absolute top-1/4 right-1/4 w-96 h-96 rounded-full bg-carter-accent blur-3xl" />
         <div className="absolute bottom-1/4 left-1/3 w-64 h-64 rounded-full bg-cream blur-3xl" />
       </div>
       <div className="carter-container relative z-10 pt-16">
