@@ -19,7 +19,7 @@ const benefits = [
   { title: 'Accompagnement à chaque étape', desc: 'Un consultant LOGAN dédié à vos côtés — de la publication de votre recherche au placement final.' },
   { title: 'Solution plus économique', desc: 'Abonnement annuel illimité sans commission par placement. Contre 20–45K€ HT par recrutement en modèle traditionnel.' },
   { title: 'Confidentialité absolue', desc: 'Votre recherche comme les profils consultés restent strictement anonymisés. La levée de rideau se fait uniquement avec l\'accord du candidat.' },
-  { title: 'Accès prioritaire aux opportunités', desc: 'Les membres CARTER sont notifiés en premier des nouveaux profils disponibles avant toute diffusion externe.' },
+  { title: 'Accès prioritaire aux opportunités', desc: 'Les membres LOGAN sont notifiés en premier des nouveaux profils disponibles avant toute diffusion externe.' },
 ];
 
 const stats = [
