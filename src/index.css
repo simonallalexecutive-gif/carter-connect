@@ -70,7 +70,7 @@
 
   /* Light mode for registration form */
   .theme-light {
-    --background: 40 15% 97%;
+    --background: 40 10% 96%;
     --foreground: 220 15% 15%;
 
     --card: 0 0% 100%;
@@ -82,10 +82,10 @@
     --primary: 220 15% 15%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 38 12% 93%;
+    --secondary: 40 8% 93%;
     --secondary-foreground: 220 15% 15%;
 
-    --muted: 38 10% 91%;
+    --muted: 40 6% 91%;
     --muted-foreground: 220 8% 40%;
 
     --accent: 38 50% 38%;
@@ -94,8 +94,8 @@
     --destructive: 0 60% 45%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 220 10% 80%;
-    --input: 220 10% 78%;
+    --border: 220 12% 76%;
+    --input: 220 12% 76%;
     --ring: 38 50% 38%;
 
     --carter-gold: 38 50% 38%;
@@ -106,9 +106,12 @@
     --carter-text-secondary: 220 8% 40%;
     --carter-text-tertiary: 220 6% 55%;
 
-    --carter-border: 220 10% 80%;
-    --carter-border-subtle: 220 8% 88%;
-    --carter-border-accent: 38 30% 60%;
+    --carter-border: 220 12% 76%;
+    --carter-border-subtle: 220 8% 86%;
+    --carter-border-accent: 38 30% 55%;
+
+    --shadow-card: 0 2px 12px -2px hsl(220 15% 15% / 0.06);
+    --shadow-elevated: 0 8px 30px -4px hsl(220 15% 15% / 0.10);
   }
 }
 
