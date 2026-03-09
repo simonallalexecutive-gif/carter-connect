@@ -110,7 +110,7 @@ export const CONF_OPTIONS = [
     key: 'confidentielle',
     title: 'Confidentielle',
     badge: 'Recommandé',
-    desc: 'CARTER agit de manière proactive en votre nom. Les candidats ne voient pas votre recherche — CARTER les approche directement selon votre brief.',
+    desc: 'LOGAN agit de manière proactive en votre nom. Les candidats ne voient pas votre recherche — LOGAN les approche directement selon votre brief.',
   },
   {
     key: 'semi',
