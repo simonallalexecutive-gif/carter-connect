@@ -3,7 +3,7 @@ import { useRegistrationStore } from '@/stores/registrationStore';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { Input } from '@/components/ui/input';
+import { Checkbox } from '@/components/ui/checkbox';
 import ChipSelector from '@/components/shared/ChipSelector';
 import AutocompleteInput from '@/components/shared/AutocompleteInput';
 import { QUALITES, AXES, NOGO_SUGGESTIONS, CABINETS } from '@/lib/constants';
