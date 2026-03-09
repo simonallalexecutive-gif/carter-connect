@@ -603,7 +603,7 @@ export const TYPES_CLIENTS = [
 
 export const TAILLE_OPERATIONS = ["Small cap (< 50M€)", "Mid cap (50–500M€)", "Large cap (> 500M€)"];
 
-export const DISPONIBILITES = ["Immédiate", "Préavis 1 mois", "Préavis 3 mois"];
+export const DISPONIBILITES = ["Immédiate", "Préavis 3 mois", "Préavis +3 mois", "Négociable"];
 
 export const RAISONS_BAISSE_RETRO = [
   "Meilleure qualité de vie",
