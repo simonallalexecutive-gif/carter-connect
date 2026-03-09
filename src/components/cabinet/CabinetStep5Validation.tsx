@@ -5,7 +5,7 @@ import { SENIORITY_MAP } from '@/lib/cabinetConstants';
 import { cn } from '@/lib/utils';
 
 const CONF_MAP: Record<string, string> = {
-  confidentielle: 'Confidentielle (CARTER proactif)',
+  confidentielle: 'Confidentielle (LOGAN proactif)',
   semi: 'Semi-confidentielle',
   ouverte: 'Ouverte',
 };
