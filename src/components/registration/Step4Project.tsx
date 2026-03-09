@@ -59,7 +59,7 @@ const Step4Project = () => {
           <Textarea
             value={store.motivation}
             onChange={e => store.setField('motivation', e.target.value)}
-            placeholder="Décrivez votre motivation et le contexte de votre recherche de mobilité..."
+            placeholder="Décrivez votre motivation et le contexte de votre recherche..."
             className="mt-1 min-h-[120px]"
           />
           <p className="text-xs text-muted-foreground font-sans mt-1">{store.motivation.length}/500 caractères</p>
