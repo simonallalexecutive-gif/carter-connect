@@ -1,14 +1,11 @@
-import { Scale } from 'lucide-react';
-
 const Footer = () => (
-  <footer className="gradient-navy py-16">
+  <footer className="bg-card border-t border-border py-16">
     <div className="carter-container">
       <div className="flex flex-col md:flex-row items-center justify-between gap-8">
-        <div className="flex items-center gap-3">
-          <Scale className="w-5 h-5 text-carter-accent" />
-          <span className="font-sans text-lg font-light tracking-[0.15em] uppercase text-cream-light">Carter</span>
-        </div>
-        <p className="text-sm font-sans font-light text-cream-light/40">
+        <span className="font-serif text-lg tracking-[-0.02em] text-foreground">
+          Carter
+        </span>
+        <p className="text-xs font-sans font-light text-muted-foreground">
           © {new Date().getFullYear()} Carter. Réseau confidentiel pour avocats d'affaires.
         </p>
       </div>
