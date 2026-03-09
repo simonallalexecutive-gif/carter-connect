@@ -63,13 +63,8 @@ const LandingPage = () => (
   <div className="min-h-screen bg-background">
     <Header />
 
-    {/* Hero */}
-    <section className="min-h-screen flex items-center relative overflow-hidden gradient-dark">
-      {/* Subtle ambient glow */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-1/3 right-1/4 w-[600px] h-[600px] rounded-full opacity-[0.03]" style={{ background: 'radial-gradient(circle, hsl(38 55% 72%), transparent 70%)' }} />
-      </div>
-
+    {/* Hero — full black & white, Harvey-inspired */}
+    <section className="min-h-screen flex items-center relative overflow-hidden bg-black">
       <div className="carter-container relative z-10 pt-24">
         <motion.div
           variants={stagger}
@@ -77,20 +72,19 @@ const LandingPage = () => (
           animate="visible"
           className="max-w-3xl"
         >
-          <motion.div variants={fadeUp} className="carter-divider mb-10" />
-          <motion.p variants={fadeUp} className="carter-label mb-8">
+          <motion.p variants={fadeUp} className="text-xs font-sans font-medium tracking-[0.25em] uppercase text-white/50 mb-10">
             Réseau confidentiel
           </motion.p>
-          <motion.h1 variants={fadeUp} className="text-5xl md:text-7xl lg:text-[5.5rem] font-serif font-normal text-foreground leading-[1.08] mb-8 tracking-[-0.02em]">
+          <motion.h1 variants={fadeUp} className="text-5xl md:text-7xl lg:text-[5.5rem] font-serif font-normal text-white leading-[1.08] mb-8 tracking-[-0.01em]">
             Welcome to{' '}
-            <em className="text-accent font-normal">Carter</em>
+            <em className="font-normal">Carter</em>
           </motion.h1>
-          <motion.p variants={fadeUp} className="text-base md:text-lg text-muted-foreground font-sans font-light max-w-lg mb-14 leading-relaxed">
+          <motion.p variants={fadeUp} className="text-base md:text-lg text-white/60 font-sans font-light max-w-lg mb-14 leading-relaxed">
             La plateforme confidentielle de mise en relation entre avocats d'affaires et cabinets de premier plan.
           </motion.p>
           <motion.div variants={fadeUp}>
             <Link to="/inscription">
-              <Button size="lg" className="bg-foreground text-background hover:bg-foreground/90 font-sans text-sm font-medium px-8 py-6 rounded-sm tracking-wide group">
+              <Button size="lg" className="bg-transparent text-white border border-white/30 hover:bg-white hover:text-black font-sans text-sm font-medium px-8 py-6 rounded-sm tracking-wide group transition-all duration-300">
                 Rejoindre Carter
                 <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
               </Button>
@@ -98,9 +92,6 @@ const LandingPage = () => (
           </motion.div>
         </motion.div>
       </div>
-
-      {/* Bottom line */}
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-border" />
     </section>
 
     {/* Benefits */}

@@ -4,7 +4,8 @@ import { cn } from '@/lib/utils';
 const Header = () => {
   const location = useLocation();
   const isHome = location.pathname === '/';
-  const isDark = isHome || location.pathname === '/inscription';
+  const isDark = isHome;
+  const isInscription = location.pathname === '/inscription';
 
   return (
     <header className={cn(
@@ -12,9 +13,8 @@ const Header = () => {
       isDark ? "bg-transparent" : "bg-background/95 backdrop-blur-sm border-b border-border"
     )}>
       <div className="carter-container flex items-center justify-between h-20">
-        {/* Logo — wordmark style like Harvey */}
         <Link to="/" className="flex items-center">
-          <span className="font-serif text-2xl tracking-[-0.02em] text-foreground">
+          <span className={cn("font-serif text-2xl tracking-[-0.02em]", isDark ? "text-white" : "text-foreground")}>
             Carter
           </span>
         </Link>
@@ -23,19 +23,19 @@ const Header = () => {
         <nav className="flex items-center gap-8">
           <Link
             to="/inscription"
-            className="font-sans text-[13px] font-light text-muted-foreground hover:text-foreground transition-colors duration-300"
+            className={cn("font-sans text-[13px] font-light transition-colors duration-300", isDark ? "text-white/60 hover:text-white" : "text-muted-foreground hover:text-foreground")}
           >
             Espace candidat
           </Link>
           <Link
             to="/cabinet"
-            className="font-sans text-[13px] font-light text-muted-foreground hover:text-foreground transition-colors duration-300"
+            className={cn("font-sans text-[13px] font-light transition-colors duration-300", isDark ? "text-white/60 hover:text-white" : "text-muted-foreground hover:text-foreground")}
           >
             Espace cabinet
           </Link>
           <Link
             to="/contact"
-            className="font-sans text-[13px] font-light text-foreground/80 hover:text-foreground transition-colors duration-300 border border-border rounded-sm px-4 py-2 hover:border-accent/30"
+            className={cn("font-sans text-[13px] font-light transition-colors duration-300 border rounded-sm px-4 py-2", isDark ? "text-white/80 hover:text-white border-white/20 hover:border-white/40" : "text-foreground/80 hover:text-foreground border-border hover:border-accent/30")}
           >
             Prendre RDV
           </Link>

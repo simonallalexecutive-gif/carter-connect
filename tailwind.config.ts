@@ -14,7 +14,7 @@ export default {
     },
     extend: {
       fontFamily: {
-        serif: ['EB Garamond', 'Georgia', 'serif'],
+        serif: ['DM Serif Display', 'Georgia', 'serif'],
         sans: ['Inter', 'system-ui', 'sans-serif'],
       },
       colors: {
