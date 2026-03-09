@@ -35,7 +35,7 @@ const Step5Status = () => {
               <RadioGroupItem value="actif" className="mt-0.5" />
               <div>
                 <div className="flex items-center gap-2">
-                  <Zap className="w-4 h-4 text-carter-red" />
+                  <Zap className="w-4 h-4 text-carter-accent" />
                   <span className="font-sans font-semibold text-sm">Actif</span>
                 </div>
                 <p className="text-xs text-muted-foreground font-sans mt-1">Je recherche activement une nouvelle opportunité</p>
@@ -108,7 +108,7 @@ const Step5Status = () => {
               className="mt-0.5"
             />
             <label htmlFor="consent" className="text-sm font-sans text-muted-foreground cursor-pointer">
-              J'accepte que mes données soient traitées par Carter dans le cadre de ma recherche le, conformément à la politique de confidentialité et au RGPD. Je peux demander la suppression de mon compte et de mes données à tout moment.
+              J'accepte que mes données soient traitées par Carter dans le cadre de ma recherche ment à la politique de confidentialité et au RGPD. Je peux demander la suppression de mon compte et de mes données à tout moment.
             </label>
           </div>
         </div>
@@ -116,7 +116,7 @@ const Step5Status = () => {
         {/* Navigation */}
         <div className="flex justify-between pt-4">
           <Button variant="outline" onClick={store.prevStep} className="font-sans">Retour</Button>
-          <Button onClick={store.nextStep} disabled={!canProceed} className="bg-carter-red hover:bg-accent hover:bg-carter-accentccent-foreground font-sans">
+          <Button onClick={store.nextStep} disabled={!canProceed} className="bg-carter-red hover:bg-accent hover:accent hover:bg-carter-accentoreground font-sans">
             Continuer
           </Button>
         </div>
