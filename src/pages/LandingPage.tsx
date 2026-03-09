@@ -6,6 +6,14 @@ import Footer from '@/components/layout/Footer';
 import BenefitsSection from '@/components/landing/BenefitsSection';
 import { ArrowRight } from 'lucide-react';
 
+const firmNames = [
+  'Bredin Prat', 'Darrois Villey', 'Gide', 'Cleary Gottlieb', 'De Pardieu Brocas',
+  'Freshfields', 'Linklaters', 'Clifford Chance', 'Allen & Overy', 'Sullivan & Cromwell',
+  'Weil Gotshal', 'Skadden', 'Latham & Watkins', 'Davis Polk', 'Hogan Lovells',
+  'White & Case', 'Willkie Farr', 'Dechert', 'Goodwin Procter', 'Orrick',
+  'August Debouzy', 'BDGS', 'Racine', 'Fidal', 'Jeantet',
+];
+
 const stagger = {
   hidden: {},
   visible: { transition: { staggerChildren: 0.12 } },
@@ -42,8 +50,8 @@ const LandingPage = () => (
     <Header />
 
     {/* Hero */}
-    <section className="min-h-screen flex items-center relative overflow-hidden bg-black">
-      <div className="carter-container relative z-10 pt-24">
+    <section className="min-h-screen flex flex-col justify-center relative overflow-hidden bg-black">
+      <div className="carter-container relative z-10 pt-24 flex-1 flex items-center">
         <motion.div variants={stagger} initial="hidden" animate="visible" className="max-w-3xl">
           <motion.p variants={fadeUp} className="text-xs font-sans font-medium tracking-[0.25em] uppercase text-white/50 mb-10">
             Réseau confidentiel
@@ -64,6 +72,22 @@ const LandingPage = () => (
           </motion.div>
         </motion.div>
       </div>
+
+      {/* Logo marquee */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.2, duration: 1.5 }}
+        className="relative z-10 pb-12 overflow-hidden"
+      >
+        <div className="flex animate-marquee whitespace-nowrap">
+          {[...firmNames, ...firmNames].map((name, i) => (
+            <span key={i} className="mx-8 md:mx-12 text-[11px] font-sans font-light tracking-[0.2em] uppercase text-white/15 select-none flex-shrink-0">
+              {name}
+            </span>
+          ))}
+        </div>
+      </motion.div>
     </section>
 
     {/* Benefits — candidat / cabinet tabs */}
