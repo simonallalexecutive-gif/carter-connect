@@ -215,7 +215,7 @@ const LandingPage = () => (
             Profil validé sous 48h.
           </p>
           <Link to="/inscription">
-            <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 font-sans text-sm font-medium px-10 py-6 rounded-sm tracking-wide">
+            <Button size="lg" className="bg-foreground text-background hover:bg-foreground/90 font-sans text-sm font-medium px-10 py-6 rounded-sm tracking-wide">
               Commencer maintenant
             </Button>
           </Link>
