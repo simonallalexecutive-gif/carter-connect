@@ -241,7 +241,7 @@ const CabinetStep3Search = () => {
         <div className="animate-fade-in">
           <div className="mb-6">
             <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2 block">
-              Rétrocession proposée <span className="font-normal normal-case tracking-normal text-[10px] text-border">facultatif — confidentiel CARTER</span>
+              Rétrocession proposée <span className="font-normal normal-case tracking-normal text-[10px] text-border">facultatif — confidentiel LOGAN</span>
             </label>
             <div className="grid grid-cols-2 gap-3">
               <div className="relative">
