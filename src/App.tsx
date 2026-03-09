@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import LandingPage from "./pages/LandingPage";
 import RegisterPage from "./pages/RegisterPage";
+import CabinetPage from "./pages/CabinetPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -18,6 +19,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/inscription" element={<RegisterPage />} />
+          <Route path="/cabinet" element={<CabinetPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
