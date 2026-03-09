@@ -5,6 +5,7 @@ import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import BenefitsSection from '@/components/landing/BenefitsSection';
 import { ArrowRight } from 'lucide-react';
+import heroBg from '@/assets/hero-buildings.jpg';
 
 const firmNames = [
   'Bredin Prat', 'Darrois Villey', 'Gide', 'Cleary Gottlieb', 'De Pardieu Brocas',
@@ -51,7 +52,21 @@ const LandingPage = () => (
 
     {/* Hero */}
     <section className="min-h-screen flex flex-col justify-center relative overflow-hidden bg-black">
-        <div className="px-6 sm:px-8 lg:px-10 max-w-6xl relative z-10 pt-24 flex-1 flex items-center">
+      {/* Background image with gradient overlay */}
+      <div className="absolute inset-0">
+        <motion.img
+          src={heroBg}
+          alt=""
+          initial={{ opacity: 0, scale: 1.05 }}
+          animate={{ opacity: 0.25, scale: 1 }}
+          transition={{ duration: 2, ease: 'easeOut' }}
+          className="w-full h-full object-cover object-center"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/90 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/80" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black" />
+      </div>
+      <div className="px-6 sm:px-8 lg:px-10 max-w-6xl relative z-10 pt-24 flex-1 flex items-center">
           <motion.div variants={stagger} initial="hidden" animate="visible" className="max-w-3xl">
           <motion.p variants={fadeUp} className="text-xs font-sans font-medium tracking-[0.25em] uppercase text-white/50 mb-10">
             Réseau confidentiel
