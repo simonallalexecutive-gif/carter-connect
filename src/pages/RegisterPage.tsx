@@ -33,7 +33,7 @@ const RegisterPage = () => {
   const isDarkStep = currentStep === 1 || currentStep === 7;
 
   return (
-    <div className={isDarkStep ? '' : 'bg-background min-h-screen'}>
+    <div className={isDarkStep ? '' : 'theme-light bg-background min-h-screen'}>
       {showProgress && (
         <div className="sticky top-0 z-40 bg-background/95 backdrop-blur-sm border-b border-border">
           <StepProgress currentStep={currentStep} />

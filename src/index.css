@@ -67,6 +67,42 @@
     --sidebar-border: 30 8% 18%;
     --sidebar-ring: 38 55% 72%;
   }
+
+  /* Light mode for registration form */
+  .theme-light {
+    --background: 40 20% 97%;
+    --foreground: 30 12% 12%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 30 12% 12%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 30 12% 12%;
+
+    --primary: 30 12% 12%;
+    --primary-foreground: 40 20% 97%;
+
+    --secondary: 38 18% 93%;
+    --secondary-foreground: 30 12% 12%;
+
+    --muted: 38 14% 91%;
+    --muted-foreground: 30 8% 45%;
+
+    --accent: 38 55% 42%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 60% 45%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 38 14% 87%;
+    --input: 38 14% 87%;
+    --ring: 38 55% 42%;
+
+    --carter-gold: 38 55% 42%;
+    --carter-gold-muted: 38 30% 35%;
+    --carter-gold-bright: 38 55% 52%;
+  }
+}
 }
 
 @layer base {
