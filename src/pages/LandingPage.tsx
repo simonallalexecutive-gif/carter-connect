@@ -169,9 +169,9 @@ const LandingPage = () => (
     </section>
 
     {/* CTA */}
-    <section className="py-32 bg-background relative">
+    <section className="py-32 bg-black relative">
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] rounded-full opacity-[0.03]" style={{ background: 'radial-gradient(circle, hsl(0 0% 50%), transparent 70%)' }} />
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] rounded-full opacity-[0.08]" style={{ background: 'radial-gradient(circle, hsl(0 0% 50%), transparent 70%)' }} />
       </div>
       <div className="carter-container text-center relative z-10">
         <motion.div
@@ -180,16 +180,16 @@ const LandingPage = () => (
           viewport={{ once: true }}
           className="max-w-xl mx-auto"
         >
-          <div className="carter-divider mx-auto mb-8" />
-          <h2 className="text-3xl md:text-5xl font-serif font-normal text-foreground mb-6 tracking-[-0.02em]">
+          <div className="w-12 h-px bg-white/30 mx-auto mb-8" />
+          <h2 className="text-3xl md:text-5xl font-serif font-normal text-white mb-6 tracking-[-0.02em]">
             Intégrer le membership
           </h2>
-          <p className="text-muted-foreground font-sans font-light mb-10 leading-relaxed">
+          <p className="text-white/50 font-sans font-light mb-10 leading-relaxed">
             Inscription confidentielle en moins de 10 minutes.<br />
             Profil validé sous 48h.
           </p>
           <Link to="/inscription">
-            <Button size="lg" className="bg-foreground text-background hover:bg-foreground/90 font-sans text-sm font-medium px-10 py-6 rounded-sm tracking-wide">
+            <Button size="lg" className="bg-white text-black hover:bg-white/90 font-sans text-sm font-medium px-10 py-6 rounded-sm tracking-wide">
               Commencer maintenant
             </Button>
           </Link>
