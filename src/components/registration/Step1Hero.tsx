@@ -12,6 +12,7 @@ type View = 'choice' | 'login-candidat' | 'login-cabinet';
 
 const Step1Hero = () => {
   const nextStep = useRegistrationStore(s => s.nextStep);
+  const navigate = useNavigate();
   const [view, setView] = useState<View>('choice');
   const [code, setCode] = useState('');
   const [password, setPassword] = useState('');
