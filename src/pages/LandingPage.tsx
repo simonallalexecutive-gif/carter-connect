@@ -35,7 +35,7 @@ const commitments = [
   },
   {
     title: 'Accès exclusif en temps réel',
-    text: 'Toutes les nouvelles opportunités sont transmises en priorité aux membres du réseau Carter avant toute diffusion.',
+    text: 'Toutes les nouvelles opportunités sont transmises en priorité aux membres du réseau Logan avant toute diffusion.',
   },
 ];
 
