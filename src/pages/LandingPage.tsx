@@ -6,6 +6,14 @@ import Footer from '@/components/layout/Footer';
 import BenefitsSection from '@/components/landing/BenefitsSection';
 import { ArrowRight } from 'lucide-react';
 
+const firmNames = [
+  'Bredin Prat', 'Darrois Villey', 'Gide', 'Cleary Gottlieb', 'De Pardieu Brocas',
+  'Freshfields', 'Linklaters', 'Clifford Chance', 'Allen & Overy', 'Sullivan & Cromwell',
+  'Weil Gotshal', 'Skadden', 'Latham & Watkins', 'Davis Polk', 'Hogan Lovells',
+  'White & Case', 'Willkie Farr', 'Dechert', 'Goodwin Procter', 'Orrick',
+  'August Debouzy', 'BDGS', 'Racine', 'Fidal', 'Jeantet',
+];
+
 const stagger = {
   hidden: {},
   visible: { transition: { staggerChildren: 0.12 } },
