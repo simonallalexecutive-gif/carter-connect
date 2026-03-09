@@ -27,7 +27,7 @@ const Step4Project = () => {
       className="max-w-2xl mx-auto px-4 py-8"
     >
       <h2 className="text-3xl font-serif text-foreground mb-2">Votre projet</h2>
-      <p className="text-muted-foreground font-sans mb-8">Ce que vous recherchez et ce qui vous motive.</p>
+      <p className="text-muted-foreground font-sans mb-8">Ce que vous recherchez et ce qui vous anime.</p>
 
       <div className="space-y-8">
         {/* Qualités */}
