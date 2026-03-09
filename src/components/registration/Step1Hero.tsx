@@ -90,7 +90,7 @@ const Step1Hero = () => {
           >
             <div className="carter-divider mx-auto mb-10" />
             <span className="font-serif text-2xl tracking-[-0.02em] text-foreground block mb-6">
-              Carter
+              Logan
             </span>
             <h2 className="text-2xl md:text-3xl font-serif font-normal text-foreground mb-2 tracking-[-0.02em]">
               {isCabinet ? 'Espace cabinet' : 'Espace candidat'}
