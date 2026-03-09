@@ -15,8 +15,8 @@ const stagger = {
 
 const benefits = [
   { title: 'Visibilité continue du marché', desc: 'Informations en temps réel sur la dynamique des profils disponibles — sans attendre une candidature.' },
-  { title: 'Vivier ultra-qualifié toute l\'année', desc: 'Chaque profil est validé manuellement par CARTER. Accédez à un vivier actif pour tous vos besoins annuels.' },
-  { title: 'Accompagnement à chaque étape', desc: 'Un consultant CARTER dédié à vos côtés — de la publication de votre recherche au placement final.' },
+  { title: 'Vivier ultra-qualifié toute l\'année', desc: 'Chaque profil est validé manuellement par LOGAN. Accédez à un vivier actif pour tous vos besoins annuels.' },
+  { title: 'Accompagnement à chaque étape', desc: 'Un consultant LOGAN dédié à vos côtés — de la publication de votre recherche au placement final.' },
   { title: 'Solution plus économique', desc: 'Abonnement annuel illimité sans commission par placement. Contre 20–45K€ HT par recrutement en modèle traditionnel.' },
   { title: 'Confidentialité absolue', desc: 'Votre recherche comme les profils consultés restent strictement anonymisés. La levée de rideau se fait uniquement avec l\'accord du candidat.' },
   { title: 'Accès prioritaire aux opportunités', desc: 'Les membres CARTER sont notifiés en premier des nouveaux profils disponibles avant toute diffusion externe.' },
