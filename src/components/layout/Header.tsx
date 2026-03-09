@@ -8,10 +8,7 @@ const Header = () => {
   const isInscription = location.pathname === '/inscription';
 
   return (
-    <header className={cn(
-      "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
-      isDark ? "bg-transparent" : "bg-background/95 backdrop-blur-sm border-b border-border"
-    )}>
+    <header className="fixed top-0 left-0 right-0 z-50 bg-black">
       <div className="carter-container flex items-center justify-between h-20">
         <Link to="/" className="flex items-center">
           <span className={cn("font-serif text-2xl tracking-[-0.02em]", isDark ? "text-white" : "text-foreground")}>
