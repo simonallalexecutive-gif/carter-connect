@@ -108,7 +108,7 @@ const Step5Status = () => {
               className="mt-0.5"
             />
             <label htmlFor="consent" className="text-sm font-sans text-muted-foreground cursor-pointer">
-              J'accepte que mes données soient traitées par Carter dans le cadre de ma recherche professionnelle, conformément à la politique de confidentialité et au RGPD. Je peux demander la suppression de mon compte et de mes données à tout moment.
+              J'accepte que mes données soient traitées par Carter dans le cadre de ma recherche le, conformément à la politique de confidentialité et au RGPD. Je peux demander la suppression de mon compte et de mes données à tout moment.
             </label>
           </div>
         </div>
@@ -116,7 +116,7 @@ const Step5Status = () => {
         {/* Navigation */}
         <div className="flex justify-between pt-4">
           <Button variant="outline" onClick={store.prevStep} className="font-sans">Retour</Button>
-          <Button onClick={store.nextStep} disabled={!canProceed} className="bg-carter-red hover:bg-carter-red-light text-accent-foreground font-sans">
+          <Button onClick={store.nextStep} disabled={!canProceed} className="bg-carter-red hover:bg-accent hover:bg-carter-accentccent-foreground font-sans">
             Continuer
           </Button>
         </div>
