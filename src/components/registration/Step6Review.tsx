@@ -62,7 +62,7 @@ const Step6Review = () => {
       className="max-w-2xl mx-auto px-6 py-10"
     >
       {/* Carter header */}
-      <span className="font-serif text-xl tracking-[-0.02em] text-foreground block mb-8">Carter</span>
+      <span className="font-serif text-xl tracking-[-0.02em] text-foreground block mb-8">Logan</span>
 
       <div className="carter-divider mb-6" />
       <h2 className="text-3xl font-serif text-foreground mb-2 font-normal tracking-[-0.02em]">Récapitulatif</h2>
