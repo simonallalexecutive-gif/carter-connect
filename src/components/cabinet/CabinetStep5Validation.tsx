@@ -104,7 +104,7 @@ const CabinetStep5Validation = () => {
         <div className="bg-foreground rounded-lg overflow-hidden">
           {/* Header */}
           <div className="p-6 border-b border-white/[0.06]">
-            <div className="text-[8px] tracking-[0.16em] uppercase text-white/30 mb-2">Opportunité · Présentée par CARTER</div>
+            <div className="text-[8px] tracking-[0.16em] uppercase text-white/30 mb-2">Opportunité · Présentée par LOGAN</div>
             <div className="font-serif text-xl font-bold text-white mb-1.5">
               {senStr !== '—' ? `${senStr} · ` : ''}{dept}
             </div>
