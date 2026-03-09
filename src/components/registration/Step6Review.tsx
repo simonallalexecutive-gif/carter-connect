@@ -73,7 +73,7 @@ const Step6Review = () => {
         {[
           { key: 'recap' as const, label: 'Récapitulatif', icon: Check },
           { key: 'cabinet' as const, label: 'Vue cabinet', icon: Eye },
-          { key: 'carter' as const, label: 'Vue Carter', icon: Lock },
+          { key: 'carter' as const, label: 'Vue Logan', icon: Lock },
         ].map(tab => (
           <button
             key={tab.key}
