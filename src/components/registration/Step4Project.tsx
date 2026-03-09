@@ -89,14 +89,13 @@ const Step4Project = () => {
         </div>
 
         {/* Process en cours */}
-        <div>
-          <Label className="font-sans text-sm">Processus en cours ?</Label>
-          <Textarea
-            value={store.processusCours}
-            onChange={e => store.setField('processusCours', e.target.value)}
-            placeholder="Êtes-vous en discussion avec d'autres cabinets ?"
-            className="mt-1"
+        <div className="flex items-center gap-3">
+          <Checkbox
+            id="processus"
+            checked={store.processusCours === 'oui'}
+            onCheckedChange={v => store.setField('processusCours', v ? 'oui' : '')}
           />
+          <Label htmlFor="processus" className="font-sans text-sm cursor-pointer">J'ai des processus en cours avec d'autres cabinets</Label>
         </div>
 
         {/* Navigation */}
