@@ -56,8 +56,7 @@ const Step6Review = () => {
         {/* Activity */}
         <div className="carter-card p-6">
           <div className="flex items-center gap-2 mb-4">
-            <Target className="w-5 h-5 text-carter-accent" />
-            <h3 className="font-serif text-lg">Activité</h3>
+            <Target className="w-5 h-5 text-carter-accent        <h3 className="font-serif text-lg">Activité</h3>
           </div>
           <div className="flex flex-wrap gap-2 mb-3">
             {activeActivites.map(a => (
@@ -78,8 +77,7 @@ const Step6Review = () => {
         {/* Project */}
         <div className="carter-card p-6">
           <div className="flex items-center gap-2 mb-4">
-            <CheckCircle2 clasaccentme="w-accent-5 texaccentarter-red" />
-            <h3 className="font-serif text-lg">Projet</h3>
+            <CheckCircle2 clasaccentme=sName="w-5 h-5 text-carter-accent        <h3 className="font-serif text-lg">Projet</h3>
           </div>
           <div className="space-y-3 text-sm font-sans">
             {store.motivation && (
