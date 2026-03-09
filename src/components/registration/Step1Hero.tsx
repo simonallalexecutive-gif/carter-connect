@@ -15,8 +15,8 @@ const Step1Hero = () => {
         className="text-center max-w-2xl"
       >
         <div className="flex justify-center mb-8">
-          <div className="w-16 h-16 rounded-2xl bg-carter-red/20 flex items-center justify-center">
-            <Scale className="w-8 h-8 text-carter-red" />
+          <div className="w-16 h-16 rounded-2xl bg-carter-accent/20 flex items-center justify-center">
+            <Scale className="w-8 h-8 text-carter-accent" />
           </div>
         </div>
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif text-cream-light mb-6 leading-tight">
