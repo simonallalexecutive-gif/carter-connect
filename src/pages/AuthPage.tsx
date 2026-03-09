@@ -55,13 +55,6 @@ const AuthPage = () => {
     }
   };
 
-  const handleGoogleLogin = async () => {
-    const { error } = await lovable.auth.signInWithOAuth('google', {
-      redirect_uri: window.location.origin,
-    });
-    if (error) toast.error(error.message);
-  };
-
   if (loading) return null;
 
   return (
