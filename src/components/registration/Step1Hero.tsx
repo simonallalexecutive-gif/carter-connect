@@ -7,7 +7,7 @@ import { ArrowRight, User, Building2, LogIn } from 'lucide-react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-type View = 'choice' | 'login-candidat';
+type View = 'choice' | 'login-candidat' | 'login-cabinet';
 
 const Step1Hero = () => {
   const nextStep = useRegistrationStore(s => s.nextStep);
@@ -15,6 +15,9 @@ const Step1Hero = () => {
   const [view, setView] = useState<View>('choice');
   const [code, setCode] = useState('');
   const [password, setPassword] = useState('');
+
+  const isLogin = view === 'login-candidat' || view === 'login-cabinet';
+  const isCabinet = view === 'login-cabinet';
 
   return (
     <div className="min-h-screen gradient-dark flex items-center justify-center px-6">
@@ -51,7 +54,7 @@ const Step1Hero = () => {
                 <ArrowRight className="w-4 h-4 text-accent absolute top-8 right-8 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </button>
               <button
-                onClick={() => navigate('/cabinet')}
+                onClick={() => setView('login-cabinet')}
                 className="group relative p-8 rounded-sm border text-left transition-all duration-500 border-border hover:border-accent/50 cursor-pointer hover:bg-card/50"
               >
                 <Building2 className="w-6 h-6 text-accent mb-4" />
@@ -67,9 +70,9 @@ const Step1Hero = () => {
           </motion.div>
         )}
 
-        {view === 'login-candidat' && (
+        {isLogin && (
           <motion.div
-            key="login-candidat"
+            key={view}
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
@@ -81,10 +84,12 @@ const Step1Hero = () => {
               Carter
             </span>
             <h2 className="text-2xl md:text-3xl font-serif font-normal text-foreground mb-2 tracking-[-0.02em]">
-              Espace candidat
+              {isCabinet ? 'Espace cabinet' : 'Espace candidat'}
             </h2>
             <p className="text-sm text-muted-foreground font-sans font-light mb-12">
-              Connectez-vous ou créez votre profil confidentiel.
+              {isCabinet
+                ? 'Connectez-vous ou inscrivez votre cabinet.'
+                : 'Connectez-vous ou créez votre profil confidentiel.'}
             </p>
 
             {/* Login form */}
@@ -99,7 +104,7 @@ const Step1Hero = () => {
                   <Input
                     value={code}
                     onChange={e => setCode(e.target.value)}
-                    placeholder="Votre identifiant Carter"
+                    placeholder={isCabinet ? 'Votre identifiant cabinet' : 'Votre identifiant Carter'}
                     className="mt-2 bg-background/50 border-border"
                   />
                 </div>
@@ -131,7 +136,13 @@ const Step1Hero = () => {
 
             {/* Register CTA */}
             <Button
-              onClick={nextStep}
+              onClick={() => {
+                if (isCabinet) {
+                  navigate('/cabinet?start=2');
+                } else {
+                  nextStep();
+                }
+              }}
               variant="outline"
               size="lg"
               className="w-full border-accent/30 text-foreground hover:bg-accent/10 hover:border-accent/50 font-sans text-sm font-medium rounded-sm py-5 group"
@@ -141,7 +152,7 @@ const Step1Hero = () => {
             </Button>
 
             <button
-              onClick={() => setView('choice')}
+              onClick={() => { setView('choice'); setCode(''); setPassword(''); }}
               className="mt-8 text-xs font-sans font-light text-muted-foreground hover:text-foreground transition-colors"
             >
               ← Retour
