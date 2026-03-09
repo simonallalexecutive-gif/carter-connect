@@ -54,7 +54,6 @@ const Step1Hero = () => {
                   label: 'Espace cabinet',
                   desc: 'Cabinet à la recherche de talents',
                   loginView: 'login-cabinet' as View,
-                  disabled: true,
                 },
               ].map(opt => (
                 <button
