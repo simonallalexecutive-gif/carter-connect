@@ -43,7 +43,7 @@ const CabinetStep1Hero = () => {
         <motion.div variants={stagger} initial="hidden" animate="visible">
           {/* Badge */}
           <motion.div variants={fadeUp} className="inline-flex items-center gap-2 border border-white/10 rounded-sm px-3 py-1.5 mb-10">
-            <span className="font-serif text-xs font-bold text-white/80 tracking-[0.1em]">CARTER</span>
+            <span className="font-serif text-xs font-bold text-white/80 tracking-[0.1em]">LOGAN</span>
             <span className="w-px h-3 bg-white/20" />
             <span className="text-[9px] text-white/40 tracking-[0.12em] uppercase">Réseau Privé · Espace Cabinet</span>
           </motion.div>
