@@ -13,9 +13,8 @@ const Header = () => {
       isDark ? "bg-transparent" : "bg-background/95 backdrop-blur-sm border-b border-border"
     )}>
       <div className="carter-container flex items-center justify-between h-20">
-        {/* Logo — wordmark style like Harvey */}
         <Link to="/" className="flex items-center">
-          <span className="font-serif text-2xl tracking-[-0.02em] text-foreground">
+          <span className={cn("font-serif text-2xl tracking-[-0.02em]", isDark ? "text-white" : "text-foreground")}>
             Carter
           </span>
         </Link>
