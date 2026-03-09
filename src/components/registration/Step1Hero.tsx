@@ -21,7 +21,7 @@ const Step1Hero = () => {
         </div>
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif text-cream-light mb-6 leading-tight">
           Rejoignez le réseau<br />
-          <span className="italic text-carter-red">Carter</span>
+          <span className="italic text-carter-accent">Carter</span>
         </h1>
         <p className="text-lg md:text-xl text-cream-light/70 font-sans font-light mb-10 max-w-lg mx-auto">
           La plateforme confidentielle de mise en relation entre avocats d'affaires et cabinets de premier plan.
