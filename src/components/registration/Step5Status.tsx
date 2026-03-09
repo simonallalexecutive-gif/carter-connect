@@ -5,12 +5,13 @@ import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Checkbox } from '@/components/ui/checkbox';
 import FileDropzone from '@/components/shared/FileDropzone';
-import { Eye, EyeOff, Zap } from 'lucide-react';
+import { Eye, EyeOff, Zap, ShieldCheck } from 'lucide-react';
 
 const Step5Status = () => {
   const store = useRegistrationStore();
 
-  const canProceed = store.statutEcoute !== '' && store.visibilite !== '' && store.consentement;
+  const canProceed = store.statutEcoute !== '' && store.visibilite !== '' &&
+    store.consentement && store.consentementExactitude && store.consentementMiseEnRelation;
 
   return (
     <motion.div
@@ -98,8 +99,37 @@ const Step5Status = () => {
           />
         </div>
 
-        {/* Consentement RGPD */}
-        <div className="carter-card p-6">
+        {/* Consentements */}
+        <div className="carter-card p-6 space-y-4">
+          <div className="flex items-center gap-2 mb-2">
+            <ShieldCheck className="w-5 h-5 text-carter-accent" />
+            <h3 className="font-serif text-lg text-foreground">Engagements & consentements</h3>
+          </div>
+
+          <div className="flex items-start gap-3">
+            <Checkbox
+              id="consentExact"
+              checked={store.consentementExactitude}
+              onCheckedChange={v => store.setField('consentementExactitude', v as boolean)}
+              className="mt-0.5"
+            />
+            <label htmlFor="consentExact" className="text-sm font-sans font-light text-muted-foreground cursor-pointer">
+              Je confirme que toutes les informations renseignées sont exactes et à jour.
+            </label>
+          </div>
+
+          <div className="flex items-start gap-3">
+            <Checkbox
+              id="consentMER"
+              checked={store.consentementMiseEnRelation}
+              onCheckedChange={v => store.setField('consentementMiseEnRelation', v as boolean)}
+              className="mt-0.5"
+            />
+            <label htmlFor="consentMER" className="text-sm font-sans font-light text-muted-foreground cursor-pointer">
+              J'autorise Carter à utiliser mon profil pour des mises en relation confidentielles, avec mon accord préalable systématique avant toute transmission.
+            </label>
+          </div>
+
           <div className="flex items-start gap-3">
             <Checkbox
               id="consent"
@@ -108,7 +138,7 @@ const Step5Status = () => {
               className="mt-0.5"
             />
             <label htmlFor="consent" className="text-sm font-sans font-light text-muted-foreground cursor-pointer">
-              J'accepte que mes données soient traitées par Carter dans le cadre de ma recherche, conformément à la politique de confidentialité et au RGPD. Je peux demander la suppression de mon compte et de mes données à tout moment.
+              J'accepte que mes données soient traitées par Carter conformément à la politique de confidentialité et au RGPD. Je peux demander la suppression de mon compte et de mes données à tout moment.
             </label>
           </div>
         </div>

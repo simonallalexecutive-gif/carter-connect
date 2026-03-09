@@ -44,7 +44,7 @@ const Step7Confirm = () => {
           Votre profil sera examiné par l'équipe Carter sous <strong className="text-cream-light font-medium">48 heures ouvrées</strong>.
         </p>
 
-        <div className="carter-card p-6 text-left mb-8 bg-cream-light/5 border-cream-light/10">
+        <div className="rounded-xl p-6 text-left mb-8 bg-cream-light/5 border border-cream-light/10">
           <div className="flex items-start gap-3">
             <Mail className="w-5 h-5 text-carter-accent mt-0.5" />
             <div>

@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { usePQE } from '@/hooks/usePQE';
 import SeniorityBadge from '@/components/shared/SeniorityBadge';
 import { ACTIVITES_BY_PRACTICE, ACTIVITES_DEFAULT } from '@/lib/constants';
-import { User, Briefcase, Target, Shield, CheckCircle2, Scale, Eye, Lock } from 'lucide-react';
+import { User, Briefcase, Target, Shield, CheckCircle2, Scale, Eye, Lock, CalendarCheck } from 'lucide-react';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
 
@@ -85,6 +85,8 @@ const Step6Review = () => {
               <div><span className="text-muted-foreground font-light">Email</span><p className="font-medium">{store.email}</p></div>
               {store.telephone && <div><span className="text-muted-foreground font-light">Téléphone</span><p className="font-medium">{store.telephone}</p></div>}
               <div><span className="text-muted-foreground font-light">Séniorité</span><div className="mt-1">{pqe && <SeniorityBadge info={pqe} />}</div></div>
+              {store.disponibilite && <div><span className="text-muted-foreground font-light">Disponibilité</span><p className="font-medium">{store.disponibilite}</p></div>}
+              {store.tailleOperations.length > 0 && <div><span className="text-muted-foreground font-light">Taille opérations</span><p className="font-medium">{store.tailleOperations.join(', ')}</p></div>}
             </div>
           </div>
 
@@ -99,6 +101,9 @@ const Step6Review = () => {
               <div><span className="text-muted-foreground font-light">Cabinet</span><p className="font-medium">{store.cabinet}</p></div>
               {store.cabNat && <div><span className="text-muted-foreground font-light">Nationalité</span><p className="font-medium">{store.cabNat}</p></div>}
               {store.cabTier && <div><span className="text-muted-foreground font-light">Tier Legal 500</span><p className="font-medium">{store.cabTier}</p></div>}
+              {store.isAssocieOrCounsel && store.chiffreAffairesPortable && (
+                <div><span className="text-muted-foreground font-light">CA portable</span><p className="font-medium">{store.chiffreAffairesPortable} €</p></div>
+              )}
             </div>
           </div>
 
@@ -139,6 +144,12 @@ const Step6Review = () => {
               )}
               {store.cabinetsCibles.length > 0 && (
                 <div><span className="text-muted-foreground">Cibles : </span>{store.cabinetsCibles.join(', ')}</div>
+              )}
+              {store.souhaitePrendreRdv && store.creneauPrefere && (
+                <div className="flex items-center gap-2">
+                  <CalendarCheck className="w-4 h-4 text-carter-accent" />
+                  <span className="text-muted-foreground">RDV souhaité : </span>{store.creneauPrefere}
+                </div>
               )}
             </div>
           </div>
@@ -183,6 +194,8 @@ const Step6Review = () => {
               <div><span className="text-muted-foreground font-light">Nationalité cabinet</span><p className="font-medium">{store.cabNat || '—'}</p></div>
               <div><span className="text-muted-foreground font-light">Classement Legal 500</span><p className="font-medium">{store.cabTier || '—'}</p></div>
               {store.retrocession && <div><span className="text-muted-foreground font-light">Rétrocession</span><p className="font-medium">{store.retrocession} €</p></div>}
+              {store.disponibilite && <div><span className="text-muted-foreground font-light">Disponibilité</span><p className="font-medium">{store.disponibilite}</p></div>}
+              {store.tailleOperations.length > 0 && <div><span className="text-muted-foreground font-light">Taille opérations</span><p className="font-medium">{store.tailleOperations.join(', ')}</p></div>}
             </div>
 
             {/* Activities */}
@@ -252,6 +265,11 @@ const Step6Review = () => {
               <div><span className="text-muted-foreground font-light">Pratique</span><p className="font-medium">{store.departement}</p></div>
               {store.cabNat && <div><span className="text-muted-foreground font-light">Nationalité</span><p className="font-medium">{store.cabNat}</p></div>}
               {store.cabTier && <div><span className="text-muted-foreground font-light">Tier</span><p className="font-medium">{store.cabTier}</p></div>}
+              {store.disponibilite && <div><span className="text-muted-foreground font-light">Disponibilité</span><p className="font-medium">{store.disponibilite}</p></div>}
+              {store.tailleOperations.length > 0 && <div><span className="text-muted-foreground font-light">Taille opérations</span><p className="font-medium">{store.tailleOperations.join(', ')}</p></div>}
+              {store.isAssocieOrCounsel && store.chiffreAffairesPortable && (
+                <div><span className="text-muted-foreground font-light">CA portable</span><p className="font-medium">{store.chiffreAffairesPortable} €</p></div>
+              )}
             </div>
 
             {/* Financial */}
@@ -261,11 +279,25 @@ const Step6Review = () => {
                 <div className="grid grid-cols-2 gap-4 text-sm font-sans text-cream-light">
                   {store.retrocession && <div><span className="text-cream-light/60 font-light">Rétrocession</span><p className="font-medium">{store.retrocession} €</p></div>}
                   {store.bonus && <div><span className="text-cream-light/60 font-light">Bonus</span><p className="font-medium">{store.bonus} €</p></div>}
+                  {store.hasObjectifFacturable && store.objectifFacturable && (
+                    <div><span className="text-cream-light/60 font-light">Objectif heures</span><p className="font-medium">{store.objectifFacturable}h</p></div>
+                  )}
+                  {store.hasObjectifFacturable && store.objectifFacturableReel && (
+                    <div><span className="text-cream-light/60 font-light">Réalisé</span><p className="font-medium">{store.objectifFacturableReel}h</p></div>
+                  )}
                 </div>
+                {store.conserverRetrocession !== null && (
+                  <div className="mt-3 pt-3 border-t border-cream-light/10 text-sm font-sans text-cream-light/70 font-light">
+                    {store.conserverRetrocession ? 'Souhaite conserver sa rétrocession' : 'Ouvert à une baisse de rétrocession'}
+                    {!store.conserverRetrocession && store.raisonsBaisseRetro.length > 0 && (
+                      <span> ({store.raisonsBaisseRetro.join(', ')})</span>
+                    )}
+                  </div>
+                )}
               </div>
             )}
 
-            {/* Activities, motivation, etc. */}
+            {/* Activities */}
             {activeActivites.length > 0 && (
               <div className="mb-4">
                 <div className="flex flex-wrap gap-2">
