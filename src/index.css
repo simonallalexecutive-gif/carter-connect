@@ -6,110 +6,110 @@
 
 @layer base {
   :root {
-    /* Harvey AI: deep navy with cool neutrals */
-    --background: 222 47% 8%;       /* #0B0F19 */
-    --foreground: 210 20% 95%;      /* near white */
-
-    --card: 222 39% 11%;            /* #111827 */
-    --card-foreground: 210 20% 95%;
-
-    --popover: 222 39% 11%;
-    --popover-foreground: 210 20% 95%;
-
-    --primary: 210 20% 95%;
-    --primary-foreground: 222 47% 8%;
-
-    --secondary: 222 30% 14%;
-    --secondary-foreground: 210 20% 95%;
-
-    --muted: 222 20% 16%;
-    --muted-foreground: 215 14% 55%;  /* #9CA3AF zone */
-
-    --accent: 230 80% 62%;           /* electric blue/indigo */
-    --accent-foreground: 210 20% 98%;
-
-    --destructive: 0 55% 50%;
-    --destructive-foreground: 210 20% 98%;
-
-    --border: 220 13% 20%;           /* subtle neutral gray */
-    --input: 220 13% 20%;
-    --ring: 230 80% 62%;
-
-    --radius: 0.5rem;
-
-    /* Carter premium tokens — navy system */
-    --carter-bg-deep: 222 50% 5%;
-    --carter-bg: 222 47% 8%;
-    --carter-bg-elevated: 222 39% 11%;
-    --carter-bg-surface: 222 30% 14%;
-
-    --carter-gold: 230 80% 62%;       /* repurposed as accent blue */
-    --carter-gold-muted: 230 40% 40%;
-    --carter-gold-bright: 235 75% 72%;
-
-    --carter-text-primary: 210 20% 95%;
-    --carter-text-secondary: 215 14% 55%;
-    --carter-text-tertiary: 218 10% 38%;
-
-    --carter-border: 220 13% 20%;
-    --carter-border-subtle: 220 10% 14%;
-    --carter-border-accent: 230 30% 30%;
-
-    --shadow-card: 0 4px 24px -4px hsl(222 50% 3% / 0.6);
-    --shadow-elevated: 0 16px 48px -8px hsl(222 50% 3% / 0.7);
-    --shadow-glow: 0 0 40px -10px hsl(230 80% 62% / 0.1);
-
-    --sidebar-background: 222 39% 11%;
-    --sidebar-foreground: 210 20% 95%;
-    --sidebar-primary: 210 20% 95%;
-    --sidebar-primary-foreground: 222 47% 8%;
-    --sidebar-accent: 222 30% 14%;
-    --sidebar-accent-foreground: 210 20% 95%;
-    --sidebar-border: 220 13% 20%;
-    --sidebar-ring: 230 80% 62%;
-  }
-
-  /* Light mode for registration form */
-  .theme-light {
-    --background: 210 20% 98%;       /* #F9FAFB */
-    --foreground: 222 39% 11%;       /* #111827 */
+    /* Clean SaaS: white bg, black text, indigo accent */
+    --background: 0 0% 100%;          /* #FFFFFF */
+    --foreground: 0 0% 7%;            /* #111111 */
 
     --card: 0 0% 100%;
-    --card-foreground: 222 39% 11%;
+    --card-foreground: 0 0% 7%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222 39% 11%;
+    --popover-foreground: 0 0% 7%;
 
-    --primary: 222 39% 11%;
-    --primary-foreground: 210 20% 98%;
+    --primary: 234 100% 68%;           /* #5C6CFF */
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 14% 95%;       /* #F3F4F6 */
-    --secondary-foreground: 222 39% 11%;
+    --secondary: 0 0% 96%;            /* #F5F5F5 */
+    --secondary-foreground: 0 0% 7%;
 
-    --muted: 210 14% 95%;
-    --muted-foreground: 215 14% 45%; /* #6B7280 */
+    --muted: 0 0% 96%;                /* #F5F5F5 */
+    --muted-foreground: 0 0% 48%;     /* #7A7A7A */
 
-    --accent: 210 14% 93%;          /* #E5E7EB */
-    --accent-foreground: 222 39% 11%;
+    --accent: 234 100% 68%;           /* #5C6CFF */
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 55% 50%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 214 14% 88%;          /* #D1D5DB */
-    --input: 214 14% 88%;
-    --ring: 230 80% 62%;
+    --border: 0 0% 84%;               /* #D6D6D6 */
+    --input: 0 0% 84%;
+    --ring: 234 100% 68%;
 
-    --carter-gold: 222 30% 28%;
-    --carter-gold-muted: 220 15% 45%;
-    --carter-gold-bright: 230 80% 55%;
+    --radius: 0.5rem;
 
-    --carter-text-primary: 222 39% 11%;
-    --carter-text-secondary: 215 14% 45%;
-    --carter-text-tertiary: 215 10% 58%;
+    /* Carter tokens — clean system */
+    --carter-bg-deep: 0 0% 100%;
+    --carter-bg: 0 0% 100%;
+    --carter-bg-elevated: 0 0% 96%;    /* #F5F5F5 */
+    --carter-bg-surface: 0 0% 96%;
 
-    --carter-border: 214 14% 88%;
-    --carter-border-subtle: 210 14% 93%;
-    --carter-border-accent: 214 14% 72%;
+    --carter-gold: 234 100% 68%;       /* accent indigo */
+    --carter-gold-muted: 234 60% 75%;  /* #A7B0FF zone */
+    --carter-gold-bright: 234 100% 68%;
+
+    --carter-text-primary: 0 0% 7%;    /* #111111 */
+    --carter-text-secondary: 0 0% 29%; /* #4B4B4B */
+    --carter-text-tertiary: 0 0% 48%;  /* #7A7A7A */
+
+    --carter-border: 0 0% 84%;         /* #D6D6D6 */
+    --carter-border-subtle: 0 0% 92%;
+    --carter-border-accent: 234 60% 75%;
+
+    --shadow-card: 0 1px 3px 0 hsl(0 0% 0% / 0.04), 0 1px 2px -1px hsl(0 0% 0% / 0.04);
+    --shadow-elevated: 0 4px 16px -2px hsl(0 0% 0% / 0.08);
+    --shadow-glow: 0 0 30px -10px hsl(234 100% 68% / 0.12);
+
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 0 0% 7%;
+    --sidebar-primary: 234 100% 68%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 0 0% 96%;
+    --sidebar-accent-foreground: 0 0% 7%;
+    --sidebar-border: 0 0% 84%;
+    --sidebar-ring: 234 100% 68%;
+  }
+
+  /* Light mode for registration form — same as root now */
+  .theme-light {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 7%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 7%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 7%;
+
+    --primary: 234 100% 68%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 7%;
+
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 48%;
+
+    --accent: 0 0% 96%;
+    --accent-foreground: 0 0% 7%;
+
+    --destructive: 0 55% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 84%;
+    --input: 0 0% 84%;
+    --ring: 234 100% 68%;
+
+    --carter-gold: 0 0% 7%;
+    --carter-gold-muted: 0 0% 48%;
+    --carter-gold-bright: 234 100% 68%;
+
+    --carter-text-primary: 0 0% 7%;
+    --carter-text-secondary: 0 0% 29%;
+    --carter-text-tertiary: 0 0% 48%;
+
+    --carter-border: 0 0% 84%;
+    --carter-border-subtle: 0 0% 92%;
+    --carter-border-accent: 0 0% 70%;
 
     --shadow-card: 0 1px 3px 0 hsl(0 0% 0% / 0.04), 0 1px 2px -1px hsl(0 0% 0% / 0.04);
     --shadow-elevated: 0 4px 16px -2px hsl(0 0% 0% / 0.08);
