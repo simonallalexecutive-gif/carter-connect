@@ -25,7 +25,21 @@ export interface RegistrationState {
   bonus: string;
   hasObjectifFacturable: boolean | null;
   objectifFacturable: string;
+  objectifFacturableReel: string;
   assocClientele: string;
+  // Associé / Counsel
+  isAssocieOrCounsel: boolean;
+  chiffreAffairesPortable: string;
+  businessPlanFile: File | null;
+  // Taille opérations & disponibilité
+  tailleOperations: string[];
+  disponibilite: string;
+  // Rétrocession flexibility
+  conserverRetrocession: boolean | null;
+  raisonsBaisseRetro: string[];
+  // RDV
+  souhaitePrendreRdv: boolean;
+  creneauPrefere: string;
   // Step 3 - Activity
   activites: Record<string, boolean>;
   pourcentages: Record<string, number>;
@@ -44,6 +58,8 @@ export interface RegistrationState {
   visibilite: 'confidentiel' | 'partiel' | '';
   cvFile: File | null;
   consentement: boolean;
+  consentementExactitude: boolean;
+  consentementMiseEnRelation: boolean;
   // Actions
   setField: <K extends keyof RegistrationState>(key: K, value: RegistrationState[K]) => void;
   nextStep: () => void;

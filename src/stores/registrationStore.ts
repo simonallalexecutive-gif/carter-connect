@@ -21,11 +21,27 @@ const initialState = {
   bonus: '',
   hasObjectifFacturable: null as boolean | null,
   objectifFacturable: '',
+  objectifFacturableReel: '',
   assocClientele: '',
+  // Associé / Counsel
+  isAssocieOrCounsel: false,
+  chiffreAffairesPortable: '',
+  businessPlanFile: null as File | null,
+  // Taille opérations & disponibilité
+  tailleOperations: [] as string[],
+  disponibilite: '',
+  // Rétrocession flexibility
+  conserverRetrocession: null as boolean | null,
+  raisonsBaisseRetro: [] as string[],
+  // RDV
+  souhaitePrendreRdv: false,
+  creneauPrefere: '',
+  // Step 3
   activites: {} as Record<string, boolean>,
   pourcentages: {} as Record<string, number>,
   anglais: '',
   typesClients: [] as string[],
+  // Step 4
   qualitesAppreciees: [] as string[],
   axesAmelioration: [] as string[],
   motivation: '',
@@ -33,10 +49,13 @@ const initialState = {
   cabinetsCibles: [] as string[],
   noGo: [] as string[],
   processusCours: '',
+  // Step 5
   statutEcoute: '' as '' | 'actif' | 'passif' | 'inactif',
   visibilite: '' as '' | 'confidentiel' | 'partiel',
   cvFile: null as File | null,
   consentement: false,
+  consentementExactitude: false,
+  consentementMiseEnRelation: false,
 };
 
 export const useRegistrationStore = create<RegistrationState>((set) => ({
