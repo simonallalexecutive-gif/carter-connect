@@ -5,7 +5,7 @@ import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import BenefitsSection from '@/components/landing/BenefitsSection';
 import { ArrowRight } from 'lucide-react';
-import heroBg from '@/assets/hero-buildings.jpg';
+import heroBg from '@/assets/hero-option-4-color.jpg';
 
 const firmNames = [
   'Bredin Prat', 'Darrois Villey', 'Gide', 'Cleary Gottlieb', 'De Pardieu Brocas',
