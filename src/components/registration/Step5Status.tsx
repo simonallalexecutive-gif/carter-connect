@@ -34,8 +34,8 @@ const Step5Status = () => {
           <div className="space-y-6">
             {[
               { num: '01', title: 'Notification confidentielle', desc: 'Un cabinet manifeste un intérêt pour votre profil. Vous êtes notifié sans que votre identité ne soit révélée.' },
-              { num: '02', title: 'Votre décision', desc: 'Vous choisissez de répondre favorablement ou non. Par exemple : "Oui, un échange à ce sujet avec Carter pourrait m\'intéresser."' },
-              { num: '03', title: 'Accompagnement Carter', desc: 'Carter prend contact avec vous, s\'assure de la cohérence de l\'opportunité avec votre projet, puis organise la mise en relation et gère le processus jusqu\'à son terme.' },
+              { num: '02', title: 'Votre décision', desc: 'Vous choisissez de répondre favorablement ou non. Par exemple : "Oui, un échange à ce sujet avec Logan pourrait m\'intéresser."' },
+              { num: '03', title: 'Accompagnement Logan', desc: 'Logan prend contact avec vous, s\'assure de la cohérence de l\'opportunité avec votre projet, puis organise la mise en relation et gère le processus jusqu\'à son terme.' },
             ].map(step => (
               <div key={step.num} className="flex items-start gap-4">
                 <span className="text-xs font-sans font-medium text-accent tracking-[0.15em] mt-1 flex-shrink-0">{step.num}</span>
