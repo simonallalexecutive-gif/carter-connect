@@ -76,6 +76,17 @@ const Step2Identity = () => {
           {pqe && <div className="mt-2"><SeniorityBadge info={pqe} /></div>}
         </div>
 
+        {/* Département */}
+        <div>
+          <Label className="font-sans text-sm">Département / Pratique *</Label>
+          <Select value={store.departement} onValueChange={v => store.setField('departement', v)}>
+            <SelectTrigger className="mt-1"><SelectValue placeholder="Sélectionner" /></SelectTrigger>
+            <SelectContent>
+              {DEPARTEMENTS.map(d => <SelectItem key={d} value={d}>{d}</SelectItem>)}
+            </SelectContent>
+          </Select>
+        </div>
+
         {/* Cabinet */}
         <div>
           <Label className="font-sans text-sm">Cabinet actuel *</Label>
@@ -109,26 +120,6 @@ const Step2Identity = () => {
               </SelectContent>
             </Select>
           </div>
-        </div>
-
-        {/* Département */}
-        <div>
-          <Label className="font-sans text-sm">Département / Pratique *</Label>
-          <Select value={store.departement} onValueChange={v => store.setField('departement', v)}>
-            <SelectTrigger className="mt-1"><SelectValue placeholder="Sélectionner" /></SelectTrigger>
-            <SelectContent>
-              {DEPARTEMENTS.map(d => <SelectItem key={d} value={d}>{d}</SelectItem>)}
-            </SelectContent>
-          </Select>
-        </div>
-
-        {/* Legal 500 */}
-        <div className="flex items-center gap-3">
-          <Switch
-            checked={store.legal500 === true}
-            onCheckedChange={v => store.setField('legal500', v)}
-          />
-          <Label className="font-sans text-sm">Suivi par le Legal 500 ?</Label>
         </div>
 
         {/* Financier */}
