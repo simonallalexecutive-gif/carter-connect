@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,700&family=DM+Sans:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,700&family=Inter:wght@200;300;400;500;600&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -24,7 +24,7 @@
     --muted: 37 24% 90%;
     --muted-foreground: 220 10% 40%;
 
-    --accent: 197 70% 22%;
+    --accent: 210 55% 35%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 70% 50%;
@@ -43,10 +43,10 @@
     --cream-light: 40 50% 99%;
     --cream: 40 33% 97%;
     --cream-border: 37 24% 88%;
-    --carter-accent-pale: 197 30% 93%;
-    --carter-accent-border: 197 40% 55%;
-    --carter-accent-light: 197 65% 28%;
-    --carter-accent: 197 70% 22%;
+    --carter-accent-pale: 210 30% 93%;
+    --carter-accent-border: 210 45% 50%;
+    --carter-accent-light: 210 50% 40%;
+    --carter-accent: 210 55% 35%;
     --text-dark: 220 62% 15%;
     --text-mid: 215 13% 35%;
     --text-soft: 60 4% 52%;

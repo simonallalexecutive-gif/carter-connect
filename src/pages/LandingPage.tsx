@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
-import { Shield, Users, Lock, ArrowRight, Briefcase, Eye } from 'lucide-react';
+import { Shield, Users, Lock, ArrowRight, Briefcase, Eye, Clock, UserCheck, Bell, Handshake } from 'lucide-react';
 
 const stagger = {
   hidden: {},
@@ -15,28 +15,48 @@ const fadeUp = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.22, 0.68, 0, 1.2] as const } },
 };
 
-const features = [
+const benefits = [
+  {
+    icon: Clock,
+    title: 'Informations en temps réel',
+    desc: 'Marché, mouvements, opportunités — une vision constante et actualisée du marché juridique.',
+  },
+  {
+    icon: Eye,
+    title: 'Visibilité marché',
+    desc: 'Dynamiques de recrutement, benchmarks et tendances du marché juridique haut de gamme.',
+  },
+  {
+    icon: UserCheck,
+    title: 'Accompagnement sur mesure',
+    desc: 'Un consultant dédié à chaque étape, de la détection de l\'opportunité à la décision finale.',
+  },
   {
     icon: Shield,
-    title: 'Confidentialité absolue',
-    desc: 'Votre identité n\'est jamais révélée aux cabinets sans votre accord explicite.',
+    title: 'Discrétion absolue',
+    desc: 'Votre profil n\'est jamais diffusé sans votre consentement explicite.',
   },
-  {
-    icon: Users,
-    title: 'Réseau premium',
-    desc: 'Accès exclusif aux meilleurs cabinets d\'affaires français et internationaux.',
-  },
+];
+
+const commitments = [
   {
     icon: Lock,
-    title: 'Données protégées',
-    desc: 'Chiffrement de bout en bout et conformité RGPD intégrale.',
+    text: 'Confidentialité absolue — aucun cabinet n\'aura accès à votre identité tant que vous ne l\'aurez pas décidé.',
+  },
+  {
+    icon: UserCheck,
+    text: 'Un consultant spécialisé à vos côtés — il lève le rideau et organise la mise en relation uniquement si l\'opportunité vous intéresse.',
+  },
+  {
+    icon: Bell,
+    text: 'Accès exclusif en temps réel — toutes les nouvelles opportunités sont transmises en priorité aux membres du réseau Carter avant toute diffusion.',
   },
 ];
 
 const steps = [
   { icon: Briefcase, title: 'Créez votre profil', desc: 'Inscription en quelques minutes, entièrement confidentielle.' },
   { icon: Eye, title: 'Profil anonymisé', desc: 'Les cabinets consultent votre profil sans connaître votre identité.' },
-  { icon: ArrowRight, title: 'Mise en relation', desc: 'Carter orchestre les mises en relation avec les cabinets intéressés.' },
+  { icon: Handshake, title: 'Mise en relation', desc: 'Carter orchestre les échanges avec les cabinets intéressés, avec votre accord préalable.' },
 ];
 
 const LandingPage = () => (
@@ -59,9 +79,9 @@ const LandingPage = () => (
           <motion.p variants={fadeUp} className="text-carter-accent font-sans text-xs font-medium tracking-[0.25em] uppercase mb-8">
             Réseau confidentiel
           </motion.p>
-          <motion.h1 variants={fadeUp} className="text-5xl md:text-7xl lg:text-8xl font-sans font-extralight text-cream-light leading-[1.05] mb-8 tracking-tight">
+          <motion.h1 variants={fadeUp} className="text-5xl md:text-7xl lg:text-8xl font-serif font-light text-cream-light leading-[1.05] mb-8 tracking-tight">
             Welcome to{' '}
-            <span className="text-carter-accent font-light">Carter</span>
+            <span className="text-carter-accent italic">Carter</span>
           </motion.h1>
           <motion.p variants={fadeUp} className="text-base md:text-lg text-cream-light/50 font-sans font-light max-w-xl mb-12 leading-relaxed">
             La plateforme confidentielle de mise en relation entre avocats d'affaires et cabinets de premier plan.
@@ -78,7 +98,7 @@ const LandingPage = () => (
       </div>
     </section>
 
-    {/* Features */}
+    {/* Why Carter — Benefits */}
     <section className="carter-section bg-background">
       <div className="carter-container">
         <motion.div
@@ -89,31 +109,53 @@ const LandingPage = () => (
           className="text-center mb-16"
         >
           <h2 className="text-3xl md:text-4xl font-serif text-foreground mb-4">
-            Pourquoi <em className="text-carter-accent">Carter</em> ?
+            Pourquoi rejoindre <em className="text-carter-accent">Carter</em>
           </h2>
           <p className="text-muted-foreground font-sans font-light max-w-lg mx-auto">
             Un service pensé pour les exigences du marché juridique haut de gamme.
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-8">
-          {features.map((f, i) => (
+        <div className="grid md:grid-cols-2 gap-6 mb-16">
+          {benefits.map((b, i) => (
             <motion.div
-              key={f.title}
+              key={b.title}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.08, duration: 0.55 }}
-              className="carter-card-elevated p-8 text-center"
+              className="carter-card-elevated p-8 flex gap-5"
             >
-              <div className="w-14 h-14 rounded-2xl bg-carter-accent/10 flex items-center justify-center mx-auto mb-5">
-                <f.icon className="w-7 h-7 text-carter-accent" />
+              <div className="w-12 h-12 rounded-2xl bg-carter-accent/10 flex items-center justify-center flex-shrink-0">
+                <b.icon className="w-6 h-6 text-carter-accent" />
               </div>
-              <h3 className="font-serif text-xl text-foreground mb-3">{f.title}</h3>
-              <p className="font-sans text-sm text-muted-foreground font-light">{f.desc}</p>
+              <div>
+                <h3 className="font-serif text-xl text-foreground mb-2">{b.title}</h3>
+                <p className="font-sans text-sm text-muted-foreground font-light leading-relaxed">{b.desc}</p>
+              </div>
             </motion.div>
           ))}
         </div>
+
+        {/* Commitments */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="carter-card-elevated p-8 md:p-10"
+        >
+          <h3 className="font-serif text-2xl text-foreground mb-8 text-center">Nos engagements</h3>
+          <div className="space-y-6">
+            {commitments.map((c, i) => (
+              <div key={i} className="flex items-start gap-4">
+                <div className="w-10 h-10 rounded-full bg-carter-accent/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <c.icon className="w-5 h-5 text-carter-accent" />
+                </div>
+                <p className="font-sans text-sm font-light text-foreground leading-relaxed">{c.text}</p>
+              </div>
+            ))}
+          </div>
+        </motion.div>
       </div>
     </section>
 
@@ -157,7 +199,7 @@ const LandingPage = () => (
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-3xl md:text-4xl font-sans font-light text-cream-light mb-6 tracking-tight">
+          <h2 className="text-3xl md:text-4xl font-serif font-light text-cream-light mb-6 tracking-tight">
             Intégrer le membership
           </h2>
           <p className="text-cream-light/50 font-sans font-light mb-8 max-w-md mx-auto">

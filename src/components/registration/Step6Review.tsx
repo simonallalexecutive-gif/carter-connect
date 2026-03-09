@@ -5,8 +5,18 @@ import { usePQE } from '@/hooks/usePQE';
 import SeniorityBadge from '@/components/shared/SeniorityBadge';
 import { ACTIVITES_BY_PRACTICE, ACTIVITES_DEFAULT } from '@/lib/constants';
 import { User, Briefcase, Target, Shield, CheckCircle2, Scale, Eye, Lock, CalendarCheck } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { cn } from '@/lib/utils';
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
+
+const CHART_COLORS = [
+  'hsl(210, 55%, 35%)',
+  'hsl(220, 62%, 15%)',
+  'hsl(210, 45%, 45%)',
+  'hsl(220, 50%, 30%)',
+  'hsl(210, 35%, 55%)',
+  'hsl(220, 35%, 45%)',
+];
 
 type PreviewMode = 'recap' | 'cabinet' | 'carter';
 
@@ -20,6 +30,15 @@ const Step6Review = () => {
     : ACTIVITES_DEFAULT;
   const allActivites = practiceActivities.sections.flatMap(s => s.items);
   const activeActivites = allActivites.filter(a => store.activites[a.key]);
+
+  const chartData = useMemo(() => {
+    return activeActivites.map(item => ({
+      name: item.label,
+      value: store.pourcentages[item.key] || 10,
+    }));
+  }, [activeActivites, store.pourcentages]);
+
+  const totalPercent = chartData.reduce((sum, d) => sum + d.value, 0);
 
   return (
     <motion.div
@@ -74,7 +93,6 @@ const Step6Review = () => {
       {/* RECAP VIEW */}
       {previewMode === 'recap' && (
         <div className="space-y-6">
-          {/* Identity */}
           <div className="carter-card p-6">
             <div className="flex items-center gap-2 mb-4">
               <User className="w-5 h-5 text-carter-accent" />
@@ -90,7 +108,6 @@ const Step6Review = () => {
             </div>
           </div>
 
-          {/* Cabinet */}
           <div className="carter-card p-6">
             <div className="flex items-center gap-2 mb-4">
               <Briefcase className="w-5 h-5 text-carter-accent" />
@@ -107,7 +124,6 @@ const Step6Review = () => {
             </div>
           </div>
 
-          {/* Activity */}
           <div className="carter-card p-6">
             <div className="flex items-center gap-2 mb-4">
               <Target className="w-5 h-5 text-carter-accent" />
@@ -129,7 +145,6 @@ const Step6Review = () => {
             )}
           </div>
 
-          {/* Project */}
           <div className="carter-card p-6">
             <div className="flex items-center gap-2 mb-4">
               <CheckCircle2 className="w-5 h-5 text-carter-accent" />
@@ -154,7 +169,6 @@ const Step6Review = () => {
             </div>
           </div>
 
-          {/* Status */}
           <div className="carter-card p-6">
             <div className="flex items-center gap-2 mb-4">
               <Shield className="w-5 h-5 text-carter-accent" />
@@ -168,7 +182,7 @@ const Step6Review = () => {
         </div>
       )}
 
-      {/* CABINET VIEW — Anonymized */}
+      {/* CABINET VIEW — Anonymized with enhanced data */}
       {previewMode === 'cabinet' && (
         <div className="space-y-6">
           <div className="carter-card border-carter-accent/20 p-4 bg-carter-accent-pale">
@@ -196,7 +210,28 @@ const Step6Review = () => {
               {store.retrocession && <div><span className="text-muted-foreground font-light">Rétrocession</span><p className="font-medium">{store.retrocession} €</p></div>}
               {store.disponibilite && <div><span className="text-muted-foreground font-light">Disponibilité</span><p className="font-medium">{store.disponibilite}</p></div>}
               {store.tailleOperations.length > 0 && <div><span className="text-muted-foreground font-light">Taille opérations</span><p className="font-medium">{store.tailleOperations.join(', ')}</p></div>}
+              {store.anglais && <div><span className="text-muted-foreground font-light">Anglais</span><p className="font-medium">{store.anglais}</p></div>}
+              {store.conserverRetrocession !== null && (
+                <div>
+                  <span className="text-muted-foreground font-light">Flexibilité rétrocession</span>
+                  <p className="font-medium">{store.conserverRetrocession ? 'Souhaite maintenir' : 'Ouvert à discussion'}</p>
+                </div>
+              )}
             </div>
+
+            {/* Clientèle */}
+            {store.typesClients.length > 0 && (
+              <div className="mb-6">
+                <h4 className="text-xs font-sans font-medium text-muted-foreground uppercase tracking-wider mb-3">Clientèle</h4>
+                <div className="flex flex-wrap gap-2">
+                  {store.typesClients.map(c => (
+                    <span key={c} className="px-3 py-1 rounded-full bg-carter-accent-pale text-foreground text-xs font-sans font-light border border-carter-accent/10">
+                      {c}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
 
             {/* Activities */}
             {activeActivites.length > 0 && (
@@ -208,6 +243,36 @@ const Step6Review = () => {
                       {a.label}
                     </span>
                   ))}
+                </div>
+              </div>
+            )}
+
+            {/* Pie chart for cabinet view */}
+            {chartData.length > 0 && (
+              <div className="mb-6">
+                <h4 className="text-xs font-sans font-medium text-muted-foreground uppercase tracking-wider mb-3">Répartition de l'activité</h4>
+                <div className="flex items-center gap-6">
+                  <div className="w-32 h-32">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <PieChart>
+                        <Pie data={chartData} cx="50%" cy="50%" innerRadius={28} outerRadius={55} dataKey="value" paddingAngle={2}>
+                          {chartData.map((_, i) => (
+                            <Cell key={i} fill={CHART_COLORS[i % CHART_COLORS.length]} />
+                          ))}
+                        </Pie>
+                        <Tooltip formatter={(value: number) => [`${Math.round((value / totalPercent) * 100)}%`, '']} contentStyle={{ fontSize: '11px' }} />
+                      </PieChart>
+                    </ResponsiveContainer>
+                  </div>
+                  <div className="flex-1 space-y-1">
+                    {chartData.map((item, i) => (
+                      <div key={item.name} className="flex items-center gap-2 text-xs font-sans font-light">
+                        <div className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ backgroundColor: CHART_COLORS[i % CHART_COLORS.length] }} />
+                        <span className="text-foreground">{item.name}</span>
+                        <span className="text-muted-foreground ml-auto">{Math.round((item.value / totalPercent) * 100)}%</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             )}
@@ -239,7 +304,6 @@ const Step6Review = () => {
             </p>
           </div>
 
-          {/* Header card */}
           <div className="gradient-navy rounded-xl p-6 text-cream-light">
             <div className="flex items-center gap-4 mb-4">
               {store.photoPreviewUrl ? (
@@ -258,7 +322,6 @@ const Step6Review = () => {
             <div className="mt-2">{pqe && <SeniorityBadge info={pqe} />}</div>
           </div>
 
-          {/* Details */}
           <div className="carter-card p-6">
             <div className="grid grid-cols-2 gap-4 text-sm font-sans mb-6">
               <div><span className="text-muted-foreground font-light">Cabinet</span><p className="font-medium">{store.cabinet}</p></div>
@@ -267,12 +330,12 @@ const Step6Review = () => {
               {store.cabTier && <div><span className="text-muted-foreground font-light">Tier</span><p className="font-medium">{store.cabTier}</p></div>}
               {store.disponibilite && <div><span className="text-muted-foreground font-light">Disponibilité</span><p className="font-medium">{store.disponibilite}</p></div>}
               {store.tailleOperations.length > 0 && <div><span className="text-muted-foreground font-light">Taille opérations</span><p className="font-medium">{store.tailleOperations.join(', ')}</p></div>}
+              {store.anglais && <div><span className="text-muted-foreground font-light">Anglais</span><p className="font-medium">{store.anglais}</p></div>}
               {store.isAssocieOrCounsel && store.chiffreAffairesPortable && (
                 <div><span className="text-muted-foreground font-light">CA portable</span><p className="font-medium">{store.chiffreAffairesPortable} €</p></div>
               )}
             </div>
 
-            {/* Financial */}
             {(store.retrocession || store.bonus) && (
               <div className="gradient-navy rounded-lg p-4 mb-6">
                 <h4 className="text-xs font-sans font-medium text-cream-light/60 uppercase tracking-wider mb-3">Rémunération</h4>
@@ -297,7 +360,18 @@ const Step6Review = () => {
               </div>
             )}
 
-            {/* Activities */}
+            {/* Clientèle */}
+            {store.typesClients.length > 0 && (
+              <div className="mb-4">
+                <h4 className="text-xs font-sans font-medium text-muted-foreground uppercase tracking-wider mb-2">Clientèle</h4>
+                <div className="flex flex-wrap gap-2">
+                  {store.typesClients.map(c => (
+                    <span key={c} className="px-3 py-1 rounded-full bg-muted text-foreground text-xs font-sans font-light">{c}</span>
+                  ))}
+                </div>
+              </div>
+            )}
+
             {activeActivites.length > 0 && (
               <div className="mb-4">
                 <div className="flex flex-wrap gap-2">

@@ -5,7 +5,7 @@ import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Checkbox } from '@/components/ui/checkbox';
 import FileDropzone from '@/components/shared/FileDropzone';
-import { Eye, EyeOff, Zap, ShieldCheck } from 'lucide-react';
+import { Eye, EyeOff, Zap, ShieldCheck, Bell, MessageSquare, Handshake } from 'lucide-react';
 
 const Step5Status = () => {
   const store = useRegistrationStore();
@@ -24,6 +24,46 @@ const Step5Status = () => {
       <p className="text-muted-foreground font-sans font-light mb-8">Définissez votre disponibilité et le niveau de confidentialité souhaité.</p>
 
       <div className="space-y-8">
+        {/* How it works — Confidentiality workflow */}
+        <div className="carter-card-elevated p-6 space-y-4 border-carter-accent/20">
+          <h3 className="font-serif text-lg text-foreground">Comment ça fonctionne</h3>
+          <div className="space-y-4">
+            <div className="flex items-start gap-3">
+              <div className="w-8 h-8 rounded-full bg-carter-accent/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <Bell className="w-4 h-4 text-carter-accent" />
+              </div>
+              <div>
+                <p className="font-sans text-sm font-medium text-foreground">1. Notification confidentielle</p>
+                <p className="font-sans text-xs font-light text-muted-foreground mt-0.5">
+                  Un cabinet manifeste un intérêt pour votre profil. Vous êtes notifié sans que votre identité ne soit révélée.
+                </p>
+              </div>
+            </div>
+            <div className="flex items-start gap-3">
+              <div className="w-8 h-8 rounded-full bg-carter-accent/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <MessageSquare className="w-4 h-4 text-carter-accent" />
+              </div>
+              <div>
+                <p className="font-sans text-sm font-medium text-foreground">2. Votre décision</p>
+                <p className="font-sans text-xs font-light text-muted-foreground mt-0.5">
+                  Vous choisissez de répondre favorablement ou non. Par exemple : <em className="text-foreground">"Oui, un échange à ce sujet avec Carter pourrait m'intéresser."</em>
+                </p>
+              </div>
+            </div>
+            <div className="flex items-start gap-3">
+              <div className="w-8 h-8 rounded-full bg-carter-accent/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <Handshake className="w-4 h-4 text-carter-accent" />
+              </div>
+              <div>
+                <p className="font-sans text-sm font-medium text-foreground">3. Accompagnement Carter</p>
+                <p className="font-sans text-xs font-light text-muted-foreground mt-0.5">
+                  Carter prend contact avec vous, s'assure de la cohérence de l'opportunité avec votre projet, puis organise la mise en relation et gère le processus jusqu'à son terme.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* Statut d'écoute */}
         <div>
           <Label className="font-sans text-sm font-medium mb-4 block">Statut d'écoute</Label>
