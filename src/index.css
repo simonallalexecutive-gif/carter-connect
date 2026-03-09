@@ -6,7 +6,7 @@
 
 @layer base {
   :root {
-    /* Clean SaaS: white bg, black text, indigo accent */
+    /* Monochrome system — Harvey-inspired */
     --background: 0 0% 100%;          /* #FFFFFF */
     --foreground: 0 0% 7%;            /* #111111 */
 
@@ -16,7 +16,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 7%;
 
-    --primary: 234 100% 68%;           /* #5C6CFF */
+    --primary: 0 0% 7%;               /* #111111 */
     --primary-foreground: 0 0% 100%;
 
     --secondary: 0 0% 96%;            /* #F5F5F5 */
@@ -25,7 +25,7 @@
     --muted: 0 0% 96%;                /* #F5F5F5 */
     --muted-foreground: 0 0% 48%;     /* #7A7A7A */
 
-    --accent: 234 100% 68%;           /* #5C6CFF */
+    --accent: 0 0% 21%;               /* #374151 */
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 55% 50%;
@@ -33,40 +33,40 @@
 
     --border: 0 0% 84%;               /* #D6D6D6 */
     --input: 0 0% 84%;
-    --ring: 234 100% 68%;
+    --ring: 0 0% 29%;                 /* #4B4B4B */
 
     --radius: 0.5rem;
 
-    /* Carter tokens — clean system */
+    /* Carter tokens — monochrome */
     --carter-bg-deep: 0 0% 100%;
     --carter-bg: 0 0% 100%;
     --carter-bg-elevated: 0 0% 96%;    /* #F5F5F5 */
     --carter-bg-surface: 0 0% 96%;
 
-    --carter-gold: 234 100% 68%;       /* accent indigo */
-    --carter-gold-muted: 234 60% 75%;  /* #A7B0FF zone */
-    --carter-gold-bright: 234 100% 68%;
+    --carter-gold: 0 0% 29%;           /* #4B4B4B */
+    --carter-gold-muted: 0 0% 42%;     /* #6B7280 */
+    --carter-gold-bright: 0 0% 7%;     /* #111111 */
 
     --carter-text-primary: 0 0% 7%;    /* #111111 */
     --carter-text-secondary: 0 0% 29%; /* #4B4B4B */
     --carter-text-tertiary: 0 0% 48%;  /* #7A7A7A */
 
     --carter-border: 0 0% 84%;         /* #D6D6D6 */
-    --carter-border-subtle: 0 0% 92%;
-    --carter-border-accent: 234 60% 75%;
+    --carter-border-subtle: 0 0% 90%;  /* #E5E7EB */
+    --carter-border-accent: 0 0% 61%;  /* #9CA3AF */
 
     --shadow-card: 0 1px 3px 0 hsl(0 0% 0% / 0.04), 0 1px 2px -1px hsl(0 0% 0% / 0.04);
     --shadow-elevated: 0 4px 16px -2px hsl(0 0% 0% / 0.08);
-    --shadow-glow: 0 0 30px -10px hsl(234 100% 68% / 0.12);
+    --shadow-glow: 0 0 30px -10px hsl(0 0% 0% / 0.08);
 
     --sidebar-background: 0 0% 100%;
     --sidebar-foreground: 0 0% 7%;
-    --sidebar-primary: 234 100% 68%;
+    --sidebar-primary: 0 0% 7%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 0 0% 96%;
     --sidebar-accent-foreground: 0 0% 7%;
     --sidebar-border: 0 0% 84%;
-    --sidebar-ring: 234 100% 68%;
+    --sidebar-ring: 0 0% 29%;
   }
 
   /* Light mode for registration form — same as root now */
