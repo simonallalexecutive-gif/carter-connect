@@ -49,25 +49,26 @@ const LandingPage = () => (
         <div className="absolute top-1/4 right-1/4 w-96 h-96 rounded-full bg-carter-accent blur-3xl" />
         <div className="absolute bottom-1/4 left-1/3 w-64 h-64 rounded-full bg-cream blur-3xl" />
       </div>
-      <div className="carter-container relative z-10 pt-16">
+      <div className="carter-container relative z-10 pt-20">
         <motion.div
           variants={stagger}
           initial="hidden"
           animate="visible"
           className="max-w-3xl"
         >
-          <motion.p variants={fadeUp} className="text-carter-accent font-sans text-sm font-semibold tracking-widest uppercase mb-6">
+          <motion.p variants={fadeUp} className="text-carter-accent font-sans text-xs font-medium tracking-[0.25em] uppercase mb-8">
             Réseau confidentiel
           </motion.p>
-          <motion.h1 variants={fadeUp} className="text-4xl md:text-6xl lg:text-7xl font-serif text-cream-light leading-[1.1] mb-6">
-            Welcome to <em className="text-carter-accent">Carter</em>
+          <motion.h1 variants={fadeUp} className="text-5xl md:text-7xl lg:text-8xl font-sans font-extralight text-cream-light leading-[1.05] mb-8 tracking-tight">
+            Welcome to{' '}
+            <span className="text-carter-accent font-light">Carter</span>
           </motion.h1>
-          <motion.p variants={fadeUp} className="text-lg md:text-xl text-cream-light/60 font-sans font-light max-w-xl mb-10">
-            Carter met en relation les meilleurs avocats d'affaires avec les cabinets les plus prestigieux, en toute confidentialité.
+          <motion.p variants={fadeUp} className="text-base md:text-lg text-cream-light/50 font-sans font-light max-w-xl mb-12 leading-relaxed">
+            La plateforme confidentielle de mise en relation entre avocats d'affaires et cabinets de premier plan.
           </motion.p>
           <motion.div variants={fadeUp} className="flex flex-col sm:flex-row gap-4">
             <Link to="/inscription">
-              <Button size="lg" className="bg-carter-accent hover:bg-carter-accent-light text-accent-foreground font-sans text-base px-8 py-6 rounded-xl">
+              <Button size="lg" className="bg-carter-accent hover:bg-carter-accent-light text-accent-foreground font-sans text-sm font-medium px-8 py-6 rounded-lg tracking-wide">
                 Rejoindre Carter
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
@@ -90,7 +91,7 @@ const LandingPage = () => (
           <h2 className="text-3xl md:text-4xl font-serif text-foreground mb-4">
             Pourquoi <em className="text-carter-accent">Carter</em> ?
           </h2>
-          <p className="text-muted-foreground font-sans max-w-lg mx-auto">
+          <p className="text-muted-foreground font-sans font-light max-w-lg mx-auto">
             Un service pensé pour les exigences du marché juridique haut de gamme.
           </p>
         </motion.div>
@@ -109,7 +110,7 @@ const LandingPage = () => (
                 <f.icon className="w-7 h-7 text-carter-accent" />
               </div>
               <h3 className="font-serif text-xl text-foreground mb-3">{f.title}</h3>
-              <p className="font-sans text-sm text-muted-foreground">{f.desc}</p>
+              <p className="font-sans text-sm text-muted-foreground font-light">{f.desc}</p>
             </motion.div>
           ))}
         </div>
@@ -137,11 +138,11 @@ const LandingPage = () => (
               transition={{ delay: i * 0.1 }}
               className="text-center"
             >
-              <div className="w-12 h-12 rounded-full gradient-navy flex items-center justify-center mx-auto mb-5 text-cream-light font-sans font-bold">
+              <div className="w-12 h-12 rounded-full gradient-navy flex items-center justify-center mx-auto mb-5 text-cream-light font-sans font-medium text-sm">
                 {i + 1}
               </div>
               <h3 className="font-serif text-xl text-foreground mb-2">{s.title}</h3>
-              <p className="font-sans text-sm text-muted-foreground">{s.desc}</p>
+              <p className="font-sans text-sm text-muted-foreground font-light">{s.desc}</p>
             </motion.div>
           ))}
         </div>
@@ -156,14 +157,14 @@ const LandingPage = () => (
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-3xl md:text-4xl font-serif text-cream-light mb-6">
-            Prêt à franchir le pas ?
+          <h2 className="text-3xl md:text-4xl font-sans font-light text-cream-light mb-6 tracking-tight">
+            Intégrer le membership
           </h2>
-          <p className="text-cream-light/60 font-sans mb-8 max-w-md mx-auto">
+          <p className="text-cream-light/50 font-sans font-light mb-8 max-w-md mx-auto">
             Inscription confidentielle en moins de 10 minutes. Profil validé sous 48h.
           </p>
           <Link to="/inscription">
-            <Button size="lg" className="bg-carter-accent hover:bg-carter-accent-light text-accent-foreground font-sans text-base px-10 py-6 rounded-xl">
+            <Button size="lg" className="bg-carter-accent hover:bg-carter-accent-light text-accent-foreground font-sans text-sm font-medium px-10 py-6 rounded-lg">
               Commencer maintenant
             </Button>
           </Link>
