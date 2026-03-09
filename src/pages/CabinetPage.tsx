@@ -35,7 +35,7 @@ const CabinetPage = () => {
     <div className="min-h-screen bg-background flex flex-col">
       {/* Black Carter banner for all steps */}
       <div className="bg-black px-6 md:px-12 py-4 flex items-center">
-        <span className="font-serif text-sm font-bold text-white tracking-[0.1em]">CARTER</span>
+        <Link to="/" className="font-serif text-sm font-bold text-white tracking-[0.1em] hover:text-white/80 transition-colors">CARTER</Link>
         <span className="w-px h-4 bg-white/20 mx-3" />
         <span className="text-[10px] text-white/40 tracking-[0.1em] uppercase font-sans">Espace Cabinet</span>
       </div>
