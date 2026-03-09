@@ -58,13 +58,13 @@ const LandingPage = () => (
           src={heroBg}
           alt=""
           initial={{ opacity: 0, scale: 1.05 }}
-          animate={{ opacity: 0.25, scale: 1 }}
+          animate={{ opacity: 0.5, scale: 1 }}
           transition={{ duration: 2, ease: 'easeOut' }}
-          className="w-full h-full object-cover object-center"
+          className="w-full h-full object-cover object-left"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/90 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/80" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black" />
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-black/60 to-black" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/70" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black" />
       </div>
       <div className="px-6 sm:px-8 lg:px-10 max-w-6xl relative z-10 pt-24 flex-1 flex items-center">
           <motion.div variants={stagger} initial="hidden" animate="visible" className="max-w-3xl">
