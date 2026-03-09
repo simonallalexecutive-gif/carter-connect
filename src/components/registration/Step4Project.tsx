@@ -3,19 +3,13 @@ import { useRegistrationStore } from '@/stores/registrationStore';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { Input } from '@/components/ui/input';
+import { Checkbox } from '@/components/ui/checkbox';
 import ChipSelector from '@/components/shared/ChipSelector';
 import AutocompleteInput from '@/components/shared/AutocompleteInput';
 import { QUALITES, AXES, NOGO_SUGGESTIONS, CABINETS } from '@/lib/constants';
 
 const Step4Project = () => {
   const store = useRegistrationStore();
-
-  const updateBullet = (index: number, value: string) => {
-    const newBullets = [...store.bullets];
-    newBullets[index] = value;
-    store.setField('bullets', newBullets);
-  };
 
   const canProceed = store.motivation.length >= 20;
 
@@ -27,7 +21,7 @@ const Step4Project = () => {
       className="max-w-2xl mx-auto px-4 py-8"
     >
       <h2 className="text-3xl font-serif text-foreground mb-2">Votre projet</h2>
-      <p className="text-muted-foreground font-sans mb-8">Ce que vous recherchez et ce qui vous motive.</p>
+      <p className="text-muted-foreground font-sans mb-8">Ce que vous recherchez et ce qui vous anime.</p>
 
       <div className="space-y-8">
         {/* Qualités */}
@@ -59,25 +53,10 @@ const Step4Project = () => {
           <Textarea
             value={store.motivation}
             onChange={e => store.setField('motivation', e.target.value)}
-            placeholder="Décrivez votre motivation et le contexte de votre recherche de mobilité..."
+            placeholder="Décrivez votre motivation et le contexte de votre recherche..."
             className="mt-1 min-h-[120px]"
           />
           <p className="text-xs text-muted-foreground font-sans mt-1">{store.motivation.length}/500 caractères</p>
-        </div>
-
-        {/* Bullets */}
-        <div>
-          <Label className="font-sans text-sm font-semibold mb-3 block">3 points clés de votre profil</Label>
-          <div className="space-y-2">
-            {store.bullets.map((bullet, i) => (
-              <Input
-                key={i}
-                value={bullet}
-                onChange={e => updateBullet(i, e.target.value)}
-                placeholder={`Point ${i + 1}...`}
-              />
-            ))}
-          </div>
         </div>
 
         {/* Cabinets cibles */}
@@ -104,20 +83,19 @@ const Step4Project = () => {
         </div>
 
         {/* Process en cours */}
-        <div>
-          <Label className="font-sans text-sm">Processus en cours ?</Label>
-          <Textarea
-            value={store.processusCours}
-            onChange={e => store.setField('processusCours', e.target.value)}
-            placeholder="Êtes-vous en discussion avec d'autres cabinets ?"
-            className="mt-1"
+        <div className="flex items-center gap-3">
+          <Checkbox
+            id="processus"
+            checked={store.processusCours === 'oui'}
+            onCheckedChange={v => store.setField('processusCours', v ? 'oui' : '')}
           />
+          <Label htmlFor="processus" className="font-sans text-sm cursor-pointer">J'ai des processus en cours avec d'autres cabinets</Label>
         </div>
 
         {/* Navigation */}
         <div className="flex justify-between pt-4">
           <Button variant="outline" onClick={store.prevStep} className="font-sans">Retour</Button>
-          <Button onClick={store.nextStep} disabled={!canProceed} className="bg-carter-red hover:bg-carter-red-light text-accent-foreground font-sans">
+          <Button onClick={store.nextStep} disabled={!canProceed} className="bg-carter-accent hover:bg-carter-accent-light text-accent-foreground font-sans">
             Continuer
           </Button>
         </div>

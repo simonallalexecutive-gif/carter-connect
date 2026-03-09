@@ -76,6 +76,17 @@ const Step2Identity = () => {
           {pqe && <div className="mt-2"><SeniorityBadge info={pqe} /></div>}
         </div>
 
+        {/* Département */}
+        <div>
+          <Label className="font-sans text-sm">Département / Pratique *</Label>
+          <Select value={store.departement} onValueChange={v => store.setField('departement', v)}>
+            <SelectTrigger className="mt-1"><SelectValue placeholder="Sélectionner" /></SelectTrigger>
+            <SelectContent>
+              {DEPARTEMENTS.map(d => <SelectItem key={d} value={d}>{d}</SelectItem>)}
+            </SelectContent>
+          </Select>
+        </div>
+
         {/* Cabinet */}
         <div>
           <Label className="font-sans text-sm">Cabinet actuel *</Label>
@@ -111,26 +122,6 @@ const Step2Identity = () => {
           </div>
         </div>
 
-        {/* Département */}
-        <div>
-          <Label className="font-sans text-sm">Département / Pratique *</Label>
-          <Select value={store.departement} onValueChange={v => store.setField('departement', v)}>
-            <SelectTrigger className="mt-1"><SelectValue placeholder="Sélectionner" /></SelectTrigger>
-            <SelectContent>
-              {DEPARTEMENTS.map(d => <SelectItem key={d} value={d}>{d}</SelectItem>)}
-            </SelectContent>
-          </Select>
-        </div>
-
-        {/* Legal 500 */}
-        <div className="flex items-center gap-3">
-          <Switch
-            checked={store.legal500 === true}
-            onCheckedChange={v => store.setField('legal500', v)}
-          />
-          <Label className="font-sans text-sm">Suivi par le Legal 500 ?</Label>
-        </div>
-
         {/* Financier */}
         <div className="carter-card p-6 space-y-4">
           <h3 className="font-serif text-lg text-foreground">Rémunération <span className="text-xs text-muted-foreground font-sans">(confidentiel)</span></h3>
@@ -162,7 +153,7 @@ const Step2Identity = () => {
         {/* Navigation */}
         <div className="flex justify-between pt-4">
           <Button variant="outline" onClick={store.prevStep} className="font-sans">Retour</Button>
-          <Button onClick={store.nextStep} disabled={!canProceed} className="bg-carter-red hover:bg-carter-red-light text-accent-foreground font-sans">
+          <Button onClick={store.nextStep} disabled={!canProceed} className="bg-carter-accent hover:bg-carter-accent-light text-accent-foreground font-sans">
             Continuer
           </Button>
         </div>

@@ -15,13 +15,13 @@ const Step1Hero = () => {
         className="text-center max-w-2xl"
       >
         <div className="flex justify-center mb-8">
-          <div className="w-16 h-16 rounded-2xl bg-carter-red/20 flex items-center justify-center">
-            <Scale className="w-8 h-8 text-carter-red" />
+          <div className="w-16 h-16 rounded-2xl bg-carter-accent/20 flex items-center justify-center">
+            <Scale className="w-8 h-8 text-carter-accent" />
           </div>
         </div>
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif text-cream-light mb-6 leading-tight">
           Rejoignez le réseau<br />
-          <span className="italic text-carter-red">Carter</span>
+          <span className="italic text-carter-accent">Carter</span>
         </h1>
         <p className="text-lg md:text-xl text-cream-light/70 font-sans font-light mb-10 max-w-lg mx-auto">
           La plateforme confidentielle de mise en relation entre avocats d'affaires et cabinets de premier plan.
@@ -34,7 +34,7 @@ const Step1Hero = () => {
           <Button
             onClick={nextStep}
             size="lg"
-            className="bg-carter-red hover:bg-carter-red-light text-accent-foreground font-sans text-base px-10 py-6 rounded-xl"
+            className="bg-carter-accent hover:bg-carter-accent-light text-accent-foreground font-sans text-base px-10 py-6 rounded-xl"
           >
             Commencer mon inscription
           </Button>

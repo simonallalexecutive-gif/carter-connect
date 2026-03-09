@@ -24,7 +24,7 @@
     --muted: 37 24% 90%;
     --muted-foreground: 220 10% 40%;
 
-    --accent: 0 70% 50%;
+    --accent: 195 60% 28%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 70% 50%;
@@ -43,10 +43,10 @@
     --cream-light: 40 50% 99%;
     --cream: 40 33% 97%;
     --cream-border: 37 24% 88%;
-    --red-pale: 0 78% 97%;
-    --red-border: 0 62% 84%;
-    --red-light: 0 76% 55%;
-    --red: 0 67% 50%;
+    --carter-accent-pale: 195 30% 95%;
+    --carter-accent-border: 195 35% 70%;
+    --carter-accent-light: 195 55% 35%;
+    --carter-accent: 195 60% 28%;
     --text-dark: 220 62% 15%;
     --text-mid: 215 13% 35%;
     --text-soft: 60 4% 52%;

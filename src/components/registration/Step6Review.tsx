@@ -28,7 +28,7 @@ const Step6Review = () => {
         {/* Identity */}
         <div className="carter-card p-6">
           <div className="flex items-center gap-2 mb-4">
-            <User className="w-5 h-5 text-carter-red" />
+            <User className="w-5 h-5 text-carter-accent" />
             <h3 className="font-serif text-lg">Identité</h3>
           </div>
           <div className="grid grid-cols-2 gap-4 text-sm font-sans">
@@ -42,12 +42,12 @@ const Step6Review = () => {
         {/* Cabinet */}
         <div className="carter-card p-6">
           <div className="flex items-center gap-2 mb-4">
-            <Briefcase className="w-5 h-5 text-carter-red" />
+            <Briefcase className="w-5 h-5 text-carter-accent" />
             <h3 className="font-serif text-lg">Cabinet & Pratique</h3>
           </div>
           <div className="grid grid-cols-2 gap-4 text-sm font-sans">
-            <div><span className="text-muted-foreground">Cabinet</span><p className="font-semibold">{store.cabinet}</p></div>
             <div><span className="text-muted-foreground">Département</span><p className="font-semibold">{store.departement}</p></div>
+            <div><span className="text-muted-foreground">Cabinet</span><p className="font-semibold">{store.cabinet}</p></div>
             {store.cabNat && <div><span className="text-muted-foreground">Nationalité</span><p className="font-semibold">{store.cabNat}</p></div>}
             {store.cabTier && <div><span className="text-muted-foreground">Tier</span><p className="font-semibold">{store.cabTier}</p></div>}
           </div>
@@ -56,7 +56,7 @@ const Step6Review = () => {
         {/* Activity */}
         <div className="carter-card p-6">
           <div className="flex items-center gap-2 mb-4">
-            <Target className="w-5 h-5 text-carter-red" />
+            <Target className="w-5 h-5 text-carter-accent" />
             <h3 className="font-serif text-lg">Activité</h3>
           </div>
           <div className="flex flex-wrap gap-2 mb-3">
@@ -78,7 +78,7 @@ const Step6Review = () => {
         {/* Project */}
         <div className="carter-card p-6">
           <div className="flex items-center gap-2 mb-4">
-            <CheckCircle2 className="w-5 h-5 text-carter-red" />
+            <CheckCircle2 className="w-5 h-5 text-carter-accent" />
             <h3 className="font-serif text-lg">Projet</h3>
           </div>
           <div className="space-y-3 text-sm font-sans">
@@ -97,7 +97,7 @@ const Step6Review = () => {
         {/* Status */}
         <div className="carter-card p-6">
           <div className="flex items-center gap-2 mb-4">
-            <Shield className="w-5 h-5 text-carter-red" />
+            <Shield className="w-5 h-5 text-carter-accent" />
             <h3 className="font-serif text-lg">Statut</h3>
           </div>
           <div className="grid grid-cols-2 gap-4 text-sm font-sans">
@@ -109,7 +109,7 @@ const Step6Review = () => {
         {/* Navigation */}
         <div className="flex justify-between pt-4">
           <Button variant="outline" onClick={store.prevStep} className="font-sans">Retour</Button>
-          <Button onClick={store.nextStep} className="bg-carter-red hover:bg-carter-red-light text-accent-foreground font-sans px-8">
+          <Button onClick={store.nextStep} className="bg-carter-accent hover:bg-carter-accent-light text-accent-foreground font-sans px-8">
             Soumettre mon profil
           </Button>
         </div>

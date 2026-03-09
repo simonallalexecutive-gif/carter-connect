@@ -29,7 +29,7 @@ const StepProgress = ({ currentStep, totalSteps = 7 }: StepProgressProps) => {
                 <div
                   className={cn(
                     "absolute top-4 right-1/2 w-full h-0.5 -z-10",
-                    isCompleted || isActive ? "bg-carter-red" : "bg-border"
+                    isCompleted || isActive ? "bg-carter-accentent" : "bg-border"
                   )}
                 />
               )}
@@ -37,7 +37,7 @@ const StepProgress = ({ currentStep, totalSteps = 7 }: StepProgressProps) => {
               <div
                 className={cn(
                   "w-8 h-8 rounded-full flex items-center justify-center text-xs font-sans font-semibold transition-all duration-300",
-                  isCompleted && "bg-carter-red text-accent-foreground",
+                  isCompleted && "bg-cartaccentred text-accent-foreground",
                   isActive && "bg-primary text-primary-foreground ring-4 ring-primary/20",
                   !isCompleted && !isActive && "bg-muted text-muted-foreground"
                 )}
