@@ -18,9 +18,9 @@ const Step7Confirm = () => {
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ delay: 0.2, type: 'spring', stiffness: 200 }}
-          className="w-20 h-20 rounded-full bg-carter-red/20 flex items-center justify-center mx-auto mb-8"
+          className="w-20 h-20 rounded-full bg-carter-accent/20 flex items-center justify-center mx-auto mb-8"
         >
-          <CheckCircle2 className="w-10 h-10 text-carter-red" />
+          <CheckCircle2 className="w-10 h-10 text-carter-accent" />
         </motion.div>
 
         <h1 className="text-3xl md:text-4xl font-serif text-cream-light mb-4">
