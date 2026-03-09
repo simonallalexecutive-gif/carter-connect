@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,700&family=Inter:wght@200;300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,700&family=Inter:wght@200;300;400;500;600&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,63 +6,66 @@
 
 @layer base {
   :root {
-    --background: 40 33% 97%;
-    --foreground: 220 62% 15%;
+    --background: 30 10% 6%;
+    --foreground: 38 40% 92%;
 
-    --card: 40 33% 97%;
-    --card-foreground: 220 62% 15%;
+    --card: 30 8% 10%;
+    --card-foreground: 38 40% 92%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 220 62% 15%;
+    --popover: 30 8% 10%;
+    --popover-foreground: 38 40% 92%;
 
-    --primary: 220 62% 15%;
-    --primary-foreground: 40 33% 97%;
+    --primary: 38 40% 92%;
+    --primary-foreground: 30 10% 6%;
 
-    --secondary: 40 33% 97%;
-    --secondary-foreground: 220 62% 15%;
+    --secondary: 30 8% 14%;
+    --secondary-foreground: 38 40% 92%;
 
-    --muted: 37 24% 90%;
-    --muted-foreground: 220 10% 40%;
+    --muted: 30 6% 16%;
+    --muted-foreground: 38 15% 55%;
 
-    --accent: 210 55% 35%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 38 55% 72%;
+    --accent-foreground: 30 10% 6%;
 
-    --destructive: 0 70% 50%;
-    --destructive-foreground: 0 0% 100%;
+    --destructive: 0 60% 45%;
+    --destructive-foreground: 38 40% 92%;
 
-    --border: 37 24% 88%;
-    --input: 37 24% 88%;
-    --ring: 220 62% 15%;
+    --border: 30 8% 18%;
+    --input: 30 8% 18%;
+    --ring: 38 55% 72%;
 
-    --radius: 0.625rem;
+    --radius: 0.5rem;
 
-    /* Carter custom tokens */
-    --navy-deep: 216 70% 8%;
-    --navy-mid: 220 60% 18%;
-    --navy: 220 62% 15%;
-    --cream-light: 40 50% 99%;
-    --cream: 40 33% 97%;
-    --cream-border: 37 24% 88%;
-    --carter-accent-pale: 210 30% 93%;
-    --carter-accent-border: 210 45% 50%;
-    --carter-accent-light: 210 50% 40%;
-    --carter-accent: 210 55% 35%;
-    --text-dark: 220 62% 15%;
-    --text-mid: 215 13% 35%;
-    --text-soft: 60 4% 52%;
+    /* Carter premium tokens */
+    --carter-bg-deep: 30 12% 4%;
+    --carter-bg: 30 10% 6%;
+    --carter-bg-elevated: 30 8% 10%;
+    --carter-bg-surface: 30 8% 14%;
 
-    --gradient-navy: linear-gradient(135deg, hsl(216 70% 8%), hsl(220 60% 18%));
-    --shadow-card: 0 4px 24px -4px hsl(220 62% 15% / 0.08);
-    --shadow-elevated: 0 12px 40px -8px hsl(220 62% 15% / 0.15);
+    --carter-gold: 38 55% 72%;
+    --carter-gold-muted: 38 30% 45%;
+    --carter-gold-bright: 38 65% 80%;
 
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --carter-text-primary: 38 40% 92%;
+    --carter-text-secondary: 38 15% 60%;
+    --carter-text-tertiary: 38 10% 40%;
+
+    --carter-border: 30 8% 18%;
+    --carter-border-subtle: 30 6% 14%;
+    --carter-border-accent: 38 30% 30%;
+
+    --shadow-card: 0 4px 24px -4px hsl(0 0% 0% / 0.4);
+    --shadow-elevated: 0 16px 48px -8px hsl(0 0% 0% / 0.5);
+    --shadow-glow: 0 0 40px -10px hsl(38 55% 72% / 0.1);
+
+    --sidebar-background: 30 8% 10%;
+    --sidebar-foreground: 38 40% 92%;
+    --sidebar-primary: 38 40% 92%;
+    --sidebar-primary-foreground: 30 10% 6%;
+    --sidebar-accent: 30 8% 14%;
+    --sidebar-accent-foreground: 38 40% 92%;
+    --sidebar-border: 30 8% 18%;
+    --sidebar-ring: 38 55% 72%;
   }
 }
 
@@ -78,36 +81,73 @@
   h1, h2, h3, h4, h5, h6 {
     @apply font-serif;
   }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--carter-bg));
+  }
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--carter-border));
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--carter-gold-muted));
+  }
 }
 
 @layer utilities {
-  .gradient-navy {
-    background: linear-gradient(135deg, hsl(var(--navy-deep)), hsl(var(--navy-mid)));
+  .gradient-dark {
+    background: linear-gradient(180deg, hsl(var(--carter-bg-deep)), hsl(var(--carter-bg)));
   }
 
-  .text-gradient-navy {
-    background: linear-gradient(135deg, hsl(var(--navy-deep)), hsl(var(--navy-mid)));
+  .gradient-surface {
+    background: linear-gradient(180deg, hsl(var(--carter-bg-elevated)), hsl(var(--carter-bg)));
+  }
+
+  .gradient-gold-text {
+    background: linear-gradient(135deg, hsl(var(--carter-gold-bright)), hsl(var(--carter-gold)));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+  }
+
+  .glow-gold {
+    box-shadow: var(--shadow-glow);
+  }
+
+  .border-gradient {
+    border-image: linear-gradient(180deg, hsl(var(--carter-border) / 0.6), transparent) 1;
   }
 }
 
 @layer components {
   .carter-card {
-    @apply bg-popover rounded-xl border border-border;
+    @apply bg-card rounded-lg border border-border;
     box-shadow: var(--shadow-card);
   }
 
   .carter-card-elevated {
-    @apply bg-popover rounded-xl border border-border;
+    @apply bg-card rounded-lg border border-border;
     box-shadow: var(--shadow-elevated);
   }
 
   .carter-section {
-    @apply py-16 md:py-24;
+    @apply py-20 md:py-32;
   }
 
   .carter-container {
-    @apply max-w-6xl mx-auto px-4 sm:px-6 lg:px-8;
+    @apply max-w-6xl mx-auto px-6 sm:px-8 lg:px-10;
+  }
+
+  .carter-label {
+    @apply text-xs font-sans font-medium tracking-[0.2em] uppercase;
+    color: hsl(var(--carter-gold));
+  }
+
+  .carter-divider {
+    @apply w-12 h-px;
+    background: hsl(var(--carter-gold-muted));
   }
 }
