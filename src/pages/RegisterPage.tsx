@@ -11,10 +11,21 @@ import { useEffect } from 'react';
 
 const RegisterPage = () => {
   const currentStep = useRegistrationStore(s => s.currentStep);
+  const isDarkStep = currentStep === 1 || currentStep === 7;
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [currentStep]);
+
+  // Apply theme-light to <body> so Radix portals (Select, Popover, etc.) inherit light tokens
+  useEffect(() => {
+    if (!isDarkStep) {
+      document.body.classList.add('theme-light');
+    } else {
+      document.body.classList.remove('theme-light');
+    }
+    return () => document.body.classList.remove('theme-light');
+  }, [isDarkStep]);
 
   const renderStep = () => {
     switch (currentStep) {
