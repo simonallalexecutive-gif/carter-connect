@@ -56,7 +56,7 @@ const Step6Review = () => {
         {/* Activity */}
         <div className="carter-card p-6">
           <div className="flex items-center gap-2 mb-4">
-            <Target classNaaccent"w-accent-5 accentt-caccenter-red" />
+            <Target className="w-5 h-5 text-carter-accent" />
             <h3 className="font-serif text-lg">Activité</h3>
           </div>
           <div className="flex flex-wrap gap-2 mb-3">
