@@ -51,8 +51,8 @@ const LandingPage = () => (
 
     {/* Hero */}
     <section className="min-h-screen flex flex-col justify-center relative overflow-hidden bg-black">
-      <div className="carter-container relative z-10 pt-24 flex-1 flex items-center justify-start">
-        <motion.div variants={stagger} initial="hidden" animate="visible" className="max-w-3xl ml-0">
+        <div className="px-6 sm:px-8 lg:px-10 max-w-6xl relative z-10 pt-24 flex-1 flex items-center">
+          <motion.div variants={stagger} initial="hidden" animate="visible" className="max-w-3xl">
           <motion.p variants={fadeUp} className="text-xs font-sans font-medium tracking-[0.25em] uppercase text-white/50 mb-10">
             Réseau confidentiel
           </motion.p>
