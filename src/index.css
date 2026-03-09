@@ -6,110 +6,110 @@
 
 @layer base {
   :root {
-    /* Harvey-inspired: deep warm black with cream text */
-    --background: 30 20% 5%;
-    --foreground: 40 25% 90%;
+    /* Harvey AI: deep navy with cool neutrals */
+    --background: 222 47% 8%;       /* #0B0F19 */
+    --foreground: 210 20% 95%;      /* near white */
 
-    --card: 30 15% 8%;
-    --card-foreground: 40 25% 90%;
+    --card: 222 39% 11%;            /* #111827 */
+    --card-foreground: 210 20% 95%;
 
-    --popover: 30 15% 8%;
-    --popover-foreground: 40 25% 90%;
+    --popover: 222 39% 11%;
+    --popover-foreground: 210 20% 95%;
 
-    --primary: 40 25% 90%;
-    --primary-foreground: 30 20% 5%;
+    --primary: 210 20% 95%;
+    --primary-foreground: 222 47% 8%;
 
-    --secondary: 30 12% 12%;
-    --secondary-foreground: 40 25% 90%;
+    --secondary: 222 30% 14%;
+    --secondary-foreground: 210 20% 95%;
 
-    --muted: 30 10% 14%;
-    --muted-foreground: 35 12% 50%;
+    --muted: 222 20% 16%;
+    --muted-foreground: 215 14% 55%;  /* #9CA3AF zone */
 
-    --accent: 35 20% 65%;
-    --accent-foreground: 30 20% 5%;
+    --accent: 230 80% 62%;           /* electric blue/indigo */
+    --accent-foreground: 210 20% 98%;
 
-    --destructive: 0 55% 42%;
-    --destructive-foreground: 40 25% 90%;
+    --destructive: 0 55% 50%;
+    --destructive-foreground: 210 20% 98%;
 
-    --border: 30 10% 15%;
-    --input: 30 10% 15%;
-    --ring: 35 20% 65%;
+    --border: 220 13% 20%;           /* subtle neutral gray */
+    --input: 220 13% 20%;
+    --ring: 230 80% 62%;
 
     --radius: 0.5rem;
 
-    /* Carter premium tokens */
-    --carter-bg-deep: 30 22% 3%;
-    --carter-bg: 30 20% 5%;
-    --carter-bg-elevated: 30 15% 8%;
-    --carter-bg-surface: 30 12% 12%;
+    /* Carter premium tokens — navy system */
+    --carter-bg-deep: 222 50% 5%;
+    --carter-bg: 222 47% 8%;
+    --carter-bg-elevated: 222 39% 11%;
+    --carter-bg-surface: 222 30% 14%;
 
-    --carter-gold: 35 20% 65%;
-    --carter-gold-muted: 35 15% 40%;
-    --carter-gold-bright: 38 25% 75%;
+    --carter-gold: 230 80% 62%;       /* repurposed as accent blue */
+    --carter-gold-muted: 230 40% 40%;
+    --carter-gold-bright: 235 75% 72%;
 
-    --carter-text-primary: 40 25% 90%;
-    --carter-text-secondary: 35 12% 55%;
-    --carter-text-tertiary: 30 8% 38%;
+    --carter-text-primary: 210 20% 95%;
+    --carter-text-secondary: 215 14% 55%;
+    --carter-text-tertiary: 218 10% 38%;
 
-    --carter-border: 30 10% 15%;
-    --carter-border-subtle: 30 8% 11%;
-    --carter-border-accent: 35 15% 25%;
+    --carter-border: 220 13% 20%;
+    --carter-border-subtle: 220 10% 14%;
+    --carter-border-accent: 230 30% 30%;
 
-    --shadow-card: 0 4px 24px -4px hsl(0 0% 0% / 0.5);
-    --shadow-elevated: 0 16px 48px -8px hsl(0 0% 0% / 0.6);
-    --shadow-glow: 0 0 40px -10px hsl(35 20% 65% / 0.08);
+    --shadow-card: 0 4px 24px -4px hsl(222 50% 3% / 0.6);
+    --shadow-elevated: 0 16px 48px -8px hsl(222 50% 3% / 0.7);
+    --shadow-glow: 0 0 40px -10px hsl(230 80% 62% / 0.1);
 
-    --sidebar-background: 30 15% 8%;
-    --sidebar-foreground: 40 25% 90%;
-    --sidebar-primary: 40 25% 90%;
-    --sidebar-primary-foreground: 30 20% 5%;
-    --sidebar-accent: 30 12% 12%;
-    --sidebar-accent-foreground: 40 25% 90%;
-    --sidebar-border: 30 10% 15%;
-    --sidebar-ring: 35 20% 65%;
+    --sidebar-background: 222 39% 11%;
+    --sidebar-foreground: 210 20% 95%;
+    --sidebar-primary: 210 20% 95%;
+    --sidebar-primary-foreground: 222 47% 8%;
+    --sidebar-accent: 222 30% 14%;
+    --sidebar-accent-foreground: 210 20% 95%;
+    --sidebar-border: 220 13% 20%;
+    --sidebar-ring: 230 80% 62%;
   }
 
   /* Light mode for registration form */
   .theme-light {
-    --background: 40 20% 97%;
-    --foreground: 30 15% 12%;
+    --background: 210 20% 98%;       /* #F9FAFB */
+    --foreground: 222 39% 11%;       /* #111827 */
 
     --card: 0 0% 100%;
-    --card-foreground: 30 15% 12%;
+    --card-foreground: 222 39% 11%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 30 15% 12%;
+    --popover-foreground: 222 39% 11%;
 
-    --primary: 30 15% 12%;
-    --primary-foreground: 40 20% 97%;
+    --primary: 222 39% 11%;
+    --primary-foreground: 210 20% 98%;
 
-    --secondary: 35 10% 94%;
-    --secondary-foreground: 30 15% 12%;
+    --secondary: 210 14% 95%;       /* #F3F4F6 */
+    --secondary-foreground: 222 39% 11%;
 
-    --muted: 35 10% 94%;
-    --muted-foreground: 30 8% 45%;
+    --muted: 210 14% 95%;
+    --muted-foreground: 215 14% 45%; /* #6B7280 */
 
-    --accent: 35 10% 93%;
-    --accent-foreground: 30 15% 12%;
+    --accent: 210 14% 93%;          /* #E5E7EB */
+    --accent-foreground: 222 39% 11%;
 
-    --destructive: 0 55% 42%;
+    --destructive: 0 55% 50%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 35 10% 84%;
-    --input: 35 10% 84%;
-    --ring: 30 15% 12%;
+    --border: 214 14% 88%;          /* #D1D5DB */
+    --input: 214 14% 88%;
+    --ring: 230 80% 62%;
 
-    --carter-gold: 30 10% 32%;
-    --carter-gold-muted: 30 8% 48%;
-    --carter-gold-bright: 30 12% 22%;
+    --carter-gold: 222 30% 28%;
+    --carter-gold-muted: 220 15% 45%;
+    --carter-gold-bright: 230 80% 55%;
 
-    --carter-text-primary: 30 15% 12%;
-    --carter-text-secondary: 30 8% 45%;
-    --carter-text-tertiary: 30 6% 58%;
+    --carter-text-primary: 222 39% 11%;
+    --carter-text-secondary: 215 14% 45%;
+    --carter-text-tertiary: 215 10% 58%;
 
-    --carter-border: 35 10% 84%;
-    --carter-border-subtle: 35 8% 92%;
-    --carter-border-accent: 35 10% 68%;
+    --carter-border: 214 14% 88%;
+    --carter-border-subtle: 210 14% 93%;
+    --carter-border-accent: 214 14% 72%;
 
     --shadow-card: 0 1px 3px 0 hsl(0 0% 0% / 0.04), 0 1px 2px -1px hsl(0 0% 0% / 0.04);
     --shadow-elevated: 0 4px 16px -2px hsl(0 0% 0% / 0.08);
@@ -155,9 +155,13 @@
   }
 
   .gradient-gold-text {
-    background: linear-gradient(135deg, hsl(var(--carter-gold-bright)), hsl(var(--carter-gold)));
+    background: linear-gradient(135deg, hsl(230 80% 65%), hsl(260 70% 60%));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+  }
+
+  .gradient-accent {
+    background: linear-gradient(135deg, hsl(230 80% 60%), hsl(250 70% 55%), hsl(270 60% 55%));
   }
 
   .glow-gold {
