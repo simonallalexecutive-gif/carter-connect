@@ -4,17 +4,26 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useRegistrationStore } from '@/stores/registrationStore';
 import { ArrowRight, User, Building2, LogIn } from 'lucide-react';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 type View = 'choice' | 'login-candidat' | 'login-cabinet';
 
 const Step1Hero = () => {
   const nextStep = useRegistrationStore(s => s.nextStep);
   const navigate = useNavigate();
-  const [view, setView] = useState<View>('choice');
+  const [searchParams] = useSearchParams();
+  const espaceParam = searchParams.get('espace');
+
+  const initialView: View = espaceParam === 'candidat' ? 'login-candidat' : espaceParam === 'cabinet' ? 'login-cabinet' : 'choice';
+  const [view, setView] = useState<View>(initialView);
   const [code, setCode] = useState('');
   const [password, setPassword] = useState('');
+
+  useEffect(() => {
+    if (espaceParam === 'candidat') setView('login-candidat');
+    else if (espaceParam === 'cabinet') setView('login-cabinet');
+  }, [espaceParam]);
 
   const isLogin = view === 'login-candidat' || view === 'login-cabinet';
   const isCabinet = view === 'login-cabinet';

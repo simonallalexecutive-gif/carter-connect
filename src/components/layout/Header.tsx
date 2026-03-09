@@ -22,13 +22,13 @@ const Header = () => {
         {/* Navigation */}
         <nav className="flex items-center gap-8">
           <Link
-            to="/inscription"
+            to="/inscription?espace=candidat"
             className={cn("font-sans text-[13px] font-light transition-colors duration-300", isDark ? "text-white/60 hover:text-white" : "text-muted-foreground hover:text-foreground")}
           >
             Espace candidat
           </Link>
           <Link
-            to="/cabinet"
+            to="/inscription?espace=cabinet"
             className={cn("font-sans text-[13px] font-light transition-colors duration-300", isDark ? "text-white/60 hover:text-white" : "text-muted-foreground hover:text-foreground")}
           >
             Espace cabinet
