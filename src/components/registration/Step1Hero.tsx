@@ -5,12 +5,13 @@ import { Label } from '@/components/ui/label';
 import { useRegistrationStore } from '@/stores/registrationStore';
 import { ArrowRight, User, Building2, LogIn } from 'lucide-react';
 import { useState } from 'react';
-import { cn } from '@/lib/utils';
+import { useNavigate } from 'react-router-dom';
 
-type View = 'choice' | 'login-candidat' | 'login-cabinet';
+type View = 'choice' | 'login-candidat';
 
 const Step1Hero = () => {
   const nextStep = useRegistrationStore(s => s.nextStep);
+  const navigate = useNavigate();
   const [view, setView] = useState<View>('choice');
   const [code, setCode] = useState('');
   const [password, setPassword] = useState('');
@@ -40,43 +41,24 @@ const Step1Hero = () => {
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-lg mx-auto">
-              {[
-                {
-                  icon: User,
-                  label: 'Espace candidat',
-                  desc: 'Avocat en recherche d\'opportunités',
-                  loginView: 'login-candidat' as View,
-                },
-                {
-                  icon: Building2,
-                  label: 'Espace cabinet',
-                  desc: 'Cabinet à la recherche de talents',
-                  loginView: 'login-cabinet' as View,
-                  disabled: true,
-                },
-              ].map(opt => (
-                <button
-                  key={opt.label}
-                  onClick={() => !opt.disabled && setView(opt.loginView)}
-                  disabled={opt.disabled}
-                  className={cn(
-                    "group relative p-8 rounded-sm border text-left transition-all duration-500",
-                    opt.disabled
-                      ? "border-border/50 opacity-40 cursor-not-allowed"
-                      : "border-border hover:border-accent/50 cursor-pointer hover:bg-card/50"
-                  )}
-                >
-                  <opt.icon className="w-6 h-6 text-accent mb-4" />
-                  <h3 className="font-serif text-xl text-foreground mb-2 font-normal">{opt.label}</h3>
-                  <p className="font-sans text-xs text-muted-foreground font-light leading-relaxed">{opt.desc}</p>
-                  {opt.disabled && (
-                    <span className="absolute top-4 right-4 text-[10px] font-sans font-medium text-muted-foreground tracking-wider uppercase">Bientôt</span>
-                  )}
-                  {!opt.disabled && (
-                    <ArrowRight className="w-4 h-4 text-accent absolute top-8 right-8 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  )}
-                </button>
-              ))}
+              <button
+                onClick={() => setView('login-candidat')}
+                className="group relative p-8 rounded-sm border text-left transition-all duration-500 border-border hover:border-accent/50 cursor-pointer hover:bg-card/50"
+              >
+                <User className="w-6 h-6 text-accent mb-4" />
+                <h3 className="font-serif text-xl text-foreground mb-2 font-normal">Espace candidat</h3>
+                <p className="font-sans text-xs text-muted-foreground font-light leading-relaxed">Avocat en recherche d'opportunités</p>
+                <ArrowRight className="w-4 h-4 text-accent absolute top-8 right-8 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              </button>
+              <button
+                onClick={() => navigate('/cabinet')}
+                className="group relative p-8 rounded-sm border text-left transition-all duration-500 border-border hover:border-accent/50 cursor-pointer hover:bg-card/50"
+              >
+                <Building2 className="w-6 h-6 text-accent mb-4" />
+                <h3 className="font-serif text-xl text-foreground mb-2 font-normal">Espace cabinet</h3>
+                <p className="font-sans text-xs text-muted-foreground font-light leading-relaxed">Cabinet à la recherche de talents</p>
+                <ArrowRight className="w-4 h-4 text-accent absolute top-8 right-8 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              </button>
             </div>
 
             <p className="mt-10 text-xs text-muted-foreground/50 font-sans font-light tracking-wide">
