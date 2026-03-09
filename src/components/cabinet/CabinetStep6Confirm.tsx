@@ -1,0 +1,57 @@
+import { motion } from 'framer-motion';
+import { useCabinetStore } from '@/stores/cabinetStore';
+import { Button } from '@/components/ui/button';
+import { Check } from 'lucide-react';
+
+const CabinetStep6Confirm = () => {
+  const s = useCabinetStore();
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+      className="max-w-[600px] mx-auto text-center py-12 px-6"
+    >
+      <div className="w-[76px] h-[76px] rounded-full bg-foreground flex items-center justify-center mx-auto mb-7">
+        <Check className="w-8 h-8 text-background" strokeWidth={2.5} />
+      </div>
+
+      <h2 className="font-serif text-3xl font-bold text-foreground mb-3">Demande transmise à CARTER</h2>
+      <p className="text-sm text-muted-foreground leading-relaxed font-light max-w-md mx-auto mb-8">
+        Votre demande d'accès a bien été envoyée. Un consultant CARTER vous contacte sous <strong className="font-semibold text-foreground">48h</strong> pour valider votre compte, vous présenter les profils disponibles et vous remettre vos accès.
+      </p>
+
+      <div className="grid grid-cols-3 gap-3 max-w-[460px] mx-auto mb-9">
+        {[
+          { value: '48h', label: 'Activation' },
+          { value: '0%', label: 'Commission' },
+          { value: '100%', label: 'Confidentiel' },
+        ].map((stat) => (
+          <div key={stat.label} className="bg-secondary rounded p-4 text-center">
+            <div className="font-serif text-xl font-bold text-foreground">{stat.value}</div>
+            <div className="text-[9px] text-muted-foreground mt-1 uppercase tracking-[0.06em]">{stat.label}</div>
+          </div>
+        ))}
+      </div>
+
+      <div className="bg-foreground rounded p-4 max-w-[440px] mx-auto mb-7 text-left">
+        <div className="text-[11px] text-white/40 mb-1">Votre contact CARTER</div>
+        <div className="font-serif text-base text-white font-semibold">Équipe CARTER Advisory</div>
+        <div className="text-xs text-white/60 mt-1">contact@carter-advisory.com</div>
+      </div>
+
+      <div className="border-t border-border pt-6 max-w-[440px] mx-auto">
+        <p className="text-[11px] text-muted-foreground mb-4">En attendant la validation de votre compte, découvrez dès maintenant les profils disponibles sur la plateforme.</p>
+        <Button
+          onClick={() => s.setStep(7)}
+          className="w-full bg-foreground text-background hover:bg-foreground/90 font-sans text-sm font-bold py-6 rounded-sm"
+        >
+          Accéder à mon espace cabinet →
+        </Button>
+      </div>
+    </motion.div>
+  );
+};
+
+export default CabinetStep6Confirm;
