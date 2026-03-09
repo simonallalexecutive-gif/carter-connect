@@ -162,7 +162,7 @@ const CabinetStep5Validation = () => {
           {/* CTA */}
           <div className="p-6 text-center">
             <p className="text-[11px] text-white/30 mb-3.5 leading-relaxed">
-              CARTER qualifie l'opportunité des deux côtés avant toute mise en relation.<br />
+              LOGAN qualifie l'opportunité des deux côtés avant toute mise en relation.<br />
               Votre identité reste confidentielle jusqu'à accord mutuel.
             </p>
             <button className="w-full py-3 bg-white text-foreground font-bold text-sm rounded cursor-default">
