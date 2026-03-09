@@ -31,8 +31,8 @@ const cabinetBenefits = [
   },
   {
     number: '02',
-    title: 'Carter orchestre chaque étape',
-    desc: 'Dès qu\'un profil retient votre attention, Carter prend le relais : validation de la pertinence, mise en relation, gestion intégrale du processus jusqu\'à l\'aboutissement.',
+    title: 'Logan orchestre chaque étape',
+    desc: 'Dès qu\'un profil retient votre attention, Logan prend le relais : validation de la pertinence, mise en relation, gestion intégrale du processus jusqu\'à l\'aboutissement.',
   },
   {
     number: '03',
