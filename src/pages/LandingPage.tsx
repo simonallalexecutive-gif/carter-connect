@@ -82,7 +82,7 @@ const LandingPage = () => (
         className="relative z-10 pb-16 overflow-hidden"
       >
         <p className="text-[10px] font-sans font-medium tracking-[0.3em] uppercase text-white/25 text-center mb-8">
-          Ils recrutent via Carter
+          Ils recrutent via Logan
         </p>
         <div className="relative">
           <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-black to-transparent z-10" />

@@ -130,7 +130,7 @@ const Step4Project = () => {
         <div className="carter-card p-8 space-y-6">
           <div>
             <p className="carter-label mb-2">Premier échange</p>
-            <h3 className="font-serif text-xl text-foreground font-normal">Prendre rendez-vous avec Carter</h3>
+            <h3 className="font-serif text-xl text-foreground font-normal">Prendre rendez-vous avec Logan</h3>
           </div>
           <p className="text-sm font-sans font-light text-muted-foreground">
             Un échange confidentiel de 30 minutes pour discuter de votre projet et de vos attentes.

@@ -115,8 +115,8 @@ const Step5Status = () => {
 
           {[
             { id: 'consentExact', field: 'consentementExactitude' as const, text: 'Je confirme que toutes les informations renseignées sont exactes et à jour.' },
-            { id: 'consentMER', field: 'consentementMiseEnRelation' as const, text: 'J\'autorise Carter à utiliser mon profil pour des mises en relation confidentielles, avec mon accord préalable systématique avant toute transmission.' },
-            { id: 'consent', field: 'consentement' as const, text: 'J\'accepte que mes données soient traitées par Carter conformément à la politique de confidentialité et au RGPD. Je peux demander la suppression de mon compte et de mes données à tout moment.' },
+            { id: 'consentMER', field: 'consentementMiseEnRelation' as const, text: 'J\'autorise Logan à utiliser mon profil pour des mises en relation confidentielles, avec mon accord préalable systématique avant toute transmission.' },
+            { id: 'consent', field: 'consentement' as const, text: 'J\'accepte que mes données soient traitées par Logan conformément à la politique de confidentialité et au RGPD. Je peux demander la suppression de mon compte et de mes données à tout moment.' },
           ].map(consent => (
             <div key={consent.id} className="flex items-start gap-3">
               <Checkbox

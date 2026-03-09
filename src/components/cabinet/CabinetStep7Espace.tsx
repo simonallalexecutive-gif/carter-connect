@@ -242,7 +242,7 @@ const CabinetStep7Espace = () => {
                 <button
                   onClick={() => {
                     setDrawerProfile(null);
-                    toast.success(`Intérêt transmis à CARTER pour le profil ${drawerProfile.id}`);
+                    toast.success(`Intérêt transmis à LOGAN pour le profil ${drawerProfile.id}`);
                   }}
                   className="w-full py-2.5 bg-white text-foreground font-bold text-xs rounded tracking-[0.03em] hover:bg-white/90 transition-colors"
                 >

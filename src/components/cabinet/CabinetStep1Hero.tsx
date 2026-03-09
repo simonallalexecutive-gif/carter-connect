@@ -81,7 +81,7 @@ const CabinetStep1Hero = () => {
               size="lg"
               className="bg-white text-black hover:bg-white/90 font-sans text-sm font-bold px-8 py-6 rounded-sm tracking-wide group"
             >
-              Rejoindre CARTER
+              Rejoindre LOGAN
               <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
             </Button>
             <span className="text-xs text-white/30 italic font-sans">Inscription en 4 étapes · Activation sous 48h</span>

@@ -37,7 +37,7 @@ const Step7Confirm = () => {
         </h1>
 
         <p className="text-base text-muted-foreground font-sans font-light mb-8 leading-relaxed">
-          Votre profil sera examiné par l'équipe Carter sous <strong className="text-foreground font-medium">48 heures ouvrées</strong>.
+          Votre profil sera examiné par l'équipe Logan sous <strong className="text-foreground font-medium">48 heures ouvrées</strong>.
         </p>
 
         <div className="rounded-sm p-6 text-left mb-10 bg-card border border-border">

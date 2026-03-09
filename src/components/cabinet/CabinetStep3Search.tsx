@@ -22,7 +22,7 @@ const CabinetStep3Search = () => {
       </div>
       <h2 className="font-serif text-3xl md:text-4xl font-normal text-foreground leading-tight mb-2.5">Ma recherche</h2>
       <p className="text-sm text-muted-foreground font-light leading-relaxed mb-10 max-w-xl">
-        Décrivez le profil que vous recherchez et le contexte de votre recrutement. Plus vous êtes précis, plus le matching CARTER est efficace.
+        Décrivez le profil que vous recherchez et le contexte de votre recrutement. Plus vous êtes précis, plus le matching LOGAN est efficace.
       </p>
 
       {/* Tabs */}

@@ -113,7 +113,7 @@ const Step1Hero = () => {
                   <Input
                     value={code}
                     onChange={e => setCode(e.target.value)}
-                    placeholder={isCabinet ? 'Votre identifiant cabinet' : 'Votre identifiant Carter'}
+                    placeholder={isCabinet ? 'Votre identifiant cabinet' : 'Votre identifiant Logan'}
                     className="mt-2 bg-background/50 border-border"
                   />
                 </div>

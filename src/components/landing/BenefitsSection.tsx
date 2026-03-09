@@ -65,7 +65,7 @@ const BenefitsSection = () => {
           <div className="carter-divider mb-8" />
           <h2 className="text-3xl md:text-5xl font-serif font-normal text-foreground leading-tight tracking-[-0.02em] mb-10">
             Pourquoi rejoindre<br />
-            <em className="text-muted-foreground font-normal">Carter</em>
+            <em className="text-muted-foreground font-normal">Logan</em>
           </h2>
 
           {/* Tabs */}

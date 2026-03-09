@@ -140,7 +140,7 @@ const CabinetStep2Identity = () => {
           ))}
         </div>
         <p className="text-[11px] text-muted-foreground mt-2 leading-relaxed">
-          L'abonnement CARTER est annuel et illimité pour l'ensemble du cabinet — aucune limite par département.
+          L'abonnement LOGAN est annuel et illimité pour l'ensemble du cabinet — aucune limite par département.
         </p>
       </div>
 

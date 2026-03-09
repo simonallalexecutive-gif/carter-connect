@@ -63,7 +63,7 @@ const Footer = () => (
       {/* Bottom bar */}
       <div className="flex flex-col md:flex-row items-center justify-between gap-4 pt-8">
         <p className="text-[11px] font-sans font-light text-white/25">
-          © {new Date().getFullYear()} Carter. Tous droits réservés.
+          © {new Date().getFullYear()} Logan. Tous droits réservés.
         </p>
         <div className="flex gap-6">
           {['Mentions légales', 'Politique de confidentialité', 'CGU'].map((item) => (

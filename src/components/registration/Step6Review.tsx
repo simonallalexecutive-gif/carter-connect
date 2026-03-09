@@ -253,7 +253,7 @@ const Step6Review = () => {
           <div className="border border-accent/20 rounded-sm p-4 bg-accent/5">
             <p className="text-sm font-sans font-light text-foreground flex items-center gap-2">
               <Lock className="w-4 h-4 text-accent" />
-              Vue interne Carter — toutes les informations sont visibles par notre équipe uniquement.
+              Vue interne Logan — toutes les informations sont visibles par notre équipe uniquement.
             </p>
           </div>
 

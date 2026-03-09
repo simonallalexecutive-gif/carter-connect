@@ -29,7 +29,7 @@ const CabinetStep4Subscription = () => {
         </div>
         <div className="w-px h-12 bg-white/10 flex-shrink-0" />
         <p className="text-sm text-white/55 leading-relaxed font-light">
-          Sur une rétrocession de <strong className="text-white/80">100K à 200K€</strong>, un cabinet paie aujourd'hui <strong className="text-white">25K à 50K€ HT par recrutement</strong> — sans visibilité continue. CARTER remplace ce coût par un <strong className="text-white/80">forfait annuel fixe, amorti dès le premier placement.</strong>
+          Sur une rétrocession de <strong className="text-white/80">100K à 200K€</strong>, un cabinet paie aujourd'hui <strong className="text-white">25K à 50K€ HT par recrutement</strong> — sans visibilité continue. LOGAN remplace ce coût par un <strong className="text-white/80">forfait annuel fixe, amorti dès le premier placement.</strong>
         </p>
       </div>
 

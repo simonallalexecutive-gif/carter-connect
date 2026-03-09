@@ -179,8 +179,8 @@ const CabinetStep5Validation = () => {
         <div className="flex flex-col gap-2.5">
           {[
             "Je confirme les informations renseignées sur mon cabinet et mes besoins de recrutement.",
-            "Je comprends que les profils sont strictement anonymisés et que toute levée de confidentialité est conditionnée à l'accord du candidat, orchestrée par CARTER.",
-            "J'accepte les conditions générales d'utilisation de la plateforme CARTER et la politique de confidentialité.",
+            "Je comprends que les profils sont strictement anonymisés et que toute levée de confidentialité est conditionnée à l'accord du candidat, orchestrée par LOGAN.",
+            "J'accepte les conditions générales d'utilisation de la plateforme LOGAN et la politique de confidentialité.",
           ].map((text, i) => (
             <button
               key={i}
