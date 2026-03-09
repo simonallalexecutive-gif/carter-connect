@@ -52,7 +52,7 @@ const CabinetStep1Hero = () => {
             Welcome to
           </motion.h1>
           <motion.h1 variants={fadeUp} className="font-serif text-4xl md:text-5xl font-normal text-white/70 italic leading-[1.04] tracking-[-0.01em] mb-6">
-            CARTER
+            LOGAN
           </motion.h1>
 
           <motion.p variants={fadeUp} className="text-base text-white/70 leading-relaxed max-w-xl mb-2 font-sans font-light">
