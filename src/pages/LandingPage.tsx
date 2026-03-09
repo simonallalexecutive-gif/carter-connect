@@ -105,8 +105,8 @@ const LandingPage = () => (
               transition={{ delay: i * 0.08, duration: 0.55 }}
               className="carter-card-elevated p-8 text-center"
             >
-              <div className="w-14 h-14 rounded-2xl bg-carter-red/10 flex items-center justify-center mx-auto mb-5">
-                <f.icon className="w-7 h-7 text-carter-red" />
+              <div className="w-14 h-14 rounded-2xl bg-carter-accent/10 flex items-center justify-center mx-auto mb-5">
+                <f.icon className="w-7 h-7 text-carter-accent" />
               </div>
               <h3 className="font-serif text-xl text-foreground mb-3">{f.title}</h3>
               <p className="font-sans text-sm text-muted-foreground">{f.desc}</p>
