@@ -70,45 +70,45 @@
 
   /* Light mode for registration form */
   .theme-light {
-    --background: 0 0% 97%;
-    --foreground: 0 0% 9%;
+    --background: 0 0% 98%;
+    --foreground: 220 15% 15%;
 
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 9%;
+    --card-foreground: 220 15% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 9%;
+    --popover-foreground: 220 15% 15%;
 
-    --primary: 0 0% 9%;
+    --primary: 220 15% 15%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 0 0% 94%;
-    --secondary-foreground: 0 0% 9%;
+    --secondary: 220 10% 95%;
+    --secondary-foreground: 220 15% 15%;
 
-    --muted: 0 0% 94%;
-    --muted-foreground: 0 0% 45%;
+    --muted: 220 10% 95%;
+    --muted-foreground: 220 8% 46%;
 
-    --accent: 0 0% 9%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 220 10% 95%;
+    --accent-foreground: 220 15% 15%;
 
     --destructive: 0 60% 45%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 0 0% 82%;
-    --input: 0 0% 82%;
-    --ring: 0 0% 9%;
+    --border: 220 10% 85%;
+    --input: 220 10% 85%;
+    --ring: 220 15% 15%;
 
-    --carter-gold: 0 0% 30%;
-    --carter-gold-muted: 0 0% 40%;
-    --carter-gold-bright: 0 0% 20%;
+    --carter-gold: 220 10% 35%;
+    --carter-gold-muted: 220 8% 50%;
+    --carter-gold-bright: 220 12% 25%;
 
-    --carter-text-primary: 0 0% 9%;
-    --carter-text-secondary: 0 0% 40%;
-    --carter-text-tertiary: 0 0% 55%;
+    --carter-text-primary: 220 15% 15%;
+    --carter-text-secondary: 220 8% 46%;
+    --carter-text-tertiary: 220 6% 60%;
 
-    --carter-border: 0 0% 82%;
-    --carter-border-subtle: 0 0% 90%;
-    --carter-border-accent: 0 0% 65%;
+    --carter-border: 220 10% 85%;
+    --carter-border-subtle: 220 8% 92%;
+    --carter-border-accent: 220 10% 70%;
 
     --shadow-card: 0 1px 3px 0 hsl(0 0% 0% / 0.04), 0 1px 2px -1px hsl(0 0% 0% / 0.04);
     --shadow-elevated: 0 4px 16px -2px hsl(0 0% 0% / 0.08);
