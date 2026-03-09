@@ -9,7 +9,7 @@ const Footer = () => (
       <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 pb-16 border-b border-white/10">
         {/* Brand */}
         <div className="md:col-span-4">
-          <span className="font-serif text-2xl text-white tracking-[-0.02em] block mb-4">Carter</span>
+          <span className="font-serif text-2xl text-white tracking-[-0.02em] block mb-4">Logan</span>
           <p className="font-sans text-xs text-white/40 font-light leading-relaxed max-w-xs">
             Réseau confidentiel de mise en relation entre avocats d'affaires et cabinets de premier plan.
           </p>
