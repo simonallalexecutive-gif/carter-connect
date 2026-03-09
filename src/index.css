@@ -70,48 +70,48 @@
 
   /* Light mode for registration form */
   .theme-light {
-    --background: 40 10% 96%;
-    --foreground: 220 15% 15%;
+    --background: 0 0% 97%;
+    --foreground: 0 0% 9%;
 
     --card: 0 0% 100%;
-    --card-foreground: 220 15% 15%;
+    --card-foreground: 0 0% 9%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 220 15% 15%;
+    --popover-foreground: 0 0% 9%;
 
-    --primary: 220 15% 15%;
+    --primary: 0 0% 9%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 40 8% 93%;
-    --secondary-foreground: 220 15% 15%;
+    --secondary: 0 0% 94%;
+    --secondary-foreground: 0 0% 9%;
 
-    --muted: 220 6% 93%;
-    --muted-foreground: 220 10% 50%;
+    --muted: 0 0% 94%;
+    --muted-foreground: 0 0% 45%;
 
-    --accent: 38 50% 38%;
+    --accent: 0 0% 9%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 60% 45%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 220 12% 76%;
-    --input: 220 12% 76%;
-    --ring: 38 50% 38%;
+    --border: 0 0% 82%;
+    --input: 0 0% 82%;
+    --ring: 0 0% 9%;
 
-    --carter-gold: 38 50% 38%;
-    --carter-gold-muted: 38 30% 30%;
-    --carter-gold-bright: 38 50% 48%;
+    --carter-gold: 0 0% 30%;
+    --carter-gold-muted: 0 0% 40%;
+    --carter-gold-bright: 0 0% 20%;
 
-    --carter-text-primary: 220 15% 15%;
-    --carter-text-secondary: 220 8% 40%;
-    --carter-text-tertiary: 220 6% 55%;
+    --carter-text-primary: 0 0% 9%;
+    --carter-text-secondary: 0 0% 40%;
+    --carter-text-tertiary: 0 0% 55%;
 
-    --carter-border: 220 12% 76%;
-    --carter-border-subtle: 220 8% 86%;
-    --carter-border-accent: 38 30% 55%;
+    --carter-border: 0 0% 82%;
+    --carter-border-subtle: 0 0% 90%;
+    --carter-border-accent: 0 0% 65%;
 
-    --shadow-card: 0 2px 12px -2px hsl(220 15% 15% / 0.06);
-    --shadow-elevated: 0 8px 30px -4px hsl(220 15% 15% / 0.10);
+    --shadow-card: 0 1px 3px 0 hsl(0 0% 0% / 0.04), 0 1px 2px -1px hsl(0 0% 0% / 0.04);
+    --shadow-elevated: 0 4px 16px -2px hsl(0 0% 0% / 0.08);
   }
 }
 
