@@ -8,7 +8,7 @@ import AutocompleteInput from '@/components/shared/AutocompleteInput';
 import SeniorityBadge from '@/components/shared/SeniorityBadge';
 import { usePQE } from '@/hooks/usePQE';
 import { CABINETS, DEPARTEMENTS, NATIONALITES, TIERS, MOIS } from '@/lib/constants';
-import { Switch } from '@/components/ui/switch';
+
 
 const currentYear = new Date().getFullYear();
 const YEARS = Array.from({ length: currentYear - 1980 + 1 }, (_, i) => currentYear - i);
