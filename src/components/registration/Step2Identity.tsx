@@ -4,12 +4,15 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Switch } from '@/components/ui/switch';
+import { Checkbox } from '@/components/ui/checkbox';
 import AutocompleteInput from '@/components/shared/AutocompleteInput';
 import SeniorityBadge from '@/components/shared/SeniorityBadge';
+import FileDropzone from '@/components/shared/FileDropzone';
+import ChipSelector from '@/components/shared/ChipSelector';
 import { usePQE } from '@/hooks/usePQE';
-import { CABINETS, DEPARTEMENTS, NATIONALITES, TIERS, MOIS, LEGAL500_BY_PRACTICE } from '@/lib/constants';
-import { Switch } from '@/components/ui/switch';
-import { Camera, X } from 'lucide-react';
+import { CABINETS, DEPARTEMENTS, NATIONALITES, TIERS, MOIS, LEGAL500_BY_PRACTICE, TAILLE_OPERATIONS, DISPONIBILITES, RAISONS_BAISSE_RETRO } from '@/lib/constants';
+import { Camera, X, Briefcase, Calendar } from 'lucide-react';
 import { useRef } from 'react';
 
 const currentYear = new Date().getFullYear();
@@ -20,16 +23,15 @@ const Step2Identity = () => {
   const pqe = usePQE(store.sermentMois, store.sermentAnnee);
   const photoInputRef = useRef<HTMLInputElement>(null);
 
+  const isSeniorProfile = pqe && (pqe.label === 'Counsel' || pqe.label === 'Associé');
+
   const canProceed = store.prenom.length >= 2 && store.nom.length >= 2 &&
     store.email.includes('@') && store.sermentMois && store.sermentAnnee &&
     store.cabinet.length >= 2 && store.departement.length >= 2;
 
-  // Auto-fill cabinet nationality and tier from Legal500 by practice
   const handleCabinetSelect = (v: string | string[]) => {
     const cabinetName = typeof v === 'string' ? v : v[0];
     store.setField('cabinet', cabinetName as string);
-
-    // Try to find ranking in selected practice area
     const practiceRankings = store.departement ? LEGAL500_BY_PRACTICE[store.departement] : null;
     if (practiceRankings && practiceRankings[cabinetName]) {
       const meta = practiceRankings[cabinetName];
@@ -38,10 +40,8 @@ const Step2Identity = () => {
     }
   };
 
-  // Also auto-fill when department changes
   const handleDepartmentChange = (dept: string) => {
     store.setField('departement', dept);
-    // If cabinet is already selected, try to auto-fill from new practice rankings
     if (store.cabinet) {
       const practiceRankings = LEGAL500_BY_PRACTICE[dept];
       if (practiceRankings && practiceRankings[store.cabinet]) {
@@ -56,14 +56,22 @@ const Step2Identity = () => {
     const file = e.target.files?.[0];
     if (file) {
       store.setField('photo', file);
-      const url = URL.createObjectURL(file);
-      store.setField('photoPreviewUrl', url);
+      store.setField('photoPreviewUrl', URL.createObjectURL(file));
     }
   };
 
   const removePhoto = () => {
     store.setField('photo', null);
     store.setField('photoPreviewUrl', '');
+  };
+
+  const toggleRaisonBaisse = (raison: string) => {
+    const current = store.raisonsBaisseRetro;
+    if (current.includes(raison)) {
+      store.setField('raisonsBaisseRetro', current.filter(r => r !== raison));
+    } else {
+      store.setField('raisonsBaisseRetro', [...current, raison]);
+    }
   };
 
   return (
@@ -82,33 +90,17 @@ const Step2Identity = () => {
           <div className="relative">
             {store.photoPreviewUrl ? (
               <div className="relative">
-                <img
-                  src={store.photoPreviewUrl}
-                  alt="Photo"
-                  className="w-20 h-20 rounded-full object-cover border-2 border-border"
-                />
-                <button
-                  onClick={removePhoto}
-                  className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-foreground text-background flex items-center justify-center"
-                >
+                <img src={store.photoPreviewUrl} alt="Photo" className="w-20 h-20 rounded-full object-cover border-2 border-border" />
+                <button onClick={removePhoto} className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-foreground text-background flex items-center justify-center">
                   <X className="w-3 h-3" />
                 </button>
               </div>
             ) : (
-              <button
-                onClick={() => photoInputRef.current?.click()}
-                className="w-20 h-20 rounded-full border-2 border-dashed border-border flex items-center justify-center hover:border-carter-accent/50 transition-colors"
-              >
+              <button onClick={() => photoInputRef.current?.click()} className="w-20 h-20 rounded-full border-2 border-dashed border-border flex items-center justify-center hover:border-carter-accent/50 transition-colors">
                 <Camera className="w-6 h-6 text-muted-foreground" />
               </button>
             )}
-            <input
-              ref={photoInputRef}
-              type="file"
-              accept="image/*"
-              onChange={handlePhotoChange}
-              className="hidden"
-            />
+            <input ref={photoInputRef} type="file" accept="image/*" onChange={handlePhotoChange} className="hidden" />
           </div>
           <div>
             <p className="font-sans text-sm font-medium text-foreground">Photo professionnelle</p>
@@ -159,6 +151,37 @@ const Step2Identity = () => {
           </div>
           {pqe && <div className="mt-2"><SeniorityBadge info={pqe} /></div>}
         </div>
+
+        {/* Associé / Counsel checkbox */}
+        {isSeniorProfile && (
+          <div className="carter-card p-6 space-y-4">
+            <div className="flex items-center gap-3">
+              <Checkbox
+                id="assocCounsel"
+                checked={store.isAssocieOrCounsel}
+                onCheckedChange={v => store.setField('isAssocieOrCounsel', v as boolean)}
+              />
+              <Label htmlFor="assocCounsel" className="font-sans text-sm font-medium cursor-pointer">
+                Je suis Associé(e) ou Counsel
+              </Label>
+            </div>
+            {store.isAssocieOrCounsel && (
+              <div className="space-y-4 pl-7">
+                <div>
+                  <Label className="font-sans text-sm font-light">Chiffre d'affaires portable (€)</Label>
+                  <Input value={store.chiffreAffairesPortable} onChange={e => store.setField('chiffreAffairesPortable', e.target.value)} placeholder="500 000" className="mt-1" />
+                </div>
+                <div>
+                  <Label className="font-sans text-sm font-light mb-2 block">Business plan (optionnel)</Label>
+                  <FileDropzone
+                    file={store.businessPlanFile}
+                    onFileChange={f => store.setField('businessPlanFile', f)}
+                  />
+                </div>
+              </div>
+            )}
+          </div>
+        )}
 
         {/* Département — FIRST before cabinet */}
         <div>
@@ -211,6 +234,30 @@ const Step2Identity = () => {
           </div>
         </div>
 
+        {/* Taille des opérations */}
+        <div>
+          <Label className="font-sans text-sm font-medium mb-3 block">Taille des opérations</Label>
+          <ChipSelector
+            options={TAILLE_OPERATIONS}
+            selected={store.tailleOperations}
+            onChange={v => store.setField('tailleOperations', v)}
+          />
+        </div>
+
+        {/* Disponibilité */}
+        <div>
+          <Label className="font-sans text-sm font-light flex items-center gap-2">
+            <Calendar className="w-4 h-4 text-carter-accent" />
+            Disponibilité
+          </Label>
+          <Select value={store.disponibilite} onValueChange={v => store.setField('disponibilite', v)}>
+            <SelectTrigger className="mt-1"><SelectValue placeholder="Sélectionner" /></SelectTrigger>
+            <SelectContent>
+              {DISPONIBILITES.map(d => <SelectItem key={d} value={d}>{d}</SelectItem>)}
+            </SelectContent>
+          </Select>
+        </div>
+
         {/* Financier */}
         <div className="carter-card p-6 space-y-4">
           <h3 className="font-serif text-lg text-foreground">Rémunération <span className="text-xs text-muted-foreground font-sans font-light">(confidentiel)</span></h3>
@@ -224,6 +271,8 @@ const Step2Identity = () => {
               <Input value={store.bonus} onChange={e => store.setField('bonus', e.target.value)} placeholder="10 000" className="mt-1" />
             </div>
           </div>
+
+          {/* Objectif facturable */}
           <div className="flex items-center gap-3">
             <Switch
               checked={store.hasObjectifFacturable === true}
@@ -232,11 +281,61 @@ const Step2Identity = () => {
             <Label className="font-sans text-sm font-light">Objectif d'heures facturables</Label>
           </div>
           {store.hasObjectifFacturable && (
-            <div>
-              <Label className="font-sans text-sm font-light">Nombre d'heures/an</Label>
-              <Input value={store.objectifFacturable} onChange={e => store.setField('objectifFacturable', e.target.value)} placeholder="1800" className="mt-1" />
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <Label className="font-sans text-sm font-light">Objectif (heures/an)</Label>
+                <Input value={store.objectifFacturable} onChange={e => store.setField('objectifFacturable', e.target.value)} placeholder="1800" className="mt-1" />
+              </div>
+              <div>
+                <Label className="font-sans text-sm font-light">Réalisé en pratique (heures/an)</Label>
+                <Input value={store.objectifFacturableReel} onChange={e => store.setField('objectifFacturableReel', e.target.value)} placeholder="1650" className="mt-1" />
+              </div>
             </div>
           )}
+
+          {/* Rétrocession flexibility */}
+          <div className="border-t border-border pt-4 space-y-3">
+            <Label className="font-sans text-sm font-medium block">
+              Souhaitez-vous conserver a minima votre rétrocession actuelle ?
+            </Label>
+            <div className="flex gap-4">
+              <label className="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="radio"
+                  name="conserverRetro"
+                  checked={store.conserverRetrocession === true}
+                  onChange={() => store.setField('conserverRetrocession', true)}
+                  className="accent-[hsl(var(--carter-accent))]"
+                />
+                <span className="font-sans text-sm font-light">Oui, c'est indispensable</span>
+              </label>
+              <label className="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="radio"
+                  name="conserverRetro"
+                  checked={store.conserverRetrocession === false}
+                  onChange={() => store.setField('conserverRetrocession', false)}
+                  className="accent-[hsl(var(--carter-accent))]"
+                />
+                <span className="font-sans text-sm font-light">Envisageable selon le projet</span>
+              </label>
+            </div>
+            {store.conserverRetrocession === false && (
+              <div className="space-y-2 pl-1">
+                <p className="text-xs text-muted-foreground font-sans font-light">Pour quelles raisons accepteriez-vous une baisse ?</p>
+                {RAISONS_BAISSE_RETRO.map(raison => (
+                  <div key={raison} className="flex items-center gap-2">
+                    <Checkbox
+                      id={`raison-${raison}`}
+                      checked={store.raisonsBaisseRetro.includes(raison)}
+                      onCheckedChange={() => toggleRaisonBaisse(raison)}
+                    />
+                    <label htmlFor={`raison-${raison}`} className="font-sans text-sm font-light cursor-pointer">{raison}</label>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Navigation */}

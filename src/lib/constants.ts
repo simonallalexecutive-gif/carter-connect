@@ -601,6 +601,19 @@ export const TYPES_CLIENTS = [
   "Fonds d'investissement", "Banques", "Institutionnels", "Particuliers HNWI"
 ];
 
+export const TAILLE_OPERATIONS = ["Small cap (< 50M€)", "Mid cap (50–500M€)", "Large cap (> 500M€)"];
+
+export const DISPONIBILITES = ["Immédiate", "Préavis 1 mois", "Préavis 3 mois"];
+
+export const RAISONS_BAISSE_RETRO = [
+  "Meilleure qualité de vie",
+  "Perspectives d'évolution (counsel / associé)",
+  "Projet entrepreneurial",
+  "Environnement de travail plus stimulant",
+  "Meilleur équilibre vie pro / vie perso",
+  "Intérêt des dossiers",
+];
+
 export const MOIS = [
   { value: 1, label: "Janvier" }, { value: 2, label: "Février" },
   { value: 3, label: "Mars" }, { value: 4, label: "Avril" },

@@ -7,6 +7,15 @@ import { Checkbox } from '@/components/ui/checkbox';
 import ChipSelector from '@/components/shared/ChipSelector';
 import AutocompleteInput from '@/components/shared/AutocompleteInput';
 import { QUALITES, AXES, NOGO_SUGGESTIONS, CABINETS } from '@/lib/constants';
+import { CalendarCheck } from 'lucide-react';
+
+const CRENEAUX_RDV = [
+  "Lundi matin", "Lundi après-midi",
+  "Mardi matin", "Mardi après-midi",
+  "Mercredi matin", "Mercredi après-midi",
+  "Jeudi matin", "Jeudi après-midi",
+  "Vendredi matin", "Vendredi après-midi",
+];
 
 const Step4Project = () => {
   const store = useRegistrationStore();
@@ -90,6 +99,44 @@ const Step4Project = () => {
             onCheckedChange={v => store.setField('processusCours', v ? 'oui' : '')}
           />
           <Label htmlFor="processus" className="font-sans text-sm font-light cursor-pointer">J'ai des processus en cours avec d'autres cabinets</Label>
+        </div>
+
+        {/* RDV Carter */}
+        <div className="carter-card p-6 space-y-4">
+          <div className="flex items-center gap-3">
+            <CalendarCheck className="w-5 h-5 text-carter-accent" />
+            <h3 className="font-serif text-lg text-foreground">Prendre rendez-vous avec Carter</h3>
+          </div>
+          <p className="text-sm font-sans font-light text-muted-foreground">
+            Un premier échange confidentiel de 30 minutes pour discuter de votre projet et de vos attentes.
+          </p>
+          <div className="flex items-center gap-3">
+            <Checkbox
+              id="rdv"
+              checked={store.souhaitePrendreRdv}
+              onCheckedChange={v => store.setField('souhaitePrendreRdv', v as boolean)}
+            />
+            <Label htmlFor="rdv" className="font-sans text-sm font-medium cursor-pointer">Je souhaite prendre rendez-vous</Label>
+          </div>
+          {store.souhaitePrendreRdv && (
+            <div>
+              <Label className="font-sans text-sm font-light mb-2 block">Créneaux préférés</Label>
+              <div className="grid grid-cols-2 gap-2">
+                {CRENEAUX_RDV.map(c => (
+                  <label key={c} className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="radio"
+                      name="creneau"
+                      checked={store.creneauPrefere === c}
+                      onChange={() => store.setField('creneauPrefere', c)}
+                      className="accent-[hsl(var(--carter-accent))]"
+                    />
+                    <span className="font-sans text-sm font-light">{c}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Navigation */}
