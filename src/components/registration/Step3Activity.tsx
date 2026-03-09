@@ -9,22 +9,22 @@ import { Slider } from '@/components/ui/slider';
 import { cn } from '@/lib/utils';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import { useMemo } from 'react';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
 
 const CHART_COLORS = [
-  'hsl(210, 55%, 35%)',
-  'hsl(220, 62%, 15%)',
-  'hsl(210, 45%, 45%)',
-  'hsl(220, 56%, 28%)',
-  'hsl(210, 35%, 55%)',
-  'hsl(220, 40%, 40%)',
-  'hsl(210, 25%, 60%)',
-  'hsl(220, 30%, 50%)',
+  'hsl(38, 55%, 72%)',
+  'hsl(38, 30%, 45%)',
+  'hsl(38, 65%, 80%)',
+  'hsl(30, 20%, 35%)',
+  'hsl(38, 40%, 60%)',
+  'hsl(30, 15%, 50%)',
+  'hsl(38, 25%, 55%)',
+  'hsl(30, 10%, 40%)',
 ];
 
 const Step3Activity = () => {
   const store = useRegistrationStore();
 
-  // Get practice-specific activities
   const practiceActivities = store.departement
     ? (ACTIVITES_BY_PRACTICE[store.departement] || ACTIVITES_DEFAULT)
     : ACTIVITES_DEFAULT;
@@ -45,7 +45,6 @@ const Step3Activity = () => {
 
   const hasActivites = Object.values(store.activites).some(Boolean);
 
-  // Chart data
   const chartData = useMemo(() => {
     return allItems
       .filter(item => store.activites[item.key])
@@ -61,25 +60,26 @@ const Step3Activity = () => {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.55, ease: [0.22, 0.68, 0, 1.2] }}
-      className="max-w-2xl mx-auto px-4 py-8"
+      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+      className="max-w-2xl mx-auto px-6 py-10"
     >
-      <h2 className="text-3xl font-serif text-foreground mb-2">Votre activité</h2>
-      <p className="text-muted-foreground font-sans font-light mb-8">
+      <div className="carter-divider mb-6" />
+      <h2 className="text-3xl font-serif text-foreground mb-2 font-normal tracking-[-0.02em]">Votre activité</h2>
+      <p className="text-muted-foreground font-sans text-sm font-light mb-10">
         {store.departement
           ? `Décrivez votre pratique en ${store.departement}.`
           : 'Décrivez votre pratique et vos domaines d\'expertise.'}
       </p>
 
-      <div className="space-y-8">
+      <div className="space-y-10">
         {/* Activities by section */}
         <div>
-          <Label className="font-sans text-sm font-medium mb-3 block">Domaines d'activité *</Label>
-          <div className="space-y-6">
+          <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-4 block">Domaines d'activité *</Label>
+          <div className="space-y-8">
             {practiceActivities.sections.map(section => (
               <div key={section.title}>
-                <h4 className="text-xs font-sans font-medium text-muted-foreground uppercase tracking-wider mb-3">{section.title}</h4>
-                <div className="space-y-2">
+                <h4 className="carter-label mb-4">{section.title}</h4>
+                <div className="space-y-3">
                   {section.items.map(item => {
                     const isActive = store.activites[item.key];
                     return (
@@ -88,10 +88,10 @@ const Step3Activity = () => {
                           type="button"
                           onClick={() => handleToggle(item.key)}
                           className={cn(
-                            "px-4 py-2.5 rounded-full text-sm font-sans font-light transition-all duration-200 border",
+                            "px-4 py-2.5 rounded-sm text-sm font-sans font-light transition-all duration-300 border",
                             isActive
-                              ? "bg-primary text-primary-foreground border-primary"
-                              : "bg-popover text-foreground border-border hover:border-primary/40"
+                              ? "bg-foreground text-background border-foreground"
+                              : "bg-transparent text-foreground border-border hover:border-accent/40"
                           )}
                         >
                           {item.label}
@@ -126,19 +126,19 @@ const Step3Activity = () => {
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="carter-card p-6"
+            className="carter-card p-8"
           >
-            <h4 className="font-sans text-sm font-medium mb-4">Répartition de votre activité</h4>
-            <div className="flex items-center gap-6">
-              <div className="w-40 h-40">
+            <p className="carter-label mb-6">Répartition de votre activité</p>
+            <div className="flex items-center gap-8">
+              <div className="w-44 h-44">
                 <ResponsiveContainer width="100%" height="100%">
                   <PieChart>
                     <Pie
                       data={chartData}
                       cx="50%"
                       cy="50%"
-                      innerRadius={35}
-                      outerRadius={65}
+                      innerRadius={40}
+                      outerRadius={70}
                       dataKey="value"
                       paddingAngle={2}
                     >
@@ -148,17 +148,17 @@ const Step3Activity = () => {
                     </Pie>
                     <Tooltip
                       formatter={(value: number) => [`${Math.round((value / totalPercent) * 100)}%`, '']}
-                      contentStyle={{ fontSize: '12px', fontFamily: 'DM Sans' }}
+                      contentStyle={{ fontSize: '12px', fontFamily: 'Inter', background: 'hsl(30 8% 10%)', border: '1px solid hsl(30 8% 18%)', borderRadius: '4px', color: 'hsl(38 40% 92%)' }}
                     />
                   </PieChart>
                 </ResponsiveContainer>
               </div>
-              <div className="flex-1 space-y-1.5">
+              <div className="flex-1 space-y-2">
                 {chartData.map((item, i) => (
-                  <div key={item.name} className="flex items-center gap-2 text-sm font-sans font-light">
-                    <div className="w-3 h-3 rounded-full flex-shrink-0" style={{ backgroundColor: CHART_COLORS[i % CHART_COLORS.length] }} />
+                  <div key={item.name} className="flex items-center gap-3 text-sm font-sans font-light">
+                    <div className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ backgroundColor: CHART_COLORS[i % CHART_COLORS.length] }} />
                     <span className="text-foreground">{item.name}</span>
-                    <span className="text-muted-foreground ml-auto">{Math.round((item.value / totalPercent) * 100)}%</span>
+                    <span className="text-muted-foreground ml-auto text-xs">{Math.round((item.value / totalPercent) * 100)}%</span>
                   </div>
                 ))}
               </div>
@@ -168,9 +168,9 @@ const Step3Activity = () => {
 
         {/* Anglais */}
         <div>
-          <Label className="font-sans text-sm font-light">Niveau d'anglais</Label>
+          <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Niveau d'anglais</Label>
           <Select value={store.anglais} onValueChange={v => store.setField('anglais', v)}>
-            <SelectTrigger className="mt-1"><SelectValue placeholder="Sélectionner" /></SelectTrigger>
+            <SelectTrigger className="mt-2"><SelectValue placeholder="Sélectionner" /></SelectTrigger>
             <SelectContent>
               {ANGLAIS_OPTIONS.map(a => <SelectItem key={a} value={a}>{a}</SelectItem>)}
             </SelectContent>
@@ -179,7 +179,7 @@ const Step3Activity = () => {
 
         {/* Types clients */}
         <div>
-          <Label className="font-sans text-sm font-medium mb-3 block">Types de clients</Label>
+          <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-4 block">Types de clients</Label>
           <ChipSelector
             options={TYPES_CLIENTS}
             selected={store.typesClients}
@@ -188,10 +188,14 @@ const Step3Activity = () => {
         </div>
 
         {/* Navigation */}
-        <div className="flex justify-between pt-4">
-          <Button variant="outline" onClick={store.prevStep} className="font-sans font-light">Retour</Button>
-          <Button onClick={store.nextStep} disabled={!hasActivites} className="bg-carter-accent hover:bg-carter-accent-light text-accent-foreground font-sans font-medium">
+        <div className="flex justify-between pt-6">
+          <Button variant="outline" onClick={store.prevStep} className="font-sans font-light rounded-sm gap-2">
+            <ArrowLeft className="w-4 h-4" />
+            Retour
+          </Button>
+          <Button onClick={store.nextStep} disabled={!hasActivites} className="bg-foreground text-background hover:bg-foreground/90 font-sans font-medium rounded-sm gap-2">
             Continuer
+            <ArrowRight className="w-4 h-4" />
           </Button>
         </div>
       </div>

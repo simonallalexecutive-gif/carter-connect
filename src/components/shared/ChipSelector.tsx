@@ -28,10 +28,10 @@ const ChipSelector = ({ options, selected, onChange, maxSelect, className }: Chi
             type="button"
             onClick={() => toggle(option)}
             className={cn(
-              "px-4 py-2 rounded-full text-sm font-sans transition-all duration-200 border",
+              "px-4 py-2 rounded-sm text-sm font-sans font-light transition-all duration-300 border",
               isSelected
-                ? "bg-primary text-primary-foreground border-primary"
-                : "bg-popover text-foreground border-border hover:border-primary/40"
+                ? "bg-foreground text-background border-foreground"
+                : "bg-transparent text-foreground border-border hover:border-accent/40"
             )}
           >
             {option}

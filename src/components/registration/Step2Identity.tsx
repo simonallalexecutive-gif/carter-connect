@@ -12,7 +12,7 @@ import FileDropzone from '@/components/shared/FileDropzone';
 import ChipSelector from '@/components/shared/ChipSelector';
 import { usePQE } from '@/hooks/usePQE';
 import { CABINETS, DEPARTEMENTS, NATIONALITES, TIERS, MOIS, LEGAL500_BY_PRACTICE, TAILLE_OPERATIONS, DISPONIBILITES, RAISONS_BAISSE_RETRO } from '@/lib/constants';
-import { Camera, X, Briefcase, Calendar } from 'lucide-react';
+import { Camera, X, ArrowLeft, ArrowRight } from 'lucide-react';
 import { useRef } from 'react';
 
 const currentYear = new Date().getFullYear();
@@ -78,64 +78,65 @@ const Step2Identity = () => {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.55, ease: [0.22, 0.68, 0, 1.2] }}
-      className="max-w-2xl mx-auto px-4 py-8"
+      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+      className="max-w-2xl mx-auto px-6 py-10"
     >
-      <h2 className="text-3xl font-serif text-foreground mb-2">Votre identité</h2>
-      <p className="text-muted-foreground font-sans font-light mb-8">Ces informations restent strictement confidentielles.</p>
+      <div className="carter-divider mb-6" />
+      <h2 className="text-3xl font-serif text-foreground mb-2 font-normal tracking-[-0.02em]">Votre identité</h2>
+      <p className="text-muted-foreground font-sans text-sm font-light mb-10">Ces informations restent strictement confidentielles.</p>
 
-      <div className="space-y-6">
+      <div className="space-y-8">
         {/* Photo */}
         <div className="flex items-center gap-6">
           <div className="relative">
             {store.photoPreviewUrl ? (
               <div className="relative">
-                <img src={store.photoPreviewUrl} alt="Photo" className="w-20 h-20 rounded-full object-cover border-2 border-border" />
+                <img src={store.photoPreviewUrl} alt="Photo" className="w-20 h-20 rounded-full object-cover border border-border" />
                 <button onClick={removePhoto} className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-foreground text-background flex items-center justify-center">
                   <X className="w-3 h-3" />
                 </button>
               </div>
             ) : (
-              <button onClick={() => photoInputRef.current?.click()} className="w-20 h-20 rounded-full border-2 border-dashed border-border flex items-center justify-center hover:border-carter-accent/50 transition-colors">
-                <Camera className="w-6 h-6 text-muted-foreground" />
+              <button onClick={() => photoInputRef.current?.click()} className="w-20 h-20 rounded-full border border-dashed border-border flex items-center justify-center hover:border-accent/50 transition-colors duration-300">
+                <Camera className="w-5 h-5 text-muted-foreground" />
               </button>
             )}
             <input ref={photoInputRef} type="file" accept="image/*" onChange={handlePhotoChange} className="hidden" />
           </div>
           <div>
             <p className="font-sans text-sm font-medium text-foreground">Photo professionnelle</p>
-            <p className="font-sans text-xs text-muted-foreground">Optionnel · JPG ou PNG, max 5 Mo</p>
+            <p className="font-sans text-xs text-muted-foreground font-light">Optionnel · JPG ou PNG, max 5 Mo</p>
           </div>
         </div>
 
         {/* Nom / Prénom */}
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <Label className="font-sans text-sm font-light">Prénom *</Label>
-            <Input value={store.prenom} onChange={e => store.setField('prenom', e.target.value)} placeholder="Jean" className="mt-1" />
+            <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Prénom *</Label>
+            <Input value={store.prenom} onChange={e => store.setField('prenom', e.target.value)} placeholder="Jean" className="mt-2" />
           </div>
           <div>
-            <Label className="font-sans text-sm font-light">Nom *</Label>
-            <Input value={store.nom} onChange={e => store.setField('nom', e.target.value)} placeholder="Dupont" className="mt-1" />
+            <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Nom *</Label>
+            <Input value={store.nom} onChange={e => store.setField('nom', e.target.value)} placeholder="Dupont" className="mt-2" />
           </div>
         </div>
 
         {/* Email / Tel */}
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <Label className="font-sans text-sm font-light">Email *</Label>
-            <Input type="email" value={store.email} onChange={e => store.setField('email', e.target.value)} placeholder="jean@cabinet.com" className="mt-1" />
+            <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Email *</Label>
+            <Input type="email" value={store.email} onChange={e => store.setField('email', e.target.value)} placeholder="jean@cabinet.com" className="mt-2" />
           </div>
           <div>
-            <Label className="font-sans text-sm font-light">Téléphone</Label>
-            <Input value={store.telephone} onChange={e => store.setField('telephone', e.target.value)} placeholder="+33 6 12 34 56 78" className="mt-1" />
+            <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Téléphone</Label>
+            <Input value={store.telephone} onChange={e => store.setField('telephone', e.target.value)} placeholder="+33 6 12 34 56 78" className="mt-2" />
           </div>
         </div>
 
         {/* Serment */}
         <div>
-          <Label className="font-sans text-sm font-light">Date de prestation de serment *</Label>
-          <div className="grid grid-cols-2 gap-4 mt-1">
+          <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Date de prestation de serment *</Label>
+          <div className="grid grid-cols-2 gap-4 mt-2">
             <Select value={store.sermentMois?.toString() || ''} onValueChange={v => store.setField('sermentMois', parseInt(v))}>
               <SelectTrigger><SelectValue placeholder="Mois" /></SelectTrigger>
               <SelectContent>
@@ -149,10 +150,10 @@ const Step2Identity = () => {
               </SelectContent>
             </Select>
           </div>
-          {pqe && <div className="mt-2"><SeniorityBadge info={pqe} /></div>}
+          {pqe && <div className="mt-3"><SeniorityBadge info={pqe} /></div>}
         </div>
 
-        {/* Associé / Counsel checkbox */}
+        {/* Associé / Counsel */}
         {isSeniorProfile && (
           <div className="carter-card p-6 space-y-4">
             <div className="flex items-center gap-3">
@@ -168,26 +169,23 @@ const Step2Identity = () => {
             {store.isAssocieOrCounsel && (
               <div className="space-y-4 pl-7">
                 <div>
-                  <Label className="font-sans text-sm font-light">Chiffre d'affaires portable (€)</Label>
-                  <Input value={store.chiffreAffairesPortable} onChange={e => store.setField('chiffreAffairesPortable', e.target.value)} placeholder="500 000" className="mt-1" />
+                  <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Chiffre d'affaires portable (€)</Label>
+                  <Input value={store.chiffreAffairesPortable} onChange={e => store.setField('chiffreAffairesPortable', e.target.value)} placeholder="500 000" className="mt-2" />
                 </div>
                 <div>
-                  <Label className="font-sans text-sm font-light mb-2 block">Business plan (optionnel)</Label>
-                  <FileDropzone
-                    file={store.businessPlanFile}
-                    onFileChange={f => store.setField('businessPlanFile', f)}
-                  />
+                  <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-2 block">Business plan (optionnel)</Label>
+                  <FileDropzone file={store.businessPlanFile} onFileChange={f => store.setField('businessPlanFile', f)} />
                 </div>
               </div>
             )}
           </div>
         )}
 
-        {/* Département — FIRST before cabinet */}
+        {/* Département */}
         <div>
-          <Label className="font-sans text-sm font-light">Département / Pratique *</Label>
+          <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Département / Pratique *</Label>
           <Select value={store.departement} onValueChange={handleDepartmentChange}>
-            <SelectTrigger className="mt-1"><SelectValue placeholder="Sélectionner" /></SelectTrigger>
+            <SelectTrigger className="mt-2"><SelectValue placeholder="Sélectionner" /></SelectTrigger>
             <SelectContent>
               {DEPARTEMENTS.map(d => <SelectItem key={d} value={d}>{d}</SelectItem>)}
             </SelectContent>
@@ -196,17 +194,17 @@ const Step2Identity = () => {
 
         {/* Cabinet */}
         <div>
-          <Label className="font-sans text-sm font-light">Cabinet actuel *</Label>
+          <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Cabinet actuel *</Label>
           <AutocompleteInput
             data={CABINETS}
             value={store.cabinet}
             onChange={handleCabinetSelect}
             placeholder="Rechercher un cabinet..."
             showMeta
-            className="mt-1"
+            className="mt-2"
           />
           {store.cabinet && store.departement && LEGAL500_BY_PRACTICE[store.departement]?.[store.cabinet] && (
-            <p className="text-xs text-carter-accent font-sans mt-1">
+            <p className="text-xs text-accent font-sans mt-2">
               Classement Legal 500 ({store.departement}) : {LEGAL500_BY_PRACTICE[store.departement][store.cabinet].band}
             </p>
           )}
@@ -215,18 +213,18 @@ const Step2Identity = () => {
         {/* Nationalité / Tier */}
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <Label className="font-sans text-sm font-light">Nationalité du cabinet</Label>
+            <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Nationalité du cabinet</Label>
             <Select value={store.cabNat} onValueChange={v => store.setField('cabNat', v)}>
-              <SelectTrigger className="mt-1"><SelectValue placeholder="Sélectionner" /></SelectTrigger>
+              <SelectTrigger className="mt-2"><SelectValue placeholder="Sélectionner" /></SelectTrigger>
               <SelectContent>
                 {NATIONALITES.map(n => <SelectItem key={n} value={n}>{n}</SelectItem>)}
               </SelectContent>
             </Select>
           </div>
           <div>
-            <Label className="font-sans text-sm font-light">Tier Legal 500</Label>
+            <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Tier Legal 500</Label>
             <Select value={store.cabTier} onValueChange={v => store.setField('cabTier', v)}>
-              <SelectTrigger className="mt-1"><SelectValue placeholder="Sélectionner" /></SelectTrigger>
+              <SelectTrigger className="mt-2"><SelectValue placeholder="Sélectionner" /></SelectTrigger>
               <SelectContent>
                 {TIERS.map(t => <SelectItem key={t} value={t}>{t}</SelectItem>)}
               </SelectContent>
@@ -236,7 +234,7 @@ const Step2Identity = () => {
 
         {/* Taille des opérations */}
         <div>
-          <Label className="font-sans text-sm font-medium mb-3 block">Taille des opérations</Label>
+          <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-3 block">Taille des opérations</Label>
           <ChipSelector
             options={TAILLE_OPERATIONS}
             selected={store.tailleOperations}
@@ -246,29 +244,29 @@ const Step2Identity = () => {
 
         {/* Disponibilité */}
         <div>
-          <Label className="font-sans text-sm font-light flex items-center gap-2">
-            <Calendar className="w-4 h-4 text-carter-accent" />
-            Disponibilité
-          </Label>
+          <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Disponibilité</Label>
           <Select value={store.disponibilite} onValueChange={v => store.setField('disponibilite', v)}>
-            <SelectTrigger className="mt-1"><SelectValue placeholder="Sélectionner" /></SelectTrigger>
+            <SelectTrigger className="mt-2"><SelectValue placeholder="Sélectionner" /></SelectTrigger>
             <SelectContent>
               {DISPONIBILITES.map(d => <SelectItem key={d} value={d}>{d}</SelectItem>)}
             </SelectContent>
           </Select>
         </div>
 
-        {/* Financier */}
-        <div className="carter-card p-6 space-y-4">
-          <h3 className="font-serif text-lg text-foreground">Rémunération <span className="text-xs text-muted-foreground font-sans font-light">(confidentiel)</span></h3>
+        {/* Rémunération */}
+        <div className="carter-card p-8 space-y-6">
+          <div>
+            <p className="carter-label mb-2">Confidentiel</p>
+            <h3 className="font-serif text-xl text-foreground font-normal">Rémunération</h3>
+          </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <Label className="font-sans text-sm font-light">Rétrocession brute annuelle (€)</Label>
-              <Input value={store.retrocession} onChange={e => store.setField('retrocession', e.target.value)} placeholder="80 000" className="mt-1" />
+              <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Rétrocession brute annuelle (€)</Label>
+              <Input value={store.retrocession} onChange={e => store.setField('retrocession', e.target.value)} placeholder="80 000" className="mt-2" />
             </div>
             <div>
-              <Label className="font-sans text-sm font-light">Bonus (€)</Label>
-              <Input value={store.bonus} onChange={e => store.setField('bonus', e.target.value)} placeholder="10 000" className="mt-1" />
+              <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Bonus (€)</Label>
+              <Input value={store.bonus} onChange={e => store.setField('bonus', e.target.value)} placeholder="10 000" className="mt-2" />
             </div>
           </div>
 
@@ -283,29 +281,29 @@ const Step2Identity = () => {
           {store.hasObjectifFacturable && (
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <Label className="font-sans text-sm font-light">Objectif (heures/an)</Label>
-                <Input value={store.objectifFacturable} onChange={e => store.setField('objectifFacturable', e.target.value)} placeholder="1800" className="mt-1" />
+                <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Objectif (heures/an)</Label>
+                <Input value={store.objectifFacturable} onChange={e => store.setField('objectifFacturable', e.target.value)} placeholder="1800" className="mt-2" />
               </div>
               <div>
-                <Label className="font-sans text-sm font-light">Réalisé en pratique (heures/an)</Label>
-                <Input value={store.objectifFacturableReel} onChange={e => store.setField('objectifFacturableReel', e.target.value)} placeholder="1650" className="mt-1" />
+                <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Réalisé en pratique (heures/an)</Label>
+                <Input value={store.objectifFacturableReel} onChange={e => store.setField('objectifFacturableReel', e.target.value)} placeholder="1650" className="mt-2" />
               </div>
             </div>
           )}
 
           {/* Rétrocession flexibility */}
-          <div className="border-t border-border pt-4 space-y-3">
+          <div className="border-t border-border pt-6 space-y-4">
             <Label className="font-sans text-sm font-medium block">
               Souhaitez-vous conserver a minima votre rétrocession actuelle ?
             </Label>
-            <div className="flex gap-4">
+            <div className="flex gap-6">
               <label className="flex items-center gap-2 cursor-pointer">
                 <input
                   type="radio"
                   name="conserverRetro"
                   checked={store.conserverRetrocession === true}
                   onChange={() => store.setField('conserverRetrocession', true)}
-                  className="accent-[hsl(var(--carter-accent))]"
+                  className="accent-[hsl(38,55%,72%)]"
                 />
                 <span className="font-sans text-sm font-light">Oui, c'est indispensable</span>
               </label>
@@ -315,13 +313,13 @@ const Step2Identity = () => {
                   name="conserverRetro"
                   checked={store.conserverRetrocession === false}
                   onChange={() => store.setField('conserverRetrocession', false)}
-                  className="accent-[hsl(var(--carter-accent))]"
+                  className="accent-[hsl(38,55%,72%)]"
                 />
                 <span className="font-sans text-sm font-light">Envisageable selon le projet</span>
               </label>
             </div>
             {store.conserverRetrocession === false && (
-              <div className="space-y-2 pl-1">
+              <div className="space-y-3 pl-1">
                 <p className="text-xs text-muted-foreground font-sans font-light">Pour quelles raisons accepteriez-vous une baisse ?</p>
                 {RAISONS_BAISSE_RETRO.map(raison => (
                   <div key={raison} className="flex items-center gap-2">
@@ -339,10 +337,14 @@ const Step2Identity = () => {
         </div>
 
         {/* Navigation */}
-        <div className="flex justify-between pt-4">
-          <Button variant="outline" onClick={store.prevStep} className="font-sans font-light">Retour</Button>
-          <Button onClick={store.nextStep} disabled={!canProceed} className="bg-carter-accent hover:bg-carter-accent-light text-accent-foreground font-sans font-medium">
+        <div className="flex justify-between pt-6">
+          <Button variant="outline" onClick={store.prevStep} className="font-sans font-light rounded-sm gap-2">
+            <ArrowLeft className="w-4 h-4" />
+            Retour
+          </Button>
+          <Button onClick={store.nextStep} disabled={!canProceed} className="bg-foreground text-background hover:bg-foreground/90 font-sans font-medium rounded-sm gap-2">
             Continuer
+            <ArrowRight className="w-4 h-4" />
           </Button>
         </div>
       </div>

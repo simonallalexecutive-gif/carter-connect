@@ -1,5 +1,5 @@
 import { cn } from '@/lib/utils';
-import { User, Briefcase, Target, CheckCircle2, Shield } from 'lucide-react';
+import { Check } from 'lucide-react';
 
 interface StepProgressProps {
   currentStep: number;
@@ -7,58 +7,50 @@ interface StepProgressProps {
 }
 
 const STEPS = [
-  { label: 'Identité', icon: User },
-  { label: 'Activité', icon: Briefcase },
-  { label: 'Projet', icon: Target },
-  { label: 'Statut', icon: Shield },
-  { label: 'Récapitulatif', icon: CheckCircle2 },
+  { label: 'Identité' },
+  { label: 'Activité' },
+  { label: 'Projet' },
+  { label: 'Statut' },
+  { label: 'Récapitulatif' },
 ];
 
 const StepProgress = ({ currentStep }: StepProgressProps) => {
-  const adjustedCurrent = currentStep - 1; // offset since we start from step 2
+  const adjustedCurrent = currentStep - 1;
 
   if (currentStep <= 1 || currentStep >= 7) return null;
 
   return (
-    <div className="w-full max-w-2xl mx-auto py-6 px-4">
+    <div className="w-full max-w-2xl mx-auto py-8 px-4">
       <div className="flex items-center justify-between relative">
+        {/* Background line */}
+        <div className="absolute top-3 left-0 right-0 h-px bg-border" />
+        {/* Active line */}
+        <div
+          className="absolute top-3 left-0 h-px bg-accent transition-all duration-500"
+          style={{ width: `${((adjustedCurrent - 1) / (STEPS.length - 1)) * 100}%` }}
+        />
+
         {STEPS.map((step, i) => {
           const stepNum = i + 1;
           const isCompleted = adjustedCurrent > stepNum;
           const isActive = adjustedCurrent === stepNum;
-          const Icon = step.icon;
 
           return (
-            <div key={i} className="flex flex-col items-center relative z-10 flex-1">
-              {/* Connector line */}
-              {i > 0 && (
-                <div
-                  className={cn(
-                    "absolute top-4 right-1/2 w-full h-0.5 -z-10",
-                    isCompleted || isActive ? "bg-carter-accent" : "bg-border"
-                  )}
-                />
-              )}
-              {/* Dot with icon */}
+            <div key={i} className="flex flex-col items-center relative z-10">
               <div
                 className={cn(
-                  "w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300",
-                  isCompleted && "bg-carter-accent text-accent-foreground",
-                  isActive && "bg-primary text-primary-foreground ring-4 ring-primary/20",
-                  !isCompleted && !isActive && "bg-muted text-muted-foreground"
+                  "w-6 h-6 rounded-full flex items-center justify-center text-xs font-sans transition-all duration-400",
+                  isCompleted && "bg-accent text-accent-foreground",
+                  isActive && "bg-foreground text-background ring-4 ring-foreground/10",
+                  !isCompleted && !isActive && "bg-secondary text-muted-foreground border border-border"
                 )}
               >
-                {isCompleted ? (
-                  <CheckCircle2 className="w-4 h-4" />
-                ) : (
-                  <Icon className="w-3.5 h-3.5" />
-                )}
+                {isCompleted ? <Check className="w-3 h-3" /> : <span className="text-[10px]">{stepNum}</span>}
               </div>
-              {/* Label */}
               <span
                 className={cn(
-                  "mt-2 text-xs font-sans font-light",
-                  isActive ? "text-foreground font-medium" : "text-muted-foreground"
+                  "mt-3 text-[11px] font-sans tracking-wide",
+                  isActive ? "text-foreground font-medium" : "text-muted-foreground font-light"
                 )}
               >
                 {step.label}

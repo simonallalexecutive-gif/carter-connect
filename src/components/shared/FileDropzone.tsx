@@ -16,7 +16,7 @@ const FileDropzone = ({
   onFileChange,
   accept = '.pdf,.doc,.docx',
   maxSizeMB = 10,
-  label = 'Déposez votre CV ici',
+  label = 'Déposez votre fichier ici',
   className,
 }: FileDropzoneProps) => {
   const handleDrop = useCallback((e: React.DragEvent) => {
@@ -39,27 +39,27 @@ const FileDropzone = ({
       onDrop={handleDrop}
       onDragOver={(e) => e.preventDefault()}
       className={cn(
-        "border-2 border-dashed border-border rounded-xl p-8 text-center transition-colors hover:border-primary/40 cursor-pointer",
+        "border border-dashed border-border rounded-sm p-8 text-center transition-colors duration-300 hover:border-accent/40 cursor-pointer",
         className
       )}
     >
       {file ? (
         <div className="flex items-center justify-center gap-3">
-          <FileText className="w-5 h-5 text-carter-accent" />
-          <span className="font-sans text-sm text-foreground">{file.name}</span>
+          <FileText className="w-4 h-4 text-accent" />
+          <span className="font-sans text-sm text-foreground font-light">{file.name}</span>
           <button
             type="button"
             onClick={(e) => { e.stopPropagation(); onFileChange(null); }}
-            className="p-1 rounded-full hover:bg-muted"
+            className="p-1 rounded-sm hover:bg-secondary"
           >
-            <X className="w-4 h-4 text-muted-foreground" />
+            <X className="w-3.5 h-3.5 text-muted-foreground" />
           </button>
         </div>
       ) : (
         <label className="cursor-pointer block">
-          <Upload className="w-8 h-8 mx-auto text-muted-foreground mb-2" />
-          <p className="font-sans text-sm text-muted-foreground">{label}</p>
-          <p className="font-sans text-xs text-text-soft mt-1">PDF, DOC, DOCX · Max {maxSizeMB}MB</p>
+          <Upload className="w-6 h-6 mx-auto text-muted-foreground mb-3" />
+          <p className="font-sans text-sm text-muted-foreground font-light">{label}</p>
+          <p className="font-sans text-xs text-muted-foreground/60 mt-1">PDF, DOC, DOCX · Max {maxSizeMB}MB</p>
           <input
             type="file"
             accept={accept}
