@@ -28,7 +28,7 @@ const Step6Review = () => {
         {/* Identity */}
         <div className="carter-card p-6">
           <div className="flex items-center gap-2 mb-4">
-            <User className="w-5 h-5 text-carter-accentent" />
+            <User className="w-5 h-5 text-carter-accententent" />
             <h3 className="font-serif text-lg">Identité</h3>
           </div>
           <div className="grid grid-cols-2 gap-4 text-sm font-sans">
@@ -42,7 +42,7 @@ const Step6Review = () => {
         {/* Cabinet */}
         <div className="carter-card p-6">
           <div className="flex items-center gap-2 mb-4">
-            <Briefcase className="w-5 h-5 text-cartaccentred" />
+            <Briefcase className="w-5 h-5 text-caccentaccentred" />
             <h3 className="font-serif text-lg">Cabinet & Pratique</h3>
           </div>
           <div className="grid grid-cols-2 gap-4 text-sm font-sans">
@@ -56,7 +56,7 @@ const Step6Review = () => {
         {/* Activity */}
         <div className="carter-card p-6">
           <div className="flex items-center gap-2 mb-4">
-            <Target className="w-5 h-5 text-carter-red" />
+            <Target className="w-5 h-5 text-caccenter-red" />
             <h3 className="font-serif text-lg">Activité</h3>
           </div>
           <div className="flex flex-wrap gap-2 mb-3">
