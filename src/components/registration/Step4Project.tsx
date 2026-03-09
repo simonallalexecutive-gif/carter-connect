@@ -11,12 +11,6 @@ import { QUALITES, AXES, NOGO_SUGGESTIONS, CABINETS } from '@/lib/constants';
 const Step4Project = () => {
   const store = useRegistrationStore();
 
-  const updateBullet = (index: number, value: string) => {
-    const newBullets = [...store.bullets];
-    newBullets[index] = value;
-    store.setField('bullets', newBullets);
-  };
-
   const canProceed = store.motivation.length >= 20;
 
   return (
