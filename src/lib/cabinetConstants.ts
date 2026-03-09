@@ -1,0 +1,409 @@
+// ══ FIRMS DATABASE (Legal 500 Paris) ══
+export const FIRMS_DB: Record<string, { nat: string; p: Record<string, string> }> = {
+  'A&O Shearman':{nat:'UK',p:{'banque':'Tier 1','restructuring':'Tier 3','ma':'Tier 3','social':'Tier 2','pe':'Tier 2','immo':'Tier 2','fiscal':'Tier 2'}},
+  'Bredin Prat':{nat:'FR',p:{'banque':'Tier 2','restructuring':'Tier 2','ma':'Tier 1','social':'Tier 1','pe':'Tier 2','fiscal':'Tier 1'}},
+  'Clifford Chance':{nat:'UK',p:{'banque':'Tier 1','restructuring':'Tier 2','ma':'Tier 3','social':'Tier 3','pe':'Tier 2','immo':'Tier 1','fiscal':'Tier 2'}},
+  'Cleary Gottlieb Steen & Hamilton':{nat:'US',p:{'banque':'Tier 2','ma':'Tier 1','pe':'Tier 3','fiscal':'Tier 2'}},
+  'Darrois Villey Maillot Brochier':{nat:'FR',p:{'ma':'Tier 1','fiscal':'Tier 2'}},
+  'De Pardieu Brocas Maffei':{nat:'FR',p:{'banque':'Tier 2','restructuring':'Tier 1','ma':'Tier 3','social':'Tier 3','pe':'Tier 2','immo':'Tier 1','fiscal':'Tier 2'}},
+  'DLA Piper':{nat:'UK',p:{'banque':'Tier 3','restructuring':'Tier 4','ma':'Tier 4','social':'Tier 2','pe':'Tier 3','immo':'Tier 2','fiscal':'Tier 3'}},
+  'Freshfields LLP':{nat:'UK',p:{'banque':'Tier 2','restructuring':'Tier 2','ma':'Tier 2','social':'Tier 2','pe':'Tier 2','fiscal':'Tier 2'}},
+  'Gibson Dunn':{nat:'US',p:{'banque':'Tier 3','restructuring':'Tier 1','ma':'Tier 4','social':'Tier 3','pe':'Tier 3','fiscal':'Tier 3'}},
+  'Gide Loyrette Nouel':{nat:'FR',p:{'banque':'Tier 2','restructuring':'Tier 4','ma':'Tier 2','social':'Tier 1','pe':'Tier 2','immo':'Tier 1','fiscal':'Tier 2'}},
+  'Goodwin':{nat:'US',p:{'banque':'Tier 3','ma':'Tier 4','pe':'Tier 2','fiscal':'Tier 3'}},
+  'Herbert Smith Freehills Kramer LLP':{nat:'UK',p:{'banque':'Tier 2','restructuring':'Tier 3','ma':'Tier 4','social':'Tier 3','immo':'Tier 3','fiscal':'Tier 4'}},
+  'Hogan Lovells':{nat:'US',p:{'banque':'Tier 2','restructuring':'Tier 1','ma':'Tier 4','social':'Tier 2','pe':'Tier 2','immo':'Tier 5','fiscal':'Tier 3'}},
+  'Kirkland & Ellis LLP':{nat:'US',p:{'banque':'Tier 3','pe':'Tier 1','fiscal':'Tier 3'}},
+  'Latham & Watkins':{nat:'US',p:{'banque':'Tier 1','restructuring':'Tier 1','ma':'Tier 3','social':'Tier 3','pe':'Tier 1','fiscal':'Tier 1'}},
+  'Linklaters':{nat:'UK',p:{'banque':'Tier 1','restructuring':'Tier 2','ma':'Tier 3','social':'Tier 2','pe':'Tier 2','immo':'Tier 2','fiscal':'Tier 2'}},
+  'Mayer Brown':{nat:'US',p:{'banque':'Tier 3','restructuring':'Tier 2','ma':'Tier 4','social':'Tier 3','pe':'Tier 2','immo':'Tier 2','fiscal':'Tier 2'}},
+  'August Debouzy':{nat:'FR',p:{'restructuring':'Tier 3','ma':'Tier 4','social':'Tier 1','pe':'Tier 3','immo':'Tier 2','fiscal':'Tier 4'}},
+  'Weil Gotshal & Manges':{nat:'US',p:{'banque':'Tier 2','restructuring':'Tier 1','ma':'Tier 3','pe':'Tier 2','fiscal':'Tier 3'}},
+  'White & Case':{nat:'US',p:{'banque':'Tier 1','restructuring':'Tier 2','ma':'Tier 3','social':'Tier 3','pe':'Tier 2','fiscal':'Tier 2'}},
+  'Willkie Farr & Gallagher':{nat:'US',p:{'banque':'Tier 3','restructuring':'Tier 2','ma':'Tier 3','pe':'Tier 1','fiscal':'Tier 3'}},
+  'Baker McKenzie':{nat:'US',p:{'banque':'Tier 3','ma':'Tier 3','social':'Tier 3','immo':'Tier 3','fiscal':'Tier 1'}},
+  'CMS Francis Lefebvre':{nat:'FR',p:{'banque':'Tier 4','restructuring':'Tier 3','ma':'Tier 5','social':'Tier 2','immo':'Tier 3','fiscal':'Tier 2'}},
+  'Ashurst LLP':{nat:'UK',p:{'banque':'Tier 2','restructuring':'Tier 2','ma':'Tier 5','social':'Tier 4','pe':'Tier 3','immo':'Tier 3','fiscal':'Tier 4'}},
+  'Paul Hastings LLP':{nat:'US',p:{'banque':'Tier 3','restructuring':'Tier 3','ma':'Tier 4','social':'Tier 4','pe':'Tier 2','immo':'Tier 4','fiscal':'Tier 4'}},
+  'Jones Day':{nat:'US',p:{'banque':'Tier 4','restructuring':'Tier 2','ma':'Tier 4','social':'Tier 3','immo':'Tier 3','fiscal':'Tier 4'}},
+  'Orrick':{nat:'US',p:{'restructuring':'Tier 3','ma':'Tier 4','social':'Tier 2','pe':'Tier 3','immo':'Tier 5','fiscal':'Tier 5'}},
+  'Sullivan & Cromwell':{nat:'US',p:{'banque':'Tier 2','ma':'Tier 2','fiscal':'Tier 3'}},
+  'Skadden':{nat:'US',p:{'banque':'Tier 2','ma':'Tier 3','pe':'Tier 2'}},
+  'Racine':{nat:'FR',p:{'restructuring':'Tier 3','ma':'Tier 5','social':'Tier 2','pe':'Tier 3','immo':'Tier 4','fiscal':'Tier 3'}},
+  'Arsene':{nat:'FR',p:{'fiscal':'Tier 1'}},
+  'Flichy Grangé Avocats':{nat:'FR',p:{'social':'Tier 1'}},
+  'Capstan Avocats, member of Ius Laboris':{nat:'FR',p:{'social':'Tier 1'}},
+  'Actance':{nat:'FR',p:{'social':'Tier 1'}},
+};
+
+export const NAT_LABELS: Record<string, string> = {
+  FR: 'Cabinet français',
+  US: 'Cabinet US',
+  UK: 'Cabinet UK',
+};
+
+export const NAT_FLAGS: Record<string, string> = {
+  FR: '🇫🇷',
+  US: '🇺🇸',
+  UK: '🇬🇧',
+};
+
+export const DEPT_KEY_MAP: Record<string, string> = {
+  'Banque & Finance': 'banque',
+  'Corporate / M&A & PE': 'ma',
+  'Droit Social': 'social',
+  'Immobilier': 'immo',
+  'Restructuring': 'restructuring',
+  'Fiscal': 'fiscal',
+  'Contentieux': 'contentieux',
+};
+
+export const DEPARTMENTS = [
+  'Banque & Finance',
+  'Corporate / M&A & PE',
+  'Droit Social',
+  'Immobilier',
+  'Restructuring',
+  'Fiscal',
+  'Contentieux',
+];
+
+export const CABINET_TYPES = [
+  'Cabinet US',
+  'Cabinet UK',
+  'Cabinet français',
+  'Boutique spécialisée',
+  'Structure internationale',
+];
+
+export const EXPERTISES = [
+  'M&A Industriel',
+  'Private Equity / LBO',
+  'Venture Capital',
+  'Droit boursier',
+  'Financement',
+  'Restructuring',
+  'Immobilier transactionnel',
+  'Droit Social',
+  'Contentieux',
+  'Fiscal',
+];
+
+export const SENIORITY_OPTIONS = [
+  { key: 'junior', label: 'Junior', pqe: '0–3 ans' },
+  { key: 'mid', label: 'Mid Level', pqe: '3–6 ans' },
+  { key: 'senior', label: 'Sénior', pqe: '+6 ans' },
+  { key: 'counsel', label: 'Counsel', pqe: 'Counsel' },
+  { key: 'associe', label: 'Associé', pqe: 'Associé' },
+];
+
+export const SENIORITY_MAP: Record<string, string> = {
+  junior: 'Junior (0–3 ans)',
+  mid: 'Mid Level (3–6 ans)',
+  senior: 'Sénior (+6 ans)',
+  counsel: 'Counsel',
+  associe: 'Associé',
+};
+
+export const CONF_OPTIONS = [
+  {
+    key: 'confidentielle',
+    title: 'Confidentielle',
+    badge: 'Recommandé',
+    desc: 'CARTER agit de manière proactive en votre nom. Les candidats ne voient pas votre recherche — CARTER les approche directement selon votre brief.',
+  },
+  {
+    key: 'semi',
+    title: 'Semi-confidentielle',
+    badge: '',
+    desc: 'Le candidat voit la nationalité de votre cabinet et son ranking Legal 500, sans connaître son nom. Il peut manifester son intérêt.',
+  },
+  {
+    key: 'ouverte',
+    title: 'Ouverte',
+    badge: 'Visibilité max',
+    desc: 'Votre recherche est visible avec le nom de votre cabinet. Les candidats peuvent manifester leur intérêt directement.',
+  },
+];
+
+export const PALIERS = [
+  {
+    key: 'essentiel',
+    name: 'Essentiel',
+    sub: 'Boutique',
+    size: "Jusqu'à 15 avocats",
+    price: '8 000 €',
+    argument: 'Amorti dès le 1er recrutement — économie immédiate vs. 25K€ minimum traditionnel.',
+  },
+  {
+    key: 'standard',
+    name: 'Standard',
+    sub: 'Cabinet mid-size',
+    size: '15 à 60 avocats',
+    price: '15 000 €',
+    recommended: true,
+    argument: 'Le plus choisi — un placement et votre abonnement est amorti pour l\'année.',
+  },
+  {
+    key: 'premium',
+    name: 'Premium',
+    sub: 'Grande structure',
+    size: '+ 60 avocats',
+    price: '25 000 €',
+    argument: "Moins cher qu'un seul honoraire bas de gamme. Rentable dès le 2ème placement.",
+  },
+];
+
+export const INCLUDED_FEATURES = [
+  'Accès illimité à la plateforme pour tout le cabinet',
+  'Tous les départements inclus — sans surcoût',
+  'Profils anonymisés, qualifiés par CARTER',
+  'Recherches actives illimitées simultanées',
+  'Consultant CARTER dédié à chaque étape',
+  '0% de commission au placement — garanti',
+  'Notifications prioritaires — nouveaux profils',
+  'Reporting mensuel & suivi des recrutements',
+];
+
+export interface CabinetProfile {
+  id: string;
+  dept: string;
+  deptLabel: string;
+  title: string;
+  pqe: string;
+  nat: string;
+  natFlag: string;
+  origin: string;
+  originTier: string;
+  english: string;
+  seniority: string;
+  isNew: boolean;
+  expertise: string[];
+  split: Record<string, number>;
+  formation: string;
+  droit_etranger: string;
+  langue2: string;
+  retro_actuel: string;
+  disponibilite: string;
+  mobilite: string;
+  motivation: string;
+  match: number;
+}
+
+export const PROFILES: CabinetProfile[] = [
+  {
+    id: 'C-2024-042', dept: 'banque', deptLabel: 'Banque & Finance',
+    title: 'Senior Associate Finance — 5 ans PQE',
+    pqe: '5 ans', nat: 'FR', natFlag: '🇫🇷',
+    origin: 'Cabinet US Tier 1', originTier: 'Tier 1',
+    english: 'Bilingue', seniority: 'Mid Level / Sénior', isNew: true,
+    expertise: ['Financement', 'Private Equity / LBO'],
+    split: { 'Financement': 60, 'Private Equity / LBO': 40 },
+    formation: 'Paris II Panthéon-Assas — Master 2 Droit bancaire',
+    droit_etranger: '—', langue2: '—',
+    retro_actuel: '65–72 K€ fixe',
+    disponibilite: 'Sous 3 mois', mobilite: 'Paris',
+    motivation: 'Profil très structuré, habitué aux financements d\'acquisition et aux refinancements complexes. Souhaite rejoindre un environnement franco-français avec plus d\'autonomie et de contact client direct.',
+    match: 92,
+  },
+  {
+    id: 'C-2024-057', dept: 'ma', deptLabel: 'M&A / Corporate',
+    title: 'Collaborateur M&A — 4 ans PQE',
+    pqe: '4 ans', nat: 'FR', natFlag: '🇫🇷',
+    origin: 'Cabinet français Tier 1', originTier: 'Tier 1',
+    english: 'Courant', seniority: 'Mid Level', isNew: true,
+    expertise: ['M&A Industriel', 'Private Equity / LBO'],
+    split: { 'M&A Industriel': 70, 'Private Equity / LBO': 30 },
+    formation: 'HEC + Master 2 Droit des affaires Paris I',
+    droit_etranger: '—', langue2: '—',
+    retro_actuel: '58–65 K€ fixe',
+    disponibilite: 'Sous 2 mois', mobilite: 'Paris',
+    motivation: 'Solide expérience M&A mid-cap. Souhaite évoluer vers une structure avec une practice PE plus développée et des dossiers cross-border.',
+    match: 88,
+  },
+  {
+    id: 'C-2024-071', dept: 'banque', deptLabel: 'Banque & Finance',
+    title: 'Collaborateur Finance — 3 ans PQE',
+    pqe: '3 ans', nat: 'UK', natFlag: '🇬🇧',
+    origin: 'Cabinet UK Tier 2', originTier: 'Tier 2',
+    english: 'Bilingue', seniority: 'Junior / Mid', isNew: false,
+    expertise: ['Financement', 'Restructuring'],
+    split: { 'Financement': 70, 'Restructuring': 30 },
+    formation: 'DJCE + LL.M. UCL Londres',
+    droit_etranger: 'Solicitor (Angleterre & Pays de Galles)',
+    langue2: 'Allemand intermédiaire',
+    retro_actuel: '48–52 K€ fixe',
+    disponibilite: 'Immédiate', mobilite: 'Paris',
+    motivation: 'Profil très technique en leveraged finance. Motivé par une structure plus franco-française avec dossiers plus autonomes dès maintenant.',
+    match: 79,
+  },
+  {
+    id: 'C-2024-083', dept: 'social', deptLabel: 'Droit Social',
+    title: 'Counsel Droit Social — 8 ans PQE',
+    pqe: '8 ans', nat: 'FR', natFlag: '🇫🇷',
+    origin: 'Cabinet français Tier 1', originTier: 'Tier 1',
+    english: 'Professionnel', seniority: 'Counsel', isNew: false,
+    expertise: ['Droit Social', 'Contentieux'],
+    split: { 'Droit Social': 80, 'Contentieux': 20 },
+    formation: 'Université Paris II Panthéon-Assas — Master 2 spécialisé',
+    droit_etranger: '—', langue2: '—',
+    retro_actuel: '75–80 K€ fixe',
+    disponibilite: 'Sous 3 mois', mobilite: 'Paris',
+    motivation: '8 ans de pratique conseil et contentieux. Souhaite accéder à un rôle d\'associé ou préparer un projet d\'association à moyen terme.',
+    match: 85,
+  },
+  {
+    id: 'C-2024-095', dept: 'fiscal', deptLabel: 'Fiscalité',
+    title: 'Collaborateur Fiscal — 5 ans PQE',
+    pqe: '5 ans', nat: 'FR', natFlag: '🇫🇷',
+    origin: 'Cabinet français Tier 1', originTier: 'Tier 1',
+    english: 'Courant', seniority: 'Mid Level', isNew: true,
+    expertise: ['Fiscal', 'M&A Industriel'],
+    split: { 'Fiscal': 75, 'M&A Industriel': 25 },
+    formation: 'HEC + Master 2 Fiscalité ESSEC',
+    droit_etranger: '—', langue2: '—',
+    retro_actuel: '62–68 K€ fixe',
+    disponibilite: 'Sous 2 mois', mobilite: 'Paris',
+    motivation: 'Fiscaliste M&A expérimenté, à l\'aise en structuration d\'acquisitions et price adjustments. Cherche cabinet avec practice corporate intégrée.',
+    match: 81,
+  },
+  {
+    id: 'C-2024-068', dept: 'ma', deptLabel: 'M&A / Corporate',
+    title: 'Associé M&A — 12 ans PQE',
+    pqe: '12 ans', nat: 'FR', natFlag: '🇫🇷',
+    origin: 'Cabinet français Tier 2', originTier: 'Tier 2',
+    english: 'Bilingue', seniority: 'Associé', isNew: false,
+    expertise: ['M&A Industriel', 'Private Equity / LBO', 'Droit boursier'],
+    split: { 'M&A Industriel': 50, 'Private Equity / LBO': 30, 'Droit boursier': 20 },
+    formation: 'Sciences Po Paris + Université Columbia LLM',
+    droit_etranger: 'New York Bar', langue2: 'Espagnol courant',
+    retro_actuel: 'Rémunération associé (sur devis)',
+    disponibilite: 'Sous 6 à 9 mois', mobilite: 'Paris · International possible',
+    motivation: 'Associé avec book client constitué. Réfléchit à un projet latéral ou fondation d\'une structure dédiée.',
+    match: 74,
+  },
+  {
+    id: 'C-2024-102', dept: 'banque', deptLabel: 'Banque & Finance',
+    title: 'Senior Associate Finance — 7 ans PQE',
+    pqe: '7 ans', nat: 'US', natFlag: '🇺🇸',
+    origin: 'Cabinet US Tier 1', originTier: 'Tier 1',
+    english: 'Langue de travail', seniority: 'Sénior', isNew: false,
+    expertise: ['Financement', 'Private Equity / LBO', 'Restructuring'],
+    split: { 'Financement': 50, 'Private Equity / LBO': 30, 'Restructuring': 20 },
+    formation: 'Paris I + NYU LLM',
+    droit_etranger: 'New York Bar', langue2: '—',
+    retro_actuel: '85–95 K€ fixe',
+    disponibilite: 'Sous 4 mois', mobilite: 'Paris',
+    motivation: 'Senior associate avec expérience leveraged finance et restructuring. Cherche structure à taille humaine.',
+    match: 76,
+  },
+  {
+    id: 'C-2024-111', dept: 'ma', deptLabel: 'M&A / Corporate',
+    title: 'Junior M&A — 2 ans PQE',
+    pqe: '2 ans', nat: 'UK', natFlag: '🇬🇧',
+    origin: 'Cabinet UK Tier 1', originTier: 'Tier 1',
+    english: 'Bilingue', seniority: 'Junior', isNew: true,
+    expertise: ['M&A Industriel', 'Droit boursier'],
+    split: { 'M&A Industriel': 70, 'Droit boursier': 30 },
+    formation: "King's College London + Université Paris I",
+    droit_etranger: 'Solicitor qualifié', langue2: '—',
+    retro_actuel: '42–46 K€ fixe',
+    disponibilite: 'Immédiate', mobilite: 'Paris',
+    motivation: 'Profil double qualification (FR / UK) recherchant une structure Paris avec dossiers cross-border.',
+    match: 83,
+  },
+  {
+    id: 'C-2024-079', dept: 'pe', deptLabel: 'Private Equity / LBO',
+    title: 'Collaborateur PE — 5 ans PQE',
+    pqe: '5 ans', nat: 'FR', natFlag: '🇫🇷',
+    origin: 'Cabinet US Tier 2', originTier: 'Tier 2',
+    english: 'Courant', seniority: 'Mid Level', isNew: false,
+    expertise: ['Private Equity / LBO', 'M&A Industriel'],
+    split: { 'Private Equity / LBO': 65, 'M&A Industriel': 35 },
+    formation: 'EDHEC + Master 2 Droit des affaires Paris II',
+    droit_etranger: '—', langue2: '—',
+    retro_actuel: '65–72 K€ fixe',
+    disponibilite: 'Sous 3 mois', mobilite: 'Paris',
+    motivation: '5 ans de pratique LBO mid-cap / small-cap. Souhaite rejoindre une structure avec pratique equity plus développée.',
+    match: 86,
+  },
+  {
+    id: 'C-2024-058', dept: 'social', deptLabel: 'Droit Social',
+    title: 'Collaborateur Droit Social — 4 ans PQE',
+    pqe: '4 ans', nat: 'FR', natFlag: '🇫🇷',
+    origin: 'Cabinet français Tier 2', originTier: 'Tier 2',
+    english: 'Professionnel', seniority: 'Mid Level', isNew: false,
+    expertise: ['Droit Social'],
+    split: { 'Droit Social': 100 },
+    formation: 'Université Paris II — Master 2 Relations de travail',
+    droit_etranger: '—', langue2: '—',
+    retro_actuel: '50–55 K€ fixe',
+    disponibilite: 'Sous 2 mois', mobilite: 'Paris · Région parisienne',
+    motivation: 'Solide pratique conseil employeur. Cherche un environnement plus stimulant avec dossiers de restructuration plus complexes.',
+    match: 77,
+  },
+  {
+    id: 'C-2024-119', dept: 'banque', deptLabel: 'Banque & Finance',
+    title: 'Counsel Finance — 9 ans PQE',
+    pqe: '9 ans', nat: 'FR', natFlag: '🇫🇷',
+    origin: 'Cabinet UK Tier 2', originTier: 'Tier 2',
+    english: 'Bilingue', seniority: 'Counsel', isNew: false,
+    expertise: ['Financement', 'Restructuring', 'Private Equity / LBO'],
+    split: { 'Financement': 55, 'Restructuring': 25, 'Private Equity / LBO': 20 },
+    formation: 'ENS + Paris I + Cambridge LLM',
+    droit_etranger: 'Solicitor', langue2: 'Allemand courant',
+    retro_actuel: '90–100 K€ fixe',
+    disponibilite: 'Sous 6 mois', mobilite: 'Paris',
+    motivation: 'Counsel très expérimenté, connaissance profonde des marchés de dette. Ambition d\'associé clairement posée.',
+    match: 80,
+  },
+  {
+    id: 'C-2024-133', dept: 'fiscal', deptLabel: 'Fiscalité',
+    title: 'Collaborateur Fiscal International — 6 ans PQE',
+    pqe: '6 ans', nat: 'US', natFlag: '🇺🇸',
+    origin: 'Cabinet US Tier 2', originTier: 'Tier 2',
+    english: 'Bilingue', seniority: 'Sénior', isNew: true,
+    expertise: ['Fiscal', 'Private Equity / LBO'],
+    split: { 'Fiscal': 60, 'Private Equity / LBO': 40 },
+    formation: 'Columbia LLM (Tax) + Paris II',
+    droit_etranger: 'New York Bar', langue2: '—',
+    retro_actuel: '80–90 K€ fixe',
+    disponibilite: 'Sous 4 mois', mobilite: 'Paris',
+    motivation: 'Spécialiste fiscalité internationale et structuration PE. Cherche un cabinet avec une pratique corporate forte.',
+    match: 78,
+  },
+];
+
+export const SPLIT_COLORS = [
+  'hsl(var(--foreground))',
+  'hsl(var(--muted-foreground))',
+  '#374151',
+  '#6B7280',
+  '#9CA3AF',
+  '#4B4B4B',
+  '#111111',
+  '#7A7A7A',
+  '#D1D5DB',
+  '#374151',
+];
+
+export const L500_URLS: Record<string, string> = {
+  'Banque & Finance — Transactions': 'https://www.legal500.fr/c/paris/banque-et-finance/banque-et-finance-transactions',
+  'Corporate / M&A': 'https://www.legal500.fr/c/paris/corporate-and-ma/corporate-and-ma',
+  'Private Equity': 'https://www.legal500.fr/c/paris/corporate-and-ma/private-equity',
+  'Droit Social': 'https://www.legal500.fr/c/paris/employment/employment',
+  'Immobilier': 'https://www.legal500.fr/c/paris/real-estate/real-estate',
+  'Restructuring / Insolvabilité': 'https://www.legal500.fr/c/paris/dispute-resolution/restructuring-and-insolvency',
+  'Fiscal': 'https://www.legal500.fr/c/paris/tax/tax',
+  'Contentieux commercial': 'https://www.legal500.fr/c/paris/dispute-resolution/commercial-litigation',
+};
+
+export function getFirmTier(firm: { p: Record<string, string> }, depts: string[]): string {
+  const deptKeys = depts.map((d) => DEPT_KEY_MAP[d]).filter(Boolean);
+  if (deptKeys.length === 0) {
+    const tiers = Object.values(firm.p);
+    return tiers.sort()[0] || '';
+  }
+  const relevantTiers = deptKeys.map((k) => firm.p[k]).filter(Boolean);
+  return relevantTiers.sort()[0] || '';
+}
