@@ -45,7 +45,7 @@ const CabinetStep2Identity = () => {
       </div>
       <h2 className="font-serif text-3xl md:text-4xl font-normal text-foreground leading-tight mb-2.5">Votre cabinet</h2>
       <p className="text-sm text-muted-foreground font-light leading-relaxed mb-10 max-w-xl">
-        Renseignez les informations de votre cabinet. Ces données permettent à CARTER de valider votre accès et de personnaliser les profils présentés.
+        Renseignez les informations de votre cabinet. Ces données permettent à LOGAN de valider votre accès et de personnaliser les profils présentés.
       </p>
 
       {/* Cabinet name with autocomplete */}
