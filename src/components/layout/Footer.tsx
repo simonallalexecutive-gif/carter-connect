@@ -37,7 +37,7 @@ const Footer = () => (
         <div className="md:col-span-3">
           <p className="text-[10px] font-sans font-medium tracking-[0.2em] uppercase text-white/30 mb-6">Contact</p>
           <ul className="space-y-3">
-            <li className="font-sans text-sm text-white/50 font-light">contact@carter.law</li>
+            <li className="font-sans text-sm text-white/50 font-light">contact@logan.law</li>
             <li className="font-sans text-sm text-white/50 font-light">+33 1 00 00 00 00</li>
             <li className="font-sans text-sm text-white/50 font-light leading-relaxed">
               12 rue de la Paix<br />75002 Paris
