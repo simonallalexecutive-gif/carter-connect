@@ -157,9 +157,9 @@ export const PALIERS = [
 export const INCLUDED_FEATURES = [
   'Accès illimité à la plateforme pour tout le cabinet',
   'Tous les départements inclus — sans surcoût',
-  'Profils anonymisés, qualifiés par CARTER',
+  'Profils anonymisés, qualifiés par LOGAN',
   'Recherches actives illimitées simultanées',
-  'Consultant CARTER dédié à chaque étape',
+  'Consultant LOGAN dédié à chaque étape',
   '0% de commission au placement — garanti',
   'Notifications prioritaires — nouveaux profils',
   'Reporting mensuel & suivi des recrutements',
