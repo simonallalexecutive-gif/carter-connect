@@ -61,7 +61,7 @@ const LandingPage = () => (
           loop
           playsInline
           initial={{ opacity: 0, scale: 1.05 }}
-          animate={{ opacity: 0.95, scale: 1 }}
+          animate={{ opacity: 0.75, scale: 1 }}
           transition={{ duration: 2, ease: 'easeOut' }}
           className="w-full h-full object-cover"
         />
