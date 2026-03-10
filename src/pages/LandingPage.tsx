@@ -78,7 +78,7 @@ const LandingPage = () => (
             Welcome to{' '}<em className="font-normal text-white/70">Logan</em>
           </motion.h1>
           <motion.p variants={fadeUp} className="text-base md:text-lg text-white/60 font-sans font-light max-w-lg mb-14 leading-relaxed">
-            La plateforme confidentielle de mise en relation entre avocats d'affaires et cabinets de premier plan.
+            Le réseau confidentiel des avocats d'affaires : your future starts HERE.
           </motion.p>
           <motion.div variants={fadeUp}>
             <Link to="/inscription">
