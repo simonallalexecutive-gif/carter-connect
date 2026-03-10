@@ -22,7 +22,7 @@ const AuthPage = () => {
 
   useEffect(() => {
     if (!loading && user) {
-      navigate('/');
+      navigate('/espace-candidat');
     }
   }, [user, loading, navigate]);
 
