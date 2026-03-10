@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { FIRMS_DB, NAT_LABELS, NAT_FLAGS, DEPARTMENTS, CABINET_TYPES, L500_URLS, DEPT_KEY_MAP, getFirmTier } from '@/lib/cabinetConstants';
 import { cn } from '@/lib/utils';
+import { formatPhoneWithDots } from '@/lib/formatters';
 
 const CabinetStep2Identity = () => {
   const s = useCabinetStore();
