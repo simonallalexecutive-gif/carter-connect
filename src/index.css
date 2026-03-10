@@ -69,50 +69,50 @@
     --sidebar-ring: 0 0% 29%;
   }
 
-  /* Warm cream theme for registration forms */
+  /* Light mode for registration form — same as root now */
   .theme-light {
-    --background: 36 33% 97%;          /* #FAF8F5 — warm ivory */
+    --background: 0 0% 100%;
     --foreground: 0 0% 7%;
 
-    --card: 36 30% 99%;                /* #FDFCFA — warm white cards */
+    --card: 0 0% 100%;
     --card-foreground: 0 0% 7%;
 
-    --popover: 36 30% 99%;
+    --popover: 0 0% 100%;
     --popover-foreground: 0 0% 7%;
 
     --primary: 0 0% 7%;
-    --primary-foreground: 36 33% 97%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 36 20% 94%;           /* #F3F0EB — warm sand */
+    --secondary: 0 0% 96%;
     --secondary-foreground: 0 0% 7%;
 
-    --muted: 36 15% 93%;               /* #F0EDE8 */
-    --muted-foreground: 24 5% 42%;     /* warm gray */
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 48%;
 
-    --accent: 36 20% 94%;
+    --accent: 0 0% 96%;
     --accent-foreground: 0 0% 7%;
 
     --destructive: 0 55% 50%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 30 15% 85%;              /* warm border */
-    --input: 30 15% 85%;
-    --ring: 24 8% 35%;
+    --border: 0 0% 84%;
+    --input: 0 0% 84%;
+    --ring: 0 0% 29%;
 
-    --carter-gold: 30 12% 32%;         /* warm dark tone */
-    --carter-gold-muted: 24 8% 50%;
+    --carter-gold: 0 0% 7%;
+    --carter-gold-muted: 0 0% 48%;
     --carter-gold-bright: 0 0% 7%;
 
     --carter-text-primary: 0 0% 7%;
-    --carter-text-secondary: 24 5% 32%;
-    --carter-text-tertiary: 24 5% 50%;
+    --carter-text-secondary: 0 0% 29%;
+    --carter-text-tertiary: 0 0% 48%;
 
-    --carter-border: 30 15% 85%;
-    --carter-border-subtle: 30 12% 90%;
-    --carter-border-accent: 30 10% 70%;
+    --carter-border: 0 0% 84%;
+    --carter-border-subtle: 0 0% 92%;
+    --carter-border-accent: 0 0% 70%;
 
-    --shadow-card: 0 2px 8px -2px hsl(30 20% 20% / 0.06), 0 1px 3px -1px hsl(30 20% 20% / 0.04);
-    --shadow-elevated: 0 8px 24px -4px hsl(30 20% 20% / 0.08), 0 2px 8px -2px hsl(30 20% 20% / 0.04);
+    --shadow-card: 0 1px 3px 0 hsl(0 0% 0% / 0.04), 0 1px 2px -1px hsl(0 0% 0% / 0.04);
+    --shadow-elevated: 0 4px 16px -2px hsl(0 0% 0% / 0.08);
   }
 }
 

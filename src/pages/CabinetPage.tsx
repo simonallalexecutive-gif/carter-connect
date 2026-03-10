@@ -31,18 +31,8 @@ const CabinetPage = () => {
 
   const isDarkStep = step === 1;
 
-  // Apply theme-light for form steps
-  useEffect(() => {
-    if (!isDarkStep) {
-      document.body.classList.add('theme-light');
-    } else {
-      document.body.classList.remove('theme-light');
-    }
-    return () => document.body.classList.remove('theme-light');
-  }, [isDarkStep]);
-
   return (
-    <div className={isDarkStep ? 'min-h-screen bg-background flex flex-col' : 'theme-light min-h-screen bg-background flex flex-col'}>
+    <div className="min-h-screen bg-background flex flex-col">
       <LogoBanner subtitle="Espace Cabinet" />
 
       {step >= 2 && step <= 5 && <CabinetStepProgress />}
