@@ -23,6 +23,7 @@ export interface CabinetState {
   seniorities: string[];
   expertise: string[];
   activitySplit: Record<string, number>;
+  cabinetActivites: Record<string, boolean>;
   english: string;
   l500cand: boolean;
   natOrigin: string;
