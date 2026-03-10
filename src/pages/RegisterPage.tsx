@@ -8,6 +8,7 @@ import Step5Status from '@/components/registration/Step5Status';
 import Step6Review from '@/components/registration/Step6Review';
 import Step7Confirm from '@/components/registration/Step7Confirm';
 import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 const RegisterPage = () => {
   const currentStep = useRegistrationStore(s => s.currentStep);
@@ -45,9 +46,19 @@ const RegisterPage = () => {
   return (
     <div className={isDarkStep ? '' : 'theme-light bg-background min-h-screen'}>
       {showProgress && (
-        <div className="sticky top-0 z-40 bg-background/95 backdrop-blur-sm border-b border-border">
-          <StepProgress currentStep={currentStep} />
-        </div>
+        <>
+          {/* Black header bar with Logan logo */}
+          <div className="w-full bg-black">
+            <div className="px-6 sm:px-8 lg:px-10 flex items-center h-14">
+              <Link to="/" className="flex items-center">
+                <span className="font-serif text-xl tracking-[-0.02em] text-white">Logan</span>
+              </Link>
+            </div>
+          </div>
+          <div className="sticky top-0 z-40 bg-background/95 backdrop-blur-sm border-b border-border">
+            <StepProgress currentStep={currentStep} />
+          </div>
+        </>
       )}
       {renderStep()}
     </div>
