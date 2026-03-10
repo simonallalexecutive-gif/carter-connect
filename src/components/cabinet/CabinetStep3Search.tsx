@@ -1,9 +1,9 @@
-import { useState, useEffect, useMemo, useCallback } from 'react';
+import { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import { useCabinetStore } from '@/stores/cabinetStore';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { EXPERTISES, SENIORITY_OPTIONS, CONF_OPTIONS, SPLIT_COLORS } from '@/lib/cabinetConstants';
+import { EXPERTISES, SENIORITY_OPTIONS, CONF_OPTIONS, SPLIT_COLORS, CABINET_EXPERTISE_DETAIL } from '@/lib/cabinetConstants';
 import { cn } from '@/lib/utils';
 import { formatNumberWithDots } from '@/lib/formatters';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
@@ -25,10 +25,10 @@ const CHART_COLORS = [
 const CabinetStep3Search = () => {
   const s = useCabinetStore();
   const [activeTab, setActiveTab] = useState(0);
+  const prevTabComplete = useRef<boolean[]>([false, false, false, false]);
 
   const splitTotal = s.expertise.reduce((sum, k) => sum + (s.activitySplit[k] || 0), 0);
 
-  // Auto-advance logic
   const isTab0Complete = useCallback(() => {
     return s.seniorities.length > 0 && s.expertise.length > 0 && s.english !== '' &&
       (s.expertise.length < 2 || splitTotal === 100);
@@ -42,17 +42,30 @@ const CabinetStep3Search = () => {
     return (s.retroMin !== '' || s.retroMax !== '') && s.tt !== '';
   }, [s.retroMin, s.retroMax, s.tt]);
 
-  const tabComplete = [isTab0Complete(), isTab1Complete(), isTab2Complete(), false];
+  const isTab3Complete = useCallback(() => {
+    return s.confNiveau !== '';
+  }, [s.confNiveau]);
 
-  // Auto-advance with delay to avoid premature switching
+  const tabComplete = [isTab0Complete(), isTab1Complete(), isTab2Complete(), isTab3Complete()];
+  const allComplete = tabComplete[0] && tabComplete[1] && tabComplete[2] && tabComplete[3];
+
+  // Auto-advance: only when a tab BECOMES complete (transition from false → true)
   useEffect(() => {
-    if (activeTab < 3 && tabComplete[activeTab]) {
+    const prev = prevTabComplete.current;
+    if (activeTab < 3 && !prev[activeTab] && tabComplete[activeTab]) {
       const timer = setTimeout(() => {
-        setActiveTab((prev) => prev + 1);
-      }, 600);
+        setActiveTab((t) => t + 1);
+      }, 800);
+      prevTabComplete.current = [...tabComplete];
       return () => clearTimeout(timer);
     }
-  }, [tabComplete[0], tabComplete[1], tabComplete[2], activeTab]);
+    prevTabComplete.current = [...tabComplete];
+  }, [tabComplete[0], tabComplete[1], tabComplete[2], tabComplete[3], activeTab]);
+
+  // Sub-category toggle
+  const toggleActivity = (key: string) => {
+    s.setField('cabinetActivites', { ...s.cabinetActivites, [key]: !s.cabinetActivites[key] });
+  };
 
   // Pie chart data
   const chartData = useMemo(() => {
@@ -136,6 +149,42 @@ const CabinetStep3Search = () => {
                 </button>
               ))}
             </div>
+
+            {/* Sub-categories for selected expertises */}
+            {s.expertise.length > 0 && (
+              <div className="mt-5 space-y-5">
+                {s.expertise.map((exp) => {
+                  const detail = CABINET_EXPERTISE_DETAIL[exp];
+                  if (!detail) return null;
+                  return (
+                    <div key={exp} className="p-4 rounded border border-border bg-secondary/30">
+                      <p className="text-[10px] font-bold tracking-[0.1em] uppercase text-muted-foreground mb-3">{exp} — scope d'intervention</p>
+                      {detail.sections.map((section) => (
+                        <div key={section.title} className="mb-3 last:mb-0">
+                          <p className="text-[10px] text-muted-foreground mb-2">{section.title}</p>
+                          <div className="flex gap-1.5 flex-wrap">
+                            {section.items.map((item) => (
+                              <button
+                                key={item.key}
+                                onClick={() => toggleActivity(item.key)}
+                                className={cn(
+                                  'px-3 py-1.5 rounded-sm border text-[11px] transition-all',
+                                  s.cabinetActivites[item.key]
+                                    ? 'bg-foreground text-background border-foreground'
+                                    : 'bg-background text-muted-foreground border-border hover:border-foreground hover:text-foreground'
+                                )}
+                              >
+                                {item.label}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  );
+                })}
+              </div>
+            )}
 
             {/* Activity split with pie chart */}
             {s.expertise.length >= 2 && (
@@ -461,7 +510,11 @@ const CabinetStep3Search = () => {
       {/* Nav */}
       <div className="flex justify-between items-center mt-11 pt-7 border-t border-border">
         <Button variant="outline" onClick={() => s.setStep(2)} className="font-sans text-sm rounded-sm">← Retour</Button>
-        <Button onClick={() => s.setStep(4)} className="bg-foreground text-background hover:bg-foreground/90 font-sans text-sm font-bold rounded-sm px-8">
+        <Button
+          onClick={() => s.setStep(4)}
+          disabled={!allComplete}
+          className="bg-foreground text-background hover:bg-foreground/90 font-sans text-sm font-bold rounded-sm px-8 disabled:opacity-40"
+        >
           Continuer →
         </Button>
       </div>

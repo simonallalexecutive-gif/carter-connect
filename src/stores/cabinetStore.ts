@@ -23,6 +23,7 @@ export interface CabinetState {
   seniorities: string[];
   expertise: string[];
   activitySplit: Record<string, number>;
+  cabinetActivites: Record<string, boolean>;
   english: string;
   l500cand: boolean;
   natOrigin: string;
@@ -76,6 +77,7 @@ const initialState = {
   seniorities: [] as string[],
   expertise: [] as string[],
   activitySplit: {} as Record<string, number>,
+  cabinetActivites: {} as Record<string, boolean>,
   english: '',
   l500cand: false,
   natOrigin: '',
