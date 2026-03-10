@@ -394,7 +394,7 @@ const DemoPage = () => {
           </Button>
 
           {currentSlide === slides.length - 1 ? (
-            <Link to={perspective === 'candidat' ? '/inscription?espace=candidat' : '/cabinet?start=2'}>
+            <Link to={perspective === 'candidat' ? '/inscription?start=2' : '/cabinet?start=2'}>
               <Button className="bg-foreground text-background hover:bg-foreground/90 text-sm font-bold rounded-sm px-8">
                 {perspective === 'candidat' ? 'Créer mon profil' : 'Inscrire mon cabinet'} <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
