@@ -87,6 +87,205 @@ export const EXPERTISES = [
   'Fiscal',
 ];
 
+export const CABINET_EXPERTISE_DETAIL: Record<string, { sections: { title: string; items: { key: string; label: string }[] }[] }> = {
+  'M&A Industriel': {
+    sections: [
+      {
+        title: 'Nature des opérations',
+        items: [
+          { key: 'ma_acq', label: 'Acquisitions' },
+          { key: 'ma_cess', label: 'Cessions' },
+          { key: 'ma_jv', label: 'Joint-ventures' },
+          { key: 'ma_reorg', label: 'Réorganisations' },
+          { key: 'ma_cross', label: 'Cross-border' },
+        ],
+      },
+      {
+        title: 'Taille des opérations',
+        items: [
+          { key: 'ma_sm', label: 'Small cap (< 50 M€)' },
+          { key: 'ma_mid', label: 'Mid cap (50–500 M€)' },
+          { key: 'ma_lg', label: 'Large cap (> 500 M€)' },
+        ],
+      },
+    ],
+  },
+  'Private Equity / LBO': {
+    sections: [
+      {
+        title: 'Type d\'opérations',
+        items: [
+          { key: 'pe_lbo', label: 'LBO / Leveraged Buy-Out' },
+          { key: 'pe_growth', label: 'Growth equity' },
+          { key: 'pe_second', label: 'Secondaire' },
+          { key: 'pe_exit', label: 'Sorties / IPO' },
+          { key: 'pe_mgt', label: 'Management packages' },
+        ],
+      },
+      {
+        title: 'Positionnement',
+        items: [
+          { key: 'pe_fonds', label: 'Côté fonds' },
+          { key: 'pe_mgtside', label: 'Côté management' },
+          { key: 'pe_coinvest', label: 'Co-investissement' },
+        ],
+      },
+    ],
+  },
+  'Venture Capital': {
+    sections: [
+      {
+        title: 'Stade d\'intervention',
+        items: [
+          { key: 'vc_seed', label: 'Seed / Amorçage' },
+          { key: 'vc_seriesa', label: 'Série A / B' },
+          { key: 'vc_late', label: 'Late stage / Growth' },
+        ],
+      },
+      {
+        title: 'Spécialités',
+        items: [
+          { key: 'vc_bsa', label: 'BSA / BSPCE' },
+          { key: 'vc_sha', label: 'Pactes d\'associés' },
+          { key: 'vc_cross', label: 'Cross-border' },
+        ],
+      },
+    ],
+  },
+  'Droit boursier': {
+    sections: [
+      {
+        title: 'Domaines',
+        items: [
+          { key: 'brs_ipo', label: 'IPO / Introduction en bourse' },
+          { key: 'brs_opa', label: 'OPA / Offres publiques' },
+          { key: 'brs_reg', label: 'Réglementation AMF' },
+          { key: 'brs_list', label: 'Sociétés cotées / Gouvernance' },
+        ],
+      },
+    ],
+  },
+  'Financement': {
+    sections: [
+      {
+        title: 'Type de financement',
+        items: [
+          { key: 'fin_acq', label: 'Financements d\'acquisition' },
+          { key: 'fin_proj', label: 'Financements de projet' },
+          { key: 'fin_struc', label: 'Financements structurés' },
+          { key: 'fin_immo', label: 'Financements immobiliers' },
+          { key: 'fin_titr', label: 'Titrisation' },
+        ],
+      },
+      {
+        title: 'Positionnement',
+        items: [
+          { key: 'fin_pret', label: 'Côté prêteur' },
+          { key: 'fin_empr', label: 'Côté emprunteur' },
+        ],
+      },
+    ],
+  },
+  'Restructuring': {
+    sections: [
+      {
+        title: 'Nature du travail',
+        items: [
+          { key: 'rst_amiable', label: 'Conseil amiable' },
+          { key: 'rst_jud', label: 'Procédures collectives' },
+          { key: 'rst_rfin', label: 'Restructuration financière' },
+          { key: 'rst_barre', label: 'Reprise à la barre' },
+        ],
+      },
+      {
+        title: 'Positionnement',
+        items: [
+          { key: 'rst_deb', label: 'Côté débiteur' },
+          { key: 'rst_cre', label: 'Côté créancier' },
+        ],
+      },
+    ],
+  },
+  'Immobilier transactionnel': {
+    sections: [
+      {
+        title: 'Opérations',
+        items: [
+          { key: 'imm_acq', label: 'Acquisitions immobilières' },
+          { key: 'imm_bail', label: 'Baux commerciaux' },
+          { key: 'imm_promo', label: 'Promotion immobilière' },
+          { key: 'imm_vefa', label: 'VEFA' },
+          { key: 'imm_urba', label: 'Urbanisme' },
+        ],
+      },
+      {
+        title: 'Type d\'actifs',
+        items: [
+          { key: 'imm_bureau', label: 'Bureaux' },
+          { key: 'imm_retail', label: 'Retail / Commerce' },
+          { key: 'imm_logi', label: 'Logistique' },
+        ],
+      },
+    ],
+  },
+  'Droit Social': {
+    sections: [
+      {
+        title: 'Nature de l\'activité',
+        items: [
+          { key: 'soc_conseil', label: 'Conseil quotidien' },
+          { key: 'soc_cont', label: 'Contentieux prud\'homal' },
+          { key: 'soc_coll', label: 'Relations collectives' },
+          { key: 'soc_restr', label: 'Restructurations sociales' },
+        ],
+      },
+      {
+        title: 'Spécialités',
+        items: [
+          { key: 'soc_remun', label: 'Rémunération & avantages' },
+          { key: 'soc_mob', label: 'Mobilité internationale' },
+          { key: 'soc_pse', label: 'PSE / Plans sociaux' },
+        ],
+      },
+    ],
+  },
+  'Contentieux': {
+    sections: [
+      {
+        title: 'Type de contentieux',
+        items: [
+          { key: 'ctx_com', label: 'Contentieux commercial' },
+          { key: 'ctx_arb', label: 'Arbitrage' },
+          { key: 'ctx_penal', label: 'Pénal des affaires' },
+          { key: 'ctx_resp', label: 'Responsabilité civile' },
+          { key: 'ctx_conc', label: 'Concurrence' },
+        ],
+      },
+    ],
+  },
+  'Fiscal': {
+    sections: [
+      {
+        title: 'Nature de l\'activité',
+        items: [
+          { key: 'fisc_direct', label: 'Fiscalité directe' },
+          { key: 'fisc_indirect', label: 'Fiscalité indirecte (TVA)' },
+          { key: 'fisc_inter', label: 'Fiscalité internationale' },
+          { key: 'fisc_transac', label: 'Fiscalité transactionnelle' },
+        ],
+      },
+      {
+        title: 'Spécialités',
+        items: [
+          { key: 'fisc_prix', label: 'Prix de transfert' },
+          { key: 'fisc_cont', label: 'Contentieux fiscal' },
+          { key: 'fisc_patri', label: 'Gestion de patrimoine' },
+        ],
+      },
+    ],
+  },
+};
+
 export const SENIORITY_OPTIONS = [
   { key: 'junior', label: 'Junior', pqe: '0–3 ans' },
   { key: 'mid', label: 'Mid Level', pqe: '3–6 ans' },

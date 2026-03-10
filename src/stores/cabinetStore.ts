@@ -77,6 +77,7 @@ const initialState = {
   seniorities: [] as string[],
   expertise: [] as string[],
   activitySplit: {} as Record<string, number>,
+  cabinetActivites: {} as Record<string, boolean>,
   english: '',
   l500cand: false,
   natOrigin: '',
