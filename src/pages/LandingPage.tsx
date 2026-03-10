@@ -77,8 +77,11 @@ const LandingPage = () => (
           <motion.h1 variants={fadeUp} className="text-5xl md:text-7xl lg:text-[5.5rem] font-serif font-normal text-white leading-[1.08] mb-8 tracking-[-0.01em]">
             Welcome to{' '}<em className="font-normal text-white/70">Logan</em>
           </motion.h1>
-          <motion.p variants={fadeUp} className="text-base md:text-lg text-white/60 font-sans font-light max-w-lg mb-14 leading-relaxed">
-            Le réseau confidentiel des avocats d'affaires : your future starts HERE.
+          <motion.p variants={fadeUp} className="text-base md:text-lg text-white/60 font-sans font-light max-w-lg mb-3 leading-relaxed">
+            Le réseau confidentiel des avocats d'affaires.
+          </motion.p>
+          <motion.p variants={fadeUp} className="text-sm md:text-base text-white/40 font-sans font-light italic max-w-lg mb-14 leading-relaxed tracking-widest">
+            Your future starts <span className="not-italic font-medium text-white/60">HERE</span>.
           </motion.p>
           <motion.div variants={fadeUp}>
             <Link to="/inscription">
