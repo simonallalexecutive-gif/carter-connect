@@ -20,16 +20,26 @@ const Header = () => {
           </Link>
           {!loading && (
             user ? (
-              <button
-                onClick={signOut}
-                className="font-sans text-[13px] font-light text-white/80 hover:text-white border border-white/20 hover:border-white/40 rounded-sm px-4 py-2 transition-colors duration-300"
-              >
-                Déconnexion
-              </button>
+              <>
+                <Link to="/espace-candidat" className="font-sans text-[13px] font-light text-white/60 hover:text-white transition-colors duration-300">
+                  Mon espace
+                </Link>
+                <button
+                  onClick={signOut}
+                  className="font-sans text-[13px] font-light text-white/80 hover:text-white border border-white/20 hover:border-white/40 rounded-sm px-4 py-2 transition-colors duration-300"
+                >
+                  Déconnexion
+                </button>
+              </>
             ) : (
-              <Link to="/demo" className="font-sans text-[13px] font-medium bg-white text-black hover:bg-white/90 rounded-sm px-4 py-2 transition-colors duration-300">
-                Explorer
-              </Link>
+              <>
+                <Link to="/auth" className="font-sans text-[13px] font-light text-white/60 hover:text-white transition-colors duration-300">
+                  Connexion
+                </Link>
+                <Link to="/demo" className="font-sans text-[13px] font-medium bg-white text-black hover:bg-white/90 rounded-sm px-4 py-2 transition-colors duration-300">
+                  Explorer
+                </Link>
+              </>
             )
           )}
         </nav>
