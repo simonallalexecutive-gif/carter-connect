@@ -262,7 +262,7 @@ const CabinetStep3Search = () => {
               Objectif annuel facturable <span className="font-normal normal-case tracking-normal text-[10px] text-border">facultatif</span>
             </label>
             <div className="relative max-w-[260px]">
-              <Input value={s.heures} onChange={(e) => s.setField('heures', e.target.value)} placeholder="Ex : 1 800" className="bg-background pr-12" />
+              <Input value={s.heures} onChange={(e) => s.setField('heures', formatNumberWithDots(e.target.value))} placeholder="Ex : 1.800" className="bg-background pr-12" />
               <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-muted-foreground">h/an</span>
             </div>
           </div>

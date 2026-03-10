@@ -223,7 +223,7 @@ const CabinetStep2Identity = () => {
         <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2 block">
           Téléphone portable <span className="font-normal normal-case tracking-normal text-[10px] text-border">recommandé</span>
         </label>
-        <Input value={s.mobile} onChange={(e) => s.setField('mobile', e.target.value)} type="tel" placeholder="+33 6 00 00 00 00" className="bg-background" />
+        <Input value={s.mobile} onChange={(e) => { const { formatPhoneWithDots } = require('@/lib/formatters'); s.setField('mobile', formatPhoneWithDots(e.target.value)); }} type="tel" placeholder="06.50.10.20.30" className="bg-background" />
       </div>
 
       {/* Nav */}
