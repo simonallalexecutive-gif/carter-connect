@@ -124,43 +124,37 @@ export const CONF_OPTIONS = [
   },
 ];
 
-export const PALIERS = [
+export const SUBSCRIPTION_ADVANTAGES = [
   {
-    key: 'essentiel',
-    name: 'Essentiel',
-    sub: 'Boutique',
-    size: "Jusqu'à 15 avocats",
-    price: '8 000 €',
-    argument: 'Amorti dès le 1er recrutement — économie immédiate vs. 25K€ minimum traditionnel.',
+    icon: '🔓',
+    title: 'Accès continu au vivier premium',
+    desc: 'Consultez les meilleurs profils à l\'écoute du marché, en temps réel — pas uniquement quand vous êtes en urgence.',
   },
   {
-    key: 'standard',
-    name: 'Standard',
-    sub: 'Cabinet mid-size',
-    size: '15 à 60 avocats',
-    price: '15 000 €',
-    recommended: true,
-    argument: 'Le plus choisi — un placement et votre abonnement est amorti pour l\'année.',
+    icon: '🎯',
+    title: 'Recrutement stratégique',
+    desc: 'Identifiez les talents avant vos concurrents. La meilleure embauche se fait rarement dans l\'urgence.',
   },
   {
-    key: 'premium',
-    name: 'Premium',
-    sub: 'Grande structure',
-    size: '+ 60 avocats',
-    price: '25 000 €',
-    argument: "Moins cher qu'un seul honoraire bas de gamme. Rentable dès le 2ème placement.",
+    icon: '♾️',
+    title: 'Illimité, tout le cabinet',
+    desc: 'Tous les départements, tous les associés, sans limite de recherche ni de profil consulté.',
   },
-];
-
-export const INCLUDED_FEATURES = [
-  'Accès illimité à la plateforme pour tout le cabinet',
-  'Tous les départements inclus — sans surcoût',
-  'Profils anonymisés, qualifiés par LOGAN',
-  'Recherches actives illimitées simultanées',
-  'Consultant LOGAN dédié à chaque étape',
-  '0% de commission au placement — garanti',
-  'Notifications prioritaires — nouveaux profils',
-  'Reporting mensuel & suivi des recrutements',
+  {
+    icon: '🤝',
+    title: 'Zéro commission au placement',
+    desc: 'Pas de pourcentage sur la rétrocession. Votre abonnement couvre tout.',
+  },
+  {
+    icon: '📊',
+    title: 'Consultant LOGAN dédié',
+    desc: 'Un interlocuteur unique, reporting mensuel, suivi personnalisé de vos recrutements.',
+  },
+  {
+    icon: '🔔',
+    title: 'Alertes prioritaires',
+    desc: 'Soyez notifié en premier dès qu\'un profil correspondant à vos critères rejoint le vivier.',
+  },
 ];
 
 export interface CabinetProfile {
