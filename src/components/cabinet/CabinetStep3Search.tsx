@@ -421,18 +421,7 @@ const CabinetStep3Search = () => {
                   </div>
                 </div>
 
-                <div>
-                  <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-1.5 block">
-                    Quel bonus cet objectif déclenche-t-il ? <span className="font-normal normal-case tracking-normal text-[10px] text-border">facultatif</span>
-                  </label>
-                  <Input
-                    value={s.bonusDesc}
-                    onChange={(e) => s.setField('bonusDesc', e.target.value)}
-                    placeholder="Ex : 1.700 h/an déclenche 2 mois de bonus"
-                    className="bg-background"
-                  />
-                  <p className="text-[11px] text-muted-foreground mt-1.5">Précisez le seuil et le montant ou équivalent mois si applicable.</p>
-                </div>
+
               </div>
             )}
           </div>
