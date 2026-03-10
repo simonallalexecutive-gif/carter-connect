@@ -25,10 +25,10 @@ const CHART_COLORS = [
 const CabinetStep3Search = () => {
   const s = useCabinetStore();
   const [activeTab, setActiveTab] = useState(0);
+  const prevTabComplete = useRef<boolean[]>([false, false, false, false]);
 
   const splitTotal = s.expertise.reduce((sum, k) => sum + (s.activitySplit[k] || 0), 0);
 
-  // Auto-advance logic
   const isTab0Complete = useCallback(() => {
     return s.seniorities.length > 0 && s.expertise.length > 0 && s.english !== '' &&
       (s.expertise.length < 2 || splitTotal === 100);
@@ -42,17 +42,30 @@ const CabinetStep3Search = () => {
     return (s.retroMin !== '' || s.retroMax !== '') && s.tt !== '';
   }, [s.retroMin, s.retroMax, s.tt]);
 
-  const tabComplete = [isTab0Complete(), isTab1Complete(), isTab2Complete(), false];
+  const isTab3Complete = useCallback(() => {
+    return s.confNiveau !== '';
+  }, [s.confNiveau]);
 
-  // Auto-advance with delay to avoid premature switching
+  const tabComplete = [isTab0Complete(), isTab1Complete(), isTab2Complete(), isTab3Complete()];
+  const allComplete = tabComplete[0] && tabComplete[1] && tabComplete[2] && tabComplete[3];
+
+  // Auto-advance: only when a tab BECOMES complete (transition from false → true)
   useEffect(() => {
-    if (activeTab < 3 && tabComplete[activeTab]) {
+    const prev = prevTabComplete.current;
+    if (activeTab < 3 && !prev[activeTab] && tabComplete[activeTab]) {
       const timer = setTimeout(() => {
-        setActiveTab((prev) => prev + 1);
-      }, 600);
+        setActiveTab((t) => t + 1);
+      }, 800);
+      prevTabComplete.current = [...tabComplete];
       return () => clearTimeout(timer);
     }
-  }, [tabComplete[0], tabComplete[1], tabComplete[2], activeTab]);
+    prevTabComplete.current = [...tabComplete];
+  }, [tabComplete[0], tabComplete[1], tabComplete[2], tabComplete[3], activeTab]);
+
+  // Sub-category toggle
+  const toggleActivity = (key: string) => {
+    s.setField('cabinetActivites', { ...s.cabinetActivites, [key]: !s.cabinetActivites[key] });
+  };
 
   // Pie chart data
   const chartData = useMemo(() => {
