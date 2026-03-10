@@ -81,7 +81,7 @@ const LandingPage = () => (
             La plateforme confidentielle de mise en relation entre avocats d'affaires et cabinets de premier plan.
           </motion.p>
           <motion.p variants={fadeUp} className="text-[11px] text-white/40 font-sans font-light uppercase max-w-lg mb-14 tracking-[0.2em]">
-            Réseau confidentiel
+            Votre nouvelle approche du recrutement commence ici
           </motion.p>
           <motion.div variants={fadeUp}>
             <Link to="/inscription">
