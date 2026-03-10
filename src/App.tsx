@@ -10,6 +10,7 @@ import DemoPage from "./pages/DemoPage";
 import AuthPage from "./pages/AuthPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
 import VideoPreview from "./pages/VideoPreview";
+import AdminPage from "./pages/AdminPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
