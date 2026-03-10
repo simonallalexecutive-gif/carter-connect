@@ -1,11 +1,13 @@
 import { motion } from 'framer-motion';
+import { useRef, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import BenefitsSection from '@/components/landing/BenefitsSection';
 import { ArrowRight } from 'lucide-react';
-import heroVideo from '@/assets/hero-video-option-9.mp4';
+import heroVideoA from '@/assets/hero-video-option-10a.mp4';
+import heroVideoB from '@/assets/hero-video-option-10b.mp4';
 
 const firmNames = [
   'Bredin Prat', 'Darrois Villey', 'Gide', 'Cleary Gottlieb', 'De Pardieu Brocas',
@@ -46,7 +48,20 @@ const steps = [
   { number: '03', title: 'Mise en relation', desc: 'Logan orchestre les échanges avec les cabinets intéressés, avec votre accord préalable.' },
 ];
 
-const LandingPage = () => (
+const LandingPage = () => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const sources = [heroVideoA, heroVideoB];
+  const currentIndex = useRef(0);
+
+  const handleVideoEnded = useCallback(() => {
+    currentIndex.current = (currentIndex.current + 1) % sources.length;
+    if (videoRef.current) {
+      videoRef.current.src = sources[currentIndex.current];
+      videoRef.current.play();
+    }
+  }, []);
+
+  return (
   <div className="min-h-screen bg-background">
     <Header />
 
@@ -55,11 +70,12 @@ const LandingPage = () => (
       {/* Background image with gradient overlay */}
       <div className="absolute inset-0">
         <motion.video
-          src={heroVideo}
+          ref={videoRef}
+          src={heroVideoA}
           autoPlay
           muted
-          loop
           playsInline
+          onEnded={handleVideoEnded}
           initial={{ opacity: 0, scale: 1.05 }}
           animate={{ opacity: 0.75, scale: 1 }}
           transition={{ duration: 2, ease: 'easeOut' }}
@@ -229,6 +245,7 @@ const LandingPage = () => (
 
     <Footer />
   </div>
-);
+  );
+};
 
 export default LandingPage;
