@@ -27,6 +27,7 @@ export interface CabinetState {
   english: string;
   l500cand: boolean;
   natOrigin: string;
+  prefFirms: string[];
   contexte: string;
   eqAssocies: string;
   eqCounsels: string;
@@ -82,6 +83,7 @@ const initialState = {
   english: '',
   l500cand: false,
   natOrigin: '',
+  prefFirms: [] as string[],
   contexte: '',
   eqAssocies: '',
   eqCounsels: '',

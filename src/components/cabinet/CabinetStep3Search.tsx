@@ -8,6 +8,8 @@ import { cn } from '@/lib/utils';
 import { formatNumberWithDots } from '@/lib/formatters';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import { Check } from 'lucide-react';
+import { FIRMS_DB } from '@/lib/cabinetConstants';
+import AutocompleteInput from '@/components/shared/AutocompleteInput';
 
 const TABS = ['Profil recherché', 'Contexte & équipe', 'Rémunération & conditions', 'Confidentialité'];
 
@@ -291,6 +293,20 @@ const CabinetStep3Search = () => {
                 </button>
               ))}
             </div>
+
+            <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2 block mt-5">
+              Cabinets prioritaires <span className="font-normal normal-case tracking-normal text-[10px] text-border">facultatif — notifications ciblées</span>
+            </label>
+            <p className="text-[11px] text-muted-foreground mb-2.5 leading-relaxed">
+              Souhaitez-vous être notifié en priorité pour des candidats issus de cabinets spécifiques ? Sélectionnez les structures qui vous intéressent.
+            </p>
+            <AutocompleteInput
+              data={Object.keys(FIRMS_DB)}
+              value={s.prefFirms}
+              onChange={(val) => s.setField('prefFirms', val as string[])}
+              placeholder="Ex : Sullivan & Cromwell, Skadden, White & Case…"
+              single={false}
+            />
           </div>
         </div>
       )}
