@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import logoLogan from '@/assets/logo-logan.png';
 
 const Footer = () => (
   <footer className="bg-black pt-20 pb-10">
@@ -9,7 +10,7 @@ const Footer = () => (
       <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 pb-16 border-b border-white/10">
         {/* Brand */}
         <div className="md:col-span-4">
-          <span className="font-serif text-2xl text-white tracking-[-0.02em] block mb-4">Logan</span>
+          <img src={logoLogan} alt="Logan" className="h-12 w-12 mb-4 invert" />
           <p className="font-sans text-xs text-white/40 font-light leading-relaxed max-w-xs">
             Réseau confidentiel de mise en relation entre avocats d'affaires et cabinets de premier plan.
           </p>
