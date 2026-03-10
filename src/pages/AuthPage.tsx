@@ -22,7 +22,7 @@ const AuthPage = () => {
 
   useEffect(() => {
     if (!loading && user) {
-      navigate('/');
+      navigate('/espace-candidat');
     }
   }, [user, loading, navigate]);
 
@@ -35,7 +35,7 @@ const AuthPage = () => {
         const { error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
         toast.success('Connexion réussie');
-        navigate('/');
+        navigate('/espace-candidat');
       } else {
         const { error } = await supabase.auth.signUp({
           email,
