@@ -11,6 +11,7 @@ import AuthPage from "./pages/AuthPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
 import VideoPreview from "./pages/VideoPreview";
 import AdminPage from "./pages/AdminPage";
+import CandidateDashboard from "./pages/CandidateDashboard";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
