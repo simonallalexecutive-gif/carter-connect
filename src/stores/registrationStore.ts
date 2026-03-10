@@ -3,6 +3,7 @@ import type { RegistrationState } from '@/types';
 
 const initialState = {
   currentStep: 1,
+  linkedinUrl: '',
   prenom: '',
   nom: '',
   email: '',

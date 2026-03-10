@@ -10,12 +10,12 @@ import { cn } from '@/lib/utils';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 
 const CHART_COLORS = [
-  'hsl(38, 55%, 72%)',
-  'hsl(38, 30%, 45%)',
-  'hsl(38, 65%, 80%)',
-  'hsl(30, 20%, 35%)',
-  'hsl(38, 40%, 60%)',
-  'hsl(30, 15%, 50%)',
+  'hsl(215, 60%, 30%)',
+  'hsl(215, 50%, 42%)',
+  'hsl(220, 55%, 22%)',
+  'hsl(210, 45%, 52%)',
+  'hsl(218, 40%, 36%)',
+  'hsl(222, 50%, 28%)',
 ];
 
 type PreviewMode = 'recap' | 'cabinet' | 'carter';

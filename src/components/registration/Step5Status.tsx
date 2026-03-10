@@ -25,29 +25,6 @@ const Step5Status = () => {
       <p className="text-muted-foreground font-sans text-sm font-light mb-10">Définissez votre disponibilité et le niveau de confidentialité souhaité.</p>
 
       <div className="space-y-10">
-        {/* How it works */}
-        <div className="carter-card p-8 space-y-6 border-accent/10">
-          <div>
-            <p className="carter-label mb-2">Fonctionnement</p>
-            <h3 className="font-serif text-xl text-foreground font-normal">Comment ça fonctionne</h3>
-          </div>
-          <div className="space-y-6">
-            {[
-              { num: '01', title: 'Notification confidentielle', desc: 'Un cabinet manifeste un intérêt pour votre profil. Vous êtes notifié sans que votre identité ne soit révélée.' },
-              { num: '02', title: 'Votre décision', desc: 'Vous choisissez de répondre favorablement ou non. Par exemple : "Oui, un échange à ce sujet avec Logan pourrait m\'intéresser."' },
-              { num: '03', title: 'Accompagnement Logan', desc: 'Logan prend contact avec vous, s\'assure de la cohérence de l\'opportunité avec votre projet, puis organise la mise en relation et gère le processus jusqu\'à son terme.' },
-            ].map(step => (
-              <div key={step.num} className="flex items-start gap-4">
-                <span className="text-xs font-sans font-medium text-accent tracking-[0.15em] mt-1 flex-shrink-0">{step.num}</span>
-                <div>
-                  <p className="font-sans text-sm font-medium text-foreground">{step.title}</p>
-                  <p className="font-sans text-xs font-light text-muted-foreground mt-1 leading-relaxed">{step.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
         {/* Statut d'écoute */}
         <div>
           <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-4 block">Statut d'écoute</Label>
@@ -65,7 +42,7 @@ const Step5Status = () => {
                 <RadioGroupItem value={opt.value} className="mt-0.5" />
                 <div>
                   <div className="flex items-center gap-2">
-                    {opt.icon && <Zap className="w-3.5 h-3.5 text-accent" />}
+                    {opt.icon && <Zap className="w-3.5 h-3.5 text-foreground" />}
                     <span className="font-sans font-medium text-sm">{opt.label}</span>
                   </div>
                   <p className="text-xs text-muted-foreground font-sans font-light mt-1">{opt.desc}</p>

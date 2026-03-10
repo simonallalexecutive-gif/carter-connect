@@ -592,9 +592,9 @@ export const NOGO_SUGGESTIONS = [
 
 export const NATIONALITES = ["Français", "Américain", "Anglais", "Allemand", "Autre"];
 
-export const TIERS = ["Band 1", "Band 2", "Band 3", "Band 4"];
+export const TIERS = ["Tier 1", "Tier 2", "Tier 3", "Tier 4", "Tier 5", "Tier 6", "Firms to Watch"];
 
-export const ANGLAIS_OPTIONS = ["Courant", "Professionnel", "Notions", "Bilingue"];
+export const ANGLAIS_OPTIONS = ["Bilingue", "Courant", "Professionnel", "Notions"];
 
 export const TYPES_CLIENTS = [
   "CAC 40 / SBF 120", "ETI", "PME", "Start-ups / Scale-ups",

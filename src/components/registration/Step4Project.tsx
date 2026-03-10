@@ -83,7 +83,7 @@ const Step4Project = () => {
 
         {/* Motivation */}
         <div>
-          <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Motivation / Contexte *</Label>
+          <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Motivation / Contexte</Label>
           <Textarea
             value={store.motivation}
             onChange={e => store.setField('motivation', e.target.value)}
