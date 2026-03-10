@@ -18,6 +18,8 @@ const Header = () => {
           <Link to="/inscription?espace=cabinet" className="font-serif text-[15px] font-normal text-white/80 hover:text-white transition-colors duration-300">
             Espace cabinet
           </Link>
+          <div className="flex-1" />
+
           {!loading && (
             user ? (
               <button
