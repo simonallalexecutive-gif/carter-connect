@@ -80,9 +80,7 @@ const LandingPage = () => (
           <motion.p variants={fadeUp} className="text-base md:text-lg text-white/60 font-sans font-light max-w-lg mb-3 leading-relaxed">
             La plateforme confidentielle de mise en relation entre avocats d'affaires et cabinets de premier plan.
           </motion.p>
-          <motion.p variants={fadeUp} className="text-[11px] text-white/40 font-sans font-light uppercase max-w-lg mb-14 tracking-[0.2em]">
-            Votre nouvelle approche du recrutement commence ici
-          </motion.p>
+          <motion.div variants={fadeUp} className="mb-14" />
           <motion.div variants={fadeUp}>
             <Link to="/inscription">
               <Button size="lg" className="bg-white text-black border border-white hover:bg-white/90 font-sans text-sm font-medium px-8 py-6 rounded-sm tracking-wide group transition-all duration-300">
