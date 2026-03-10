@@ -54,13 +54,16 @@ const LandingPage = () => (
     <section className="min-h-screen flex flex-col justify-center relative overflow-hidden bg-black">
       {/* Background image with gradient overlay */}
       <div className="absolute inset-0">
-        <motion.img
-          src={heroBg}
-          alt=""
+        <motion.video
+          src={heroVideo}
+          autoPlay
+          muted
+          loop
+          playsInline
           initial={{ opacity: 0, scale: 1.05 }}
-          animate={{ opacity: 0.5, scale: 1 }}
+          animate={{ opacity: 0.45, scale: 1 }}
           transition={{ duration: 2, ease: 'easeOut' }}
-          className="w-full h-full object-cover object-left"
+          className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-black/60 to-black" />
         <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/70" />
