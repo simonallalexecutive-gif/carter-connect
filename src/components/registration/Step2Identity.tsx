@@ -13,6 +13,7 @@ import FileDropzone from '@/components/shared/FileDropzone';
 import ChipSelector from '@/components/shared/ChipSelector';
 import { usePQE } from '@/hooks/usePQE';
 import { CABINETS, DEPARTEMENTS, NATIONALITES, TIERS, MOIS, TAILLE_OPERATIONS, DISPONIBILITES, RAISONS_BAISSE_RETRO } from '@/lib/constants';
+import { formatNumberWithDots, formatPhoneWithDots } from '@/lib/formatters';
 import { Camera, X, ArrowLeft, ArrowRight, Linkedin, Eye, EyeOff, Check, AlertCircle } from 'lucide-react';
 import { useRef, useState, useMemo } from 'react';
 
@@ -168,7 +169,7 @@ const Step2Identity = () => {
           </div>
           <div>
             <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Téléphone</Label>
-            <Input value={store.telephone} onChange={e => store.setField('telephone', e.target.value)} placeholder="+33 6 12 34 56 78" className="mt-2" />
+            <Input value={store.telephone} onChange={e => store.setField('telephone', formatPhoneWithDots(e.target.value))} placeholder="06.50.10.20.30" className="mt-2" />
           </div>
         </div>
 
@@ -283,7 +284,7 @@ const Step2Identity = () => {
               <div className="space-y-4 pl-7">
                 <div>
                   <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Chiffre d'affaires portable (€)</Label>
-                  <Input value={store.chiffreAffairesPortable} onChange={e => store.setField('chiffreAffairesPortable', e.target.value)} placeholder="500 000" className="mt-2" />
+                  <Input value={store.chiffreAffairesPortable} onChange={e => store.setField('chiffreAffairesPortable', formatNumberWithDots(e.target.value))} placeholder="500.000" className="mt-2" />
                 </div>
                 <div>
                   <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-2 block">Business plan (optionnel)</Label>
@@ -369,11 +370,11 @@ const Step2Identity = () => {
           <div className="grid grid-cols-2 gap-4">
             <div>
               <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Rétrocession brute annuelle (€)</Label>
-              <Input value={store.retrocession} onChange={e => store.setField('retrocession', e.target.value)} placeholder="80 000" className="mt-2" />
+              <Input value={store.retrocession} onChange={e => store.setField('retrocession', formatNumberWithDots(e.target.value))} placeholder="80.000" className="mt-2" />
             </div>
             <div>
               <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Bonus (€)</Label>
-              <Input value={store.bonus} onChange={e => store.setField('bonus', e.target.value)} placeholder="10 000" className="mt-2" />
+              <Input value={store.bonus} onChange={e => store.setField('bonus', formatNumberWithDots(e.target.value))} placeholder="10.000" className="mt-2" />
             </div>
           </div>
 
@@ -389,11 +390,11 @@ const Step2Identity = () => {
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Objectif (heures/an)</Label>
-                <Input value={store.objectifFacturable} onChange={e => store.setField('objectifFacturable', e.target.value)} placeholder="1800" className="mt-2" />
+                <Input value={store.objectifFacturable} onChange={e => store.setField('objectifFacturable', formatNumberWithDots(e.target.value))} placeholder="1.800" className="mt-2" />
               </div>
               <div>
                 <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Réalisé en pratique (heures/an)</Label>
-                <Input value={store.objectifFacturableReel} onChange={e => store.setField('objectifFacturableReel', e.target.value)} placeholder="1650" className="mt-2" />
+                <Input value={store.objectifFacturableReel} onChange={e => store.setField('objectifFacturableReel', formatNumberWithDots(e.target.value))} placeholder="1.650" className="mt-2" />
               </div>
             </div>
           )}

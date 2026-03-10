@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { EXPERTISES, SENIORITY_OPTIONS, CONF_OPTIONS } from '@/lib/cabinetConstants';
 import { cn } from '@/lib/utils';
+import { formatNumberWithDots } from '@/lib/formatters';
 
 const TABS = ['Profil recherché', 'Contexte & équipe', 'Rémunération & conditions', 'Confidentialité'];
 
@@ -245,11 +246,11 @@ const CabinetStep3Search = () => {
             </label>
             <div className="grid grid-cols-2 gap-3">
               <div className="relative">
-                <Input value={s.retroMin} onChange={(e) => s.setField('retroMin', e.target.value)} placeholder="Min — Ex : 90 000" className="bg-background pr-12" />
+                <Input value={s.retroMin} onChange={(e) => s.setField('retroMin', formatNumberWithDots(e.target.value))} placeholder="Min — Ex : 90.000" className="bg-background pr-12" />
                 <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-muted-foreground">€/an</span>
               </div>
               <div className="relative">
-                <Input value={s.retroMax} onChange={(e) => s.setField('retroMax', e.target.value)} placeholder="Max — Ex : 130 000" className="bg-background pr-12" />
+                <Input value={s.retroMax} onChange={(e) => s.setField('retroMax', formatNumberWithDots(e.target.value))} placeholder="Max — Ex : 130.000" className="bg-background pr-12" />
                 <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-muted-foreground">€/an</span>
               </div>
             </div>
@@ -261,7 +262,7 @@ const CabinetStep3Search = () => {
               Objectif annuel facturable <span className="font-normal normal-case tracking-normal text-[10px] text-border">facultatif</span>
             </label>
             <div className="relative max-w-[260px]">
-              <Input value={s.heures} onChange={(e) => s.setField('heures', e.target.value)} placeholder="Ex : 1 800" className="bg-background pr-12" />
+              <Input value={s.heures} onChange={(e) => s.setField('heures', formatNumberWithDots(e.target.value))} placeholder="Ex : 1.800" className="bg-background pr-12" />
               <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-muted-foreground">h/an</span>
             </div>
           </div>
