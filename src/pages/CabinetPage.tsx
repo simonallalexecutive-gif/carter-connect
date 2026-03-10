@@ -1,6 +1,6 @@
 import { useCabinetStore } from '@/stores/cabinetStore';
-import { Link } from 'react-router-dom';
 import Footer from '@/components/layout/Footer';
+import LogoBanner from '@/components/layout/LogoBanner';
 import CabinetStepProgress from '@/components/cabinet/CabinetStepProgress';
 import CabinetStep1Hero from '@/components/cabinet/CabinetStep1Hero';
 import CabinetStep2Identity from '@/components/cabinet/CabinetStep2Identity';
