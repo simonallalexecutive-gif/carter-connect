@@ -132,6 +132,9 @@ const Step6Review = () => {
                 </span>
               ))}
             </div>
+            {store.tailleOperations.length > 0 && (
+              <p className="text-sm font-sans font-light mb-1"><span className="text-muted-foreground">Taille opérations : </span>{store.tailleOperations.join(', ')}</p>
+            )}
             {store.anglais && <p className="text-sm font-sans font-light"><span className="text-muted-foreground">Anglais : </span>{store.anglais}</p>}
             {store.typesClients.length > 0 && (
               <p className="text-sm font-sans font-light mt-1"><span className="text-muted-foreground">Clients : </span>{store.typesClients.join(', ')}</p>

@@ -9,13 +9,27 @@ Deno.serve(async (req) => {
   }
 
   try {
-    const { url } = await req.json();
+    let { url } = await req.json();
 
     if (!url || !url.includes('linkedin.com/in/')) {
       return new Response(JSON.stringify({ error: 'Invalid LinkedIn URL' }), {
         status: 400,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       });
+    }
+
+    // Normalize URL — ensure it has a protocol
+    if (!url.startsWith('http://') && !url.startsWith('https://')) {
+      url = 'https://' + url;
+    }
+
+    // Strip query params / tracking fragments for cleaner fetch
+    try {
+      const parsed = new URL(url);
+      // Keep only the pathname (e.g. /in/username/)
+      url = `${parsed.origin}${parsed.pathname}`;
+    } catch {
+      // If parsing still fails, proceed as-is
     }
 
     // Fetch the LinkedIn public profile page
