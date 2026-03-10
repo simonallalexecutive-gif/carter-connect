@@ -103,7 +103,7 @@ const LandingPage = () => (
           <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-black to-transparent z-10" />
           <div className="flex animate-marquee whitespace-nowrap items-center">
             {[...firmNames, ...firmNames].map((name, i) => (
-              <span key={i} className="mx-10 md:mx-14 text-base md:text-lg font-serif font-normal text-white/75 select-none flex-shrink-0 tracking-[0.02em]">
+              <span key={i} className="mx-10 md:mx-14 text-base md:text-lg font-serif font-normal text-white/75 select-none flex-shrink-0 tracking-[0.02em] uppercase">
                 {name}
               </span>
             ))}
