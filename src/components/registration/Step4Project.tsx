@@ -25,7 +25,7 @@ const Step4Project = () => {
   const [rdvDate, setRdvDate] = useState<Date | undefined>();
   const [rdvHeure, setRdvHeure] = useState('');
 
-  const canProceed = store.motivation.length >= 20;
+  const canProceed = true;
 
   const handleDateSelect = (date: Date | undefined) => {
     setRdvDate(date);
