@@ -93,6 +93,7 @@ const initialState = {
   heures: '',
   bonusEnabled: false,
   bonusTypes: [] as string[],
+  bonusDesc: '',
   hasHeures: false,
   tt: '',
   confNiveau: '',

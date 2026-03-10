@@ -371,61 +371,52 @@ const CabinetStep3Search = () => {
             <p className="text-[11px] text-muted-foreground mt-1.5">Transmis par LOGAN uniquement si le candidat est en discussion avancée.</p>
           </div>
 
-          {/* Objectif heures facturables */}
+          {/* Objectif heures & bonus */}
           <div className="mb-6">
             <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2 block">
-              Objectif annuel d'heures facturables <span className="font-normal normal-case tracking-normal text-[10px] text-border">facultatif</span>
+              Y a-t-il un objectif annuel d'heures facturables ?
             </label>
-            <div className="relative max-w-[260px]">
-              <Input value={s.heures} onChange={(e) => s.setField('heures', formatNumberWithDots(e.target.value))} placeholder="Ex : 1.800" className="bg-background pr-12" />
-              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-muted-foreground">h/an</span>
+            <div className="flex gap-2 mb-3">
+              {['Oui', 'Non'].map((v) => (
+                <button
+                  key={v}
+                  onClick={() => s.setField('hasHeures', v === 'Oui')}
+                  className={cn(
+                    'px-4 py-2 rounded-sm border text-xs transition-all',
+                    (v === 'Oui' && s.hasHeures) || (v === 'Non' && !s.hasHeures && s.heures === '' && s.bonusDesc === '' ? false : v === 'Non' && !s.hasHeures)
+                      ? 'bg-foreground text-background border-foreground'
+                      : 'bg-background text-muted-foreground border-border hover:border-foreground'
+                  )}
+                >
+                  {v}
+                </button>
+              ))}
             </div>
-          </div>
 
-          {/* Bonus */}
-          <div className="mb-6">
-            <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2 block">Bonus</label>
-            <button
-              onClick={() => s.setField('bonusEnabled', !s.bonusEnabled)}
-              className={cn(
-                'flex items-center gap-3 p-3 rounded border transition-all w-full text-left',
-                s.bonusEnabled ? 'border-foreground bg-secondary' : 'border-border bg-background'
-              )}
-            >
-              <div className={cn(
-                'w-5 h-5 rounded border-2 flex items-center justify-center flex-shrink-0 transition-all',
-                s.bonusEnabled ? 'bg-foreground border-foreground' : 'border-border'
-              )}>
-                {s.bonusEnabled && <Check className="w-3 h-3 text-background" />}
-              </div>
-              <span className="text-sm text-foreground">Le poste comprend un bonus</span>
-            </button>
-            {s.bonusEnabled && (
-              <div className="mt-3 animate-fade-in">
-                <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2 block">Comment le bonus est-il déclenché ?</label>
-                <div className="flex gap-2 flex-wrap">
-                  {['Discrétionnaire', 'Objectif rempli'].map((b) => {
-                    const selected = s.bonusTypes.includes(b);
-                    return (
-                      <button
-                        key={b}
-                        onClick={() => {
-                          const next = selected
-                            ? s.bonusTypes.filter((x) => x !== b)
-                            : [...s.bonusTypes, b];
-                          s.setField('bonusTypes', next);
-                        }}
-                        className={cn(
-                          'px-4 py-2 rounded-sm border text-xs transition-all',
-                          selected ? 'bg-foreground text-background border-foreground' : 'bg-background text-muted-foreground border-border hover:border-foreground'
-                        )}
-                      >
-                        {b}
-                      </button>
-                    );
-                  })}
+            {s.hasHeures && (
+              <div className="animate-fade-in space-y-4">
+                <div>
+                  <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-1.5 block">
+                    Objectif d'heures
+                  </label>
+                  <div className="relative max-w-[260px]">
+                    <Input value={s.heures} onChange={(e) => s.setField('heures', formatNumberWithDots(e.target.value))} placeholder="Ex : 1.800" className="bg-background pr-12" />
+                    <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-muted-foreground">h/an</span>
+                  </div>
                 </div>
-                <p className="text-[11px] text-muted-foreground mt-1.5">Plusieurs choix possibles</p>
+
+                <div>
+                  <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-1.5 block">
+                    Quel bonus cet objectif déclenche-t-il ? <span className="font-normal normal-case tracking-normal text-[10px] text-border">facultatif</span>
+                  </label>
+                  <Input
+                    value={s.bonusDesc}
+                    onChange={(e) => s.setField('bonusDesc', e.target.value)}
+                    placeholder="Ex : 1.700 h/an déclenche 2 mois de bonus"
+                    className="bg-background"
+                  />
+                  <p className="text-[11px] text-muted-foreground mt-1.5">Précisez le seuil et le montant ou équivalent mois si applicable.</p>
+                </div>
               </div>
             )}
           </div>
