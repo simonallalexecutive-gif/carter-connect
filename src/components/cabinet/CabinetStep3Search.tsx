@@ -150,6 +150,42 @@ const CabinetStep3Search = () => {
               ))}
             </div>
 
+            {/* Sub-categories for selected expertises */}
+            {s.expertise.length > 0 && (
+              <div className="mt-5 space-y-5">
+                {s.expertise.map((exp) => {
+                  const detail = CABINET_EXPERTISE_DETAIL[exp];
+                  if (!detail) return null;
+                  return (
+                    <div key={exp} className="p-4 rounded border border-border bg-secondary/30">
+                      <p className="text-[10px] font-bold tracking-[0.1em] uppercase text-muted-foreground mb-3">{exp} — scope d'intervention</p>
+                      {detail.sections.map((section) => (
+                        <div key={section.title} className="mb-3 last:mb-0">
+                          <p className="text-[10px] text-muted-foreground mb-2">{section.title}</p>
+                          <div className="flex gap-1.5 flex-wrap">
+                            {section.items.map((item) => (
+                              <button
+                                key={item.key}
+                                onClick={() => toggleActivity(item.key)}
+                                className={cn(
+                                  'px-3 py-1.5 rounded-sm border text-[11px] transition-all',
+                                  s.cabinetActivites[item.key]
+                                    ? 'bg-foreground text-background border-foreground'
+                                    : 'bg-background text-muted-foreground border-border hover:border-foreground hover:text-foreground'
+                                )}
+                              >
+                                {item.label}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+
             {/* Activity split with pie chart */}
             {s.expertise.length >= 2 && (
               <div className="mt-5">
