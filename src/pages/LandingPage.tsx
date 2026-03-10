@@ -65,7 +65,7 @@ const LandingPage = () => (
           transition={{ duration: 2, ease: 'easeOut' }}
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-black/45 to-black/85" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/45 to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/50" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black" />
       </div>
