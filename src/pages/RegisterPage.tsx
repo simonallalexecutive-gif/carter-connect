@@ -8,7 +8,7 @@ import Step5Status from '@/components/registration/Step5Status';
 import Step6Review from '@/components/registration/Step6Review';
 import Step7Confirm from '@/components/registration/Step7Confirm';
 import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import LogoBanner from '@/components/layout/LogoBanner';
 
 const RegisterPage = () => {
   const currentStep = useRegistrationStore(s => s.currentStep);
