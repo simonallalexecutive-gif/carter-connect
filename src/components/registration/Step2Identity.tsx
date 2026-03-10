@@ -284,7 +284,7 @@ const Step2Identity = () => {
               <div className="space-y-4 pl-7">
                 <div>
                   <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Chiffre d'affaires portable (€)</Label>
-                  <Input value={store.chiffreAffairesPortable} onChange={e => store.setField('chiffreAffairesPortable', e.target.value)} placeholder="500 000" className="mt-2" />
+                  <Input value={store.chiffreAffairesPortable} onChange={e => store.setField('chiffreAffairesPortable', formatNumberWithDots(e.target.value))} placeholder="500.000" className="mt-2" />
                 </div>
                 <div>
                   <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-2 block">Business plan (optionnel)</Label>
