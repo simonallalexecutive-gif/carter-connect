@@ -622,3 +622,23 @@ export const MOIS = [
   { value: 9, label: "Septembre" }, { value: 10, label: "Octobre" },
   { value: 11, label: "Novembre" }, { value: 12, label: "Décembre" },
 ];
+
+export const ASSOC_ATTENTES = [
+  "Accéder à l'association",
+  "Développer ma clientèle personnelle",
+  "Plus d'autonomie et de responsabilités",
+  "Meilleure plateforme internationale",
+  "Rémunération plus attractive",
+  "Meilleur équilibre vie pro / vie perso",
+  "Synergie avec d'autres pratiques",
+  "Préparer un projet entrepreneurial",
+];
+
+export const ASSOC_CAB_TYPES = [
+  "Cabinet US",
+  "Cabinet UK",
+  "Cabinet français indépendant",
+  "Boutique spécialisée",
+  "Structure en forte croissance",
+  "Grand cabinet généraliste",
+];

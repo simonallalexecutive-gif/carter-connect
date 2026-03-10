@@ -96,6 +96,70 @@ const CabinetStep3Search = () => {
       {/* Tab 0: Profil recherché */}
       {activeTab === 0 && (
         <div className="animate-fade-in">
+          {/* Associé search toggle */}
+          <div className="mb-8 p-5 rounded-md border border-border bg-secondary/20">
+            <button
+              onClick={() => s.setField('searchAssocie', !s.searchAssocie)}
+              className={cn(
+                'w-full flex items-center justify-between transition-all'
+              )}
+            >
+              <div className="text-left">
+                <div className="text-sm font-semibold text-foreground">Cette recherche porte sur un Associé ou Counsel</div>
+                <div className="text-[11px] text-muted-foreground mt-0.5">Activez cette option pour préciser le CA requis, l'expertise et le projet attendu</div>
+              </div>
+              <div className={cn('w-9 h-5 rounded-full relative transition-colors flex-shrink-0', s.searchAssocie ? 'bg-foreground' : 'bg-border')}>
+                <div className={cn('absolute w-3.5 h-3.5 rounded-full bg-white top-[3px] transition-transform shadow-sm', s.searchAssocie ? 'translate-x-4' : 'translate-x-[3px]')} />
+              </div>
+            </button>
+
+            {s.searchAssocie && (
+              <div className="mt-5 space-y-5 animate-fade-in border-t border-border pt-5">
+                {/* CA requis */}
+                <div>
+                  <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2 block">
+                    Chiffre d'affaires portable requis
+                  </label>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="relative">
+                      <Input value={s.assocCAMin} onChange={(e) => s.setField('assocCAMin', formatNumberWithDots(e.target.value))} placeholder="Min — Ex : 500" className="bg-background pr-12" />
+                      <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-muted-foreground">K€</span>
+                    </div>
+                    <div className="relative">
+                      <Input value={s.assocCAMax} onChange={(e) => s.setField('assocCAMax', formatNumberWithDots(e.target.value))} placeholder="Max — Ex : 2.000" className="bg-background pr-12" />
+                      <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-muted-foreground">K€</span>
+                    </div>
+                  </div>
+                  <p className="text-[11px] text-muted-foreground mt-1.5">Fourchette indicative du CA portable minimum attendu</p>
+                </div>
+
+                {/* Expertise requise */}
+                <div>
+                  <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2 block">
+                    Expertise & positionnement attendus
+                  </label>
+                  <Textarea value={s.assocExpertiseDesc} onChange={(e) => s.setField('assocExpertiseDesc', e.target.value)} rows={3} placeholder="Ex : Associé M&A mid-cap avec une clientèle PE établie, capable de co-gérer une équipe de 5 collaborateurs…" className="bg-background" />
+                </div>
+
+                {/* Clientèle */}
+                <div>
+                  <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2 block">
+                    Type de clientèle attendue
+                  </label>
+                  <Textarea value={s.assocClienteleDesc} onChange={(e) => s.setField('assocClienteleDesc', e.target.value)} rows={2} placeholder="Ex : Fonds PE mid-cap, industriels du CAC 40, family offices…" className="bg-background" />
+                </div>
+
+                {/* Projet d'intégration */}
+                <div>
+                  <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2 block">
+                    Projet d'intégration <span className="font-normal normal-case tracking-normal text-[10px] text-border">facultatif</span>
+                  </label>
+                  <Textarea value={s.assocProjetDesc} onChange={(e) => s.setField('assocProjetDesc', e.target.value)} rows={3} placeholder="Décrivez le projet d'association : gouvernance, perspectives, intégration au sein de l'équipe existante…" className="bg-background" />
+                  <p className="text-[11px] text-muted-foreground mt-1.5">Ces éléments seront présentés de manière anonyme au candidat par LOGAN.</p>
+                </div>
+              </div>
+            )}
+          </div>
           <div className="mb-6">
             <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2 block">
               Séniorité recherchée <span className="font-normal normal-case tracking-normal text-[10px] text-border">plusieurs choix possibles</span>

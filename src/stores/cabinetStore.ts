@@ -43,6 +43,13 @@ export interface CabinetState {
   hasHeures: boolean;
   tt: string;
   confNiveau: string;
+  // Associé search
+  searchAssocie: boolean;
+  assocCAMin: string;
+  assocCAMax: string;
+  assocExpertiseDesc: string;
+  assocClienteleDesc: string;
+  assocProjetDesc: string;
   // Step 4 - Subscription
   palier: string;
   // Step 5 - Validation
@@ -99,6 +106,12 @@ const initialState = {
   hasHeures: false,
   tt: '',
   confNiveau: '',
+  searchAssocie: false,
+  assocCAMin: '',
+  assocCAMax: '',
+  assocExpertiseDesc: '',
+  assocClienteleDesc: '',
+  assocProjetDesc: '',
   palier: 'standard',
   approveCount: 0,
 };

@@ -34,6 +34,10 @@ export interface RegistrationState {
   isAssocieOrCounsel: boolean;
   chiffreAffairesPortable: string;
   businessPlanFile: File | null;
+  assocExpertiseSummary: string;
+  assocProjet: string;
+  assocAttentes: string[];
+  assocCabTypes: string[];
   // Taille opérations & disponibilité
   tailleOperations: string[];
   disponibilite: string;

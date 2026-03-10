@@ -4,6 +4,8 @@ import { useRegistrationStore } from '@/stores/registrationStore';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { Slider } from '@/components/ui/slider';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -12,7 +14,7 @@ import SeniorityBadge from '@/components/shared/SeniorityBadge';
 import FileDropzone from '@/components/shared/FileDropzone';
 import ChipSelector from '@/components/shared/ChipSelector';
 import { usePQE } from '@/hooks/usePQE';
-import { CABINETS, DEPARTEMENTS, NATIONALITES, TIERS, MOIS, TAILLE_OPERATIONS, DISPONIBILITES, RAISONS_BAISSE_RETRO } from '@/lib/constants';
+import { CABINETS, DEPARTEMENTS, NATIONALITES, TIERS, MOIS, TAILLE_OPERATIONS, DISPONIBILITES, RAISONS_BAISSE_RETRO, ASSOC_ATTENTES, ASSOC_CAB_TYPES } from '@/lib/constants';
 import { formatNumberWithDots, formatPhoneWithDots } from '@/lib/formatters';
 import { Camera, X, ArrowLeft, ArrowRight, Linkedin, Eye, EyeOff, Check, AlertCircle } from 'lucide-react';
 import { useRef, useState, useMemo } from 'react';
@@ -269,7 +271,7 @@ const Step2Identity = () => {
 
         {/* Associé / Counsel */}
         {isSeniorProfile && (
-          <div className="carter-card p-6 space-y-4">
+          <div className="carter-card p-6 space-y-6">
             <div className="flex items-center gap-3">
               <Checkbox
                 id="assocCounsel"
@@ -281,14 +283,90 @@ const Step2Identity = () => {
               </Label>
             </div>
             {store.isAssocieOrCounsel && (
-              <div className="space-y-4 pl-7">
+              <div className="space-y-8 pl-0 animate-fade-in">
+                {/* CA Portable with gauge */}
                 <div>
-                  <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Chiffre d'affaires portable (€)</Label>
-                  <Input value={store.chiffreAffairesPortable} onChange={e => store.setField('chiffreAffairesPortable', formatNumberWithDots(e.target.value))} placeholder="500.000" className="mt-2" />
+                  <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Chiffre d'affaires portable</Label>
+                  <div className="mt-3 space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs text-muted-foreground font-sans">0 K€</span>
+                      <span className="text-lg font-serif font-semibold text-foreground">
+                        {store.chiffreAffairesPortable ? `${store.chiffreAffairesPortable} K€` : '— K€'}
+                      </span>
+                      <span className="text-xs text-muted-foreground font-sans">5.000 K€</span>
+                    </div>
+                    <Slider
+                      value={[parseInt(store.chiffreAffairesPortable?.replace(/\./g, '') || '0')]}
+                      onValueChange={v => store.setField('chiffreAffairesPortable', formatNumberWithDots(v[0].toString()))}
+                      min={0}
+                      max={5000}
+                      step={50}
+                      className="w-full"
+                    />
+                    <div className="flex gap-2">
+                      {[500, 1000, 2000, 3000].map(v => (
+                        <button
+                          key={v}
+                          type="button"
+                          onClick={() => store.setField('chiffreAffairesPortable', formatNumberWithDots(v.toString()))}
+                          className="px-3 py-1 rounded-sm border border-border text-xs font-sans text-muted-foreground hover:border-foreground hover:text-foreground transition-all"
+                        >
+                          {formatNumberWithDots(v.toString())} K€
+                        </button>
+                      ))}
+                    </div>
+                  </div>
                 </div>
+
+                {/* Expertise summary */}
+                <div>
+                  <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Résumé de votre expertise</Label>
+                  <Textarea
+                    value={store.assocExpertiseSummary}
+                    onChange={e => store.setField('assocExpertiseSummary', e.target.value)}
+                    placeholder="Décrivez votre expertise, vos domaines d'intervention principaux et votre positionnement sur le marché..."
+                    className="mt-2 min-h-[100px]"
+                  />
+                  <p className="text-xs text-muted-foreground font-sans font-light mt-1.5">{store.assocExpertiseSummary.length}/500 caractères</p>
+                </div>
+
+                {/* Projet & attentes */}
+                <div>
+                  <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Votre projet</Label>
+                  <Textarea
+                    value={store.assocProjet}
+                    onChange={e => store.setField('assocProjet', e.target.value)}
+                    placeholder="Qu'est-ce qui motive votre réflexion ? Quel type de structure recherchez-vous ? Quels sont vos objectifs à 3-5 ans ?"
+                    className="mt-2 min-h-[100px]"
+                  />
+                </div>
+
+                <div>
+                  <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-3 block">Vos attentes principales</Label>
+                  <ChipSelector
+                    options={ASSOC_ATTENTES}
+                    selected={store.assocAttentes}
+                    onChange={v => store.setField('assocAttentes', v)}
+                    maxSelect={4}
+                  />
+                  <p className="text-xs text-muted-foreground font-sans font-light mt-2">Max 4 sélections</p>
+                </div>
+
+                {/* Type de cabinets qui intéressent */}
+                <div>
+                  <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-3 block">Quel type de cabinet vous intéresserait ?</Label>
+                  <ChipSelector
+                    options={ASSOC_CAB_TYPES}
+                    selected={store.assocCabTypes}
+                    onChange={v => store.setField('assocCabTypes', v)}
+                  />
+                </div>
+
+                {/* BP Upload */}
                 <div>
                   <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-2 block">Business plan (optionnel)</Label>
                   <FileDropzone file={store.businessPlanFile} onFileChange={f => store.setField('businessPlanFile', f)} />
+                  <p className="text-xs text-muted-foreground font-sans font-light mt-1.5">PDF, Word ou Excel · max 10 Mo</p>
                 </div>
               </div>
             )}
