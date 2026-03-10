@@ -2,9 +2,10 @@ import { useState, useMemo } from 'react';
 import { useCabinetStore } from '@/stores/cabinetStore';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { FIRMS_DB, NAT_LABELS, NAT_FLAGS, DEPARTMENTS, CABINET_TYPES, L500_URLS, DEPT_KEY_MAP, getFirmTier } from '@/lib/cabinetConstants';
+import { FIRMS_DB, DEPARTMENTS, CABINET_TYPES } from '@/lib/cabinetConstants';
 import { cn } from '@/lib/utils';
 import { formatPhoneWithDots } from '@/lib/formatters';
+import { Plus, Minus } from 'lucide-react';
 
 const CabinetStep2Identity = () => {
   const s = useCabinetStore();
@@ -23,20 +24,9 @@ const CabinetStep2Identity = () => {
     s.setField('selectedFirm', name);
     setAcQuery(name);
     setAcOpen(false);
-    const firm = FIRMS_DB[name];
-    if (firm) {
-      const tier = getFirmTier(firm, s.depts);
-      s.setField('ranking', tier);
-      s.setField('typeCab', NAT_LABELS[firm.nat] || '');
-      if (tier) {
-        s.setField('l500', true);
-      }
-    }
   };
 
   const canContinue = s.cabinetName.trim() && s.email.trim();
-
-  const l500Detected = s.selectedFirm && FIRMS_DB[s.selectedFirm] && s.ranking;
 
   return (
     <div className="max-w-[780px] mx-auto">
@@ -66,38 +56,18 @@ const CabinetStep2Identity = () => {
           />
           {acOpen && filtered.length > 0 && (
             <div className="absolute top-full left-0 right-0 bg-background border border-foreground border-t-0 rounded-b z-50 max-h-64 overflow-y-auto shadow-lg">
-              {filtered.map((name) => {
-                const firm = FIRMS_DB[name];
-                const tier = getFirmTier(firm, s.depts);
-                return (
-                  <div
-                    key={name}
-                    className="px-4 py-3 cursor-pointer hover:bg-secondary flex items-center justify-between border-b border-border last:border-b-0"
-                    onClick={() => selectFirm(name)}
-                  >
-                    <span className="text-sm font-medium text-foreground">{name}</span>
-                    <div className="flex items-center gap-2">
-                      {tier && <span className="text-[9px] font-bold tracking-[0.08em] uppercase px-2 py-0.5 rounded-sm bg-foreground text-background">{tier}</span>}
-                      <span className="text-sm">{NAT_FLAGS[firm.nat] || ''}</span>
-                    </div>
-                  </div>
-                );
-              })}
+              {filtered.map((name) => (
+                <div
+                  key={name}
+                  className="px-4 py-3 cursor-pointer hover:bg-secondary flex items-center justify-between border-b border-border last:border-b-0"
+                  onClick={() => selectFirm(name)}
+                >
+                  <span className="text-sm font-medium text-foreground">{name}</span>
+                </div>
+              ))}
             </div>
           )}
         </div>
-        {l500Detected && (
-          <div className="bg-foreground rounded mt-2.5 p-3.5 flex items-center gap-3.5">
-            <span className="text-xl flex-shrink-0">⚡</span>
-            <div className="flex-1">
-              <div className="text-xs font-bold text-white mb-0.5">{s.selectedFirm} — détecté dans le Legal 500 Paris</div>
-              <div className="text-[11px] text-white/55">
-                <span className="inline-block text-[9px] font-bold tracking-[0.08em] uppercase px-1.5 py-0.5 bg-white text-foreground rounded-sm mr-1.5">{s.ranking}</span>
-                {NAT_FLAGS[FIRMS_DB[s.selectedFirm]?.nat] || ''} {NAT_LABELS[FIRMS_DB[s.selectedFirm]?.nat] || ''}
-              </div>
-            </div>
-          </div>
-        )}
       </div>
 
       {/* Cabinet type */}
@@ -123,7 +93,7 @@ const CabinetStep2Identity = () => {
 
       {/* Departments */}
       <div className="mb-6">
-        <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2 block">Département(s) concerné(s)</label>
+        <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2 block">Département concerné par la recherche</label>
         <div className="flex gap-2 flex-wrap">
           {DEPARTMENTS.map((d) => (
             <button
@@ -141,7 +111,7 @@ const CabinetStep2Identity = () => {
           ))}
         </div>
         <p className="text-[11px] text-muted-foreground mt-2 leading-relaxed">
-          L'abonnement LOGAN est annuel et illimité pour l'ensemble du cabinet — aucune limite par département.
+          L'abonnement LOGAN est mensuel et illimité pour l'ensemble du cabinet — aucune limite par département.
         </p>
       </div>
 
@@ -156,7 +126,7 @@ const CabinetStep2Identity = () => {
           )}
         >
           <div className="text-left">
-            <div className="text-sm text-foreground">Notre cabinet figure dans le Legal 500 Paris</div>
+            <div className="text-sm text-foreground">Notre équipe figure dans le Legal 500 Paris</div>
             <div className="text-[11px] text-muted-foreground mt-0.5">Utilisé pour positionner votre profil cabinet auprès des candidats</div>
           </div>
           <div className={cn('w-9 h-5 rounded-full relative transition-colors flex-shrink-0', s.l500 ? 'bg-foreground' : 'bg-border')}>
@@ -206,9 +176,9 @@ const CabinetStep2Identity = () => {
 
       <div className="h-px bg-border my-8" />
 
-      {/* Referent */}
+      {/* Referent 1 */}
       <div className="mb-6">
-        <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2 block">Référent au sein du cabinet</label>
+        <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2 block">Référent 1 au sein du cabinet</label>
         <div className="grid grid-cols-2 gap-3">
           <Input value={s.refPrenom} onChange={(e) => s.setField('refPrenom', e.target.value)} placeholder="Prénom" className="bg-background" />
           <Input value={s.refNom} onChange={(e) => s.setField('refNom', e.target.value)} placeholder="Nom" className="bg-background" />
@@ -225,6 +195,37 @@ const CabinetStep2Identity = () => {
           Téléphone portable <span className="font-normal normal-case tracking-normal text-[10px] text-border">recommandé</span>
         </label>
         <Input value={s.mobile} onChange={(e) => s.setField('mobile', formatPhoneWithDots(e.target.value))} type="tel" placeholder="06.50.10.20.30" className="bg-background" />
+      </div>
+
+      {/* Referent 2 toggle */}
+      <div className="mb-6">
+        <button
+          onClick={() => s.setField('showRef2', !s.showRef2)}
+          className="flex items-center gap-2 text-xs font-medium text-muted-foreground hover:text-foreground transition-colors"
+        >
+          {s.showRef2 ? <Minus className="w-3.5 h-3.5" /> : <Plus className="w-3.5 h-3.5" />}
+          {s.showRef2 ? 'Retirer le référent 2' : 'Ajouter un référent 2 (ex : Associé(e))'}
+        </button>
+
+        {s.showRef2 && (
+          <div className="mt-4 p-5 border border-border rounded-md bg-secondary/30 animate-fade-in">
+            <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2 block">Référent 2 au sein du cabinet</label>
+            <div className="grid grid-cols-2 gap-3 mb-3">
+              <Input value={s.ref2Prenom} onChange={(e) => s.setField('ref2Prenom', e.target.value)} placeholder="Prénom" className="bg-background" />
+              <Input value={s.ref2Nom} onChange={(e) => s.setField('ref2Nom', e.target.value)} placeholder="Nom" className="bg-background" />
+            </div>
+            <div className="mb-3">
+              <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-1.5 block">Email professionnel</label>
+              <Input value={s.ref2Email} onChange={(e) => s.setField('ref2Email', e.target.value)} type="email" placeholder="prenom.nom@cabinet.com" className="bg-background" />
+            </div>
+            <div>
+              <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-1.5 block">
+                Téléphone portable <span className="font-normal normal-case tracking-normal text-[10px] text-border">recommandé</span>
+              </label>
+              <Input value={s.ref2Mobile} onChange={(e) => s.setField('ref2Mobile', formatPhoneWithDots(e.target.value))} type="tel" placeholder="06.50.10.20.30" className="bg-background" />
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Nav */}

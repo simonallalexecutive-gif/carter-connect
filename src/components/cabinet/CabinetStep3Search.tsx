@@ -1,19 +1,65 @@
-import { useState } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import { useCabinetStore } from '@/stores/cabinetStore';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { EXPERTISES, SENIORITY_OPTIONS, CONF_OPTIONS } from '@/lib/cabinetConstants';
+import { EXPERTISES, SENIORITY_OPTIONS, CONF_OPTIONS, SPLIT_COLORS } from '@/lib/cabinetConstants';
 import { cn } from '@/lib/utils';
 import { formatNumberWithDots } from '@/lib/formatters';
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
+import { Check } from 'lucide-react';
 
 const TABS = ['Profil recherché', 'Contexte & équipe', 'Rémunération & conditions', 'Confidentialité'];
+
+const CHART_COLORS = [
+  'hsl(215, 60%, 30%)',
+  'hsl(215, 50%, 42%)',
+  'hsl(220, 55%, 22%)',
+  'hsl(210, 45%, 52%)',
+  'hsl(218, 40%, 36%)',
+  'hsl(222, 50%, 28%)',
+  'hsl(212, 35%, 46%)',
+  'hsl(225, 45%, 18%)',
+];
 
 const CabinetStep3Search = () => {
   const s = useCabinetStore();
   const [activeTab, setActiveTab] = useState(0);
 
   const splitTotal = s.expertise.reduce((sum, k) => sum + (s.activitySplit[k] || 0), 0);
+
+  // Auto-advance logic
+  const isTab0Complete = useCallback(() => {
+    return s.seniorities.length > 0 && s.expertise.length > 0 && s.english !== '' &&
+      (s.expertise.length < 2 || splitTotal === 100);
+  }, [s.seniorities, s.expertise, s.english, splitTotal]);
+
+  const isTab1Complete = useCallback(() => {
+    return s.contexte !== '' && s.eqAssocies !== '' && s.eqCollab !== '';
+  }, [s.contexte, s.eqAssocies, s.eqCollab]);
+
+  const isTab2Complete = useCallback(() => {
+    return (s.retroMin !== '' || s.retroMax !== '') && s.tt !== '';
+  }, [s.retroMin, s.retroMax, s.tt]);
+
+  const tabComplete = [isTab0Complete(), isTab1Complete(), isTab2Complete(), false];
+
+  useEffect(() => {
+    if (activeTab < 3 && tabComplete[activeTab]) {
+      const timer = setTimeout(() => {
+        setActiveTab(activeTab + 1);
+      }, 600);
+      return () => clearTimeout(timer);
+    }
+  }, [tabComplete[0], tabComplete[1], tabComplete[2], activeTab]);
+
+  // Pie chart data
+  const chartData = useMemo(() => {
+    return s.expertise.map((k) => ({
+      name: k,
+      value: s.activitySplit[k] || 0,
+    }));
+  }, [s.expertise, s.activitySplit]);
 
   return (
     <div className="max-w-[780px] mx-auto">
@@ -33,10 +79,11 @@ const CabinetStep3Search = () => {
             key={tab}
             onClick={() => setActiveTab(i)}
             className={cn(
-              'px-5 py-2.5 text-xs font-medium whitespace-nowrap border-b-2 -mb-[2px] transition-all',
+              'px-5 py-2.5 text-xs font-medium whitespace-nowrap border-b-2 -mb-[2px] transition-all flex items-center gap-1.5',
               activeTab === i ? 'text-foreground border-foreground font-semibold' : 'text-muted-foreground border-transparent hover:text-foreground'
             )}
           >
+            {i < 3 && tabComplete[i] && <Check className="w-3 h-3 text-green-600" />}
             {tab}
           </button>
         ))}
@@ -89,36 +136,65 @@ const CabinetStep3Search = () => {
               ))}
             </div>
 
-            {/* Activity split */}
+            {/* Activity split with pie chart */}
             {s.expertise.length >= 2 && (
               <div className="mt-5">
                 <p className="text-[11px] text-muted-foreground mb-3">Quelle part représente chaque expertise dans l'activité globale du poste ?</p>
-                {/* Stacked bar */}
-                <div className="h-2 rounded overflow-hidden flex mb-3">
-                  {s.expertise.map((k, i) => (
-                    <div key={k} style={{ width: `${s.activitySplit[k] || 0}%`, background: i % 2 === 0 ? 'hsl(var(--foreground))' : 'hsl(var(--muted-foreground))' }} className="transition-all" />
-                  ))}
-                </div>
-                {s.expertise.map((k, i) => (
-                  <div key={k} className="mb-4">
-                    <div className="flex justify-between items-center mb-1.5">
-                      <span className="text-xs font-medium text-foreground border-l-[3px] pl-2" style={{ borderColor: i % 2 === 0 ? 'hsl(var(--foreground))' : 'hsl(var(--muted-foreground))' }}>{k}</span>
-                      <span className="text-sm font-bold text-foreground">{s.activitySplit[k] || 0} %</span>
-                    </div>
-                    <input
-                      type="range"
-                      min="0"
-                      max="100"
-                      step="10"
-                      value={s.activitySplit[k] || 0}
-                      onChange={(e) => s.updateSplit(k, parseInt(e.target.value))}
-                      className="w-full accent-foreground"
-                    />
+
+                <div className="flex gap-6 items-start">
+                  {/* Pie chart */}
+                  <div className="flex-shrink-0">
+                    <ResponsiveContainer width={140} height={140}>
+                      <PieChart>
+                        <Pie
+                          data={chartData}
+                          cx="50%"
+                          cy="50%"
+                          innerRadius={35}
+                          outerRadius={65}
+                          dataKey="value"
+                          stroke="hsl(var(--background))"
+                          strokeWidth={2}
+                        >
+                          {chartData.map((_, i) => (
+                            <Cell key={i} fill={CHART_COLORS[i % CHART_COLORS.length]} />
+                          ))}
+                        </Pie>
+                        <Tooltip
+                          formatter={(value: number, name: string) => [`${value}%`, name]}
+                          contentStyle={{ fontSize: '11px', borderRadius: '4px' }}
+                        />
+                      </PieChart>
+                    </ResponsiveContainer>
                   </div>
-                ))}
-                <div className="flex justify-between items-center p-3 bg-secondary rounded text-sm">
-                  <span className="text-muted-foreground">Total</span>
-                  <span className={cn('font-bold', splitTotal === 100 ? 'text-green-700' : 'text-orange-600')}>{splitTotal} %</span>
+
+                  {/* Sliders */}
+                  <div className="flex-1">
+                    {s.expertise.map((k, i) => (
+                      <div key={k} className="mb-4">
+                        <div className="flex justify-between items-center mb-1.5">
+                          <span className="text-xs font-medium text-foreground flex items-center gap-2">
+                            <span className="w-2.5 h-2.5 rounded-sm flex-shrink-0" style={{ background: CHART_COLORS[i % CHART_COLORS.length] }} />
+                            {k}
+                          </span>
+                          <span className="text-sm font-bold text-foreground">{s.activitySplit[k] || 0} %</span>
+                        </div>
+                        <input
+                          type="range"
+                          min="0"
+                          max="100"
+                          step="10"
+                          value={s.activitySplit[k] || 0}
+                          onChange={(e) => s.updateSplit(k, parseInt(e.target.value))}
+                          className="w-full accent-foreground"
+                        />
+                      </div>
+                    ))}
+                    <div className="flex justify-between items-center p-3 bg-secondary rounded text-sm">
+                      <span className="text-muted-foreground">Total</span>
+                      <span className={cn('font-bold', splitTotal === 100 ? 'text-green-700' : 'text-orange-600')}>{splitTotal} %</span>
+                    </div>
+                  </div>
                 </div>
               </div>
             )}
@@ -154,7 +230,7 @@ const CabinetStep3Search = () => {
               )}
             >
               <div className="text-left">
-                <div className="text-sm text-foreground">Le cabinet d'origine doit être répertorié dans le Legal 500</div>
+                <div className="text-sm text-foreground">Le candidat doit évoluer actuellement dans une équipe reconnue par le Legal 500</div>
                 <div className="text-[11px] text-muted-foreground mt-0.5">Garantit un profil issu d'une structure de référence</div>
               </div>
               <div className={cn('w-9 h-5 rounded-full relative transition-colors flex-shrink-0', s.l500cand ? 'bg-foreground' : 'bg-border')}>
@@ -187,7 +263,7 @@ const CabinetStep3Search = () => {
           <div className="mb-6">
             <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2 block">Contexte du recrutement</label>
             <div className="flex gap-2 flex-wrap">
-              {['Départ à remplacer', "Renforcement d'équipe", 'Création de poste', 'Succession / associé'].map((c) => (
+              {['Départ à remplacer', "Renforcement d'équipe"].map((c) => (
                 <button
                   key={c}
                   onClick={() => s.setField('contexte', c)}
@@ -257,44 +333,72 @@ const CabinetStep3Search = () => {
             <p className="text-[11px] text-muted-foreground mt-1.5">Transmis par LOGAN uniquement si le candidat est en discussion avancée.</p>
           </div>
 
+          {/* Objectif heures facturables - checkbox first */}
           <div className="mb-6">
-            <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2 block">
-              Objectif annuel facturable <span className="font-normal normal-case tracking-normal text-[10px] text-border">facultatif</span>
-            </label>
-            <div className="relative max-w-[260px]">
-              <Input value={s.heures} onChange={(e) => s.setField('heures', formatNumberWithDots(e.target.value))} placeholder="Ex : 1.800" className="bg-background pr-12" />
-              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-muted-foreground">h/an</span>
-            </div>
+            <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2 block">Objectif d'heures facturables</label>
+            <button
+              onClick={() => s.setField('hasHeures', !s.hasHeures)}
+              className={cn(
+                'flex items-center gap-3 p-3 rounded border transition-all w-full text-left',
+                s.hasHeures ? 'border-foreground bg-secondary' : 'border-border bg-background'
+              )}
+            >
+              <div className={cn(
+                'w-5 h-5 rounded border-2 flex items-center justify-center flex-shrink-0 transition-all',
+                s.hasHeures ? 'bg-foreground border-foreground' : 'border-border'
+              )}>
+                {s.hasHeures && <Check className="w-3 h-3 text-background" />}
+              </div>
+              <span className="text-sm text-foreground">Le poste comprend un objectif d'heures facturables</span>
+            </button>
+            {s.hasHeures && (
+              <div className="relative max-w-[260px] mt-3 animate-fade-in">
+                <Input value={s.heures} onChange={(e) => s.setField('heures', formatNumberWithDots(e.target.value))} placeholder="Ex : 1.800" className="bg-background pr-12" />
+                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-muted-foreground">h/an</span>
+              </div>
+            )}
           </div>
 
+          {/* Bonus - checkbox + multi-select */}
           <div className="mb-6">
             <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2 block">Bonus</label>
             <button
               onClick={() => s.setField('bonusEnabled', !s.bonusEnabled)}
               className={cn(
-                'w-full flex items-center justify-between p-4 rounded border transition-all mb-2',
+                'flex items-center gap-3 p-3 rounded border transition-all w-full text-left mb-2',
                 s.bonusEnabled ? 'border-foreground bg-secondary' : 'border-border bg-background'
               )}
             >
-              <div className="text-sm text-foreground">Le poste comprend un bonus</div>
-              <div className={cn('w-9 h-5 rounded-full relative transition-colors flex-shrink-0', s.bonusEnabled ? 'bg-foreground' : 'bg-border')}>
-                <div className={cn('absolute w-3.5 h-3.5 rounded-full bg-white top-[3px] transition-transform shadow-sm', s.bonusEnabled ? 'translate-x-4' : 'translate-x-[3px]')} />
+              <div className={cn(
+                'w-5 h-5 rounded border-2 flex items-center justify-center flex-shrink-0 transition-all',
+                s.bonusEnabled ? 'bg-foreground border-foreground' : 'border-border'
+              )}>
+                {s.bonusEnabled && <Check className="w-3 h-3 text-background" />}
               </div>
+              <span className="text-sm text-foreground">Le poste comprend un bonus</span>
             </button>
             {s.bonusEnabled && (
-              <div className="flex gap-2 flex-wrap">
-                {['Discrétionnaire', 'Objectifs individuels'].map((b) => (
-                  <button
-                    key={b}
-                    onClick={() => s.setField('bonusType', b)}
-                    className={cn(
-                      'px-4 py-2 rounded-sm border text-xs transition-all',
-                      s.bonusType === b ? 'bg-foreground text-background border-foreground' : 'bg-background text-muted-foreground border-border hover:border-foreground'
-                    )}
-                  >
-                    {b}
-                  </button>
-                ))}
+              <div className="flex gap-2 flex-wrap animate-fade-in">
+                {['Discrétionnaire', 'Objectif rempli'].map((b) => {
+                  const selected = s.bonusTypes.includes(b);
+                  return (
+                    <button
+                      key={b}
+                      onClick={() => {
+                        const next = selected
+                          ? s.bonusTypes.filter((x) => x !== b)
+                          : [...s.bonusTypes, b];
+                        s.setField('bonusTypes', next);
+                      }}
+                      className={cn(
+                        'px-4 py-2 rounded-sm border text-xs transition-all',
+                        selected ? 'bg-foreground text-background border-foreground' : 'bg-background text-muted-foreground border-border hover:border-foreground'
+                      )}
+                    >
+                      {b}
+                    </button>
+                  );
+                })}
               </div>
             )}
           </div>

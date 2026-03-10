@@ -1,8 +1,7 @@
 import { useCabinetStore } from '@/stores/cabinetStore';
 import { Button } from '@/components/ui/button';
-import { PALIERS, INCLUDED_FEATURES } from '@/lib/cabinetConstants';
-import { cn } from '@/lib/utils';
-import { Check } from 'lucide-react';
+import { SUBSCRIPTION_ADVANTAGES } from '@/lib/cabinetConstants';
+import { ArrowRight, Sparkles, Shield, Clock } from 'lucide-react';
 
 const CabinetStep4Subscription = () => {
   const s = useCabinetStore();
@@ -14,81 +13,99 @@ const CabinetStep4Subscription = () => {
         Étape 3 / 4
       </div>
       <h2 className="font-serif text-3xl md:text-4xl font-normal text-foreground leading-tight mb-1">
-        Un abonnement.<br /><em className="text-muted-foreground">Zéro commission.</em>
+        Restez connecté aux<br /><em className="text-muted-foreground">meilleurs talents.</em>
       </h2>
       <p className="text-sm text-muted-foreground font-light leading-relaxed mb-10 max-w-xl">
-        Un forfait annuel fixe, illimité pour l'ensemble de votre cabinet. Un seul critère détermine votre tarif : la taille de votre équipe à Paris.
+        Un abonnement mensuel, sans commission, pour tout votre cabinet. Accédez en continu à notre vivier premium et reprenez le contrôle de vos recrutements.
       </p>
 
-      {/* Economic argument */}
-      <div className="bg-foreground rounded-md p-6 mb-8 flex items-center gap-7">
-        <div className="flex-shrink-0 text-center min-w-[110px]">
-          <div className="font-serif text-4xl font-bold text-white leading-none">25%</div>
-          <div className="text-[10px] text-white/40 mt-1 tracking-[0.05em] uppercase">du salaire brut</div>
-          <div className="text-[9px] text-white/25 mt-0.5">par placement · modèle actuel</div>
+      {/* Hero value proposition */}
+      <div className="bg-foreground rounded-md p-7 mb-8">
+        <div className="flex items-start gap-5">
+          <div className="flex-shrink-0 mt-1">
+            <Sparkles className="w-8 h-8 text-white/80" />
+          </div>
+          <div>
+            <h3 className="font-serif text-xl font-bold text-white mb-2">
+              Le meilleur recrutement ne se fait jamais dans l'urgence.
+            </h3>
+            <p className="text-sm text-white/60 leading-relaxed font-light">
+              En restant connecté au vivier LOGAN, vous identifiez les talents <em className="text-white/80">avant</em> d'en avoir besoin.
+              Vous passez d'une logique réactive — coûteuse et imprévisible — à une approche stratégique et opportuniste.
+              Quand le bon profil apparaît, vous êtes en position de force.
+            </p>
+          </div>
         </div>
-        <div className="w-px h-12 bg-white/10 flex-shrink-0" />
-        <p className="text-sm text-white/55 leading-relaxed font-light">
-          Sur une rétrocession de <strong className="text-white/80">100K à 200K€</strong>, un cabinet paie aujourd'hui <strong className="text-white">25K à 50K€ HT par recrutement</strong> — sans visibilité continue. LOGAN remplace ce coût par un <strong className="text-white/80">forfait annuel fixe, amorti dès le premier placement.</strong>
-        </p>
       </div>
 
-      {/* Pricing tiers */}
-      <div className="mb-3">
-        <div className="text-[9px] font-bold tracking-[0.14em] uppercase text-muted-foreground mb-4">Choisissez votre palier</div>
-        <div className="grid grid-cols-3 gap-3.5">
-          {PALIERS.map((p) => (
-            <button
-              key={p.key}
-              onClick={() => s.setField('palier', p.key)}
-              className={cn(
-                'relative text-left border rounded-md p-6 bg-background cursor-pointer transition-all',
-                s.palier === p.key
-                  ? 'border-foreground border-2 shadow-[inset_4px_0_0_hsl(var(--foreground))]'
-                  : 'border-border hover:border-foreground/50'
-              )}
-            >
-              {p.recommended && (
-                <div className="absolute -top-px left-1/2 -translate-x-1/2 bg-foreground text-background text-[8px] font-bold tracking-[0.1em] uppercase px-2.5 py-0.5 rounded-b">
-                  Recommandé
-                </div>
-              )}
-              <div className="text-[9px] font-bold tracking-[0.1em] uppercase text-muted-foreground mb-3.5 mt-1">{p.name}</div>
-              <div className="text-[9px] text-muted-foreground mb-1.5 font-medium">{p.sub}</div>
-              <div className="text-xs font-semibold text-foreground mb-3.5 pb-3.5 border-b border-border">{p.size}</div>
-              <div className="font-serif text-3xl font-bold text-foreground leading-none mb-0.5">{p.price}</div>
-              <div className="text-[11px] text-muted-foreground mb-4">HT / an · tout le cabinet</div>
-              <div className="bg-secondary border border-border rounded p-2.5 text-[11px] text-foreground leading-relaxed">
-                {p.argument}
+      {/* 3 pillars */}
+      <div className="grid grid-cols-3 gap-4 mb-8">
+        <div className="border border-border rounded-md p-5 bg-background">
+          <Clock className="w-5 h-5 text-foreground mb-3" />
+          <div className="text-xs font-bold text-foreground mb-1">Accès continu</div>
+          <p className="text-[11px] text-muted-foreground leading-relaxed">
+            Ne manquez plus un profil. Les meilleurs candidats ne sont à l'écoute que quelques semaines — soyez là au bon moment.
+          </p>
+        </div>
+        <div className="border border-border rounded-md p-5 bg-background">
+          <Shield className="w-5 h-5 text-foreground mb-3" />
+          <div className="text-xs font-bold text-foreground mb-1">Zéro commission</div>
+          <p className="text-[11px] text-muted-foreground leading-relaxed">
+            Pas de pourcentage sur la rétrocession. Votre abonnement couvre tout, quel que soit le nombre de placements réalisés.
+          </p>
+        </div>
+        <div className="border border-border rounded-md p-5 bg-background">
+          <Sparkles className="w-5 h-5 text-foreground mb-3" />
+          <div className="text-xs font-bold text-foreground mb-1">Tout le cabinet</div>
+          <p className="text-[11px] text-muted-foreground leading-relaxed">
+            Tous les départements, tous les associés, sans limite. Un seul abonnement pour l'ensemble de votre structure.
+          </p>
+        </div>
+      </div>
+
+      {/* Advantages list */}
+      <div className="bg-secondary rounded-md p-6 mb-8">
+        <div className="text-[9px] font-bold tracking-[0.14em] uppercase text-muted-foreground mb-4">Ce que comprend votre abonnement</div>
+        <div className="grid grid-cols-2 gap-4">
+          {SUBSCRIPTION_ADVANTAGES.map((adv) => (
+            <div key={adv.title} className="flex gap-3">
+              <span className="text-lg flex-shrink-0">{adv.icon}</span>
+              <div>
+                <div className="text-xs font-bold text-foreground mb-0.5">{adv.title}</div>
+                <p className="text-[11px] text-muted-foreground leading-relaxed">{adv.desc}</p>
               </div>
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Included features */}
-      <div className="bg-secondary rounded-md p-5 mb-5">
-        <div className="text-[9px] font-bold tracking-[0.14em] uppercase text-muted-foreground mb-3.5">Inclus dans tous les paliers</div>
-        <div className="grid grid-cols-2 gap-2">
-          {INCLUDED_FEATURES.map((f) => (
-            <div key={f} className="flex gap-2 text-xs text-foreground">
-              <Check className="w-3.5 h-3.5 mt-0.5 flex-shrink-0" />
-              {f}
             </div>
           ))}
         </div>
       </div>
 
+      {/* Pricing teaser */}
+      <div className="border-2 border-foreground rounded-md p-6 bg-background">
+        <div className="flex items-center justify-between">
+          <div>
+            <div className="text-[9px] font-bold tracking-[0.14em] uppercase text-muted-foreground mb-1">Tarification</div>
+            <h3 className="font-serif text-2xl font-bold text-foreground mb-1">Sur devis — adapté à votre cabinet</h3>
+            <p className="text-sm text-muted-foreground leading-relaxed max-w-lg">
+              Le tarif de votre abonnement mensuel est calculé en fonction de la taille de votre équipe à Paris. Un consultant LOGAN vous recontacte sous 24h pour vous proposer une offre sur mesure.
+            </p>
+          </div>
+          <div className="flex-shrink-0 bg-foreground rounded-md text-center px-5 py-4 ml-6">
+            <div className="font-serif text-3xl font-bold text-white leading-none">24h</div>
+            <div className="text-[9px] text-white/50 font-bold tracking-[0.08em] uppercase mt-1">Réponse garantie</div>
+          </div>
+        </div>
+      </div>
+
       {/* Loyalty coefficient */}
-      <div className="border-2 border-border rounded-md p-5 flex items-start gap-5 bg-secondary/50">
+      <div className="mt-5 border border-border rounded-md p-5 flex items-start gap-5 bg-secondary/50">
         <div className="flex-shrink-0 bg-foreground rounded text-center px-3.5 py-2.5">
           <div className="font-serif text-xl font-bold text-white">−15%</div>
-          <div className="text-[8px] font-bold tracking-[0.08em] uppercase text-white/60 mt-0.5">dès l'an 3</div>
+          <div className="text-[8px] font-bold tracking-[0.08em] uppercase text-white/60 mt-0.5">dès l'an 2</div>
         </div>
         <div>
-          <div className="text-xs font-bold text-foreground mb-1.5">Coefficient fidélité — parce que la durée crée la valeur</div>
+          <div className="text-xs font-bold text-foreground mb-1.5">Coefficient fidélité — la durée crée la valeur</div>
           <p className="text-xs text-muted-foreground leading-relaxed">
-            Les cabinets qui s'inscrivent dans la durée bénéficient d'une remise automatique : <strong>−10% à la 2ème année</strong>, <strong>−15% à partir de la 3ème année</strong>. La remise s'applique automatiquement à chaque renouvellement.
+            Les cabinets engagés dans la durée bénéficient d'une remise progressive : <strong>−10% à la 2ème année</strong>, <strong>−15% à partir de la 3ème année</strong>. Appliquée automatiquement à chaque renouvellement.
           </p>
         </div>
       </div>
@@ -96,8 +113,8 @@ const CabinetStep4Subscription = () => {
       {/* Nav */}
       <div className="flex justify-between items-center mt-11 pt-7 border-t border-border">
         <Button variant="outline" onClick={() => s.setStep(3)} className="font-sans text-sm rounded-sm">← Retour</Button>
-        <Button onClick={() => s.setStep(5)} disabled={!s.palier} className="bg-foreground text-background hover:bg-foreground/90 font-sans text-sm font-bold rounded-sm px-8">
-          Continuer →
+        <Button onClick={() => s.setStep(5)} className="bg-foreground text-background hover:bg-foreground/90 font-sans text-sm font-bold rounded-sm px-8 flex items-center gap-2">
+          Demander mon devis <ArrowRight className="w-4 h-4" />
         </Button>
       </div>
     </div>
