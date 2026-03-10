@@ -48,7 +48,20 @@ const steps = [
   { number: '03', title: 'Mise en relation', desc: 'Logan orchestre les échanges avec les cabinets intéressés, avec votre accord préalable.' },
 ];
 
-const LandingPage = () => (
+const LandingPage = () => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const sources = [heroVideoA, heroVideoB];
+  const currentIndex = useRef(0);
+
+  const handleVideoEnded = useCallback(() => {
+    currentIndex.current = (currentIndex.current + 1) % sources.length;
+    if (videoRef.current) {
+      videoRef.current.src = sources[currentIndex.current];
+      videoRef.current.play();
+    }
+  }, []);
+
+  return (
   <div className="min-h-screen bg-background">
     <Header />
 
