@@ -29,7 +29,7 @@ const Step2Identity = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
 
-  const isSeniorProfile = pqe && (pqe.label === 'Counsel' || pqe.label === 'Associé');
+  const hasSerment = store.sermentMois && store.sermentAnnee;
 
   const passwordRules = useMemo(() => {
     const pw = store.password;
@@ -269,21 +269,59 @@ const Step2Identity = () => {
           {pqe && <div className="mt-3"><SeniorityBadge info={pqe} /></div>}
         </div>
 
-        {/* Associé / Counsel */}
-        {isSeniorProfile && (
-          <div className="carter-card p-6 space-y-6">
-            <div className="flex items-center gap-3">
-              <Checkbox
-                id="assocCounsel"
-                checked={store.isAssocieOrCounsel}
-                onCheckedChange={v => store.setField('isAssocieOrCounsel', v as boolean)}
-              />
-              <Label htmlFor="assocCounsel" className="font-sans text-sm font-medium cursor-pointer">
-                Je suis Associé(e) ou Counsel
-              </Label>
+        {/* Statut Counsel / Associé — toujours visible après serment */}
+        {hasSerment && (
+          <div className="carter-card p-6 space-y-5">
+            <div>
+              <Label className="font-sans text-sm font-medium block mb-3">Avez-vous le statut de Counsel ou d'Associé ?</Label>
+              <div className="space-y-2.5">
+                <div className="flex items-center gap-3">
+                  <input
+                    type="radio"
+                    id="statut-non"
+                    name="statutAssoc"
+                    checked={!store.isAssocieOrCounsel}
+                    onChange={() => {
+                      store.setField('isAssocieOrCounsel', false);
+                      store.setField('statutAssoc', '');
+                    }}
+                    className="accent-foreground"
+                  />
+                  <Label htmlFor="statut-non" className="font-sans text-sm font-light cursor-pointer">Non, je suis collaborateur</Label>
+                </div>
+                <div className="flex items-center gap-3">
+                  <input
+                    type="radio"
+                    id="statut-counsel"
+                    name="statutAssoc"
+                    checked={store.isAssocieOrCounsel && store.statutAssoc === 'counsel'}
+                    onChange={() => {
+                      store.setField('isAssocieOrCounsel', true);
+                      store.setField('statutAssoc', 'counsel');
+                    }}
+                    className="accent-foreground"
+                  />
+                  <Label htmlFor="statut-counsel" className="font-sans text-sm font-light cursor-pointer">Oui, je suis Counsel</Label>
+                </div>
+                <div className="flex items-center gap-3">
+                  <input
+                    type="radio"
+                    id="statut-associe"
+                    name="statutAssoc"
+                    checked={store.isAssocieOrCounsel && store.statutAssoc === 'associe'}
+                    onChange={() => {
+                      store.setField('isAssocieOrCounsel', true);
+                      store.setField('statutAssoc', 'associe');
+                    }}
+                    className="accent-foreground"
+                  />
+                  <Label htmlFor="statut-associe" className="font-sans text-sm font-light cursor-pointer">Oui, je suis Associé(e)</Label>
+                </div>
+              </div>
             </div>
+
             {store.isAssocieOrCounsel && (
-              <div className="space-y-8 pl-0 animate-fade-in">
+              <div className="space-y-8 border-t border-border pt-6 animate-fade-in">
                 {/* CA Portable with gauge */}
                 <div>
                   <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Chiffre d'affaires portable</Label>

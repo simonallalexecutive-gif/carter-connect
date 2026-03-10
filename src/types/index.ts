@@ -32,6 +32,7 @@ export interface RegistrationState {
   assocClientele: string;
   // Associé / Counsel
   isAssocieOrCounsel: boolean;
+  statutAssoc: 'counsel' | 'associe' | '';
   chiffreAffairesPortable: string;
   businessPlanFile: File | null;
   assocExpertiseSummary: string;
