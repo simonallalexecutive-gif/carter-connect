@@ -106,6 +106,12 @@ const initialState = {
   hasHeures: false,
   tt: '',
   confNiveau: '',
+  searchAssocie: false,
+  assocCAMin: '',
+  assocCAMax: '',
+  assocExpertiseDesc: '',
+  assocClienteleDesc: '',
+  assocProjetDesc: '',
   palier: 'standard',
   approveCount: 0,
 };

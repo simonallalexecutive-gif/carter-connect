@@ -30,6 +30,10 @@ const initialState = {
   isAssocieOrCounsel: false,
   chiffreAffairesPortable: '',
   businessPlanFile: null as File | null,
+  assocExpertiseSummary: '',
+  assocProjet: '',
+  assocAttentes: [] as string[],
+  assocCabTypes: [] as string[],
   // Taille opérations & disponibilité
   tailleOperations: [] as string[],
   disponibilite: '',
