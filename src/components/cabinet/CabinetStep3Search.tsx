@@ -250,7 +250,7 @@ const CabinetStep3Search = () => {
                 <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-muted-foreground">€/an</span>
               </div>
               <div className="relative">
-                <Input value={s.retroMax} onChange={(e) => s.setField('retroMax', e.target.value)} placeholder="Max — Ex : 130 000" className="bg-background pr-12" />
+                <Input value={s.retroMax} onChange={(e) => s.setField('retroMax', formatNumberWithDots(e.target.value))} placeholder="Max — Ex : 130.000" className="bg-background pr-12" />
                 <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-muted-foreground">€/an</span>
               </div>
             </div>
