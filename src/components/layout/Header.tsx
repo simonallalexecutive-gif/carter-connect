@@ -8,18 +8,16 @@ const Header = () => {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-transparent">
       <div className="px-6 sm:px-8 lg:px-10 flex items-center justify-between h-20">
-        <div className="flex items-center gap-6">
-          <Link to="/" className="flex items-center">
-            <span className="font-serif text-2xl tracking-[-0.02em] text-white">Logan</span>
-          </Link>
+        <Link to="/" className="flex items-center">
+          <span className="font-serif text-2xl tracking-[-0.02em] text-white">Logan</span>
+        </Link>
+        <nav className="flex items-center gap-8">
           <Link to="/inscription?espace=candidat" className="font-serif text-[15px] font-normal text-white/80 hover:text-white transition-colors duration-300">
             Espace candidat
           </Link>
           <Link to="/inscription?espace=cabinet" className="font-serif text-[15px] font-normal text-white/80 hover:text-white transition-colors duration-300">
             Espace cabinet
           </Link>
-        </div>
-        <div className="flex items-center">
           {!loading && (
             user ? (
               <button
@@ -34,7 +32,7 @@ const Header = () => {
               </Link>
             )
           )}
-        </div>
+        </nav>
       </div>
     </header>
   );
