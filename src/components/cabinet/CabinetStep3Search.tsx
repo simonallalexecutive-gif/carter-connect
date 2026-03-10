@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useCallback, useRef } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import { useCabinetStore } from '@/stores/cabinetStore';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -25,7 +25,6 @@ const CHART_COLORS = [
 const CabinetStep3Search = () => {
   const s = useCabinetStore();
   const [activeTab, setActiveTab] = useState(0);
-  const prevTabComplete = useRef<boolean[]>([false, false, false, false]);
 
   const splitTotal = s.expertise.reduce((sum, k) => sum + (s.activitySplit[k] || 0), 0);
 
@@ -49,18 +48,7 @@ const CabinetStep3Search = () => {
   const tabComplete = [isTab0Complete(), isTab1Complete(), isTab2Complete(), isTab3Complete()];
   const allComplete = tabComplete[0] && tabComplete[1] && tabComplete[2] && tabComplete[3];
 
-  // Auto-advance: only when a tab BECOMES complete (transition from false → true)
-  useEffect(() => {
-    const prev = prevTabComplete.current;
-    if (activeTab < 3 && !prev[activeTab] && tabComplete[activeTab]) {
-      const timer = setTimeout(() => {
-        setActiveTab((t) => t + 1);
-      }, 800);
-      prevTabComplete.current = [...tabComplete];
-      return () => clearTimeout(timer);
-    }
-    prevTabComplete.current = [...tabComplete];
-  }, [tabComplete[0], tabComplete[1], tabComplete[2], tabComplete[3], activeTab]);
+
 
   // Sub-category toggle
   const toggleActivity = (key: string) => {
