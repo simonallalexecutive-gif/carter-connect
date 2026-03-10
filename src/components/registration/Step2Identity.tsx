@@ -66,19 +66,15 @@ const Step2Identity = () => {
     // Try to extract LinkedIn profile photo
     if (url.includes('linkedin.com/in/')) {
       try {
-        const response = await fetch(`https://syfluylekcaxlncospig.supabase.co/functions/v1/linkedin-photo`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ url }),
+        const { data, error } = await supabase.functions.invoke('linkedin-photo', {
+          body: { url },
         });
-        if (response.ok) {
-          const data = await response.json();
-          if (data.photoUrl) {
-            store.setField('photoPreviewUrl', data.photoUrl);
-          }
+        if (!error && data?.photoUrl) {
+          store.setField('photoPreviewUrl', data.photoUrl);
         }
       } catch {
         // Silently fail - user can still upload photo manually
+      }
       }
     }
   };
