@@ -98,9 +98,6 @@ const LandingPage = () => (
         transition={{ delay: 1.2, duration: 1.5 }}
         className="relative z-10 pb-16 overflow-hidden"
       >
-        <p className="text-[11px] font-serif italic font-light tracking-[0.15em] text-white/30 text-center mb-8">
-          Ils recrutent via Logan
-        </p>
         <div className="relative">
           <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-black to-transparent z-10" />
           <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-black to-transparent z-10" />
@@ -110,6 +107,11 @@ const LandingPage = () => (
                 {name}
               </span>
             ))}
+            <span className="mx-10 md:mx-14 flex-shrink-0">
+              <span className="px-4 py-1.5 rounded-full border border-white/20 text-[11px] font-medium tracking-[0.08em] text-white/60 uppercase whitespace-nowrap">
+                Nos partenaires
+              </span>
+            </span>
           </div>
         </div>
       </motion.div>
