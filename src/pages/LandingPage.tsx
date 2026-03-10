@@ -116,7 +116,7 @@ const LandingPage = () => (
 
           {/* Static "Nos partenaires" chip — Harvey style */}
           <div className="flex-shrink-0 pl-6 pr-6 md:pr-10 relative z-20 bg-gradient-to-r from-transparent via-black/80 to-black">
-            <span className="px-4 py-1.5 border border-white/40 rounded-sm text-[11px] font-bold tracking-[0.06em] text-white uppercase whitespace-nowrap cursor-default">
+            <span className="px-6 py-2 border border-white/40 rounded-sm text-[11px] font-medium tracking-[0.06em] text-white uppercase whitespace-nowrap cursor-default">
               Nos partenaires
             </span>
           </div>
