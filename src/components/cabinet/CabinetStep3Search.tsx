@@ -44,15 +44,6 @@ const CabinetStep3Search = () => {
 
   const tabComplete = [isTab0Complete(), isTab1Complete(), isTab2Complete(), false];
 
-  useEffect(() => {
-    if (activeTab < 3 && tabComplete[activeTab]) {
-      const timer = setTimeout(() => {
-        setActiveTab(activeTab + 1);
-      }, 600);
-      return () => clearTimeout(timer);
-    }
-  }, [tabComplete[0], tabComplete[1], tabComplete[2], activeTab]);
-
   // Pie chart data
   const chartData = useMemo(() => {
     return s.expertise.map((k) => ({
