@@ -72,8 +72,6 @@ export const CABINET_TYPES = [
   'Cabinet US',
   'Cabinet UK',
   'Cabinet français',
-  'Boutique spécialisée',
-  'Structure internationale',
 ];
 
 export const EXPERTISES = [
