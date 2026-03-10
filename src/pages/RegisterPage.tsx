@@ -47,14 +47,7 @@ const RegisterPage = () => {
     <div className={isDarkStep ? '' : 'theme-light bg-background min-h-screen'}>
       {showProgress && (
         <>
-          {/* Black header bar with Logan logo */}
-          <div className="w-full bg-black">
-            <div className="px-6 sm:px-8 lg:px-10 flex items-center h-14">
-              <Link to="/" className="flex items-center">
-                <span className="font-serif text-xl tracking-[-0.02em] text-white">Logan</span>
-              </Link>
-            </div>
-          </div>
+          <LogoBanner subtitle="Espace Candidat" />
           <div className="sticky top-0 z-40 bg-background/95 backdrop-blur-sm border-b border-border">
             <StepProgress currentStep={currentStep} />
           </div>
