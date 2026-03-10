@@ -1,7 +1,56 @@
 import { useCabinetStore } from '@/stores/cabinetStore';
 import { Button } from '@/components/ui/button';
-import { SUBSCRIPTION_ADVANTAGES } from '@/lib/cabinetConstants';
-import { ArrowRight, Sparkles, Shield, Clock } from 'lucide-react';
+import { cn } from '@/lib/utils';
+import { ArrowRight, Check, Sparkles, Users, Building2 } from 'lucide-react';
+
+const PALIERS = [
+  {
+    key: 'starter',
+    name: 'Starter',
+    icon: Sparkles,
+    price: '1.500',
+    fee: '18',
+    features: [
+      '1 recherche active',
+      '1 département',
+      'Accès au vivier premium',
+      'Support par email',
+    ],
+    notIncluded: ['Consultant dédié', 'Alertes prioritaires', 'Reporting mensuel'],
+  },
+  {
+    key: 'business',
+    name: 'Business',
+    icon: Users,
+    price: '3.000',
+    fee: '15',
+    badge: 'Recommandé',
+    features: [
+      '3 recherches actives',
+      '3 départements',
+      'Accès au vivier premium',
+      'Consultant dédié',
+      'Alertes prioritaires',
+    ],
+    notIncluded: ['Reporting mensuel'],
+  },
+  {
+    key: 'enterprise',
+    name: 'Enterprise',
+    icon: Building2,
+    price: 'Sur devis',
+    fee: '12',
+    features: [
+      'Recherches illimitées',
+      'Tous les départements',
+      'Accès au vivier premium',
+      'Consultant dédié',
+      'Alertes prioritaires',
+      'Reporting mensuel',
+    ],
+    notIncluded: [],
+  },
+];
 
 const CabinetStep4Subscription = () => {
   const s = useCabinetStore();
@@ -16,96 +65,119 @@ const CabinetStep4Subscription = () => {
         Restez connecté aux<br /><em className="text-muted-foreground">meilleurs talents.</em>
       </h2>
       <p className="text-sm text-muted-foreground font-light leading-relaxed mb-10 max-w-xl">
-        Un abonnement mensuel, sans commission, pour tout votre cabinet. Accédez en continu à notre vivier premium et reprenez le contrôle de vos recrutements.
+        Un abonnement mensuel pour rester connecté au marché, et un fee de placement réduit uniquement si le candidat idéal rejoint votre cabinet.
       </p>
 
-      {/* Hero value proposition */}
-      <div className="bg-foreground rounded-md p-7 mb-8">
-        <div className="flex items-start gap-5">
-          <div className="flex-shrink-0 mt-1">
-            <Sparkles className="w-8 h-8 text-white/80" />
+      {/* How it works */}
+      <div className="bg-foreground rounded-md p-6 mb-8">
+        <h3 className="font-serif text-lg font-bold text-white mb-3">Comment ça fonctionne</h3>
+        <div className="grid grid-cols-3 gap-5">
+          <div>
+            <div className="font-serif text-2xl font-bold text-white/90 mb-1">1.</div>
+            <div className="text-xs font-bold text-white mb-0.5">Abonnement mensuel</div>
+            <p className="text-[11px] text-white/50 leading-relaxed">Accédez au vivier, restez opportuniste. Identifiez les profils avant vos concurrents.</p>
           </div>
           <div>
-            <h3 className="font-serif text-xl font-bold text-white mb-2">
-              Le meilleur recrutement ne se fait jamais dans l'urgence.
-            </h3>
-            <p className="text-sm text-white/60 leading-relaxed font-light">
-              En restant connecté au vivier LOGAN, vous identifiez les talents <em className="text-white/80">avant</em> d'en avoir besoin.
-              Vous passez d'une logique réactive — coûteuse et imprévisible — à une approche stratégique et opportuniste.
-              Quand le bon profil apparaît, vous êtes en position de force.
-            </p>
+            <div className="font-serif text-2xl font-bold text-white/90 mb-1">2.</div>
+            <div className="text-xs font-bold text-white mb-0.5">Matching & approche</div>
+            <p className="text-[11px] text-white/50 leading-relaxed">LOGAN approche confidentiellement les candidats alignés avec votre recherche.</p>
+          </div>
+          <div>
+            <div className="font-serif text-2xl font-bold text-white/90 mb-1">3.</div>
+            <div className="text-xs font-bold text-white mb-0.5">Fee au placement</div>
+            <p className="text-[11px] text-white/50 leading-relaxed">Un fee réduit (vs 20–25% marché) uniquement si le profil de vos rêves rejoint votre cabinet.</p>
           </div>
         </div>
       </div>
 
-      {/* 3 pillars */}
+      {/* Pricing cards */}
       <div className="grid grid-cols-3 gap-4 mb-8">
-        <div className="border border-border rounded-md p-5 bg-background">
-          <Clock className="w-5 h-5 text-foreground mb-3" />
-          <div className="text-xs font-bold text-foreground mb-1">Accès continu</div>
-          <p className="text-[11px] text-muted-foreground leading-relaxed">
-            Ne manquez plus un profil. Les meilleurs candidats ne sont à l'écoute que quelques semaines — soyez là au bon moment.
-          </p>
-        </div>
-        <div className="border border-border rounded-md p-5 bg-background">
-          <Shield className="w-5 h-5 text-foreground mb-3" />
-          <div className="text-xs font-bold text-foreground mb-1">Zéro commission</div>
-          <p className="text-[11px] text-muted-foreground leading-relaxed">
-            Pas de pourcentage sur la rétrocession. Votre abonnement couvre tout, quel que soit le nombre de placements réalisés.
-          </p>
-        </div>
-        <div className="border border-border rounded-md p-5 bg-background">
-          <Sparkles className="w-5 h-5 text-foreground mb-3" />
-          <div className="text-xs font-bold text-foreground mb-1">Tout le cabinet</div>
-          <p className="text-[11px] text-muted-foreground leading-relaxed">
-            Tous les départements, tous les associés, sans limite. Un seul abonnement pour l'ensemble de votre structure.
-          </p>
-        </div>
-      </div>
+        {PALIERS.map((p) => {
+          const selected = s.palier === p.key;
+          const Icon = p.icon;
+          return (
+            <button
+              key={p.key}
+              onClick={() => s.setField('palier', p.key)}
+              className={cn(
+                'relative text-left rounded-md border-2 p-5 transition-all',
+                selected
+                  ? 'border-foreground shadow-[inset_4px_0_0_hsl(var(--foreground))] bg-secondary/50'
+                  : 'border-border bg-background hover:border-foreground/40'
+              )}
+            >
+              {p.badge && (
+                <span className="absolute -top-2.5 right-3 bg-foreground text-background text-[8px] font-bold tracking-[0.1em] uppercase px-2 py-0.5 rounded-sm">
+                  {p.badge}
+                </span>
+              )}
 
-      {/* Advantages list */}
-      <div className="bg-secondary rounded-md p-6 mb-8">
-        <div className="text-[9px] font-bold tracking-[0.14em] uppercase text-muted-foreground mb-4">Ce que comprend votre abonnement</div>
-        <div className="grid grid-cols-2 gap-4">
-          {SUBSCRIPTION_ADVANTAGES.map((adv) => (
-            <div key={adv.title} className="flex gap-3">
-              <span className="text-lg flex-shrink-0">{adv.icon}</span>
-              <div>
-                <div className="text-xs font-bold text-foreground mb-0.5">{adv.title}</div>
-                <p className="text-[11px] text-muted-foreground leading-relaxed">{adv.desc}</p>
+              <Icon className="w-5 h-5 text-foreground mb-3" />
+              <div className="text-sm font-bold text-foreground mb-1">{p.name}</div>
+
+              <div className="mb-4">
+                <span className="font-serif text-2xl font-bold text-foreground">
+                  {p.price.includes('devis') ? '' : `${p.price} €`}
+                </span>
+                {p.price.includes('devis') ? (
+                  <span className="text-sm font-bold text-foreground">Sur devis</span>
+                ) : (
+                  <span className="text-xs text-muted-foreground"> /mois</span>
+                )}
               </div>
-            </div>
-          ))}
+
+              <div className="bg-secondary rounded p-2.5 mb-4">
+                <div className="text-[9px] font-bold tracking-[0.1em] uppercase text-muted-foreground mb-0.5">Fee au placement</div>
+                <div className="font-serif text-xl font-bold text-foreground">{p.fee}%</div>
+                <div className="text-[10px] text-muted-foreground">de la rétrocession annuelle brute</div>
+              </div>
+
+              <div className="space-y-2">
+                {p.features.map((f) => (
+                  <div key={f} className="flex items-start gap-2 text-[11px] text-foreground">
+                    <Check className="w-3 h-3 text-foreground flex-shrink-0 mt-0.5" />
+                    {f}
+                  </div>
+                ))}
+                {p.notIncluded.map((f) => (
+                  <div key={f} className="flex items-start gap-2 text-[11px] text-muted-foreground/40 line-through">
+                    <span className="w-3 flex-shrink-0 mt-0.5 text-center">—</span>
+                    {f}
+                  </div>
+                ))}
+              </div>
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Comparison vs market */}
+      <div className="border border-border rounded-md p-5 mb-6 bg-secondary/30">
+        <div className="text-[9px] font-bold tracking-[0.14em] uppercase text-muted-foreground mb-3">Comparatif — placement d'un collaborateur à 100K€ de rétrocession</div>
+        <div className="grid grid-cols-2 gap-4">
+          <div className="p-4 rounded border border-border bg-background">
+            <div className="text-xs font-bold text-muted-foreground mb-1">Chasseur classique</div>
+            <div className="font-serif text-2xl font-bold text-foreground">20–25K€</div>
+            <p className="text-[10px] text-muted-foreground mt-1">One shot, sans accès au vivier, sans visibilité marché</p>
+          </div>
+          <div className="p-4 rounded border-2 border-foreground bg-background">
+            <div className="text-xs font-bold text-foreground mb-1">LOGAN Business</div>
+            <div className="font-serif text-2xl font-bold text-foreground">15K€ <span className="text-sm font-normal text-muted-foreground">+ abo</span></div>
+            <p className="text-[10px] text-muted-foreground mt-1">Fee réduit + accès continu au vivier + consultant dédié</p>
+          </div>
         </div>
       </div>
 
-      {/* Pricing teaser */}
-      <div className="border-2 border-foreground rounded-md p-6 bg-background">
-        <div className="flex items-center justify-between">
-          <div>
-            <div className="text-[9px] font-bold tracking-[0.14em] uppercase text-muted-foreground mb-1">Tarification</div>
-            <h3 className="font-serif text-2xl font-bold text-foreground mb-1">Sur devis — adapté à votre cabinet</h3>
-            <p className="text-sm text-muted-foreground leading-relaxed max-w-lg">
-              Le tarif de votre abonnement mensuel est calculé en fonction de la taille de votre équipe à Paris. Un consultant LOGAN vous recontacte sous 24h pour vous proposer une offre sur mesure.
-            </p>
-          </div>
-          <div className="flex-shrink-0 bg-foreground rounded-md text-center px-5 py-4 ml-6">
-            <div className="font-serif text-3xl font-bold text-white leading-none">24h</div>
-            <div className="text-[9px] text-white/50 font-bold tracking-[0.08em] uppercase mt-1">Réponse garantie</div>
-          </div>
-        </div>
-      </div>
-
-      {/* Loyalty coefficient */}
-      <div className="mt-5 border border-border rounded-md p-5 flex items-start gap-5 bg-secondary/50">
+      {/* Loyalty */}
+      <div className="border border-border rounded-md p-5 flex items-start gap-5 bg-secondary/50">
         <div className="flex-shrink-0 bg-foreground rounded text-center px-3.5 py-2.5">
           <div className="font-serif text-xl font-bold text-white">−15%</div>
           <div className="text-[8px] font-bold tracking-[0.08em] uppercase text-white/60 mt-0.5">dès l'an 2</div>
         </div>
         <div>
-          <div className="text-xs font-bold text-foreground mb-1.5">Coefficient fidélité — la durée crée la valeur</div>
+          <div className="text-xs font-bold text-foreground mb-1.5">Coefficient fidélité</div>
           <p className="text-xs text-muted-foreground leading-relaxed">
-            Les cabinets engagés dans la durée bénéficient d'une remise progressive : <strong>−10% à la 2ème année</strong>, <strong>−15% à partir de la 3ème année</strong>. Appliquée automatiquement à chaque renouvellement.
+            Les cabinets engagés dans la durée bénéficient d'une remise progressive sur l'abonnement : <strong>−10% à la 2ème année</strong>, <strong>−15% à partir de la 3ème année</strong>.
           </p>
         </div>
       </div>
@@ -114,7 +186,7 @@ const CabinetStep4Subscription = () => {
       <div className="flex justify-between items-center mt-11 pt-7 border-t border-border">
         <Button variant="outline" onClick={() => s.setStep(3)} className="font-sans text-sm rounded-sm">← Retour</Button>
         <Button onClick={() => s.setStep(5)} className="bg-foreground text-background hover:bg-foreground/90 font-sans text-sm font-bold rounded-sm px-8 flex items-center gap-2">
-          Demander mon devis <ArrowRight className="w-4 h-4" />
+          Continuer <ArrowRight className="w-4 h-4" />
         </Button>
       </div>
     </div>
