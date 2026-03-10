@@ -29,7 +29,7 @@ const Step2Identity = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
 
-  const isSeniorProfile = pqe && (pqe.label === 'Counsel' || pqe.label === 'Associé');
+  const hasSerment = store.sermentMois && store.sermentAnnee;
 
   const passwordRules = useMemo(() => {
     const pw = store.password;
