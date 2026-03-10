@@ -25,6 +25,7 @@ const App = () => (
           <Route path="/cabinet" element={<CabinetPage />} />
           <Route path="/auth" element={<AuthPage />} />
           <Route path="/reset-password" element={<ResetPasswordPage />} />
+          <Route path="/video-preview" element={<VideoPreview />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
