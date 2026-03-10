@@ -70,11 +70,12 @@ const LandingPage = () => {
       {/* Background image with gradient overlay */}
       <div className="absolute inset-0">
         <motion.video
-          src={heroVideo}
+          ref={videoRef}
+          src={heroVideoA}
           autoPlay
           muted
-          loop
           playsInline
+          onEnded={handleVideoEnded}
           initial={{ opacity: 0, scale: 1.05 }}
           animate={{ opacity: 0.75, scale: 1 }}
           transition={{ duration: 2, ease: 'easeOut' }}
