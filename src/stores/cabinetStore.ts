@@ -14,6 +14,11 @@ export interface CabinetState {
   refNom: string;
   email: string;
   mobile: string;
+  ref2Prenom: string;
+  ref2Nom: string;
+  ref2Email: string;
+  ref2Mobile: string;
+  showRef2: boolean;
   // Step 3 - Search
   seniorities: string[];
   expertise: string[];
