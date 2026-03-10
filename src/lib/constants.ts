@@ -50,9 +50,9 @@ export const CABINET_META: Record<string, { nat: string; tier: string }> = {
 };
 
 export const DEPARTEMENTS = [
-  "M&A / Private Equity", "Banque & Finance", "Droit Social", "Fiscal",
-  "Immobilier", "Restructuring", "Marchés de Capitaux",
-  "Arbitrage / Contentieux", "Droit Public", "Concurrence", "IP / Tech", "Autre"
+  "Arbitrage / Contentieux", "Banque & Finance", "Concurrence", "Droit Public",
+  "Droit Social", "Fiscal", "Immobilier", "IP / Tech",
+  "M&A / Private Equity", "Marchés de Capitaux", "Restructuring", "Autre"
 ];
 
 // Legal 500 rankings by practice area
