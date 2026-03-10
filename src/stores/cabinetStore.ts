@@ -27,6 +27,7 @@ export interface CabinetState {
   english: string;
   l500cand: boolean;
   natOrigin: string;
+  prefFirms: string[];
   contexte: string;
   eqAssocies: string;
   eqCounsels: string;
