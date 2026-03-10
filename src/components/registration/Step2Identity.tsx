@@ -13,8 +13,8 @@ import FileDropzone from '@/components/shared/FileDropzone';
 import ChipSelector from '@/components/shared/ChipSelector';
 import { usePQE } from '@/hooks/usePQE';
 import { CABINETS, DEPARTEMENTS, NATIONALITES, TIERS, MOIS, TAILLE_OPERATIONS, DISPONIBILITES, RAISONS_BAISSE_RETRO } from '@/lib/constants';
-import { Camera, X, ArrowLeft, ArrowRight, Linkedin } from 'lucide-react';
-import { useRef } from 'react';
+import { Camera, X, ArrowLeft, ArrowRight, Linkedin, Eye, EyeOff, Check, AlertCircle } from 'lucide-react';
+import { useRef, useState, useMemo } from 'react';
 
 const currentYear = new Date().getFullYear();
 const YEARS = Array.from({ length: currentYear - 1980 + 1 }, (_, i) => currentYear - i);
