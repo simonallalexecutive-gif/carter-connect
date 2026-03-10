@@ -8,6 +8,7 @@ import RegisterPage from "./pages/RegisterPage";
 import CabinetPage from "./pages/CabinetPage";
 import AuthPage from "./pages/AuthPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
+import VideoPreview from "./pages/VideoPreview";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
