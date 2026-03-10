@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { EXPERTISES, SENIORITY_OPTIONS, CONF_OPTIONS } from '@/lib/cabinetConstants';
 import { cn } from '@/lib/utils';
+import { formatNumberWithDots } from '@/lib/formatters';
 
 const TABS = ['Profil recherché', 'Contexte & équipe', 'Rémunération & conditions', 'Confidentialité'];
 
