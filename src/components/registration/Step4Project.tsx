@@ -60,7 +60,7 @@ const Step4Project = () => {
       <div className="space-y-10">
         {/* Qualités */}
         <div>
-          <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-4 block">Qualités appréciées dans un cabinet</Label>
+          <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-4 block">Ce que vous appréciez dans votre cabinet actuel</Label>
           <ChipSelector
             options={QUALITES}
             selected={store.qualitesAppreciees}
