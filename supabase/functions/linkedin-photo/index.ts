@@ -1,6 +1,6 @@
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version',
 };
 
 Deno.serve(async (req) => {
@@ -9,13 +9,27 @@ Deno.serve(async (req) => {
   }
 
   try {
-    const { url } = await req.json();
+    let { url } = await req.json();
 
     if (!url || !url.includes('linkedin.com/in/')) {
       return new Response(JSON.stringify({ error: 'Invalid LinkedIn URL' }), {
         status: 400,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       });
+    }
+
+    // Normalize URL — ensure it has a protocol
+    if (!url.startsWith('http://') && !url.startsWith('https://')) {
+      url = 'https://' + url;
+    }
+
+    // Strip query params / tracking fragments for cleaner fetch
+    try {
+      const parsed = new URL(url);
+      // Keep only the pathname (e.g. /in/username/)
+      url = `${parsed.origin}${parsed.pathname}`;
+    } catch {
+      // If parsing still fails, proceed as-is
     }
 
     // Fetch the LinkedIn public profile page

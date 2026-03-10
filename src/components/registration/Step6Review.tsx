@@ -93,13 +93,24 @@ const Step6Review = () => {
       {previewMode === 'recap' && (
         <div className="space-y-6">
           <SectionCard title="Identité">
+            <div className="flex items-start gap-5 mb-4">
+              {store.photoPreviewUrl ? (
+                <img src={store.photoPreviewUrl} alt="" className="w-16 h-16 rounded-full object-cover border border-border flex-shrink-0" />
+              ) : (
+                <div className="w-16 h-16 rounded-full bg-secondary flex items-center justify-center font-serif text-xl text-foreground flex-shrink-0">
+                  {store.prenom?.[0]}{store.nom?.[0]}
+                </div>
+              )}
+              <div>
+                <p className="font-serif text-lg text-foreground">{store.prenom} {store.nom}</p>
+                <p className="text-sm font-sans font-light text-muted-foreground">{store.email}</p>
+                {store.telephone && <p className="text-xs font-sans font-light text-muted-foreground mt-0.5">{store.telephone}</p>}
+              </div>
+            </div>
             <div className="grid grid-cols-2 gap-4">
-              <DataRow label="Nom" value={`${store.prenom} ${store.nom}`} />
-              <DataRow label="Email" value={store.email} />
-              {store.telephone && <DataRow label="Téléphone" value={store.telephone} />}
               {pqe && <div><span className="text-xs text-muted-foreground font-sans font-light">Séniorité</span><div className="mt-1"><SeniorityBadge info={pqe} /></div></div>}
               {store.disponibilite && <DataRow label="Disponibilité" value={store.disponibilite} />}
-              {store.tailleOperations.length > 0 && <DataRow label="Taille opérations" value={store.tailleOperations.join(', ')} />}
+              {store.linkedinUrl && <DataRow label="LinkedIn" value={store.linkedinUrl} />}
             </div>
           </SectionCard>
 
@@ -121,6 +132,9 @@ const Step6Review = () => {
                 </span>
               ))}
             </div>
+            {store.tailleOperations.length > 0 && (
+              <p className="text-sm font-sans font-light mb-1"><span className="text-muted-foreground">Taille opérations : </span>{store.tailleOperations.join(', ')}</p>
+            )}
             {store.anglais && <p className="text-sm font-sans font-light"><span className="text-muted-foreground">Anglais : </span>{store.anglais}</p>}
             {store.typesClients.length > 0 && (
               <p className="text-sm font-sans font-light mt-1"><span className="text-muted-foreground">Clients : </span>{store.typesClients.join(', ')}</p>
