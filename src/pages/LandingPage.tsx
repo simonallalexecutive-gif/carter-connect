@@ -74,7 +74,7 @@ const LandingPage = () => (
           <motion.h1 variants={fadeUp} className="text-5xl md:text-7xl lg:text-[5.5rem] font-serif font-normal text-white leading-[1.08] mb-8 tracking-[-0.01em]">
             Welcome to{' '}<em className="font-normal text-white/70">Logan</em>
           </motion.h1>
-          <motion.p variants={fadeUp} className="text-2xl md:text-[28px] text-white/50 font-serif font-normal max-w-2xl mb-14 leading-[1.4] tracking-[-0.01em]">
+          <motion.p variants={fadeUp} className="text-base md:text-lg text-white/60 font-sans font-light max-w-lg mb-14 leading-relaxed">
             La plateforme confidentielle de mise en relation entre avocats d'affaires et cabinets de premier plan.
           </motion.p>
           <motion.div variants={fadeUp}>
