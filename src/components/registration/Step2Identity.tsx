@@ -75,7 +75,6 @@ const Step2Identity = () => {
       } catch {
         // Silently fail - user can still upload photo manually
       }
-      }
     }
   };
 
