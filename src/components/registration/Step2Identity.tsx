@@ -13,8 +13,8 @@ import FileDropzone from '@/components/shared/FileDropzone';
 import ChipSelector from '@/components/shared/ChipSelector';
 import { usePQE } from '@/hooks/usePQE';
 import { CABINETS, DEPARTEMENTS, NATIONALITES, TIERS, MOIS, TAILLE_OPERATIONS, DISPONIBILITES, RAISONS_BAISSE_RETRO } from '@/lib/constants';
-import { Camera, X, ArrowLeft, ArrowRight, Linkedin } from 'lucide-react';
-import { useRef } from 'react';
+import { Camera, X, ArrowLeft, ArrowRight, Linkedin, Eye, EyeOff, Check, AlertCircle } from 'lucide-react';
+import { useRef, useState, useMemo } from 'react';
 
 const currentYear = new Date().getFullYear();
 const YEARS = Array.from({ length: currentYear - 1980 + 1 }, (_, i) => currentYear - i);
@@ -23,12 +23,29 @@ const Step2Identity = () => {
   const store = useRegistrationStore();
   const pqe = usePQE(store.sermentMois, store.sermentAnnee);
   const photoInputRef = useRef<HTMLInputElement>(null);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
 
   const isSeniorProfile = pqe && (pqe.label === 'Counsel' || pqe.label === 'Associé');
 
+  const passwordRules = useMemo(() => {
+    const pw = store.password;
+    return {
+      minLength: pw.length >= 8,
+      hasUpper: /[A-Z]/.test(pw),
+      hasLower: /[a-z]/.test(pw),
+      hasNumber: /[0-9]/.test(pw),
+      hasSpecial: /[^A-Za-z0-9]/.test(pw),
+    };
+  }, [store.password]);
+
+  const isPasswordValid = Object.values(passwordRules).every(Boolean);
+  const passwordsMatch = store.password === store.passwordConfirm && store.passwordConfirm.length > 0;
+
   const canProceed = store.prenom.length >= 2 && store.nom.length >= 2 &&
     store.email.includes('@') && store.sermentMois && store.sermentAnnee &&
-    store.cabinet.length >= 2 && store.departement.length >= 2;
+    store.cabinet.length >= 2 && store.departement.length >= 2 &&
+    isPasswordValid && passwordsMatch;
 
   const handleCabinetSelect = (v: string | string[]) => {
     const cabinetName = typeof v === 'string' ? v : v[0];
@@ -155,6 +172,80 @@ const Step2Identity = () => {
           </div>
         </div>
 
+        {/* Password */}
+        <div className="space-y-4">
+          <div>
+            <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Mot de passe *</Label>
+            <div className="relative mt-2">
+              <Input
+                type={showPassword ? 'text' : 'password'}
+                value={store.password}
+                onChange={e => store.setField('password', e.target.value)}
+                placeholder="Créez votre mot de passe"
+                className="pr-10"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+              >
+                {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+              </button>
+            </div>
+            {store.password.length > 0 && (
+              <div className="mt-3 space-y-1.5">
+                {[
+                  { key: 'minLength', label: '8 caractères minimum' },
+                  { key: 'hasUpper', label: 'Une lettre majuscule' },
+                  { key: 'hasLower', label: 'Une lettre minuscule' },
+                  { key: 'hasNumber', label: 'Un chiffre' },
+                  { key: 'hasSpecial', label: 'Un caractère spécial (!@#$...)' },
+                ].map(rule => {
+                  const passed = passwordRules[rule.key as keyof typeof passwordRules];
+                  return (
+                    <div key={rule.key} className="flex items-center gap-2">
+                      {passed ? (
+                        <Check className="w-3.5 h-3.5 text-green-500 flex-shrink-0" />
+                      ) : (
+                        <AlertCircle className="w-3.5 h-3.5 text-muted-foreground flex-shrink-0" />
+                      )}
+                      <span className={`font-sans text-xs ${passed ? 'text-green-500' : 'text-muted-foreground'}`}>
+                        {rule.label}
+                      </span>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+          <div>
+            <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Confirmer le mot de passe *</Label>
+            <div className="relative mt-2">
+              <Input
+                type={showConfirm ? 'text' : 'password'}
+                value={store.passwordConfirm}
+                onChange={e => store.setField('passwordConfirm', e.target.value)}
+                placeholder="Confirmez votre mot de passe"
+                className="pr-10"
+              />
+              <button
+                type="button"
+                onClick={() => setShowConfirm(!showConfirm)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+              >
+                {showConfirm ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+              </button>
+            </div>
+            {store.passwordConfirm.length > 0 && !passwordsMatch && (
+              <p className="text-xs text-red-400 font-sans mt-1.5">Les mots de passe ne correspondent pas</p>
+            )}
+            {passwordsMatch && (
+              <p className="text-xs text-green-500 font-sans mt-1.5 flex items-center gap-1">
+                <Check className="w-3 h-3" /> Mots de passe identiques
+              </p>
+            )}
+          </div>
+        </div>
         {/* Serment */}
         <div>
           <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Date de prestation de serment *</Label>

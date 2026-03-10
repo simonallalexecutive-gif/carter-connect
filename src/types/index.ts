@@ -8,6 +8,8 @@ export interface RegistrationState {
   currentStep: number;
   // Step 2 - Identity
   linkedinUrl: string;
+  password: string;
+  passwordConfirm: string;
   prenom: string;
   nom: string;
   email: string;
