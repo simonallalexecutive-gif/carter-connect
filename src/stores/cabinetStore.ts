@@ -38,6 +38,7 @@ export interface CabinetState {
   heures: string;
   bonusEnabled: boolean;
   bonusTypes: string[];
+  bonusDesc: string;
   hasHeures: boolean;
   tt: string;
   confNiveau: string;
@@ -92,6 +93,7 @@ const initialState = {
   heures: '',
   bonusEnabled: false,
   bonusTypes: [] as string[],
+  bonusDesc: '',
   hasHeures: false,
   tt: '',
   confNiveau: '',
