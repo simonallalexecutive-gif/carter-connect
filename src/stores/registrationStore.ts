@@ -28,6 +28,7 @@ const initialState = {
   assocClientele: '',
   // Associé / Counsel
   isAssocieOrCounsel: false,
+  statutAssoc: '' as '' | 'counsel' | 'associe',
   chiffreAffairesPortable: '',
   businessPlanFile: null as File | null,
   assocExpertiseSummary: '',
