@@ -61,12 +61,12 @@ const LandingPage = () => (
           loop
           playsInline
           initial={{ opacity: 0, scale: 1.05 }}
-          animate={{ opacity: 0.6, scale: 1 }}
+          animate={{ opacity: 0.75, scale: 1 }}
           transition={{ duration: 2, ease: 'easeOut' }}
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-black/60 to-black" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/70" />
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-black/45 to-black/85" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/50" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black" />
       </div>
       <div className="px-6 sm:px-8 lg:px-10 max-w-6xl relative z-10 pt-24 flex-1 flex items-center">
