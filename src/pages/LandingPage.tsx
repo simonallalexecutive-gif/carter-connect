@@ -98,7 +98,7 @@ const LandingPage = () => (
         transition={{ delay: 1.2, duration: 1.5 }}
         className="relative z-10 pb-16 overflow-hidden"
       >
-        <p className="text-[10px] font-sans font-medium tracking-[0.3em] uppercase text-white/25 text-center mb-8">
+        <p className="text-[11px] font-serif italic font-light tracking-[0.15em] text-white/30 text-center mb-8">
           Ils recrutent via Logan
         </p>
         <div className="relative">
@@ -106,7 +106,7 @@ const LandingPage = () => (
           <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-black to-transparent z-10" />
           <div className="flex animate-marquee whitespace-nowrap items-center">
             {[...firmNames, ...firmNames].map((name, i) => (
-              <span key={i} className="mx-10 md:mx-14 text-sm md:text-base font-serif font-normal text-white/75 select-none flex-shrink-0 tracking-[0.02em] uppercase">
+              <span key={i} className="mx-10 md:mx-14 text-xs md:text-sm font-serif font-normal text-white/75 select-none flex-shrink-0 tracking-[0.02em] uppercase">
                 {name}
               </span>
             ))}
