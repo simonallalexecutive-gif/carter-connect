@@ -204,7 +204,7 @@ const CabinetStep2Identity = () => {
           className="flex items-center gap-2 text-xs font-medium text-muted-foreground hover:text-foreground transition-colors"
         >
           {s.showRef2 ? <Minus className="w-3.5 h-3.5" /> : <Plus className="w-3.5 h-3.5" />}
-          {s.showRef2 ? 'Retirer le référent 2' : 'Ajouter un référent 2 (ex : Associé(e))'}
+          {s.showRef2 ? 'Retirer le référent 2' : 'Ajouter un référent 2 (ex : RH, Associé(e))'}
         </button>
 
         {s.showRef2 && (
