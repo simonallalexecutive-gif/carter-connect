@@ -8,6 +8,8 @@ import { cn } from '@/lib/utils';
 import { formatNumberWithDots } from '@/lib/formatters';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import { Check } from 'lucide-react';
+import { FIRMS_DB } from '@/lib/cabinetConstants';
+import AutocompleteInput from '@/components/shared/AutocompleteInput';
 
 const TABS = ['Profil recherché', 'Contexte & équipe', 'Rémunération & conditions', 'Confidentialité'];
 
