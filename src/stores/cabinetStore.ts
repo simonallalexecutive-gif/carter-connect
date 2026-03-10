@@ -36,7 +36,8 @@ export interface CabinetState {
   retroMax: string;
   heures: string;
   bonusEnabled: boolean;
-  bonusType: string;
+  bonusTypes: string[];
+  hasHeures: boolean;
   tt: string;
   confNiveau: string;
   // Step 4 - Subscription
