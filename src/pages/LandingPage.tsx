@@ -98,7 +98,7 @@ const LandingPage = () => (
         transition={{ delay: 1.2, duration: 1.5 }}
         className="relative z-10 pb-10 overflow-hidden"
       >
-        <div className="relative flex items-center">
+        <div className="relative flex items-center py-1">
           {/* Fade edges */}
           <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-black to-transparent z-10 pointer-events-none" />
           <div className="absolute right-[140px] top-0 bottom-0 w-20 bg-gradient-to-l from-black to-transparent z-10 pointer-events-none" />
