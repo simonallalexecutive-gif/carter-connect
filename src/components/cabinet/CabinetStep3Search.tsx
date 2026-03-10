@@ -25,7 +25,6 @@ const CHART_COLORS = [
 const CabinetStep3Search = () => {
   const s = useCabinetStore();
   const [activeTab, setActiveTab] = useState(0);
-  const prevTabComplete = useRef<boolean[]>([false, false, false, false]);
 
   const splitTotal = s.expertise.reduce((sum, k) => sum + (s.activitySplit[k] || 0), 0);
 
