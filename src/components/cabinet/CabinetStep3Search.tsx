@@ -246,7 +246,7 @@ const CabinetStep3Search = () => {
             </label>
             <div className="grid grid-cols-2 gap-3">
               <div className="relative">
-                <Input value={s.retroMin} onChange={(e) => s.setField('retroMin', e.target.value)} placeholder="Min — Ex : 90 000" className="bg-background pr-12" />
+                <Input value={s.retroMin} onChange={(e) => s.setField('retroMin', formatNumberWithDots(e.target.value))} placeholder="Min — Ex : 90.000" className="bg-background pr-12" />
                 <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-muted-foreground">€/an</span>
               </div>
               <div className="relative">
