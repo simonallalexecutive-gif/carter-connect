@@ -98,7 +98,7 @@ const LandingPage = () => (
         transition={{ delay: 1.2, duration: 1.5 }}
         className="relative z-10 pb-16 overflow-hidden"
       >
-        <p className="text-[10px] font-sans font-medium tracking-[0.3em] uppercase text-white/25 text-center mb-8">
+        <p className="text-[11px] font-serif italic font-light tracking-[0.15em] text-white/30 text-center mb-8">
           Ils recrutent via Logan
         </p>
         <div className="relative">
