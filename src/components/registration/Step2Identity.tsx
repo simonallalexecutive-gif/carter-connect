@@ -11,8 +11,8 @@ import SeniorityBadge from '@/components/shared/SeniorityBadge';
 import FileDropzone from '@/components/shared/FileDropzone';
 import ChipSelector from '@/components/shared/ChipSelector';
 import { usePQE } from '@/hooks/usePQE';
-import { CABINETS, DEPARTEMENTS, NATIONALITES, TIERS, MOIS, LEGAL500_BY_PRACTICE, TAILLE_OPERATIONS, DISPONIBILITES, RAISONS_BAISSE_RETRO } from '@/lib/constants';
-import { Camera, X, ArrowLeft, ArrowRight } from 'lucide-react';
+import { CABINETS, DEPARTEMENTS, NATIONALITES, TIERS, MOIS, TAILLE_OPERATIONS, DISPONIBILITES, RAISONS_BAISSE_RETRO } from '@/lib/constants';
+import { Camera, X, ArrowLeft, ArrowRight, Linkedin } from 'lucide-react';
 import { useRef } from 'react';
 
 const currentYear = new Date().getFullYear();
@@ -32,24 +32,10 @@ const Step2Identity = () => {
   const handleCabinetSelect = (v: string | string[]) => {
     const cabinetName = typeof v === 'string' ? v : v[0];
     store.setField('cabinet', cabinetName as string);
-    const practiceRankings = store.departement ? LEGAL500_BY_PRACTICE[store.departement] : null;
-    if (practiceRankings && practiceRankings[cabinetName]) {
-      const meta = practiceRankings[cabinetName];
-      store.setField('cabNat', meta.nat);
-      store.setField('cabTier', meta.band);
-    }
   };
 
   const handleDepartmentChange = (dept: string) => {
     store.setField('departement', dept);
-    if (store.cabinet) {
-      const practiceRankings = LEGAL500_BY_PRACTICE[dept];
-      if (practiceRankings && practiceRankings[store.cabinet]) {
-        const meta = practiceRankings[store.cabinet];
-        store.setField('cabNat', meta.nat);
-        store.setField('cabTier', meta.band);
-      }
-    }
   };
 
   const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -74,6 +60,28 @@ const Step2Identity = () => {
     }
   };
 
+  const handleLinkedinPaste = async (url: string) => {
+    store.setField('linkedinUrl', url);
+    // Try to extract LinkedIn profile photo
+    if (url.includes('linkedin.com/in/')) {
+      try {
+        const response = await fetch(`https://syfluylekcaxlncospig.supabase.co/functions/v1/linkedin-photo`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ url }),
+        });
+        if (response.ok) {
+          const data = await response.json();
+          if (data.photoUrl) {
+            store.setField('photoPreviewUrl', data.photoUrl);
+          }
+        }
+      } catch {
+        // Silently fail - user can still upload photo manually
+      }
+    }
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -86,6 +94,24 @@ const Step2Identity = () => {
       <p className="text-muted-foreground font-sans text-sm font-light mb-10">Ces informations restent strictement confidentielles.</p>
 
       <div className="space-y-8">
+        {/* LinkedIn URL */}
+        <div>
+          <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Profil LinkedIn</Label>
+          <div className="relative mt-2">
+            <Linkedin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+            <Input
+              value={store.linkedinUrl}
+              onChange={e => handleLinkedinPaste(e.target.value)}
+              onPaste={e => {
+                setTimeout(() => handleLinkedinPaste((e.target as HTMLInputElement).value), 0);
+              }}
+              placeholder="https://linkedin.com/in/votre-profil"
+              className="pl-10"
+            />
+          </div>
+          <p className="font-sans text-xs text-muted-foreground font-light mt-1.5">Collez votre lien LinkedIn — votre photo de profil sera importée automatiquement.</p>
+        </div>
+
         {/* Photo */}
         <div className="flex items-center gap-6">
           <div className="relative">
@@ -200,14 +226,8 @@ const Step2Identity = () => {
             value={store.cabinet}
             onChange={handleCabinetSelect}
             placeholder="Rechercher un cabinet..."
-            showMeta
             className="mt-2"
           />
-          {store.cabinet && store.departement && LEGAL500_BY_PRACTICE[store.departement]?.[store.cabinet] && (
-            <p className="text-xs text-accent font-sans mt-2">
-              Classement Legal 500 ({store.departement}) : {LEGAL500_BY_PRACTICE[store.departement][store.cabinet].band}
-            </p>
-          )}
         </div>
 
         {/* Nationalité / Tier */}

@@ -7,6 +7,7 @@ export interface SeniorityInfo {
 export interface RegistrationState {
   currentStep: number;
   // Step 2 - Identity
+  linkedinUrl: string;
   prenom: string;
   nom: string;
   email: string;

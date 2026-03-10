@@ -25,7 +25,7 @@ const Step4Project = () => {
   const [rdvDate, setRdvDate] = useState<Date | undefined>();
   const [rdvHeure, setRdvHeure] = useState('');
 
-  const canProceed = store.motivation.length >= 20;
+  const canProceed = true;
 
   const handleDateSelect = (date: Date | undefined) => {
     setRdvDate(date);
@@ -60,7 +60,7 @@ const Step4Project = () => {
       <div className="space-y-10">
         {/* Qualités */}
         <div>
-          <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-4 block">Qualités appréciées dans un cabinet</Label>
+          <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-4 block">Ce que vous appréciez dans votre cabinet actuel</Label>
           <ChipSelector
             options={QUALITES}
             selected={store.qualitesAppreciees}
@@ -83,7 +83,7 @@ const Step4Project = () => {
 
         {/* Motivation */}
         <div>
-          <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Motivation / Contexte *</Label>
+          <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Motivation / Contexte</Label>
           <Textarea
             value={store.motivation}
             onChange={e => store.setField('motivation', e.target.value)}

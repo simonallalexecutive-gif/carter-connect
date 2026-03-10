@@ -118,11 +118,6 @@ const AutocompleteInput = ({
                 className="w-full text-left px-4 py-3 hover:bg-muted transition-colors font-sans text-sm"
               >
                 <span className="text-foreground">{item}</span>
-                {meta && (
-                  <span className="block text-xs text-muted-foreground mt-0.5">
-                    {meta.nat} · {meta.tier}
-                  </span>
-                )}
               </button>
             );
           })}
