@@ -11,9 +11,7 @@ const CONF_MAP: Record<string, string> = {
 };
 
 const PALIER_MAP: Record<string, string> = {
-  essentiel: 'Essentiel — 8 000€ HT/an',
-  standard: 'Standard — 15 000€ HT/an',
-  premium: 'Premium — 25 000€ HT/an',
+  devis: 'Sur devis — tarif personnalisé',
 };
 
 const CabinetStep5Validation = () => {
@@ -85,7 +83,7 @@ const CabinetStep5Validation = () => {
       <SynthSection title="Rémunération & conditions">
         <SynthRow label="Rétrocession" value={retroStr} />
         <SynthRow label="Heures cibles" value={s.heures ? `${s.heures} h/an` : '—'} />
-        <SynthRow label="Bonus" value={s.bonusType || '—'} />
+        <SynthRow label="Bonus" value={s.bonusTypes.length ? s.bonusTypes.join(', ') : '—'} />
         <SynthRow label="Télétravail" value={s.tt || '—'} />
       </SynthSection>
 

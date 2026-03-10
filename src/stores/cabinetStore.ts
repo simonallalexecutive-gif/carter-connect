@@ -14,6 +14,11 @@ export interface CabinetState {
   refNom: string;
   email: string;
   mobile: string;
+  ref2Prenom: string;
+  ref2Nom: string;
+  ref2Email: string;
+  ref2Mobile: string;
+  showRef2: boolean;
   // Step 3 - Search
   seniorities: string[];
   expertise: string[];
@@ -31,7 +36,8 @@ export interface CabinetState {
   retroMax: string;
   heures: string;
   bonusEnabled: boolean;
-  bonusType: string;
+  bonusTypes: string[];
+  hasHeures: boolean;
   tt: string;
   confNiveau: string;
   // Step 4 - Subscription
@@ -62,6 +68,11 @@ const initialState = {
   refNom: '',
   email: '',
   mobile: '',
+  ref2Prenom: '',
+  ref2Nom: '',
+  ref2Email: '',
+  ref2Mobile: '',
+  showRef2: false,
   seniorities: [] as string[],
   expertise: [] as string[],
   activitySplit: {} as Record<string, number>,
@@ -78,7 +89,8 @@ const initialState = {
   retroMax: '',
   heures: '',
   bonusEnabled: false,
-  bonusType: '',
+  bonusTypes: [] as string[],
+  hasHeures: false,
   tt: '',
   confNiveau: '',
   palier: 'standard',
