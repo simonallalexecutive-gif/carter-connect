@@ -16,6 +16,7 @@ export default {
       fontFamily: {
         serif: ['Cormorant', 'Georgia', 'serif'],
         sans: ['Inter', 'system-ui', 'sans-serif'],
+        sohne: ['Söhne', 'Helvetica Neue', 'Inter', 'system-ui', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",
