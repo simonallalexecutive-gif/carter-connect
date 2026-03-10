@@ -290,8 +290,6 @@ export const SENIORITY_OPTIONS = [
   { key: 'junior', label: 'Junior', pqe: '0–3 ans' },
   { key: 'mid', label: 'Mid Level', pqe: '3–6 ans' },
   { key: 'senior', label: 'Sénior', pqe: '+6 ans' },
-  { key: 'counsel', label: 'Counsel', pqe: 'Counsel' },
-  { key: 'associe', label: 'Associé', pqe: 'Associé' },
 ];
 
 export const SENIORITY_MAP: Record<string, string> = {
