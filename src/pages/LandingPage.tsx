@@ -96,21 +96,28 @@ const LandingPage = () => (
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.2, duration: 1.5 }}
-        className="relative z-10 pb-16 overflow-hidden"
+        className="relative z-10 pb-10 overflow-hidden"
       >
-        <div className="relative">
-          <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-black to-transparent z-10" />
-          <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-black to-transparent z-10" />
-          <div className="flex animate-marquee whitespace-nowrap items-center">
-            {[...firmNames, ...firmNames].map((name, i) => (
-              <span key={i} className="mx-10 md:mx-14 text-xs md:text-sm font-serif font-normal text-white/75 select-none flex-shrink-0 tracking-[0.02em] uppercase">
-                {name}
-              </span>
-            ))}
-            <span className="mx-10 md:mx-14 flex-shrink-0">
-              <span className="px-4 py-1.5 rounded-full border border-white/20 text-[11px] font-medium tracking-[0.08em] text-white/60 uppercase whitespace-nowrap">
-                Nos partenaires
-              </span>
+        <div className="relative flex items-center">
+          {/* Fade edges */}
+          <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-black to-transparent z-10 pointer-events-none" />
+          <div className="absolute right-[140px] top-0 bottom-0 w-20 bg-gradient-to-l from-black to-transparent z-10 pointer-events-none" />
+
+          {/* Scrolling logos */}
+          <div className="flex-1 overflow-hidden">
+            <div className="flex animate-marquee whitespace-nowrap items-center">
+              {[...firmNames, ...firmNames].map((name, i) => (
+                <span key={i} className="mx-8 md:mx-12 text-[11px] md:text-[13px] font-serif font-normal text-white/50 select-none flex-shrink-0 tracking-[0.05em] uppercase">
+                  {name}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* Static "Nos partenaires" chip — Harvey style */}
+          <div className="flex-shrink-0 pl-6 pr-6 md:pr-10 relative z-20 bg-gradient-to-r from-transparent via-black/80 to-black">
+            <span className="px-4 py-1.5 rounded-full border border-white/20 text-[11px] font-medium tracking-[0.06em] text-white/50 uppercase whitespace-nowrap cursor-default">
+              Nos partenaires
             </span>
           </div>
         </div>
