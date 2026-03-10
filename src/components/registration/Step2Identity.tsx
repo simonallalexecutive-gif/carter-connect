@@ -23,12 +23,29 @@ const Step2Identity = () => {
   const store = useRegistrationStore();
   const pqe = usePQE(store.sermentMois, store.sermentAnnee);
   const photoInputRef = useRef<HTMLInputElement>(null);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
 
   const isSeniorProfile = pqe && (pqe.label === 'Counsel' || pqe.label === 'Associé');
 
+  const passwordRules = useMemo(() => {
+    const pw = store.password;
+    return {
+      minLength: pw.length >= 8,
+      hasUpper: /[A-Z]/.test(pw),
+      hasLower: /[a-z]/.test(pw),
+      hasNumber: /[0-9]/.test(pw),
+      hasSpecial: /[^A-Za-z0-9]/.test(pw),
+    };
+  }, [store.password]);
+
+  const isPasswordValid = Object.values(passwordRules).every(Boolean);
+  const passwordsMatch = store.password === store.passwordConfirm && store.passwordConfirm.length > 0;
+
   const canProceed = store.prenom.length >= 2 && store.nom.length >= 2 &&
     store.email.includes('@') && store.sermentMois && store.sermentAnnee &&
-    store.cabinet.length >= 2 && store.departement.length >= 2;
+    store.cabinet.length >= 2 && store.departement.length >= 2 &&
+    isPasswordValid && passwordsMatch;
 
   const handleCabinetSelect = (v: string | string[]) => {
     const cabinetName = typeof v === 'string' ? v : v[0];
