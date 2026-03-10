@@ -83,6 +83,7 @@ const initialState = {
   english: '',
   l500cand: false,
   natOrigin: '',
+  prefFirms: [] as string[],
   contexte: '',
   eqAssocies: '',
   eqCounsels: '',
