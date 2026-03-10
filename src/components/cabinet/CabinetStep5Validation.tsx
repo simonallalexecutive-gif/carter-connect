@@ -11,9 +11,7 @@ const CONF_MAP: Record<string, string> = {
 };
 
 const PALIER_MAP: Record<string, string> = {
-  essentiel: 'Essentiel — 8 000€ HT/an',
-  standard: 'Standard — 15 000€ HT/an',
-  premium: 'Premium — 25 000€ HT/an',
+  devis: 'Sur devis — tarif personnalisé',
 };
 
 const CabinetStep5Validation = () => {
