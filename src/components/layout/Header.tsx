@@ -22,7 +22,7 @@ const Header = () => {
             user ? (
               <button
                 onClick={signOut}
-                className="font-sans text-[13px] font-light text-white/80 hover:text-white border border-white/20 hover:border-white/40 rounded-sm px-4 py-2 transition-colors duration-300"
+                className="font-serif text-[15px] font-normal text-white/80 hover:text-white border border-white/20 hover:border-white/40 rounded-sm px-4 py-2 transition-colors duration-300"
               >
                 Déconnexion
               </button>
