@@ -514,9 +514,9 @@ const KV = ({ k, v }: { k: string; v: string }) => (
 );
 
 const Row = ({ label, value }: { label: string; value: string }) => (
-  <div className="flex justify-between items-baseline py-1.5 border-b border-secondary last:border-b-0">
-    <span className="text-[11px] text-muted-foreground">{label}</span>
-    <span className="text-xs font-medium text-foreground text-right max-w-[65%]">{value}</span>
+  <div className="flex justify-between items-baseline py-1.5 border-b border-black/10 last:border-b-0">
+    <span className="text-[11px] text-black/50">{label}</span>
+    <span className="text-xs font-medium text-black text-right max-w-[65%]">{value}</span>
   </div>
 );
 
