@@ -16,7 +16,7 @@ const candidatBenefits = [
     number: '02',
     icon: Bell,
     title: 'Gardez le contrôle de vos démarches',
-    desc: 'Si un cabinet manifeste son intérêt pour votre profil, vous recevrez une notification de Logan. Le nom du cabinet est à ce stade confidentiel mais vous aurez accès à sa nationalité, son ranking, et les grandes lignes de sa recherche.',
+    desc: 'Si un cabinet manifeste son intérêt pour votre profil, vous recevrez une notification de Logan. Le nom du cabinet sera à ce stade confidentiel mais vous aurez accès à sa nationalité, son ranking, et les grandes lignes de sa recherche.',
   },
   {
     number: '03',

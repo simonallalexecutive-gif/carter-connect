@@ -123,36 +123,28 @@ const LandingPage = () => (
     {/* Benefits — candidat / cabinet tabs */}
     <BenefitsSection />
 
-    {/* Commitments */}
-    <section className="carter-section bg-secondary">
+    {/* Engagements — compact */}
+    <section className="py-16 md:py-20 bg-secondary">
       <div className="carter-container">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="border border-border rounded-lg overflow-hidden"
         >
-          <div className="p-10 md:p-12 border-b border-border">
-            <p className="carter-label mb-4">Nos engagements</p>
-            <h3 className="font-serif text-2xl md:text-3xl text-foreground font-normal">
-              Une promesse de confiance
-            </h3>
-          </div>
-          <div className="divide-y divide-border">
+          <p className="carter-label mb-8 text-center">Nos engagements</p>
+          <div className="grid md:grid-cols-3 gap-6">
             {commitments.map((c, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="p-10 md:p-12 flex gap-8 items-start group hover:bg-card/50 transition-colors duration-500"
+                className="text-center px-6"
               >
-                <span className="text-xs font-sans font-medium text-muted-foreground tracking-[0.15em] mt-1 flex-shrink-0">0{i + 1}</span>
-                <div>
-                  <h4 className="font-serif text-lg text-foreground mb-2 font-medium">{c.title}</h4>
-                  <p className="font-sans text-sm text-muted-foreground font-light leading-relaxed">{c.text}</p>
-                </div>
+                <div className="w-8 h-px bg-border mx-auto mb-5" />
+                <h4 className="font-serif text-lg text-foreground mb-2 font-medium">{c.title}</h4>
+                <p className="font-sans text-sm text-muted-foreground font-light leading-relaxed">{c.text}</p>
               </motion.div>
             ))}
           </div>
