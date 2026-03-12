@@ -279,7 +279,7 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
               </div>
             )}
 
-            {/* Activity split with pie chart */}
+            {/* Activity split with pie chart - no gauges */}
             {s.expertise.length >= 2 && (
               <div className="mt-5">
                 <p className="text-[11px] text-muted-foreground mb-3">Quelle part représente chaque expertise dans l'activité globale du poste ?</p>
@@ -311,29 +311,27 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
                     </ResponsiveContainer>
                   </div>
 
-                  {/* Sliders */}
+                  {/* Percentage inputs (no slider/gauge) */}
                   <div className="flex-1">
                     {s.expertise.map((k, i) => (
-                      <div key={k} className="mb-4">
-                        <div className="flex justify-between items-center mb-1.5">
-                          <span className="text-xs font-medium text-foreground flex items-center gap-2">
-                            <span className="w-2.5 h-2.5 rounded-sm flex-shrink-0" style={{ background: CHART_COLORS[i % CHART_COLORS.length] }} />
-                            {k}
-                          </span>
-                          <span className="text-sm font-bold text-foreground">{s.activitySplit[k] || 0} %</span>
+                      <div key={k} className="mb-3 flex items-center gap-3">
+                        <span className="w-2.5 h-2.5 rounded-sm flex-shrink-0" style={{ background: CHART_COLORS[i % CHART_COLORS.length] }} />
+                        <span className="text-xs font-medium text-foreground flex-1">{k}</span>
+                        <div className="flex items-center gap-1">
+                          <input
+                            type="number"
+                            min="0"
+                            max="100"
+                            step="10"
+                            value={s.activitySplit[k] || 0}
+                            onChange={(e) => s.updateSplit(k, parseInt(e.target.value) || 0)}
+                            className="w-16 text-right text-sm font-bold bg-secondary border border-border rounded px-2 py-1 text-foreground"
+                          />
+                          <span className="text-xs text-muted-foreground">%</span>
                         </div>
-                        <input
-                          type="range"
-                          min="0"
-                          max="100"
-                          step="10"
-                          value={s.activitySplit[k] || 0}
-                          onChange={(e) => s.updateSplit(k, parseInt(e.target.value))}
-                          className="w-full accent-foreground"
-                        />
                       </div>
                     ))}
-                    <div className="flex justify-between items-center p-3 bg-secondary rounded text-sm">
+                    <div className="flex justify-between items-center p-3 bg-secondary rounded text-sm mt-2">
                       <span className="text-muted-foreground">Total</span>
                       <span className={cn('font-bold', splitTotal === 100 ? 'text-green-700' : 'text-orange-600')}>{splitTotal} %</span>
                     </div>

@@ -199,9 +199,9 @@ const Step6Review = () => {
       {/* CABINET VIEW */}
       {previewMode === 'cabinet' && (
         <div className="space-y-6">
-          <div className="border border-accent/20 rounded-sm p-4 bg-accent/5">
-            <p className="text-sm font-sans font-light text-accent flex items-center gap-2">
-              <Eye className="w-4 h-4" />
+          <div className="rounded-sm p-4 bg-white border border-border">
+            <p className="text-sm font-sans font-light text-black flex items-center gap-2">
+              <Eye className="w-4 h-4 text-black/60" />
               Voici ce que les cabinets partenaires verront. Votre identité est totalement protégée.
             </p>
           </div>

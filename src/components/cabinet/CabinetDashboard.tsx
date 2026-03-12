@@ -276,9 +276,9 @@ const SearchValidation = () => {
         Vérifiez votre recherche et visualisez comment elle apparaîtra.
       </p>
 
-      {/* Recap */}
-      <div className="bg-background rounded border border-border p-5 mb-5">
-        <div className="text-[9px] font-bold tracking-[0.14em] uppercase text-muted-foreground mb-3 pb-2.5 border-b border-secondary">Récapitulatif</div>
+      {/* Recap - grey bg, black text */}
+      <div className="bg-[#F0F0F0] rounded-lg p-6 mb-5">
+        <div className="text-[9px] font-bold tracking-[0.14em] uppercase text-black/40 mb-3 pb-2.5 border-b border-black/10">Récapitulatif</div>
         <div className="space-y-2">
           <Row label="Département" value={s.currentSearchDeptLabel} />
           <Row label="Classement" value={s.ranking || 'Non répertorié'} />
@@ -288,21 +288,6 @@ const SearchValidation = () => {
           <Row label="Contexte" value={s.contexte || '—'} />
           <Row label="Rétrocession" value={s.retroMin || s.retroMax ? `${s.retroMin || '?'}€ – ${s.retroMax || '?'}€` : '—'} />
           <Row label="Confidentialité" value={s.confNiveau || '—'} />
-        </div>
-      </div>
-
-      {/* Preview: as seen by LOGAN */}
-      <div className="mb-5">
-        <div className="text-[9px] font-bold tracking-[0.14em] uppercase text-muted-foreground mb-3">Aperçu — tel que vu par LOGAN</div>
-        <div className="bg-foreground rounded-md p-5">
-          <div className="text-[8px] tracking-[0.16em] uppercase text-white/30 mb-2">Mandat cabinet · {s.cabinetName}</div>
-          <div className="font-serif text-lg font-bold text-white mb-1">{s.currentSearchDeptLabel} · {s.seniorities.join(' / ') || '—'}</div>
-          <div className="text-xs text-white/50 mb-3">{s.ranking} · {NAT_FLAGS[s.detectedNat] || ''} {s.cabinetName}</div>
-          <div className="flex flex-wrap gap-1.5">
-            {s.expertise.map((e) => (
-              <span key={e} className="text-[10px] bg-white/[0.07] border border-white/[0.12] rounded px-2.5 py-1 text-white/60">{e}</span>
-            ))}
-          </div>
         </div>
       </div>
 
