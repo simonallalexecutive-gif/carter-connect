@@ -5,7 +5,7 @@ import { Label } from '@/components/ui/label';
 import { useRegistrationStore } from '@/stores/registrationStore';
 import { ArrowRight, User, Building2, LogIn } from 'lucide-react';
 import { useState, useEffect } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams, Link } from 'react-router-dom';
 
 type View = 'choice' | 'login-candidat' | 'login-cabinet';
 
