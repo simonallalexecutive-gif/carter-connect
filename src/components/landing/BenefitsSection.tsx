@@ -47,9 +47,36 @@ const cabinetBenefits = [
   },
 ];
 
+const candidatCommitments = [
+  {
+    title: 'Confidentialité absolue',
+    text: 'Aucun cabinet n\'aura accès à votre identité tant que vous ne l\'aurez pas décidé.',
+  },
+  {
+    title: 'Un consultant à vos côtés',
+    text: 'Il vous accompagne et organise la mise en relation uniquement si l\'opportunité vous intéresse.',
+  },
+];
+
+const cabinetCommitments = [
+  {
+    title: 'Confidentialité absolue',
+    text: 'Seule la nationalité de votre cabinet et le ranking de votre département ne sera visible aux yeux des candidats qui pourront manifester leur intérêt auprès de Logan.',
+  },
+  {
+    title: 'Un consultant à vos côtés',
+    text: 'Logan se chargera de vous présenter uniquement les profils cohérents avec votre recherche et de vous accompagner le cas échéant sur l\'intégralité du processus.',
+  },
+];
+
+const candidatQuote = '« La bonne opportunité arrive souvent lorsqu\'on ne l\'attend pas »';
+const cabinetQuote = '« Le bon candidat ne se recrute pas toujours quand on en a besoin »';
+
 const BenefitsSection = () => {
   const [tab, setTab] = useState<Tab>('candidat');
   const benefits = tab === 'candidat' ? candidatBenefits : cabinetBenefits;
+  const commitments = tab === 'candidat' ? candidatCommitments : cabinetCommitments;
+  const quote = tab === 'candidat' ? candidatQuote : cabinetQuote;
 
   return (
     <section className="carter-section bg-background">
@@ -122,6 +149,34 @@ const BenefitsSection = () => {
               </div>
             </motion.div>
           ))}
+        </motion.div>
+
+        {/* Engagements — inline under benefits */}
+        <motion.div
+          key={`engagements-${tab}`}
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.25, duration: 0.5 }}
+          className="mt-16 py-12 bg-secondary rounded-sm"
+        >
+          <p className="text-xs font-sans font-medium tracking-[0.2em] uppercase text-muted-foreground text-center mb-8">Nos engagements</p>
+          <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-0 px-6">
+            <div className="text-center px-6 md:flex-1">
+              <div className="w-8 h-px bg-border mx-auto mb-5" />
+              <h4 className="font-serif text-lg text-foreground mb-2 font-medium">{commitments[0].title}</h4>
+              <p className="font-sans text-sm text-muted-foreground font-light leading-relaxed">{commitments[0].text}</p>
+            </div>
+            <div className="text-center px-8 py-4 md:py-0 md:flex-shrink-0">
+              <p className="font-serif text-base md:text-lg text-foreground/80 italic font-semibold leading-relaxed max-w-[16rem]">
+                {quote}
+              </p>
+            </div>
+            <div className="text-center px-6 md:flex-1">
+              <div className="w-8 h-px bg-border mx-auto mb-5" />
+              <h4 className="font-serif text-lg text-foreground mb-2 font-medium">{commitments[1].title}</h4>
+              <p className="font-sans text-sm text-muted-foreground font-light leading-relaxed">{commitments[1].text}</p>
+            </div>
+          </div>
         </motion.div>
       </div>
     </section>
