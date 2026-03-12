@@ -6,6 +6,8 @@ import { useRegistrationStore } from '@/stores/registrationStore';
 import { ArrowRight, User, Building2, LogIn } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams, Link } from 'react-router-dom';
+import { supabase } from '@/integrations/supabase/client';
+import { toast } from 'sonner';
 
 type View = 'choice' | 'login-candidat' | 'login-cabinet';
 
@@ -19,6 +21,29 @@ const Step1Hero = () => {
   const [view, setView] = useState<View>(initialView);
   const [code, setCode] = useState('');
   const [password, setPassword] = useState('');
+  const [submitting, setSubmitting] = useState(false);
+
+  const handleLogin = async () => {
+    if (!code || !password) return;
+    setSubmitting(true);
+    try {
+      const { error } = await supabase.auth.signInWithPassword({
+        email: code,
+        password,
+      });
+      if (error) throw error;
+      toast.success('Connexion réussie');
+      if (isCabinet) {
+        navigate('/cabinet');
+      } else {
+        navigate('/espace-candidat');
+      }
+    } catch (error: any) {
+      toast.error(error.message || 'Erreur de connexion');
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   useEffect(() => {
     if (espaceParam === 'candidat') setView('login-candidat');
@@ -117,11 +142,12 @@ const Step1Hero = () => {
               </div>
               <div className="space-y-4">
                 <div>
-                  <Label className="font-sans text-xs text-white/40 uppercase tracking-wider">Identifiant / Code</Label>
+                  <Label className="font-sans text-xs text-white/40 uppercase tracking-wider">Email</Label>
                   <Input
                     value={code}
                     onChange={e => setCode(e.target.value)}
-                    placeholder={isCabinet ? 'Votre identifiant cabinet' : 'Votre identifiant Logan'}
+                    type="email"
+                    placeholder={isCabinet ? 'votre@email.com' : 'votre@email.com'}
                     className="mt-2 bg-white/[0.05] border-white/10 text-white placeholder:text-white/20 focus:border-white/30"
                   />
                 </div>
@@ -133,13 +159,15 @@ const Step1Hero = () => {
                     onChange={e => setPassword(e.target.value)}
                     placeholder="••••••••"
                     className="mt-2 bg-white/[0.05] border-white/10 text-white placeholder:text-white/20 focus:border-white/30"
+                    onKeyDown={(e) => e.key === 'Enter' && handleLogin()}
                   />
                 </div>
                 <Button
-                  disabled={!code || !password}
+                  onClick={handleLogin}
+                  disabled={!code || !password || submitting}
                   className="w-full bg-black text-white hover:bg-black/90 font-sans text-sm font-medium rounded-sm py-5 border border-white/10"
                 >
-                  Se connecter
+                  {submitting ? 'Connexion...' : 'Se connecter'}
                 </Button>
               </div>
             </div>
