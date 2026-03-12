@@ -129,8 +129,8 @@ const Step3Activity = () => {
             className="carter-card p-8"
           >
             <p className="carter-label mb-6">Répartition de votre activité</p>
-            <div className="flex items-center gap-8">
-              <div className="w-44 h-44">
+            <div className="flex items-start gap-8">
+              <div className="w-44 h-44 flex-shrink-0">
                 <ResponsiveContainer width="100%" height="100%">
                   <PieChart>
                     <Pie
@@ -153,14 +153,35 @@ const Step3Activity = () => {
                   </PieChart>
                 </ResponsiveContainer>
               </div>
-              <div className="flex-1 space-y-2">
-                {chartData.map((item, i) => (
-                  <div key={item.name} className="flex items-center gap-3 text-sm font-sans font-light">
-                    <div className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ backgroundColor: CHART_COLORS[i % CHART_COLORS.length] }} />
-                    <span className="text-foreground">{item.name}</span>
-                    <span className="text-muted-foreground ml-auto text-xs">{Math.round((item.value / totalPercent) * 100)}%</span>
+              <div className="flex-1 space-y-4">
+                <div className="space-y-2">
+                  {chartData.map((item, i) => (
+                    <div key={item.name} className="flex items-center gap-3 text-sm font-sans font-light">
+                      <div className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ backgroundColor: CHART_COLORS[i % CHART_COLORS.length] }} />
+                      <span className="text-foreground">{item.name}</span>
+                      <span className="text-muted-foreground ml-auto text-xs">{Math.round((item.value / totalPercent) * 100)}%</span>
+                    </div>
+                  ))}
+                </div>
+                {/* Side info: taille opérations, clients */}
+                {(store.tailleOperations.length > 0 || store.typesClients.length > 0) && (
+                  <div className="pt-3 border-t border-border space-y-2">
+                    {store.tailleOperations.length > 0 && (
+                      <div className="flex flex-wrap gap-1.5">
+                        {store.tailleOperations.map(t => (
+                          <span key={t} className="text-[10px] px-2 py-0.5 rounded-sm bg-secondary text-foreground border border-border">{t}</span>
+                        ))}
+                      </div>
+                    )}
+                    {store.typesClients.length > 0 && (
+                      <div className="flex flex-wrap gap-1.5">
+                        {store.typesClients.map(c => (
+                          <span key={c} className="text-[10px] px-2 py-0.5 rounded-sm bg-secondary text-foreground border border-border">{c}</span>
+                        ))}
+                      </div>
+                    )}
                   </div>
-                ))}
+                )}
               </div>
             </div>
           </motion.div>

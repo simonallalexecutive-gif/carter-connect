@@ -49,13 +49,21 @@ const Step7Confirm = () => {
           </div>
         </div>
 
-        <Button
-          onClick={handleGoHome}
-          variant="outline"
-          className="font-sans font-light rounded-sm border-border text-foreground hover:bg-card"
-        >
-          Retour à l'accueil
-        </Button>
+        <div className="flex flex-col gap-3 items-center">
+          <Button
+            onClick={() => navigate('/espace-candidat')}
+            className="bg-white text-black hover:bg-white/90 font-sans font-medium rounded-sm px-8"
+          >
+            Accéder à mon espace candidat →
+          </Button>
+          <Button
+            onClick={handleGoHome}
+            variant="outline"
+            className="font-sans font-light rounded-sm border-border text-foreground hover:bg-card"
+          >
+            Retour à l'accueil
+          </Button>
+        </div>
       </motion.div>
     </div>
   );
