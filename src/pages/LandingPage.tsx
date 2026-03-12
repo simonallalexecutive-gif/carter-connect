@@ -160,37 +160,6 @@ const LandingPage = () => (
       </div>
     </section>
 
-    {/* How it works */}
-    <section className="carter-section bg-card">
-      <div className="carter-container">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mb-20"
-        >
-          <div className="carter-divider mb-8" />
-          <h2 className="text-3xl md:text-5xl font-serif font-normal text-foreground tracking-[-0.02em]">Comment ça marche</h2>
-        </motion.div>
-        <div className="grid md:grid-cols-3 gap-px bg-border rounded-lg overflow-hidden">
-          {steps.map((s, i) => (
-            <motion.div
-              key={s.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.12 }}
-              className="bg-card p-10 md:p-12 group hover:bg-secondary transition-colors duration-500"
-            >
-              <span className="text-4xl font-serif text-muted-foreground/30 mb-6 block font-normal">{s.number}</span>
-              <h3 className="font-serif text-xl text-foreground mb-3 font-medium">{s.title}</h3>
-              <p className="font-sans text-sm text-muted-foreground font-light leading-relaxed">{s.desc}</p>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
-
     {/* CTA */}
     <section className="py-32 bg-black relative">
       <div className="absolute inset-0 overflow-hidden">
