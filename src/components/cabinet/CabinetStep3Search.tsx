@@ -108,7 +108,7 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
           {/* Profile type checkboxes */}
           <div className="mb-8">
             <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-3 block">
-              Type de profil recherché <span className="font-normal normal-case tracking-normal text-[10px] text-border">plusieurs choix possibles</span>
+              Type de profil recherché
             </label>
             <div className="flex flex-col gap-2">
               {[
@@ -122,11 +122,10 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
                   <button
                     key={pt.key}
                     onClick={() => {
-                      const current = (s as any).profileTypes as string[] || [];
-                      const updated = isChecked ? current.filter((k: string) => k !== pt.key) : [...current, pt.key];
-                      s.setField('profileTypes' as any, updated);
+                      // Single selection only
+                      s.setField('profileTypes' as any, [pt.key]);
                       // Auto-toggle searchAssocie for backward compat
-                      s.setField('searchAssocie', updated.includes('counsel') || updated.includes('associe'));
+                      s.setField('searchAssocie', pt.key === 'counsel' || pt.key === 'associe');
                     }}
                     className={cn(
                       'flex items-center gap-3 p-4 rounded border text-left transition-all',
