@@ -29,6 +29,7 @@ export interface CabinetSearch {
   eqCollab: string;
   equipeDesc: string;
   profilLibre: string;
+  profilCriteres: string[];
   retroMin: string;
   retroMax: string;
   heures: string;
@@ -91,6 +92,7 @@ export interface CabinetState {
   eqCollab: string;
   equipeDesc: string;
   profilLibre: string;
+  profilCriteres: string[];
   retroMin: string;
   retroMax: string;
   heures: string;
@@ -154,6 +156,7 @@ const searchDefaults = {
   eqCollab: '',
   equipeDesc: '',
   profilLibre: '',
+  profilCriteres: [] as string[],
   retroMin: '',
   retroMax: '',
   heures: '',
@@ -282,6 +285,7 @@ export const useCabinetStore = create<CabinetState>((set, get) => ({
       eqCollab: s.eqCollab,
       equipeDesc: s.equipeDesc,
       profilLibre: s.profilLibre,
+      profilCriteres: s.profilCriteres,
       retroMin: s.retroMin,
       retroMax: s.retroMax,
       heures: s.heures,
