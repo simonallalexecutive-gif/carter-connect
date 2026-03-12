@@ -10,7 +10,7 @@ import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import { Check } from 'lucide-react';
 import { FIRMS_DB } from '@/lib/cabinetConstants';
 import AutocompleteInput from '@/components/shared/AutocompleteInput';
-import { BLUE_PALETTE } from '@/components/shared/ActivityPieChart';
+import ActivityPieChart, { BLUE_PALETTE } from '@/components/shared/ActivityPieChart';
 
 const TABS = ['Profil recherché', 'Contexte & équipe', 'Rémunération & conditions', 'Confidentialité'];
 
@@ -97,16 +97,16 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
       {/* Tab 0: Profil recherché */}
       {activeTab === 0 && (
         <div className="animate-fade-in">
-          {/* Profile type checkboxes */}
+          {/* Profile type - grid like seniority */}
           <div className="mb-8">
             <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-3 block">
               Type de profil recherché
             </label>
-            <div className="flex flex-col gap-2">
+            <div className="grid grid-cols-3 gap-2">
               {[
-                { key: 'collaborateur', label: 'Je recherche un collaborateur' },
-                { key: 'counsel', label: 'Je recherche un counsel' },
-                { key: 'associe', label: 'Je recherche un associé' },
+                { key: 'collaborateur', label: 'Collaborateur' },
+                { key: 'counsel', label: 'Counsel' },
+                { key: 'associe', label: 'Associé' },
               ].map((pt) => {
                 const profileTypes = (s as any).profileTypes as string[] || [];
                 const isChecked = profileTypes.includes(pt.key);
@@ -114,23 +114,17 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
                   <button
                     key={pt.key}
                     onClick={() => {
-                      // Single selection only
                       s.setField('profileTypes' as any, [pt.key]);
-                      // Auto-toggle searchAssocie for backward compat
                       s.setField('searchAssocie', pt.key === 'counsel' || pt.key === 'associe');
                     }}
                     className={cn(
-                      'flex items-center gap-3 p-4 rounded border text-left transition-all',
-                      isChecked ? 'border-foreground bg-secondary' : 'border-border bg-background hover:border-foreground'
+                      'p-4 rounded border text-center transition-all cursor-pointer',
+                      isChecked
+                        ? 'bg-foreground text-background border-foreground'
+                        : 'bg-background border-border hover:border-foreground'
                     )}
                   >
-                    <div className={cn(
-                      'w-4 h-4 rounded-full border-2 flex-shrink-0 flex items-center justify-center',
-                      isChecked ? 'border-foreground' : 'border-muted-foreground'
-                    )}>
-                      {isChecked && <div className="w-2 h-2 rounded-full bg-foreground" />}
-                    </div>
-                    <span className="text-sm font-medium text-foreground">{pt.label}</span>
+                    <div className="text-sm font-medium">{pt.label}</div>
                   </button>
                 );
               })}
@@ -262,6 +256,20 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
                           </div>
                         </div>
                       ))}
+                      {/* Pie chart for selected sub-activities */}
+                      {(() => {
+                        const selectedItems = detail.sections.flatMap(sec =>
+                          sec.items.filter(item => s.cabinetActivites[item.key])
+                        );
+                        if (selectedItems.length < 2) return null;
+                        const equalShare = Math.round(100 / selectedItems.length);
+                        const pieData = selectedItems.map(item => ({ name: item.label, value: equalShare }));
+                        return (
+                          <div className="mt-4 flex justify-center">
+                            <ActivityPieChart data={Object.fromEntries(pieData.map(d => [d.name, d.value]))} size={160} innerRadius={40} outerRadius={72} />
+                          </div>
+                        );
+                      })()}
                     </div>
                   );
                 })}
