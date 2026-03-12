@@ -125,20 +125,57 @@ const Step6Review = () => {
           </SectionCard>
 
           <SectionCard title="Activité">
-            <div className="flex flex-wrap gap-2 mb-4">
-              {activeActivites.map(a => (
-                <span key={a.key} className="px-3 py-1 rounded-sm bg-foreground text-background text-xs font-sans font-light">
-                  {a.label} {store.pourcentages[a.key] ? `${store.pourcentages[a.key]}%` : ''}
-                </span>
-              ))}
-            </div>
-            {store.tailleOperations.length > 0 && (
-              <p className="text-sm font-sans font-light mb-1"><span className="text-muted-foreground">Taille opérations : </span>{store.tailleOperations.join(', ')}</p>
+            {chartData.length > 0 && (
+              <div className="flex items-start gap-6 mb-4">
+                <div className="w-32 h-32 flex-shrink-0">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <PieChart>
+                      <Pie data={chartData} cx="50%" cy="50%" innerRadius={28} outerRadius={55} dataKey="value" paddingAngle={2}>
+                        {chartData.map((_, i) => (
+                          <Cell key={i} fill={CHART_COLORS[i % CHART_COLORS.length]} />
+                        ))}
+                      </Pie>
+                      <Tooltip formatter={(value: number) => [`${Math.round((value / totalPercent) * 100)}%`, '']} contentStyle={{ fontSize: '11px', borderRadius: '4px' }} />
+                    </PieChart>
+                  </ResponsiveContainer>
+                </div>
+                <div className="flex-1 space-y-3">
+                  <div className="space-y-1.5">
+                    {chartData.map((item, i) => (
+                      <div key={item.name} className="flex items-center gap-2 text-xs font-sans font-light">
+                        <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: CHART_COLORS[i % CHART_COLORS.length] }} />
+                        <span className="text-foreground">{item.name}</span>
+                        <span className="text-muted-foreground ml-auto">{Math.round((item.value / totalPercent) * 100)}%</span>
+                      </div>
+                    ))}
+                  </div>
+                  {store.tailleOperations.length > 0 && (
+                    <div className="flex flex-wrap gap-1.5">
+                      {store.tailleOperations.map(t => (
+                        <span key={t} className="text-[10px] px-2 py-0.5 rounded-sm bg-secondary text-foreground border border-border">{t}</span>
+                      ))}
+                    </div>
+                  )}
+                  {store.typesClients.length > 0 && (
+                    <div className="flex flex-wrap gap-1.5">
+                      {store.typesClients.map(c => (
+                        <span key={c} className="text-[10px] px-2 py-0.5 rounded-sm bg-secondary text-foreground border border-border">{c}</span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+            {chartData.length === 0 && (
+              <div className="flex flex-wrap gap-2 mb-4">
+                {activeActivites.map(a => (
+                  <span key={a.key} className="px-3 py-1 rounded-sm bg-foreground text-background text-xs font-sans font-light">
+                    {a.label} {store.pourcentages[a.key] ? `${store.pourcentages[a.key]}%` : ''}
+                  </span>
+                ))}
+              </div>
             )}
             {store.anglais && <p className="text-sm font-sans font-light"><span className="text-muted-foreground">Anglais : </span>{store.anglais}</p>}
-            {store.typesClients.length > 0 && (
-              <p className="text-sm font-sans font-light mt-1"><span className="text-muted-foreground">Clients : </span>{store.typesClients.join(', ')}</p>
-            )}
           </SectionCard>
 
           <SectionCard title="Projet">
