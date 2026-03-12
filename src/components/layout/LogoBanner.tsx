@@ -23,18 +23,6 @@ const LogoBanner = ({ subtitle }: LogoBannerProps) => {
           )}
         </div>
         <nav className="flex items-center gap-8">
-          <Link
-            to="/inscription?espace=candidat"
-            className="font-sans text-[13px] font-light text-white/60 hover:text-white transition-colors duration-300 hidden sm:block"
-          >
-            Espace candidat
-          </Link>
-          <Link
-            to="/inscription?espace=cabinet"
-            className="font-sans text-[13px] font-light text-white/60 hover:text-white transition-colors duration-300 hidden sm:block"
-          >
-            Espace cabinet
-          </Link>
           {!loading && (
             user ? (
               <button
