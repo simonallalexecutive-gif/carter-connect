@@ -28,6 +28,8 @@ const Step2Identity = () => {
   const photoInputRef = useRef<HTMLInputElement>(null);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
+  const [linkedinLoading, setLinkedinLoading] = useState(false);
+  const [linkedinError, setLinkedinError] = useState('');
 
   const hasSerment = store.sermentMois && store.sermentAnnee;
 
