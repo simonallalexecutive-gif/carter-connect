@@ -22,7 +22,7 @@ const candidatBenefits = [
     number: '03',
     icon: Handshake,
     title: 'Bénéficiez d\'un accompagnement sur mesure',
-    desc: 'Alertez Logan si l\'opportunité pour laquelle vous avez été contacté vous paraît pertinente afin qu\'un consultant se rapproche de vous pour vous en parler et s\'assurer de la pertinence de votre projet avec celle d\'une rencontre.',
+    desc: 'Alertez Logan si l\'opportunité pour laquelle vous avez été contactée vous intéresse afin qu\'un consultant se rapproche de vous pour vous en parler et s\'assurer de la pertinence de votre projet avec celle d\'une rencontre.',
   },
 ];
 
