@@ -5,6 +5,7 @@ export interface CabinetContact {
   nom: string;
   email: string;
   mobile: string;
+  role: string;
 }
 
 export interface CabinetSearch {
