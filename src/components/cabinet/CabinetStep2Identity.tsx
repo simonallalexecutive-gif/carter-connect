@@ -173,8 +173,31 @@ const CabinetStep2Identity = () => {
               {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
             </button>
           </div>
-          {s.password && s.password.length < 6 && (
-            <p className="text-[10px] text-orange-600 mt-1">Le mot de passe doit contenir au moins 6 caractères.</p>
+          {s.password && (
+            <div className="mt-2 space-y-1">
+              {[
+                { key: 'length', label: '8 caractères minimum' },
+                { key: 'upper', label: '1 majuscule' },
+                { key: 'lower', label: '1 minuscule' },
+                { key: 'number', label: '1 chiffre' },
+                { key: 'symbol', label: '1 caractère spécial (!@#$…)' },
+              ].map((rule) => (
+                <div key={rule.key} className="flex items-center gap-2">
+                  <div className={cn(
+                    'w-3.5 h-3.5 rounded-full flex items-center justify-center text-[8px] font-bold',
+                    passwordChecks[rule.key as keyof typeof passwordChecks]
+                      ? 'bg-green-600 text-white'
+                      : 'bg-border text-muted-foreground'
+                  )}>
+                    {passwordChecks[rule.key as keyof typeof passwordChecks] ? '✓' : ''}
+                  </div>
+                  <span className={cn(
+                    'text-[10px]',
+                    passwordChecks[rule.key as keyof typeof passwordChecks] ? 'text-green-700' : 'text-muted-foreground'
+                  )}>{rule.label}</span>
+                </div>
+              ))}
+            </div>
           )}
         </div>
       </div>
