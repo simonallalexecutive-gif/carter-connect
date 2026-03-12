@@ -37,6 +37,7 @@ export interface CabinetSearch {
   hasHeures: boolean;
   tt: string;
   confNiveau: string;
+  profileTypes: string[];
   searchAssocie: boolean;
   assocCAMin: string;
   assocCAMax: string;
