@@ -285,6 +285,7 @@ export const useCabinetStore = create<CabinetState>((set, get) => ({
       eqCollab: s.eqCollab,
       equipeDesc: s.equipeDesc,
       profilLibre: s.profilLibre,
+      profilCriteres: s.profilCriteres,
       retroMin: s.retroMin,
       retroMax: s.retroMax,
       heures: s.heures,
