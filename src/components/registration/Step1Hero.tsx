@@ -55,9 +55,6 @@ const Step1Hero = () => {
             className="text-center max-w-2xl w-full relative z-10"
           >
             <div className="w-10 h-px bg-white/30 mx-auto mb-10" />
-            <span className="font-serif text-3xl tracking-[-0.02em] text-white block mb-8">
-              Logan
-            </span>
             <h1 className="text-3xl md:text-5xl font-serif font-normal text-white mb-4 leading-tight tracking-[-0.02em]">
               Rejoignez le réseau<br />
               <em className="text-white/60 font-normal">confidentiel</em>
