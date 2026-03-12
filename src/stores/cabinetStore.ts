@@ -162,6 +162,7 @@ const searchDefaults = {
   hasHeures: false,
   tt: '',
   confNiveau: '',
+  profileTypes: [] as string[],
   searchAssocie: false,
   assocCAMin: '',
   assocCAMax: '',
