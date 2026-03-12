@@ -137,7 +137,7 @@ const Step1Hero = () => {
                 </div>
                 <Button
                   disabled={!code || !password}
-                  className="w-full bg-white text-black hover:bg-white/90 font-sans text-sm font-medium rounded-sm py-5"
+                  className="w-full bg-black text-white hover:bg-black/90 font-sans text-sm font-medium rounded-sm py-5 border border-white/10"
                 >
                   Se connecter
                 </Button>
