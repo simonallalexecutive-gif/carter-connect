@@ -133,10 +133,10 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
                     )}
                   >
                     <div className={cn(
-                      'w-4 h-4 rounded-sm border-2 flex-shrink-0 flex items-center justify-center',
-                      isChecked ? 'bg-foreground border-foreground' : 'border-muted-foreground'
+                      'w-4 h-4 rounded-full border-2 flex-shrink-0 flex items-center justify-center',
+                      isChecked ? 'border-foreground' : 'border-muted-foreground'
                     )}>
-                      {isChecked && <Check className="w-3 h-3 text-background" />}
+                      {isChecked && <div className="w-2 h-2 rounded-full bg-foreground" />}
                     </div>
                     <span className="text-sm font-medium text-foreground">{pt.label}</span>
                   </button>
