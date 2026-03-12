@@ -24,7 +24,13 @@ const CHART_COLORS = [
   'hsl(225, 45%, 18%)',
 ];
 
-const CabinetStep3Search = () => {
+interface CabinetStep3SearchProps {
+  isEmbedded?: boolean;
+  onBack?: () => void;
+  onNext?: () => void;
+}
+
+const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchProps = {}) => {
   const s = useCabinetStore();
   const [activeTab, setActiveTab] = useState(0);
 
