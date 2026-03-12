@@ -29,6 +29,7 @@ export interface CabinetSearch {
   eqCollab: string;
   equipeDesc: string;
   profilLibre: string;
+  profilCriteres: string[];
   retroMin: string;
   retroMax: string;
   heures: string;
