@@ -109,35 +109,35 @@ const Step1Hero = () => {
                 : 'Connectez-vous ou créez votre profil confidentiel.'}
             </p>
 
-            {/* Login form — white card */}
-            <div className="rounded-sm p-8 text-left mb-5 bg-white">
+            {/* Login form */}
+            <div className="border border-white/10 rounded-sm p-8 text-left mb-5 bg-white/[0.03] backdrop-blur-sm">
               <div className="flex items-center gap-2 mb-6">
-                <LogIn className="w-4 h-4 text-black/40" />
-                <p className="text-[10px] font-sans font-medium tracking-[0.15em] uppercase text-black/50">Déjà inscrit</p>
+                <LogIn className="w-4 h-4 text-white/60" />
+                <p className="text-[10px] font-sans font-medium tracking-[0.15em] uppercase text-white/50">Déjà inscrit</p>
               </div>
               <div className="space-y-4">
                 <div>
-                  <Label className="font-sans text-xs text-black/50 uppercase tracking-wider">Identifiant / Code</Label>
+                  <Label className="font-sans text-xs text-white/40 uppercase tracking-wider">Identifiant / Code</Label>
                   <Input
                     value={code}
                     onChange={e => setCode(e.target.value)}
                     placeholder={isCabinet ? 'Votre identifiant cabinet' : 'Votre identifiant Logan'}
-                    className="mt-2 bg-black/[0.04] border-black/10 text-black placeholder:text-black/30 focus:border-black/30"
+                    className="mt-2 bg-white/[0.05] border-white/10 text-white placeholder:text-white/20 focus:border-white/30"
                   />
                 </div>
                 <div>
-                  <Label className="font-sans text-xs text-black/50 uppercase tracking-wider">Mot de passe</Label>
+                  <Label className="font-sans text-xs text-white/40 uppercase tracking-wider">Mot de passe</Label>
                   <Input
                     type="password"
                     value={password}
                     onChange={e => setPassword(e.target.value)}
                     placeholder="••••••••"
-                    className="mt-2 bg-black/[0.04] border-black/10 text-black placeholder:text-black/30 focus:border-black/30"
+                    className="mt-2 bg-white/[0.05] border-white/10 text-white placeholder:text-white/20 focus:border-white/30"
                   />
                 </div>
                 <Button
                   disabled={!code || !password}
-                  className="w-full bg-black text-white hover:bg-black/90 font-sans text-sm font-medium rounded-sm py-5"
+                  className="w-full bg-white text-black hover:bg-white/90 font-sans text-sm font-medium rounded-sm py-5"
                 >
                   Se connecter
                 </Button>
