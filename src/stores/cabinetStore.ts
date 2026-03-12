@@ -5,6 +5,7 @@ export interface CabinetContact {
   nom: string;
   email: string;
   mobile: string;
+  role: string;
 }
 
 export interface CabinetSearch {
@@ -179,7 +180,7 @@ const initialState = {
   detectedRankings: [] as { key: string; label: string; tier: number }[],
   email: '',
   password: '',
-  contacts: [{ prenom: '', nom: '', email: '', mobile: '' }] as CabinetContact[],
+  contacts: [{ prenom: '', nom: '', email: '', mobile: '', role: '' }] as CabinetContact[],
   palier: 'business',
   approveCount: 0,
   dashboardView: 'home' as const,
@@ -209,7 +210,7 @@ export const useCabinetStore = create<CabinetState>((set, get) => ({
   setStep: (step) => set({ step }),
   setField: (key, value) => set({ [key]: value } as any),
   addContact: () => set((s) => ({
-    contacts: [...s.contacts, { prenom: '', nom: '', email: '', mobile: '' }],
+    contacts: [...s.contacts, { prenom: '', nom: '', email: '', mobile: '', role: '' }],
   })),
   removeContact: (index) => set((s) => ({
     contacts: s.contacts.filter((_, i) => i !== index),

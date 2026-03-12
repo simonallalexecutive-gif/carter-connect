@@ -49,7 +49,8 @@ const CabinetStep2Identity = () => {
     setAcOpen(true);
   };
 
-  const canContinue = s.cabinetName.trim() && s.email.trim() && passwordValid && s.contacts[0]?.prenom.trim() && s.contacts[0]?.nom.trim();
+  const contactsValid = s.contacts.every((c) => c.email.trim() && c.mobile.trim());
+  const canContinue = s.cabinetName.trim() && s.email.trim() && passwordValid && s.contacts[0]?.prenom.trim() && s.contacts[0]?.nom.trim() && contactsValid;
 
   return (
     <div className="max-w-[780px] mx-auto">
@@ -250,7 +251,7 @@ const CabinetStep2Identity = () => {
                 className="bg-background"
               />
             </div>
-            <div>
+            <div className="mb-3">
               <Input
                 value={contact.mobile}
                 onChange={(e) => s.updateContact(index, 'mobile', formatPhoneWithDots(e.target.value))}
@@ -258,6 +259,25 @@ const CabinetStep2Identity = () => {
                 placeholder="06.50.10.20.30"
                 className="bg-background"
               />
+            </div>
+            <div>
+              <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2 block">Rôle dans le cabinet</label>
+              <div className="flex gap-1.5 flex-wrap">
+                {['Managing Partner', 'Associé(e)', 'RH', 'Secrétaire général', 'Assistant(e)'].map((role) => (
+                  <button
+                    key={role}
+                    onClick={() => s.updateContact(index, 'role', role)}
+                    className={cn(
+                      'px-3 py-1.5 rounded-sm border text-[11px] transition-all',
+                      contact.role === role
+                        ? 'bg-foreground text-background border-foreground'
+                        : 'bg-background text-muted-foreground border-border hover:border-foreground hover:text-foreground'
+                    )}
+                  >
+                    {role}
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
         ))}
