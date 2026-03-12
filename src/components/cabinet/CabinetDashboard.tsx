@@ -30,12 +30,9 @@ const CabinetDashboard = () => {
   const [sort, setSort] = useState('date');
   const [drawerProfile, setDrawerProfile] = useState<CabinetProfile | null>(null);
 
-  // New search: department selection
+  // New search: skip dept selection, go directly to search form
   if (s.dashboardView === 'newSearch') {
-    if (s.currentSearchStep === 0) {
-      return <DeptSelection />;
-    }
-    if (s.currentSearchStep === 1) {
+    if (s.currentSearchStep === 0 || s.currentSearchStep === 1) {
       return <SearchFormWrapper />;
     }
     if (s.currentSearchStep === 2) {
