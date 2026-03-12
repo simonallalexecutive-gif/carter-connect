@@ -30,6 +30,15 @@ const Step1Hero = () => {
 
   return (
     <div className="min-h-screen bg-black flex items-center justify-center px-6 relative overflow-hidden">
+      {/* Fixed header — same as landing page */}
+      <header className="fixed top-0 left-0 right-0 z-50">
+        <div className="px-6 sm:px-8 lg:px-10 flex items-center h-20">
+          <Link to="/" className="font-serif text-2xl tracking-[-0.02em] text-white hover:text-white/80 transition-colors duration-300">
+            Logan
+          </Link>
+        </div>
+      </header>
+
       {/* Ambient circles */}
       <div className="absolute -top-32 -right-32 w-[500px] h-[500px] rounded-full border border-white/[0.04] pointer-events-none" />
       <div className="absolute -bottom-24 -left-24 w-[350px] h-[350px] rounded-full border border-white/[0.03] pointer-events-none" />
