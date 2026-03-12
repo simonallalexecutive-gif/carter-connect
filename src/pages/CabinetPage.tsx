@@ -10,11 +10,38 @@ import CabinetStep6Confirm from '@/components/cabinet/CabinetStep6Confirm';
 import CabinetDashboard from '@/components/cabinet/CabinetDashboard';
 import { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { supabase } from '@/integrations/supabase/client';
 
 const CabinetPage = () => {
   const step = useCabinetStore((s) => s.step);
   const setStep = useCabinetStore((s) => s.setStep);
+  const setField = useCabinetStore((s) => s.setField);
   const [searchParams] = useSearchParams();
+
+  // Auto-detect existing session and go to dashboard
+  useEffect(() => {
+    const checkSession = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session?.user) {
+        const name = session.user.user_metadata?.full_name || '';
+        if (name) setField('cabinetName', name);
+        setStep(6);
+      }
+    };
+    if (step === 1) checkSession();
+  }, []);
+
+  // Listen for auth state changes (login/signup)
+  useEffect(() => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === 'SIGNED_IN' && session?.user) {
+        const name = session.user.user_metadata?.full_name || '';
+        if (name) setField('cabinetName', name);
+        setStep(6);
+      }
+    });
+    return () => subscription.unsubscribe();
+  }, []);
 
   useEffect(() => {
     const startStep = searchParams.get('start');
