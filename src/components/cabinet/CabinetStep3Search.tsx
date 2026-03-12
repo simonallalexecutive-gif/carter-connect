@@ -6,10 +6,10 @@ import { Textarea } from '@/components/ui/textarea';
 import { EXPERTISES, SENIORITY_OPTIONS, CONF_OPTIONS, SPLIT_COLORS, CABINET_EXPERTISE_DETAIL } from '@/lib/cabinetConstants';
 import { cn } from '@/lib/utils';
 import { formatNumberWithDots } from '@/lib/formatters';
-import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import { Check } from 'lucide-react';
 import { FIRMS_DB } from '@/lib/cabinetConstants';
 import AutocompleteInput from '@/components/shared/AutocompleteInput';
+import ActivityPieChart, { BLUE_PALETTE } from '@/components/shared/ActivityPieChart';
 
 const TABS = ['Profil recherché', 'Contexte & équipe', 'Rémunération & conditions', 'Confidentialité'];
 
