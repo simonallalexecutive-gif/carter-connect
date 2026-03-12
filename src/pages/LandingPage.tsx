@@ -32,7 +32,7 @@ const commitments = [
   },
   {
     title: 'Un consultant à vos côtés',
-    text: 'Il lève le rideau et organise la mise en relation uniquement si l\'opportunité vous intéresse.',
+    text: 'Il vous accompagne et organise la mise en relation uniquement si l\'opportunité vous intéresse.',
   },
   {
     title: 'Accès exclusif en temps réel',
@@ -40,11 +40,6 @@ const commitments = [
   },
 ];
 
-const steps = [
-  { number: '01', title: 'Créez votre profil', desc: 'Inscription en quelques minutes, entièrement confidentielle.' },
-  { number: '02', title: 'Profil anonymisé', desc: 'Les cabinets consultent votre profil sans connaître votre identité.' },
-  { number: '03', title: 'Mise en relation', desc: 'Logan orchestre les échanges avec les cabinets intéressés, avec votre accord préalable.' },
-];
 
 const LandingPage = () => (
   <div className="min-h-screen bg-background">
@@ -162,37 +157,6 @@ const LandingPage = () => (
             ))}
           </div>
         </motion.div>
-      </div>
-    </section>
-
-    {/* How it works */}
-    <section className="carter-section bg-card">
-      <div className="carter-container">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mb-20"
-        >
-          <div className="carter-divider mb-8" />
-          <h2 className="text-3xl md:text-5xl font-serif font-normal text-foreground tracking-[-0.02em]">Comment ça marche</h2>
-        </motion.div>
-        <div className="grid md:grid-cols-3 gap-px bg-border rounded-lg overflow-hidden">
-          {steps.map((s, i) => (
-            <motion.div
-              key={s.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.12 }}
-              className="bg-card p-10 md:p-12 group hover:bg-secondary transition-colors duration-500"
-            >
-              <span className="text-4xl font-serif text-muted-foreground/30 mb-6 block font-normal">{s.number}</span>
-              <h3 className="font-serif text-xl text-foreground mb-3 font-medium">{s.title}</h3>
-              <p className="font-sans text-sm text-muted-foreground font-light leading-relaxed">{s.desc}</p>
-            </motion.div>
-          ))}
-        </div>
       </div>
     </section>
 

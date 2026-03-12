@@ -1,51 +1,50 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
-import { User, Building2 } from 'lucide-react';
+import { User, Building2, Eye, Bell, Handshake } from 'lucide-react';
 
 type Tab = 'candidat' | 'cabinet';
 
 const candidatBenefits = [
   {
     number: '01',
-    title: 'Connecté en temps réel au marché',
-    desc: 'Restez visible auprès des meilleurs cabinets tout en préservant votre anonymat. Seuls votre domaine d\'activité, votre séniorité et les grandes lignes de votre projet sont dévoilés — jamais votre identité.',
+    icon: Eye,
+    title: 'Restez connecté à votre marché',
+    desc: 'Rendez-vous attractif aux yeux des cabinets tout en préservant votre identité et celle de votre cabinet. Un cabinet pourra manifester son intérêt pour votre profil sur la base de trois éléments : votre expertise, votre séniorité, votre projet.',
   },
   {
     number: '02',
-    title: 'Devenez acteur de votre carrière',
-    desc: 'Chaque nouvelle opportunité vous est transmise en priorité. Vous décidez — ou non — d\'alerter Logan pour en savoir plus. Aucune démarche n\'est engagée sans votre initiative.',
+    icon: Bell,
+    title: 'Gardez le contrôle de vos démarches',
+    desc: 'Si un cabinet manifeste son intérêt pour votre profil, vous recevrez une notification de Logan afin que vous puissiez prendre connaissance de l\'opportunité. Le nom du cabinet est à ce stade confidentiel mais vous aurez accès à sa nationalité, son ranking, et les grandes lignes de sa recherche.',
   },
   {
     number: '03',
-    title: 'Accompagnement sur mesure',
-    desc: 'Conseil, transparence, benchmark, feedback : un consultant dédié vous accompagne à chaque étape, jusqu\'à la signature de votre prochaine collaboration.',
+    icon: Handshake,
+    title: 'Bénéficiez d\'un accompagnement sur mesure',
+    desc: 'Alertez Logan si l\'opportunité reçue vous paraît pertinente afin qu\'un consultant se rapproche de vous pour vous en parler et s\'assurer de la pertinence de votre projet avec celle d\'une rencontre.',
   },
 ];
 
 const cabinetBenefits = [
   {
     number: '01',
+    icon: Eye,
     title: 'Visualisez les profils en un clin d\'œil',
     desc: 'Accédez aux profils à l\'écoute du marché dans votre spécialité. Expertise, séniorité, projet : l\'essentiel est là. Manifestez — ou non — votre intérêt en toute discrétion.',
   },
   {
     number: '02',
+    icon: Bell,
     title: 'Logan orchestre chaque étape',
     desc: 'Dès qu\'un profil retient votre attention, Logan prend le relais : validation de la pertinence, mise en relation, gestion intégrale du processus jusqu\'à l\'aboutissement.',
   },
   {
     number: '03',
+    icon: Handshake,
     title: 'Économique, efficace, confidentiel',
     desc: 'Un abonnement annuel, un vivier premium toute l\'année pour tous vos départements. Pas de commission au placement, pas de surprise.',
   },
-];
-
-const sharedValues = [
-  'Accompagnement sur mesure',
-  'Interlocuteur de confiance',
-  'Confidentialité totale',
-  'Préservation de l\'anonymat',
 ];
 
 const BenefitsSection = () => {
@@ -96,7 +95,7 @@ const BenefitsSection = () => {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          className="grid md:grid-cols-3 gap-px bg-border rounded-lg overflow-hidden"
+          className="space-y-0"
         >
           {benefits.map((b, i) => (
             <motion.div
@@ -104,43 +103,25 @@ const BenefitsSection = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.08, duration: 0.5 }}
-              className="bg-background p-10 md:p-12 group hover:bg-card transition-colors duration-500"
+              className={cn(
+                'group flex items-start gap-8 md:gap-12 p-8 md:p-12 transition-colors duration-500 hover:bg-secondary/60',
+                i < benefits.length - 1 && 'border-b border-border'
+              )}
             >
-              <span className="text-xs font-sans font-medium text-muted-foreground tracking-[0.15em] mb-6 block">{b.number}</span>
-              <h3 className="font-serif text-xl md:text-2xl text-foreground mb-3 font-normal">{b.title}</h3>
-              <p className="font-sans text-sm text-muted-foreground font-light leading-relaxed">{b.desc}</p>
+              {/* Number + Icon */}
+              <div className="flex-shrink-0 flex flex-col items-center gap-4 pt-1">
+                <span className="text-xs font-sans font-medium text-muted-foreground tracking-[0.15em]">{b.number}</span>
+                <div className="w-10 h-10 rounded-full border border-border flex items-center justify-center group-hover:border-foreground/30 transition-colors duration-500">
+                  <b.icon className="w-4 h-4 text-muted-foreground group-hover:text-foreground transition-colors duration-500" />
+                </div>
+              </div>
+              {/* Content */}
+              <div className="flex-1">
+                <h3 className="font-serif text-xl md:text-2xl text-foreground mb-3 font-normal">{b.title}</h3>
+                <p className="font-sans text-sm text-muted-foreground font-light leading-relaxed max-w-2xl">{b.desc}</p>
+              </div>
             </motion.div>
           ))}
-        </motion.div>
-
-        {/* Shared values — ce qui nous réunit */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="mt-20 border border-border rounded-lg p-10 md:p-14 text-center"
-        >
-          <p className="text-xs font-sans font-medium tracking-[0.2em] uppercase text-muted-foreground mb-6">
-            Ce qui nous réunit
-          </p>
-          <div className="flex flex-wrap justify-center gap-3 mb-8">
-            {sharedValues.map((v, i) => (
-              <motion.span
-                key={v}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.08 }}
-                className="border border-border rounded-sm px-5 py-2.5 text-sm font-sans text-foreground font-medium"
-              >
-                {v}
-              </motion.span>
-            ))}
-          </div>
-          <p className="font-serif text-lg md:text-xl text-foreground/80 italic max-w-md mx-auto">
-            Parce qu'un bon recrutement ne se fait pas attendre.
-          </p>
         </motion.div>
       </div>
     </section>
