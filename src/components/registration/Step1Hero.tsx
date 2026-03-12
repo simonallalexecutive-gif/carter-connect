@@ -21,6 +21,29 @@ const Step1Hero = () => {
   const [view, setView] = useState<View>(initialView);
   const [code, setCode] = useState('');
   const [password, setPassword] = useState('');
+  const [submitting, setSubmitting] = useState(false);
+
+  const handleLogin = async () => {
+    if (!code || !password) return;
+    setSubmitting(true);
+    try {
+      const { error } = await supabase.auth.signInWithPassword({
+        email: code,
+        password,
+      });
+      if (error) throw error;
+      toast.success('Connexion réussie');
+      if (isCabinet) {
+        navigate('/cabinet');
+      } else {
+        navigate('/espace-candidat');
+      }
+    } catch (error: any) {
+      toast.error(error.message || 'Erreur de connexion');
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   useEffect(() => {
     if (espaceParam === 'candidat') setView('login-candidat');
