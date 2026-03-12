@@ -5,7 +5,7 @@ import { Label } from '@/components/ui/label';
 import { useRegistrationStore } from '@/stores/registrationStore';
 import { ArrowRight, User, Building2, LogIn } from 'lucide-react';
 import { useState, useEffect } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams, Link } from 'react-router-dom';
 
 type View = 'choice' | 'login-candidat' | 'login-cabinet';
 
@@ -30,6 +30,15 @@ const Step1Hero = () => {
 
   return (
     <div className="min-h-screen bg-black flex items-center justify-center px-6 relative overflow-hidden">
+      {/* Fixed header — same as landing page */}
+      <header className="fixed top-0 left-0 right-0 z-50">
+        <div className="px-6 sm:px-8 lg:px-10 flex items-center h-20">
+          <Link to="/" className="font-serif text-2xl tracking-[-0.02em] text-white hover:text-white/80 transition-colors duration-300">
+            Logan
+          </Link>
+        </div>
+      </header>
+
       {/* Ambient circles */}
       <div className="absolute -top-32 -right-32 w-[500px] h-[500px] rounded-full border border-white/[0.04] pointer-events-none" />
       <div className="absolute -bottom-24 -left-24 w-[350px] h-[350px] rounded-full border border-white/[0.03] pointer-events-none" />
@@ -46,9 +55,6 @@ const Step1Hero = () => {
             className="text-center max-w-2xl w-full relative z-10"
           >
             <div className="w-10 h-px bg-white/30 mx-auto mb-10" />
-            <span className="font-serif text-3xl tracking-[-0.02em] text-white block mb-8">
-              Logan
-            </span>
             <h1 className="text-3xl md:text-5xl font-serif font-normal text-white mb-4 leading-tight tracking-[-0.02em]">
               Rejoignez le réseau<br />
               <em className="text-white/60 font-normal">confidentiel</em>
@@ -94,9 +100,6 @@ const Step1Hero = () => {
             className="text-center max-w-md w-full relative z-10"
           >
             <div className="w-10 h-px bg-white/30 mx-auto mb-10" />
-            <span className="font-serif text-2xl tracking-[-0.02em] text-white block mb-6">
-              Logan
-            </span>
             <h2 className="text-2xl md:text-3xl font-serif font-normal text-white mb-2 tracking-[-0.02em]">
               {isCabinet ? 'Espace cabinet' : 'Espace candidat'}
             </h2>
