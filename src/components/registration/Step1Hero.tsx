@@ -29,7 +29,12 @@ const Step1Hero = () => {
   const isCabinet = view === 'login-cabinet';
 
   return (
-    <div className="min-h-screen gradient-dark flex items-center justify-center px-6">
+    <div className="min-h-screen bg-black flex items-center justify-center px-6 relative overflow-hidden">
+      {/* Ambient circles */}
+      <div className="absolute -top-32 -right-32 w-[500px] h-[500px] rounded-full border border-white/[0.04] pointer-events-none" />
+      <div className="absolute -bottom-24 -left-24 w-[350px] h-[350px] rounded-full border border-white/[0.03] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full opacity-[0.04] pointer-events-none" style={{ background: 'radial-gradient(circle, hsl(0 0% 60%), transparent 70%)' }} />
+
       <AnimatePresence mode="wait">
         {view === 'choice' && (
           <motion.div
@@ -38,42 +43,42 @@ const Step1Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="text-center max-w-2xl w-full"
+            className="text-center max-w-2xl w-full relative z-10"
           >
-            <div className="carter-divider mx-auto mb-10" />
-            <span className="font-serif text-3xl tracking-[-0.02em] text-foreground block mb-8">
+            <div className="w-10 h-px bg-white/30 mx-auto mb-10" />
+            <span className="font-serif text-3xl tracking-[-0.02em] text-white block mb-8">
               Logan
             </span>
-            <h1 className="text-3xl md:text-5xl font-serif font-normal text-foreground mb-4 leading-tight tracking-[-0.02em]">
+            <h1 className="text-3xl md:text-5xl font-serif font-normal text-white mb-4 leading-tight tracking-[-0.02em]">
               Rejoignez le réseau<br />
-              <em className="text-accent font-normal">confidentiel</em>
+              <em className="text-white/60 font-normal">confidentiel</em>
             </h1>
-            <p className="text-sm text-muted-foreground font-sans font-light mb-14 max-w-md mx-auto leading-relaxed">
+            <p className="text-sm text-white/45 font-sans font-light mb-14 max-w-md mx-auto leading-relaxed">
               La plateforme de mise en relation entre avocats d'affaires et cabinets de premier plan.
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-lg mx-auto">
               <button
                 onClick={() => setView('login-candidat')}
-                className="group relative p-8 rounded-sm border text-left transition-all duration-500 border-border hover:border-accent/50 cursor-pointer hover:bg-card/50"
+                className="group relative p-8 rounded-sm border text-left transition-all duration-500 border-white/10 hover:border-white/30 cursor-pointer hover:bg-white/[0.04]"
               >
-                <User className="w-6 h-6 text-accent mb-4" />
-                <h3 className="font-serif text-xl text-foreground mb-2 font-normal">Espace candidat</h3>
-                <p className="font-sans text-xs text-muted-foreground font-light leading-relaxed">Avocat en recherche d'opportunités</p>
-                <ArrowRight className="w-4 h-4 text-accent absolute top-8 right-8 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <User className="w-6 h-6 text-white/60 mb-4" />
+                <h3 className="font-serif text-xl text-white mb-2 font-normal">Espace candidat</h3>
+                <p className="font-sans text-xs text-white/40 font-light leading-relaxed">Avocat en recherche d'opportunités</p>
+                <ArrowRight className="w-4 h-4 text-white/50 absolute top-8 right-8 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </button>
               <button
                 onClick={() => setView('login-cabinet')}
-                className="group relative p-8 rounded-sm border text-left transition-all duration-500 border-border hover:border-accent/50 cursor-pointer hover:bg-card/50"
+                className="group relative p-8 rounded-sm border text-left transition-all duration-500 border-white/10 hover:border-white/30 cursor-pointer hover:bg-white/[0.04]"
               >
-                <Building2 className="w-6 h-6 text-accent mb-4" />
-                <h3 className="font-serif text-xl text-foreground mb-2 font-normal">Espace cabinet</h3>
-                <p className="font-sans text-xs text-muted-foreground font-light leading-relaxed">Cabinet à la recherche de talents</p>
-                <ArrowRight className="w-4 h-4 text-accent absolute top-8 right-8 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <Building2 className="w-6 h-6 text-white/60 mb-4" />
+                <h3 className="font-serif text-xl text-white mb-2 font-normal">Espace cabinet</h3>
+                <p className="font-sans text-xs text-white/40 font-light leading-relaxed">Cabinet à la recherche de talents</p>
+                <ArrowRight className="w-4 h-4 text-white/50 absolute top-8 right-8 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </button>
             </div>
 
-            <p className="mt-10 text-xs text-muted-foreground/50 font-sans font-light tracking-wide">
+            <p className="mt-10 text-xs text-white/25 font-sans font-light tracking-wide">
               Inscription confidentielle · Profil validé sous 48h
             </p>
           </motion.div>
@@ -86,50 +91,50 @@ const Step1Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="text-center max-w-md w-full"
+            className="text-center max-w-md w-full relative z-10"
           >
-            <div className="carter-divider mx-auto mb-10" />
-            <span className="font-serif text-2xl tracking-[-0.02em] text-foreground block mb-6">
+            <div className="w-10 h-px bg-white/30 mx-auto mb-10" />
+            <span className="font-serif text-2xl tracking-[-0.02em] text-white block mb-6">
               Logan
             </span>
-            <h2 className="text-2xl md:text-3xl font-serif font-normal text-foreground mb-2 tracking-[-0.02em]">
+            <h2 className="text-2xl md:text-3xl font-serif font-normal text-white mb-2 tracking-[-0.02em]">
               {isCabinet ? 'Espace cabinet' : 'Espace candidat'}
             </h2>
-            <p className="text-sm text-muted-foreground font-sans font-light mb-12">
+            <p className="text-sm text-white/45 font-sans font-light mb-12">
               {isCabinet
                 ? 'Connectez-vous ou inscrivez votre cabinet.'
                 : 'Connectez-vous ou créez votre profil confidentiel.'}
             </p>
 
             {/* Login form */}
-            <div className="border border-border rounded-sm p-8 text-left mb-6 bg-card/30 backdrop-blur-sm">
+            <div className="border border-white/10 rounded-sm p-8 text-left mb-6 bg-white/[0.03] backdrop-blur-sm">
               <div className="flex items-center gap-2 mb-6">
-                <LogIn className="w-4 h-4 text-accent" />
-                <p className="carter-label">Déjà inscrit</p>
+                <LogIn className="w-4 h-4 text-white/60" />
+                <p className="text-[10px] font-sans font-medium tracking-[0.15em] uppercase text-white/50">Déjà inscrit</p>
               </div>
               <div className="space-y-4">
                 <div>
-                  <Label className="font-sans text-xs text-muted-foreground uppercase tracking-wider">Identifiant / Code</Label>
+                  <Label className="font-sans text-xs text-white/40 uppercase tracking-wider">Identifiant / Code</Label>
                   <Input
                     value={code}
                     onChange={e => setCode(e.target.value)}
                     placeholder={isCabinet ? 'Votre identifiant cabinet' : 'Votre identifiant Logan'}
-                    className="mt-2 bg-background/50 border-border"
+                    className="mt-2 bg-white/[0.05] border-white/10 text-white placeholder:text-white/20 focus:border-white/30"
                   />
                 </div>
                 <div>
-                  <Label className="font-sans text-xs text-muted-foreground uppercase tracking-wider">Mot de passe</Label>
+                  <Label className="font-sans text-xs text-white/40 uppercase tracking-wider">Mot de passe</Label>
                   <Input
                     type="password"
                     value={password}
                     onChange={e => setPassword(e.target.value)}
                     placeholder="••••••••"
-                    className="mt-2 bg-background/50 border-border"
+                    className="mt-2 bg-white/[0.05] border-white/10 text-white placeholder:text-white/20 focus:border-white/30"
                   />
                 </div>
                 <Button
                   disabled={!code || !password}
-                  className="w-full bg-foreground text-background hover:bg-foreground/90 font-sans text-sm font-medium rounded-sm py-5"
+                  className="w-full bg-white text-black hover:bg-white/90 font-sans text-sm font-medium rounded-sm py-5"
                 >
                   Se connecter
                 </Button>
@@ -138,9 +143,9 @@ const Step1Hero = () => {
 
             {/* Divider */}
             <div className="flex items-center gap-4 mb-6">
-              <div className="flex-1 h-px bg-border" />
-              <span className="text-xs font-sans text-muted-foreground font-light">ou</span>
-              <div className="flex-1 h-px bg-border" />
+              <div className="flex-1 h-px bg-white/10" />
+              <span className="text-xs font-sans text-white/30 font-light">ou</span>
+              <div className="flex-1 h-px bg-white/10" />
             </div>
 
             {/* Register CTA */}
@@ -154,7 +159,7 @@ const Step1Hero = () => {
               }}
               variant="outline"
               size="lg"
-              className="w-full border-accent/30 text-foreground hover:bg-accent/10 hover:border-accent/50 font-sans text-sm font-medium rounded-sm py-5 group"
+              className="w-full border-white/20 text-white hover:bg-white/[0.06] hover:border-white/40 font-sans text-sm font-medium rounded-sm py-5 group"
             >
               Je m'inscris
               <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
@@ -162,7 +167,7 @@ const Step1Hero = () => {
 
             <button
               onClick={() => { setView('choice'); setCode(''); setPassword(''); }}
-              className="mt-8 text-xs font-sans font-light text-muted-foreground hover:text-foreground transition-colors"
+              className="mt-8 text-xs font-sans font-light text-white/35 hover:text-white/70 transition-colors"
             >
               ← Retour
             </button>
