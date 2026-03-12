@@ -3,13 +3,18 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version',
 };
 
+function extractUsername(url: string): string | null {
+  const match = url.match(/linkedin\.com\/in\/([^/?#]+)/);
+  return match?.[1] || null;
+}
+
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
   }
 
   try {
-    let { url } = await req.json();
+    const { url } = await req.json();
 
     if (!url || !url.includes('linkedin.com/in/')) {
       return new Response(JSON.stringify({ error: 'Invalid LinkedIn URL' }), {
@@ -18,79 +23,86 @@ Deno.serve(async (req) => {
       });
     }
 
-    // Normalize URL — ensure it has a protocol
-    if (!url.startsWith('http://') && !url.startsWith('https://')) {
-      url = 'https://' + url;
+    const username = extractUsername(url);
+    if (!username) {
+      return new Response(JSON.stringify({ error: 'Could not extract username', photoUrl: null }), {
+        status: 200,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
     }
 
-    // Strip query params / tracking fragments for cleaner fetch
+    // Strategy 1: Try unavatar.io (aggregates multiple sources, very reliable)
+    const unavatarUrl = `https://unavatar.io/linkedin/${username}`;
     try {
-      const parsed = new URL(url);
-      // Keep only the pathname (e.g. /in/username/)
-      url = `${parsed.origin}${parsed.pathname}`;
-    } catch {
-      // If parsing still fails, proceed as-is
+      const checkRes = await fetch(unavatarUrl, { method: 'HEAD', redirect: 'follow' });
+      if (checkRes.ok) {
+        const contentType = checkRes.headers.get('content-type') || '';
+        // unavatar returns an image if found, or a fallback/error
+        if (contentType.startsWith('image/')) {
+          console.log('Found photo via unavatar.io for', username);
+          return new Response(JSON.stringify({ photoUrl: unavatarUrl }), {
+            status: 200,
+            headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+          });
+        }
+      }
+    } catch (e) {
+      console.log('unavatar.io failed:', e);
     }
 
-    // Fetch the LinkedIn public profile page
-    const response = await fetch(url, {
+    // Strategy 2: Scrape LinkedIn public page (og:image)
+    let normalizedUrl = url;
+    if (!normalizedUrl.startsWith('http://') && !normalizedUrl.startsWith('https://')) {
+      normalizedUrl = 'https://' + normalizedUrl;
+    }
+    try {
+      const parsed = new URL(normalizedUrl);
+      normalizedUrl = `${parsed.origin}${parsed.pathname}`;
+    } catch { /* proceed as-is */ }
+
+    const response = await fetch(normalizedUrl, {
       headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
         'Accept-Language': 'en-US,en;q=0.5',
+        'Cache-Control': 'no-cache',
       },
     });
 
     if (!response.ok) {
-      const body = await response.text();
-      console.log('LinkedIn fetch failed:', response.status, body.substring(0, 200));
-      return new Response(JSON.stringify({ error: 'Could not fetch LinkedIn profile', photoUrl: null }), {
+      console.log('LinkedIn fetch failed:', response.status);
+      return new Response(JSON.stringify({ error: 'Could not fetch profile', photoUrl: null }), {
         status: 200,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       });
     }
 
     const html = await response.text();
-
-    // Try multiple patterns to extract profile photo URL from public LinkedIn page
     let photoUrl: string | null = null;
 
-    // Pattern 1: og:image meta tag (most reliable for public profiles)
+    // og:image
     const ogMatch = html.match(/<meta\s+property="og:image"\s+content="([^"]+)"/i)
       || html.match(/<meta\s+content="([^"]+)"\s+property="og:image"/i);
     if (ogMatch?.[1]) {
       const candidate = ogMatch[1];
-      // Filter out generic LinkedIn logos/placeholders
       if (!candidate.includes('static.licdn.com/sc/h/') && !candidate.includes('aero-v1')) {
         photoUrl = candidate;
       }
     }
 
-    // Pattern 2: profile photo in JSON-LD
+    // JSON-LD
     if (!photoUrl) {
       const jsonLdMatch = html.match(/<script\s+type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/i);
       if (jsonLdMatch?.[1]) {
         try {
           const jsonLd = JSON.parse(jsonLdMatch[1]);
-          if (jsonLd.image?.contentUrl) {
-            photoUrl = jsonLd.image.contentUrl;
-          } else if (typeof jsonLd.image === 'string') {
-            photoUrl = jsonLd.image;
-          }
-        } catch {
-          // JSON parse failed, skip
-        }
+          if (jsonLd.image?.contentUrl) photoUrl = jsonLd.image.contentUrl;
+          else if (typeof jsonLd.image === 'string') photoUrl = jsonLd.image;
+        } catch { /* skip */ }
       }
     }
 
-    // Pattern 3: img tag with profile photo class patterns
-    if (!photoUrl) {
-      const imgMatch = html.match(/img[^>]+(?:profile-photo|pv-top-card-profile-picture|evi-image)[^>]+src="([^"]+)"/i);
-      if (imgMatch?.[1]) {
-        photoUrl = imgMatch[1];
-      }
-    }
-
+    console.log('LinkedIn scrape result for', username, ':', photoUrl ? 'found' : 'not found');
     return new Response(JSON.stringify({ photoUrl }), {
       status: 200,
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
