@@ -13,6 +13,15 @@ const CabinetStep2Identity = () => {
   const [acOpen, setAcOpen] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
+  const passwordChecks = {
+    length: s.password.length >= 8,
+    upper: /[A-Z]/.test(s.password),
+    lower: /[a-z]/.test(s.password),
+    number: /[0-9]/.test(s.password),
+    symbol: /[^A-Za-z0-9]/.test(s.password),
+  };
+  const passwordValid = Object.values(passwordChecks).every(Boolean);
+
   const firmNames = Object.keys(LEGAL500_DB);
   const filtered = useMemo(() => {
     if (!acQuery || acQuery.length < 2) return [];
