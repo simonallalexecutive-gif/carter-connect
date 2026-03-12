@@ -256,6 +256,20 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
                           </div>
                         </div>
                       ))}
+                      {/* Pie chart for selected sub-activities */}
+                      {(() => {
+                        const selectedItems = detail.sections.flatMap(sec =>
+                          sec.items.filter(item => s.cabinetActivites[item.key])
+                        );
+                        if (selectedItems.length < 2) return null;
+                        const equalShare = Math.round(100 / selectedItems.length);
+                        const pieData = selectedItems.map(item => ({ name: item.label, value: equalShare }));
+                        return (
+                          <div className="mt-4 flex justify-center">
+                            <ActivityPieChart data={Object.fromEntries(pieData.map(d => [d.name, d.value]))} size={160} innerRadius={40} outerRadius={72} />
+                          </div>
+                        );
+                      })()}
                     </div>
                   );
                 })}
