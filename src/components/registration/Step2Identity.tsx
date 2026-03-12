@@ -83,20 +83,45 @@ const Step2Identity = () => {
     }
   };
 
-  const handleLinkedinPaste = async (url: string) => {
-    store.setField('linkedinUrl', url);
-    // Try to extract LinkedIn profile photo
-    if (url.includes('linkedin.com/in/')) {
-      try {
-        const { data, error } = await supabase.functions.invoke('linkedin-photo', {
-          body: { url },
-        });
-        if (!error && data?.photoUrl) {
-          store.setField('photoPreviewUrl', data.photoUrl);
-        }
-      } catch {
-        // Silently fail - user can still upload photo manually
+  const fetchLinkedinPhoto = useCallback(async (url: string) => {
+    if (!url.includes('linkedin.com/in/') || linkedinLoading) return;
+    // Don't fetch if we already have a manually uploaded photo (File object)
+    if (store.photo) return;
+    
+    setLinkedinLoading(true);
+    setLinkedinError('');
+    try {
+      const { data, error } = await supabase.functions.invoke('linkedin-photo', {
+        body: { url },
+      });
+      if (!error && data?.photoUrl) {
+        store.setField('photoPreviewUrl', data.photoUrl);
+      } else {
+        setLinkedinError('Photo non trouvée — vous pouvez l\'ajouter manuellement.');
       }
+    } catch {
+      setLinkedinError('Impossible de récupérer la photo LinkedIn.');
+    } finally {
+      setLinkedinLoading(false);
+    }
+  }, [linkedinLoading, store]);
+
+  const handleLinkedinChange = (value: string) => {
+    store.setField('linkedinUrl', value);
+  };
+
+  const handleLinkedinPaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
+    const pasted = e.clipboardData.getData('text');
+    if (pasted.includes('linkedin.com/in/')) {
+      store.setField('linkedinUrl', pasted);
+      setTimeout(() => fetchLinkedinPhoto(pasted), 100);
+    }
+  };
+
+  const handleLinkedinBlur = () => {
+    const url = store.linkedinUrl;
+    if (url.includes('linkedin.com/in/') && !store.photoPreviewUrl) {
+      fetchLinkedinPhoto(url);
     }
   };
 
