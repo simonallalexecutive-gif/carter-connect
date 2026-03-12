@@ -37,9 +37,12 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
   const splitTotal = s.expertise.reduce((sum, k) => sum + (s.activitySplit[k] || 0), 0);
 
   const isTab0Complete = useCallback(() => {
-    return s.seniorities.length > 0 && s.expertise.length > 0 && s.english !== '' &&
+    const profileTypes = (s as any).profileTypes as string[] || [];
+    const needsSeniority = profileTypes.length === 0 || profileTypes.includes('collaborateur');
+    const seniorityOk = !needsSeniority || s.seniorities.length > 0;
+    return profileTypes.length > 0 && seniorityOk && s.expertise.length > 0 && s.english !== '' &&
       (s.expertise.length < 2 || splitTotal === 100);
-  }, [s.seniorities, s.expertise, s.english, splitTotal]);
+  }, [(s as any).profileTypes, s.seniorities, s.expertise, s.english, splitTotal]);
 
   const isTab1Complete = useCallback(() => {
     return s.contexte !== '' && s.eqAssocies !== '' && s.eqCollab !== '';
@@ -102,26 +105,54 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
       {/* Tab 0: Profil recherché */}
       {activeTab === 0 && (
         <div className="animate-fade-in">
-          {/* Associé search toggle */}
-          <div className="mb-8 p-5 rounded-md border border-border bg-secondary/20">
-            <button
-              onClick={() => s.setField('searchAssocie', !s.searchAssocie)}
-              className={cn(
-                'w-full flex items-center justify-between transition-all'
-              )}
-            >
-              <div className="text-left">
-                <div className="text-sm font-semibold text-foreground">Cette recherche porte sur un Associé ou Counsel</div>
-                <div className="text-[11px] text-muted-foreground mt-0.5">Activez cette option pour préciser le CA requis, l'expertise et le projet attendu</div>
-              </div>
-              <div className={cn('w-9 h-5 rounded-full relative transition-colors flex-shrink-0', s.searchAssocie ? 'bg-foreground' : 'bg-border')}>
-                <div className={cn('absolute w-3.5 h-3.5 rounded-full bg-white top-[3px] transition-transform shadow-sm', s.searchAssocie ? 'translate-x-4' : 'translate-x-[3px]')} />
-              </div>
-            </button>
+          {/* Profile type checkboxes */}
+          <div className="mb-8">
+            <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-3 block">
+              Type de profil recherché <span className="font-normal normal-case tracking-normal text-[10px] text-border">plusieurs choix possibles</span>
+            </label>
+            <div className="flex flex-col gap-2">
+              {[
+                { key: 'collaborateur', label: 'Je recherche un collaborateur' },
+                { key: 'counsel', label: 'Je recherche un counsel' },
+                { key: 'associe', label: 'Je recherche un associé' },
+              ].map((pt) => {
+                const profileTypes = (s as any).profileTypes as string[] || [];
+                const isChecked = profileTypes.includes(pt.key);
+                return (
+                  <button
+                    key={pt.key}
+                    onClick={() => {
+                      const current = (s as any).profileTypes as string[] || [];
+                      const updated = isChecked ? current.filter((k: string) => k !== pt.key) : [...current, pt.key];
+                      s.setField('profileTypes' as any, updated);
+                      // Auto-toggle searchAssocie for backward compat
+                      s.setField('searchAssocie', updated.includes('counsel') || updated.includes('associe'));
+                    }}
+                    className={cn(
+                      'flex items-center gap-3 p-4 rounded border text-left transition-all',
+                      isChecked ? 'border-foreground bg-secondary' : 'border-border bg-background hover:border-foreground'
+                    )}
+                  >
+                    <div className={cn(
+                      'w-4 h-4 rounded-sm border-2 flex-shrink-0 flex items-center justify-center',
+                      isChecked ? 'bg-foreground border-foreground' : 'border-muted-foreground'
+                    )}>
+                      {isChecked && <Check className="w-3 h-3 text-background" />}
+                    </div>
+                    <span className="text-sm font-medium text-foreground">{pt.label}</span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
 
-            {s.searchAssocie && (
-              <div className="mt-5 space-y-5 animate-fade-in border-t border-border pt-5">
-                {/* CA requis */}
+          {/* Associé/Counsel details */}
+          {s.searchAssocie && (
+            <div className="mb-8 p-5 rounded-md border border-border bg-secondary/20 animate-fade-in">
+              <div className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-4">
+                Détails Associé / Counsel
+              </div>
+              <div className="space-y-5">
                 <div>
                   <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2 block">
                     Chiffre d'affaires portable requis
@@ -136,58 +167,58 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
                       <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-muted-foreground">K€</span>
                     </div>
                   </div>
-                  <p className="text-[11px] text-muted-foreground mt-1.5">Fourchette indicative du CA portable minimum attendu</p>
                 </div>
-
-                {/* Expertise requise */}
                 <div>
                   <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2 block">
                     Expertise & positionnement attendus
                   </label>
-                  <Textarea value={s.assocExpertiseDesc} onChange={(e) => s.setField('assocExpertiseDesc', e.target.value)} rows={3} placeholder="Ex : Associé M&A mid-cap avec une clientèle PE établie, capable de co-gérer une équipe de 5 collaborateurs…" className="bg-background" />
+                  <Textarea value={s.assocExpertiseDesc} onChange={(e) => s.setField('assocExpertiseDesc', e.target.value)} rows={3} placeholder="Ex : Associé M&A mid-cap avec une clientèle PE établie…" className="bg-background" />
                 </div>
-
-                {/* Clientèle */}
                 <div>
                   <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2 block">
                     Type de clientèle attendue
                   </label>
-                  <Textarea value={s.assocClienteleDesc} onChange={(e) => s.setField('assocClienteleDesc', e.target.value)} rows={2} placeholder="Ex : Fonds PE mid-cap, industriels du CAC 40, family offices…" className="bg-background" />
+                  <Textarea value={s.assocClienteleDesc} onChange={(e) => s.setField('assocClienteleDesc', e.target.value)} rows={2} placeholder="Ex : Fonds PE mid-cap, industriels du CAC 40…" className="bg-background" />
                 </div>
-
-                {/* Projet d'intégration */}
                 <div>
                   <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2 block">
                     Projet d'intégration <span className="font-normal normal-case tracking-normal text-[10px] text-border">facultatif</span>
                   </label>
-                  <Textarea value={s.assocProjetDesc} onChange={(e) => s.setField('assocProjetDesc', e.target.value)} rows={3} placeholder="Décrivez le projet d'association : gouvernance, perspectives, intégration au sein de l'équipe existante…" className="bg-background" />
-                  <p className="text-[11px] text-muted-foreground mt-1.5">Ces éléments seront présentés de manière anonyme au candidat par LOGAN.</p>
+                  <Textarea value={s.assocProjetDesc} onChange={(e) => s.setField('assocProjetDesc', e.target.value)} rows={3} placeholder="Gouvernance, perspectives, intégration…" className="bg-background" />
                 </div>
               </div>
-            )}
-          </div>
-          <div className="mb-6">
-            <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2 block">
-              Séniorité recherchée <span className="font-normal normal-case tracking-normal text-[10px] text-border">plusieurs choix possibles</span>
-            </label>
-            <div className="grid grid-cols-5 gap-2">
-              {SENIORITY_OPTIONS.map((sen) => (
-                <button
-                  key={sen.key}
-                  onClick={() => s.toggleSeniority(sen.key)}
-                  className={cn(
-                    'p-4 rounded border text-center transition-all cursor-pointer',
-                    s.seniorities.includes(sen.key)
-                      ? 'bg-foreground text-background border-foreground'
-                      : 'bg-background border-border hover:border-foreground'
-                  )}
-                >
-                  <div className="font-serif text-sm font-bold mb-0.5">{sen.pqe}</div>
-                  <div className="text-[10px] font-medium">{sen.label}</div>
-                </button>
-              ))}
             </div>
-          </div>
+          )}
+
+          {/* Seniority - only shown if collaborateur is selected (not counsel/associé only) */}
+          {(() => {
+            const profileTypes = (s as any).profileTypes as string[] || [];
+            const showSeniority = profileTypes.length === 0 || profileTypes.includes('collaborateur');
+            return showSeniority ? (
+              <div className="mb-6">
+                <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2 block">
+                  Séniorité recherchée <span className="font-normal normal-case tracking-normal text-[10px] text-border">plusieurs choix possibles</span>
+                </label>
+                <div className="grid grid-cols-5 gap-2">
+                  {SENIORITY_OPTIONS.map((sen) => (
+                    <button
+                      key={sen.key}
+                      onClick={() => s.toggleSeniority(sen.key)}
+                      className={cn(
+                        'p-4 rounded border text-center transition-all cursor-pointer',
+                        s.seniorities.includes(sen.key)
+                          ? 'bg-foreground text-background border-foreground'
+                          : 'bg-background border-border hover:border-foreground'
+                      )}
+                    >
+                      <div className="font-serif text-sm font-bold mb-0.5">{sen.pqe}</div>
+                      <div className="text-[10px] font-medium">{sen.label}</div>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ) : null;
+          })()}
 
           <div className="mb-6">
             <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2 block">

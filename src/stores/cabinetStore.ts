@@ -37,6 +37,7 @@ export interface CabinetSearch {
   hasHeures: boolean;
   tt: string;
   confNiveau: string;
+  profileTypes: string[];
   searchAssocie: boolean;
   assocCAMin: string;
   assocCAMax: string;
@@ -98,6 +99,7 @@ export interface CabinetState {
   hasHeures: boolean;
   tt: string;
   confNiveau: string;
+  profileTypes: string[];
   searchAssocie: boolean;
   assocCAMin: string;
   assocCAMax: string;
@@ -160,6 +162,7 @@ const searchDefaults = {
   hasHeures: false,
   tt: '',
   confNiveau: '',
+  profileTypes: [] as string[],
   searchAssocie: false,
   assocCAMin: '',
   assocCAMax: '',
@@ -293,6 +296,7 @@ export const useCabinetStore = create<CabinetState>((set, get) => ({
       assocExpertiseDesc: s.assocExpertiseDesc,
       assocClienteleDesc: s.assocClienteleDesc,
       assocProjetDesc: s.assocProjetDesc,
+      profileTypes: s.profileTypes,
     };
     set({
       searches: [...s.searches, newSearch],
