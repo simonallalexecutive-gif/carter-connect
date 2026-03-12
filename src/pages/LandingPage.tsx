@@ -34,10 +34,6 @@ const commitments = [
     title: 'Un consultant à vos côtés',
     text: 'Il vous accompagne et organise la mise en relation uniquement si l\'opportunité vous intéresse.',
   },
-  {
-    title: 'Accès exclusif en temps réel',
-    text: 'Toutes les nouvelles opportunités sont transmises en priorité aux membres du réseau Logan avant toute diffusion.',
-  },
 ];
 
 
