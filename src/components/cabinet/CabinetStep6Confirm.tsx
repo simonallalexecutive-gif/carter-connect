@@ -1,10 +1,44 @@
 import { motion } from 'framer-motion';
 import { useCabinetStore } from '@/stores/cabinetStore';
+import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Check } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { toast } from 'sonner';
 
 const CabinetStep6Confirm = () => {
   const s = useCabinetStore();
+  const [registering, setRegistering] = useState(false);
+  const [registered, setRegistered] = useState(false);
+
+  useEffect(() => {
+    const registerCabinet = async () => {
+      if (registered || registering || !s.email || !s.password) return;
+      setRegistering(true);
+      try {
+        const { error } = await supabase.auth.signUp({
+          email: s.email,
+          password: s.password,
+          options: {
+            emailRedirectTo: window.location.origin,
+            data: {
+              full_name: s.cabinetName,
+              user_type: 'cabinet',
+            },
+          },
+        });
+        if (error) throw error;
+        setRegistered(true);
+        toast.success('Compte créé avec succès');
+      } catch (error: any) {
+        toast.error(error.message || 'Erreur lors de la création du compte');
+      } finally {
+        setRegistering(false);
+      }
+    };
+
+    registerCabinet();
+  }, []);
 
   return (
     <motion.div
@@ -19,7 +53,7 @@ const CabinetStep6Confirm = () => {
 
       <h2 className="font-serif text-3xl font-bold text-foreground mb-3">Demande transmise à LOGAN</h2>
       <p className="text-sm text-muted-foreground leading-relaxed font-light max-w-md mx-auto mb-8">
-        Votre demande d'accès a bien été envoyée. Un consultant LOGAN vous contacte sous <strong className="font-semibold text-foreground">48h</strong> pour valider votre compte, vous présenter les profils disponibles et vous remettre vos accès.
+        Votre compte a été créé. Vérifiez votre email pour confirmer votre inscription, puis connectez-vous pour accéder à votre espace cabinet.
       </p>
 
       <div className="grid grid-cols-3 gap-3 max-w-[460px] mx-auto mb-9">
@@ -42,9 +76,11 @@ const CabinetStep6Confirm = () => {
       </div>
 
       <div className="border-t border-border pt-6 max-w-[440px] mx-auto">
-        <p className="text-[11px] text-muted-foreground mb-4">En attendant la validation de votre compte, découvrez dès maintenant les profils disponibles sur la plateforme.</p>
+        <p className="text-[11px] text-muted-foreground mb-4">
+          Une fois votre email confirmé, connectez-vous depuis l'espace cabinet pour accéder à votre tableau de bord.
+        </p>
         <Button
-          onClick={() => s.setStep(7)}
+          onClick={() => s.setStep(6)}
           className="w-full bg-foreground text-background hover:bg-foreground/90 font-sans text-sm font-bold py-6 rounded-sm"
         >
           Accéder à mon espace cabinet →

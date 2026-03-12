@@ -1,7 +1,11 @@
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { ArrowRight } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { ArrowRight, LogIn, Eye, EyeOff } from 'lucide-react';
 import { useCabinetStore } from '@/stores/cabinetStore';
+import { supabase } from '@/integrations/supabase/client';
+import { useState } from 'react';
+import { toast } from 'sonner';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -31,6 +35,30 @@ const stats = [
 
 const CabinetStep1Hero = () => {
   const setStep = useCabinetStore((s) => s.setStep);
+  const [loginEmail, setLoginEmail] = useState('');
+  const [loginPassword, setLoginPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
+
+  const handleLogin = async () => {
+    if (!loginEmail || !loginPassword) return;
+    setSubmitting(true);
+    try {
+      const { error } = await supabase.auth.signInWithPassword({
+        email: loginEmail,
+        password: loginPassword,
+      });
+      if (error) throw error;
+      toast.success('Connexion réussie');
+      // Go directly to dashboard
+      setStep(6);
+    } catch (error: any) {
+      toast.error(error.message || 'Erreur de connexion');
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   return (
     <div className="rounded-lg overflow-hidden">
@@ -84,7 +112,72 @@ const CabinetStep1Hero = () => {
               Rejoindre LOGAN
               <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
             </Button>
-            <span className="text-xs text-white/30 italic font-sans">Inscription en 4 étapes · Activation sous 48h</span>
+            <button
+              onClick={() => setShowLogin(!showLogin)}
+              className="font-sans text-sm text-white/50 hover:text-white transition-colors flex items-center gap-2"
+            >
+              <LogIn className="w-4 h-4" />
+              Déjà membre ? Se connecter
+            </button>
+          </motion.div>
+
+          {/* Login form */}
+          {showLogin && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              className="mt-8 max-w-md"
+            >
+              <div className="border border-white/10 rounded-sm p-6 bg-white/[0.03] backdrop-blur-sm">
+                <div className="flex items-center gap-2 mb-5">
+                  <LogIn className="w-4 h-4 text-white/60" />
+                  <span className="text-[10px] font-bold tracking-[0.12em] uppercase text-white/50">Connexion cabinet</span>
+                </div>
+                <div className="space-y-3">
+                  <div>
+                    <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-white/40 mb-1.5 block">Email</label>
+                    <Input
+                      value={loginEmail}
+                      onChange={(e) => setLoginEmail(e.target.value)}
+                      type="email"
+                      placeholder="votre@email.com"
+                      className="bg-white/[0.05] border-white/10 text-white placeholder:text-white/20 focus:border-white/30"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-white/40 mb-1.5 block">Mot de passe</label>
+                    <div className="relative">
+                      <Input
+                        value={loginPassword}
+                        onChange={(e) => setLoginPassword(e.target.value)}
+                        type={showPassword ? 'text' : 'password'}
+                        placeholder="••••••••"
+                        className="bg-white/[0.05] border-white/10 text-white placeholder:text-white/20 focus:border-white/30 pr-10"
+                        onKeyDown={(e) => e.key === 'Enter' && handleLogin()}
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-white/40 hover:text-white/70"
+                      >
+                        {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                      </button>
+                    </div>
+                  </div>
+                  <Button
+                    onClick={handleLogin}
+                    disabled={!loginEmail || !loginPassword || submitting}
+                    className="w-full bg-white text-black hover:bg-white/90 font-sans text-sm font-bold rounded-sm py-5"
+                  >
+                    {submitting ? 'Connexion...' : 'Se connecter'}
+                  </Button>
+                </div>
+              </div>
+            </motion.div>
+          )}
+
+          <motion.div variants={fadeUp} className="mt-6">
+            <span className="text-xs text-white/30 italic font-sans">Inscription en 3 étapes · Activation sous 48h</span>
           </motion.div>
         </motion.div>
       </div>
