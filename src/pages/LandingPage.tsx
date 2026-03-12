@@ -32,7 +32,7 @@ const commitments = [
   },
   {
     title: 'Un consultant à vos côtés',
-    text: 'Il lève le rideau et organise la mise en relation uniquement si l\'opportunité vous intéresse.',
+    text: 'Il vous accompagne et organise la mise en relation uniquement si l\'opportunité vous intéresse.',
   },
   {
     title: 'Accès exclusif en temps réel',
