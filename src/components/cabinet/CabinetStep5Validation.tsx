@@ -1,17 +1,14 @@
 import { useState } from 'react';
 import { useCabinetStore } from '@/stores/cabinetStore';
 import { Button } from '@/components/ui/button';
-import { SENIORITY_MAP } from '@/lib/cabinetConstants';
+import { SENIORITY_MAP, CABINET_EXPERTISE_DETAIL } from '@/lib/cabinetConstants';
 import { cn } from '@/lib/utils';
+import ActivityPieChart from '@/components/shared/ActivityPieChart';
 
 const CONF_MAP: Record<string, string> = {
   confidentielle: 'Confidentielle (LOGAN proactif)',
   semi: 'Semi-confidentielle',
   ouverte: 'Ouverte',
-};
-
-const PALIER_MAP: Record<string, string> = {
-  devis: 'Sur devis — tarif personnalisé',
 };
 
 const CabinetStep5Validation = () => {
@@ -25,31 +22,31 @@ const CabinetStep5Validation = () => {
   };
 
   const allChecked = checks.every(Boolean);
-  const senStr = s.seniorities.length ? s.seniorities.map((k) => SENIORITY_MAP[k] || k).join(', ') : '—';
+  const profileTypes = (s as any).profileTypes as string[] || [];
+  const profileLabel = profileTypes.includes('associe') ? 'Associé' : profileTypes.includes('counsel') ? 'Counsel' : 'Collaborateur';
+  const senStr = s.seniorities.length ? s.seniorities.map((k) => SENIORITY_MAP[k] || k).join(', ') : '';
   const eqStr = [
     s.eqAssocies ? s.eqAssocies + ' associé(s)' : '',
     s.eqCounsels ? s.eqCounsels + ' counsel(s)' : '',
     s.eqCollab ? s.eqCollab + ' collaborateur(s)' : '',
-  ].filter(Boolean).join(', ') || '—';
-  const retroStr = s.retroMin && s.retroMax ? `${s.retroMin}€ — ${s.retroMax}€` : s.retroMin ? `À partir de ${s.retroMin}€` : s.retroMax ? `Jusqu'à ${s.retroMax}€` : '—';
-  const dept = s.depts.length ? s.depts[0] : '—';
+  ].filter(Boolean).join(', ');
+  const retroStr = s.retroMin && s.retroMax ? `${s.retroMin}€ — ${s.retroMax}€` : s.retroMin ? `À partir de ${s.retroMin}€` : s.retroMax ? `Jusqu'à ${s.retroMax}€` : '';
 
-  const SynthRow = ({ label, value }: { label: string; value: string }) => {
-    if (!value || value === '—') return null;
-    return (
-      <div className="flex justify-between items-baseline py-1.5 border-b border-secondary last:border-b-0">
-        <span className="text-[11px] text-muted-foreground">{label}</span>
-        <span className="text-xs font-medium text-foreground text-right max-w-[65%]">{value}</span>
-      </div>
-    );
-  };
-
-  const SynthSection = ({ title, children }: { title: string; children: React.ReactNode }) => (
-    <div className="bg-background rounded border border-border p-5 mb-3">
-      <div className="text-[9px] font-bold tracking-[0.14em] uppercase text-muted-foreground mb-3.5 pb-2.5 border-b border-secondary">{title}</div>
-      {children}
-    </div>
-  );
+  // Active sub-activities
+  const activeActivities = Object.entries(s.cabinetActivites)
+    .filter(([, v]) => v)
+    .map(([k]) => {
+      for (const exp of s.expertise) {
+        const detail = CABINET_EXPERTISE_DETAIL[exp];
+        if (detail) {
+          for (const sec of detail.sections) {
+            const item = sec.items.find((it) => it.key === k);
+            if (item) return item.label;
+          }
+        }
+      }
+      return k;
+    });
 
   return (
     <div className="max-w-[780px] mx-auto">
@@ -59,41 +56,11 @@ const CabinetStep5Validation = () => {
       </div>
       <h2 className="font-serif text-3xl md:text-4xl font-normal text-foreground leading-tight mb-2.5">Validation & aperçu</h2>
       <p className="text-sm text-muted-foreground font-light leading-relaxed mb-10 max-w-xl">
-        Vérifiez votre demande et visualisez comment votre recherche apparaîtra aux candidats sur la plateforme LOGAN.
+        Visualisez comment votre recherche apparaîtra aux candidats sur la plateforme LOGAN, puis confirmez votre demande.
       </p>
 
-      {/* Recap */}
-      <SynthSection title="Cabinet">
-        <SynthRow label="Nom" value={s.cabinetName} />
-        <SynthRow label="Email" value={s.email} />
-        <SynthRow label="Portable" value={s.mobile || '—'} />
-        <SynthRow label="Type" value={s.typeCab || '—'} />
-        <SynthRow label="Département(s)" value={s.depts.length ? s.depts.join(', ') : '—'} />
-        {s.l500 && <SynthRow label="Legal 500" value={`${s.ranking} · ${s.pratique || '—'}`} />}
-      </SynthSection>
-
-      <SynthSection title="Profil recherché">
-        <SynthRow label="Séniorité" value={senStr} />
-        <SynthRow label="Expertise" value={s.expertise.length ? s.expertise.join(', ') : '—'} />
-        <SynthRow label="Anglais" value={s.english || '—'} />
-        <SynthRow label="Contexte" value={s.contexte || '—'} />
-        <SynthRow label="Équipe" value={eqStr} />
-      </SynthSection>
-
-      <SynthSection title="Rémunération & conditions">
-        <SynthRow label="Rétrocession" value={retroStr} />
-        <SynthRow label="Heures cibles" value={s.heures ? `${s.heures} h/an` : '—'} />
-        <SynthRow label="Bonus" value={s.bonusTypes.length ? s.bonusTypes.join(', ') : '—'} />
-        <SynthRow label="Télétravail" value={s.tt || '—'} />
-      </SynthSection>
-
-      <SynthSection title="Abonnement">
-        <SynthRow label="Palier" value={PALIER_MAP[s.palier] || '—'} />
-        <SynthRow label="Confidentialité" value={CONF_MAP[s.confNiveau] || '—'} />
-      </SynthSection>
-
-      {/* Preview offer */}
-      <div className="mt-8 mb-8">
+      {/* ── Candidate preview ── */}
+      <div className="mb-8">
         <div className="flex items-center gap-2 mb-3.5">
           <div className="w-1.5 h-1.5 rounded-full bg-foreground" />
           <span className="text-[9px] font-bold tracking-[0.14em] uppercase text-muted-foreground">Aperçu — votre recherche telle que vue par les candidats</span>
@@ -104,55 +71,113 @@ const CabinetStep5Validation = () => {
           <div className="p-6 border-b border-white/[0.06]">
             <div className="text-[8px] tracking-[0.16em] uppercase text-white/30 mb-2">Opportunité · Présentée par LOGAN</div>
             <div className="font-serif text-xl font-bold text-white mb-1.5">
-              {senStr !== '—' ? `${senStr} · ` : ''}{dept}
+              {profileLabel}{senStr ? ` · ${senStr}` : ''}{s.expertise.length ? ` — ${s.expertise.join(', ')}` : ''}
             </div>
-            <div className="text-[11px] text-white/45">Cabinet anonyme · Identité protégée</div>
+            <div className="text-[11px] text-white/45">
+              {s.confNiveau === 'ouverte' ? s.cabinetName || 'Cabinet' : 'Cabinet anonyme · Identité protégée'}
+            </div>
             <div className="flex flex-wrap gap-1.5 mt-4 pt-4 border-t border-white/[0.08]">
-              {s.depts.map((d) => (
-                <span key={d} className="text-[10px] px-2.5 py-1 rounded-full border border-white/15 text-white/60">{d}</span>
-              ))}
+              <span className="text-[10px] px-2.5 py-1 rounded-full border border-white/15 text-white/60">{profileLabel}</span>
               {s.seniorities.map((se) => (
                 <span key={se} className="text-[10px] px-2.5 py-1 rounded-full border border-white/15 text-white/60">{SENIORITY_MAP[se] || se}</span>
               ))}
-            </div>
-          </div>
-
-          {/* Profil recherché */}
-          <div className="p-6 border-b border-white/[0.06]">
-            <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-white/30 mb-3">Profil recherché</div>
-            <div className="grid grid-cols-3 gap-3.5 mb-4">
-              <div>
-                <div className="text-[8px] uppercase tracking-[0.1em] text-white/30 mb-1">Séniorité</div>
-                <div className="text-xs font-semibold text-white">{senStr}</div>
-              </div>
-              <div>
-                <div className="text-[8px] uppercase tracking-[0.1em] text-white/30 mb-1">Anglais</div>
-                <div className="text-xs font-semibold text-white">{s.english || '—'}</div>
-              </div>
-              <div>
-                <div className="text-[8px] uppercase tracking-[0.1em] text-white/30 mb-1">Contexte</div>
-                <div className="text-xs font-semibold text-white">{s.contexte || '—'}</div>
-              </div>
-            </div>
-            <div className="flex flex-wrap gap-1.5">
               {s.expertise.map((e) => (
-                <span key={e} className="text-[10px] bg-white/[0.07] border border-white/[0.12] rounded px-2.5 py-1 text-white/60">{e}</span>
+                <span key={e} className="text-[10px] px-2.5 py-1 rounded-full border border-white/15 text-white/60">{e}</span>
               ))}
+              {s.english && <span className="text-[10px] px-2.5 py-1 rounded-full border border-white/15 text-white/60">Anglais : {s.english}</span>}
             </div>
           </div>
 
-          {/* Rémunération */}
+          {/* Activity breakdown with pie chart */}
+          {s.expertise.length > 0 && (
+            <div className="p-6 border-b border-white/[0.06]">
+              <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-white/30 mb-4">Répartition de l'activité</div>
+              {s.expertise.length >= 2 && Object.keys(s.activitySplit).length > 0 ? (
+                <div className="flex items-start gap-6">
+                  <ActivityPieChart data={s.activitySplit} size={130} innerRadius={32} outerRadius={58} showLegend={false} darkMode />
+                  <div className="flex-1 space-y-2">
+                    {s.expertise.map((exp) => (
+                      <div key={exp}>
+                        <div className="flex justify-between items-center mb-0.5">
+                          <span className="text-xs font-medium text-white">{exp}</span>
+                          <span className="text-xs font-bold text-white">{s.activitySplit[exp] || 0}%</span>
+                        </div>
+                        <div className="w-full h-1 bg-white/10 rounded-full overflow-hidden">
+                          <div className="h-full bg-white/40 rounded-full" style={{ width: `${s.activitySplit[exp] || 0}%` }} />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <div className="flex flex-wrap gap-1.5">
+                  {s.expertise.map((e) => (
+                    <span key={e} className="text-[10px] bg-white/[0.07] border border-white/[0.12] rounded px-2.5 py-1 text-white/60">{e}</span>
+                  ))}
+                </div>
+              )}
+
+              {/* Sub-activities */}
+              {activeActivities.length > 0 && (
+                <div className="mt-4 pt-3 border-t border-white/[0.06]">
+                  <div className="text-[8px] uppercase tracking-[0.1em] text-white/30 mb-2">Scope d'intervention</div>
+                  <div className="flex flex-wrap gap-1.5">
+                    {activeActivities.map((a) => (
+                      <span key={a} className="text-[10px] bg-white/[0.05] border border-white/[0.10] rounded px-2.5 py-1 text-white/50">{a}</span>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Context & team */}
+          <div className="p-6 border-b border-white/[0.06]">
+            <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-white/30 mb-3">Contexte & équipe</div>
+            <div className="grid grid-cols-2 gap-4 mb-4">
+              {s.contexte && (
+                <div>
+                  <div className="text-[8px] uppercase tracking-[0.1em] text-white/30 mb-1">Contexte</div>
+                  <div className="text-xs font-semibold text-white">{s.contexte}</div>
+                </div>
+              )}
+              {eqStr && (
+                <div>
+                  <div className="text-[8px] uppercase tracking-[0.1em] text-white/30 mb-1">Composition de l'équipe</div>
+                  <div className="text-xs font-semibold text-white">{eqStr}</div>
+                </div>
+              )}
+            </div>
+            {s.equipeDesc && (
+              <div className="mb-3">
+                <div className="text-[8px] uppercase tracking-[0.1em] text-white/30 mb-1">Présentation de l'équipe</div>
+                <p className="text-[11px] text-white/60 leading-relaxed">{s.equipeDesc}</p>
+              </div>
+            )}
+            {s.profilLibre && (
+              <div>
+                <div className="text-[8px] uppercase tracking-[0.1em] text-white/30 mb-1">Profil idéal</div>
+                <p className="text-[11px] text-white/60 leading-relaxed italic">« {s.profilLibre} »</p>
+              </div>
+            )}
+          </div>
+
+          {/* Rémunération & conditions */}
           <div className="p-6 border-b border-white/[0.06]">
             <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-white/30 mb-3">Rémunération & conditions</div>
-            <div className="grid grid-cols-2 gap-5">
+            <div className="grid grid-cols-3 gap-5">
               <div>
                 <div className="text-[8px] uppercase tracking-[0.1em] text-white/30 mb-1.5">Rétrocession</div>
-                <div className="font-serif text-base font-bold text-white">{retroStr === '—' ? 'Confidentiel' : retroStr}</div>
-                <div className="text-[10px] text-white/25 mt-0.5">Transmis si intérêt confirmé</div>
+                <div className="font-serif text-base font-bold text-white">{retroStr || 'Confidentiel'}</div>
+                {!retroStr && <div className="text-[10px] text-white/25 mt-0.5">Transmis si intérêt confirmé</div>}
               </div>
               <div>
-                <div className="text-[8px] uppercase tracking-[0.1em] text-white/30 mb-1.5">Heures cibles / an</div>
-                <div className="font-serif text-base font-bold text-white">{s.heures ? `${s.heures}h` : '—'}</div>
+                <div className="text-[8px] uppercase tracking-[0.1em] text-white/30 mb-1.5">Objectif heures / an</div>
+                <div className="font-serif text-base font-bold text-white">{s.heures ? `${s.heures}h` : 'Non communiqué'}</div>
+              </div>
+              <div>
+                <div className="text-[8px] uppercase tracking-[0.1em] text-white/30 mb-1.5">Télétravail</div>
+                <div className="text-xs font-semibold text-white">{s.tt || '—'}</div>
               </div>
             </div>
           </div>
