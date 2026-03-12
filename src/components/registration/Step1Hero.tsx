@@ -100,9 +100,6 @@ const Step1Hero = () => {
             className="text-center max-w-md w-full relative z-10"
           >
             <div className="w-10 h-px bg-white/30 mx-auto mb-10" />
-            <span className="font-serif text-2xl tracking-[-0.02em] text-white block mb-6">
-              Logan
-            </span>
             <h2 className="text-2xl md:text-3xl font-serif font-normal text-white mb-2 tracking-[-0.02em]">
               {isCabinet ? 'Espace cabinet' : 'Espace candidat'}
             </h2>
