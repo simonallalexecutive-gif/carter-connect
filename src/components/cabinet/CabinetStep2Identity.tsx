@@ -2,17 +2,18 @@ import { useState, useMemo } from 'react';
 import { useCabinetStore } from '@/stores/cabinetStore';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { FIRMS_DB, DEPARTMENTS, CABINET_TYPES } from '@/lib/cabinetConstants';
+import { LEGAL500_DB, getFirmRankings, getFirmNationality, NAT_FLAGS, NAT_LABELS, formatTier } from '@/lib/legal500Rankings';
 import { cn } from '@/lib/utils';
 import { formatPhoneWithDots } from '@/lib/formatters';
-import { Plus, Minus } from 'lucide-react';
+import { Plus, Minus, Shield, Building2, Eye, EyeOff } from 'lucide-react';
 
 const CabinetStep2Identity = () => {
   const s = useCabinetStore();
   const [acQuery, setAcQuery] = useState('');
   const [acOpen, setAcOpen] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
-  const firmNames = Object.keys(FIRMS_DB);
+  const firmNames = Object.keys(LEGAL500_DB);
   const filtered = useMemo(() => {
     if (!acQuery || acQuery.length < 2) return [];
     const q = acQuery.toLowerCase();
@@ -22,21 +23,34 @@ const CabinetStep2Identity = () => {
   const selectFirm = (name: string) => {
     s.setField('cabinetName', name);
     s.setField('selectedFirm', name);
+    const nat = getFirmNationality(name);
+    if (nat) s.setField('detectedNat', nat);
+    const rankings = getFirmRankings(name);
+    s.setField('detectedRankings', rankings);
     setAcQuery(name);
     setAcOpen(false);
   };
 
-  const canContinue = s.cabinetName.trim() && s.email.trim();
+  const handleNameChange = (value: string) => {
+    setAcQuery(value);
+    s.setField('cabinetName', value);
+    s.setField('selectedFirm', '');
+    s.setField('detectedNat', '');
+    s.setField('detectedRankings', []);
+    setAcOpen(true);
+  };
+
+  const canContinue = s.cabinetName.trim() && s.email.trim() && s.password.length >= 6 && s.contacts[0]?.prenom.trim() && s.contacts[0]?.nom.trim();
 
   return (
     <div className="max-w-[780px] mx-auto">
       <div className="text-[9px] font-bold text-muted-foreground tracking-[0.16em] uppercase mb-3 flex items-center gap-2">
         <span className="w-5 h-[1.5px] bg-foreground rounded-sm" />
-        Étape 1 / 4
+        Étape 1 / 3
       </div>
       <h2 className="font-serif text-3xl md:text-4xl font-normal text-foreground leading-tight mb-2.5">Votre cabinet</h2>
       <p className="text-sm text-muted-foreground font-light leading-relaxed mb-10 max-w-xl">
-        Renseignez les informations de votre cabinet. Ces données permettent à LOGAN de valider votre accès et de personnaliser les profils présentés.
+        Renseignez le nom de votre cabinet. LOGAN identifiera automatiquement votre nationalité et vos classements Legal 500 pour chaque département.
       </p>
 
       {/* Cabinet name with autocomplete */}
@@ -45,187 +59,184 @@ const CabinetStep2Identity = () => {
         <div className="relative">
           <Input
             value={acQuery || s.cabinetName}
-            onChange={(e) => {
-              setAcQuery(e.target.value);
-              s.setField('cabinetName', e.target.value);
-              setAcOpen(true);
-            }}
+            onChange={(e) => handleNameChange(e.target.value)}
             onFocus={() => acQuery.length >= 2 && setAcOpen(true)}
             placeholder="Tapez le nom de votre cabinet…"
             className="bg-background"
           />
           {acOpen && filtered.length > 0 && (
             <div className="absolute top-full left-0 right-0 bg-background border border-foreground border-t-0 rounded-b z-50 max-h-64 overflow-y-auto shadow-lg">
-              {filtered.map((name) => (
-                <div
-                  key={name}
-                  className="px-4 py-3 cursor-pointer hover:bg-secondary flex items-center justify-between border-b border-border last:border-b-0"
-                  onClick={() => selectFirm(name)}
-                >
-                  <span className="text-sm font-medium text-foreground">{name}</span>
-                </div>
-              ))}
+              {filtered.map((name) => {
+                const nat = getFirmNationality(name);
+                return (
+                  <div
+                    key={name}
+                    className="px-4 py-3 cursor-pointer hover:bg-secondary flex items-center justify-between border-b border-border last:border-b-0"
+                    onClick={() => selectFirm(name)}
+                  >
+                    <span className="text-sm font-medium text-foreground">{name}</span>
+                    {nat && <span className="text-xs text-muted-foreground">{NAT_FLAGS[nat]} {NAT_LABELS[nat]}</span>}
+                  </div>
+                );
+              })}
             </div>
           )}
         </div>
       </div>
 
-      {/* Cabinet type */}
-      <div className="mb-6">
-        <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2 block">Type de cabinet</label>
-        <div className="flex gap-2 flex-wrap">
-          {CABINET_TYPES.map((t) => (
-            <button
-              key={t}
-              onClick={() => s.setField('typeCab', t)}
-              className={cn(
-                'px-4 py-2 rounded-sm border text-xs transition-all',
-                s.typeCab === t
-                  ? 'bg-foreground text-background border-foreground'
-                  : 'bg-background text-muted-foreground border-border hover:border-foreground hover:text-foreground'
-              )}
-            >
-              {t}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Departments */}
-      <div className="mb-6">
-        <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2 block">Département concerné par la recherche</label>
-        <div className="flex gap-2 flex-wrap">
-          {DEPARTMENTS.map((d) => (
-            <button
-              key={d}
-              onClick={() => s.toggleDept(d)}
-              className={cn(
-                'px-4 py-2 rounded-sm border text-xs transition-all',
-                s.depts.includes(d)
-                  ? 'bg-foreground text-background border-foreground'
-                  : 'bg-background text-muted-foreground border-border hover:border-foreground hover:text-foreground'
-              )}
-            >
-              {d}
-            </button>
-          ))}
-        </div>
-        <p className="text-[11px] text-muted-foreground mt-2 leading-relaxed">
-          L'abonnement LOGAN est mensuel et illimité pour l'ensemble du cabinet — aucune limite par département.
-        </p>
-      </div>
-
-      {/* Legal 500 toggle */}
-      <div className="mb-6">
-        <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2 block">Classement Legal 500</label>
-        <button
-          onClick={() => s.setField('l500', !s.l500)}
-          className={cn(
-            'w-full flex items-center justify-between p-4 rounded border transition-all',
-            s.l500 ? 'border-foreground bg-secondary' : 'border-border bg-background'
-          )}
-        >
-          <div className="text-left">
-            <div className="text-sm text-foreground">Notre équipe figure dans le Legal 500 Paris</div>
-            <div className="text-[11px] text-muted-foreground mt-0.5">Utilisé pour positionner votre profil cabinet auprès des candidats</div>
+      {/* Auto-detected info */}
+      {s.selectedFirm && s.detectedNat && (
+        <div className="mb-8 p-5 rounded-md border border-border bg-secondary/30 animate-fade-in">
+          <div className="flex items-center gap-2 mb-4">
+            <Shield className="w-4 h-4 text-foreground" />
+            <span className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground">Informations détectées automatiquement</span>
           </div>
-          <div className={cn('w-9 h-5 rounded-full relative transition-colors flex-shrink-0', s.l500 ? 'bg-foreground' : 'bg-border')}>
-            <div className={cn('absolute w-3.5 h-3.5 rounded-full bg-white top-[3px] transition-transform shadow-sm', s.l500 ? 'translate-x-4' : 'translate-x-[3px]')} />
-          </div>
-        </button>
-        {s.l500 && (
-          <div className="mt-2.5 grid grid-cols-2 gap-3">
+          
+          <div className="flex items-center gap-3 mb-4">
+            <span className="text-2xl">{NAT_FLAGS[s.detectedNat]}</span>
             <div>
-              <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-1.5 block">Ranking</label>
-              <div className="flex gap-1.5 flex-wrap">
-                {['Tier 1', 'Tier 2', 'Tier 3', 'Tier 4'].map((t) => (
-                  <button
-                    key={t}
-                    onClick={() => s.setField('ranking', t)}
-                    className={cn(
-                      'px-3 py-1.5 rounded-sm border text-xs transition-all',
-                      s.ranking === t ? 'bg-foreground text-background border-foreground' : 'bg-background text-muted-foreground border-border hover:border-foreground'
-                    )}
-                  >
-                    {t}
-                  </button>
+              <div className="text-sm font-semibold text-foreground">{s.cabinetName}</div>
+              <div className="text-xs text-muted-foreground">{NAT_LABELS[s.detectedNat]}</div>
+            </div>
+          </div>
+
+          {s.detectedRankings.length > 0 && (
+            <div>
+              <div className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2">Classements Legal 500</div>
+              <div className="grid grid-cols-2 gap-2">
+                {s.detectedRankings.map((r) => (
+                  <div key={r.key} className="flex items-center justify-between p-2.5 rounded border border-border bg-background">
+                    <span className="text-xs text-foreground">{r.label}</span>
+                    <span className={cn(
+                      'text-[10px] font-bold px-2 py-0.5 rounded-sm',
+                      r.tier <= 2 ? 'bg-foreground text-background' : 'bg-secondary text-foreground'
+                    )}>
+                      {formatTier(r.tier)}
+                    </span>
+                  </div>
                 ))}
               </div>
             </div>
-            <div>
-              <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-1.5 block">Pratique Legal 500</label>
-              <select
-                value={s.pratique}
-                onChange={(e) => s.setField('pratique', e.target.value)}
-                className="w-full px-3 py-2.5 rounded border border-border bg-background text-sm text-foreground focus:border-foreground focus:ring-0 outline-none appearance-none"
-              >
-                <option value="">Sélectionner…</option>
-                <option>Banque & Finance — Transactions</option>
-                <option>Corporate / M&A</option>
-                <option>Private Equity</option>
-                <option>Droit Social</option>
-                <option>Immobilier</option>
-                <option>Restructuring / Insolvabilité</option>
-                <option>Fiscal</option>
-                <option>Contentieux commercial</option>
-              </select>
-            </div>
+          )}
+
+          {s.detectedRankings.length === 0 && (
+            <p className="text-xs text-muted-foreground italic">Aucun classement Legal 500 détecté pour ce cabinet.</p>
+          )}
+        </div>
+      )}
+
+      {/* Non-listed cabinet info */}
+      {s.cabinetName && !s.selectedFirm && acQuery.length >= 3 && !acOpen && (
+        <div className="mb-6 p-4 rounded border border-border bg-secondary/20">
+          <div className="flex items-center gap-2">
+            <Building2 className="w-4 h-4 text-muted-foreground" />
+            <span className="text-xs text-muted-foreground">Cabinet non répertorié dans le Legal 500 — votre inscription sera traitée manuellement par l'équipe LOGAN.</span>
           </div>
-        )}
+        </div>
+      )}
+
+      <div className="h-px bg-border my-8" />
+
+      {/* Account creation */}
+      <div className="mb-8">
+        <div className="flex items-center gap-2 mb-4">
+          <span className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground">Création de votre compte</span>
+        </div>
+        <div className="mb-4">
+          <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2 block">Email professionnel</label>
+          <Input value={s.email} onChange={(e) => s.setField('email', e.target.value)} type="email" placeholder="prenom.nom@cabinet.com" className="bg-background" />
+        </div>
+        <div>
+          <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2 block">Mot de passe</label>
+          <div className="relative">
+            <Input
+              value={s.password}
+              onChange={(e) => s.setField('password', e.target.value)}
+              type={showPassword ? 'text' : 'password'}
+              placeholder="Minimum 6 caractères"
+              className="bg-background pr-10"
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+            >
+              {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+            </button>
+          </div>
+          {s.password && s.password.length < 6 && (
+            <p className="text-[10px] text-orange-600 mt-1">Le mot de passe doit contenir au moins 6 caractères.</p>
+          )}
+        </div>
       </div>
 
       <div className="h-px bg-border my-8" />
 
-      {/* Referent 1 */}
+      {/* Contacts */}
       <div className="mb-6">
-        <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2 block">Référent 1 au sein du cabinet</label>
-        <div className="grid grid-cols-2 gap-3">
-          <Input value={s.refPrenom} onChange={(e) => s.setField('refPrenom', e.target.value)} placeholder="Prénom" className="bg-background" />
-          <Input value={s.refNom} onChange={(e) => s.setField('refNom', e.target.value)} placeholder="Nom" className="bg-background" />
+        <div className="flex items-center justify-between mb-4">
+          <span className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground">Interlocuteurs référents</span>
         </div>
-      </div>
 
-      <div className="mb-6">
-        <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2 block">Email professionnel</label>
-        <Input value={s.email} onChange={(e) => s.setField('email', e.target.value)} type="email" placeholder="prenom.nom@cabinet.com" className="bg-background" />
-      </div>
-
-      <div className="mb-6">
-        <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2 block">
-          Téléphone portable <span className="font-normal normal-case tracking-normal text-[10px] text-border">recommandé</span>
-        </label>
-        <Input value={s.mobile} onChange={(e) => s.setField('mobile', formatPhoneWithDots(e.target.value))} type="tel" placeholder="06.50.10.20.30" className="bg-background" />
-      </div>
-
-      {/* Referent 2 toggle */}
-      <div className="mb-6">
-        <button
-          onClick={() => s.setField('showRef2', !s.showRef2)}
-          className="flex items-center gap-2 text-xs font-medium text-muted-foreground hover:text-foreground transition-colors"
-        >
-          {s.showRef2 ? <Minus className="w-3.5 h-3.5" /> : <Plus className="w-3.5 h-3.5" />}
-          {s.showRef2 ? 'Retirer le référent 2' : 'Ajouter un référent 2 (ex : RH, Associé(e))'}
-        </button>
-
-        {s.showRef2 && (
-          <div className="mt-4 p-5 border border-border rounded-md bg-secondary/30 animate-fade-in">
-            <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2 block">Référent 2 au sein du cabinet</label>
+        {s.contacts.map((contact, index) => (
+          <div key={index} className={cn(
+            'mb-4 p-5 border border-border rounded-md',
+            index === 0 ? 'bg-background' : 'bg-secondary/30 animate-fade-in'
+          )}>
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-[10px] font-bold text-foreground">Référent {index + 1}</span>
+              {index > 0 && (
+                <button
+                  onClick={() => s.removeContact(index)}
+                  className="flex items-center gap-1 text-[10px] text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  <Minus className="w-3 h-3" />
+                  Retirer
+                </button>
+              )}
+            </div>
             <div className="grid grid-cols-2 gap-3 mb-3">
-              <Input value={s.ref2Prenom} onChange={(e) => s.setField('ref2Prenom', e.target.value)} placeholder="Prénom" className="bg-background" />
-              <Input value={s.ref2Nom} onChange={(e) => s.setField('ref2Nom', e.target.value)} placeholder="Nom" className="bg-background" />
+              <Input
+                value={contact.prenom}
+                onChange={(e) => s.updateContact(index, 'prenom', e.target.value)}
+                placeholder="Prénom"
+                className="bg-background"
+              />
+              <Input
+                value={contact.nom}
+                onChange={(e) => s.updateContact(index, 'nom', e.target.value)}
+                placeholder="Nom"
+                className="bg-background"
+              />
             </div>
             <div className="mb-3">
-              <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-1.5 block">Email professionnel</label>
-              <Input value={s.ref2Email} onChange={(e) => s.setField('ref2Email', e.target.value)} type="email" placeholder="prenom.nom@cabinet.com" className="bg-background" />
+              <Input
+                value={contact.email}
+                onChange={(e) => s.updateContact(index, 'email', e.target.value)}
+                type="email"
+                placeholder="Email professionnel"
+                className="bg-background"
+              />
             </div>
             <div>
-              <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-1.5 block">
-                Téléphone portable <span className="font-normal normal-case tracking-normal text-[10px] text-border">recommandé</span>
-              </label>
-              <Input value={s.ref2Mobile} onChange={(e) => s.setField('ref2Mobile', formatPhoneWithDots(e.target.value))} type="tel" placeholder="06.50.10.20.30" className="bg-background" />
+              <Input
+                value={contact.mobile}
+                onChange={(e) => s.updateContact(index, 'mobile', formatPhoneWithDots(e.target.value))}
+                type="tel"
+                placeholder="06.50.10.20.30"
+                className="bg-background"
+              />
             </div>
           </div>
-        )}
+        ))}
+
+        <button
+          onClick={() => s.addContact()}
+          className="flex items-center gap-2 text-xs font-medium text-muted-foreground hover:text-foreground transition-colors"
+        >
+          <Plus className="w-3.5 h-3.5" />
+          Ajouter un référent
+        </button>
       </div>
 
       {/* Nav */}

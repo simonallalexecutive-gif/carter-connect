@@ -7,15 +7,14 @@ interface CabinetStepProgressProps {
 
 const STEPS = [
   { n: 2, label: 'Cabinet' },
-  { n: 3, label: 'Recherche' },
-  { n: 4, label: 'Abonnement' },
-  { n: 5, label: 'Validation' },
+  { n: 3, label: 'Abonnement' },
+  { n: 4, label: 'Validation' },
 ];
 
 const CabinetStepProgress = ({ className }: CabinetStepProgressProps) => {
   const step = useCabinetStore((s) => s.step);
 
-  if (step <= 1 || step > 5) return null;
+  if (step <= 1 || step > 4) return null;
 
   return (
     <div className={cn('bg-black border-b border-white/[0.06] py-3.5 px-6 md:px-12', className)}>
