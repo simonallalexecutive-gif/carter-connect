@@ -37,9 +37,12 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
   const splitTotal = s.expertise.reduce((sum, k) => sum + (s.activitySplit[k] || 0), 0);
 
   const isTab0Complete = useCallback(() => {
-    return s.seniorities.length > 0 && s.expertise.length > 0 && s.english !== '' &&
+    const profileTypes = (s as any).profileTypes as string[] || [];
+    const needsSeniority = profileTypes.length === 0 || profileTypes.includes('collaborateur');
+    const seniorityOk = !needsSeniority || s.seniorities.length > 0;
+    return profileTypes.length > 0 && seniorityOk && s.expertise.length > 0 && s.english !== '' &&
       (s.expertise.length < 2 || splitTotal === 100);
-  }, [s.seniorities, s.expertise, s.english, splitTotal]);
+  }, [(s as any).profileTypes, s.seniorities, s.expertise, s.english, splitTotal]);
 
   const isTab1Complete = useCallback(() => {
     return s.contexte !== '' && s.eqAssocies !== '' && s.eqCollab !== '';
