@@ -25,17 +25,6 @@ const fadeUp = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] as const } },
 };
 
-const commitments = [
-  {
-    title: 'Confidentialité absolue',
-    text: 'Aucun cabinet n\'aura accès à votre identité tant que vous ne l\'aurez pas décidé.',
-  },
-  {
-    title: 'Un consultant à vos côtés',
-    text: 'Il vous accompagne et organise la mise en relation uniquement si l\'opportunité vous intéresse.',
-  },
-];
-
 
 const LandingPage = () => (
   <div className="min-h-screen bg-background">
