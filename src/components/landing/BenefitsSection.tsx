@@ -9,8 +9,8 @@ const candidatBenefits = [
   {
     number: '01',
     icon: Eye,
-    title: 'Restez connecté à votre marché',
-    desc: 'Rendez-vous attractif aux yeux des cabinets tout en préservant votre identité et celle de votre cabinet. Un cabinet pourra manifester son intérêt pour votre profil sur la base de trois éléments : votre expertise, votre séniorité, votre projet.',
+    title: 'Restez connecté à votre marché en temps réel',
+    desc: 'Soyez attractif et visible aux yeux des cabinets tout au long de l\'année tout en préservant votre identité et celle de votre cabinet. Un cabinet pourra manifester son intérêt pour votre profil sur la base de trois éléments : votre expertise, votre séniorité, votre projet.',
   },
   {
     number: '02',
