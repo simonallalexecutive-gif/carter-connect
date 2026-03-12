@@ -141,17 +141,22 @@ const Step2Identity = () => {
         <div>
           <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Profil LinkedIn</Label>
           <div className="relative mt-2">
+            {linkedinLoading && (
+              <Loader2 className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground animate-spin" />
+            )}
             <Linkedin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
             <Input
               value={store.linkedinUrl}
-              onChange={e => handleLinkedinPaste(e.target.value)}
-              onPaste={e => {
-                setTimeout(() => handleLinkedinPaste((e.target as HTMLInputElement).value), 0);
-              }}
+              onChange={e => handleLinkedinChange(e.target.value)}
+              onPaste={handleLinkedinPaste}
+              onBlur={handleLinkedinBlur}
               placeholder="https://linkedin.com/in/votre-profil"
               className="pl-10"
             />
           </div>
+          {linkedinError && (
+            <p className="font-sans text-xs text-orange-500 font-light mt-1.5">{linkedinError}</p>
+          )}
           <p className="font-sans text-xs text-muted-foreground font-light mt-1.5">Collez votre lien LinkedIn — votre photo de profil sera importée automatiquement.</p>
         </div>
 
