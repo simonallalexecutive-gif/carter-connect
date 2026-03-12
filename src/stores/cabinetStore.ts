@@ -296,6 +296,7 @@ export const useCabinetStore = create<CabinetState>((set, get) => ({
       assocExpertiseDesc: s.assocExpertiseDesc,
       assocClienteleDesc: s.assocClienteleDesc,
       assocProjetDesc: s.assocProjetDesc,
+      profileTypes: s.profileTypes,
     };
     set({
       searches: [...s.searches, newSearch],
