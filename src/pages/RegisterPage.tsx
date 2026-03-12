@@ -8,13 +8,14 @@ import Step5Status from '@/components/registration/Step5Status';
 import Step6Review from '@/components/registration/Step6Review';
 import Step7Confirm from '@/components/registration/Step7Confirm';
 import { useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import LogoBanner from '@/components/layout/LogoBanner';
 
 const RegisterPage = () => {
   const currentStep = useRegistrationStore(s => s.currentStep);
   const goToStep = useRegistrationStore(s => s.goToStep);
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
   const isDarkStep = currentStep === 1 || currentStep === 7;
 
   // If coming from demo with ?start=2, skip the hero
