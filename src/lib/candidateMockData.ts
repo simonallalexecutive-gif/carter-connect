@@ -7,6 +7,13 @@ export interface CandidateOffer {
   location: string;
   postedAt: string;
   tags: string[];
+  activitySplit?: Record<string, number>;
+  contexte?: string;
+  equipe?: string;
+  retroStr?: string;
+  heures?: string;
+  tt?: string;
+  profilCriteres?: string[];
 }
 
 export const CANDIDATE_OFFERS: CandidateOffer[] = [
@@ -19,6 +26,13 @@ export const CANDIDATE_OFFERS: CandidateOffer[] = [
     location: 'Paris',
     postedAt: '2026-03-08',
     tags: ['Cross-border', 'LBO', 'Private Equity'],
+    activitySplit: { 'M&A': 60, 'Private Equity': 40 },
+    contexte: "Renforcement d'équipe",
+    equipe: '3 associé(s), 1 counsel(s), 5 collaborateur(s)',
+    retroStr: '90.000€ — 130.000€',
+    heures: '1800h',
+    tt: '2 jours / semaine',
+    profilCriteres: ['Autonome', 'Anglais courant', 'Gestion de dossiers complexes'],
   },
   {
     id: 'OFF-C-002',
@@ -29,6 +43,13 @@ export const CANDIDATE_OFFERS: CandidateOffer[] = [
     location: 'Paris / Londres',
     postedAt: '2026-03-07',
     tags: ['Fonds', 'Capital-investissement', 'Structuration'],
+    activitySplit: { 'Private Equity': 70, 'Banque & Finance': 30 },
+    contexte: 'Départ à remplacer',
+    equipe: '2 associé(s), 2 counsel(s), 4 collaborateur(s)',
+    retroStr: '150.000€ — 200.000€',
+    heures: '1900h',
+    tt: '1 jour / semaine',
+    profilCriteres: ['Esprit entrepreneurial', 'Anglais courant', 'Capacité à encadrer'],
   },
   {
     id: 'OFF-C-003',
@@ -39,6 +60,12 @@ export const CANDIDATE_OFFERS: CandidateOffer[] = [
     location: 'Paris',
     postedAt: '2026-03-09',
     tags: ['Financements structurés', 'Acquisition finance'],
+    contexte: "Renforcement d'équipe",
+    equipe: '1 associé(s), 3 collaborateur(s)',
+    retroStr: '70.000€ — 95.000€',
+    heures: '1700h',
+    tt: '2 jours / semaine',
+    profilCriteres: ['Rigueur & organisation', 'Bon relationnel client'],
   },
   {
     id: 'OFF-C-004',
@@ -49,6 +76,11 @@ export const CANDIDATE_OFFERS: CandidateOffer[] = [
     location: 'Paris',
     postedAt: '2026-03-06',
     tags: ['Fiscalité transactionnelle', 'International'],
+    activitySplit: { 'Fiscal': 80, 'M&A': 20 },
+    contexte: 'Départ à remplacer',
+    equipe: '2 associé(s), 1 counsel(s), 3 collaborateur(s)',
+    retroStr: '100.000€ — 140.000€',
+    profilCriteres: ['Autonome', 'Anglais courant', 'Polyvalent'],
   },
   {
     id: 'OFF-C-005',
@@ -59,5 +91,9 @@ export const CANDIDATE_OFFERS: CandidateOffer[] = [
     location: 'Paris / Lyon',
     postedAt: '2026-03-05',
     tags: ['Restructuration', 'Mobilité internationale'],
+    contexte: "Renforcement d'équipe",
+    equipe: '1 associé(s), 1 counsel(s), 2 collaborateur(s)',
+    tt: '3 jours / semaine',
+    profilCriteres: ['Esprit d\'équipe', 'Capacité rédactionnelle', 'Proactivité'],
   },
 ];

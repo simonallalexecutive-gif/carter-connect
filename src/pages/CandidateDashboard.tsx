@@ -6,6 +6,7 @@ import { CANDIDATE_OFFERS, type CandidateOffer } from '@/lib/candidateMockData';
 import { MapPin, Calendar, Briefcase, CheckCircle2, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from 'sonner';
+import ActivityPieChart from '@/components/shared/ActivityPieChart';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
@@ -46,7 +47,7 @@ const CandidateDashboard = () => {
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      {/* Header — cinematic black bar */}
+      {/* Header */}
       <header className="w-full bg-black">
         <div className="px-6 sm:px-8 lg:px-10 flex items-center justify-between h-20">
           <div className="flex items-center">
@@ -111,6 +112,7 @@ const CandidateDashboard = () => {
           {CANDIDATE_OFFERS.map((offer, index) => {
             const isInterested = interestedOffers.has(offer.id);
             const isExpanded = expandedOffer === offer.id;
+            const hasMultipleExpertises = offer.activitySplit && Object.keys(offer.activitySplit).length >= 2;
 
             return (
               <motion.div
@@ -169,44 +171,135 @@ const CandidateDashboard = () => {
                       transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
                       className="overflow-hidden"
                     >
-                      <div className="px-5 md:px-6 pb-5 md:pb-6 border-t border-border pt-4">
-                        <p className="text-sm text-foreground/80 font-sans leading-relaxed mb-4">
-                          {offer.description}
-                        </p>
-                        <div className="flex flex-wrap gap-2 mb-5">
-                          {offer.tags.map((tag) => (
-                            <span
-                              key={tag}
-                              className="text-[10px] font-sans text-muted-foreground border border-border rounded-sm px-2 py-1"
-                            >
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleInterest(offer);
-                          }}
-                          disabled={isInterested}
-                          className={`font-sans text-sm px-5 py-2.5 rounded-sm transition-all duration-300 ${
-                            isInterested
-                              ? 'bg-secondary text-muted-foreground cursor-default'
-                              : 'bg-foreground text-background hover:bg-foreground/90'
-                          }`}
-                        >
-                          {isInterested ? (
-                            <span className="flex items-center gap-2">
-                              <CheckCircle2 className="w-4 h-4" />
-                              Intérêt transmis à Logan
-                            </span>
-                          ) : (
-                            <span className="flex items-center gap-2">
-                              <Briefcase className="w-4 h-4" />
-                              Je suis intéressé(e)
-                            </span>
+                      <div className="border-t border-border">
+                        {/* Dark blue detailed card */}
+                        <div className="bg-[#0F3443] rounded-b-sm overflow-hidden">
+                          {/* Header */}
+                          <div className="p-5 md:p-6 border-b border-white/[0.08]">
+                            <div className="text-[8px] tracking-[0.16em] uppercase text-white/35 mb-2">Opportunité · Présentée par LOGAN</div>
+                            <div className="font-serif text-lg font-bold text-white mb-1">
+                              {offer.dept} — {offer.seniority}
+                            </div>
+                            <div className="text-[11px] text-white/50">Cabinet anonyme · Identité protégée</div>
+                            <div className="flex flex-wrap gap-1.5 mt-3 pt-3 border-t border-white/[0.08]">
+                              {offer.tags.map((tag) => (
+                                <span key={tag} className="text-[10px] px-2.5 py-1 rounded-full border border-white/15 text-white/65">{tag}</span>
+                              ))}
+                            </div>
+                          </div>
+
+                          {/* Activity pie chart */}
+                          {hasMultipleExpertises && offer.activitySplit && (
+                            <div className="p-5 md:p-6 border-b border-white/[0.08]">
+                              <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-white/35 mb-4">Répartition de l'activité</div>
+                              <div className="flex items-start gap-6">
+                                <ActivityPieChart data={offer.activitySplit} size={120} innerRadius={28} outerRadius={52} showLegend={false} darkMode />
+                                <div className="flex-1 space-y-2.5">
+                                  {Object.entries(offer.activitySplit).map(([name, value]) => (
+                                    <div key={name}>
+                                      <div className="flex justify-between items-center mb-0.5">
+                                        <span className="text-xs font-medium text-white">{name}</span>
+                                        <span className="text-xs font-bold text-white">{value}%</span>
+                                      </div>
+                                      <div className="w-full h-1 bg-white/10 rounded-full overflow-hidden">
+                                        <div className="h-full bg-white/40 rounded-full" style={{ width: `${value}%` }} />
+                                      </div>
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+                            </div>
                           )}
-                        </button>
+
+                          {/* Description */}
+                          <div className="p-5 md:p-6 border-b border-white/[0.08]">
+                            <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-white/35 mb-3">Description du poste</div>
+                            <p className="text-[11px] text-white/60 leading-relaxed">{offer.description}</p>
+                          </div>
+
+                          {/* Context & team */}
+                          {(offer.contexte || offer.equipe) && (
+                            <div className="p-5 md:p-6 border-b border-white/[0.08]">
+                              <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-white/35 mb-3">Contexte & équipe</div>
+                              <div className="grid grid-cols-2 gap-4">
+                                {offer.contexte && (
+                                  <div>
+                                    <div className="text-[8px] uppercase tracking-[0.1em] text-white/35 mb-1">Contexte</div>
+                                    <div className="text-sm font-semibold text-white">{offer.contexte}</div>
+                                  </div>
+                                )}
+                                {offer.equipe && (
+                                  <div>
+                                    <div className="text-[8px] uppercase tracking-[0.1em] text-white/35 mb-1">Composition de l'équipe</div>
+                                    <div className="text-sm font-semibold text-white">{offer.equipe}</div>
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+                          )}
+
+                          {/* Profil idéal */}
+                          {offer.profilCriteres && offer.profilCriteres.length > 0 && (
+                            <div className="p-5 md:p-6 border-b border-white/[0.08]">
+                              <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-white/35 mb-3">Profil idéal</div>
+                              <div className="flex flex-wrap gap-1.5">
+                                {offer.profilCriteres.map((c) => (
+                                  <span key={c} className="text-[10px] bg-white/[0.08] border border-white/[0.15] rounded-full px-3 py-1.5 text-white/70 font-medium">{c}</span>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+
+                          {/* Conditions */}
+                          {(offer.retroStr || offer.heures || offer.tt) && (
+                            <div className="p-5 md:p-6 border-b border-white/[0.08]">
+                              <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-white/35 mb-3">Rémunération & conditions</div>
+                              <div className="grid grid-cols-3 gap-4">
+                                <div className="bg-white/[0.05] rounded-lg p-3">
+                                  <div className="text-[8px] uppercase tracking-[0.1em] text-white/35 mb-1.5">Rétrocession</div>
+                                  <div className="font-serif text-sm font-bold text-white">{offer.retroStr || 'Confidentiel'}</div>
+                                </div>
+                                <div className="bg-white/[0.05] rounded-lg p-3">
+                                  <div className="text-[8px] uppercase tracking-[0.1em] text-white/35 mb-1.5">Heures / an</div>
+                                  <div className="font-serif text-sm font-bold text-white">{offer.heures || 'Non communiqué'}</div>
+                                </div>
+                                <div className="bg-white/[0.05] rounded-lg p-3">
+                                  <div className="text-[8px] uppercase tracking-[0.1em] text-white/35 mb-1.5">Télétravail</div>
+                                  <div className="font-serif text-sm font-bold text-white">{offer.tt || '—'}</div>
+                                </div>
+                              </div>
+                            </div>
+                          )}
+
+                          {/* CTA */}
+                          <div className="p-5 md:p-6 text-center">
+                            <p className="text-[10px] text-white/30 mb-3 leading-relaxed">
+                              LOGAN qualifie l'opportunité des deux côtés avant toute mise en relation. Votre identité reste confidentielle jusqu'à accord mutuel.
+                            </p>
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleInterest(offer);
+                              }}
+                              disabled={isInterested}
+                              className={`w-full py-3 font-bold text-sm rounded transition-all duration-300 ${
+                                isInterested
+                                  ? 'bg-white/20 text-white/50 cursor-default'
+                                  : 'bg-white text-[#0F3443] hover:bg-white/90'
+                              }`}
+                            >
+                              {isInterested ? (
+                                <span className="flex items-center justify-center gap-2">
+                                  <CheckCircle2 className="w-4 h-4" />
+                                  Intérêt transmis à Logan
+                                </span>
+                              ) : (
+                                'Je suis intéressé(e) par cette opportunité →'
+                              )}
+                            </button>
+                            <div className="mt-2 text-[10px] text-white/25">0% commission · Levée de rideau conditionnée à votre accord</div>
+                          </div>
+                        </div>
                       </div>
                     </motion.div>
                   )}
