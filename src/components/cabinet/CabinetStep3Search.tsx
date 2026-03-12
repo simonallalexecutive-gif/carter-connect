@@ -455,17 +455,45 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
 
           <div className="mb-6">
             <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2 block">
-              Présentation de l'équipe <span className="font-normal normal-case tracking-normal text-[10px] text-border">facultatif</span>
+              Profil idéal — qualités recherchées <span className="font-normal normal-case tracking-normal text-[10px] text-border">facultatif — plusieurs choix possibles</span>
             </label>
-            <Textarea value={s.equipeDesc} onChange={(e) => s.setField('equipeDesc', e.target.value)} rows={3} placeholder="Ex : équipe de 7 avocats, pratique majoritairement LBO mid-cap…" className="bg-background" />
-          </div>
-
-          <div className="mb-6">
-            <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2 block">
-              Profil idéal — décrivez-le librement <span className="font-normal normal-case tracking-normal text-[10px] text-border">facultatif</span>
-            </label>
-            <Textarea value={s.profilLibre} onChange={(e) => s.setField('profilLibre', e.target.value)} rows={4} placeholder="Ex : Nous recherchons un collaborateur senior autonome…" className="bg-background" />
-            <p className="text-[11px] text-muted-foreground mt-1.5">Ce texte sera visible par le candidat dans l'aperçu de votre recherche (sans révéler votre identité).</p>
+            <div className="flex gap-2 flex-wrap">
+              {[
+                'Autonome',
+                'Anglais courant',
+                'Esprit entrepreneurial',
+                'Rigueur & organisation',
+                'Bon relationnel client',
+                'Capacité à encadrer',
+                'Gestion de dossiers complexes',
+                'Polyvalent',
+                'Esprit d\'équipe',
+                'Capacité rédactionnelle',
+                'Proactivité',
+                'Résilience',
+              ].map((crit) => {
+                const profilCriteres = (s as any).profilCriteres as string[] || [];
+                const isSelected = profilCriteres.includes(crit);
+                return (
+                  <button
+                    key={crit}
+                    onClick={() => {
+                      const current = (s as any).profilCriteres as string[] || [];
+                      s.setField('profilCriteres' as any, isSelected ? current.filter((c: string) => c !== crit) : [...current, crit]);
+                    }}
+                    className={cn(
+                      'px-3.5 py-2 rounded-sm border text-xs transition-all',
+                      isSelected
+                        ? 'bg-foreground text-background border-foreground'
+                        : 'bg-background text-muted-foreground border-border hover:border-foreground hover:text-foreground'
+                    )}
+                  >
+                    {crit}
+                  </button>
+                );
+              })}
+            </div>
+            <p className="text-[11px] text-muted-foreground mt-1.5">Ces critères seront visibles par le candidat dans l'aperçu de votre recherche.</p>
           </div>
         </div>
       )}

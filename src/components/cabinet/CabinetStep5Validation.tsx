@@ -17,6 +17,7 @@ const CabinetStep5Validation = () => {
 
   const allChecked = checks.every(Boolean);
   const profileTypes = (s as any).profileTypes as string[] || [];
+  const profilCriteres = (s as any).profilCriteres as string[] || [];
   const profileLabel = profileTypes.includes('associe') ? 'Associé' : profileTypes.includes('counsel') ? 'Counsel' : 'Collaborateur';
   const senStr = s.seniorities.length ? s.seniorities.map((k) => SENIORITY_MAP[k] || k).join(', ') : '';
   const eqStr = [
@@ -60,13 +61,11 @@ const CabinetStep5Validation = () => {
         </div>
 
         <div className="bg-[#F0F0F0] rounded-lg p-6 space-y-5">
-          {/* Profile & seniority */}
           <div>
             <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-black/40 mb-2">Profil & séniorité</div>
             <div className="text-sm font-semibold text-black">{profileLabel}{senStr ? ` · ${senStr}` : ''}</div>
           </div>
 
-          {/* Expertise & split */}
           {s.expertise.length > 0 && (
             <div>
               <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-black/40 mb-2">Domaines d'expertise</div>
@@ -78,7 +77,6 @@ const CabinetStep5Validation = () => {
             </div>
           )}
 
-          {/* Sub-activities */}
           {activeActivities.length > 0 && (
             <div>
               <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-black/40 mb-2">Positionnement</div>
@@ -90,7 +88,6 @@ const CabinetStep5Validation = () => {
             </div>
           )}
 
-          {/* Context & team */}
           <div className="grid grid-cols-2 gap-4">
             {s.contexte && (
               <div>
@@ -106,7 +103,6 @@ const CabinetStep5Validation = () => {
             )}
           </div>
 
-          {/* Conditions */}
           <div className="grid grid-cols-3 gap-4">
             <div>
               <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-black/40 mb-1">Rétrocession</div>
@@ -122,6 +118,17 @@ const CabinetStep5Validation = () => {
             </div>
           </div>
 
+          {profilCriteres.length > 0 && (
+            <div>
+              <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-black/40 mb-2">Profil idéal</div>
+              <div className="flex flex-wrap gap-1.5">
+                {profilCriteres.map((c) => (
+                  <span key={c} className="text-[10px] bg-white border border-black/8 rounded px-2.5 py-1 text-black/70">{c}</span>
+                ))}
+              </div>
+            </div>
+          )}
+
           {s.confNiveau && (
             <div>
               <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-black/40 mb-1">Confidentialité</div>
@@ -131,7 +138,7 @@ const CabinetStep5Validation = () => {
         </div>
       </div>
 
-      {/* ── APERÇU CANDIDAT (petrol blue bg, white text) ── */}
+      {/* ── APERÇU CANDIDAT (petrol blue / dark bg, white text) ── */}
       <div className="mb-8">
         <div className="flex items-center gap-2 mb-3.5">
           <div className="w-1.5 h-1.5 rounded-full bg-foreground" />
@@ -202,55 +209,85 @@ const CabinetStep5Validation = () => {
             </div>
           )}
 
-          {/* Context & team */}
+          {/* Context & team — enriched */}
           <div className="p-6 border-b border-white/[0.08]">
-            <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-white/35 mb-3">Contexte & équipe</div>
-            <div className="grid grid-cols-2 gap-4 mb-4">
+            <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-white/35 mb-4">Contexte & équipe</div>
+            <div className="grid grid-cols-2 gap-x-6 gap-y-4">
               {s.contexte && (
                 <div>
-                  <div className="text-[8px] uppercase tracking-[0.1em] text-white/35 mb-1">Contexte</div>
-                  <div className="text-xs font-semibold text-white">{s.contexte}</div>
+                  <div className="text-[8px] uppercase tracking-[0.1em] text-white/35 mb-1">Contexte du recrutement</div>
+                  <div className="text-sm font-semibold text-white">{s.contexte}</div>
                 </div>
               )}
               {eqStr && (
                 <div>
                   <div className="text-[8px] uppercase tracking-[0.1em] text-white/35 mb-1">Composition de l'équipe</div>
-                  <div className="text-xs font-semibold text-white">{eqStr}</div>
+                  <div className="text-sm font-semibold text-white">{eqStr}</div>
+                </div>
+              )}
+              {/* Detailed team breakdown */}
+              {(s.eqAssocies || s.eqCounsels || s.eqCollab) && (
+                <div className="col-span-2">
+                  <div className="text-[8px] uppercase tracking-[0.1em] text-white/35 mb-2">Détail de l'équipe</div>
+                  <div className="grid grid-cols-3 gap-3">
+                    <div className="bg-white/[0.05] rounded p-3 text-center">
+                      <div className="font-serif text-lg font-bold text-white">{s.eqAssocies || '0'}</div>
+                      <div className="text-[10px] text-white/50 mt-0.5">Associé(s)</div>
+                    </div>
+                    <div className="bg-white/[0.05] rounded p-3 text-center">
+                      <div className="font-serif text-lg font-bold text-white">{s.eqCounsels || '0'}</div>
+                      <div className="text-[10px] text-white/50 mt-0.5">Counsel(s)</div>
+                    </div>
+                    <div className="bg-white/[0.05] rounded p-3 text-center">
+                      <div className="font-serif text-lg font-bold text-white">{s.eqCollab || '0'}</div>
+                      <div className="text-[10px] text-white/50 mt-0.5">Collaborateur(s)</div>
+                    </div>
+                  </div>
                 </div>
               )}
             </div>
-            {s.equipeDesc && (
-              <div className="mb-3">
-                <div className="text-[8px] uppercase tracking-[0.1em] text-white/35 mb-1">Présentation de l'équipe</div>
-                <p className="text-[11px] text-white/60 leading-relaxed">{s.equipeDesc}</p>
-              </div>
-            )}
-            {s.profilLibre && (
-              <div>
-                <div className="text-[8px] uppercase tracking-[0.1em] text-white/35 mb-1">Profil idéal</div>
-                <p className="text-[11px] text-white/60 leading-relaxed italic">« {s.profilLibre} »</p>
-              </div>
-            )}
           </div>
 
-          {/* Rémunération & conditions */}
-          <div className="p-6 border-b border-white/[0.08]">
-            <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-white/35 mb-3">Rémunération & conditions</div>
-            <div className="grid grid-cols-3 gap-5">
-              <div>
-                <div className="text-[8px] uppercase tracking-[0.1em] text-white/35 mb-1.5">Rétrocession</div>
-                <div className="font-serif text-base font-bold text-white">{retroStr || 'Confidentiel'}</div>
-                {!retroStr && <div className="text-[10px] text-white/25 mt-0.5">Transmis si intérêt confirmé</div>}
-              </div>
-              <div>
-                <div className="text-[8px] uppercase tracking-[0.1em] text-white/35 mb-1.5">Objectif heures / an</div>
-                <div className="font-serif text-base font-bold text-white">{s.heures ? `${s.heures}h` : 'Non communiqué'}</div>
-              </div>
-              <div>
-                <div className="text-[8px] uppercase tracking-[0.1em] text-white/35 mb-1.5">Télétravail</div>
-                <div className="text-xs font-semibold text-white">{s.tt || '—'}</div>
+          {/* Profil idéal - criteria */}
+          {profilCriteres.length > 0 && (
+            <div className="p-6 border-b border-white/[0.08]">
+              <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-white/35 mb-3">Profil idéal</div>
+              <div className="flex flex-wrap gap-1.5">
+                {profilCriteres.map((c) => (
+                  <span key={c} className="text-[10px] bg-white/[0.08] border border-white/[0.15] rounded-full px-3 py-1.5 text-white/70 font-medium">{c}</span>
+                ))}
               </div>
             </div>
+          )}
+
+          {/* Rémunération & conditions — enriched */}
+          <div className="p-6 border-b border-white/[0.08]">
+            <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-white/35 mb-4">Rémunération & conditions</div>
+            <div className="grid grid-cols-3 gap-4">
+              <div className="bg-white/[0.05] rounded-lg p-4">
+                <div className="text-[8px] uppercase tracking-[0.1em] text-white/35 mb-2">Rétrocession</div>
+                <div className="font-serif text-base font-bold text-white">{retroStr || 'Confidentiel'}</div>
+                {!retroStr && <div className="text-[10px] text-white/25 mt-1">Transmis si intérêt confirmé</div>}
+              </div>
+              <div className="bg-white/[0.05] rounded-lg p-4">
+                <div className="text-[8px] uppercase tracking-[0.1em] text-white/35 mb-2">Objectif heures / an</div>
+                <div className="font-serif text-base font-bold text-white">{s.heures ? `${s.heures}h` : 'Non communiqué'}</div>
+              </div>
+              <div className="bg-white/[0.05] rounded-lg p-4">
+                <div className="text-[8px] uppercase tracking-[0.1em] text-white/35 mb-2">Télétravail</div>
+                <div className="font-serif text-base font-bold text-white">{s.tt || '—'}</div>
+              </div>
+            </div>
+            {s.bonusEnabled && s.bonusTypes.length > 0 && (
+              <div className="mt-4 pt-3 border-t border-white/[0.08]">
+                <div className="text-[8px] uppercase tracking-[0.1em] text-white/35 mb-2">Bonus & avantages</div>
+                <div className="flex flex-wrap gap-1.5">
+                  {s.bonusTypes.map((b) => (
+                    <span key={b} className="text-[10px] bg-white/[0.06] border border-white/[0.10] rounded px-2.5 py-1 text-white/55">{b}</span>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
 
           {/* CTA */}

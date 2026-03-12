@@ -155,6 +155,7 @@ const searchDefaults = {
   eqCollab: '',
   equipeDesc: '',
   profilLibre: '',
+  profilCriteres: [] as string[],
   retroMin: '',
   retroMax: '',
   heures: '',
