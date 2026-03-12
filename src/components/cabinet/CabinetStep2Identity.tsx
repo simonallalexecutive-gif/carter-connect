@@ -49,7 +49,7 @@ const CabinetStep2Identity = () => {
     setAcOpen(true);
   };
 
-  const canContinue = s.cabinetName.trim() && s.email.trim() && s.password.length >= 6 && s.contacts[0]?.prenom.trim() && s.contacts[0]?.nom.trim();
+  const canContinue = s.cabinetName.trim() && s.email.trim() && passwordValid && s.contacts[0]?.prenom.trim() && s.contacts[0]?.nom.trim();
 
   return (
     <div className="max-w-[780px] mx-auto">
