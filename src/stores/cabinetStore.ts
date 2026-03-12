@@ -210,7 +210,7 @@ export const useCabinetStore = create<CabinetState>((set, get) => ({
   setStep: (step) => set({ step }),
   setField: (key, value) => set({ [key]: value } as any),
   addContact: () => set((s) => ({
-    contacts: [...s.contacts, { prenom: '', nom: '', email: '', mobile: '' }],
+    contacts: [...s.contacts, { prenom: '', nom: '', email: '', mobile: '', role: '' }],
   })),
   removeContact: (index) => set((s) => ({
     contacts: s.contacts.filter((_, i) => i !== index),
