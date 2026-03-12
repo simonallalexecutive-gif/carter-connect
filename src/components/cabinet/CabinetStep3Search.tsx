@@ -563,9 +563,9 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
 
       {/* Nav */}
       <div className="flex justify-between items-center mt-11 pt-7 border-t border-border">
-        <Button variant="outline" onClick={() => s.setStep(2)} className="font-sans text-sm rounded-sm">← Retour</Button>
+        <Button variant="outline" onClick={() => isEmbedded && onBack ? onBack() : s.setStep(2)} className="font-sans text-sm rounded-sm">← Retour</Button>
         <Button
-          onClick={() => s.setStep(4)}
+          onClick={() => isEmbedded && onNext ? onNext() : s.setStep(4)}
           disabled={!allComplete}
           className="bg-foreground text-background hover:bg-foreground/90 font-sans text-sm font-bold rounded-sm px-8 disabled:opacity-40"
         >
