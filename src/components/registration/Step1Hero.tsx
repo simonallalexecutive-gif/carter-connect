@@ -6,6 +6,8 @@ import { useRegistrationStore } from '@/stores/registrationStore';
 import { ArrowRight, User, Building2, LogIn } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams, Link } from 'react-router-dom';
+import { supabase } from '@/integrations/supabase/client';
+import { toast } from 'sonner';
 
 type View = 'choice' | 'login-candidat' | 'login-cabinet';
 
