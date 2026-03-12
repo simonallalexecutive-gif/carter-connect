@@ -25,17 +25,6 @@ const fadeUp = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] as const } },
 };
 
-const commitments = [
-  {
-    title: 'Confidentialité absolue',
-    text: 'Aucun cabinet n\'aura accès à votre identité tant que vous ne l\'aurez pas décidé.',
-  },
-  {
-    title: 'Un consultant à vos côtés',
-    text: 'Il vous accompagne et organise la mise en relation uniquement si l\'opportunité vous intéresse.',
-  },
-];
-
 
 const LandingPage = () => (
   <div className="min-h-screen bg-background">
@@ -119,40 +108,6 @@ const LandingPage = () => (
     {/* Benefits — candidat / cabinet tabs */}
     <BenefitsSection />
 
-    {/* Engagements — compact */}
-    <section className="py-16 md:py-20 bg-secondary">
-      <div className="carter-container">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
-          <p className="carter-label mb-8 text-center">Nos engagements</p>
-          <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-0">
-            {/* Confidentialité */}
-            <div className="text-center px-6 md:flex-1">
-              <div className="w-8 h-px bg-border mx-auto mb-5" />
-              <h4 className="font-serif text-lg text-foreground mb-2 font-medium">{commitments[0].title}</h4>
-              <p className="font-sans text-sm text-muted-foreground font-light leading-relaxed">{commitments[0].text}</p>
-            </div>
-
-            {/* Phrase centrale */}
-            <div className="text-center px-8 py-4 md:py-0 md:flex-shrink-0">
-              <p className="font-serif text-base md:text-lg text-foreground/80 italic font-semibold leading-relaxed max-w-[16rem]">
-                « La bonne opportunité arrive souvent lorsqu'on ne l'attend pas »
-              </p>
-            </div>
-
-            {/* Consultant */}
-            <div className="text-center px-6 md:flex-1">
-              <div className="w-8 h-px bg-border mx-auto mb-5" />
-              <h4 className="font-serif text-lg text-foreground mb-2 font-medium">{commitments[1].title}</h4>
-              <p className="font-sans text-sm text-muted-foreground font-light leading-relaxed">{commitments[1].text}</p>
-            </div>
-          </div>
-        </motion.div>
-      </div>
-    </section>
 
     {/* CTA */}
     <section className="py-32 bg-black relative">
