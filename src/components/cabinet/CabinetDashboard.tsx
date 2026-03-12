@@ -234,22 +234,15 @@ const SearchFormWrapper = () => {
     <div>
       <div className="max-w-[780px] mx-auto mb-4">
         <button
-          onClick={() => s.setField('currentSearchStep', 0)}
+          onClick={() => s.setField('dashboardView', 'home')}
           className="text-xs text-muted-foreground hover:text-foreground mb-4 flex items-center gap-1"
         >
-          ← Changer de département
+          ← Retour au tableau de bord
         </button>
-        <div className="flex items-center gap-3 mb-2">
-          <span className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground">Recherche en</span>
-          <span className="text-sm font-bold text-foreground">{s.currentSearchDeptLabel}</span>
-          {s.ranking && (
-            <span className="text-[10px] font-bold px-2 py-0.5 rounded-sm bg-secondary text-foreground">{s.ranking}</span>
-          )}
-        </div>
       </div>
       <CabinetStep3Search
         isEmbedded
-        onBack={() => s.setField('currentSearchStep', 0)}
+        onBack={() => s.setField('dashboardView', 'home')}
         onNext={() => s.setField('currentSearchStep', 2)}
       />
     </div>
