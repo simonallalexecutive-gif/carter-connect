@@ -180,7 +180,7 @@ const initialState = {
   detectedRankings: [] as { key: string; label: string; tier: number }[],
   email: '',
   password: '',
-  contacts: [{ prenom: '', nom: '', email: '', mobile: '' }] as CabinetContact[],
+  contacts: [{ prenom: '', nom: '', email: '', mobile: '', role: '' }] as CabinetContact[],
   palier: 'business',
   approveCount: 0,
   dashboardView: 'home' as const,
