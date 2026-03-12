@@ -142,11 +142,12 @@ const Step1Hero = () => {
               </div>
               <div className="space-y-4">
                 <div>
-                  <Label className="font-sans text-xs text-white/40 uppercase tracking-wider">Identifiant / Code</Label>
+                  <Label className="font-sans text-xs text-white/40 uppercase tracking-wider">Email</Label>
                   <Input
                     value={code}
                     onChange={e => setCode(e.target.value)}
-                    placeholder={isCabinet ? 'Votre identifiant cabinet' : 'Votre identifiant Logan'}
+                    type="email"
+                    placeholder={isCabinet ? 'votre@email.com' : 'votre@email.com'}
                     className="mt-2 bg-white/[0.05] border-white/10 text-white placeholder:text-white/20 focus:border-white/30"
                   />
                 </div>
@@ -158,13 +159,15 @@ const Step1Hero = () => {
                     onChange={e => setPassword(e.target.value)}
                     placeholder="••••••••"
                     className="mt-2 bg-white/[0.05] border-white/10 text-white placeholder:text-white/20 focus:border-white/30"
+                    onKeyDown={(e) => e.key === 'Enter' && handleLogin()}
                   />
                 </div>
                 <Button
-                  disabled={!code || !password}
+                  onClick={handleLogin}
+                  disabled={!code || !password || submitting}
                   className="w-full bg-black text-white hover:bg-black/90 font-sans text-sm font-medium rounded-sm py-5 border border-white/10"
                 >
-                  Se connecter
+                  {submitting ? 'Connexion...' : 'Se connecter'}
                 </Button>
               </div>
             </div>
