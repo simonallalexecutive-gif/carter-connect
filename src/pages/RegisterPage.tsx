@@ -8,22 +8,32 @@ import Step5Status from '@/components/registration/Step5Status';
 import Step6Review from '@/components/registration/Step6Review';
 import Step7Confirm from '@/components/registration/Step7Confirm';
 import { useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import LogoBanner from '@/components/layout/LogoBanner';
 
 const RegisterPage = () => {
   const currentStep = useRegistrationStore(s => s.currentStep);
   const goToStep = useRegistrationStore(s => s.goToStep);
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
   const isDarkStep = currentStep === 1 || currentStep === 7;
 
-  // If coming from demo with ?start=2, skip the hero
+  // Redirect legacy cabinet URL to the dedicated cabinet flow
   useEffect(() => {
+    const espace = searchParams.get('espace');
+    if (espace === 'cabinet') {
+      const nextParams = new URLSearchParams(searchParams);
+      nextParams.delete('espace');
+      const query = nextParams.toString();
+      navigate(query ? `/cabinet?${query}` : '/cabinet', { replace: true });
+      return;
+    }
+
     const startStep = searchParams.get('start');
     if (startStep === '2' && currentStep === 1) {
       goToStep(2);
     }
-  }, [searchParams, goToStep, currentStep]);
+  }, [searchParams, goToStep, currentStep, navigate]);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
