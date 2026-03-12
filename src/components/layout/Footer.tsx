@@ -23,7 +23,7 @@ const Footer = () => (
             {[
               { label: 'Accueil', to: '/' },
               { label: 'Espace candidat', to: '/inscription?espace=candidat' },
-              { label: 'Espace cabinet', to: '/cabinet' },
+              { label: 'Espace cabinet', to: '/inscription?espace=cabinet' },
             ].map((link) => (
               <li key={link.label}>
                 <Link to={link.to} className="font-sans text-sm text-white/50 hover:text-white transition-colors duration-300 font-light">
