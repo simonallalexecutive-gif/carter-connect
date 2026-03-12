@@ -1,13 +1,16 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
-import LogoBanner from '@/components/layout/LogoBanner';
 import Footer from '@/components/layout/Footer';
 import { CANDIDATE_OFFERS, type CandidateOffer } from '@/lib/candidateMockData';
 import { MapPin, Calendar, Briefcase, CheckCircle2, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from 'sonner';
-import { useEffect } from 'react';
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] as const } },
+};
 
 const CandidateDashboard = () => {
   const { user, loading, signOut } = useAuth();
@@ -43,37 +46,80 @@ const CandidateDashboard = () => {
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      <LogoBanner subtitle="Espace Candidat" />
-
-      <main className="flex-1 py-10 px-6 md:px-12 lg:px-20 max-w-5xl mx-auto w-full">
-        {/* Welcome */}
-        <div className="mb-10">
-          <h1 className="font-serif text-2xl md:text-3xl text-foreground mb-2">
-            Bienvenue{user.user_metadata?.full_name ? `, ${user.user_metadata.full_name}` : ''}
-          </h1>
-          <p className="text-sm text-muted-foreground font-sans">
-            Découvrez les opportunités sélectionnées par Logan. Exprimez votre intérêt en toute confidentialité.
-          </p>
+      {/* Header — cinematic black bar */}
+      <header className="w-full bg-black">
+        <div className="px-6 sm:px-8 lg:px-10 flex items-center justify-between h-20">
+          <div className="flex items-center">
+            <Link to="/" className="font-serif text-2xl tracking-[-0.02em] text-white hover:text-white/80 transition-colors duration-300">
+              Logan
+            </Link>
+            <span className="w-px h-5 bg-white/20 mx-4" />
+            <span className="text-[11px] text-white/40 tracking-[0.12em] uppercase font-sans font-light">Espace Candidat</span>
+          </div>
+          <nav className="flex items-center gap-6">
+            <Link to="/" className="font-sans text-[13px] font-light text-white/60 hover:text-white transition-colors duration-300 hidden sm:block">
+              Accueil
+            </Link>
+            <button
+              onClick={signOut}
+              className="font-sans text-[13px] font-light text-white/80 hover:text-white border border-white/20 hover:border-white/40 rounded-sm px-4 py-2 transition-colors duration-300"
+            >
+              Déconnexion
+            </button>
+          </nav>
         </div>
+      </header>
 
-        {/* Info banner */}
-        <div className="bg-secondary border border-border rounded-sm p-5 mb-8">
+      {/* Hero banner */}
+      <section className="bg-black py-16 sm:py-20 relative overflow-hidden">
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] rounded-full opacity-[0.06]" style={{ background: 'radial-gradient(circle, hsl(0 0% 50%), transparent 70%)' }} />
+        </div>
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={{ visible: { transition: { staggerChildren: 0.12 } } }}
+          className="px-6 sm:px-8 lg:px-10 max-w-5xl mx-auto relative z-10"
+        >
+          <motion.div variants={fadeUp} className="w-10 h-px bg-white/30 mb-8" />
+          <motion.h1 variants={fadeUp} className="text-3xl md:text-5xl font-serif font-normal text-white leading-[1.1] mb-4 tracking-[-0.01em]">
+            Bienvenue{user.user_metadata?.full_name ? `, ${user.user_metadata.full_name}` : ''}
+          </motion.h1>
+          <motion.p variants={fadeUp} className="text-sm md:text-base text-white/50 font-sans font-light max-w-lg leading-relaxed">
+            Découvrez les opportunités sélectionnées par Logan. Exprimez votre intérêt en toute confidentialité.
+          </motion.p>
+        </motion.div>
+      </section>
+
+      {/* Info banner */}
+      <div className="bg-secondary border-b border-border">
+        <div className="px-6 sm:px-8 lg:px-10 max-w-5xl mx-auto py-5">
           <p className="text-xs text-muted-foreground font-sans leading-relaxed">
             <span className="font-medium text-foreground">Comment ça fonctionne :</span> Les offres ci-dessous sont anonymisées. Si une opportunité vous intéresse, cliquez sur « Je suis intéressé(e) ». Un consultant Logan vous contactera pour un échange confidentiel avant toute mise en relation.
           </p>
         </div>
+      </div>
 
-        {/* Offers */}
-        <div className="space-y-4">
-          {CANDIDATE_OFFERS.map((offer) => {
+      {/* Offers */}
+      <main className="flex-1 py-10 px-6 sm:px-8 lg:px-10 max-w-5xl mx-auto w-full">
+        <div className="mb-8">
+          <p className="text-[10px] font-sans font-medium tracking-[0.2em] uppercase text-muted-foreground mb-3">Opportunités disponibles</p>
+          <div className="w-8 h-px bg-border" />
+        </div>
+
+        <div className="space-y-3">
+          {CANDIDATE_OFFERS.map((offer, index) => {
             const isInterested = interestedOffers.has(offer.id);
             const isExpanded = expandedOffer === offer.id;
 
             return (
               <motion.div
                 key={offer.id}
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.06, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                 layout
-                className="border border-border rounded-sm bg-card hover:border-foreground/20 transition-colors duration-300"
+                className="border border-border rounded-sm bg-card hover:border-foreground/20 transition-colors duration-300 group"
               >
                 <button
                   type="button"
@@ -109,7 +155,7 @@ const CandidateDashboard = () => {
                       </div>
                     </div>
                     <ArrowRight
-                      className={`w-4 h-4 text-muted-foreground transition-transform duration-300 mt-1 ${isExpanded ? 'rotate-90' : ''}`}
+                      className={`w-4 h-4 text-muted-foreground transition-transform duration-300 mt-1 ${isExpanded ? 'rotate-90' : 'group-hover:translate-x-0.5'}`}
                     />
                   </div>
                 </button>
@@ -170,7 +216,7 @@ const CandidateDashboard = () => {
           })}
         </div>
 
-        {/* Déconnexion */}
+        {/* Footer info */}
         <div className="mt-12 pt-8 border-t border-border flex justify-between items-center">
           <p className="text-xs text-muted-foreground font-sans">
             Connecté en tant que {user.email}

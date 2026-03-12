@@ -32,14 +32,9 @@ const Header = () => {
                 </button>
               </>
             ) : (
-              <>
-                <Link to="/auth" className="font-sans text-[13px] font-light text-white/60 hover:text-white transition-colors duration-300">
-                  Connexion
-                </Link>
-                <Link to="/demo" className="font-sans text-[13px] font-medium bg-white text-black hover:bg-white/90 rounded-sm px-4 py-2 transition-colors duration-300">
-                  Explorer
-                </Link>
-              </>
+              <Link to="/demo" className="font-sans text-[13px] font-medium bg-white text-black hover:bg-white/90 rounded-sm px-4 py-2 transition-colors duration-300">
+                Explorer
+              </Link>
             )
           )}
         </nav>
