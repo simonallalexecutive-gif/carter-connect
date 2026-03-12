@@ -10,7 +10,7 @@ import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import { Check } from 'lucide-react';
 import { FIRMS_DB } from '@/lib/cabinetConstants';
 import AutocompleteInput from '@/components/shared/AutocompleteInput';
-import { BLUE_PALETTE } from '@/components/shared/ActivityPieChart';
+import ActivityPieChart, { BLUE_PALETTE } from '@/components/shared/ActivityPieChart';
 
 const TABS = ['Profil recherché', 'Contexte & équipe', 'Rémunération & conditions', 'Confidentialité'];
 
