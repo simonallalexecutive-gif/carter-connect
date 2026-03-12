@@ -13,16 +13,7 @@ import ActivityPieChart, { BLUE_PALETTE } from '@/components/shared/ActivityPieC
 
 const TABS = ['Profil recherché', 'Contexte & équipe', 'Rémunération & conditions', 'Confidentialité'];
 
-const CHART_COLORS = [
-  'hsl(215, 60%, 30%)',
-  'hsl(215, 50%, 42%)',
-  'hsl(220, 55%, 22%)',
-  'hsl(210, 45%, 52%)',
-  'hsl(218, 40%, 36%)',
-  'hsl(222, 50%, 28%)',
-  'hsl(212, 35%, 46%)',
-  'hsl(225, 45%, 18%)',
-];
+const CHART_COLORS = BLUE_PALETTE;
 
 interface CabinetStep3SearchProps {
   isEmbedded?: boolean;
