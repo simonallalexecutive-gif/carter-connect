@@ -9,8 +9,8 @@ const candidatBenefits = [
   {
     number: '01',
     icon: Eye,
-    title: 'Restez connecté à votre marché',
-    desc: 'Rendez-vous attractif aux yeux des cabinets tout en préservant votre identité et celle de votre cabinet. Un cabinet pourra manifester son intérêt pour votre profil sur la base de trois éléments : votre expertise, votre séniorité, votre projet.',
+    title: 'Restez connecté à votre marché en temps réel',
+    desc: 'Soyez attractif et visible aux yeux des cabinets tout au long de l\'année tout en préservant votre identité et celle de votre cabinet. Un cabinet pourra manifester son intérêt pour votre profil sur la base de trois éléments : votre expertise, votre séniorité, votre projet.',
   },
   {
     number: '02',
@@ -104,21 +104,21 @@ const BenefitsSection = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.08, duration: 0.5 }}
               className={cn(
-                'group flex items-start gap-8 md:gap-12 p-8 md:p-12 transition-colors duration-500 hover:bg-secondary/60',
+                'group flex items-start justify-between gap-8 md:gap-12 p-8 md:p-12 transition-colors duration-500 hover:bg-secondary/60',
                 i < benefits.length - 1 && 'border-b border-border'
               )}
             >
-              {/* Number + Icon */}
-              <div className="flex-shrink-0 flex flex-col items-center gap-4 pt-1">
-                <span className="text-xs font-sans font-medium text-muted-foreground tracking-[0.15em]">{b.number}</span>
-                <div className="w-10 h-10 rounded-full border border-border flex items-center justify-center group-hover:border-foreground/30 transition-colors duration-500">
-                  <b.icon className="w-4 h-4 text-muted-foreground group-hover:text-foreground transition-colors duration-500" />
+              {/* Number + Content */}
+              <div className="flex items-start gap-8 md:gap-12 flex-1">
+                <span className="flex-shrink-0 text-xs font-sans font-medium text-muted-foreground tracking-[0.15em] pt-2">{b.number}</span>
+                <div className="flex-1">
+                  <h3 className="font-serif text-xl md:text-2xl text-foreground mb-3 font-normal">{b.title}</h3>
+                  <p className="font-sans text-sm text-muted-foreground font-light leading-relaxed max-w-2xl">{b.desc}</p>
                 </div>
               </div>
-              {/* Content */}
-              <div className="flex-1">
-                <h3 className="font-serif text-xl md:text-2xl text-foreground mb-3 font-normal">{b.title}</h3>
-                <p className="font-sans text-sm text-muted-foreground font-light leading-relaxed max-w-2xl">{b.desc}</p>
+              {/* Icon on the right */}
+              <div className="flex-shrink-0 w-10 h-10 rounded-full border border-border flex items-center justify-center group-hover:border-foreground/30 transition-colors duration-500 mt-1">
+                <b.icon className="w-4 h-4 text-muted-foreground group-hover:text-foreground transition-colors duration-500" />
               </div>
             </motion.div>
           ))}
