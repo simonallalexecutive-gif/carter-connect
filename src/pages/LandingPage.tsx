@@ -40,11 +40,6 @@ const commitments = [
   },
 ];
 
-const steps = [
-  { number: '01', title: 'Créez votre profil', desc: 'Inscription en quelques minutes, entièrement confidentielle.' },
-  { number: '02', title: 'Profil anonymisé', desc: 'Les cabinets consultent votre profil sans connaître votre identité.' },
-  { number: '03', title: 'Mise en relation', desc: 'Logan orchestre les échanges avec les cabinets intéressés, avec votre accord préalable.' },
-];
 
 const LandingPage = () => (
   <div className="min-h-screen bg-background">
