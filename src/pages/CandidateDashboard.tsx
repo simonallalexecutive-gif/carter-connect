@@ -397,6 +397,7 @@ const CandidateDashboard = () => {
               </motion.div>
             );
           })}
+          </AnimatePresence>
         </div>
 
         {/* Footer info */}
