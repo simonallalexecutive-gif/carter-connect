@@ -28,8 +28,44 @@ const CandidateDashboard = () => {
   const navigate = useNavigate();
   const [interestedOffers, setInterestedOffers] = useState<Set<string>>(new Set());
   const [expandedOffer, setExpandedOffer] = useState<string | null>(null);
-  const { photoPreviewUrl, prenom, nom, departement, cabinet, sermentMois, sermentAnnee } = useRegistrationStore();
+  const { photoPreviewUrl, prenom, nom, departement, cabinet, sermentMois, sermentAnnee, activites } = useRegistrationStore();
   const seniorityInfo = usePQE(sermentMois, sermentAnnee);
+
+  /* ---------- Filter offers by seniority + expertise ---------- */
+  const parsePQERange = (seniority: string): [number, number] | null => {
+    const match = seniority.match(/\((\d+)-(\d+)\s*PQE\)/);
+    if (match) return [parseInt(match[1]), parseInt(match[2])];
+    return null;
+  };
+
+  const filteredOffers = CANDIDATE_OFFERS.filter((offer) => {
+    // Seniority filter: candidate PQE must fall within offer range
+    if (seniorityInfo) {
+      const range = parsePQERange(offer.seniority);
+      if (range) {
+        const [min, max] = range;
+        // Allow ±2 years tolerance for flexibility
+        if (seniorityInfo.years < min - 2 || seniorityInfo.years > max + 2) return false;
+      }
+    }
+
+    // Expertise filter: offer dept or activitySplit keys must overlap with candidate's active expertises
+    const candidateExpertises = Object.entries(activites)
+      .filter(([, active]) => active)
+      .map(([name]) => name.toLowerCase());
+
+    if (candidateExpertises.length > 0) {
+      const offerExpertises = new Set<string>();
+      offerExpertises.add(offer.dept.toLowerCase());
+      if (offer.activitySplit) {
+        Object.keys(offer.activitySplit).forEach((k) => offerExpertises.add(k.toLowerCase()));
+      }
+      const hasOverlap = candidateExpertises.some((e) => offerExpertises.has(e));
+      if (!hasOverlap) return false;
+    }
+
+    return true;
+  });
 
   useEffect(() => {
     if (!loading && !user) {
