@@ -92,40 +92,44 @@ const CandidateOffers = () => {
                 <button type="button" className="w-full text-left p-6 md:p-8" onClick={() => setExpandedOffer(isExpanded ? null : offer.id)}>
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex-1 min-w-0">
-                      {/* Headline: seniority | dept | ranking */}
+                      {/* Headline: seniority | dept | ranking badge */}
                       <div className="flex items-center gap-0 mb-3 flex-wrap">
-                        <span className={`text-sm font-sans font-medium ${style.text} leading-none`}>{shortSeniority(offer.seniority)}</span>
+                        <span className={`text-[13px] font-serif tracking-[-0.01em] ${style.text} leading-none`}>{shortSeniority(offer.seniority)}</span>
                         <span className={`mx-2.5 w-px h-4 ${style.divider} inline-block`} />
-                        <span className={`text-sm font-serif font-semibold ${style.text} leading-none`}>{offer.dept}</span>
+                        <span className={`text-[13px] font-serif tracking-[-0.01em] ${style.text} leading-none`}>{offer.dept}</span>
                         {offer.ranking && (
                           <>
                             <span className={`mx-2.5 w-px h-4 ${style.divider} inline-block`} />
-                            <span className={`inline-flex items-center gap-1.5 text-[11px] font-bold ${style.text} font-sans`}>
-                              {offer.natFlag} {offer.ranking}
+                            <span className={`inline-flex items-center gap-2 text-[12px] font-serif ${style.text}`}>
+                              <span className="text-base leading-none">{offer.natFlag}</span>
+                              <span className="font-semibold">{offer.ranking}</span>
                             </span>
                           </>
                         )}
                         {isInterested && (
-                          <span className={`ml-3 inline-flex items-center gap-1 text-[10px] ${style.muted} font-sans`}>
+                          <span className={`ml-3 inline-flex items-center gap-1 text-[10px] ${style.muted} font-serif`}>
                             <CheckCircle2 className="w-3.5 h-3.5" />Intérêt transmis
                           </span>
                         )}
                       </div>
 
-                      {/* Reference + date */}
-                      <div className={`flex items-center gap-4 text-[11px] ${style.muted} font-sans mb-3`}>
-                        <span className="tracking-widest uppercase">{offer.reference}</span>
-                        <span className="flex items-center gap-1.5"><Calendar className="w-3 h-3" />Publiée le {formatOfferDate(offer.postedAt)}</span>
+                      {/* Date */}
+                      <div className={`flex items-center gap-1.5 text-[11px] ${style.muted} font-serif mb-3`}>
+                        <Calendar className="w-3 h-3" />
+                        <span>Date de publication : {formatOfferDate(offer.postedAt)}</span>
                       </div>
 
                       {/* Tags */}
                       {!isExpanded && offer.tags.length > 0 && (
                         <div className="flex flex-wrap gap-1.5 mt-1">
                           {offer.tags.slice(0, 4).map((tag) => (
-                            <span key={tag} className={`text-[10px] px-2.5 py-1 rounded-full border ${style.border} ${style.tagText}`}>{tag}</span>
+                            <span key={tag} className={`text-[10px] px-2.5 py-1 rounded-full border ${style.border} ${style.tagText} font-serif`}>{tag}</span>
                           ))}
                         </div>
                       )}
+
+                      {/* Offer ID bottom-left */}
+                      <div className={`mt-4 text-[9px] tracking-[0.15em] uppercase ${style.muted} font-serif`}>{offer.reference}</div>
                     </div>
                     <div className={`w-10 h-10 rounded-full flex items-center justify-center ${style.tagBg} shrink-0 mt-1`}>
                       <ChevronDown className={`w-5 h-5 ${style.muted} transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`} />
@@ -139,19 +143,22 @@ const CandidateOffers = () => {
                       <div className="bg-background border-t border-border">
                         <div className="p-6 md:p-8">
                           <div className="mb-6 pb-5 border-b border-border">
-                            <div className="text-[8px] tracking-[0.16em] uppercase text-muted-foreground mb-2">Opportunité · Présentée par LOGAN</div>
-                            <div className="flex items-center gap-0 mb-1">
-                              <span className="font-sans text-base font-medium text-foreground">{shortSeniority(offer.seniority)}</span>
+                            <div className="text-[8px] tracking-[0.16em] uppercase text-muted-foreground font-serif mb-2">Opportunité · Présentée par LOGAN</div>
+                            <div className="flex items-center gap-0 mb-1 flex-wrap">
+                              <span className="font-serif text-[15px] tracking-[-0.01em] text-foreground">{shortSeniority(offer.seniority)}</span>
                               <span className="mx-2 w-px h-4 bg-border inline-block" />
-                              <span className="font-serif text-base font-bold text-foreground">{offer.dept}</span>
+                              <span className="font-serif text-[15px] tracking-[-0.01em] text-foreground">{offer.dept}</span>
                               {offer.ranking && (
                                 <>
                                   <span className="mx-2 w-px h-4 bg-border inline-block" />
-                                  <span className="text-[11px] font-bold text-foreground">{offer.natFlag} {offer.ranking}</span>
+                                  <span className="inline-flex items-center gap-2 text-[13px] font-serif text-foreground">
+                                    <span className="text-lg leading-none">{offer.natFlag}</span>
+                                    <span className="font-semibold">{offer.ranking}</span>
+                                  </span>
                                 </>
                               )}
                             </div>
-                            <div className="text-[11px] text-muted-foreground">Cabinet anonyme · Identité protégée</div>
+                            <div className="text-[11px] font-serif text-muted-foreground">Cabinet anonyme · Identité protégée</div>
                             <div className="flex flex-wrap gap-1.5 mt-4">
                               {offer.tags.map((tag) => (
                                 <span key={tag} className="text-[10px] px-3 py-1.5 rounded-full bg-secondary text-foreground/70 font-medium">{tag}</span>
