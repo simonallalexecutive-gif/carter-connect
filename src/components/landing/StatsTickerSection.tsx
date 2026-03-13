@@ -50,15 +50,6 @@ const StatsTickerSection = () => {
 
   return (
     <section ref={ref} className="relative py-24 md:py-32 bg-foreground overflow-hidden">
-      {/* Subtle grid pattern */}
-      <div
-        className="absolute inset-0 opacity-[0.04]"
-        style={{
-          backgroundImage:
-            'linear-gradient(hsl(var(--primary-foreground)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--primary-foreground)) 1px, transparent 1px)',
-          backgroundSize: '60px 60px',
-        }}
-      />
 
       <div className="carter-container relative z-10">
         {/* Header */}
