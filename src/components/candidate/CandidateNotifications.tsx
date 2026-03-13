@@ -77,10 +77,7 @@ const CandidateNotifications = () => {
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between gap-4 mb-1">
-                        <p className={`text-[13px] font-serif ${notif.read ? 'text-white/70' : 'text-white'}`}>
-                          {notif.type === 'interest' && offer && (
-                            <span className="text-base mr-1.5">{offer.natFlag}</span>
-                          )}
+                        <p className={`text-[16px] font-serif tracking-[-0.01em] ${notif.read ? 'text-white/70' : 'text-white'}`}>
                           {notif.message}
                         </p>
                         {!notif.read && <span className="w-2 h-2 rounded-full bg-white shrink-0" />}
