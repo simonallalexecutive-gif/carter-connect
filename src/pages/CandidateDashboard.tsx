@@ -28,6 +28,8 @@ const CandidateDashboard = () => {
   const navigate = useNavigate();
   const [interestedOffers, setInterestedOffers] = useState<Set<string>>(new Set());
   const [expandedOffer, setExpandedOffer] = useState<string | null>(null);
+  const { photoPreviewUrl, prenom, nom, departement, cabinet, sermentMois, sermentAnnee } = useRegistrationStore();
+  const seniorityInfo = usePQE(sermentMois, sermentAnnee);
 
   useEffect(() => {
     if (!loading && !user) {
