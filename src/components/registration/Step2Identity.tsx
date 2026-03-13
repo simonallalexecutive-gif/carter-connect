@@ -19,6 +19,7 @@ import { formatNumberWithDots, formatPhoneWithDots } from '@/lib/formatters';
 import { LEGAL500_DB, NAT_LABELS as L500_NAT_LABELS, formatTier, getAllFirmNames } from '@/lib/legal500Rankings';
 import { Camera, X, ArrowLeft, ArrowRight, Linkedin, Eye, EyeOff, Check, AlertCircle, Loader2 } from 'lucide-react';
 import { useRef, useState, useMemo, useCallback, useEffect } from 'react';
+import { cn } from '@/lib/utils';
 
 const currentYear = new Date().getFullYear();
 const YEARS = Array.from({ length: currentYear - 1980 + 1 }, (_, i) => currentYear - i);
