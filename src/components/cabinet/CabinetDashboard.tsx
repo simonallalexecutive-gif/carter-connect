@@ -551,7 +551,7 @@ const ExploreView = ({
             <div className="text-[11px] text-muted-foreground mb-3">{p.origin} · {p.natFlag}</div>
             <div className="flex flex-wrap gap-1 mb-3">
               <span className="text-[9px] font-semibold px-2 py-0.5 rounded-sm bg-foreground text-background">{p.deptLabel}</span>
-              <span className="text-[9px] font-semibold px-2 py-0.5 rounded-sm bg-secondary text-foreground">{p.pqe} PQE</span>
+              <span className="text-[9px] font-semibold px-2 py-0.5 rounded-sm bg-secondary text-foreground">{p.seniority}</span>
             </div>
             <div className="grid grid-cols-2 gap-2 border-t border-secondary pt-3">
               <div><div className="text-[8px] text-muted-foreground uppercase">Anglais</div><div className="text-[11px] font-semibold text-foreground">{p.english}</div></div>
@@ -581,7 +581,7 @@ const ExploreView = ({
                 <div>
                   <p className="font-serif text-lg text-foreground">{drawerProfile.title}</p>
                   <span className="text-xs font-sans font-medium px-2.5 py-1 rounded-sm bg-foreground text-background mt-1 inline-block">
-                    {drawerProfile.pqe} PQE · {drawerProfile.seniority}
+                    {drawerProfile.seniority}
                   </span>
                 </div>
               </div>

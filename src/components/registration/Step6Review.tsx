@@ -212,7 +212,7 @@ const Step6Review = () => {
               </div>
               <div>
                 <p className="font-serif text-lg text-foreground">Profil anonyme</p>
-                <div className="mt-1">{pqe && <SeniorityBadge info={pqe} />}</div>
+                <div className="mt-1">{pqe && <SeniorityBadge info={pqe} hideExactPQE />}</div>
               </div>
             </div>
 
@@ -221,38 +221,16 @@ const Step6Review = () => {
               <DataRow label="Nationalité cabinet" value={store.cabNat || '—'} />
               <DataRow label="Classement Legal 500" value={store.cabTier || '—'} />
               {store.retrocession && <DataRow label="Rétrocession" value={`${store.retrocession} €`} />}
-              {store.tailleOperations.length > 0 && <DataRow label="Taille opérations" value={store.tailleOperations.join(', ')} />}
               {store.anglais && <DataRow label="Anglais" value={store.anglais} />}
               {store.conserverRetrocession !== null && <DataRow label="Flexibilité rétrocession" value={store.conserverRetrocession ? 'Souhaite maintenir' : 'Ouvert à discussion'} />}
             </div>
 
-            {store.typesClients.length > 0 && (
-              <div className="mb-8">
-                <p className="carter-label mb-3">Clientèle</p>
-                <div className="flex flex-wrap gap-2">
-                  {store.typesClients.map(c => (
-                    <span key={c} className="px-3 py-1 rounded-sm bg-secondary text-foreground text-xs font-sans font-light border border-border">{c}</span>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {activeActivites.length > 0 && (
-              <div className="mb-8">
-                <p className="carter-label mb-3">Activités</p>
-                <div className="flex flex-wrap gap-2">
-                  {activeActivites.map(a => (
-                    <span key={a.key} className="px-3 py-1 rounded-sm bg-secondary text-foreground text-xs font-sans font-light">{a.label}</span>
-                  ))}
-                </div>
-              </div>
-            )}
-
+            {/* Activity pie chart + side info */}
             {chartData.length > 0 && (
               <div className="mb-8">
-                <p className="carter-label mb-4">Répartition</p>
-                <div className="flex items-center gap-8">
-                  <div className="w-36 h-36">
+                <p className="carter-label mb-4">Répartition de l'activité</p>
+                <div className="flex items-start gap-8">
+                  <div className="w-36 h-36 flex-shrink-0">
                     <ResponsiveContainer width="100%" height="100%">
                       <PieChart>
                         <Pie data={chartData} cx="50%" cy="50%" innerRadius={30} outerRadius={60} dataKey="value" paddingAngle={2}>
@@ -262,20 +240,56 @@ const Step6Review = () => {
                         </Pie>
                         <Tooltip
                           formatter={(value: number) => [`${Math.round((value / totalPercent) * 100)}%`, '']}
-                          contentStyle={{ fontSize: '11px', background: 'hsl(30 8% 10%)', border: '1px solid hsl(30 8% 18%)', borderRadius: '2px', color: 'hsl(38 40% 92%)' }}
+                          contentStyle={{ fontSize: '11px', borderRadius: '4px' }}
                         />
                       </PieChart>
                     </ResponsiveContainer>
                   </div>
-                  <div className="flex-1 space-y-2">
-                    {chartData.map((item, i) => (
-                      <div key={item.name} className="flex items-center gap-2 text-xs font-sans font-light">
-                        <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: CHART_COLORS[i % CHART_COLORS.length] }} />
-                        <span className="text-foreground">{item.name}</span>
-                        <span className="text-muted-foreground ml-auto">{Math.round((item.value / totalPercent) * 100)}%</span>
+                  <div className="flex-1 space-y-3">
+                    {/* Legend */}
+                    <div className="space-y-1.5">
+                      {chartData.map((item, i) => (
+                        <div key={item.name} className="flex items-center gap-2 text-xs font-sans font-light">
+                          <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: CHART_COLORS[i % CHART_COLORS.length] }} />
+                          <span className="text-foreground">{item.name}</span>
+                          <span className="text-muted-foreground ml-auto">{Math.round((item.value / totalPercent) * 100)}%</span>
+                        </div>
+                      ))}
+                    </div>
+                    {/* Positioning tags beside pie chart */}
+                    {store.tailleOperations.length > 0 && (
+                      <div className="pt-2 border-t border-border">
+                        <p className="text-[9px] uppercase tracking-wider text-muted-foreground mb-1.5">Taille opérations</p>
+                        <div className="flex flex-wrap gap-1.5">
+                          {store.tailleOperations.map(t => (
+                            <span key={t} className="text-[10px] px-2 py-0.5 rounded-sm bg-secondary text-foreground border border-border">{t}</span>
+                          ))}
+                        </div>
                       </div>
-                    ))}
+                    )}
+                    {store.typesClients.length > 0 && (
+                      <div>
+                        <p className="text-[9px] uppercase tracking-wider text-muted-foreground mb-1.5">Clientèle</p>
+                        <div className="flex flex-wrap gap-1.5">
+                          {store.typesClients.map(c => (
+                            <span key={c} className="text-[10px] px-2 py-0.5 rounded-sm bg-secondary text-foreground border border-border">{c}</span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
                   </div>
+                </div>
+              </div>
+            )}
+
+            {/* Axes d'amélioration */}
+            {store.axesAmelioration.length > 0 && (
+              <div className="mb-8">
+                <p className="carter-label mb-3">Axes d'amélioration recherchés</p>
+                <div className="flex flex-wrap gap-2">
+                  {store.axesAmelioration.map(a => (
+                    <span key={a} className="px-3 py-1.5 rounded-sm bg-accent/10 text-accent text-xs font-sans font-medium border border-accent/20">{a}</span>
+                  ))}
                 </div>
               </div>
             )}

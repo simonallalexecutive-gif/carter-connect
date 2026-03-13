@@ -108,11 +108,21 @@ const CandidateDashboard = () => {
           <div className="w-8 h-px bg-border" />
         </div>
 
-        <div className="space-y-3">
+        <div className="space-y-4">
           {CANDIDATE_OFFERS.map((offer, index) => {
             const isInterested = interestedOffers.has(offer.id);
             const isExpanded = expandedOffer === offer.id;
             const hasMultipleExpertises = offer.activitySplit && Object.keys(offer.activitySplit).length >= 2;
+
+            // Alternating accent colors for visual distinction
+            const CARD_ACCENTS = [
+              { border: 'border-l-4 border-l-[hsl(215,60%,30%)]', accent: 'hsl(215,60%,30%)' },
+              { border: 'border-l-4 border-l-[hsl(30,50%,40%)]', accent: 'hsl(30,50%,40%)' },
+              { border: 'border-l-4 border-l-[hsl(160,40%,35%)]', accent: 'hsl(160,40%,35%)' },
+              { border: 'border-l-4 border-l-[hsl(350,45%,40%)]', accent: 'hsl(350,45%,40%)' },
+              { border: 'border-l-4 border-l-[hsl(270,40%,35%)]', accent: 'hsl(270,40%,35%)' },
+            ];
+            const cardAccent = CARD_ACCENTS[index % CARD_ACCENTS.length];
 
             return (
               <motion.div
@@ -121,7 +131,7 @@ const CandidateDashboard = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.06, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                 layout
-                className="border border-border rounded-sm bg-card hover:border-foreground/20 transition-colors duration-300 group"
+                className={`border border-border rounded-sm bg-card hover:border-foreground/20 transition-colors duration-300 group ${cardAccent.border}`}
               >
                 <button
                   type="button"
