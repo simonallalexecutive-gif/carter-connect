@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Bell, Star, ArrowRight, MessageCircle, CheckCircle2 } from 'lucide-react';
+import { Bell, Star, ArrowRight, MessageCircle, CheckCircle2, Calendar } from 'lucide-react';
 import { CANDIDATE_OFFERS } from '@/lib/candidateMockData';
 import { shortSeniority, formatOfferDate } from './CandidateOffers';
 import { toast } from 'sonner';
@@ -81,7 +81,6 @@ const CandidateNotifications = () => {
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between gap-4 mb-1">
                         <p className={`text-[13px] font-serif ${notif.read ? 'text-foreground/80' : 'text-foreground'}`}>
-                          {/* Show flag inline in the notification message for interest type */}
                           {notif.type === 'interest' && offer && (
                             <span className="text-base mr-1.5">{offer.natFlag}</span>
                           )}
@@ -91,7 +90,6 @@ const CandidateNotifications = () => {
                       </div>
                       <p className="text-[11px] font-serif text-muted-foreground leading-relaxed mb-2">{notif.detail}</p>
 
-                      {/* Show ranking badge for interest notifications */}
                       {notif.type === 'interest' && offer && offer.ranking && (
                         <div className="flex items-center gap-2 mb-2">
                           <span className="inline-flex items-center gap-2 text-[12px] font-serif text-foreground bg-secondary border border-border rounded-full px-3 py-1">
@@ -117,44 +115,50 @@ const CandidateNotifications = () => {
                   </div>
                 </div>
 
-                {/* Expanded offer preview + action */}
+                {/* Expanded offer preview — navy bg */}
                 {isExpanded && offer && (
-                  <div className="border-t border-border bg-secondary/30 p-5">
+                  <div className="border-t border-white/10 p-5 rounded-b-lg" style={{ background: 'hsl(220 40% 13%)' }}>
                     <div className="mb-4">
                       <div className="flex items-center gap-0 mb-1.5 flex-wrap">
-                        <span className="text-[13px] font-serif tracking-[-0.01em] text-foreground leading-none">{shortSeniority(offer.seniority)}</span>
-                        <span className="mx-2.5 w-px h-4 bg-border inline-block" />
-                        <span className="text-[13px] font-serif tracking-[-0.01em] text-foreground leading-none">{offer.dept}</span>
+                        <span className="text-[16px] font-serif tracking-[-0.01em] text-white leading-none">{shortSeniority(offer.seniority)}</span>
+                        <span className="mx-2.5 w-px h-5 bg-white/20 inline-block" />
+                        <span className="text-[16px] font-serif tracking-[-0.01em] text-white leading-none">{offer.dept}</span>
                         {offer.ranking && (
                           <>
-                            <span className="mx-2.5 w-px h-4 bg-border inline-block" />
-                            <span className="inline-flex items-center gap-2 text-[12px] font-serif text-foreground">
-                              <span className="text-base leading-none">{offer.natFlag}</span>
+                            <span className="mx-2.5 w-px h-5 bg-white/20 inline-block" />
+                            <span className="inline-flex items-center gap-2 text-[14px] font-serif text-white">
+                              <span className="text-lg leading-none">{offer.natFlag}</span>
                               <span className="font-semibold">{offer.ranking}</span>
                             </span>
                           </>
                         )}
                       </div>
-                      <div className="text-[9px] tracking-[0.15em] uppercase text-muted-foreground font-serif mb-2">{offer.reference}</div>
-                      <p className="text-[12px] font-serif text-muted-foreground leading-relaxed">{offer.description}</p>
+                      <p className="text-[12px] font-serif text-white/60 leading-relaxed mt-3">{offer.description}</p>
                       {offer.tags.length > 0 && (
                         <div className="flex flex-wrap gap-1.5 mt-3">
                           {offer.tags.map((tag) => (
-                            <span key={tag} className="text-[10px] font-serif px-2.5 py-1 rounded-full border border-border text-foreground/70">{tag}</span>
+                            <span key={tag} className="text-[10px] font-serif px-2.5 py-1 rounded-full border border-white/10 text-white/60">{tag}</span>
                           ))}
                         </div>
                       )}
+                      <div className="flex items-center justify-between mt-4">
+                        <div className="flex items-center gap-1.5 text-[11px] text-white/50 font-serif">
+                          <Calendar className="w-3 h-3" />
+                          <span>Date de publication : {formatOfferDate(offer.postedAt)}</span>
+                        </div>
+                        <div className="text-[9px] tracking-[0.15em] uppercase text-white/40 font-serif">{offer.reference}</div>
+                      </div>
                     </div>
 
                     {isConfirmed ? (
-                      <div className="flex items-center gap-2 text-[13px] font-serif text-muted-foreground bg-secondary rounded-lg px-4 py-3">
+                      <div className="flex items-center gap-2 text-[13px] font-serif text-white/60 bg-white/10 rounded-lg px-4 py-3">
                         <CheckCircle2 className="w-4 h-4" />
                         Demande d'échange transmise à votre consultant Logan.
                       </div>
                     ) : (
                       <button
                         onClick={() => handleConfirmExchange(notif.id)}
-                        className="w-full flex items-center justify-center gap-2 bg-foreground text-background py-3 rounded-lg text-[13px] font-serif font-semibold hover:bg-foreground/90 transition-colors"
+                        className="w-full flex items-center justify-center gap-2 bg-white text-black py-3 rounded-lg text-[13px] font-serif font-semibold hover:bg-white/90 transition-colors"
                       >
                         <MessageCircle className="w-4 h-4" />
                         Échanger avec un consultant sur cette opportunité
