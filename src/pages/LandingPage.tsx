@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import BenefitsSection from '@/components/landing/BenefitsSection';
+import ValueProposition from '@/components/landing/ValueProposition';
 import StatsTickerSection from '@/components/landing/StatsTickerSection';
 import { ArrowRight } from 'lucide-react';
 import heroVideo from '@/assets/hero-video-jessica.mp4';
@@ -105,6 +106,9 @@ const LandingPage = () => (
         </div>
       </motion.div>
     </section>
+
+    {/* Value proposition */}
+    <ValueProposition />
 
     {/* Benefits — candidat / cabinet tabs */}
     <BenefitsSection />
