@@ -95,12 +95,49 @@ const CandidateDashboard = () => {
           className="px-6 sm:px-8 lg:px-10 max-w-5xl mx-auto relative z-10"
         >
           <motion.div variants={fadeUp} className="w-10 h-px bg-white/30 mb-8" />
-          <motion.h1 variants={fadeUp} className="text-3xl md:text-5xl font-serif font-normal text-white leading-[1.1] mb-4 tracking-[-0.01em]">
-            Bienvenue{user.user_metadata?.full_name ? `, ${user.user_metadata.full_name}` : ''}
-          </motion.h1>
-          <motion.p variants={fadeUp} className="text-sm md:text-base text-white/50 font-sans font-light max-w-lg leading-relaxed">
-            Découvrez les opportunités sélectionnées par Logan. Exprimez votre intérêt en toute confidentialité.
-          </motion.p>
+
+          <div className="flex items-start gap-6 md:gap-8">
+            {/* Profile card */}
+            <motion.div variants={fadeUp} className="shrink-0">
+              <Avatar className="w-20 h-20 md:w-24 md:h-24 border-2 border-white/20">
+                {photoPreviewUrl ? (
+                  <AvatarImage src={photoPreviewUrl} alt="Photo de profil" />
+                ) : null}
+                <AvatarFallback className="bg-white/10 text-white text-lg font-serif">
+                  {prenom && nom ? `${prenom[0]}${nom[0]}` : <User className="w-8 h-8" />}
+                </AvatarFallback>
+              </Avatar>
+            </motion.div>
+
+            <div className="flex-1 min-w-0">
+              <motion.h1 variants={fadeUp} className="text-3xl md:text-5xl font-serif font-normal text-white leading-[1.1] mb-4 tracking-[-0.01em]">
+                Bienvenue{prenom ? `, ${prenom}` : user.user_metadata?.full_name ? `, ${user.user_metadata.full_name}` : ''}
+              </motion.h1>
+
+              {/* Profile recap chips */}
+              <motion.div variants={fadeUp} className="flex flex-wrap items-center gap-2 mb-4">
+                {seniorityInfo && (
+                  <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-black bg-white rounded-sm px-3 py-1.5 tracking-wide">
+                    {seniorityInfo.label}
+                  </span>
+                )}
+                {departement && (
+                  <span className="inline-flex items-center text-[11px] font-medium text-white/80 bg-white/10 border border-white/15 rounded-sm px-3 py-1.5">
+                    {departement}
+                  </span>
+                )}
+                {cabinet && (
+                  <span className="inline-flex items-center text-[11px] font-medium text-white/80 bg-white/10 border border-white/15 rounded-sm px-3 py-1.5">
+                    {cabinet}
+                  </span>
+                )}
+              </motion.div>
+
+              <motion.p variants={fadeUp} className="text-sm md:text-base text-white/50 font-sans font-light max-w-lg leading-relaxed">
+                Découvrez les opportunités sélectionnées par Logan. Exprimez votre intérêt en toute confidentialité.
+              </motion.p>
+            </div>
+          </div>
         </motion.div>
       </section>
 
