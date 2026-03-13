@@ -3,10 +3,14 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import Footer from '@/components/layout/Footer';
 import { CANDIDATE_OFFERS, type CandidateOffer } from '@/lib/candidateMockData';
-import { MapPin, Calendar, CheckCircle2, ChevronDown, Building2, Star } from 'lucide-react';
+import { MapPin, Calendar, CheckCircle2, ChevronDown, Building2, Star, User } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from 'sonner';
 import ActivityPieChart from '@/components/shared/ActivityPieChart';
+import { useRegistrationStore } from '@/stores/registrationStore';
+import { usePQE } from '@/hooks/usePQE';
+import SeniorityBadge from '@/components/shared/SeniorityBadge';
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
