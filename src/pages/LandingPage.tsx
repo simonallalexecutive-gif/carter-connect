@@ -107,6 +107,9 @@ const LandingPage = () => (
       </motion.div>
     </section>
 
+    {/* Value proposition */}
+    <ValueProposition />
+
     {/* Benefits — candidat / cabinet tabs */}
     <BenefitsSection />
 
