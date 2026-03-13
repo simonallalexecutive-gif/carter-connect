@@ -114,7 +114,7 @@ const CandidateNotifications = () => {
 
                 {/* Expanded offer preview — navy bg */}
                 {isExpanded && offer && (
-                  <div className="border-t border-white/10 p-5 rounded-b-lg" style={{ background: 'hsl(220 40% 13%)' }}>
+                  <div className="border-t border-border p-5 rounded-b-lg" style={{ background: 'hsl(0 0% 96%)' }}>
                     <div className="mb-4">
                       <div className="flex items-center gap-0 mb-1.5 flex-wrap">
                         <span className="text-[16px] font-serif tracking-[-0.01em] text-white leading-none">{shortSeniority(offer.seniority)}</span>
