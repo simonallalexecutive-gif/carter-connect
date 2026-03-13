@@ -4,6 +4,7 @@ import { PROFILES, DEPT_KEY_MAP, type CabinetProfile } from '@/lib/cabinetConsta
 import { NAT_FLAGS, NAT_LABELS, formatTier, LEGAL500_DEPARTMENTS, getFirmTierForDept } from '@/lib/legal500Rankings';
 import { cn } from '@/lib/utils';
 import { X, Search, Eye, Plus, FileText, Users } from 'lucide-react';
+import ActivityPieChart from '@/components/shared/ActivityPieChart';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 import CabinetStep3Search from './CabinetStep3Search';
@@ -291,14 +292,135 @@ const SearchValidation = () => {
         </div>
       </div>
 
-      {/* Preview: as seen by candidate */}
+      {/* Preview: as seen by candidate — full detail */}
       <div className="mb-6">
         <div className="text-[9px] font-bold tracking-[0.14em] uppercase text-muted-foreground mb-3">Aperçu — tel que vu par le candidat</div>
-        <div className="bg-foreground rounded-md p-5">
-          <div className="text-[8px] tracking-[0.16em] uppercase text-white/30 mb-2">Opportunité · Présentée par LOGAN</div>
-          <div className="font-serif text-lg font-bold text-white mb-1">{s.currentSearchDeptLabel} · {s.seniorities.join(' / ') || '—'}</div>
-          <div className="text-xs text-white/50 mb-3">{NAT_FLAGS[s.detectedNat] || '🏢'} {NAT_LABELS[s.detectedNat] || 'Cabinet'} · {s.ranking || 'Non classé'}</div>
-          <div className="text-[10px] text-white/30 mt-3">Identité du cabinet protégée · Mise en relation via LOGAN uniquement</div>
+        <div className="bg-foreground rounded-lg overflow-hidden">
+          {/* Header */}
+          <div className="p-6 border-b border-white/[0.08]">
+            <div className="text-[8px] tracking-[0.16em] uppercase text-white/35 mb-2">Opportunité · Présentée par LOGAN</div>
+            <div className="font-serif text-xl font-bold text-white mb-1.5">
+              {s.currentSearchDeptLabel} · {s.seniorities.join(' / ') || '—'}{s.expertise.length ? ` — ${s.expertise.join(', ')}` : ''}
+            </div>
+            <div className="text-[11px] text-white/50">
+              {NAT_FLAGS[s.detectedNat] || '🏢'} {NAT_LABELS[s.detectedNat] || 'Cabinet'} · {s.ranking || 'Non classé'}
+            </div>
+            <div className="text-[10px] text-white/30 mt-1">Identité du cabinet protégée · Mise en relation via LOGAN uniquement</div>
+            <div className="flex flex-wrap gap-1.5 mt-4 pt-4 border-t border-white/[0.08]">
+              {s.seniorities.map((se) => (
+                <span key={se} className="text-[10px] px-2.5 py-1 rounded-full border border-white/15 text-white/65">{se}</span>
+              ))}
+              {s.expertise.map((e) => (
+                <span key={e} className="text-[10px] px-2.5 py-1 rounded-full border border-white/15 text-white/65">{e}</span>
+              ))}
+              {s.english && <span className="text-[10px] px-2.5 py-1 rounded-full border border-white/15 text-white/65">Anglais : {s.english}</span>}
+            </div>
+          </div>
+
+          {/* Activity breakdown with pie chart */}
+          {s.expertise.length > 0 && Object.keys(s.activitySplit).length > 0 && (
+            <div className="p-6 border-b border-white/[0.08]">
+              <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-white/35 mb-4">Répartition de l'activité</div>
+              {s.expertise.length >= 2 ? (
+                <div className="flex items-start gap-6">
+                  <ActivityPieChart data={s.activitySplit} size={120} innerRadius={28} outerRadius={52} showLegend={false} darkMode />
+                  <div className="flex-1 space-y-2.5">
+                    {s.expertise.map((exp) => (
+                      <div key={exp}>
+                        <div className="flex justify-between items-center mb-0.5">
+                          <span className="text-xs font-medium text-white">{exp}</span>
+                          <span className="text-xs font-bold text-white">{s.activitySplit[exp] || 0}%</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <div className="flex flex-wrap gap-1.5">
+                  {s.expertise.map((e) => (
+                    <span key={e} className="text-[10px] bg-white/[0.07] border border-white/[0.12] rounded px-2.5 py-1 text-white/65">{e}</span>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Context & team */}
+          {(s.contexte || s.eqAssocies || s.eqCounsels || s.eqCollab) && (
+            <div className="p-6 border-b border-white/[0.08]">
+              <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-white/35 mb-4">Contexte & équipe</div>
+              <div className="grid grid-cols-2 gap-x-6 gap-y-4">
+                {s.contexte && (
+                  <div>
+                    <div className="text-[8px] uppercase tracking-[0.1em] text-white/35 mb-1">Contexte</div>
+                    <div className="text-sm font-semibold text-white">{s.contexte}</div>
+                  </div>
+                )}
+                {(s.eqAssocies || s.eqCounsels || s.eqCollab) && (
+                  <div>
+                    <div className="text-[8px] uppercase tracking-[0.1em] text-white/35 mb-1">Équipe</div>
+                    <div className="text-sm font-semibold text-white">
+                      {[s.eqAssocies ? `${s.eqAssocies} associé(s)` : '', s.eqCounsels ? `${s.eqCounsels} counsel(s)` : '', s.eqCollab ? `${s.eqCollab} collaborateur(s)` : ''].filter(Boolean).join(', ')}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* Profil idéal */}
+          {((s as any).profilCriteres as string[] || []).length > 0 && (
+            <div className="p-6 border-b border-white/[0.08]">
+              <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-white/35 mb-3">Profil idéal</div>
+              <div className="flex flex-wrap gap-1.5">
+                {((s as any).profilCriteres as string[]).map((c) => (
+                  <span key={c} className="text-[10px] bg-white/[0.08] border border-white/[0.15] rounded-full px-3 py-1.5 text-white/70 font-medium">{c}</span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Rémunération & conditions */}
+          <div className="p-6 border-b border-white/[0.08]">
+            <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-white/35 mb-4">Rémunération & conditions</div>
+            <div className="grid grid-cols-3 gap-4">
+              <div className="bg-white/[0.05] rounded-lg p-3">
+                <div className="text-[8px] uppercase tracking-[0.1em] text-white/35 mb-1.5">Rétrocession</div>
+                <div className="font-serif text-sm font-bold text-white">
+                  {s.retroMin || s.retroMax ? `${s.retroMin || '?'}€ – ${s.retroMax || '?'}€` : 'Confidentiel'}
+                </div>
+              </div>
+              <div className="bg-white/[0.05] rounded-lg p-3">
+                <div className="text-[8px] uppercase tracking-[0.1em] text-white/35 mb-1.5">Heures / an</div>
+                <div className="font-serif text-sm font-bold text-white">{s.heures ? `${s.heures}h` : 'Non communiqué'}</div>
+              </div>
+              <div className="bg-white/[0.05] rounded-lg p-3">
+                <div className="text-[8px] uppercase tracking-[0.1em] text-white/35 mb-1.5">Télétravail</div>
+                <div className="font-serif text-sm font-bold text-white">{s.tt || '—'}</div>
+              </div>
+            </div>
+            {s.bonusEnabled && s.bonusTypes.length > 0 && (
+              <div className="mt-4 pt-3 border-t border-white/[0.08]">
+                <div className="text-[8px] uppercase tracking-[0.1em] text-white/35 mb-2">Bonus & avantages</div>
+                <div className="flex flex-wrap gap-1.5">
+                  {s.bonusTypes.map((b) => (
+                    <span key={b} className="text-[10px] bg-white/[0.06] border border-white/[0.10] rounded px-2.5 py-1 text-white/55">{b}</span>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* CTA preview */}
+          <div className="p-6 text-center">
+            <p className="text-[10px] text-white/30 mb-3 leading-relaxed">
+              LOGAN qualifie l'opportunité des deux côtés avant toute mise en relation.
+            </p>
+            <button className="w-full py-3 bg-white text-foreground font-bold text-sm rounded cursor-default">
+              Je suis intéressé(e) par cette opportunité →
+            </button>
+            <div className="mt-2 text-[10px] text-white/25">0% commission · Levée de rideau conditionnée à votre accord</div>
+          </div>
         </div>
       </div>
 
