@@ -14,13 +14,28 @@ import SeniorityBadge from '@/components/shared/SeniorityBadge';
 import FileDropzone from '@/components/shared/FileDropzone';
 import ChipSelector from '@/components/shared/ChipSelector';
 import { usePQE } from '@/hooks/usePQE';
-import { CABINETS, DEPARTEMENTS, NATIONALITES, TIERS, MOIS, TAILLE_OPERATIONS, DISPONIBILITES, RAISONS_BAISSE_RETRO, ASSOC_ATTENTES, ASSOC_CAB_TYPES } from '@/lib/constants';
+import { CABINETS, DEPARTEMENTS, MOIS, RAISONS_BAISSE_RETRO, ASSOC_ATTENTES, ASSOC_CAB_TYPES, LEGAL500_BY_PRACTICE } from '@/lib/constants';
 import { formatNumberWithDots, formatPhoneWithDots } from '@/lib/formatters';
+import { LEGAL500_DB, NAT_LABELS as L500_NAT_LABELS, formatTier, getAllFirmNames } from '@/lib/legal500Rankings';
 import { Camera, X, ArrowLeft, ArrowRight, Linkedin, Eye, EyeOff, Check, AlertCircle, Loader2 } from 'lucide-react';
-import { useRef, useState, useMemo, useCallback } from 'react';
+import { useRef, useState, useMemo, useCallback, useEffect } from 'react';
 
 const currentYear = new Date().getFullYear();
 const YEARS = Array.from({ length: currentYear - 1980 + 1 }, (_, i) => currentYear - i);
+
+const DEPT_TO_L500: Record<string, string> = {
+  "Arbitrage / Contentieux": "contentieux",
+  "Banque & Finance": "banque",
+  "Concurrence": "regulatory",
+  "Droit Public": "public",
+  "Droit Social": "social",
+  "Fiscal": "fiscal",
+  "Immobilier": "immo",
+  "IP / Tech": "vc",
+  "M&A / Private Equity": "ma",
+  "Marchés de Capitaux": "finproj",
+  "Restructuring": "restructuring",
+};
 
 const Step2Identity = () => {
   const store = useRegistrationStore();
