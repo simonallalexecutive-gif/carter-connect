@@ -21,7 +21,7 @@ const CabinetPage = () => {
   // Auto-detect existing session and go to dashboard
   useEffect(() => {
     const checkSession = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
+      const { data: { session } } = await (supabase.auth as any).getSession();
       if (session?.user) {
         const name = session.user.user_metadata?.full_name || '';
         if (name) setField('cabinetName', name);
