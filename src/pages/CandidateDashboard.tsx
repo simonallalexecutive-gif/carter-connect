@@ -151,22 +151,18 @@ const CandidateDashboard = () => {
               </motion.h1>
 
               {/* Profile recap chips */}
-              <motion.div variants={fadeUp} className="flex flex-wrap items-center gap-2 mb-4">
-                {seniorityInfo && (
-                  <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-black bg-white rounded-sm px-3 py-1.5 tracking-wide">
-                    {seniorityInfo.label}
-                  </span>
-                )}
-                {departement && (
-                  <span className="inline-flex items-center text-[11px] font-medium text-white/80 bg-white/10 border border-white/15 rounded-sm px-3 py-1.5">
-                    {departement}
-                  </span>
-                )}
-                {cabinet && (
-                  <span className="inline-flex items-center text-[11px] font-medium text-white/80 bg-white/10 border border-white/15 rounded-sm px-3 py-1.5">
-                    {cabinet}
-                  </span>
-                )}
+              <motion.div variants={fadeUp} className="flex flex-wrap items-center gap-3 mb-4">
+                <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-black bg-white rounded-sm px-3 py-1.5 tracking-wide uppercase">
+                  {seniorityInfo?.label || 'Senior'}
+                </span>
+                <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-white bg-white/15 border border-white/20 rounded-sm px-3 py-1.5">
+                  <Star className="w-3 h-3" />
+                  {departement || 'M&A'}
+                </span>
+                <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-white bg-white/15 border border-white/20 rounded-sm px-3 py-1.5">
+                  <Building2 className="w-3 h-3" />
+                  {cabinet || 'Cabinet actuel'}
+                </span>
               </motion.div>
 
               <motion.p variants={fadeUp} className="text-sm md:text-base text-white/50 font-sans font-light max-w-lg leading-relaxed">
