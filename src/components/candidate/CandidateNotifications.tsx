@@ -148,14 +148,14 @@ const CandidateNotifications = () => {
                     </div>
 
                     {isConfirmed ? (
-                      <div className="flex items-center gap-2 text-[13px] font-serif text-white/60 bg-white/10 rounded-lg px-4 py-3">
+                      <div className="flex items-center gap-2 text-[13px] font-serif text-muted-foreground bg-secondary rounded-lg px-4 py-3">
                         <CheckCircle2 className="w-4 h-4" />
                         Demande d'échange transmise à votre consultant Logan.
                       </div>
                     ) : (
                       <button
                         onClick={() => handleConfirmExchange(notif.id)}
-                        className="w-full flex items-center justify-center gap-2 bg-white text-black py-3 rounded-lg text-[13px] font-serif font-semibold hover:bg-white/90 transition-colors"
+                        className="w-full flex items-center justify-center gap-2 bg-foreground text-background py-3 rounded-lg text-[13px] font-serif font-semibold hover:bg-foreground/90 transition-colors"
                       >
                         <MessageCircle className="w-4 h-4" />
                         Échanger avec un consultant sur cette opportunité
