@@ -58,54 +58,6 @@ const CabinetDashboard = () => {
   // Dashboard home
   return (
     <div>
-      {/* Dashboard header */}
-      <div className="bg-foreground rounded-lg p-6 mb-7">
-        <div className="flex items-start justify-between">
-          <div>
-            <div className="text-[9px] tracking-[0.18em] uppercase text-white/35 mb-1.5">Espace Cabinet</div>
-            <div className="font-serif text-xl font-bold text-white">{s.cabinetName || 'Mon cabinet'}</div>
-            <div className="flex items-center gap-2.5 mt-1.5">
-              {s.detectedNat && (
-                <span className="text-xs text-white/50">{NAT_FLAGS[s.detectedNat]} {NAT_LABELS[s.detectedNat]}</span>
-              )}
-            </div>
-          </div>
-          <div className="text-right">
-            <div className="bg-white/[0.07] border border-white/[0.1] rounded px-3.5 py-2 mb-1.5">
-              <div className="text-[9px] text-white/35 tracking-[0.1em] uppercase mb-0.5">Abonnement</div>
-              <div className="text-sm font-bold text-white">{PALIER_MAP[s.palier] || 'Business'}</div>
-            </div>
-          </div>
-        </div>
-
-        {/* Contacts */}
-        {s.contacts.length > 0 && s.contacts[0].prenom && (
-          <div className="mt-4 pt-4 border-t border-white/[0.08]">
-            <div className="text-[9px] text-white/30 tracking-[0.1em] uppercase mb-2">Référents</div>
-            <div className="flex gap-3 flex-wrap">
-              {s.contacts.filter(c => c.prenom).map((c, i) => (
-                <span key={i} className="text-[11px] text-white/60">{c.prenom} {c.nom}{c.email ? ` · ${c.email}` : ''}</span>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Rankings summary */}
-        {s.detectedRankings.length > 0 && (
-          <div className="mt-4 pt-4 border-t border-white/[0.08]">
-            <div className="text-[9px] text-white/30 tracking-[0.1em] uppercase mb-2">Classements Legal 500</div>
-            <div className="flex gap-2 flex-wrap">
-              {s.detectedRankings.slice(0, 6).map((r) => (
-                <span key={r.key} className="text-[10px] px-2.5 py-1 rounded-full border border-white/15 text-white/60">
-                  {r.label} · {formatTier(r.tier)}
-                </span>
-              ))}
-            </div>
-          </div>
-        )}
-      </div>
-
-      {/* Active searches */}
       {s.searches.length > 0 && (
         <div className="mb-7">
           <div className="text-[9px] font-bold tracking-[0.14em] uppercase text-muted-foreground mb-3">Recherches actives</div>
