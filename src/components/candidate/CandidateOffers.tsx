@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { CANDIDATE_OFFERS, type CandidateOffer } from '@/lib/candidateMockData';
-import { MapPin, Calendar, CheckCircle2, ChevronDown, Building2, Star } from 'lucide-react';
+import { Calendar, CheckCircle2, ChevronDown, Star } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { toast } from 'sonner';
 import ActivityPieChart from '@/components/shared/ActivityPieChart';
@@ -8,9 +8,15 @@ import { useRegistrationStore } from '@/stores/registrationStore';
 import { usePQE } from '@/hooks/usePQE';
 
 const CARD_STYLES = [
-  { bg: 'bg-foreground', text: 'text-background', muted: 'text-background/50', border: 'border-background/10', tagBg: 'bg-background/10', tagText: 'text-background/70', btnBg: 'bg-background text-foreground hover:bg-background/90', btnDone: 'bg-background/20 text-background/60' },
-  { bg: 'bg-background', text: 'text-foreground', muted: 'text-muted-foreground', border: 'border-border', tagBg: 'bg-secondary', tagText: 'text-foreground/70', btnBg: 'bg-foreground text-background hover:bg-foreground/90', btnDone: 'bg-secondary text-muted-foreground' },
+  { bg: 'bg-foreground', text: 'text-background', muted: 'text-background/50', border: 'border-background/10', tagBg: 'bg-background/10', tagText: 'text-background/70', btnBg: 'bg-background text-foreground hover:bg-background/90', btnDone: 'bg-background/20 text-background/60', divider: 'bg-background/20' },
+  { bg: 'bg-background', text: 'text-foreground', muted: 'text-muted-foreground', border: 'border-border', tagBg: 'bg-secondary', tagText: 'text-foreground/70', btnBg: 'bg-foreground text-background hover:bg-foreground/90', btnDone: 'bg-secondary text-muted-foreground', divider: 'bg-border' },
 ] as const;
+
+export const formatOfferDate = (dateStr: string) =>
+  new Date(dateStr).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+
+/** Extracts a short seniority label like "Collaborateur Senior" from full seniority string */
+export const shortSeniority = (s: string) => s.replace(/\s*\(.*\)/, '');
 
 const CandidateOffers = () => {
   const [interestedOffers, setInterestedOffers] = useState<Set<string>>(new Set());
@@ -52,9 +58,6 @@ const CandidateOffers = () => {
     toast.success(`Votre intérêt pour l'opportunité ${offer.reference} a été transmis à Logan.`, { duration: 5000 });
   };
 
-  const formatDate = (dateStr: string) =>
-    new Date(dateStr).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
-
   return (
     <div>
       <div className="mb-10 flex items-end justify-between">
@@ -89,29 +92,35 @@ const CandidateOffers = () => {
                 <button type="button" className="w-full text-left p-6 md:p-8" onClick={() => setExpandedOffer(isExpanded ? null : offer.id)}>
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-3 mb-3 flex-wrap">
-                        <span className={`font-serif text-2xl md:text-3xl font-medium ${style.text} leading-none`}>{offer.dept}</span>
-                        <span className={`text-[10px] ${style.muted} font-sans tracking-widest uppercase ${style.tagBg} px-2.5 py-1 rounded`}>{offer.reference}</span>
+                      {/* Headline: seniority | dept | ranking */}
+                      <div className="flex items-center gap-0 mb-3 flex-wrap">
+                        <span className={`text-sm font-sans font-medium ${style.text} leading-none`}>{shortSeniority(offer.seniority)}</span>
+                        <span className={`mx-2.5 w-px h-4 ${style.divider} inline-block`} />
+                        <span className={`text-sm font-serif font-semibold ${style.text} leading-none`}>{offer.dept}</span>
                         {offer.ranking && (
-                          <span className={`inline-flex items-center gap-1 text-[10px] font-bold ${style.text} font-sans ${style.tagBg} px-2.5 py-1 rounded`}>
-                            <Star className="w-3 h-3" />{offer.natFlag} {offer.ranking}
-                          </span>
+                          <>
+                            <span className={`mx-2.5 w-px h-4 ${style.divider} inline-block`} />
+                            <span className={`inline-flex items-center gap-1.5 text-[11px] font-bold ${style.text} font-sans`}>
+                              {offer.natFlag} {offer.ranking}
+                            </span>
+                          </>
                         )}
                         {isInterested && (
-                          <span className={`inline-flex items-center gap-1 text-[10px] ${style.muted} font-sans`}>
+                          <span className={`ml-3 inline-flex items-center gap-1 text-[10px] ${style.muted} font-sans`}>
                             <CheckCircle2 className="w-3.5 h-3.5" />Intérêt transmis
                           </span>
                         )}
                       </div>
-                      <p className={`text-sm ${style.muted} font-sans mb-3 flex items-center gap-2`}>
-                        <Building2 className="w-3.5 h-3.5" />{offer.seniority}
-                      </p>
-                      <div className={`flex items-center gap-5 text-xs ${style.muted} font-sans`}>
-                        <span className="flex items-center gap-1.5"><MapPin className="w-3.5 h-3.5" />{offer.location}</span>
-                        <span className="flex items-center gap-1.5"><Calendar className="w-3.5 h-3.5" />{formatDate(offer.postedAt)}</span>
+
+                      {/* Reference + date */}
+                      <div className={`flex items-center gap-4 text-[11px] ${style.muted} font-sans mb-3`}>
+                        <span className="tracking-widest uppercase">{offer.reference}</span>
+                        <span className="flex items-center gap-1.5"><Calendar className="w-3 h-3" />Publiée le {formatOfferDate(offer.postedAt)}</span>
                       </div>
+
+                      {/* Tags */}
                       {!isExpanded && offer.tags.length > 0 && (
-                        <div className="flex flex-wrap gap-1.5 mt-4">
+                        <div className="flex flex-wrap gap-1.5 mt-1">
                           {offer.tags.slice(0, 4).map((tag) => (
                             <span key={tag} className={`text-[10px] px-2.5 py-1 rounded-full border ${style.border} ${style.tagText}`}>{tag}</span>
                           ))}
@@ -131,8 +140,18 @@ const CandidateOffers = () => {
                         <div className="p-6 md:p-8">
                           <div className="mb-6 pb-5 border-b border-border">
                             <div className="text-[8px] tracking-[0.16em] uppercase text-muted-foreground mb-2">Opportunité · Présentée par LOGAN</div>
-                            <div className="font-serif text-xl font-bold text-foreground mb-1">{offer.dept} — {offer.seniority}</div>
-                            <div className="text-[11px] text-muted-foreground">{offer.natFlag} Cabinet anonyme · {offer.ranking || 'Non classé'} · Identité protégée</div>
+                            <div className="flex items-center gap-0 mb-1">
+                              <span className="font-sans text-base font-medium text-foreground">{shortSeniority(offer.seniority)}</span>
+                              <span className="mx-2 w-px h-4 bg-border inline-block" />
+                              <span className="font-serif text-base font-bold text-foreground">{offer.dept}</span>
+                              {offer.ranking && (
+                                <>
+                                  <span className="mx-2 w-px h-4 bg-border inline-block" />
+                                  <span className="text-[11px] font-bold text-foreground">{offer.natFlag} {offer.ranking}</span>
+                                </>
+                              )}
+                            </div>
+                            <div className="text-[11px] text-muted-foreground">Cabinet anonyme · Identité protégée</div>
                             <div className="flex flex-wrap gap-1.5 mt-4">
                               {offer.tags.map((tag) => (
                                 <span key={tag} className="text-[10px] px-3 py-1.5 rounded-full bg-secondary text-foreground/70 font-medium">{tag}</span>
