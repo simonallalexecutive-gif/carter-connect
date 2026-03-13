@@ -63,7 +63,7 @@ const CandidateDashboard = () => {
               <button
                 key={tab.key}
                 onClick={() => setActiveTab(tab.key)}
-                className={`relative px-4 py-2 text-[12px] font-sans font-medium tracking-wide transition-colors duration-200 rounded-sm ${
+                className={`relative px-3 py-1.5 text-[10px] font-sans font-medium tracking-wide transition-colors duration-200 rounded-sm ${
                   activeTab === tab.key
                     ? 'text-white bg-white/10'
                     : 'text-white/50 hover:text-white/80'
