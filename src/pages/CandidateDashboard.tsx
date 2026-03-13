@@ -1,12 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
-import Footer from '@/components/layout/Footer';
-import { motion } from 'motion/react';
 import { useRegistrationStore } from '@/stores/registrationStore';
 import { usePQE } from '@/hooks/usePQE';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
-import { User, Building2, Star, Briefcase, FileText, Clock, Bell, Send, LogOut, Home, ChevronLeft } from 'lucide-react';
+import { User, Building2, Star, Briefcase, FileText, Clock, Bell, Send, LogOut, Home, Phone } from 'lucide-react';
 import {
   SidebarProvider,
   Sidebar,
@@ -25,19 +23,21 @@ import CandidateProfile from '@/components/candidate/CandidateProfile';
 import CandidateProcesses from '@/components/candidate/CandidateProcesses';
 import CandidateRequests from '@/components/candidate/CandidateRequests';
 import CandidateNotifications from '@/components/candidate/CandidateNotifications';
+import CandidateBooking from '@/components/candidate/CandidateBooking';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] as const } },
 };
 
-type TabKey = 'offres' | 'profil' | 'processus' | 'demandes' | 'notifications';
+type TabKey = 'offres' | 'profil' | 'processus' | 'demandes' | 'notifications' | 'booking';
 
 const TABS: { key: TabKey; label: string; icon: typeof Briefcase }[] = [
   { key: 'offres', label: 'Offres', icon: Briefcase },
   { key: 'processus', label: 'Processus', icon: Clock },
   { key: 'demandes', label: 'Demandes', icon: Send },
   { key: 'notifications', label: 'Notifications', icon: Bell },
+  { key: 'booking', label: 'Fixer un call', icon: Phone },
   { key: 'profil', label: 'Profil', icon: FileText },
 ];
 
