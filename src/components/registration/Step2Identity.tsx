@@ -362,8 +362,8 @@ const Step2Identity = () => {
           {pqe && <div className="mt-3"><SeniorityBadge info={pqe} /></div>}
         </div>
 
-        {/* Statut Counsel / Associé — toujours visible après serment */}
-        {hasSerment && (
+        {/* Statut Counsel / Associé — visible si PQE > 6 ans */}
+        {hasSerment && pqe && pqe.years > 6 && (
           <div className="carter-card p-6 space-y-5">
             <div>
               <Label className="font-sans text-sm font-medium block mb-3">Avez-vous le statut de Counsel ou d'Associé ?</Label>
