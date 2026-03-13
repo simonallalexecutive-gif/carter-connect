@@ -31,7 +31,18 @@ const CandidateBooking = () => {
         <p className="text-[10px] font-sans font-medium tracking-[0.2em] uppercase text-muted-foreground mb-2">
           Fixer un call avec Logan
         </p>
-        <div className="w-8 h-px bg-foreground" />
+        <div className="w-8 h-px bg-foreground mb-6" />
+        <div className="rounded-lg border border-border p-6 mb-2" style={{ background: 'hsl(0 0% 96%)' }}>
+          <p className="text-[15px] font-serif text-foreground leading-relaxed mb-3">
+            Votre consultant Logan est à votre disposition pour échanger sur votre carrière, votre projet professionnel et votre positionnement sur le marché.
+          </p>
+          <p className="text-[13px] font-serif text-muted-foreground leading-relaxed mb-4">
+            Au-delà du recrutement, Logan vous accompagne dans une logique de conseil et de coaching : stratégie de carrière, préparation aux entretiens, analyse du marché, négociation — nous sommes là pour répondre à toutes vos interrogations en toute confidentialité.
+          </p>
+          <p className="text-[11px] font-sans text-muted-foreground">
+            Réservez un créneau ci-dessous pour un échange de 30 minutes avec votre consultant dédié.
+          </p>
+        </div>
       </div>
 
       {confirmed ? (
