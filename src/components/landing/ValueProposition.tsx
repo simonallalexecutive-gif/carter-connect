@@ -60,11 +60,11 @@ const ValueProposition = () => {
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
             className="text-3xl sm:text-4xl md:text-6xl lg:text-[4.5rem] font-serif font-normal text-foreground leading-[1.12] tracking-[-0.02em] max-w-4xl mx-auto"
           >
-            Connecter les meilleurs avocats{' '}
-            <em className="text-muted-foreground font-normal">aux cabinets qui les cherchent</em>
-            <br className="hidden md:block" />
-            <span className="text-muted-foreground/40">&mdash;</span>{' '}
-            <em className="text-muted-foreground font-normal">en toute discrétion.</em>
+            Là où les trajectoires{' '}
+            <em className="text-muted-foreground font-normal">d'exception</em>
+            <br className="hidden md:block" />{' '}
+            rencontrent les ambitions{' '}
+            <em className="text-muted-foreground font-normal">qui leur correspondent.</em>
           </motion.h2>
 
           {/* Animated divider */}
