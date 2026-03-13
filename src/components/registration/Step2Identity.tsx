@@ -62,19 +62,65 @@ const Step2Identity = () => {
   const isPasswordValid = Object.values(passwordRules).every(Boolean);
   const passwordsMatch = store.password === store.passwordConfirm && store.passwordConfirm.length > 0;
 
+  const allCabinets = useMemo(() => {
+    const set = new Set([...CABINETS, ...getAllFirmNames()]);
+    return [...set].sort((a, b) => a.localeCompare(b));
+  }, []);
+
   const canProceed = store.prenom.length >= 2 && store.nom.length >= 2 &&
-    store.email.includes('@') && store.sermentMois && store.sermentAnnee &&
-    store.cabinet.length >= 2 && store.departement.length >= 2 &&
+    store.email.includes('@') && store.telephone.length >= 10 &&
+    store.sermentMois && store.sermentAnnee &&
+    store.departement.length >= 2 && store.cabinet.length >= 2 &&
+    store.retrocession.length >= 1 &&
     isPasswordValid && passwordsMatch;
+
+  const autoDetectRanking = (cabinetName: string, dept: string) => {
+    const practiceData = LEGAL500_BY_PRACTICE[dept];
+    if (practiceData?.[cabinetName]) {
+      store.setField('cabNat', practiceData[cabinetName].nat);
+      store.setField('cabTier', practiceData[cabinetName].band);
+      return;
+    }
+    let firmEntry = LEGAL500_DB[cabinetName];
+    if (!firmEntry) {
+      const match = Object.keys(LEGAL500_DB).find(k =>
+        k.toLowerCase().startsWith(cabinetName.toLowerCase()) ||
+        cabinetName.toLowerCase().startsWith(k.split(' ').slice(0, 3).join(' ').toLowerCase())
+      );
+      if (match) firmEntry = LEGAL500_DB[match];
+    }
+    if (firmEntry) {
+      store.setField('cabNat', L500_NAT_LABELS[firmEntry.nat] || firmEntry.nat);
+      const deptKey = DEPT_TO_L500[dept];
+      if (deptKey && firmEntry.rankings[deptKey] !== undefined) {
+        store.setField('cabTier', formatTier(firmEntry.rankings[deptKey]));
+      } else {
+        store.setField('cabTier', 'Non répertorié');
+      }
+      return;
+    }
+    store.setField('cabNat', '');
+    store.setField('cabTier', 'Non répertorié');
+  };
 
   const handleCabinetSelect = (v: string | string[]) => {
     const cabinetName = typeof v === 'string' ? v : v[0];
     store.setField('cabinet', cabinetName as string);
+    if (store.departement) autoDetectRanking(cabinetName as string, store.departement);
   };
 
   const handleDepartmentChange = (dept: string) => {
     store.setField('departement', dept);
+    if (store.cabinet) autoDetectRanking(store.cabinet, dept);
   };
+
+  // Reset counsel/associé when PQE drops below 6
+  useEffect(() => {
+    if (pqe && pqe.years <= 6 && store.isAssocieOrCounsel) {
+      store.setField('isAssocieOrCounsel', false);
+      store.setField('statutAssoc', '');
+    }
+  }, [pqe?.years]);
 
   const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
