@@ -106,11 +106,11 @@ const LandingPage = () => (
       </motion.div>
     </section>
 
-    {/* Stats ticker */}
-    <StatsTickerSection />
-
     {/* Benefits — candidat / cabinet tabs */}
     <BenefitsSection />
+
+    {/* Stats ticker */}
+    <StatsTickerSection />
 
 
     {/* CTA */}
