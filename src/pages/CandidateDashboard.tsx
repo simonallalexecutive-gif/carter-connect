@@ -162,57 +162,38 @@ const CandidateDashboardContent = () => {
       <CandidateSidebar activeTab={activeTab} setActiveTab={setActiveTab} notifCount={notifCount} />
 
       <div className="flex-1 flex flex-col min-h-screen">
-        {/* Top bar with sidebar trigger */}
-        <header className="h-12 flex items-center border-b border-border bg-background px-4">
-          <SidebarTrigger className="text-muted-foreground hover:text-foreground" />
-          <span className="ml-3 text-[10px] font-sans tracking-[0.12em] uppercase text-muted-foreground">
-            {TABS.find((t) => t.key === activeTab)?.label}
-          </span>
-        </header>
-
-        {/* Compact hero */}
-        <section className="bg-black py-8 relative overflow-hidden">
-          <div className="absolute inset-0 overflow-hidden">
-            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[400px] h-[200px] rounded-full opacity-[0.05]" style={{ background: 'radial-gradient(circle, hsl(0 0% 50%), transparent 70%)' }} />
-          </div>
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={{ visible: { transition: { staggerChildren: 0.1 } } }}
-            className="px-6 sm:px-8 lg:px-10 max-w-5xl mx-auto relative z-10"
-          >
-            <div className="flex items-center gap-5">
-              <motion.div variants={fadeUp}>
-                <Avatar className="w-12 h-12 border-2 border-white/20">
-                  {photoPreviewUrl ? <AvatarImage src={photoPreviewUrl} alt="Photo" /> : null}
-                  <AvatarFallback className="bg-white/10 text-white text-sm font-serif">
-                    {prenom && nom ? `${prenom[0]}${nom[0]}` : <User className="w-5 h-5" />}
-                  </AvatarFallback>
-                </Avatar>
-              </motion.div>
-              <div className="min-w-0">
-                <motion.h1 variants={fadeUp} className="text-xl md:text-2xl font-serif font-normal text-white leading-tight tracking-[-0.01em]">
-                  Bienvenue{prenom ? `, ${prenom}` : user.user_metadata?.full_name ? `, ${user.user_metadata.full_name}` : ''}
-                </motion.h1>
-                <motion.div variants={fadeUp} className="flex flex-wrap items-center gap-2 mt-2">
-                  <span className="text-[10px] font-semibold text-black bg-white rounded-sm px-2.5 py-1 uppercase tracking-wide">
-                    {seniorityInfo?.label || 'Senior'}
+        {/* Top bar with sidebar trigger + welcome */}
+        <header className="flex items-center border-b border-border bg-black px-4 py-4 gap-4">
+          <SidebarTrigger className="text-white/60 hover:text-white" />
+          <div className="flex items-center gap-4 flex-1 min-w-0">
+            <Avatar className="w-9 h-9 border border-white/20 shrink-0">
+              {photoPreviewUrl ? <AvatarImage src={photoPreviewUrl} alt="Photo" /> : null}
+              <AvatarFallback className="bg-white/10 text-white text-[10px] font-serif">
+                {prenom && nom ? `${prenom[0]}${nom[0]}` : <User className="w-4 h-4" />}
+              </AvatarFallback>
+            </Avatar>
+            <div className="min-w-0">
+              <h1 className="text-base md:text-lg font-serif font-normal text-white leading-tight tracking-[-0.01em]">
+                Bienvenue{prenom ? `, ${prenom}` : user.user_metadata?.full_name ? `, ${user.user_metadata.full_name}` : ''}
+              </h1>
+              <div className="flex flex-wrap items-center gap-2 mt-1">
+                <span className="text-[9px] font-semibold text-black bg-white rounded-sm px-2 py-0.5 uppercase tracking-wide">
+                  {seniorityInfo?.label || 'Senior'}
+                </span>
+                {departement && (
+                  <span className="inline-flex items-center gap-1 text-[9px] text-white/60 bg-white/10 border border-white/15 rounded-sm px-2 py-0.5">
+                    <Star className="w-2.5 h-2.5" />{departement}
                   </span>
-                  {departement && (
-                    <span className="inline-flex items-center gap-1 text-[10px] text-white/60 bg-white/10 border border-white/15 rounded-sm px-2.5 py-1">
-                      <Star className="w-3 h-3" />{departement}
-                    </span>
-                  )}
-                  {cabinet && (
-                    <span className="inline-flex items-center gap-1 text-[10px] text-white/60 bg-white/10 border border-white/15 rounded-sm px-2.5 py-1">
-                      <Building2 className="w-3 h-3" />{cabinet}
-                    </span>
-                  )}
-                </motion.div>
+                )}
+                {cabinet && (
+                  <span className="inline-flex items-center gap-1 text-[9px] text-white/60 bg-white/10 border border-white/15 rounded-sm px-2 py-0.5">
+                    <Building2 className="w-2.5 h-2.5" />{cabinet}
+                  </span>
+                )}
               </div>
             </div>
-          </motion.div>
-        </section>
+          </div>
+        </header>
 
         {/* Content */}
         <main className="flex-1 py-10 px-6 sm:px-8 lg:px-10 max-w-5xl mx-auto w-full">
