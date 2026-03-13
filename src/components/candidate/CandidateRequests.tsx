@@ -1,17 +1,17 @@
-import { Clock, Hourglass } from 'lucide-react';
+import { Clock, Hourglass, Calendar } from 'lucide-react';
+import { CANDIDATE_OFFERS } from '@/lib/candidateMockData';
+import { shortSeniority, formatOfferDate } from './CandidateOffers';
 
 const MOCK_REQUESTS = [
   {
     id: 'REQ-001',
-    reference: 'LGN-2026-042',
-    dept: 'Private Equity',
+    offerId: 'OFF-C-002',
     submittedAt: '2026-03-10',
     status: 'En cours de qualification',
   },
   {
     id: 'REQ-002',
-    reference: 'LGN-2026-045',
-    dept: 'Droit Social',
+    offerId: 'OFF-C-005',
     submittedAt: '2026-03-12',
     status: 'En attente de retour cabinet',
   },
@@ -31,21 +31,37 @@ const CandidateRequests = () => (
       </div>
     ) : (
       <div className="space-y-4">
-        {MOCK_REQUESTS.map((req) => (
-          <div key={req.id} className="border border-border rounded-lg p-6 flex items-center justify-between">
-            <div>
-              <div className="flex items-center gap-3 mb-1">
-                <span className="font-serif text-lg text-foreground font-medium">{req.dept}</span>
-                <span className="text-[10px] text-muted-foreground tracking-widest uppercase">{req.reference}</span>
+        {MOCK_REQUESTS.map((req) => {
+          const offer = CANDIDATE_OFFERS.find((o) => o.id === req.offerId);
+          return (
+            <div key={req.id} className="border border-border rounded-lg p-6 flex items-center justify-between">
+              <div>
+                {/* Offer preview */}
+                {offer && (
+                  <div className="mb-2">
+                    <div className="flex items-center gap-0 mb-1">
+                      <span className="text-sm font-sans font-medium text-foreground">{shortSeniority(offer.seniority)}</span>
+                      <span className="mx-2.5 w-px h-4 bg-border inline-block" />
+                      <span className="text-sm font-serif font-semibold text-foreground">{offer.dept}</span>
+                      {offer.ranking && (
+                        <>
+                          <span className="mx-2.5 w-px h-4 bg-border inline-block" />
+                          <span className="text-[11px] font-bold text-foreground">{offer.natFlag} {offer.ranking}</span>
+                        </>
+                      )}
+                    </div>
+                    <span className="text-[10px] text-muted-foreground tracking-widest uppercase">{offer.reference}</span>
+                  </div>
+                )}
+                <p className="text-xs text-muted-foreground">Soumise le {new Date(req.submittedAt).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
               </div>
-              <p className="text-xs text-muted-foreground">Soumise le {new Date(req.submittedAt).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
+              <div className="flex items-center gap-2">
+                <Clock className="w-3.5 h-3.5 text-muted-foreground" />
+                <span className="text-[11px] font-medium text-foreground">{req.status}</span>
+              </div>
             </div>
-            <div className="flex items-center gap-2">
-              <Clock className="w-3.5 h-3.5 text-muted-foreground" />
-              <span className="text-[11px] font-medium text-foreground">{req.status}</span>
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     )}
   </div>

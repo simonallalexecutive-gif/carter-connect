@@ -1,11 +1,13 @@
 import { useRegistrationStore } from '@/stores/registrationStore';
 import { usePQE } from '@/hooks/usePQE';
 import { useAuth } from '@/hooks/useAuth';
-import { User, Building2, Star, Mail, Phone, Briefcase } from 'lucide-react';
+import { User, Building2, Star, Mail, Phone, Pencil } from 'lucide-react';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
+import { useNavigate } from 'react-router-dom';
 
 const CandidateProfile = () => {
   const { user } = useAuth();
+  const navigate = useNavigate();
   const {
     photoPreviewUrl, prenom, nom, email, telephone,
     departement, cabinet, sermentMois, sermentAnnee,
@@ -114,9 +116,15 @@ const CandidateProfile = () => {
         </div>
       )}
 
-      <p className="text-[10px] text-muted-foreground text-center">
-        Pour modifier votre profil, contactez votre consultant Logan dédié.
-      </p>
+      <div className="text-center">
+        <button
+          onClick={() => navigate('/inscription')}
+          className="inline-flex items-center gap-2 bg-foreground text-background px-6 py-3 rounded-lg text-sm font-bold hover:bg-foreground/90 transition-colors"
+        >
+          <Pencil className="w-4 h-4" />
+          Modifier mon profil
+        </button>
+      </div>
     </div>
   );
 };
