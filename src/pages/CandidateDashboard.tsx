@@ -163,20 +163,20 @@ const CandidateDashboardContent = () => {
 
       <div className="flex-1 flex flex-col min-h-screen">
         {/* Top bar with sidebar trigger + welcome */}
-        <header className="flex items-center border-b border-border bg-black px-4 py-5 gap-4">
+        <header className="flex items-center border-b border-border bg-black px-6 py-7 gap-5">
           <SidebarTrigger className="text-white/60 hover:text-white" />
-          <div className="flex items-center gap-4 flex-1 min-w-0">
-            <Avatar className="w-9 h-9 border border-white/20 shrink-0">
+          <div className="flex items-center gap-5 flex-1 min-w-0">
+            <Avatar className="w-11 h-11 border border-white/20 shrink-0">
               {photoPreviewUrl ? <AvatarImage src={photoPreviewUrl} alt="Photo" /> : null}
-              <AvatarFallback className="bg-white/10 text-white text-[10px] font-serif">
+              <AvatarFallback className="bg-white/10 text-white text-[11px] font-serif">
                 {prenom && nom ? `${prenom[0]}${nom[0]}` : <User className="w-4 h-4" />}
               </AvatarFallback>
             </Avatar>
             <div className="min-w-0">
-              <h1 className="text-base md:text-lg font-serif font-normal text-white leading-tight tracking-[-0.01em]">
+              <h1 className="text-lg md:text-xl font-serif font-normal text-white leading-tight tracking-[-0.01em]">
                 Bienvenue{prenom ? `, ${prenom}` : user.user_metadata?.full_name ? `, ${user.user_metadata.full_name}` : ''}
               </h1>
-              <div className="flex flex-wrap items-center gap-2 mt-1.5">
+              <div className="flex flex-wrap items-center gap-2 mt-2">
                 {departement && (
                   <span className="inline-flex items-center gap-1 text-[9px] text-white/60 bg-white/10 border border-white/15 rounded-sm px-2 py-0.5">
                     <Star className="w-2.5 h-2.5" />{departement}
@@ -199,6 +199,7 @@ const CandidateDashboardContent = () => {
           {activeTab === 'processus' && <CandidateProcesses />}
           {activeTab === 'demandes' && <CandidateRequests />}
           {activeTab === 'notifications' && <CandidateNotifications />}
+          {activeTab === 'booking' && <CandidateBooking />}
         </main>
 
         {/* Footer info */}
@@ -207,8 +208,6 @@ const CandidateDashboardContent = () => {
             <p className="text-xs text-muted-foreground font-sans">Connecté en tant que {user.email}</p>
           </div>
         </div>
-
-        <Footer />
       </div>
     </>
   );
