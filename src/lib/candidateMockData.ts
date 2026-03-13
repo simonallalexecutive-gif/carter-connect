@@ -14,6 +14,8 @@ export interface CandidateOffer {
   heures?: string;
   tt?: string;
   profilCriteres?: string[];
+  ranking?: string;
+  natFlag?: string;
 }
 
 export const CANDIDATE_OFFERS: CandidateOffer[] = [

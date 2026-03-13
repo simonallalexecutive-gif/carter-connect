@@ -4,6 +4,7 @@ import { PROFILES, DEPT_KEY_MAP, type CabinetProfile } from '@/lib/cabinetConsta
 import { NAT_FLAGS, NAT_LABELS, formatTier, LEGAL500_DEPARTMENTS, getFirmTierForDept } from '@/lib/legal500Rankings';
 import { cn } from '@/lib/utils';
 import { X, Search, Eye, Plus, FileText, Users } from 'lucide-react';
+import ActivityPieChart from '@/components/shared/ActivityPieChart';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 import CabinetStep3Search from './CabinetStep3Search';
