@@ -573,34 +573,87 @@ const ExploreView = ({
               </button>
             </div>
             <div className="p-5">
-              <div className="bg-foreground rounded-md p-4 mb-5">
-                <div className="text-[9px] tracking-[0.12em] uppercase text-white/30 mb-1.5">{drawerProfile.id}</div>
-                <div className="font-serif text-lg font-bold text-white mb-1">{drawerProfile.title}</div>
-                <div className="text-[11px] text-white/45">{drawerProfile.natFlag} {drawerProfile.origin}</div>
+              {/* Anonymous header */}
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-14 h-14 rounded-full bg-secondary flex items-center justify-center text-muted-foreground font-serif text-xl">
+                  ?
+                </div>
+                <div>
+                  <p className="font-serif text-lg text-foreground">{drawerProfile.title}</p>
+                  <span className="text-xs font-sans font-medium px-2.5 py-1 rounded-sm bg-foreground text-background mt-1 inline-block">
+                    {drawerProfile.pqe} PQE · {drawerProfile.seniority}
+                  </span>
+                </div>
               </div>
 
-              <Section title="Parcours">
-                <KV k="Expérience" v={`${drawerProfile.pqe} PQE · ${drawerProfile.seniority}`} />
-                <KV k="Formation" v={drawerProfile.formation} />
-                <KV k="Anglais" v={drawerProfile.english} />
-                <KV k="Disponibilité" v={drawerProfile.disponibilite} />
-              </Section>
+              {/* Info grid */}
+              <div className="grid grid-cols-2 gap-4 mb-6 pb-6 border-b border-border">
+                <div><span className="text-xs text-muted-foreground font-sans font-light">Pratique</span><p className="text-sm font-sans font-medium mt-0.5">{drawerProfile.deptLabel}</p></div>
+                <div><span className="text-xs text-muted-foreground font-sans font-light">Nationalité cabinet</span><p className="text-sm font-sans font-medium mt-0.5">{drawerProfile.natFlag} {drawerProfile.origin}</p></div>
+                <div><span className="text-xs text-muted-foreground font-sans font-light">Classement Legal 500</span><p className="text-sm font-sans font-medium mt-0.5">{drawerProfile.originTier}</p></div>
+                <div><span className="text-xs text-muted-foreground font-sans font-light">Anglais</span><p className="text-sm font-sans font-medium mt-0.5">{drawerProfile.english}</p></div>
+                <div><span className="text-xs text-muted-foreground font-sans font-light">Disponibilité</span><p className="text-sm font-sans font-medium mt-0.5">{drawerProfile.disponibilite}</p></div>
+                {drawerProfile.formation && <div><span className="text-xs text-muted-foreground font-sans font-light">Formation</span><p className="text-sm font-sans font-medium mt-0.5">{drawerProfile.formation}</p></div>}
+              </div>
 
-              <Section title="Expertises">
-                <div className="flex flex-wrap gap-1 mb-3">
-                  {drawerProfile.expertise.map((e) => (
-                    <span key={e} className="text-[9px] font-semibold px-2.5 py-1 rounded-sm bg-secondary text-foreground">{e}</span>
-                  ))}
+              {/* Activity pie chart */}
+              {Object.keys(drawerProfile.split).length > 0 && (
+                <div className="mb-6 pb-6 border-b border-border">
+                  <p className="text-[9px] font-bold tracking-[0.14em] uppercase text-muted-foreground mb-4">Répartition de l'activité</p>
+                  <div className="flex items-start gap-6">
+                    <ActivityPieChart data={drawerProfile.split} size={120} innerRadius={28} outerRadius={52} showLegend={false} />
+                    <div className="flex-1 space-y-2">
+                      {Object.entries(drawerProfile.split).map(([name, value]) => (
+                        <div key={name} className="flex items-center justify-between">
+                          <span className="text-xs font-sans text-foreground">{name}</span>
+                          <span className="text-xs font-sans font-bold text-foreground">{value}%</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 </div>
-              </Section>
+              )}
 
-              <Section title="Motivation">
-                <div className="bg-secondary border-l-[3px] border-foreground p-3 rounded-r text-xs text-foreground leading-relaxed italic">
-                  {drawerProfile.motivation}
+              {/* Expertise tags */}
+              {drawerProfile.expertise.length > 0 && (
+                <div className="mb-6 pb-6 border-b border-border">
+                  <p className="text-[9px] font-bold tracking-[0.14em] uppercase text-muted-foreground mb-3">Expertises</p>
+                  <div className="flex flex-wrap gap-2">
+                    {drawerProfile.expertise.map(e => (
+                      <span key={e} className="px-3 py-1 rounded-sm bg-secondary text-foreground text-xs font-sans font-light border border-border">{e}</span>
+                    ))}
+                  </div>
                 </div>
-              </Section>
+              )}
 
-              <div className="bg-foreground rounded-md p-4 text-center mt-2">
+              {/* Clientele */}
+              {drawerProfile.retro_actuel && (
+                <div className="mb-6 pb-6 border-b border-border">
+                  <p className="text-[9px] font-bold tracking-[0.14em] uppercase text-muted-foreground mb-3">Conditions</p>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div><span className="text-xs text-muted-foreground font-sans font-light">Rétrocession</span><p className="text-sm font-sans font-medium mt-0.5">{drawerProfile.retro_actuel}</p></div>
+                    <div><span className="text-xs text-muted-foreground font-sans font-light">Mobilité</span><p className="text-sm font-sans font-medium mt-0.5">{drawerProfile.mobilite}</p></div>
+                  </div>
+                </div>
+              )}
+
+              {/* Motivation */}
+              {drawerProfile.motivation && (
+                <div className="mb-6 pb-6 border-b border-border">
+                  <p className="text-[9px] font-bold tracking-[0.14em] uppercase text-muted-foreground mb-2">Projet</p>
+                  <p className="text-sm font-sans font-light text-foreground">{drawerProfile.motivation}</p>
+                </div>
+              )}
+
+              {/* Footer */}
+              <div className="mb-4">
+                <p className="text-xs font-sans font-light text-muted-foreground">
+                  Non visible : nom, prénom, email, téléphone, nom du cabinet actuel.
+                </p>
+              </div>
+
+              {/* CTA */}
+              <div className="bg-foreground rounded-md p-4 text-center">
                 <div className="text-sm font-bold text-white mb-1.5">Ce candidat vous intéresse ?</div>
                 <p className="text-[11px] text-white/45 mb-3 leading-relaxed">LOGAN se rapprochera du candidat en dehors de tout mandat pour explorer son intérêt.</p>
                 <button

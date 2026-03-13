@@ -519,7 +519,7 @@ const Step2Identity = () => {
         <div>
           <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Cabinet actuel *</Label>
           <AutocompleteInput
-            data={CABINETS}
+            data={allCabinets}
             value={store.cabinet}
             onChange={handleCabinetSelect}
             placeholder="Rechercher un cabinet..."
@@ -527,48 +527,27 @@ const Step2Identity = () => {
           />
         </div>
 
-        {/* Nationalité / Tier */}
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Nationalité du cabinet</Label>
-            <Select value={store.cabNat} onValueChange={v => store.setField('cabNat', v)}>
-              <SelectTrigger className="mt-2"><SelectValue placeholder="Sélectionner" /></SelectTrigger>
-              <SelectContent>
-                {NATIONALITES.map(n => <SelectItem key={n} value={n}>{n}</SelectItem>)}
-              </SelectContent>
-            </Select>
+        {/* Auto-detected Legal 500 ranking */}
+        {store.cabinet && store.departement && (
+          <div className="carter-card p-5">
+            <p className="carter-label mb-3">Classement Legal 500</p>
+            <div className="flex items-center gap-3 flex-wrap">
+              {store.cabNat && (
+                <span className="text-xs font-sans font-medium px-3 py-1.5 rounded-sm bg-secondary text-foreground border border-border">
+                  {store.cabNat}
+                </span>
+              )}
+              <span className={cn(
+                "text-xs font-sans font-medium px-3 py-1.5 rounded-sm border",
+                store.cabTier && !store.cabTier.includes('Non')
+                  ? "bg-foreground text-background border-foreground"
+                  : "bg-secondary text-muted-foreground border-border"
+              )}>
+                {store.cabTier || 'Non répertorié'} · {store.departement}
+              </span>
+            </div>
           </div>
-          <div>
-            <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Tier Legal 500</Label>
-            <Select value={store.cabTier} onValueChange={v => store.setField('cabTier', v)}>
-              <SelectTrigger className="mt-2"><SelectValue placeholder="Sélectionner" /></SelectTrigger>
-              <SelectContent>
-                {TIERS.map(t => <SelectItem key={t} value={t}>{t}</SelectItem>)}
-              </SelectContent>
-            </Select>
-          </div>
-        </div>
-
-        {/* Taille des opérations */}
-        <div>
-          <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-3 block">Taille des opérations</Label>
-          <ChipSelector
-            options={TAILLE_OPERATIONS}
-            selected={store.tailleOperations}
-            onChange={v => store.setField('tailleOperations', v)}
-          />
-        </div>
-
-        {/* Disponibilité */}
-        <div>
-          <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Disponibilité</Label>
-          <Select value={store.disponibilite} onValueChange={v => store.setField('disponibilite', v)}>
-            <SelectTrigger className="mt-2"><SelectValue placeholder="Sélectionner" /></SelectTrigger>
-            <SelectContent>
-              {DISPONIBILITES.map(d => <SelectItem key={d} value={d}>{d}</SelectItem>)}
-            </SelectContent>
-          </Select>
-        </div>
+        )}
 
         {/* Rémunération */}
         <div className="carter-card p-8 space-y-6">

@@ -328,7 +328,6 @@ const Step6Review = () => {
               <DataRow label="Pratique" value={store.departement} />
               {store.cabNat && <DataRow label="Nationalité" value={store.cabNat} />}
               {store.cabTier && <DataRow label="Tier" value={store.cabTier} />}
-              {store.disponibilite && <DataRow label="Disponibilité" value={store.disponibilite} />}
               {store.tailleOperations.length > 0 && <DataRow label="Taille opérations" value={store.tailleOperations.join(', ')} />}
               {store.anglais && <DataRow label="Anglais" value={store.anglais} />}
               {store.isAssocieOrCounsel && store.chiffreAffairesPortable && <DataRow label="CA portable" value={`${store.chiffreAffairesPortable} €`} />}
