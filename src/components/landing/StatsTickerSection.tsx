@@ -110,7 +110,7 @@ const StatsTickerSection = () => {
           className="mt-8 flex items-center justify-center gap-6 text-[10px] font-sans text-primary-foreground/25 tracking-[0.1em] uppercase"
         >
           <span className="flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-green-500/60 animate-pulse" />
+            <span className="w-1.5 h-1.5 rounded-full bg-primary-foreground/60 animate-pulse" />
             Plateforme active
           </span>
           <span className="hidden md:inline">·</span>
