@@ -161,19 +161,24 @@ const CandidateDashboard = () => {
         </div>
 
         <div className="space-y-5">
+          <AnimatePresence mode="popLayout">
           {CANDIDATE_OFFERS.map((offer, index) => {
             const isInterested = interestedOffers.has(offer.id);
             const isExpanded = expandedOffer === offer.id;
             const hasMultipleExpertises = offer.activitySplit && Object.keys(offer.activitySplit).length >= 2;
             const style = CARD_STYLES[index % 2];
+            const isHidden = expandedOffer !== null && !isExpanded;
+
+            if (isHidden) return null;
 
             return (
               <motion.div
                 key={offer.id}
+                layout
                 initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.08, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                layout
+                exit={{ opacity: 0, y: -12, transition: { duration: 0.25 } }}
+                transition={{ delay: expandedOffer ? 0 : index * 0.08, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
                 className={`${style.bg} rounded-lg overflow-hidden transition-shadow duration-500 hover:shadow-[var(--shadow-elevated)]`}
                 style={{ boxShadow: 'var(--shadow-card)' }}
               >
