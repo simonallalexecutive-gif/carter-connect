@@ -1,4 +1,4 @@
-import { Clock, ArrowRight, Star, Calendar } from 'lucide-react';
+import { Clock, ArrowRight, Calendar } from 'lucide-react';
 import { CANDIDATE_OFFERS } from '@/lib/candidateMockData';
 import { shortSeniority, formatOfferDate } from './CandidateOffers';
 
@@ -26,14 +26,14 @@ const STAGES = ['Intérêt exprimé', 'Qualification Logan', 'Entretien cabinet'
 const CandidateProcesses = () => (
   <div>
     <div className="mb-8">
-      <p className="text-[10px] font-sans font-medium tracking-[0.2em] uppercase text-muted-foreground mb-2">Processus en cours</p>
+      <p className="text-[10px] font-serif font-medium tracking-[0.2em] uppercase text-muted-foreground mb-2">Processus en cours</p>
       <div className="w-8 h-px bg-foreground" />
     </div>
 
     {MOCK_PROCESSES.length === 0 ? (
       <div className="text-center py-16">
         <Clock className="w-8 h-8 text-muted-foreground/30 mx-auto mb-4" />
-        <p className="text-sm text-muted-foreground">Aucun processus en cours pour le moment.</p>
+        <p className="text-sm font-serif text-muted-foreground">Aucun processus en cours pour le moment.</p>
       </div>
     ) : (
       <div className="space-y-4">
@@ -41,24 +41,27 @@ const CandidateProcesses = () => (
           const offer = CANDIDATE_OFFERS.find((o) => o.id === proc.offerId);
           return (
             <div key={proc.id} className="border border-border rounded-lg p-6 hover:shadow-[var(--shadow-elevated)] transition-shadow duration-300">
-              {/* Offer preview header */}
+              {/* Offer preview header — uniform serif */}
               {offer && (
                 <div className="mb-4 pb-4 border-b border-border">
-                  <div className="flex items-center gap-0 mb-1.5">
-                    <span className="text-sm font-sans font-medium text-foreground">{shortSeniority(offer.seniority)}</span>
+                  <div className="flex items-center gap-0 mb-1.5 flex-wrap">
+                    <span className="text-[13px] font-serif tracking-[-0.01em] text-foreground leading-none">{shortSeniority(offer.seniority)}</span>
                     <span className="mx-2.5 w-px h-4 bg-border inline-block" />
-                    <span className="text-sm font-serif font-semibold text-foreground">{offer.dept}</span>
+                    <span className="text-[13px] font-serif tracking-[-0.01em] text-foreground leading-none">{offer.dept}</span>
                     {offer.ranking && (
                       <>
                         <span className="mx-2.5 w-px h-4 bg-border inline-block" />
-                        <span className="text-[11px] font-bold text-foreground">{offer.natFlag} {offer.ranking}</span>
+                        <span className="inline-flex items-center gap-2 text-[12px] font-serif text-foreground">
+                          <span className="text-base leading-none">{offer.natFlag}</span>
+                          <span className="font-semibold">{offer.ranking}</span>
+                        </span>
                       </>
                     )}
                   </div>
-                  <div className="flex items-center gap-4 text-[11px] text-muted-foreground">
-                    <span className="tracking-widest uppercase">{offer.reference}</span>
-                    <span className="flex items-center gap-1.5"><Calendar className="w-3 h-3" />Publiée le {formatOfferDate(offer.postedAt)}</span>
+                  <div className="flex items-center gap-4 text-[11px] text-muted-foreground font-serif">
+                    <span className="flex items-center gap-1.5"><Calendar className="w-3 h-3" />Date de publication : {formatOfferDate(offer.postedAt)}</span>
                   </div>
+                  <div className="mt-2 text-[9px] tracking-[0.15em] uppercase text-muted-foreground font-serif">{offer.reference}</div>
                 </div>
               )}
 
@@ -71,15 +74,15 @@ const CandidateProcesses = () => (
                   </div>
                 ))}
               </div>
-              <div className="flex justify-between text-[9px] text-muted-foreground mb-4">
+              <div className="flex justify-between text-[9px] text-muted-foreground font-serif mb-4">
                 {STAGES.map((stage, i) => (
                   <span key={stage} className={`${i <= proc.stageIndex ? 'text-foreground font-medium' : ''}`}>{stage}</span>
                 ))}
               </div>
 
               <div className="flex items-center justify-between">
-                <p className="text-sm text-muted-foreground leading-relaxed">{proc.note}</p>
-                <span className="text-[10px] text-muted-foreground shrink-0 ml-4">{new Date(proc.lastUpdate).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' })}</span>
+                <p className="text-[13px] font-serif text-muted-foreground leading-relaxed">{proc.note}</p>
+                <span className="text-[10px] text-muted-foreground font-serif shrink-0 ml-4">{new Date(proc.lastUpdate).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' })}</span>
               </div>
             </div>
           );
