@@ -101,7 +101,7 @@ const CandidateDashboard = () => {
             <button
               key={tab.key}
               onClick={() => setActiveTab(tab.key)}
-              className={`flex items-center gap-1.5 px-3 py-2.5 text-[11px] font-medium whitespace-nowrap transition-colors rounded-sm ${
+              className={`flex items-center gap-1.5 px-2.5 py-2 text-[10px] font-medium whitespace-nowrap transition-colors rounded-sm ${
                 activeTab === tab.key
                   ? 'text-foreground bg-secondary'
                   : 'text-muted-foreground'

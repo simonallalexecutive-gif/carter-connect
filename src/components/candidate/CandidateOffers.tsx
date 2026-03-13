@@ -7,11 +7,6 @@ import ActivityPieChart from '@/components/shared/ActivityPieChart';
 import { useRegistrationStore } from '@/stores/registrationStore';
 import { usePQE } from '@/hooks/usePQE';
 
-const CARD_STYLES = [
-  { bg: 'bg-foreground', text: 'text-background', muted: 'text-background/50', border: 'border-background/10', tagBg: 'bg-background/10', tagText: 'text-background/70', btnBg: 'bg-background text-foreground hover:bg-background/90', btnDone: 'bg-background/20 text-background/60', divider: 'bg-background/20' },
-  { bg: 'bg-background', text: 'text-foreground', muted: 'text-muted-foreground', border: 'border-border', tagBg: 'bg-secondary', tagText: 'text-foreground/70', btnBg: 'bg-foreground text-background hover:bg-foreground/90', btnDone: 'bg-secondary text-muted-foreground', divider: 'bg-border' },
-] as const;
-
 export const formatOfferDate = (dateStr: string) =>
   new Date(dateStr).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
 
@@ -74,7 +69,6 @@ const CandidateOffers = () => {
             const isInterested = interestedOffers.has(offer.id);
             const isExpanded = expandedOffer === offer.id;
             const hasMultipleExpertises = offer.activitySplit && Object.keys(offer.activitySplit).length >= 2;
-            const style = CARD_STYLES[index % 2];
             const isHidden = expandedOffer !== null && !isExpanded;
             if (isHidden) return null;
 
@@ -86,53 +80,53 @@ const CandidateOffers = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -12, transition: { duration: 0.25 } }}
                 transition={{ delay: expandedOffer ? 0 : index * 0.08, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                className={`${style.bg} rounded-lg overflow-hidden transition-shadow duration-500 hover:shadow-[var(--shadow-elevated)]`}
-                style={{ boxShadow: 'var(--shadow-card)' }}
+                className="rounded-lg overflow-hidden transition-shadow duration-500 hover:shadow-[var(--shadow-elevated)]"
+                style={{ background: 'hsl(220 40% 13%)', boxShadow: 'var(--shadow-card)' }}
               >
                 <button type="button" className="w-full text-left p-6 md:p-8" onClick={() => setExpandedOffer(isExpanded ? null : offer.id)}>
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex-1 min-w-0">
-                      {/* Headline: seniority | dept | ranking badge */}
+                      {/* Headline: seniority | dept | ranking badge — 20% larger */}
                       <div className="flex items-center gap-0 mb-3 flex-wrap">
-                        <span className={`text-[13px] font-serif tracking-[-0.01em] ${style.text} leading-none`}>{shortSeniority(offer.seniority)}</span>
-                        <span className={`mx-2.5 w-px h-4 ${style.divider} inline-block`} />
-                        <span className={`text-[13px] font-serif tracking-[-0.01em] ${style.text} leading-none`}>{offer.dept}</span>
+                        <span className="text-[16px] font-serif tracking-[-0.01em] text-white leading-none">{shortSeniority(offer.seniority)}</span>
+                        <span className="mx-2.5 w-px h-5 bg-white/20 inline-block" />
+                        <span className="text-[16px] font-serif tracking-[-0.01em] text-white leading-none">{offer.dept}</span>
                         {offer.ranking && (
                           <>
-                            <span className={`mx-2.5 w-px h-4 ${style.divider} inline-block`} />
-                            <span className={`inline-flex items-center gap-2 text-[12px] font-serif ${style.text}`}>
-                              <span className="text-base leading-none">{offer.natFlag}</span>
+                            <span className="mx-2.5 w-px h-5 bg-white/20 inline-block" />
+                            <span className="inline-flex items-center gap-2 text-[14px] font-serif text-white">
+                              <span className="text-lg leading-none">{offer.natFlag}</span>
                               <span className="font-semibold">{offer.ranking}</span>
                             </span>
                           </>
                         )}
                         {isInterested && (
-                          <span className={`ml-3 inline-flex items-center gap-1 text-[10px] ${style.muted} font-serif`}>
+                          <span className="ml-3 inline-flex items-center gap-1 text-[10px] text-white/50 font-serif">
                             <CheckCircle2 className="w-3.5 h-3.5" />Intérêt transmis
                           </span>
                         )}
-                      </div>
-
-                      {/* Date */}
-                      <div className={`flex items-center gap-1.5 text-[11px] ${style.muted} font-serif mb-3`}>
-                        <Calendar className="w-3 h-3" />
-                        <span>Date de publication : {formatOfferDate(offer.postedAt)}</span>
                       </div>
 
                       {/* Tags */}
                       {!isExpanded && offer.tags.length > 0 && (
                         <div className="flex flex-wrap gap-1.5 mt-1">
                           {offer.tags.slice(0, 4).map((tag) => (
-                            <span key={tag} className={`text-[10px] px-2.5 py-1 rounded-full border ${style.border} ${style.tagText} font-serif`}>{tag}</span>
+                            <span key={tag} className="text-[10px] px-2.5 py-1 rounded-full border border-white/10 text-white/60 font-serif">{tag}</span>
                           ))}
                         </div>
                       )}
 
-                      {/* Offer ID bottom-left */}
-                      <div className={`mt-4 text-[9px] tracking-[0.15em] uppercase ${style.muted} font-serif`}>{offer.reference}</div>
+                      {/* Footer: date bottom-left, reference bottom-right */}
+                      <div className="flex items-center justify-between mt-4">
+                        <div className="flex items-center gap-1.5 text-[11px] text-white/50 font-serif">
+                          <Calendar className="w-3 h-3" />
+                          <span>Date de publication : {formatOfferDate(offer.postedAt)}</span>
+                        </div>
+                        <div className="text-[9px] tracking-[0.15em] uppercase text-white/40 font-serif">{offer.reference}</div>
+                      </div>
                     </div>
-                    <div className={`w-10 h-10 rounded-full flex items-center justify-center ${style.tagBg} shrink-0 mt-1`}>
-                      <ChevronDown className={`w-5 h-5 ${style.muted} transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`} />
+                    <div className="w-10 h-10 rounded-full flex items-center justify-center bg-white/10 shrink-0 mt-1">
+                      <ChevronDown className={`w-5 h-5 text-white/50 transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`} />
                     </div>
                   </div>
                 </button>
