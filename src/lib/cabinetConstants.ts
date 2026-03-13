@@ -313,12 +313,6 @@ export const CONF_OPTIONS = [
     badge: '',
     desc: 'Le candidat voit la nationalité de votre cabinet et son ranking Legal 500, sans connaître son nom. Il peut manifester son intérêt.',
   },
-  {
-    key: 'ouverte',
-    title: 'Ouverte',
-    badge: 'Visibilité max',
-    desc: 'Votre recherche est visible avec le nom de votre cabinet. Les candidats peuvent manifester leur intérêt directement.',
-  },
 ];
 
 export const SUBSCRIPTION_ADVANTAGES = [

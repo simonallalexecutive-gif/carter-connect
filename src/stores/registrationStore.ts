@@ -59,7 +59,7 @@ const initialState = {
   processusCours: '',
   // Step 5
   statutEcoute: '' as '' | 'actif' | 'passif' | 'inactif',
-  visibilite: '' as '' | 'confidentiel' | 'partiel',
+  visibilite: '' as '' | 'confidentiel' | 'semi-confidentiel',
   cvFile: null as File | null,
   consentement: false,
   consentementExactitude: false,

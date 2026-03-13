@@ -57,7 +57,7 @@ const Step5Status = () => {
           <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-4 block">Niveau de visibilité</Label>
           <RadioGroup
             value={store.visibilite}
-            onValueChange={v => store.setField('visibilite', v as 'confidentiel' | 'partiel')}
+            onValueChange={v => store.setField('visibilite', v as 'confidentiel' | 'semi-confidentiel')}
             className="space-y-3"
           >
             <label className="flex items-start gap-3 p-5 rounded-sm border border-border hover:border-accent/30 transition-colors duration-300 cursor-pointer bg-card">
@@ -68,9 +68,9 @@ const Step5Status = () => {
               </div>
             </label>
             <label className="flex items-start gap-3 p-5 rounded-sm border border-border hover:border-accent/30 transition-colors duration-300 cursor-pointer bg-card">
-              <RadioGroupItem value="partiel" className="mt-0.5" />
+              <RadioGroupItem value="semi-confidentiel" className="mt-0.5" />
               <div>
-                <span className="font-sans font-medium text-sm">Partiel (anonymisé)</span>
+                <span className="font-sans font-medium text-sm">Semi-confidentiel</span>
                 <p className="text-xs text-muted-foreground font-sans font-light mt-1">Profil anonymisé visible par les cabinets partenaires. Ni votre nom, ni votre cabinet ne seront communiqués.</p>
               </div>
             </label>

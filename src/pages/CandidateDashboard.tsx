@@ -38,34 +38,40 @@ const CandidateDashboard = () => {
     return null;
   };
 
-  const filteredOffers = CANDIDATE_OFFERS.filter((offer) => {
-    // Seniority filter: candidate PQE must fall within offer range
-    if (seniorityInfo) {
-      const range = parsePQERange(offer.seniority);
-      if (range) {
-        const [min, max] = range;
-        // Allow ±2 years tolerance for flexibility
-        if (seniorityInfo.years < min - 2 || seniorityInfo.years > max + 2) return false;
-      }
-    }
-
-    // Expertise filter: offer dept or activitySplit keys must overlap with candidate's active expertises
+  const filteredOffers = (() => {
     const candidateExpertises = Object.entries(activites)
       .filter(([, active]) => active)
       .map(([name]) => name.toLowerCase());
 
-    if (candidateExpertises.length > 0) {
-      const offerExpertises = new Set<string>();
-      offerExpertises.add(offer.dept.toLowerCase());
-      if (offer.activitySplit) {
-        Object.keys(offer.activitySplit).forEach((k) => offerExpertises.add(k.toLowerCase()));
-      }
-      const hasOverlap = candidateExpertises.some((e) => offerExpertises.has(e));
-      if (!hasOverlap) return false;
-    }
+    const hasProfile = seniorityInfo || candidateExpertises.length > 0;
 
-    return true;
-  });
+    // If no profile data, show all offers
+    if (!hasProfile) return CANDIDATE_OFFERS;
+
+    const matched = CANDIDATE_OFFERS.filter((offer) => {
+      if (seniorityInfo) {
+        const range = parsePQERange(offer.seniority);
+        if (range) {
+          const [min, max] = range;
+          if (seniorityInfo.years < min - 2 || seniorityInfo.years > max + 2) return false;
+        }
+      }
+
+      if (candidateExpertises.length > 0) {
+        const offerExpertises = new Set<string>();
+        offerExpertises.add(offer.dept.toLowerCase());
+        if (offer.activitySplit) {
+          Object.keys(offer.activitySplit).forEach((k) => offerExpertises.add(k.toLowerCase()));
+        }
+        if (!candidateExpertises.some((e) => offerExpertises.has(e))) return false;
+      }
+
+      return true;
+    });
+
+    // Fallback: if filters are too restrictive, show all
+    return matched.length > 0 ? matched : CANDIDATE_OFFERS;
+  })();
 
   useEffect(() => {
     if (!loading && !user) {
