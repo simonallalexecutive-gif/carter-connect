@@ -4,7 +4,7 @@ import { useAuth } from '@/hooks/useAuth';
 import Footer from '@/components/layout/Footer';
 import { CANDIDATE_OFFERS, type CandidateOffer } from '@/lib/candidateMockData';
 import { MapPin, Calendar, CheckCircle2, ChevronDown, Building2, Star, User } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'motion/react';
 import { toast } from 'sonner';
 import ActivityPieChart from '@/components/shared/ActivityPieChart';
 import { useRegistrationStore } from '@/stores/registrationStore';

@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ArrowRight, LogIn, Eye, EyeOff } from 'lucide-react';
@@ -45,7 +45,7 @@ const CabinetStep1Hero = () => {
     if (!loginEmail || !loginPassword) return;
     setSubmitting(true);
     try {
-      const { error } = await supabase.auth.signInWithPassword({
+      const { error } = await (supabase.auth as any).signInWithPassword({
         email: loginEmail,
         password: loginPassword,
       });

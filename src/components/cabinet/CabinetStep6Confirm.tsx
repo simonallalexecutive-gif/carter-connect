@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { useCabinetStore } from '@/stores/cabinetStore';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
@@ -16,7 +16,7 @@ const CabinetStep6Confirm = () => {
       if (registered || registering || !s.email || !s.password) return;
       setRegistering(true);
       try {
-        const { error } = await supabase.auth.signUp({
+        const { error } = await (supabase.auth as any).signUp({
           email: s.email,
           password: s.password,
           options: {

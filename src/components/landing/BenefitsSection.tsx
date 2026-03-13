@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { User, Building2, Eye, Bell, Handshake } from 'lucide-react';

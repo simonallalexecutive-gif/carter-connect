@@ -32,12 +32,12 @@ const AuthPage = () => {
 
     try {
       if (isLogin) {
-        const { error } = await supabase.auth.signInWithPassword({ email, password });
+        const { error } = await (supabase.auth as any).signInWithPassword({ email, password });
         if (error) throw error;
         toast.success('Connexion réussie');
         navigate('/espace-candidat');
       } else {
-        const { error } = await supabase.auth.signUp({
+        const { error } = await (supabase.auth as any).signUp({
           email,
           password,
           options: {
