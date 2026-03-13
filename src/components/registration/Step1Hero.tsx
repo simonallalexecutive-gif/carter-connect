@@ -27,7 +27,7 @@ const Step1Hero = () => {
     if (!code || !password) return;
     setSubmitting(true);
     try {
-      const { error } = await supabase.auth.signInWithPassword({
+      const { error } = await (supabase.auth as any).signInWithPassword({
         email: code,
         password,
       });

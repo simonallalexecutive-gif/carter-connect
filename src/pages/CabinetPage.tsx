@@ -33,7 +33,7 @@ const CabinetPage = () => {
 
   // Listen for auth state changes (login/signup)
   useEffect(() => {
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+    const { data: { subscription } } = (supabase.auth as any).onAuthStateChange((event: any, session: any) => {
       if (event === 'SIGNED_IN' && session?.user) {
         const name = session.user.user_metadata?.full_name || '';
         if (name) setField('cabinetName', name);

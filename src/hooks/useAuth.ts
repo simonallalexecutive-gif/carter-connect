@@ -26,7 +26,7 @@ export const useAuth = () => {
   }, []);
 
   const signOut = async () => {
-    await supabase.auth.signOut();
+    await (supabase.auth as any).signOut();
   };
 
   return { user, session, loading, signOut };
