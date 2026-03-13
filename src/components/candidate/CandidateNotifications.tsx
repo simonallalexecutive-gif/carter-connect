@@ -114,48 +114,48 @@ const CandidateNotifications = () => {
 
                 {/* Expanded offer preview — navy bg */}
                 {isExpanded && offer && (
-                  <div className="border-t border-white/10 p-5 rounded-b-lg" style={{ background: 'hsl(220 40% 13%)' }}>
+                  <div className="border-t border-border p-5 rounded-b-lg" style={{ background: 'hsl(0 0% 96%)' }}>
                     <div className="mb-4">
                       <div className="flex items-center gap-0 mb-1.5 flex-wrap">
-                        <span className="text-[16px] font-serif tracking-[-0.01em] text-white leading-none">{shortSeniority(offer.seniority)}</span>
-                        <span className="mx-2.5 w-px h-5 bg-white/20 inline-block" />
-                        <span className="text-[16px] font-serif tracking-[-0.01em] text-white leading-none">{offer.dept}</span>
+                        <span className="text-[16px] font-serif tracking-[-0.01em] text-foreground leading-none">{shortSeniority(offer.seniority)}</span>
+                        <span className="mx-2.5 w-px h-5 bg-border inline-block" />
+                        <span className="text-[16px] font-serif tracking-[-0.01em] text-foreground leading-none">{offer.dept}</span>
                         {offer.ranking && (
                           <>
-                            <span className="mx-2.5 w-px h-5 bg-white/20 inline-block" />
-                            <span className="inline-flex items-center gap-2 text-[14px] font-serif text-white">
+                            <span className="mx-2.5 w-px h-5 bg-border inline-block" />
+                            <span className="inline-flex items-center gap-2 text-[14px] font-serif text-foreground">
                               <span className="text-lg leading-none">{offer.natFlag}</span>
                               <span className="font-semibold">{offer.ranking}</span>
                             </span>
                           </>
                         )}
                       </div>
-                      <p className="text-[12px] font-serif text-white/60 leading-relaxed mt-3">{offer.description}</p>
+                      <p className="text-[12px] font-serif text-muted-foreground leading-relaxed mt-3">{offer.description}</p>
                       {offer.tags.length > 0 && (
                         <div className="flex flex-wrap gap-1.5 mt-3">
                           {offer.tags.map((tag) => (
-                            <span key={tag} className="text-[10px] font-serif px-2.5 py-1 rounded-full border border-white/10 text-white/60">{tag}</span>
+                            <span key={tag} className="text-[10px] font-serif px-2.5 py-1 rounded-full border border-border text-muted-foreground">{tag}</span>
                           ))}
                         </div>
                       )}
                       <div className="flex items-center justify-between mt-4">
-                        <div className="flex items-center gap-1.5 text-[11px] text-white/50 font-serif">
+                        <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground font-serif">
                           <Calendar className="w-3 h-3" />
                           <span>Date de publication : {formatOfferDate(offer.postedAt)}</span>
                         </div>
-                        <div className="text-[9px] tracking-[0.15em] uppercase text-white/40 font-serif">{offer.reference}</div>
+                        <div className="text-[9px] tracking-[0.15em] uppercase text-muted-foreground/60 font-serif">{offer.reference}</div>
                       </div>
                     </div>
 
                     {isConfirmed ? (
-                      <div className="flex items-center gap-2 text-[13px] font-serif text-white/60 bg-white/10 rounded-lg px-4 py-3">
+                      <div className="flex items-center gap-2 text-[13px] font-serif text-muted-foreground bg-secondary rounded-lg px-4 py-3">
                         <CheckCircle2 className="w-4 h-4" />
                         Demande d'échange transmise à votre consultant Logan.
                       </div>
                     ) : (
                       <button
                         onClick={() => handleConfirmExchange(notif.id)}
-                        className="w-full flex items-center justify-center gap-2 bg-white text-black py-3 rounded-lg text-[13px] font-serif font-semibold hover:bg-white/90 transition-colors"
+                        className="w-full flex items-center justify-center gap-2 bg-foreground text-background py-3 rounded-lg text-[13px] font-serif font-semibold hover:bg-foreground/90 transition-colors"
                       >
                         <MessageCircle className="w-4 h-4" />
                         Échanger avec un consultant sur cette opportunité

@@ -134,7 +134,7 @@ const CandidateOffers = () => {
                 <AnimatePresence>
                   {isExpanded && (
                     <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }} className="overflow-hidden">
-                      <div className="bg-background border-t border-border">
+                      <div className="border-t border-border" style={{ background: 'hsl(0 0% 96%)' }}>
                         <div className="p-6 md:p-8">
                           <div className="mb-6 pb-5 border-b border-border">
                             <div className="text-[8px] tracking-[0.16em] uppercase text-muted-foreground font-serif mb-2">Opportunité · Présentée par LOGAN</div>
