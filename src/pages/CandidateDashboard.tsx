@@ -128,13 +128,18 @@ const CandidateDashboard = () => {
                   className="w-full text-left p-5 md:p-6"
                   onClick={() => setExpandedOffer(isExpanded ? null : offer.id)}
                 >
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="flex-1 min-w-0">
+                    <div className="flex items-start justify-between gap-4">
+                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-3 mb-2">
                         <span className="font-serif text-lg text-foreground">{offer.dept}</span>
                         <span className="text-[10px] text-muted-foreground font-sans tracking-wider uppercase bg-secondary px-2 py-0.5 rounded-sm">
                           {offer.reference}
                         </span>
+                        {offer.ranking && (
+                          <span className="text-[10px] font-bold text-foreground font-sans bg-secondary px-2 py-0.5 rounded-sm">
+                            {offer.natFlag} {offer.ranking}
+                          </span>
+                        )}
                         {isInterested && (
                           <span className="flex items-center gap-1 text-[10px] text-muted-foreground font-sans">
                             <CheckCircle2 className="w-3 h-3" />
