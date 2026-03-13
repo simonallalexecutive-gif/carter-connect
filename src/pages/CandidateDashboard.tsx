@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import Footer from '@/components/layout/Footer';
 import { CANDIDATE_OFFERS, type CandidateOffer } from '@/lib/candidateMockData';
-import { MapPin, Calendar, Briefcase, CheckCircle2, ArrowRight } from 'lucide-react';
+import { MapPin, Calendar, CheckCircle2, ChevronDown, Building2, Star } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from 'sonner';
 import ActivityPieChart from '@/components/shared/ActivityPieChart';
@@ -12,6 +12,12 @@ const fadeUp = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] as const } },
 };
+
+/* Alternating visual styles for cards */
+const CARD_STYLES = [
+  { bg: 'bg-foreground', text: 'text-background', muted: 'text-background/50', border: 'border-background/10', tagBg: 'bg-background/10', tagText: 'text-background/70', btnBg: 'bg-background text-foreground hover:bg-background/90', btnDone: 'bg-background/20 text-background/60' },
+  { bg: 'bg-background', text: 'text-foreground', muted: 'text-muted-foreground', border: 'border-border', tagBg: 'bg-secondary', tagText: 'text-foreground/70', btnBg: 'bg-foreground text-background hover:bg-foreground/90', btnDone: 'bg-secondary text-muted-foreground' },
+] as const;
 
 const CandidateDashboard = () => {
   const { user, loading, signOut } = useAuth();
@@ -102,69 +108,100 @@ const CandidateDashboard = () => {
       </div>
 
       {/* Offers */}
-      <main className="flex-1 py-10 px-6 sm:px-8 lg:px-10 max-w-5xl mx-auto w-full">
-        <div className="mb-8">
-          <p className="text-[10px] font-sans font-medium tracking-[0.2em] uppercase text-muted-foreground mb-3">Opportunités disponibles</p>
-          <div className="w-8 h-px bg-border" />
+      <main className="flex-1 py-12 px-6 sm:px-8 lg:px-10 max-w-5xl mx-auto w-full">
+        <div className="mb-10 flex items-end justify-between">
+          <div>
+            <p className="text-[10px] font-sans font-medium tracking-[0.2em] uppercase text-muted-foreground mb-2">Opportunités disponibles</p>
+            <div className="w-8 h-px bg-foreground" />
+          </div>
+          <span className="text-xs text-muted-foreground font-sans">{CANDIDATE_OFFERS.length} offre{CANDIDATE_OFFERS.length > 1 ? 's' : ''}</span>
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-5">
           {CANDIDATE_OFFERS.map((offer, index) => {
             const isInterested = interestedOffers.has(offer.id);
             const isExpanded = expandedOffer === offer.id;
             const hasMultipleExpertises = offer.activitySplit && Object.keys(offer.activitySplit).length >= 2;
-            const isEven = index % 2 === 0;
+            const style = CARD_STYLES[index % 2];
 
             return (
               <motion.div
                 key={offer.id}
-                initial={{ opacity: 0, y: 16 }}
+                initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.06, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                transition={{ delay: index * 0.08, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
                 layout
-                className={`border border-border rounded-sm hover:border-foreground/20 transition-colors duration-300 group ${isEven ? 'bg-secondary' : 'bg-card'}`}
+                className={`${style.bg} rounded-lg overflow-hidden transition-shadow duration-500 hover:shadow-[var(--shadow-elevated)]`}
+                style={{ boxShadow: 'var(--shadow-card)' }}
               >
                 <button
                   type="button"
-                  className="w-full text-left p-5 md:p-6"
+                  className="w-full text-left p-6 md:p-8"
                   onClick={() => setExpandedOffer(isExpanded ? null : offer.id)}
                 >
-                    <div className="flex items-start justify-between gap-4">
-                     <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-3 mb-2">
-                        <span className="font-serif text-lg text-foreground">{offer.dept}</span>
-                        <span className="text-[10px] text-muted-foreground font-sans tracking-wider uppercase bg-secondary px-2 py-0.5 rounded-sm">
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="flex-1 min-w-0">
+                      {/* Top row: department + badges */}
+                      <div className="flex items-center gap-3 mb-3 flex-wrap">
+                        <span className={`font-serif text-2xl md:text-3xl font-medium ${style.text} leading-none`}>
+                          {offer.dept}
+                        </span>
+                        <span className={`text-[10px] ${style.muted} font-sans tracking-widest uppercase ${style.tagBg} px-2.5 py-1 rounded`}>
                           {offer.reference}
                         </span>
                         {offer.ranking && (
-                          <span className="text-[10px] font-bold text-foreground font-sans bg-secondary px-2 py-0.5 rounded-sm">
+                          <span className={`inline-flex items-center gap-1 text-[10px] font-bold ${style.text} font-sans ${style.tagBg} px-2.5 py-1 rounded`}>
+                            <Star className="w-3 h-3" />
                             {offer.natFlag} {offer.ranking}
                           </span>
                         )}
                         {isInterested && (
-                          <span className="flex items-center gap-1 text-[10px] text-muted-foreground font-sans">
-                            <CheckCircle2 className="w-3 h-3" />
+                          <span className={`inline-flex items-center gap-1 text-[10px] ${style.muted} font-sans`}>
+                            <CheckCircle2 className="w-3.5 h-3.5" />
                             Intérêt transmis
                           </span>
                         )}
                       </div>
-                      <p className="text-sm text-muted-foreground font-sans mb-2">
+
+                      {/* Seniority */}
+                      <p className={`text-sm ${style.muted} font-sans mb-3 flex items-center gap-2`}>
+                        <Building2 className="w-3.5 h-3.5" />
                         {offer.seniority}
                       </p>
-                      <div className="flex items-center gap-4 text-xs text-muted-foreground font-sans">
-                        <span className="flex items-center gap-1">
-                          <MapPin className="w-3 h-3" />
+
+                      {/* Meta row */}
+                      <div className={`flex items-center gap-5 text-xs ${style.muted} font-sans`}>
+                        <span className="flex items-center gap-1.5">
+                          <MapPin className="w-3.5 h-3.5" />
                           {offer.location}
                         </span>
-                        <span className="flex items-center gap-1">
-                          <Calendar className="w-3 h-3" />
+                        <span className="flex items-center gap-1.5">
+                          <Calendar className="w-3.5 h-3.5" />
                           {formatDate(offer.postedAt)}
                         </span>
                       </div>
+
+                      {/* Tags preview (collapsed) */}
+                      {!isExpanded && offer.tags.length > 0 && (
+                        <div className="flex flex-wrap gap-1.5 mt-4">
+                          {offer.tags.slice(0, 4).map((tag) => (
+                            <span key={tag} className={`text-[10px] px-2.5 py-1 rounded-full border ${style.border} ${style.tagText}`}>
+                              {tag}
+                            </span>
+                          ))}
+                          {offer.tags.length > 4 && (
+                            <span className={`text-[10px] ${style.muted}`}>+{offer.tags.length - 4}</span>
+                          )}
+                        </div>
+                      )}
                     </div>
-                    <ArrowRight
-                      className={`w-4 h-4 text-muted-foreground transition-transform duration-300 mt-1 ${isExpanded ? 'rotate-90' : 'group-hover:translate-x-0.5'}`}
-                    />
+
+                    {/* Expand chevron */}
+                    <div className={`w-10 h-10 rounded-full flex items-center justify-center ${style.tagBg} shrink-0 mt-1`}>
+                      <ChevronDown
+                        className={`w-5 h-5 ${style.muted} transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`}
+                      />
+                    </div>
                   </div>
                 </button>
 
@@ -174,31 +211,31 @@ const CandidateDashboard = () => {
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: 'auto', opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                      transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                       className="overflow-hidden"
                     >
-                      <div className="border-t border-border">
-                        {/* White/beige detailed card */}
-                        <div className="bg-background rounded-b-sm overflow-hidden p-5 md:p-6">
+                      {/* Expanded detail — always light bg for readability */}
+                      <div className="bg-background border-t border-border">
+                        <div className="p-6 md:p-8">
                           {/* Header */}
-                          <div className="mb-5 pb-5 border-b border-border">
+                          <div className="mb-6 pb-5 border-b border-border">
                             <div className="text-[8px] tracking-[0.16em] uppercase text-muted-foreground mb-2">Opportunité · Présentée par LOGAN</div>
-                            <div className="font-serif text-lg font-bold text-foreground mb-1">
+                            <div className="font-serif text-xl font-bold text-foreground mb-1">
                               {offer.dept} — {offer.seniority}
                             </div>
                             <div className="text-[11px] text-muted-foreground">
                               {offer.natFlag} Cabinet anonyme · {offer.ranking || 'Non classé'} · Identité protégée
                             </div>
-                            <div className="flex flex-wrap gap-1.5 mt-3 pt-3 border-t border-border">
+                            <div className="flex flex-wrap gap-1.5 mt-4">
                               {offer.tags.map((tag) => (
-                                <span key={tag} className="text-[10px] px-2.5 py-1 rounded-full border border-border text-muted-foreground">{tag}</span>
+                                <span key={tag} className="text-[10px] px-3 py-1.5 rounded-full bg-secondary text-foreground/70 font-medium">{tag}</span>
                               ))}
                             </div>
                           </div>
 
                           {/* Activity pie chart */}
                           {hasMultipleExpertises && offer.activitySplit && (
-                            <div className="mb-5 pb-5 border-b border-border">
+                            <div className="mb-6 pb-5 border-b border-border">
                               <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-muted-foreground mb-4">Répartition de l'activité</div>
                               <div className="flex items-start gap-6">
                                 <ActivityPieChart data={offer.activitySplit} size={120} innerRadius={28} outerRadius={52} showLegend={false} />
@@ -217,14 +254,14 @@ const CandidateDashboard = () => {
                           )}
 
                           {/* Description */}
-                          <div className="mb-5 pb-5 border-b border-border">
+                          <div className="mb-6 pb-5 border-b border-border">
                             <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-muted-foreground mb-3">Description du poste</div>
-                            <p className="text-[11px] text-muted-foreground leading-relaxed">{offer.description}</p>
+                            <p className="text-sm text-muted-foreground leading-relaxed">{offer.description}</p>
                           </div>
 
                           {/* Context & team */}
                           {(offer.contexte || offer.equipe) && (
-                            <div className="mb-5 pb-5 border-b border-border">
+                            <div className="mb-6 pb-5 border-b border-border">
                               <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-muted-foreground mb-3">Contexte & équipe</div>
                               <div className="grid grid-cols-2 gap-4">
                                 {offer.contexte && (
@@ -245,7 +282,7 @@ const CandidateDashboard = () => {
 
                           {/* Profil idéal */}
                           {offer.profilCriteres && offer.profilCriteres.length > 0 && (
-                            <div className="mb-5 pb-5 border-b border-border">
+                            <div className="mb-6 pb-5 border-b border-border">
                               <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-muted-foreground mb-3">Profil idéal</div>
                               <div className="flex flex-wrap gap-1.5">
                                 {offer.profilCriteres.map((c) => (
@@ -257,20 +294,20 @@ const CandidateDashboard = () => {
 
                           {/* Conditions */}
                           {(offer.retroStr || offer.heures || offer.tt) && (
-                            <div className="mb-5 pb-5 border-b border-border">
+                            <div className="mb-6 pb-5 border-b border-border">
                               <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-muted-foreground mb-3">Rémunération & conditions</div>
-                              <div className="grid grid-cols-3 gap-4">
-                                <div className="bg-secondary rounded-lg p-3">
-                                  <div className="text-[8px] uppercase tracking-[0.1em] text-muted-foreground mb-1.5">Rétrocession</div>
-                                  <div className="font-serif text-sm font-bold text-foreground">{offer.retroStr || 'Confidentiel'}</div>
+                              <div className="grid grid-cols-3 gap-3">
+                                <div className="bg-secondary rounded-lg p-4 text-center">
+                                  <div className="text-[8px] uppercase tracking-[0.1em] text-muted-foreground mb-2">Rétrocession</div>
+                                  <div className="font-serif text-base font-bold text-foreground">{offer.retroStr || 'Confidentiel'}</div>
                                 </div>
-                                <div className="bg-secondary rounded-lg p-3">
-                                  <div className="text-[8px] uppercase tracking-[0.1em] text-muted-foreground mb-1.5">Heures / an</div>
-                                  <div className="font-serif text-sm font-bold text-foreground">{offer.heures || 'Non communiqué'}</div>
+                                <div className="bg-secondary rounded-lg p-4 text-center">
+                                  <div className="text-[8px] uppercase tracking-[0.1em] text-muted-foreground mb-2">Heures / an</div>
+                                  <div className="font-serif text-base font-bold text-foreground">{offer.heures || 'Non communiqué'}</div>
                                 </div>
-                                <div className="bg-secondary rounded-lg p-3">
-                                  <div className="text-[8px] uppercase tracking-[0.1em] text-muted-foreground mb-1.5">Télétravail</div>
-                                  <div className="font-serif text-sm font-bold text-foreground">{offer.tt || '—'}</div>
+                                <div className="bg-secondary rounded-lg p-4 text-center">
+                                  <div className="text-[8px] uppercase tracking-[0.1em] text-muted-foreground mb-2">Télétravail</div>
+                                  <div className="font-serif text-base font-bold text-foreground">{offer.tt || '—'}</div>
                                 </div>
                               </div>
                             </div>
@@ -278,7 +315,7 @@ const CandidateDashboard = () => {
 
                           {/* CTA */}
                           <div className="text-center pt-2">
-                            <p className="text-[10px] text-muted-foreground mb-3 leading-relaxed">
+                            <p className="text-[10px] text-muted-foreground mb-4 leading-relaxed">
                               LOGAN qualifie l'opportunité des deux côtés avant toute mise en relation. Votre identité reste confidentielle jusqu'à accord mutuel.
                             </p>
                             <button
@@ -287,7 +324,7 @@ const CandidateDashboard = () => {
                                 handleInterest(offer);
                               }}
                               disabled={isInterested}
-                              className={`w-full py-3 font-bold text-sm rounded transition-all duration-300 ${
+                              className={`w-full py-3.5 font-bold text-sm rounded-lg transition-all duration-300 ${
                                 isInterested
                                   ? 'bg-secondary text-muted-foreground cursor-default'
                                   : 'bg-foreground text-background hover:bg-foreground/90'
