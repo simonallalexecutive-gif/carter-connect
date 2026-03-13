@@ -198,7 +198,7 @@ const CandidateDashboard = () => {
 
         <div className="space-y-5">
           <AnimatePresence mode="popLayout">
-          {CANDIDATE_OFFERS.map((offer, index) => {
+          {filteredOffers.map((offer, index) => {
             const isInterested = interestedOffers.has(offer.id);
             const isExpanded = expandedOffer === offer.id;
             const hasMultipleExpertises = offer.activitySplit && Object.keys(offer.activitySplit).length >= 2;
