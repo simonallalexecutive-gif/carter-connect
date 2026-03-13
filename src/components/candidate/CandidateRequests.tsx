@@ -20,7 +20,7 @@ const MOCK_REQUESTS = [
 const CandidateRequests = () => (
   <div>
     <div className="mb-8">
-      <p className="text-[10px] font-serif font-medium tracking-[0.2em] uppercase text-muted-foreground mb-2">Demandes en attente</p>
+      <p className="text-[10px] font-sans font-medium tracking-[0.2em] uppercase text-muted-foreground mb-2">Demandes en attente</p>
       <div className="w-8 h-px bg-foreground" />
     </div>
 

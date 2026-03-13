@@ -163,7 +163,7 @@ const CandidateDashboardContent = () => {
 
       <div className="flex-1 flex flex-col min-h-screen">
         {/* Top bar with sidebar trigger + welcome */}
-        <header className="flex items-center border-b border-border bg-black px-4 py-4 gap-4">
+        <header className="flex items-center border-b border-border bg-black px-4 py-5 gap-4">
           <SidebarTrigger className="text-white/60 hover:text-white" />
           <div className="flex items-center gap-4 flex-1 min-w-0">
             <Avatar className="w-9 h-9 border border-white/20 shrink-0">
@@ -176,10 +176,7 @@ const CandidateDashboardContent = () => {
               <h1 className="text-base md:text-lg font-serif font-normal text-white leading-tight tracking-[-0.01em]">
                 Bienvenue{prenom ? `, ${prenom}` : user.user_metadata?.full_name ? `, ${user.user_metadata.full_name}` : ''}
               </h1>
-              <div className="flex flex-wrap items-center gap-2 mt-1">
-                <span className="text-[9px] font-semibold text-black bg-white rounded-sm px-2 py-0.5 uppercase tracking-wide">
-                  {seniorityInfo?.label || 'Senior'}
-                </span>
+              <div className="flex flex-wrap items-center gap-2 mt-1.5">
                 {departement && (
                   <span className="inline-flex items-center gap-1 text-[9px] text-white/60 bg-white/10 border border-white/15 rounded-sm px-2 py-0.5">
                     <Star className="w-2.5 h-2.5" />{departement}
