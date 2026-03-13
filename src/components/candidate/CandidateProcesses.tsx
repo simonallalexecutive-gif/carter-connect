@@ -26,7 +26,7 @@ const STAGES = ['Intérêt exprimé', 'Qualification Logan', 'Entretien cabinet'
 const CandidateProcesses = () => (
   <div>
     <div className="mb-8">
-      <p className="text-[10px] font-serif font-medium tracking-[0.2em] uppercase text-muted-foreground mb-2">Processus en cours</p>
+      <p className="text-[10px] font-sans font-medium tracking-[0.2em] uppercase text-muted-foreground mb-2">Processus en cours</p>
       <div className="w-8 h-px bg-foreground" />
     </div>
 
