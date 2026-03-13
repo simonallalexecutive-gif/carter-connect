@@ -6,7 +6,19 @@ import { motion } from 'motion/react';
 import { useRegistrationStore } from '@/stores/registrationStore';
 import { usePQE } from '@/hooks/usePQE';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
-import { User, Building2, Star, Briefcase, FileText, Clock, Bell, Send } from 'lucide-react';
+import { User, Building2, Star, Briefcase, FileText, Clock, Bell, Send, LogOut, Home, ChevronLeft } from 'lucide-react';
+import {
+  SidebarProvider,
+  Sidebar,
+  SidebarContent,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarMenu,
+  SidebarMenuItem,
+  SidebarMenuButton,
+  SidebarTrigger,
+  useSidebar,
+} from '@/components/ui/sidebar';
 
 import CandidateOffers from '@/components/candidate/CandidateOffers';
 import CandidateProfile from '@/components/candidate/CandidateProfile';
@@ -29,7 +41,108 @@ const TABS: { key: TabKey; label: string; icon: typeof Briefcase }[] = [
   { key: 'profil', label: 'Profil', icon: FileText },
 ];
 
-const CandidateDashboard = () => {
+const CandidateSidebar = ({
+  activeTab,
+  setActiveTab,
+  notifCount,
+}: {
+  activeTab: TabKey;
+  setActiveTab: (tab: TabKey) => void;
+  notifCount: number;
+}) => {
+  const { state } = useSidebar();
+  const collapsed = state === 'collapsed';
+  const { signOut } = useAuth();
+  const { photoPreviewUrl, prenom, nom } = useRegistrationStore();
+
+  return (
+    <Sidebar collapsible="icon" className="border-r border-border bg-black">
+      <SidebarContent className="bg-black text-white py-6 flex flex-col justify-between h-full">
+        <div>
+          {/* Logo */}
+          <div className={`px-4 mb-8 ${collapsed ? 'text-center' : ''}`}>
+            <Link to="/" className="font-serif text-xl tracking-[-0.02em] text-white hover:text-white/80 transition-colors">
+              {collapsed ? 'L' : 'Logan'}
+            </Link>
+            {!collapsed && (
+              <p className="text-[9px] text-white/40 tracking-[0.12em] uppercase font-sans mt-1">Espace Candidat</p>
+            )}
+          </div>
+
+          {/* Avatar */}
+          {!collapsed && (
+            <div className="px-4 mb-8">
+              <div className="flex items-center gap-3">
+                <Avatar className="w-9 h-9 border border-white/20">
+                  {photoPreviewUrl ? <AvatarImage src={photoPreviewUrl} alt="Photo" /> : null}
+                  <AvatarFallback className="bg-white/10 text-white text-[10px] font-serif">
+                    {prenom && nom ? `${prenom[0]}${nom[0]}` : <User className="w-4 h-4" />}
+                  </AvatarFallback>
+                </Avatar>
+                <div className="min-w-0">
+                  <p className="text-[12px] font-serif text-white truncate">{prenom && nom ? `${prenom} ${nom}` : 'Candidat'}</p>
+                  <p className="text-[9px] text-white/40 font-sans">Connecté</p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Nav items */}
+          <SidebarGroup>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                {TABS.map((tab) => (
+                  <SidebarMenuItem key={tab.key}>
+                    <SidebarMenuButton
+                      onClick={() => setActiveTab(tab.key)}
+                      isActive={activeTab === tab.key}
+                      tooltip={tab.label}
+                      className={`font-sans text-[11px] tracking-wide transition-all duration-200 rounded-md mx-1 ${
+                        activeTab === tab.key
+                          ? 'bg-white/15 text-white font-medium'
+                          : 'text-white/50 hover:text-white hover:bg-white/5'
+                      }`}
+                    >
+                      <tab.icon className="w-4 h-4" />
+                      {!collapsed && <span>{tab.label}</span>}
+                      {tab.key === 'notifications' && notifCount > 0 && (
+                        <span className={`${collapsed ? '' : 'ml-auto'} w-5 h-5 rounded-full bg-white text-black text-[9px] font-bold flex items-center justify-center`}>
+                          {notifCount}
+                        </span>
+                      )}
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                ))}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        </div>
+
+        {/* Bottom actions */}
+        <div className="px-2 space-y-1">
+          <SidebarMenu>
+            <SidebarMenuItem>
+              <SidebarMenuButton asChild tooltip="Accueil" className="text-white/40 hover:text-white hover:bg-white/5 font-sans text-[11px] rounded-md mx-1">
+                <Link to="/">
+                  <Home className="w-4 h-4" />
+                  {!collapsed && <span>Accueil</span>}
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+            <SidebarMenuItem>
+              <SidebarMenuButton onClick={signOut} tooltip="Déconnexion" className="text-white/40 hover:text-white hover:bg-white/5 font-sans text-[11px] rounded-md mx-1">
+                <LogOut className="w-4 h-4" />
+                {!collapsed && <span>Déconnexion</span>}
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          </SidebarMenu>
+        </div>
+      </SidebarContent>
+    </Sidebar>
+  );
+};
+
+const CandidateDashboardContent = () => {
   const { user, loading, signOut } = useAuth();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<TabKey>('offres');
@@ -42,144 +155,94 @@ const CandidateDashboard = () => {
 
   if (loading || !user) return null;
 
-  const notifCount = 2; // mock unread count
+  const notifCount = 2;
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
-      {/* Header */}
-      <header className="w-full bg-black">
-        <div className="px-6 sm:px-8 lg:px-10 flex items-center justify-between h-16">
-          <div className="flex items-center">
-            <Link to="/" className="font-serif text-xl tracking-[-0.02em] text-white hover:text-white/80 transition-colors duration-300">
-              Logan
-            </Link>
-            <span className="w-px h-4 bg-white/20 mx-3" />
-            <span className="text-[10px] text-white/40 tracking-[0.12em] uppercase font-sans font-light">Espace Candidat</span>
+    <>
+      <CandidateSidebar activeTab={activeTab} setActiveTab={setActiveTab} notifCount={notifCount} />
+
+      <div className="flex-1 flex flex-col min-h-screen">
+        {/* Top bar with sidebar trigger */}
+        <header className="h-12 flex items-center border-b border-border bg-background px-4">
+          <SidebarTrigger className="text-muted-foreground hover:text-foreground" />
+          <span className="ml-3 text-[10px] font-sans tracking-[0.12em] uppercase text-muted-foreground">
+            {TABS.find((t) => t.key === activeTab)?.label}
+          </span>
+        </header>
+
+        {/* Compact hero */}
+        <section className="bg-black py-8 relative overflow-hidden">
+          <div className="absolute inset-0 overflow-hidden">
+            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[400px] h-[200px] rounded-full opacity-[0.05]" style={{ background: 'radial-gradient(circle, hsl(0 0% 50%), transparent 70%)' }} />
           </div>
-
-          {/* Tab navigation — desktop */}
-           <nav className="hidden md:flex items-center gap-3">
-            {TABS.map((tab) => (
-              <button
-                key={tab.key}
-                onClick={() => setActiveTab(tab.key)}
-                className={`relative px-4 py-1.5 text-[10px] font-sans font-medium tracking-wide transition-colors duration-200 rounded-sm ${
-                  activeTab === tab.key
-                    ? 'text-white bg-white/10'
-                    : 'text-white/50 hover:text-white/80'
-                }`}
-              >
-                <span className="flex items-center gap-1.5">
-                  <tab.icon className="w-3.5 h-3.5" />
-                  {tab.label}
-                  {tab.key === 'notifications' && notifCount > 0 && (
-                    <span className="w-4 h-4 rounded-full bg-white text-black text-[9px] font-bold flex items-center justify-center">{notifCount}</span>
-                  )}
-                </span>
-              </button>
-            ))}
-          </nav>
-
-          <div className="flex items-center gap-4">
-            <Link to="/" className="font-sans text-[12px] font-light text-white/50 hover:text-white transition-colors duration-300 hidden sm:block">
-              Accueil
-            </Link>
-            <button
-              onClick={signOut}
-              className="font-sans text-[12px] font-light text-white/70 hover:text-white border border-white/20 hover:border-white/40 rounded-sm px-3 py-1.5 transition-colors duration-300"
-            >
-              Déconnexion
-            </button>
-          </div>
-        </div>
-      </header>
-
-      {/* Mobile tab bar */}
-      <div className="md:hidden border-b border-border bg-background sticky top-0 z-20">
-        <div className="flex overflow-x-auto px-4 gap-0.5 py-1">
-          {TABS.map((tab) => (
-            <button
-              key={tab.key}
-              onClick={() => setActiveTab(tab.key)}
-              className={`flex items-center gap-1.5 px-2.5 py-2 text-[10px] font-medium whitespace-nowrap transition-colors rounded-sm ${
-                activeTab === tab.key
-                  ? 'text-foreground bg-secondary'
-                  : 'text-muted-foreground'
-              }`}
-            >
-              <tab.icon className="w-3.5 h-3.5" />
-              {tab.label}
-              {tab.key === 'notifications' && notifCount > 0 && (
-                <span className="w-4 h-4 rounded-full bg-foreground text-background text-[9px] font-bold flex items-center justify-center">{notifCount}</span>
-              )}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Compact hero */}
-      <section className="bg-black py-10 relative overflow-hidden">
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[400px] h-[200px] rounded-full opacity-[0.05]" style={{ background: 'radial-gradient(circle, hsl(0 0% 50%), transparent 70%)' }} />
-        </div>
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          variants={{ visible: { transition: { staggerChildren: 0.1 } } }}
-          className="px-6 sm:px-8 lg:px-10 max-w-5xl mx-auto relative z-10"
-        >
-          <div className="flex items-center gap-5">
-            <motion.div variants={fadeUp}>
-              <Avatar className="w-14 h-14 border-2 border-white/20">
-                {photoPreviewUrl ? <AvatarImage src={photoPreviewUrl} alt="Photo" /> : null}
-                <AvatarFallback className="bg-white/10 text-white text-sm font-serif">
-                  {prenom && nom ? `${prenom[0]}${nom[0]}` : <User className="w-6 h-6" />}
-                </AvatarFallback>
-              </Avatar>
-            </motion.div>
-            <div className="min-w-0">
-              <motion.h1 variants={fadeUp} className="text-2xl md:text-3xl font-serif font-normal text-white leading-tight tracking-[-0.01em]">
-                Bienvenue{prenom ? `, ${prenom}` : user.user_metadata?.full_name ? `, ${user.user_metadata.full_name}` : ''}
-              </motion.h1>
-              <motion.div variants={fadeUp} className="flex flex-wrap items-center gap-2 mt-2">
-                <span className="text-[10px] font-semibold text-black bg-white rounded-sm px-2.5 py-1 uppercase tracking-wide">
-                  {seniorityInfo?.label || 'Senior'}
-                </span>
-                {departement && (
-                  <span className="inline-flex items-center gap-1 text-[10px] text-white/60 bg-white/10 border border-white/15 rounded-sm px-2.5 py-1">
-                    <Star className="w-3 h-3" />{departement}
-                  </span>
-                )}
-                {cabinet && (
-                  <span className="inline-flex items-center gap-1 text-[10px] text-white/60 bg-white/10 border border-white/15 rounded-sm px-2.5 py-1">
-                    <Building2 className="w-3 h-3" />{cabinet}
-                  </span>
-                )}
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={{ visible: { transition: { staggerChildren: 0.1 } } }}
+            className="px-6 sm:px-8 lg:px-10 max-w-5xl mx-auto relative z-10"
+          >
+            <div className="flex items-center gap-5">
+              <motion.div variants={fadeUp}>
+                <Avatar className="w-12 h-12 border-2 border-white/20">
+                  {photoPreviewUrl ? <AvatarImage src={photoPreviewUrl} alt="Photo" /> : null}
+                  <AvatarFallback className="bg-white/10 text-white text-sm font-serif">
+                    {prenom && nom ? `${prenom[0]}${nom[0]}` : <User className="w-5 h-5" />}
+                  </AvatarFallback>
+                </Avatar>
               </motion.div>
+              <div className="min-w-0">
+                <motion.h1 variants={fadeUp} className="text-xl md:text-2xl font-serif font-normal text-white leading-tight tracking-[-0.01em]">
+                  Bienvenue{prenom ? `, ${prenom}` : user.user_metadata?.full_name ? `, ${user.user_metadata.full_name}` : ''}
+                </motion.h1>
+                <motion.div variants={fadeUp} className="flex flex-wrap items-center gap-2 mt-2">
+                  <span className="text-[10px] font-semibold text-black bg-white rounded-sm px-2.5 py-1 uppercase tracking-wide">
+                    {seniorityInfo?.label || 'Senior'}
+                  </span>
+                  {departement && (
+                    <span className="inline-flex items-center gap-1 text-[10px] text-white/60 bg-white/10 border border-white/15 rounded-sm px-2.5 py-1">
+                      <Star className="w-3 h-3" />{departement}
+                    </span>
+                  )}
+                  {cabinet && (
+                    <span className="inline-flex items-center gap-1 text-[10px] text-white/60 bg-white/10 border border-white/15 rounded-sm px-2.5 py-1">
+                      <Building2 className="w-3 h-3" />{cabinet}
+                    </span>
+                  )}
+                </motion.div>
+              </div>
             </div>
+          </motion.div>
+        </section>
+
+        {/* Content */}
+        <main className="flex-1 py-10 px-6 sm:px-8 lg:px-10 max-w-5xl mx-auto w-full">
+          {activeTab === 'offres' && <CandidateOffers />}
+          {activeTab === 'profil' && <CandidateProfile />}
+          {activeTab === 'processus' && <CandidateProcesses />}
+          {activeTab === 'demandes' && <CandidateRequests />}
+          {activeTab === 'notifications' && <CandidateNotifications />}
+        </main>
+
+        {/* Footer info */}
+        <div className="max-w-5xl mx-auto w-full px-6 sm:px-8 lg:px-10 pb-8">
+          <div className="pt-6 border-t border-border flex justify-between items-center">
+            <p className="text-xs text-muted-foreground font-sans">Connecté en tant que {user.email}</p>
           </div>
-        </motion.div>
-      </section>
-
-      {/* Content */}
-      <main className="flex-1 py-10 px-6 sm:px-8 lg:px-10 max-w-5xl mx-auto w-full">
-        {activeTab === 'offres' && <CandidateOffers />}
-        {activeTab === 'profil' && <CandidateProfile />}
-        {activeTab === 'processus' && <CandidateProcesses />}
-        {activeTab === 'demandes' && <CandidateRequests />}
-        {activeTab === 'notifications' && <CandidateNotifications />}
-      </main>
-
-      {/* Footer info */}
-      <div className="max-w-5xl mx-auto w-full px-6 sm:px-8 lg:px-10 pb-8">
-        <div className="pt-6 border-t border-border flex justify-between items-center">
-          <p className="text-xs text-muted-foreground font-sans">Connecté en tant que {user.email}</p>
-          <button onClick={signOut} className="text-xs text-muted-foreground hover:text-foreground font-sans underline transition-colors">Déconnexion</button>
         </div>
-      </div>
 
-      <Footer />
-    </div>
+        <Footer />
+      </div>
+    </>
+  );
+};
+
+const CandidateDashboard = () => {
+  return (
+    <SidebarProvider>
+      <div className="min-h-screen flex w-full">
+        <CandidateDashboardContent />
+      </div>
+    </SidebarProvider>
   );
 };
 
