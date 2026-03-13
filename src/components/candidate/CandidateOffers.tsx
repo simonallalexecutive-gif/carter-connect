@@ -143,19 +143,22 @@ const CandidateOffers = () => {
                       <div className="bg-background border-t border-border">
                         <div className="p-6 md:p-8">
                           <div className="mb-6 pb-5 border-b border-border">
-                            <div className="text-[8px] tracking-[0.16em] uppercase text-muted-foreground mb-2">Opportunité · Présentée par LOGAN</div>
-                            <div className="flex items-center gap-0 mb-1">
-                              <span className="font-sans text-base font-medium text-foreground">{shortSeniority(offer.seniority)}</span>
+                            <div className="text-[8px] tracking-[0.16em] uppercase text-muted-foreground font-serif mb-2">Opportunité · Présentée par LOGAN</div>
+                            <div className="flex items-center gap-0 mb-1 flex-wrap">
+                              <span className="font-serif text-[15px] tracking-[-0.01em] text-foreground">{shortSeniority(offer.seniority)}</span>
                               <span className="mx-2 w-px h-4 bg-border inline-block" />
-                              <span className="font-serif text-base font-bold text-foreground">{offer.dept}</span>
+                              <span className="font-serif text-[15px] tracking-[-0.01em] text-foreground">{offer.dept}</span>
                               {offer.ranking && (
                                 <>
                                   <span className="mx-2 w-px h-4 bg-border inline-block" />
-                                  <span className="text-[11px] font-bold text-foreground">{offer.natFlag} {offer.ranking}</span>
+                                  <span className="inline-flex items-center gap-2 text-[13px] font-serif text-foreground">
+                                    <span className="text-lg leading-none">{offer.natFlag}</span>
+                                    <span className="font-semibold">{offer.ranking}</span>
+                                  </span>
                                 </>
                               )}
                             </div>
-                            <div className="text-[11px] text-muted-foreground">Cabinet anonyme · Identité protégée</div>
+                            <div className="text-[11px] font-serif text-muted-foreground">Cabinet anonyme · Identité protégée</div>
                             <div className="flex flex-wrap gap-1.5 mt-4">
                               {offer.tags.map((tag) => (
                                 <span key={tag} className="text-[10px] px-3 py-1.5 rounded-full bg-secondary text-foreground/70 font-medium">{tag}</span>
