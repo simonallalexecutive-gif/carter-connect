@@ -193,7 +193,7 @@ const CandidateDashboard = () => {
             <p className="text-[10px] font-sans font-medium tracking-[0.2em] uppercase text-muted-foreground mb-2">Opportunités disponibles</p>
             <div className="w-8 h-px bg-foreground" />
           </div>
-          <span className="text-xs text-muted-foreground font-sans">{CANDIDATE_OFFERS.length} offre{CANDIDATE_OFFERS.length > 1 ? 's' : ''}</span>
+          <span className="text-xs text-muted-foreground font-sans">{filteredOffers.length} offre{filteredOffers.length > 1 ? 's' : ''}</span>
         </div>
 
         <div className="space-y-5">
