@@ -109,7 +109,6 @@ const Step6Review = () => {
             </div>
             <div className="grid grid-cols-2 gap-4">
               {pqe && <div><span className="text-xs text-muted-foreground font-sans font-light">Séniorité</span><div className="mt-1"><SeniorityBadge info={pqe} /></div></div>}
-              {store.disponibilite && <DataRow label="Disponibilité" value={store.disponibilite} />}
               {store.linkedinUrl && <DataRow label="LinkedIn" value={store.linkedinUrl} />}
             </div>
           </SectionCard>
