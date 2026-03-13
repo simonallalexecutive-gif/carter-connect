@@ -194,7 +194,7 @@ const Step2Identity = () => {
       className="max-w-2xl mx-auto px-6 py-10"
     >
       <div className="carter-divider mb-6" />
-      <h2 className="text-3xl font-serif text-foreground mb-2 font-normal tracking-[-0.02em]">Votre identité</h2>
+      <h2 className="text-3xl font-serif text-foreground mb-2 font-normal tracking-[-0.02em]">Votre profil</h2>
       <p className="text-muted-foreground font-sans text-sm font-light mb-10">Ces informations restent strictement confidentielles.</p>
 
       <div className="space-y-8">
