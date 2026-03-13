@@ -14,13 +14,29 @@ import SeniorityBadge from '@/components/shared/SeniorityBadge';
 import FileDropzone from '@/components/shared/FileDropzone';
 import ChipSelector from '@/components/shared/ChipSelector';
 import { usePQE } from '@/hooks/usePQE';
-import { CABINETS, DEPARTEMENTS, NATIONALITES, TIERS, MOIS, TAILLE_OPERATIONS, DISPONIBILITES, RAISONS_BAISSE_RETRO, ASSOC_ATTENTES, ASSOC_CAB_TYPES } from '@/lib/constants';
+import { CABINETS, DEPARTEMENTS, MOIS, RAISONS_BAISSE_RETRO, ASSOC_ATTENTES, ASSOC_CAB_TYPES, LEGAL500_BY_PRACTICE } from '@/lib/constants';
 import { formatNumberWithDots, formatPhoneWithDots } from '@/lib/formatters';
+import { LEGAL500_DB, NAT_LABELS as L500_NAT_LABELS, formatTier, getAllFirmNames } from '@/lib/legal500Rankings';
 import { Camera, X, ArrowLeft, ArrowRight, Linkedin, Eye, EyeOff, Check, AlertCircle, Loader2 } from 'lucide-react';
-import { useRef, useState, useMemo, useCallback } from 'react';
+import { useRef, useState, useMemo, useCallback, useEffect } from 'react';
+import { cn } from '@/lib/utils';
 
 const currentYear = new Date().getFullYear();
 const YEARS = Array.from({ length: currentYear - 1980 + 1 }, (_, i) => currentYear - i);
+
+const DEPT_TO_L500: Record<string, string> = {
+  "Arbitrage / Contentieux": "contentieux",
+  "Banque & Finance": "banque",
+  "Concurrence": "regulatory",
+  "Droit Public": "public",
+  "Droit Social": "social",
+  "Fiscal": "fiscal",
+  "Immobilier": "immo",
+  "IP / Tech": "vc",
+  "M&A / Private Equity": "ma",
+  "Marchés de Capitaux": "finproj",
+  "Restructuring": "restructuring",
+};
 
 const Step2Identity = () => {
   const store = useRegistrationStore();
@@ -47,19 +63,65 @@ const Step2Identity = () => {
   const isPasswordValid = Object.values(passwordRules).every(Boolean);
   const passwordsMatch = store.password === store.passwordConfirm && store.passwordConfirm.length > 0;
 
+  const allCabinets = useMemo(() => {
+    const set = new Set([...CABINETS, ...getAllFirmNames()]);
+    return [...set].sort((a, b) => a.localeCompare(b));
+  }, []);
+
   const canProceed = store.prenom.length >= 2 && store.nom.length >= 2 &&
-    store.email.includes('@') && store.sermentMois && store.sermentAnnee &&
-    store.cabinet.length >= 2 && store.departement.length >= 2 &&
+    store.email.includes('@') && store.telephone.length >= 10 &&
+    store.sermentMois && store.sermentAnnee &&
+    store.departement.length >= 2 && store.cabinet.length >= 2 &&
+    store.retrocession.length >= 1 &&
     isPasswordValid && passwordsMatch;
+
+  const autoDetectRanking = (cabinetName: string, dept: string) => {
+    const practiceData = LEGAL500_BY_PRACTICE[dept];
+    if (practiceData?.[cabinetName]) {
+      store.setField('cabNat', practiceData[cabinetName].nat);
+      store.setField('cabTier', practiceData[cabinetName].band);
+      return;
+    }
+    let firmEntry = LEGAL500_DB[cabinetName];
+    if (!firmEntry) {
+      const match = Object.keys(LEGAL500_DB).find(k =>
+        k.toLowerCase().startsWith(cabinetName.toLowerCase()) ||
+        cabinetName.toLowerCase().startsWith(k.split(' ').slice(0, 3).join(' ').toLowerCase())
+      );
+      if (match) firmEntry = LEGAL500_DB[match];
+    }
+    if (firmEntry) {
+      store.setField('cabNat', L500_NAT_LABELS[firmEntry.nat] || firmEntry.nat);
+      const deptKey = DEPT_TO_L500[dept];
+      if (deptKey && firmEntry.rankings[deptKey] !== undefined) {
+        store.setField('cabTier', formatTier(firmEntry.rankings[deptKey]));
+      } else {
+        store.setField('cabTier', 'Non répertorié');
+      }
+      return;
+    }
+    store.setField('cabNat', '');
+    store.setField('cabTier', 'Non répertorié');
+  };
 
   const handleCabinetSelect = (v: string | string[]) => {
     const cabinetName = typeof v === 'string' ? v : v[0];
     store.setField('cabinet', cabinetName as string);
+    if (store.departement) autoDetectRanking(cabinetName as string, store.departement);
   };
 
   const handleDepartmentChange = (dept: string) => {
     store.setField('departement', dept);
+    if (store.cabinet) autoDetectRanking(store.cabinet, dept);
   };
+
+  // Reset counsel/associé when PQE drops below 6
+  useEffect(() => {
+    if (pqe && pqe.years <= 6 && store.isAssocieOrCounsel) {
+      store.setField('isAssocieOrCounsel', false);
+      store.setField('statutAssoc', '');
+    }
+  }, [pqe?.years]);
 
   const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -133,7 +195,7 @@ const Step2Identity = () => {
       className="max-w-2xl mx-auto px-6 py-10"
     >
       <div className="carter-divider mb-6" />
-      <h2 className="text-3xl font-serif text-foreground mb-2 font-normal tracking-[-0.02em]">Votre identité</h2>
+      <h2 className="text-3xl font-serif text-foreground mb-2 font-normal tracking-[-0.02em]">Votre profil</h2>
       <p className="text-muted-foreground font-sans text-sm font-light mb-10">Ces informations restent strictement confidentielles.</p>
 
       <div className="space-y-8">
@@ -202,7 +264,7 @@ const Step2Identity = () => {
             <Input type="email" value={store.email} onChange={e => store.setField('email', e.target.value)} placeholder="jean@cabinet.com" className="mt-2" />
           </div>
           <div>
-            <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Téléphone</Label>
+            <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Téléphone *</Label>
             <Input value={store.telephone} onChange={e => store.setField('telephone', formatPhoneWithDots(e.target.value))} placeholder="06.50.10.20.30" className="mt-2" />
           </div>
         </div>
@@ -301,8 +363,8 @@ const Step2Identity = () => {
           {pqe && <div className="mt-3"><SeniorityBadge info={pqe} /></div>}
         </div>
 
-        {/* Statut Counsel / Associé — toujours visible après serment */}
-        {hasSerment && (
+        {/* Statut Counsel / Associé — visible si PQE > 6 ans */}
+        {hasSerment && pqe && pqe.years > 6 && (
           <div className="carter-card p-6 space-y-5">
             <div>
               <Label className="font-sans text-sm font-medium block mb-3">Avez-vous le statut de Counsel ou d'Associé ?</Label>
@@ -458,7 +520,7 @@ const Step2Identity = () => {
         <div>
           <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Cabinet actuel *</Label>
           <AutocompleteInput
-            data={CABINETS}
+            data={allCabinets}
             value={store.cabinet}
             onChange={handleCabinetSelect}
             placeholder="Rechercher un cabinet..."
@@ -466,48 +528,27 @@ const Step2Identity = () => {
           />
         </div>
 
-        {/* Nationalité / Tier */}
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Nationalité du cabinet</Label>
-            <Select value={store.cabNat} onValueChange={v => store.setField('cabNat', v)}>
-              <SelectTrigger className="mt-2"><SelectValue placeholder="Sélectionner" /></SelectTrigger>
-              <SelectContent>
-                {NATIONALITES.map(n => <SelectItem key={n} value={n}>{n}</SelectItem>)}
-              </SelectContent>
-            </Select>
+        {/* Auto-detected Legal 500 ranking */}
+        {store.cabinet && store.departement && (
+          <div className="carter-card p-5">
+            <p className="carter-label mb-3">Classement Legal 500</p>
+            <div className="flex items-center gap-3 flex-wrap">
+              {store.cabNat && (
+                <span className="text-xs font-sans font-medium px-3 py-1.5 rounded-sm bg-secondary text-foreground border border-border">
+                  {store.cabNat}
+                </span>
+              )}
+              <span className={cn(
+                "text-xs font-sans font-medium px-3 py-1.5 rounded-sm border",
+                store.cabTier && !store.cabTier.includes('Non')
+                  ? "bg-foreground text-background border-foreground"
+                  : "bg-secondary text-muted-foreground border-border"
+              )}>
+                {store.cabTier || 'Non répertorié'} · {store.departement}
+              </span>
+            </div>
           </div>
-          <div>
-            <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Tier Legal 500</Label>
-            <Select value={store.cabTier} onValueChange={v => store.setField('cabTier', v)}>
-              <SelectTrigger className="mt-2"><SelectValue placeholder="Sélectionner" /></SelectTrigger>
-              <SelectContent>
-                {TIERS.map(t => <SelectItem key={t} value={t}>{t}</SelectItem>)}
-              </SelectContent>
-            </Select>
-          </div>
-        </div>
-
-        {/* Taille des opérations */}
-        <div>
-          <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-3 block">Taille des opérations</Label>
-          <ChipSelector
-            options={TAILLE_OPERATIONS}
-            selected={store.tailleOperations}
-            onChange={v => store.setField('tailleOperations', v)}
-          />
-        </div>
-
-        {/* Disponibilité */}
-        <div>
-          <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Disponibilité</Label>
-          <Select value={store.disponibilite} onValueChange={v => store.setField('disponibilite', v)}>
-            <SelectTrigger className="mt-2"><SelectValue placeholder="Sélectionner" /></SelectTrigger>
-            <SelectContent>
-              {DISPONIBILITES.map(d => <SelectItem key={d} value={d}>{d}</SelectItem>)}
-            </SelectContent>
-          </Select>
-        </div>
+        )}
 
         {/* Rémunération */}
         <div className="carter-card p-8 space-y-6">

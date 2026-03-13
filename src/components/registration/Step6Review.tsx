@@ -109,7 +109,6 @@ const Step6Review = () => {
             </div>
             <div className="grid grid-cols-2 gap-4">
               {pqe && <div><span className="text-xs text-muted-foreground font-sans font-light">Séniorité</span><div className="mt-1"><SeniorityBadge info={pqe} /></div></div>}
-              {store.disponibilite && <DataRow label="Disponibilité" value={store.disponibilite} />}
               {store.linkedinUrl && <DataRow label="LinkedIn" value={store.linkedinUrl} />}
             </div>
           </SectionCard>
@@ -222,7 +221,6 @@ const Step6Review = () => {
               <DataRow label="Nationalité cabinet" value={store.cabNat || '—'} />
               <DataRow label="Classement Legal 500" value={store.cabTier || '—'} />
               {store.retrocession && <DataRow label="Rétrocession" value={`${store.retrocession} €`} />}
-              {store.disponibilite && <DataRow label="Disponibilité" value={store.disponibilite} />}
               {store.tailleOperations.length > 0 && <DataRow label="Taille opérations" value={store.tailleOperations.join(', ')} />}
               {store.anglais && <DataRow label="Anglais" value={store.anglais} />}
               {store.conserverRetrocession !== null && <DataRow label="Flexibilité rétrocession" value={store.conserverRetrocession ? 'Souhaite maintenir' : 'Ouvert à discussion'} />}
@@ -330,7 +328,6 @@ const Step6Review = () => {
               <DataRow label="Pratique" value={store.departement} />
               {store.cabNat && <DataRow label="Nationalité" value={store.cabNat} />}
               {store.cabTier && <DataRow label="Tier" value={store.cabTier} />}
-              {store.disponibilite && <DataRow label="Disponibilité" value={store.disponibilite} />}
               {store.tailleOperations.length > 0 && <DataRow label="Taille opérations" value={store.tailleOperations.join(', ')} />}
               {store.anglais && <DataRow label="Anglais" value={store.anglais} />}
               {store.isAssocieOrCounsel && store.chiffreAffairesPortable && <DataRow label="CA portable" value={`${store.chiffreAffairesPortable} €`} />}
