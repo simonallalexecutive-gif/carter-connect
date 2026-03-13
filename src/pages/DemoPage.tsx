@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'motion/react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, ArrowLeft, Play, Shield, Eye, EyeOff, Users, Search, Handshake, Building2, UserCheck, Bell, BarChart3, Clock, CheckCircle2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';

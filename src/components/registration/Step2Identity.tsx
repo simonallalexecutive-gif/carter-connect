@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { supabase } from '@/integrations/supabase/client';
 import { useRegistrationStore } from '@/stores/registrationStore';
 import { Button } from '@/components/ui/button';

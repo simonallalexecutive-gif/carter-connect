@@ -45,7 +45,7 @@ const CabinetStep1Hero = () => {
     if (!loginEmail || !loginPassword) return;
     setSubmitting(true);
     try {
-      const { error } = await supabase.auth.signInWithPassword({
+      const { error } = await (supabase.auth as any).signInWithPassword({
         email: loginEmail,
         password: loginPassword,
       });

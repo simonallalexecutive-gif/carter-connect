@@ -16,7 +16,7 @@ const CabinetStep6Confirm = () => {
       if (registered || registering || !s.email || !s.password) return;
       setRegistering(true);
       try {
-        const { error } = await supabase.auth.signUp({
+        const { error } = await (supabase.auth as any).signUp({
           email: s.email,
           password: s.password,
           options: {

@@ -37,7 +37,7 @@ const AuthPage = () => {
         toast.success('Connexion réussie');
         navigate('/espace-candidat');
       } else {
-        const { error } = await supabase.auth.signUp({
+        const { error } = await (supabase.auth as any).signUp({
           email,
           password,
           options: {
