@@ -35,6 +35,8 @@ export const CANDIDATE_OFFERS: CandidateOffer[] = [
     heures: '1800h',
     tt: '2 jours / semaine',
     profilCriteres: ['Autonome', 'Anglais courant', 'Gestion de dossiers complexes'],
+    ranking: 'Tier 1 · M&A',
+    natFlag: '🇬🇧',
   },
   {
     id: 'OFF-C-002',
@@ -52,6 +54,8 @@ export const CANDIDATE_OFFERS: CandidateOffer[] = [
     heures: '1900h',
     tt: '1 jour / semaine',
     profilCriteres: ['Esprit entrepreneurial', 'Anglais courant', 'Capacité à encadrer'],
+    ranking: 'Tier 1 · Private Equity',
+    natFlag: '🇺🇸',
   },
   {
     id: 'OFF-C-003',
@@ -68,6 +72,8 @@ export const CANDIDATE_OFFERS: CandidateOffer[] = [
     heures: '1700h',
     tt: '2 jours / semaine',
     profilCriteres: ['Rigueur & organisation', 'Bon relationnel client'],
+    ranking: 'Tier 2 · Banque & Finance',
+    natFlag: '🇫🇷',
   },
   {
     id: 'OFF-C-004',
@@ -83,6 +89,8 @@ export const CANDIDATE_OFFERS: CandidateOffer[] = [
     equipe: '2 associé(s), 1 counsel(s), 3 collaborateur(s)',
     retroStr: '100.000€ — 140.000€',
     profilCriteres: ['Autonome', 'Anglais courant', 'Polyvalent'],
+    ranking: 'Tier 1 · Fiscal',
+    natFlag: '🇺🇸',
   },
   {
     id: 'OFF-C-005',
@@ -97,5 +105,7 @@ export const CANDIDATE_OFFERS: CandidateOffer[] = [
     equipe: '1 associé(s), 1 counsel(s), 2 collaborateur(s)',
     tt: '3 jours / semaine',
     profilCriteres: ['Esprit d\'équipe', 'Capacité rédactionnelle', 'Proactivité'],
+    ranking: 'Tier 3 · Droit Social',
+    natFlag: '🇫🇷',
   },
 ];

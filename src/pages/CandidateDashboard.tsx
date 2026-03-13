@@ -177,37 +177,36 @@ const CandidateDashboard = () => {
                       className="overflow-hidden"
                     >
                       <div className="border-t border-border">
-                        {/* Dark blue detailed card */}
-                        <div className="bg-[#0F3443] rounded-b-sm overflow-hidden">
+                        {/* White/beige detailed card */}
+                        <div className="bg-background rounded-b-sm overflow-hidden p-5 md:p-6">
                           {/* Header */}
-                          <div className="p-5 md:p-6 border-b border-white/[0.08]">
-                            <div className="text-[8px] tracking-[0.16em] uppercase text-white/35 mb-2">Opportunité · Présentée par LOGAN</div>
-                            <div className="font-serif text-lg font-bold text-white mb-1">
+                          <div className="mb-5 pb-5 border-b border-border">
+                            <div className="text-[8px] tracking-[0.16em] uppercase text-muted-foreground mb-2">Opportunité · Présentée par LOGAN</div>
+                            <div className="font-serif text-lg font-bold text-foreground mb-1">
                               {offer.dept} — {offer.seniority}
                             </div>
-                            <div className="text-[11px] text-white/50">Cabinet anonyme · Identité protégée</div>
-                            <div className="flex flex-wrap gap-1.5 mt-3 pt-3 border-t border-white/[0.08]">
+                            <div className="text-[11px] text-muted-foreground">
+                              {offer.natFlag} Cabinet anonyme · {offer.ranking || 'Non classé'} · Identité protégée
+                            </div>
+                            <div className="flex flex-wrap gap-1.5 mt-3 pt-3 border-t border-border">
                               {offer.tags.map((tag) => (
-                                <span key={tag} className="text-[10px] px-2.5 py-1 rounded-full border border-white/15 text-white/65">{tag}</span>
+                                <span key={tag} className="text-[10px] px-2.5 py-1 rounded-full border border-border text-muted-foreground">{tag}</span>
                               ))}
                             </div>
                           </div>
 
                           {/* Activity pie chart */}
                           {hasMultipleExpertises && offer.activitySplit && (
-                            <div className="p-5 md:p-6 border-b border-white/[0.08]">
-                              <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-white/35 mb-4">Répartition de l'activité</div>
+                            <div className="mb-5 pb-5 border-b border-border">
+                              <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-muted-foreground mb-4">Répartition de l'activité</div>
                               <div className="flex items-start gap-6">
-                                <ActivityPieChart data={offer.activitySplit} size={120} innerRadius={28} outerRadius={52} showLegend={false} darkMode />
+                                <ActivityPieChart data={offer.activitySplit} size={120} innerRadius={28} outerRadius={52} showLegend={false} />
                                 <div className="flex-1 space-y-2.5">
                                   {Object.entries(offer.activitySplit).map(([name, value]) => (
                                     <div key={name}>
                                       <div className="flex justify-between items-center mb-0.5">
-                                        <span className="text-xs font-medium text-white">{name}</span>
-                                        <span className="text-xs font-bold text-white">{value}%</span>
-                                      </div>
-                                      <div className="w-full h-1 bg-white/10 rounded-full overflow-hidden">
-                                        <div className="h-full bg-white/40 rounded-full" style={{ width: `${value}%` }} />
+                                        <span className="text-xs font-medium text-foreground">{name}</span>
+                                        <span className="text-xs font-bold text-foreground">{value}%</span>
                                       </div>
                                     </div>
                                   ))}
@@ -217,26 +216,26 @@ const CandidateDashboard = () => {
                           )}
 
                           {/* Description */}
-                          <div className="p-5 md:p-6 border-b border-white/[0.08]">
-                            <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-white/35 mb-3">Description du poste</div>
-                            <p className="text-[11px] text-white/60 leading-relaxed">{offer.description}</p>
+                          <div className="mb-5 pb-5 border-b border-border">
+                            <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-muted-foreground mb-3">Description du poste</div>
+                            <p className="text-[11px] text-muted-foreground leading-relaxed">{offer.description}</p>
                           </div>
 
                           {/* Context & team */}
                           {(offer.contexte || offer.equipe) && (
-                            <div className="p-5 md:p-6 border-b border-white/[0.08]">
-                              <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-white/35 mb-3">Contexte & équipe</div>
+                            <div className="mb-5 pb-5 border-b border-border">
+                              <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-muted-foreground mb-3">Contexte & équipe</div>
                               <div className="grid grid-cols-2 gap-4">
                                 {offer.contexte && (
                                   <div>
-                                    <div className="text-[8px] uppercase tracking-[0.1em] text-white/35 mb-1">Contexte</div>
-                                    <div className="text-sm font-semibold text-white">{offer.contexte}</div>
+                                    <div className="text-[8px] uppercase tracking-[0.1em] text-muted-foreground mb-1">Contexte</div>
+                                    <div className="text-sm font-semibold text-foreground">{offer.contexte}</div>
                                   </div>
                                 )}
                                 {offer.equipe && (
                                   <div>
-                                    <div className="text-[8px] uppercase tracking-[0.1em] text-white/35 mb-1">Composition de l'équipe</div>
-                                    <div className="text-sm font-semibold text-white">{offer.equipe}</div>
+                                    <div className="text-[8px] uppercase tracking-[0.1em] text-muted-foreground mb-1">Composition de l'équipe</div>
+                                    <div className="text-sm font-semibold text-foreground">{offer.equipe}</div>
                                   </div>
                                 )}
                               </div>
@@ -245,11 +244,11 @@ const CandidateDashboard = () => {
 
                           {/* Profil idéal */}
                           {offer.profilCriteres && offer.profilCriteres.length > 0 && (
-                            <div className="p-5 md:p-6 border-b border-white/[0.08]">
-                              <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-white/35 mb-3">Profil idéal</div>
+                            <div className="mb-5 pb-5 border-b border-border">
+                              <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-muted-foreground mb-3">Profil idéal</div>
                               <div className="flex flex-wrap gap-1.5">
                                 {offer.profilCriteres.map((c) => (
-                                  <span key={c} className="text-[10px] bg-white/[0.08] border border-white/[0.15] rounded-full px-3 py-1.5 text-white/70 font-medium">{c}</span>
+                                  <span key={c} className="text-[10px] bg-secondary border border-border rounded-full px-3 py-1.5 text-foreground font-medium">{c}</span>
                                 ))}
                               </div>
                             </div>
@@ -257,28 +256,28 @@ const CandidateDashboard = () => {
 
                           {/* Conditions */}
                           {(offer.retroStr || offer.heures || offer.tt) && (
-                            <div className="p-5 md:p-6 border-b border-white/[0.08]">
-                              <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-white/35 mb-3">Rémunération & conditions</div>
+                            <div className="mb-5 pb-5 border-b border-border">
+                              <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-muted-foreground mb-3">Rémunération & conditions</div>
                               <div className="grid grid-cols-3 gap-4">
-                                <div className="bg-white/[0.05] rounded-lg p-3">
-                                  <div className="text-[8px] uppercase tracking-[0.1em] text-white/35 mb-1.5">Rétrocession</div>
-                                  <div className="font-serif text-sm font-bold text-white">{offer.retroStr || 'Confidentiel'}</div>
+                                <div className="bg-secondary rounded-lg p-3">
+                                  <div className="text-[8px] uppercase tracking-[0.1em] text-muted-foreground mb-1.5">Rétrocession</div>
+                                  <div className="font-serif text-sm font-bold text-foreground">{offer.retroStr || 'Confidentiel'}</div>
                                 </div>
-                                <div className="bg-white/[0.05] rounded-lg p-3">
-                                  <div className="text-[8px] uppercase tracking-[0.1em] text-white/35 mb-1.5">Heures / an</div>
-                                  <div className="font-serif text-sm font-bold text-white">{offer.heures || 'Non communiqué'}</div>
+                                <div className="bg-secondary rounded-lg p-3">
+                                  <div className="text-[8px] uppercase tracking-[0.1em] text-muted-foreground mb-1.5">Heures / an</div>
+                                  <div className="font-serif text-sm font-bold text-foreground">{offer.heures || 'Non communiqué'}</div>
                                 </div>
-                                <div className="bg-white/[0.05] rounded-lg p-3">
-                                  <div className="text-[8px] uppercase tracking-[0.1em] text-white/35 mb-1.5">Télétravail</div>
-                                  <div className="font-serif text-sm font-bold text-white">{offer.tt || '—'}</div>
+                                <div className="bg-secondary rounded-lg p-3">
+                                  <div className="text-[8px] uppercase tracking-[0.1em] text-muted-foreground mb-1.5">Télétravail</div>
+                                  <div className="font-serif text-sm font-bold text-foreground">{offer.tt || '—'}</div>
                                 </div>
                               </div>
                             </div>
                           )}
 
                           {/* CTA */}
-                          <div className="p-5 md:p-6 text-center">
-                            <p className="text-[10px] text-white/30 mb-3 leading-relaxed">
+                          <div className="text-center pt-2">
+                            <p className="text-[10px] text-muted-foreground mb-3 leading-relaxed">
                               LOGAN qualifie l'opportunité des deux côtés avant toute mise en relation. Votre identité reste confidentielle jusqu'à accord mutuel.
                             </p>
                             <button
@@ -289,8 +288,8 @@ const CandidateDashboard = () => {
                               disabled={isInterested}
                               className={`w-full py-3 font-bold text-sm rounded transition-all duration-300 ${
                                 isInterested
-                                  ? 'bg-white/20 text-white/50 cursor-default'
-                                  : 'bg-white text-[#0F3443] hover:bg-white/90'
+                                  ? 'bg-secondary text-muted-foreground cursor-default'
+                                  : 'bg-foreground text-background hover:bg-foreground/90'
                               }`}
                             >
                               {isInterested ? (
@@ -302,7 +301,7 @@ const CandidateDashboard = () => {
                                 'Je suis intéressé(e) par cette opportunité →'
                               )}
                             </button>
-                            <div className="mt-2 text-[10px] text-white/25">0% commission · Levée de rideau conditionnée à votre accord</div>
+                            <div className="mt-2 text-[10px] text-muted-foreground">0% commission · Levée de rideau conditionnée à votre accord</div>
                           </div>
                         </div>
                       </div>
