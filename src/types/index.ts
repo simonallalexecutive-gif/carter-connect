@@ -63,7 +63,7 @@ export interface RegistrationState {
   processusCours: string;
   // Step 5 - Status
   statutEcoute: 'actif' | 'passif' | 'inactif' | '';
-  visibilite: 'confidentiel' | 'partiel' | '';
+  visibilite: 'confidentiel' | 'semi-confidentiel' | '';
   cvFile: File | null;
   consentement: boolean;
   consentementExactitude: boolean;
