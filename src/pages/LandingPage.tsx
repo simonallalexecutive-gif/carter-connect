@@ -110,6 +110,25 @@ const LandingPage = () => (
     {/* Value proposition */}
     <ValueProposition />
 
+    {/* Mot de l'équipe */}
+    <section className="py-20 md:py-28 bg-background">
+      <div className="carter-container">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="max-w-2xl mx-auto text-center"
+        >
+          <div className="w-10 h-px bg-foreground/20 mx-auto mb-8" />
+          <p className="text-xl md:text-2xl font-serif font-normal text-foreground leading-relaxed italic tracking-[-0.01em] mb-6">
+            «&nbsp;Logan n'est pas une plateforme de plus. C'est la seule plateforme où se retrouvent simultanément les meilleurs cabinets et les profils qui ne se montrent nulle part ailleurs.&nbsp;»
+          </p>
+          <span className="text-xs font-sans font-medium tracking-[0.2em] uppercase text-muted-foreground">— L'Équipe Logan</span>
+        </motion.div>
+      </div>
+    </section>
+
     {/* Benefits — candidat / cabinet tabs */}
     <BenefitsSection />
 
