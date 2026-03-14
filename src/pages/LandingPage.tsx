@@ -111,21 +111,35 @@ const LandingPage = () => (
     <ValueProposition />
 
     {/* Mot de l'équipe */}
-    <section className="py-20 md:py-28 bg-background">
+    <section className="py-24 md:py-36 bg-background overflow-hidden">
       <div className="carter-container">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="max-w-2xl mx-auto text-center"
-        >
-          <div className="w-10 h-px bg-foreground/20 mx-auto mb-8" />
-          <p className="text-xl md:text-2xl font-serif font-normal text-foreground leading-relaxed italic tracking-[-0.01em] mb-6">
-            «&nbsp;Logan n'est pas une plateforme de plus. C'est la seule plateforme où se retrouvent simultanément les meilleurs cabinets et les profils qui ne se montrent nulle part ailleurs.&nbsp;»
-          </p>
-          <span className="text-xs font-sans font-medium tracking-[0.2em] uppercase text-muted-foreground">— L'Équipe Logan</span>
-        </motion.div>
+        <div className="max-w-3xl mx-auto text-center">
+          <motion.div
+            initial={{ scaleX: 0 }}
+            whileInView={{ scaleX: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="w-16 h-px bg-foreground/20 mx-auto mb-12 origin-center"
+          />
+          <motion.p
+            initial={{ opacity: 0, y: 40, filter: 'blur(8px)' }}
+            whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+            className="text-2xl md:text-3xl lg:text-[2.25rem] font-serif font-normal text-foreground leading-[1.45] italic tracking-[-0.01em] mb-8"
+          >
+            «&nbsp;Logan n'est pas une énième plateforme de plus. C'est aujourd'hui la seule plateforme où se retrouvent simultanément les cabinets et les candidats les plus qualifiés du marché, tout en conservant l'intermédiation d'un consultant spécialisé afin de proposer à chaque partie un accompagnement sur mesure.&nbsp;»
+          </motion.p>
+          <motion.span
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.8 }}
+            className="inline-block text-xs font-sans font-medium tracking-[0.2em] uppercase text-muted-foreground"
+          >
+            — L'Équipe Logan
+          </motion.span>
+        </div>
       </div>
     </section>
 
