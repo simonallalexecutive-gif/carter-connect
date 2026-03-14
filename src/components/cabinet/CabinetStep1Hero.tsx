@@ -76,10 +76,10 @@ const CabinetStep1Hero = () => {
             <span className="text-[9px] text-white/40 tracking-[0.12em] uppercase">Réseau Privé · Espace Cabinet</span>
           </motion.div>
 
-          <motion.h1 variants={fadeUp} className="font-serif text-4xl md:text-5xl font-normal text-white leading-[1.04] tracking-[-0.01em] mb-1">
+          <motion.h1 variants={fadeUp} className="text-4xl md:text-5xl font-light text-white leading-[1.04] tracking-[-0.02em] mb-1" style={{ fontFamily: "'Söhne', 'Inter', system-ui, sans-serif" }}>
             Welcome to
           </motion.h1>
-          <motion.h1 variants={fadeUp} className="font-serif text-4xl md:text-5xl font-normal text-white/70 italic leading-[1.04] tracking-[-0.01em] mb-6">
+          <motion.h1 variants={fadeUp} className="text-4xl md:text-5xl font-light text-white/70 italic leading-[1.04] tracking-[-0.02em] mb-6" style={{ fontFamily: "'Söhne', 'Inter', system-ui, sans-serif" }}>
             LOGAN
           </motion.h1>
 
