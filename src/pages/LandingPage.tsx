@@ -128,7 +128,7 @@ const LandingPage = () => (
             transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
             className="text-2xl md:text-3xl lg:text-[2.25rem] font-serif font-normal text-foreground leading-[1.45] italic tracking-[-0.01em] mb-8"
           >
-            «&nbsp;Logan est aujourd'hui la seule plateforme où se retrouvent simultanément les cabinets et les candidats les plus qualifiés du marché, tout en proposant un accompagnement sur mesure à chaque étape du processus.&nbsp;»
+            «&nbsp;Logan est aujourd'hui la seule plateforme capable de connecter efficacement les cabinets et les candidats les plus qualifiés du marché, tout en préservant la confidentialité et en proposant un accompagnement sur mesure à chaque étape du processus.&nbsp;»
           </motion.p>
           <motion.span
             initial={{ opacity: 0, y: 12 }}
