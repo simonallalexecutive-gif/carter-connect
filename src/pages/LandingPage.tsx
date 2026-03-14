@@ -126,7 +126,7 @@ const LandingPage = () => (
             whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
             viewport={{ once: true }}
             transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-            className="text-2xl md:text-3xl lg:text-[2.25rem] font-serif font-normal text-foreground leading-[1.45] italic tracking-[-0.01em] mb-8"
+            className="text-3xl sm:text-4xl md:text-6xl lg:text-[4.5rem] font-serif font-normal text-foreground leading-[1.12] italic tracking-[-0.01em] mb-8"
           >
             «&nbsp;Logan est aujourd'hui la seule plateforme capable de connecter efficacement les cabinets et les candidats <strong className="font-bold">les plus qualifiés du marché</strong>, tout en préservant la <strong className="font-bold">confidentialité</strong> et en proposant un <strong className="font-bold">accompagnement sur mesure</strong> à chaque étape du processus.&nbsp;»
           </motion.p>
