@@ -149,7 +149,7 @@ const CandidateOffers = () => {
                                 </>
                               )}
                             </div>
-                            <div className="text-[11px] font-serif text-muted-foreground">Cabinet anonyme · Identité protégée</div>
+                            <div className="text-[11px] font-sans text-muted-foreground">Cabinet anonyme · Identité protégée</div>
                             <div className="flex flex-wrap gap-1.5 mt-4">
                               {offer.tags.map((tag) => (
                                 <span key={tag} className="text-[10px] px-3 py-1.5 rounded-full bg-secondary text-foreground/70 font-medium">{tag}</span>
