@@ -90,7 +90,7 @@ const LandingPage = () => (
           <div className="flex-1 overflow-hidden">
             <div className="flex animate-marquee whitespace-nowrap items-center">
               {[...firmNames, ...firmNames].map((name, i) => (
-                <span key={i} className="mx-8 md:mx-12 text-[11px] md:text-[13px] font-serif font-normal text-white/50 select-none flex-shrink-0 tracking-[0.05em]">
+                <span key={i} className="mx-8 md:mx-12 text-[15px] md:text-[18px] font-serif font-normal text-white/50 select-none flex-shrink-0 tracking-[0.05em]">
                   {name}
                 </span>
               ))}
