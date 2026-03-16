@@ -63,7 +63,7 @@ const BookingPage = () => {
             Un membre de l'équipe Logan vous contactera par email pour confirmer les détails de l'échange.
           </p>
           <Link to="/">
-            <Button variant="outline" className="border-white/20 text-white hover:bg-white/10 rounded-sm px-6">
+            <Button variant="outline" className="border-foreground/20 text-foreground hover:bg-foreground/10 rounded-sm px-6">
               <ArrowLeft className="w-4 h-4 mr-2" /> Retour à l'accueil
             </Button>
           </Link>

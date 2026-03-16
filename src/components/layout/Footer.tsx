@@ -7,9 +7,9 @@ const Footer = () => (
   <footer className="bg-black pt-20 pb-10">
     <div className="w-full px-8 md:px-16 lg:px-24">
       {/* Top grid */}
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 pb-16 border-b border-white/10">
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 pb-16 border-b border-white/10 items-start">
         {/* Brand */}
-        <div className="md:col-span-4">
+        <div className="md:col-span-3">
           <img src={logoMonogram} alt="Logan" className="h-10 w-10 mb-4 invert" />
           <p className="font-sans text-xs text-white/40 font-light leading-relaxed max-w-xs">
             Réseau confidentiel de mise en relation entre avocats d'affaires et cabinets de premier plan.
@@ -17,7 +17,7 @@ const Footer = () => (
         </div>
 
         {/* Navigation */}
-        <div className="md:col-span-2">
+        <div className="md:col-span-3">
           <p className="text-[10px] font-sans font-medium tracking-[0.2em] uppercase text-white/30 mb-6">Navigation</p>
           <ul className="space-y-3">
             {[

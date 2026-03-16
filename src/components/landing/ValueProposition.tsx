@@ -41,7 +41,7 @@ const ValueProposition = () => {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 1 }}
-          className="text-center mb-20 md:mb-28"
+          className="text-center mb-10 md:mb-14"
         >
           <motion.p
             initial={{ opacity: 0, y: 12 }}
