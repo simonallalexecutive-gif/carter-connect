@@ -378,7 +378,7 @@ const SearchValidation = () => {
 
       {/* Approval */}
       <div className="bg-foreground rounded-md p-5 mb-6">
-        <div className="font-serif text-base font-semibold text-white mb-3">Confirmez votre recherche</div>
+        <div className="font-sans text-base font-semibold text-white mb-3">Confirmez votre recherche</div>
         <div className="flex flex-col gap-2">
           {[
             "Je confirme les critères de ma recherche.",
