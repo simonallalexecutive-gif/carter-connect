@@ -483,7 +483,7 @@ export const PROFILES: CabinetProfile[] = [
   {
     id: 'C-2024-111', dept: 'ma', deptLabel: 'M&A / Corporate',
     title: 'Junior M&A — 2 ans PQE',
-    pqe: '2 ans', nat: 'UK', natFlag: '🇬🇧',
+    pqe: '2 ans', nat: 'UK', natFlag: 'GB',
     origin: 'Cabinet UK Tier 1', originTier: 'Tier 1',
     english: 'Bilingue', seniority: 'Junior', isNew: true,
     expertise: ['M&A Industriel', 'Droit boursier'],
