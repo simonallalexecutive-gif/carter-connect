@@ -31,8 +31,8 @@ const AdminProfiles = () => {
             className={cn(
               'text-[10px] font-semibold px-3 py-1.5 border rounded-full transition-all',
               statusFilter === s
-                ? 'bg-foreground text-background border-foreground'
-                : 'bg-background text-muted-foreground border-border hover:border-foreground hover:text-foreground'
+                ? 'bg-primary text-primary-foreground border-primary'
+                : 'bg-card text-muted-foreground border-border hover:border-primary hover:text-foreground'
             )}
           >
             {s === 'all' ? 'Tous' : STATUS_LABELS[s]}
