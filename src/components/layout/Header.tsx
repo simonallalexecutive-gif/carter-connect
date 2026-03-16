@@ -41,7 +41,7 @@ const Header = () => {
               </>
             ) : (
               <Link
-                to="/demo"
+                to="/rendez-vous"
                 className="font-sans text-sm font-medium text-black bg-white hover:bg-white/90 rounded-sm px-5 py-2 transition-colors duration-300 tracking-wide inline-flex items-center gap-2 group"
               >
                 Prendre rendez-vous
