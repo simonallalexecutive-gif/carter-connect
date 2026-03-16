@@ -90,7 +90,7 @@ export const CANDIDATE_OFFERS: CandidateOffer[] = [
     retroStr: '100.000€ — 140.000€',
     profilCriteres: ['Autonome', 'Anglais courant', 'Polyvalent'],
     ranking: 'Tier 1 · Fiscal',
-    natFlag: '🇺🇸',
+    natFlag: 'US',
   },
   {
     id: 'OFF-C-005',
