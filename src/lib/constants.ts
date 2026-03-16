@@ -284,7 +284,7 @@ export const ACTIVITES_BY_PRACTICE: Record<string, { sections: { title: string; 
         title: "Type de financement",
         items: [
           { key: "fin_obligataire", label: "Financement obligataire" },
-          { key: "fin_acq", label: "Financement d'acquisitions classique" },
+          { key: "fin_acq", label: "Financement d'acquisition" },
           { key: "fin_lbo", label: "Financement LBO" },
           { key: "fin_projets", label: "Financement de projets" },
           { key: "fin_immo", label: "Financement immobilier" },
