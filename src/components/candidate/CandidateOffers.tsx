@@ -115,7 +115,7 @@ const CandidateOffers = () => {
                       )}
 
                       <div className="flex items-center justify-between mt-4">
-                        <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground font-serif">
+                        <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground font-sans">
                           <Calendar className="w-3 h-3" />
                           <span>Date de publication : {formatOfferDate(offer.postedAt)}</span>
                         </div>
