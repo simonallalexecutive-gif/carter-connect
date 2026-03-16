@@ -205,15 +205,6 @@ const Step3Activity = () => {
           </motion.div>
         )}
 
-        {/* Taille des opérations */}
-        <div>
-          <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-3 block">Taille des opérations</Label>
-          <ChipSelector
-            options={TAILLE_OPERATIONS}
-            selected={store.tailleOperations}
-            onChange={v => store.setField('tailleOperations', v)}
-          />
-        </div>
 
         {/* Anglais */}
         <div>
