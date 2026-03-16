@@ -43,9 +43,9 @@ export const NAT_LABELS: Record<string, string> = {
 };
 
 export const NAT_FLAGS: Record<string, string> = {
-  FR: '🇫🇷',
-  US: '🇺🇸',
-  UK: '🇬🇧',
+  FR: 'FR',
+  US: 'US',
+  UK: 'GB',
 };
 
 export const DEPT_KEY_MAP: Record<string, string> = {
@@ -377,7 +377,7 @@ export const PROFILES: CabinetProfile[] = [
   {
     id: 'C-2024-042', dept: 'banque', deptLabel: 'Banque & Finance',
     title: 'Senior Associate Finance — 5 ans PQE',
-    pqe: '5 ans', nat: 'FR', natFlag: '🇫🇷',
+    pqe: '5 ans', nat: 'FR', natFlag: 'FR',
     origin: 'Cabinet US Tier 1', originTier: 'Tier 1',
     english: 'Bilingue', seniority: 'Mid Level / Sénior', isNew: true,
     expertise: ['Financement', 'Private Equity / LBO'],
@@ -392,7 +392,7 @@ export const PROFILES: CabinetProfile[] = [
   {
     id: 'C-2024-057', dept: 'ma', deptLabel: 'M&A / Corporate',
     title: 'Collaborateur M&A — 4 ans PQE',
-    pqe: '4 ans', nat: 'FR', natFlag: '🇫🇷',
+    pqe: '4 ans', nat: 'FR', natFlag: 'FR',
     origin: 'Cabinet français Tier 1', originTier: 'Tier 1',
     english: 'Courant', seniority: 'Mid Level', isNew: true,
     expertise: ['M&A Industriel', 'Private Equity / LBO'],
@@ -407,7 +407,7 @@ export const PROFILES: CabinetProfile[] = [
   {
     id: 'C-2024-071', dept: 'banque', deptLabel: 'Banque & Finance',
     title: 'Collaborateur Finance — 3 ans PQE',
-    pqe: '3 ans', nat: 'UK', natFlag: '🇬🇧',
+    pqe: '3 ans', nat: 'UK', natFlag: 'GB',
     origin: 'Cabinet UK Tier 2', originTier: 'Tier 2',
     english: 'Bilingue', seniority: 'Junior / Mid', isNew: false,
     expertise: ['Financement', 'Restructuring'],
@@ -423,7 +423,7 @@ export const PROFILES: CabinetProfile[] = [
   {
     id: 'C-2024-083', dept: 'social', deptLabel: 'Droit Social',
     title: 'Counsel Droit Social — 8 ans PQE',
-    pqe: '8 ans', nat: 'FR', natFlag: '🇫🇷',
+    pqe: '8 ans', nat: 'FR', natFlag: 'FR',
     origin: 'Cabinet français Tier 1', originTier: 'Tier 1',
     english: 'Professionnel', seniority: 'Counsel', isNew: false,
     expertise: ['Droit Social', 'Contentieux'],
@@ -438,7 +438,7 @@ export const PROFILES: CabinetProfile[] = [
   {
     id: 'C-2024-095', dept: 'fiscal', deptLabel: 'Fiscalité',
     title: 'Collaborateur Fiscal — 5 ans PQE',
-    pqe: '5 ans', nat: 'FR', natFlag: '🇫🇷',
+    pqe: '5 ans', nat: 'FR', natFlag: 'FR',
     origin: 'Cabinet français Tier 1', originTier: 'Tier 1',
     english: 'Courant', seniority: 'Mid Level', isNew: true,
     expertise: ['Fiscal', 'M&A Industriel'],
@@ -453,7 +453,7 @@ export const PROFILES: CabinetProfile[] = [
   {
     id: 'C-2024-068', dept: 'ma', deptLabel: 'M&A / Corporate',
     title: 'Associé M&A — 12 ans PQE',
-    pqe: '12 ans', nat: 'FR', natFlag: '🇫🇷',
+    pqe: '12 ans', nat: 'FR', natFlag: 'FR',
     origin: 'Cabinet français Tier 2', originTier: 'Tier 2',
     english: 'Bilingue', seniority: 'Associé', isNew: false,
     expertise: ['M&A Industriel', 'Private Equity / LBO', 'Droit boursier'],
@@ -468,7 +468,7 @@ export const PROFILES: CabinetProfile[] = [
   {
     id: 'C-2024-102', dept: 'banque', deptLabel: 'Banque & Finance',
     title: 'Senior Associate Finance — 7 ans PQE',
-    pqe: '7 ans', nat: 'US', natFlag: '🇺🇸',
+    pqe: '7 ans', nat: 'US', natFlag: 'US',
     origin: 'Cabinet US Tier 1', originTier: 'Tier 1',
     english: 'Langue de travail', seniority: 'Sénior', isNew: false,
     expertise: ['Financement', 'Private Equity / LBO', 'Restructuring'],
@@ -483,7 +483,7 @@ export const PROFILES: CabinetProfile[] = [
   {
     id: 'C-2024-111', dept: 'ma', deptLabel: 'M&A / Corporate',
     title: 'Junior M&A — 2 ans PQE',
-    pqe: '2 ans', nat: 'UK', natFlag: '🇬🇧',
+    pqe: '2 ans', nat: 'UK', natFlag: 'GB',
     origin: 'Cabinet UK Tier 1', originTier: 'Tier 1',
     english: 'Bilingue', seniority: 'Junior', isNew: true,
     expertise: ['M&A Industriel', 'Droit boursier'],
@@ -498,7 +498,7 @@ export const PROFILES: CabinetProfile[] = [
   {
     id: 'C-2024-079', dept: 'pe', deptLabel: 'Private Equity / LBO',
     title: 'Collaborateur PE — 5 ans PQE',
-    pqe: '5 ans', nat: 'FR', natFlag: '🇫🇷',
+    pqe: '5 ans', nat: 'FR', natFlag: 'FR',
     origin: 'Cabinet US Tier 2', originTier: 'Tier 2',
     english: 'Courant', seniority: 'Mid Level', isNew: false,
     expertise: ['Private Equity / LBO', 'M&A Industriel'],
@@ -513,7 +513,7 @@ export const PROFILES: CabinetProfile[] = [
   {
     id: 'C-2024-058', dept: 'social', deptLabel: 'Droit Social',
     title: 'Collaborateur Droit Social — 4 ans PQE',
-    pqe: '4 ans', nat: 'FR', natFlag: '🇫🇷',
+    pqe: '4 ans', nat: 'FR', natFlag: 'FR',
     origin: 'Cabinet français Tier 2', originTier: 'Tier 2',
     english: 'Professionnel', seniority: 'Mid Level', isNew: false,
     expertise: ['Droit Social'],
@@ -528,7 +528,7 @@ export const PROFILES: CabinetProfile[] = [
   {
     id: 'C-2024-119', dept: 'banque', deptLabel: 'Banque & Finance',
     title: 'Counsel Finance — 9 ans PQE',
-    pqe: '9 ans', nat: 'FR', natFlag: '🇫🇷',
+    pqe: '9 ans', nat: 'FR', natFlag: 'FR',
     origin: 'Cabinet UK Tier 2', originTier: 'Tier 2',
     english: 'Bilingue', seniority: 'Counsel', isNew: false,
     expertise: ['Financement', 'Restructuring', 'Private Equity / LBO'],
@@ -543,7 +543,7 @@ export const PROFILES: CabinetProfile[] = [
   {
     id: 'C-2024-133', dept: 'fiscal', deptLabel: 'Fiscalité',
     title: 'Collaborateur Fiscal International — 6 ans PQE',
-    pqe: '6 ans', nat: 'US', natFlag: '🇺🇸',
+    pqe: '6 ans', nat: 'US', natFlag: 'US',
     origin: 'Cabinet US Tier 2', originTier: 'Tier 2',
     english: 'Bilingue', seniority: 'Sénior', isNew: true,
     expertise: ['Fiscal', 'Private Equity / LBO'],

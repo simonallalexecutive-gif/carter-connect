@@ -75,12 +75,12 @@ const CandidateSidebar = ({
               <div className="flex items-center gap-3">
                 <Avatar className="w-9 h-9 border border-white/20">
                   {photoPreviewUrl ? <AvatarImage src={photoPreviewUrl} alt="Photo" /> : null}
-                  <AvatarFallback className="bg-white/10 text-white text-[10px] font-serif">
+                  <AvatarFallback className="bg-white/10 text-white text-[10px] font-sans">
                     {prenom && nom ? `${prenom[0]}${nom[0]}` : <User className="w-4 h-4" />}
                   </AvatarFallback>
                 </Avatar>
                 <div className="min-w-0">
-                  <p className="text-[12px] font-serif text-white truncate">{prenom && nom ? `${prenom} ${nom}` : 'Candidat'}</p>
+                  <p className="text-[12px] font-sans text-white truncate">{prenom && nom ? `${prenom} ${nom}` : 'Candidat'}</p>
                   <p className="text-[9px] text-white/40 font-sans">Connecté</p>
                 </div>
               </div>
@@ -168,12 +168,12 @@ const CandidateDashboardContent = () => {
           <div className="flex items-center gap-5 flex-1 min-w-0">
             <Avatar className="w-11 h-11 border border-border shrink-0">
               {photoPreviewUrl ? <AvatarImage src={photoPreviewUrl} alt="Photo" /> : null}
-              <AvatarFallback className="bg-secondary text-foreground text-[11px] font-serif">
+              <AvatarFallback className="bg-secondary text-foreground text-[11px] font-sans">
                 {prenom && nom ? `${prenom[0]}${nom[0]}` : <User className="w-4 h-4" />}
               </AvatarFallback>
             </Avatar>
             <div className="min-w-0">
-              <h1 className="text-lg md:text-xl font-serif font-normal text-foreground leading-tight tracking-[-0.01em]">
+              <h1 className="text-lg md:text-xl font-sans font-normal text-foreground leading-tight tracking-[-0.01em]">
                 Bienvenue{prenom ? `, ${prenom}` : user.user_metadata?.full_name ? `, ${user.user_metadata.full_name}` : ''}
               </h1>
               <div className="flex flex-wrap items-center gap-2 mt-2">

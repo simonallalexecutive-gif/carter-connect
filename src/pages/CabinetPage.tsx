@@ -67,12 +67,12 @@ const CabinetSidebar = ({
             <div className="px-4 mb-8">
               <div className="flex items-center gap-3">
                 <Avatar className="w-9 h-9 border border-white/20">
-                  <AvatarFallback className="bg-white/10 text-white text-[10px] font-serif">
+                  <AvatarFallback className="bg-white/10 text-white text-[10px] font-sans">
                     {s.cabinetName ? s.cabinetName[0].toUpperCase() : <Building2 className="w-4 h-4" />}
                   </AvatarFallback>
                 </Avatar>
                 <div className="min-w-0">
-                  <p className="text-[12px] font-serif text-white truncate">{s.cabinetName || 'Mon cabinet'}</p>
+                  <p className="text-[12px] font-sans text-white truncate">{s.cabinetName || 'Mon cabinet'}</p>
                   <p className="text-[9px] text-white/40 font-sans">Connecté</p>
                 </div>
               </div>
@@ -161,12 +161,12 @@ const CabinetDashboardLayout = () => {
             <SidebarTrigger className="text-foreground/60 hover:text-foreground" />
             <div className="flex items-center gap-5 flex-1 min-w-0">
               <Avatar className="w-11 h-11 border border-border shrink-0">
-                <AvatarFallback className="bg-secondary text-foreground text-[11px] font-serif">
+                <AvatarFallback className="bg-secondary text-foreground text-[11px] font-sans">
                   {s.cabinetName ? s.cabinetName[0].toUpperCase() : '?'}
                 </AvatarFallback>
               </Avatar>
               <div className="min-w-0">
-                <h1 className="text-lg md:text-xl font-serif font-normal text-foreground leading-tight tracking-[-0.01em]">
+                <h1 className="text-lg md:text-xl font-sans font-normal text-foreground leading-tight tracking-[-0.01em]">
                   Bienvenue, {s.cabinetName || 'Cabinet'}
                 </h1>
                 <div className="flex flex-wrap items-center gap-2 mt-2">

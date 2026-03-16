@@ -87,20 +87,20 @@ const CandidateOffers = () => {
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-0 mb-3 flex-wrap">
-                        <span className="text-[16px] font-serif tracking-[-0.01em] text-foreground leading-none">{shortSeniority(offer.seniority)}</span>
+                        <span className="text-[16px] font-sans tracking-[-0.01em] text-foreground leading-none">{shortSeniority(offer.seniority)}</span>
                         <span className="mx-2.5 w-px h-5 bg-border inline-block" />
-                        <span className="text-[16px] font-serif tracking-[-0.01em] text-foreground leading-none">{offer.dept}</span>
+                        <span className="text-[16px] font-sans tracking-[-0.01em] text-foreground leading-none">{offer.dept}</span>
                         {offer.ranking && (
                           <>
                             <span className="mx-2.5 w-px h-5 bg-border inline-block" />
-                            <span className="inline-flex items-center gap-2 text-[14px] font-serif text-foreground">
-                              <span className="text-lg leading-none">{offer.natFlag}</span>
+                            <span className="inline-flex items-center gap-2 text-[14px] font-sans text-foreground">
+                              <span className="text-xs font-bold leading-none">{offer.natFlag}</span>
                               <span className="font-semibold">{offer.ranking}</span>
                             </span>
                           </>
                         )}
                         {isInterested && (
-                          <span className="ml-3 inline-flex items-center gap-1 text-[10px] text-muted-foreground font-serif">
+                          <span className="ml-3 inline-flex items-center gap-1 text-[10px] text-muted-foreground font-sans">
                             <CheckCircle2 className="w-3.5 h-3.5" />Intérêt transmis
                           </span>
                         )}
@@ -109,17 +109,17 @@ const CandidateOffers = () => {
                       {!isExpanded && offer.tags.length > 0 && (
                         <div className="flex flex-wrap gap-1.5 mt-1">
                           {offer.tags.slice(0, 4).map((tag) => (
-                            <span key={tag} className="text-[10px] px-2.5 py-1 rounded-full border border-border text-muted-foreground font-serif">{tag}</span>
+                            <span key={tag} className="text-[10px] px-2.5 py-1 rounded-full border border-border text-muted-foreground font-sans">{tag}</span>
                           ))}
                         </div>
                       )}
 
                       <div className="flex items-center justify-between mt-4">
-                        <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground font-serif">
+                        <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground font-sans">
                           <Calendar className="w-3 h-3" />
                           <span>Date de publication : {formatOfferDate(offer.postedAt)}</span>
                         </div>
-                        <div className="text-[9px] tracking-[0.15em] uppercase text-muted-foreground/60 font-serif">{offer.reference}</div>
+                        <div className="text-[9px] tracking-[0.15em] uppercase text-muted-foreground/60 font-sans">{offer.reference}</div>
                       </div>
                     </div>
                     <div className="w-10 h-10 rounded-full flex items-center justify-center bg-secondary shrink-0 mt-1">
@@ -134,22 +134,22 @@ const CandidateOffers = () => {
                       <div className="border-t border-border" style={{ background: 'hsl(0 0% 96%)' }}>
                         <div className="p-6 md:p-8">
                           <div className="mb-6 pb-5 border-b border-border">
-                            <div className="text-[8px] tracking-[0.16em] uppercase text-muted-foreground font-serif mb-2">Opportunité · Présentée par LOGAN</div>
+                            <div className="text-[8px] tracking-[0.16em] uppercase text-muted-foreground font-sans mb-2">Opportunité · Présentée par LOGAN</div>
                             <div className="flex items-center gap-0 mb-1 flex-wrap">
-                              <span className="font-serif text-[15px] tracking-[-0.01em] text-foreground">{shortSeniority(offer.seniority)}</span>
+                              <span className="font-sans text-[15px] tracking-[-0.01em] text-foreground">{shortSeniority(offer.seniority)}</span>
                               <span className="mx-2 w-px h-4 bg-border inline-block" />
-                              <span className="font-serif text-[15px] tracking-[-0.01em] text-foreground">{offer.dept}</span>
+                              <span className="font-sans text-[15px] tracking-[-0.01em] text-foreground">{offer.dept}</span>
                               {offer.ranking && (
                                 <>
                                   <span className="mx-2 w-px h-4 bg-border inline-block" />
-                                  <span className="inline-flex items-center gap-2 text-[13px] font-serif text-foreground">
-                                    <span className="text-lg leading-none">{offer.natFlag}</span>
+                                  <span className="inline-flex items-center gap-2 text-[13px] font-sans text-foreground">
+                                    <span className="text-xs font-bold leading-none">{offer.natFlag}</span>
                                     <span className="font-semibold">{offer.ranking}</span>
                                   </span>
                                 </>
                               )}
                             </div>
-                            <div className="text-[11px] font-serif text-muted-foreground">Cabinet anonyme · Identité protégée</div>
+                            <div className="text-[11px] font-sans text-muted-foreground">Cabinet anonyme · Identité protégée</div>
                             <div className="flex flex-wrap gap-1.5 mt-4">
                               {offer.tags.map((tag) => (
                                 <span key={tag} className="text-[10px] px-3 py-1.5 rounded-full bg-secondary text-foreground/70 font-medium">{tag}</span>
@@ -208,15 +208,15 @@ const CandidateOffers = () => {
                               <div className="grid grid-cols-3 gap-3">
                                 <div className="bg-secondary rounded-lg p-4 text-center">
                                   <div className="text-[8px] uppercase tracking-[0.1em] text-muted-foreground mb-2">Rétrocession</div>
-                                  <div className="font-serif text-base font-bold text-foreground">{offer.retroStr || 'Confidentiel'}</div>
+                                  <div className="font-sans text-base font-bold text-foreground">{offer.retroStr || 'Confidentiel'}</div>
                                 </div>
                                 <div className="bg-secondary rounded-lg p-4 text-center">
                                   <div className="text-[8px] uppercase tracking-[0.1em] text-muted-foreground mb-2">Heures / an</div>
-                                  <div className="font-serif text-base font-bold text-foreground">{offer.heures || 'Non communiqué'}</div>
+                                  <div className="font-sans text-base font-bold text-foreground">{offer.heures || 'Non communiqué'}</div>
                                 </div>
                                 <div className="bg-secondary rounded-lg p-4 text-center">
                                   <div className="text-[8px] uppercase tracking-[0.1em] text-muted-foreground mb-2">Télétravail</div>
-                                  <div className="font-serif text-base font-bold text-foreground">{offer.tt || '—'}</div>
+                                  <div className="font-sans text-base font-bold text-foreground">{offer.tt || '—'}</div>
                                 </div>
                               </div>
                             </div>

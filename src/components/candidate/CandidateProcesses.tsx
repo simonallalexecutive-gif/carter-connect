@@ -33,7 +33,7 @@ const CandidateProcesses = () => (
     {MOCK_PROCESSES.length === 0 ? (
       <div className="text-center py-16">
         <Clock className="w-8 h-8 text-muted-foreground/30 mx-auto mb-4" />
-        <p className="text-sm font-serif text-muted-foreground">Aucun processus en cours pour le moment.</p>
+        <p className="text-sm font-sans text-muted-foreground">Aucun processus en cours pour le moment.</p>
       </div>
     ) : (
       <div className="space-y-4">
@@ -44,25 +44,25 @@ const CandidateProcesses = () => (
               {offer && (
                 <div className="mb-4 pb-4 border-b border-border">
                   <div className="flex items-center gap-0 mb-1.5 flex-wrap">
-                    <span className="text-[16px] font-serif tracking-[-0.01em] text-foreground leading-none">{shortSeniority(offer.seniority)}</span>
+                    <span className="text-[16px] font-sans tracking-[-0.01em] text-foreground leading-none">{shortSeniority(offer.seniority)}</span>
                     <span className="mx-2.5 w-px h-5 bg-border inline-block" />
-                    <span className="text-[16px] font-serif tracking-[-0.01em] text-foreground leading-none">{offer.dept}</span>
+                    <span className="text-[16px] font-sans tracking-[-0.01em] text-foreground leading-none">{offer.dept}</span>
                     {offer.ranking && (
                       <>
                         <span className="mx-2.5 w-px h-5 bg-border inline-block" />
-                        <span className="inline-flex items-center gap-2 text-[14px] font-serif text-foreground">
-                          <span className="text-lg leading-none">{offer.natFlag}</span>
+                        <span className="inline-flex items-center gap-2 text-[14px] font-sans text-foreground">
+                          <span className="text-xs font-bold leading-none">{offer.natFlag}</span>
                           <span className="font-semibold">{offer.ranking}</span>
                         </span>
                       </>
                     )}
                   </div>
                   <div className="flex items-center justify-between mt-3">
-                    <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground font-serif">
+                    <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground font-sans">
                       <Calendar className="w-3 h-3" />
                       <span>Date de publication : {formatOfferDate(offer.postedAt)}</span>
                     </div>
-                    <div className="text-[9px] tracking-[0.15em] uppercase text-muted-foreground/60 font-serif">{offer.reference}</div>
+                    <div className="text-[9px] tracking-[0.15em] uppercase text-muted-foreground/60 font-sans">{offer.reference}</div>
                   </div>
                 </div>
               )}
@@ -75,15 +75,15 @@ const CandidateProcesses = () => (
                   </div>
                 ))}
               </div>
-              <div className="flex justify-between text-[9px] text-muted-foreground font-serif mb-4">
+              <div className="flex justify-between text-[9px] text-muted-foreground font-sans mb-4">
                 {STAGES.map((stage, i) => (
                   <span key={stage} className={`${i <= proc.stageIndex ? 'text-foreground font-medium' : ''}`}>{stage}</span>
                 ))}
               </div>
 
               <div className="flex items-center justify-between">
-                <p className="text-[13px] font-serif text-muted-foreground leading-relaxed">{proc.note}</p>
-                <span className="text-[10px] text-muted-foreground/60 font-serif shrink-0 ml-4">{new Date(proc.lastUpdate).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' })}</span>
+                <p className="text-[13px] font-sans text-muted-foreground leading-relaxed">{proc.note}</p>
+                <span className="text-[10px] text-muted-foreground/60 font-sans shrink-0 ml-4">{new Date(proc.lastUpdate).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' })}</span>
               </div>
             </div>
           );

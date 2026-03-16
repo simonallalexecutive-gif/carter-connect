@@ -86,7 +86,7 @@ const CabinetDashboard = () => {
           className="group relative text-left rounded-lg border-2 border-border p-6 transition-all hover:border-foreground hover:shadow-lg bg-background"
         >
           <Eye className="w-6 h-6 text-foreground mb-4" />
-          <div className="font-serif text-lg font-bold text-foreground mb-2">Explorer le marché des candidats</div>
+          <div className="font-sans text-lg font-bold text-foreground mb-2">Explorer le marché des candidats</div>
           <p className="text-xs text-muted-foreground leading-relaxed mb-4">
             Parcourez librement tous les profils à l'écoute du marché, toutes matières confondues. Alertez LOGAN si un candidat vous intéresse — en dehors de tout mandat.
           </p>
@@ -104,7 +104,7 @@ const CabinetDashboard = () => {
           className="group relative text-left rounded-lg border-2 border-border p-6 transition-all hover:border-foreground hover:shadow-lg bg-background"
         >
           <FileText className="w-6 h-6 text-foreground mb-4" />
-          <div className="font-serif text-lg font-bold text-foreground mb-2">Publier une nouvelle recherche</div>
+          <div className="font-sans text-lg font-bold text-foreground mb-2">Publier une nouvelle recherche</div>
           <p className="text-xs text-muted-foreground leading-relaxed mb-4">
             Déposez un mandat confidentiel. LOGAN identifie et approche les meilleurs profils selon vos critères précis.
           </p>
@@ -144,7 +144,7 @@ const DeptSelection = () => {
         ← Retour au tableau de bord
       </button>
 
-      <h2 className="font-serif text-3xl font-normal text-foreground leading-tight mb-2.5">Nouvelle recherche</h2>
+      <h2 className="font-sans text-3xl font-normal text-foreground leading-tight mb-2.5">Nouvelle recherche</h2>
       <p className="text-sm text-muted-foreground font-light leading-relaxed mb-8 max-w-xl">
         Sélectionnez le département concerné par votre recherche. LOGAN identifiera automatiquement votre classement Legal 500 pour ce département.
       </p>
@@ -224,7 +224,7 @@ const SearchValidation = () => {
         ← Modifier ma recherche
       </button>
 
-      <h2 className="font-serif text-3xl font-normal text-foreground leading-tight mb-2.5">Validation de la recherche</h2>
+      <h2 className="font-sans text-3xl font-normal text-foreground leading-tight mb-2.5">Validation de la recherche</h2>
       <p className="text-sm text-muted-foreground font-light leading-relaxed mb-8 max-w-xl">
         Vérifiez votre recherche et visualisez comment elle apparaîtra.
       </p>
@@ -251,11 +251,11 @@ const SearchValidation = () => {
           {/* Header */}
           <div className="p-6 border-b border-white/[0.08]">
             <div className="text-[8px] tracking-[0.16em] uppercase text-white/35 mb-2">Opportunité · Présentée par LOGAN</div>
-            <div className="font-serif text-xl font-bold text-white mb-1.5">
+            <div className="font-sans text-xl font-bold text-white mb-1.5">
               {s.currentSearchDeptLabel} · {s.seniorities.join(' / ') || '—'}{s.expertise.length ? ` — ${s.expertise.join(', ')}` : ''}
             </div>
             <div className="text-[11px] text-white/50">
-              {NAT_FLAGS[s.detectedNat] || '🏢'} {NAT_LABELS[s.detectedNat] || 'Cabinet'} · {s.ranking || 'Non classé'}
+              {NAT_FLAGS[s.detectedNat] || '—'} {NAT_LABELS[s.detectedNat] || 'Cabinet'} · {s.ranking || 'Non classé'}
             </div>
             <div className="text-[10px] text-white/30 mt-1">Identité du cabinet protégée · Mise en relation via LOGAN uniquement</div>
             <div className="flex flex-wrap gap-1.5 mt-4 pt-4 border-t border-white/[0.08]">
@@ -338,17 +338,17 @@ const SearchValidation = () => {
             <div className="grid grid-cols-3 gap-4">
               <div className="bg-white/[0.05] rounded-lg p-3">
                 <div className="text-[8px] uppercase tracking-[0.1em] text-white/35 mb-1.5">Rétrocession</div>
-                <div className="font-serif text-sm font-bold text-white">
+                <div className="font-sans text-sm font-bold text-white">
                   {s.retroMin || s.retroMax ? `${s.retroMin || '?'}€ – ${s.retroMax || '?'}€` : 'Confidentiel'}
                 </div>
               </div>
               <div className="bg-white/[0.05] rounded-lg p-3">
                 <div className="text-[8px] uppercase tracking-[0.1em] text-white/35 mb-1.5">Heures / an</div>
-                <div className="font-serif text-sm font-bold text-white">{s.heures ? `${s.heures}h` : 'Non communiqué'}</div>
+                <div className="font-sans text-sm font-bold text-white">{s.heures ? `${s.heures}h` : 'Non communiqué'}</div>
               </div>
               <div className="bg-white/[0.05] rounded-lg p-3">
                 <div className="text-[8px] uppercase tracking-[0.1em] text-white/35 mb-1.5">Télétravail</div>
-                <div className="font-serif text-sm font-bold text-white">{s.tt || '—'}</div>
+                <div className="font-sans text-sm font-bold text-white">{s.tt || '—'}</div>
               </div>
             </div>
             {s.bonusEnabled && s.bonusTypes.length > 0 && (
@@ -378,7 +378,7 @@ const SearchValidation = () => {
 
       {/* Approval */}
       <div className="bg-foreground rounded-md p-5 mb-6">
-        <div className="font-serif text-base font-semibold text-white mb-3">Confirmez votre recherche</div>
+        <div className="font-sans text-base font-semibold text-white mb-3">Confirmez votre recherche</div>
         <div className="flex flex-col gap-2">
           {[
             "Je confirme les critères de ma recherche.",
@@ -452,7 +452,7 @@ const ExploreView = ({
         ← Retour au tableau de bord
       </button>
 
-      <h2 className="font-serif text-2xl font-normal text-foreground leading-tight mb-1">Explorer le marché</h2>
+      <h2 className="font-sans text-2xl font-normal text-foreground leading-tight mb-1">Explorer le marché</h2>
       <p className="text-xs text-muted-foreground mb-6">
         Parcourez tous les profils enregistrés. Cliquez sur « Ce candidat m'intéresse » pour que LOGAN puisse se rapprocher du candidat en dehors de tout mandat.
       </p>
@@ -499,9 +499,9 @@ const ExploreView = ({
             {p.isNew && (
               <span className="absolute top-3 right-3 text-[7px] font-bold tracking-[0.12em] uppercase bg-foreground text-background px-2 py-0.5 rounded-sm">NOUVEAU</span>
             )}
-            <div className="text-[9px] text-foreground/40 tracking-[0.08em] mb-3 font-serif">{p.id}</div>
-            <div className="font-serif text-base font-bold text-foreground mb-1.5 leading-tight">{p.title}</div>
-            <div className="text-[11px] text-muted-foreground mb-3 font-serif">{p.origin} · {p.natFlag}</div>
+            <div className="text-[9px] text-foreground/40 tracking-[0.08em] mb-3 font-sans">{p.id}</div>
+            <div className="font-sans text-base font-bold text-foreground mb-1.5 leading-tight">{p.title}</div>
+            <div className="text-[11px] text-muted-foreground mb-3 font-sans">{p.origin} · {p.natFlag}</div>
             <div className="flex flex-wrap gap-1 mb-3">
               <span className="text-[9px] font-semibold px-2 py-0.5 rounded-sm bg-foreground text-background">{p.deptLabel}</span>
               <span className="text-[9px] font-semibold px-2 py-0.5 rounded-sm bg-secondary text-foreground/70 border border-border">{p.seniority}</span>
@@ -528,11 +528,11 @@ const ExploreView = ({
             <div className="p-5">
               {/* Anonymous header */}
               <div className="flex items-center gap-4 mb-6">
-                <div className="w-14 h-14 rounded-full bg-secondary flex items-center justify-center text-muted-foreground font-serif text-xl">
+                <div className="w-14 h-14 rounded-full bg-secondary flex items-center justify-center text-muted-foreground font-sans text-xl">
                   ?
                 </div>
                 <div>
-                  <p className="font-serif text-lg text-foreground">{drawerProfile.title}</p>
+                  <p className="font-sans text-lg text-foreground">{drawerProfile.title}</p>
                   <span className="text-xs font-sans font-medium px-2.5 py-1 rounded-sm bg-foreground text-background mt-1 inline-block">
                     {drawerProfile.seniority}
                   </span>
