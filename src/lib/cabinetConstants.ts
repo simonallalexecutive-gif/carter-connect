@@ -43,9 +43,9 @@ export const NAT_LABELS: Record<string, string> = {
 };
 
 export const NAT_FLAGS: Record<string, string> = {
-  FR: '🇫🇷',
-  US: '🇺🇸',
-  UK: '🇬🇧',
+  FR: 'FR',
+  US: 'US',
+  UK: 'GB',
 };
 
 export const DEPT_KEY_MAP: Record<string, string> = {
