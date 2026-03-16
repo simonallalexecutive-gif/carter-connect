@@ -269,7 +269,7 @@ const DemoPage = () => {
           transition={{ delay: 0.1 }}
           className="font-serif text-3xl md:text-5xl font-normal text-foreground mb-4 tracking-[-0.02em]"
         >
-          Le parcours Logan
+          Comment ça fonctionne
         </motion.h1>
         <motion.p
           initial={{ opacity: 0, y: 12 }}
@@ -394,9 +394,9 @@ const DemoPage = () => {
           </Button>
 
           {currentSlide === slides.length - 1 ? (
-            <Link to="/inscription">
+            <Link to={perspective === 'candidat' ? '/inscription?start=2' : '/cabinet?start=2'}>
               <Button className="bg-foreground text-background hover:bg-foreground/90 text-sm font-bold rounded-sm px-8">
-                S'inscrire en quelques clics <ArrowRight className="w-4 h-4 ml-2" />
+                {perspective === 'candidat' ? 'Créer mon profil' : 'Inscrire mon cabinet'} <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </Link>
           ) : (
