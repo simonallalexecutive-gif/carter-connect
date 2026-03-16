@@ -9,7 +9,7 @@ const Header = () => {
     <header className="fixed top-0 left-0 right-0 z-50 bg-transparent">
       <div className="px-6 sm:px-8 lg:px-10 flex items-center justify-between h-20">
         <Link to="/" className="flex items-center">
-          <span className="font-display text-2xl tracking-[-0.02em] text-white">Logan</span>
+          <span className="font-serif text-lg tracking-[0.04em] text-white">Logan</span>
         </Link>
         <nav className="flex items-center gap-8">
           <Link to="/inscription?espace=candidat" className="font-sans text-[13px] font-light text-white/60 hover:text-white transition-colors duration-300">
