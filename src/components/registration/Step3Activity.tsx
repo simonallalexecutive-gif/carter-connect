@@ -10,6 +10,7 @@ import { cn } from '@/lib/utils';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import { useMemo } from 'react';
 import { ArrowLeft, ArrowRight, Check } from 'lucide-react';
+import FinanceActivityPanel from './FinanceActivityPanel';
 
 const CHART_COLORS = [
   'hsl(215, 60%, 30%)',
