@@ -516,7 +516,7 @@ export const ACTIVITES_BY_PRACTICE: Record<string, { sections: { title: string; 
 };
 
 // Fallback activities for "Autre" or unmapped departments
-export const ACTIVITES_DEFAULT = {
+export const ACTIVITES_DEFAULT: { sections: { title: string; items: ActivityItem[] }[] } = {
   sections: [
     {
       title: "Nature du travail",
