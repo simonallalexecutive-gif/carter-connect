@@ -83,7 +83,7 @@ const CabinetStep4Subscription = () => {
             <p className="text-[11px] text-white/50 leading-relaxed">LOGAN approche confidentiellement les candidats alignés avec votre recherche.</p>
           </div>
           <div>
-            <div className="font-serif text-2xl font-bold text-white/90 mb-1">3.</div>
+            <div className="font-sans text-2xl font-bold text-white/90 mb-1">3.</div>
             <div className="text-xs font-bold text-white mb-0.5">Fee au placement</div>
             <p className="text-[11px] text-white/50 leading-relaxed">Un fee réduit (vs 20–25% marché) uniquement si le profil de vos rêves rejoint votre cabinet.</p>
           </div>
