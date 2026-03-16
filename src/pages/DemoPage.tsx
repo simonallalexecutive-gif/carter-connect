@@ -269,7 +269,7 @@ const DemoPage = () => {
           transition={{ delay: 0.1 }}
           className="font-serif text-3xl md:text-5xl font-normal text-foreground mb-4 tracking-[-0.02em]"
         >
-          Comment ça fonctionne
+          Le parcours Logan
         </motion.h1>
         <motion.p
           initial={{ opacity: 0, y: 12 }}
