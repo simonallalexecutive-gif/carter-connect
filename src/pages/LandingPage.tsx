@@ -51,7 +51,7 @@ const LandingPage = () => (
         <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/50" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black" />
       </div>
-      <div className="px-6 sm:px-8 lg:px-10 max-w-6xl relative z-10 pt-24 flex-1 flex items-start pt-[18vh]">
+      <div className="px-6 sm:px-8 lg:px-10 max-w-6xl relative z-10 pt-24 flex-1 flex items-center">
           <motion.div variants={stagger} initial="hidden" animate="visible" className="max-w-3xl">
           <motion.p variants={fadeUp} className="text-xs font-sans font-medium tracking-[0.25em] uppercase text-white/50 mb-10">
             &nbsp;
