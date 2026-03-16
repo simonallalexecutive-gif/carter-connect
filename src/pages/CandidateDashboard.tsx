@@ -75,7 +75,7 @@ const CandidateSidebar = ({
               <div className="flex items-center gap-3">
                 <Avatar className="w-9 h-9 border border-white/20">
                   {photoPreviewUrl ? <AvatarImage src={photoPreviewUrl} alt="Photo" /> : null}
-                  <AvatarFallback className="bg-white/10 text-white text-[10px] font-serif">
+                  <AvatarFallback className="bg-white/10 text-white text-[10px] font-sans">
                     {prenom && nom ? `${prenom[0]}${nom[0]}` : <User className="w-4 h-4" />}
                   </AvatarFallback>
                 </Avatar>
