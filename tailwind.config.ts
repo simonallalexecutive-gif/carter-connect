@@ -15,6 +15,7 @@ export default {
     extend: {
       fontFamily: {
         serif: ['Cormorant', 'Georgia', 'serif'],
+        display: ['"Libre Baskerville"', 'Georgia', 'serif'],
         sans: ['Inter', 'system-ui', 'sans-serif'],
       },
       colors: {

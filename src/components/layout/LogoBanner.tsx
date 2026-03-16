@@ -12,7 +12,7 @@ const LogoBanner = ({ subtitle }: LogoBannerProps) => {
     <div className="w-full bg-black">
       <div className="px-6 sm:px-8 lg:px-10 flex items-center justify-between h-20">
         <div className="flex items-center">
-          <Link to="/" className="font-serif text-2xl tracking-[-0.02em] text-white hover:text-white/80 transition-colors duration-300">
+          <Link to="/" className="font-display text-2xl tracking-[-0.02em] text-white hover:text-white/80 transition-colors duration-300">
             Logan
           </Link>
           {subtitle && (
