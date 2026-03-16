@@ -86,10 +86,9 @@ const Header = () => {
               </>
             ) : (
               <NavDropdown
-                label="Rejoindre Logan"
+                label="Explorer"
                 items={[
                   { label: 'Prendre rendez-vous pour une présentation', to: '/demo' },
-                  { label: "S'inscrire", to: '/inscription' },
                 ]}
               />
             )
