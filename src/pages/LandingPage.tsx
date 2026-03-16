@@ -111,7 +111,7 @@ const LandingPage = () => (
     <ValueProposition />
 
     {/* Mot de l'équipe */}
-    <section className="py-14 md:py-20 bg-background overflow-hidden">
+    <section className="py-24 md:py-32 bg-background overflow-hidden">
       <div className="carter-container">
         <div className="max-w-3xl mx-auto text-center">
           <motion.div
