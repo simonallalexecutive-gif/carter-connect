@@ -62,7 +62,7 @@ const AdminSidebar = () => {
       <SidebarFooter>
         <button
           onClick={signOut}
-          className="flex items-center gap-2 px-3 py-2 text-[12px] text-muted-foreground hover:text-foreground transition-colors w-full"
+          className="flex items-center gap-2 px-3 py-2 text-[12px] text-sidebar-foreground/50 hover:text-sidebar-foreground transition-colors w-full"
         >
           <LogOut className="h-3.5 w-3.5" />
           {!collapsed && 'Déconnexion'}

@@ -114,6 +114,46 @@
     --shadow-card: 0 1px 4px 0 hsl(0 0% 0% / 0.06), 0 1px 2px -1px hsl(0 0% 0% / 0.04);
     --shadow-elevated: 0 4px 16px -2px hsl(0 0% 0% / 0.1);
   }
+
+  /* Admin theme — Darrois-inspired navy & gold */
+  .theme-admin {
+    --background: 220 20% 97%;           /* #F3F4F7 light blue-grey */
+    --foreground: 220 35% 15%;           /* deep navy text */
+
+    --card: 0 0% 100%;
+    --card-foreground: 220 35% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 35% 15%;
+
+    --primary: 220 35% 18%;              /* #1E2D47 deep navy */
+    --primary-foreground: 40 50% 92%;    /* cream/gold foreground */
+
+    --secondary: 220 15% 92%;
+    --secondary-foreground: 220 35% 15%;
+
+    --muted: 220 15% 93%;
+    --muted-foreground: 220 10% 46%;
+
+    --accent: 40 55% 52%;                /* #C6963A gold accent */
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 55% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 15% 85%;
+    --input: 220 15% 85%;
+    --ring: 220 35% 30%;
+
+    --sidebar-background: 220 35% 15%;   /* deep navy sidebar */
+    --sidebar-foreground: 220 15% 80%;
+    --sidebar-primary: 40 55% 52%;        /* gold active */
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 220 30% 22%;
+    --sidebar-accent-foreground: 220 15% 90%;
+    --sidebar-border: 220 30% 22%;
+    --sidebar-ring: 40 55% 52%;
+  }
 }
 
 @layer base {
