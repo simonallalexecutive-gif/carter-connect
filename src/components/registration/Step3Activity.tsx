@@ -125,8 +125,8 @@ const Step3Activity = () => {
           );
         })}
 
-        {/* Generic Pie chart (non-finance departments) */}
-        {store.departement !== 'Banque & Finance' && hasActivites && (
+        {/* Generic Pie chart (non-finance, non-restructuring departments) */}
+        {store.departement !== 'Banque & Finance' && store.departement !== 'Restructuring' && hasActivites && (
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
