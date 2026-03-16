@@ -33,7 +33,7 @@ const LandingPage = () => (
     <Header />
 
     {/* Hero */}
-    <section className="min-h-screen flex flex-col justify-center relative overflow-hidden bg-black">
+    <section className="min-h-[115vh] flex flex-col justify-center relative overflow-hidden bg-black">
       {/* Background image with gradient overlay */}
       <div className="absolute inset-0">
         <motion.video
