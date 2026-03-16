@@ -2,20 +2,21 @@ import { motion } from 'motion/react';
 import { useRegistrationStore } from '@/stores/registrationStore';
 import { Slider } from '@/components/ui/slider';
 import { cn } from '@/lib/utils';
-import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
 import { useMemo } from 'react';
 import { Check } from 'lucide-react';
 import { Checkbox } from '@/components/ui/checkbox';
 import type { ActivityItem } from '@/lib/constants';
 
-const CHART_COLORS = [
-  'hsl(215, 60%, 30%)',
-  'hsl(215, 50%, 42%)',
-  'hsl(220, 55%, 22%)',
-  'hsl(210, 45%, 52%)',
-  'hsl(218, 40%, 36%)',
-  'hsl(222, 50%, 28%)',
-  'hsl(212, 35%, 46%)',
+// Palette bleu / gris / beige avec contrastes forts
+const CHART_PALETTE = [
+  'hsl(215, 55%, 28%)',   // bleu foncé
+  'hsl(210, 40%, 48%)',   // bleu moyen
+  'hsl(200, 25%, 62%)',   // bleu-gris clair
+  'hsl(35, 30%, 55%)',    // beige doré
+  'hsl(220, 20%, 38%)',   // gris-bleu
+  'hsl(30, 25%, 68%)',    // beige clair
+  'hsl(215, 35%, 52%)',   // bleu intermédiaire
 ];
 
 const TYPES_ACTIFS = [
@@ -31,6 +32,25 @@ const TYPES_PROJETS = [
 interface FinanceActivityPanelProps {
   items: ActivityItem[];
 }
+
+const renderCustomLegend = (props: any) => {
+  const { payload } = props;
+  return (
+    <div className="flex flex-wrap gap-x-4 gap-y-1.5 mt-2 justify-center">
+      {payload?.map((entry: any, i: number) => (
+        <div key={i} className="flex items-center gap-1.5">
+          <span
+            className="w-2.5 h-2.5 rounded-sm flex-shrink-0"
+            style={{ background: entry.color }}
+          />
+          <span className="text-[10px] font-sans text-foreground/70">
+            {entry.value} ({entry.payload?.displayPercent}%)
+          </span>
+        </div>
+      ))}
+    </div>
+  );
+};
 
 const FinanceActivityPanel = ({ items }: FinanceActivityPanelProps) => {
   const store = useRegistrationStore();
@@ -62,14 +82,21 @@ const FinanceActivityPanel = ({ items }: FinanceActivityPanelProps) => {
   const selectedItems = items.filter(item => store.activites[item.key]);
   const hasActivites = selectedItems.length > 0;
 
-  const chartData = useMemo(() => {
-    return selectedItems.map(item => ({
-      name: item.label,
-      value: store.pourcentages[item.key] || 10,
-    }));
+  const totalPercent = useMemo(() => {
+    return selectedItems.reduce((sum, item) => sum + (store.pourcentages[item.key] || 10), 0);
   }, [selectedItems, store.pourcentages]);
 
-  const totalPercent = chartData.reduce((sum, d) => sum + d.value, 0);
+  const chartData = useMemo(() => {
+    return selectedItems.map(item => {
+      const raw = store.pourcentages[item.key] || 10;
+      const displayPercent = totalPercent > 0 ? Math.round((raw / totalPercent) * 100) : 0;
+      return {
+        name: item.label,
+        value: raw,
+        displayPercent,
+      };
+    });
+  }, [selectedItems, store.pourcentages, totalPercent]);
 
   const showActifs = store.activites['fin_actifs'];
   const showProjets = store.activites['fin_projets'];
@@ -99,7 +126,7 @@ const FinanceActivityPanel = ({ items }: FinanceActivityPanelProps) => {
         })}
       </div>
 
-      {/* Pie chart + sliders + supplementary info */}
+      {/* Chart + controls */}
       {hasActivites && (
         <motion.div
           initial={{ opacity: 0, y: 10 }}
@@ -107,55 +134,98 @@ const FinanceActivityPanel = ({ items }: FinanceActivityPanelProps) => {
           className="carter-card p-6"
         >
           <p className="carter-label mb-5">Répartition de votre activité</p>
-          <div className="flex gap-8 items-start flex-col md:flex-row">
-            {/* Pie chart */}
-            <div className="w-40 h-40 flex-shrink-0 mx-auto md:mx-0">
-              <ResponsiveContainer width="100%" height="100%">
+
+          <div className="flex gap-8 items-start flex-col lg:flex-row">
+            {/* Self-contained pie chart with legend */}
+            <div className="flex-shrink-0 mx-auto lg:mx-0" style={{ width: 260 }}>
+              <ResponsiveContainer width={260} height={280}>
                 <PieChart>
                   <Pie
                     data={chartData}
                     cx="50%"
-                    cy="50%"
-                    innerRadius={38}
-                    outerRadius={68}
+                    cy="45%"
+                    innerRadius={42}
+                    outerRadius={78}
                     dataKey="value"
                     paddingAngle={2}
+                    stroke="hsl(var(--background))"
+                    strokeWidth={2}
+                    label={({ displayPercent, cx, cy, midAngle, innerRadius, outerRadius }) => {
+                      const RADIAN = Math.PI / 180;
+                      const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+                      const x = cx + radius * Math.cos(-midAngle * RADIAN);
+                      const y = cy + radius * Math.sin(-midAngle * RADIAN);
+                      if (displayPercent < 8) return null;
+                      return (
+                        <text
+                          x={x}
+                          y={y}
+                          fill="white"
+                          textAnchor="middle"
+                          dominantBaseline="central"
+                          fontSize={11}
+                          fontWeight={600}
+                          fontFamily="Inter, sans-serif"
+                        >
+                          {displayPercent}%
+                        </text>
+                      );
+                    }}
+                    labelLine={false}
                   >
                     {chartData.map((_, index) => (
-                      <Cell key={index} fill={CHART_COLORS[index % CHART_COLORS.length]} />
+                      <Cell key={index} fill={CHART_PALETTE[index % CHART_PALETTE.length]} />
                     ))}
                   </Pie>
                   <Tooltip
-                    formatter={(value: number) => [`${Math.round((value / totalPercent) * 100)}%`, '']}
-                    contentStyle={{ fontSize: '11px', fontFamily: 'Inter', background: 'hsl(var(--card))', border: '1px solid hsl(var(--border))', borderRadius: '4px', color: 'hsl(var(--foreground))' }}
+                    formatter={(value: number, name: string, props: any) => [
+                      `${props.payload?.displayPercent}%`,
+                      name,
+                    ]}
+                    contentStyle={{
+                      fontSize: '11px',
+                      fontFamily: 'Inter',
+                      background: 'hsl(var(--card))',
+                      border: '1px solid hsl(var(--border))',
+                      borderRadius: '4px',
+                      color: 'hsl(var(--foreground))',
+                    }}
                   />
+                  <Legend content={renderCustomLegend} />
                 </PieChart>
               </ResponsiveContainer>
             </div>
 
-            {/* Sliders */}
+            {/* Sliders + positioning */}
             <div className="flex-1 space-y-4 w-full">
-              {selectedItems.map((item, i) => (
-                <div key={item.key} className="space-y-1.5">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <div className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ backgroundColor: CHART_COLORS[i % CHART_COLORS.length] }} />
-                      <span className="text-xs font-sans text-foreground">{item.label}</span>
+              {selectedItems.map((item, i) => {
+                const raw = store.pourcentages[item.key] || 10;
+                const displayPercent = totalPercent > 0 ? Math.round((raw / totalPercent) * 100) : 0;
+                return (
+                  <div key={item.key} className="space-y-1.5">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <div
+                          className="w-2.5 h-2.5 rounded-sm flex-shrink-0"
+                          style={{ backgroundColor: CHART_PALETTE[i % CHART_PALETTE.length] }}
+                        />
+                        <span className="text-xs font-sans text-foreground">{item.label}</span>
+                      </div>
+                      <span className="text-xs font-sans font-bold text-foreground w-10 text-right">
+                        {displayPercent}%
+                      </span>
                     </div>
-                    <span className="text-xs font-sans font-bold text-foreground w-10 text-right">
-                      {Math.round(((store.pourcentages[item.key] || 10) / totalPercent) * 100)}%
-                    </span>
+                    <Slider
+                      value={[raw]}
+                      onValueChange={([v]) => handlePercentChange(item.key, v)}
+                      min={10}
+                      max={100}
+                      step={10}
+                      className="w-full"
+                    />
                   </div>
-                  <Slider
-                    value={[store.pourcentages[item.key] || 10]}
-                    onValueChange={([v]) => handlePercentChange(item.key, v)}
-                    min={10}
-                    max={100}
-                    step={10}
-                    className="w-full"
-                  />
-                </div>
-              ))}
+                );
+              })}
 
               {/* Positionnement: Prêteur vs Sponsor */}
               <div className="pt-4 border-t border-border space-y-3">
@@ -205,7 +275,7 @@ const FinanceActivityPanel = ({ items }: FinanceActivityPanelProps) => {
             </div>
           </div>
 
-          {/* Supplementary checkboxes for specific types */}
+          {/* Supplementary checkboxes */}
           {(showActifs || showProjets) && (
             <div className="mt-6 pt-5 border-t border-border space-y-5">
               {showActifs && (
