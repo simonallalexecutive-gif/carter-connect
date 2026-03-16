@@ -136,7 +136,7 @@ const CandidateOffers = () => {
                           <div className="mb-6 pb-5 border-b border-border">
                             <div className="text-[8px] tracking-[0.16em] uppercase text-muted-foreground font-sans mb-2">Opportunité · Présentée par LOGAN</div>
                             <div className="flex items-center gap-0 mb-1 flex-wrap">
-                              <span className="font-serif text-[15px] tracking-[-0.01em] text-foreground">{shortSeniority(offer.seniority)}</span>
+                              <span className="font-sans text-[15px] tracking-[-0.01em] text-foreground">{shortSeniority(offer.seniority)}</span>
                               <span className="mx-2 w-px h-4 bg-border inline-block" />
                               <span className="font-serif text-[15px] tracking-[-0.01em] text-foreground">{offer.dept}</span>
                               {offer.ranking && (
