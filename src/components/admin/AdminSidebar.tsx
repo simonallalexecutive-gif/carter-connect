@@ -29,14 +29,14 @@ const AdminSidebar = () => {
   const { signOut } = useAuth();
 
   return (
-    <Sidebar collapsible="icon" className="border-r border-border">
+    <Sidebar collapsible="icon" className="border-r border-sidebar-border bg-sidebar">
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>
+          <SidebarGroupLabel className="text-sidebar-foreground/60">
             {!collapsed && (
-              <span className="font-serif text-sm font-bold tracking-[-0.01em]">Logan · Admin</span>
+              <span className="font-serif text-sm font-bold tracking-[-0.01em] text-accent">Logan · Admin</span>
             )}
-            {collapsed && <span className="font-serif text-sm font-bold">L</span>}
+            {collapsed && <span className="font-serif text-sm font-bold text-accent">L</span>}
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
@@ -46,8 +46,8 @@ const AdminSidebar = () => {
                     <NavLink
                       to={item.url}
                       end={item.url === '/admin'}
-                      className="hover:bg-muted/50"
-                      activeClassName="bg-muted text-foreground font-semibold"
+                      className="text-sidebar-foreground/70 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
+                      activeClassName="bg-sidebar-accent text-accent font-semibold"
                     >
                       <item.icon className="mr-2 h-4 w-4" />
                       {!collapsed && <span className="text-[13px]">{item.title}</span>}
@@ -62,7 +62,7 @@ const AdminSidebar = () => {
       <SidebarFooter>
         <button
           onClick={signOut}
-          className="flex items-center gap-2 px-3 py-2 text-[12px] text-muted-foreground hover:text-foreground transition-colors w-full"
+          className="flex items-center gap-2 px-3 py-2 text-[12px] text-sidebar-foreground/50 hover:text-sidebar-foreground transition-colors w-full"
         >
           <LogOut className="h-3.5 w-3.5" />
           {!collapsed && 'Déconnexion'}

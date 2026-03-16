@@ -4,10 +4,10 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { cn } from '@/lib/utils';
 
 const STATUS_COLORS: Record<string, string> = {
-  nouveau: 'bg-foreground text-background',
-  qualifié: 'bg-secondary text-foreground',
-  en_process: 'bg-muted text-foreground border border-border',
-  placé: 'bg-foreground text-background',
+  nouveau: 'bg-primary text-primary-foreground',
+  qualifié: 'bg-accent text-accent-foreground',
+  en_process: 'bg-secondary text-foreground border border-border',
+  placé: 'bg-primary text-primary-foreground',
   inactif: 'bg-muted text-muted-foreground',
 };
 
@@ -31,8 +31,8 @@ const AdminProfiles = () => {
             className={cn(
               'text-[10px] font-semibold px-3 py-1.5 border rounded-full transition-all',
               statusFilter === s
-                ? 'bg-foreground text-background border-foreground'
-                : 'bg-background text-muted-foreground border-border hover:border-foreground hover:text-foreground'
+                ? 'bg-primary text-primary-foreground border-primary'
+                : 'bg-card text-muted-foreground border-border hover:border-primary hover:text-foreground'
             )}
           >
             {s === 'all' ? 'Tous' : STATUS_LABELS[s]}

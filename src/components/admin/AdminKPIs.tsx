@@ -21,7 +21,7 @@ const AdminKPIs = () => {
     { name: 'Inactifs', value: MOCK_PROFILES.filter((p) => p.status === 'inactif').length },
   ].filter((d) => d.value > 0);
 
-  const PIE_COLORS = ['hsl(0,0%,7%)', 'hsl(0,0%,29%)', 'hsl(0,0%,48%)', 'hsl(0,0%,68%)', 'hsl(0,0%,84%)'];
+  const PIE_COLORS = ['hsl(220,35%,18%)', 'hsl(40,55%,52%)', 'hsl(220,25%,35%)', 'hsl(40,40%,65%)', 'hsl(220,15%,55%)'];
 
   return (
     <div>
@@ -56,8 +56,8 @@ const AdminKPIs = () => {
               <XAxis dataKey="dept" tick={{ fontSize: 10 }} />
               <YAxis tick={{ fontSize: 10 }} allowDecimals={false} />
               <Tooltip contentStyle={{ fontSize: 12 }} />
-              <Bar dataKey="candidats" fill="hsl(0,0%,7%)" radius={[3, 3, 0, 0]} name="Candidats" />
-              <Bar dataKey="offres" fill="hsl(0,0%,68%)" radius={[3, 3, 0, 0]} name="Offres" />
+              <Bar dataKey="candidats" fill="hsl(220,35%,18%)" radius={[3, 3, 0, 0]} name="Candidats" />
+              <Bar dataKey="offres" fill="hsl(40,55%,52%)" radius={[3, 3, 0, 0]} name="Offres" />
             </BarChart>
           </ResponsiveContainer>
         </div>

@@ -6,10 +6,10 @@ const STAGE_ORDER = ['intérêt', 'entretien_logan', 'présentation', 'entretien
 const STAGE_COLORS: Record<string, string> = {
   intérêt: 'bg-muted text-foreground',
   entretien_logan: 'bg-secondary text-foreground border border-border',
-  présentation: 'bg-foreground/80 text-background',
-  entretien_cabinet: 'bg-foreground text-background',
-  offre: 'bg-foreground text-background',
-  placé: 'bg-foreground text-background',
+  présentation: 'bg-primary/80 text-primary-foreground',
+  entretien_cabinet: 'bg-primary text-primary-foreground',
+  offre: 'bg-accent text-accent-foreground',
+  placé: 'bg-accent text-accent-foreground',
   abandonné: 'bg-destructive/10 text-destructive',
 };
 
@@ -34,8 +34,8 @@ const AdminProcesses = () => {
                 <div className="font-serif text-xl font-bold text-foreground">{count}</div>
                 <div className="text-[9px] font-semibold tracking-[0.06em] uppercase text-muted-foreground mt-0.5">{STAGE_LABELS[stage]}</div>
               </div>
-              <div className="h-1 bg-foreground/10 mt-2 rounded-full overflow-hidden">
-                <div className="h-full bg-foreground rounded-full" style={{ width: count > 0 ? '100%' : '0%' }} />
+              <div className="h-1 bg-primary/10 mt-2 rounded-full overflow-hidden">
+                <div className="h-full bg-accent rounded-full" style={{ width: count > 0 ? '100%' : '0%' }} />
               </div>
             </div>
           );
@@ -46,7 +46,7 @@ const AdminProcesses = () => {
       <div className="text-[10px] font-semibold tracking-[0.12em] uppercase text-muted-foreground mb-3">Processus en cours</div>
       <div className="grid gap-3 mb-8">
         {activeProcesses.map((p) => (
-          <div key={p.id} className="bg-background border border-border rounded-lg p-4 flex items-center justify-between hover:border-foreground transition-colors cursor-pointer">
+          <div key={p.id} className="bg-card border border-border rounded-lg p-4 flex items-center justify-between hover:border-accent transition-colors cursor-pointer">
             <div className="flex-1">
               <div className="text-[12px] font-semibold text-foreground">{p.candidatName}</div>
               <div className="text-[11px] text-muted-foreground mt-0.5">{p.candidatId} · {p.dept} → {p.cabinetName}</div>

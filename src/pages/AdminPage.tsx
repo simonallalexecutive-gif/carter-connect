@@ -29,25 +29,27 @@ const AdminPage = () => {
   if (!user) return null;
 
   return (
-    <SidebarProvider>
-      <div className="min-h-screen flex w-full bg-muted/30">
-        <AdminSidebar />
-        <div className="flex-1 flex flex-col">
-          <header className="h-14 flex items-center border-b border-border bg-background px-4 gap-3">
-            <SidebarTrigger />
-            <span className="text-[10px] font-semibold tracking-[0.12em] uppercase text-muted-foreground">Espace administrateur</span>
-          </header>
-          <main className="flex-1 p-6 lg:p-8 overflow-y-auto">
-            <Routes>
-              <Route index element={<AdminKPIs />} />
-              <Route path="profils" element={<AdminProfiles />} />
-              <Route path="offres" element={<AdminOffers />} />
-              <Route path="processus" element={<AdminProcesses />} />
-            </Routes>
-          </main>
+    <div className="theme-admin">
+      <SidebarProvider>
+        <div className="min-h-screen flex w-full bg-background">
+          <AdminSidebar />
+          <div className="flex-1 flex flex-col">
+            <header className="h-14 flex items-center border-b border-border bg-card px-4 gap-3">
+              <SidebarTrigger />
+              <span className="text-[10px] font-semibold tracking-[0.12em] uppercase text-muted-foreground">Espace administrateur</span>
+            </header>
+            <main className="flex-1 p-6 lg:p-8 overflow-y-auto">
+              <Routes>
+                <Route index element={<AdminKPIs />} />
+                <Route path="profils" element={<AdminProfiles />} />
+                <Route path="offres" element={<AdminOffers />} />
+                <Route path="processus" element={<AdminProcesses />} />
+              </Routes>
+            </main>
+          </div>
         </div>
-      </div>
-    </SidebarProvider>
+      </SidebarProvider>
+    </div>
   );
 };
 
