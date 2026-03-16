@@ -128,7 +128,7 @@ const CabinetStep4Subscription = () => {
 
               <div className="bg-secondary rounded p-2.5 mb-4">
                 <div className="text-[9px] font-bold tracking-[0.1em] uppercase text-muted-foreground mb-0.5">Fee au placement</div>
-                <div className="font-serif text-xl font-bold text-foreground">{p.fee}%</div>
+                <div className="font-sans text-xl font-bold text-foreground">{p.fee}%</div>
                 <div className="text-[10px] text-muted-foreground">de la rétrocession annuelle brute</div>
               </div>
 
