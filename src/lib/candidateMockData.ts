@@ -106,6 +106,6 @@ export const CANDIDATE_OFFERS: CandidateOffer[] = [
     tt: '3 jours / semaine',
     profilCriteres: ['Esprit d\'équipe', 'Capacité rédactionnelle', 'Proactivité'],
     ranking: 'Tier 3 · Droit Social',
-    natFlag: '🇫🇷',
+    natFlag: 'FR',
   },
 ];
