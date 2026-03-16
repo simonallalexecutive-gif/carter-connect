@@ -121,15 +121,15 @@ const LandingPage = () => (
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             className="w-16 h-px bg-white/20 mx-auto mb-12 origin-center"
           />
-          <motion.h2
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="text-2xl md:text-4xl lg:text-[2.75rem] font-serif font-normal text-white mb-12 tracking-[-0.02em]"
+            className="text-xs font-sans font-medium tracking-[0.2em] uppercase text-white/50 mb-12"
           >
             Qui sommes-nous
-          </motion.h2>
+          </motion.p>
           <motion.p
             initial={{ opacity: 0, y: 40, filter: 'blur(8px)' }}
             whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}

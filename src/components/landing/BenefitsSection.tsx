@@ -91,9 +91,9 @@ const BenefitsSection = () => {
           className="mb-16"
         >
           <div className="carter-divider mb-8" />
-          <h2 className="text-2xl md:text-4xl lg:text-[2.75rem] font-sans font-normal text-foreground leading-tight tracking-[-0.02em] mb-10">
+          <p className="text-xs font-sans font-medium tracking-[0.2em] uppercase text-muted-foreground mb-10">
              Notre plateforme
-          </h2>
+          </p>
 
           {/* Tabs */}
           <div className="inline-flex border border-border rounded-sm overflow-hidden">
