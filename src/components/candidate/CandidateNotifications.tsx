@@ -65,28 +65,28 @@ const CandidateNotifications = () => {
             return (
               <div
                 key={notif.id}
-                className="rounded-lg overflow-hidden transition-all duration-300"
-                style={{ background: 'hsl(220 40% 13%)' }}
+                className="rounded-lg overflow-hidden transition-all duration-300 border border-border"
+                style={{ background: 'hsl(0 0% 96%)' }}
               >
                 <div className="p-5">
                   <div className="flex items-start gap-4">
                     <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 mt-0.5 ${
-                      notif.type === 'interest' ? 'bg-white/20 text-white' : 'bg-white/10 text-white/60'
+                      notif.type === 'interest' ? 'bg-foreground/10 text-foreground' : 'bg-secondary text-muted-foreground'
                     }`}>
                       {notif.type === 'interest' ? <Star className="w-3.5 h-3.5" /> : <Bell className="w-3.5 h-3.5" />}
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between gap-4 mb-1">
-                        <p className={`text-[16px] font-serif tracking-[-0.01em] ${notif.read ? 'text-white/70' : 'text-white'}`}>
+                        <p className={`text-[16px] font-serif tracking-[-0.01em] ${notif.read ? 'text-foreground/70' : 'text-foreground'}`}>
                           {notif.message}
                         </p>
-                        {!notif.read && <span className="w-2 h-2 rounded-full bg-white shrink-0" />}
+                        {!notif.read && <span className="w-2 h-2 rounded-full bg-foreground shrink-0" />}
                       </div>
-                      <p className="text-[11px] font-serif text-white/50 leading-relaxed mb-2">{notif.detail}</p>
+                      <p className="text-[11px] font-serif text-muted-foreground leading-relaxed mb-2">{notif.detail}</p>
 
                       {notif.type === 'interest' && offer && offer.ranking && (
                         <div className="flex items-center gap-2 mb-2">
-                          <span className="inline-flex items-center gap-2 text-[12px] font-serif text-white bg-white/10 border border-white/10 rounded-full px-3 py-1">
+                          <span className="inline-flex items-center gap-2 text-[12px] font-serif text-foreground bg-secondary border border-border rounded-full px-3 py-1">
                             <span className="text-base leading-none">{offer.natFlag}</span>
                             <span className="font-semibold">{offer.ranking}</span>
                           </span>
@@ -94,11 +94,11 @@ const CandidateNotifications = () => {
                       )}
 
                       <div className="flex items-center gap-3">
-                        <span className="text-[10px] font-serif text-white/40">{new Date(notif.date).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' })}</span>
+                        <span className="text-[10px] font-serif text-muted-foreground/60">{new Date(notif.date).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' })}</span>
                         {notif.type === 'interest' && offer && (
                           <button
                             onClick={() => setExpandedNotif(isExpanded ? null : notif.id)}
-                            className="inline-flex items-center gap-1 text-[10px] font-serif font-medium text-white hover:text-white/70 transition-colors underline underline-offset-2"
+                            className="inline-flex items-center gap-1 text-[10px] font-serif font-medium text-foreground hover:text-foreground/70 transition-colors underline underline-offset-2"
                           >
                             {isExpanded ? 'Masquer l\'offre' : 'Consulter l\'offre'}
                             <ArrowRight className="w-3 h-3" />

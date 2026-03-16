@@ -157,26 +157,26 @@ const CabinetDashboardLayout = () => {
 
         <div className="flex-1 flex flex-col min-h-screen">
           {/* Top bar */}
-          <header className="flex items-center border-b border-border bg-black px-6 py-7 gap-5">
-            <SidebarTrigger className="text-white/60 hover:text-white" />
+          <header className="flex items-center border-b border-border bg-[hsl(0_0%_96%)] px-6 py-7 gap-5">
+            <SidebarTrigger className="text-foreground/60 hover:text-foreground" />
             <div className="flex items-center gap-5 flex-1 min-w-0">
-              <Avatar className="w-11 h-11 border border-white/20 shrink-0">
-                <AvatarFallback className="bg-white/10 text-white text-[11px] font-serif">
+              <Avatar className="w-11 h-11 border border-border shrink-0">
+                <AvatarFallback className="bg-secondary text-foreground text-[11px] font-serif">
                   {s.cabinetName ? s.cabinetName[0].toUpperCase() : '?'}
                 </AvatarFallback>
               </Avatar>
               <div className="min-w-0">
-                <h1 className="text-lg md:text-xl font-serif font-normal text-white leading-tight tracking-[-0.01em]">
+                <h1 className="text-lg md:text-xl font-serif font-normal text-foreground leading-tight tracking-[-0.01em]">
                   Bienvenue, {s.cabinetName || 'Cabinet'}
                 </h1>
                 <div className="flex flex-wrap items-center gap-2 mt-2">
                   {s.detectedNat && (
-                    <span className="inline-flex items-center gap-1 text-[9px] text-white/60 bg-white/10 border border-white/15 rounded-sm px-2 py-0.5">
+                    <span className="inline-flex items-center gap-1 text-[9px] text-foreground/60 bg-secondary border border-border rounded-sm px-2 py-0.5">
                       {NAT_FLAGS[s.detectedNat]} {NAT_LABELS[s.detectedNat]}
                     </span>
                   )}
                   {s.palier && (
-                    <span className="inline-flex items-center gap-1 text-[9px] text-white/60 bg-white/10 border border-white/15 rounded-sm px-2 py-0.5">
+                    <span className="inline-flex items-center gap-1 text-[9px] text-foreground/60 bg-secondary border border-border rounded-sm px-2 py-0.5">
                       <Building2 className="w-2.5 h-2.5" />
                       {s.palier.charAt(0).toUpperCase() + s.palier.slice(1)}
                     </span>
