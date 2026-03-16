@@ -33,8 +33,8 @@ const LandingPage = () => (
     <Header />
 
     {/* Hero */}
-    <section className="min-h-[115vh] flex flex-col justify-center relative overflow-hidden bg-black">
-      {/* Background image with gradient overlay */}
+    <section className="min-h-screen md:min-h-[115vh] flex flex-col justify-center relative overflow-hidden bg-black">
+      {/* Background video with gradient overlay */}
       <div className="absolute inset-0">
         <motion.video
           src={heroVideo}
@@ -52,20 +52,20 @@ const LandingPage = () => (
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black" />
       </div>
       <div className="px-6 sm:px-8 lg:px-10 max-w-6xl relative z-10 pt-24 flex-1 flex items-center">
-          <motion.div variants={stagger} initial="hidden" animate="visible" className="max-w-3xl">
-          <motion.p variants={fadeUp} className="text-xs font-sans font-medium tracking-[0.25em] uppercase text-white/50 mb-10">
+        <motion.div variants={stagger} initial="hidden" animate="visible" className="max-w-3xl">
+          <motion.p variants={fadeUp} className="text-xs font-sans font-medium tracking-[0.25em] uppercase text-white/50 mb-6 md:mb-10">
             &nbsp;
           </motion.p>
-          <motion.h1 variants={fadeUp} className="text-[2rem] md:text-[2.78rem] lg:text-[4.2rem] font-serif font-[500] text-white leading-[1.08] mb-8 tracking-[-0.01em] whitespace-nowrap">
+          <motion.h1 variants={fadeUp} className="text-[1.65rem] sm:text-[2rem] md:text-[2.78rem] lg:text-[4.2rem] font-serif font-[500] text-white leading-[1.12] md:leading-[1.08] mb-6 md:mb-8 tracking-[-0.01em]">
             Where Leading Lawyers{' '}<span className="text-white/70">and Firms Meet</span>
           </motion.h1>
-          <motion.p variants={fadeUp} className="text-lg md:text-2xl text-white font-sans font-normal max-w-2xl mb-3 leading-relaxed whitespace-nowrap">
-            La première plateforme confidentielle de mise en relation entre avocats<br />d'affaires et cabinets de premier plan.
+          <motion.p variants={fadeUp} className="text-base sm:text-lg md:text-2xl text-white font-sans font-normal max-w-2xl mb-3 leading-relaxed">
+            La première plateforme confidentielle de mise en relation entre avocats d'affaires et cabinets de premier plan.
           </motion.p>
-          <motion.div variants={fadeUp} className="mb-14" />
+          <motion.div variants={fadeUp} className="mb-8 md:mb-14" />
           <motion.div variants={fadeUp}>
             <Link to="/demo">
-              <Button size="lg" className="bg-white text-black border border-white hover:bg-white/90 font-sans text-sm font-medium px-8 py-6 rounded-sm tracking-wide group transition-all duration-300">
+              <Button size="lg" className="bg-white text-black border border-white hover:bg-white/90 font-sans text-sm font-medium px-6 sm:px-8 py-5 sm:py-6 rounded-sm tracking-wide group transition-all duration-300">
                 Rejoindre Logan
                 <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
               </Button>
@@ -79,26 +79,26 @@ const LandingPage = () => (
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.2, duration: 1.5 }}
-        className="relative z-10 pb-10 overflow-hidden"
+        className="relative z-10 pb-6 md:pb-10 overflow-hidden"
       >
         <div className="relative flex items-center py-1">
           {/* Fade edges */}
-          <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-black to-transparent z-10 pointer-events-none" />
-          <div className="absolute right-[180px] top-0 bottom-0 w-20 bg-gradient-to-l from-black to-transparent z-10 pointer-events-none" />
+          <div className="absolute left-0 top-0 bottom-0 w-12 md:w-20 bg-gradient-to-r from-black to-transparent z-10 pointer-events-none" />
+          <div className="absolute right-0 md:right-[180px] top-0 bottom-0 w-12 md:w-20 bg-gradient-to-l from-black to-transparent z-10 pointer-events-none" />
 
           {/* Scrolling logos */}
           <div className="flex-1 overflow-hidden">
             <div className="flex animate-marquee whitespace-nowrap items-center">
               {[...firmNames, ...firmNames].map((name, i) => (
-                <span key={i} className="mx-6 md:mx-10 text-[12px] md:text-[14.5px] font-serif font-normal text-white/50 select-none flex-shrink-0 tracking-wide">
+                <span key={i} className="mx-4 md:mx-10 text-[11px] md:text-[14.5px] font-serif font-normal text-white/50 select-none flex-shrink-0 tracking-wide">
                   {name}
                 </span>
               ))}
             </div>
           </div>
 
-          {/* Static "Nos partenaires" chip */}
-          <div className="flex-shrink-0 pl-8 pr-6 md:pr-10 relative z-20 bg-gradient-to-r from-transparent via-black to-black">
+          {/* Static "Nos partenaires" chip — hidden on small mobile */}
+          <div className="hidden sm:block flex-shrink-0 pl-8 pr-6 md:pr-10 relative z-20 bg-gradient-to-r from-transparent via-black to-black">
             <span className="inline-block px-5 py-2 border border-white/40 rounded-sm text-[12px] md:text-[14.5px] font-serif font-normal tracking-wide text-white whitespace-nowrap cursor-default leading-none">
               Nos partenaires
             </span>
