@@ -151,7 +151,7 @@ const LandingPage = () => (
 
 
     {/* CTA */}
-    <section className="py-32 bg-black relative">
+    <section className="py-24 md:py-32 bg-black relative">
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] rounded-full opacity-[0.08]" style={{ background: 'radial-gradient(circle, hsl(0 0% 50%), transparent 70%)' }} />
       </div>

@@ -79,9 +79,10 @@ const Header = () => {
             ) : (
               <Link
                 to="/demo"
-                className="font-sans text-sm font-medium text-black bg-white hover:bg-white/90 rounded-sm px-5 py-2 transition-colors duration-300 tracking-wide"
+                className="font-sans text-sm font-medium text-black bg-white hover:bg-white/90 rounded-sm px-5 py-2 transition-colors duration-300 tracking-wide inline-flex items-center gap-2 group"
               >
                 Prendre rendez-vous
+                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </Link>
             )
           )}
