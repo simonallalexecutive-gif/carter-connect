@@ -119,7 +119,7 @@ const LandingPage = () => (
             whileInView={{ scaleX: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="w-16 h-px bg-foreground/20 mx-auto mb-12 origin-center"
+            className="w-16 h-px bg-white/20 mx-auto mb-12 origin-center"
           />
           <motion.p
             initial={{ opacity: 0, y: 40, filter: 'blur(8px)' }}
