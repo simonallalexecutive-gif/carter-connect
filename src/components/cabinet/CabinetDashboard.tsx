@@ -144,7 +144,7 @@ const DeptSelection = () => {
         ← Retour au tableau de bord
       </button>
 
-      <h2 className="font-serif text-3xl font-normal text-foreground leading-tight mb-2.5">Nouvelle recherche</h2>
+      <h2 className="font-sans text-3xl font-normal text-foreground leading-tight mb-2.5">Nouvelle recherche</h2>
       <p className="text-sm text-muted-foreground font-light leading-relaxed mb-8 max-w-xl">
         Sélectionnez le département concerné par votre recherche. LOGAN identifiera automatiquement votre classement Legal 500 pour ce département.
       </p>
