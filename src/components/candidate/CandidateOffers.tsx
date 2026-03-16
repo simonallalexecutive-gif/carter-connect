@@ -216,7 +216,7 @@ const CandidateOffers = () => {
                                 </div>
                                 <div className="bg-secondary rounded-lg p-4 text-center">
                                   <div className="text-[8px] uppercase tracking-[0.1em] text-muted-foreground mb-2">Télétravail</div>
-                                  <div className="font-serif text-base font-bold text-foreground">{offer.tt || '—'}</div>
+                                  <div className="font-sans text-base font-bold text-foreground">{offer.tt || '—'}</div>
                                 </div>
                               </div>
                             </div>
