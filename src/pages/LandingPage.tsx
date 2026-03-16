@@ -135,7 +135,7 @@ const LandingPage = () => (
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.8 }}
-            className="inline-block text-xs font-sans font-medium tracking-[0.2em] uppercase text-muted-foreground"
+            className="inline-block text-xs font-sans font-medium tracking-[0.2em] uppercase text-white/50"
           >
             — L'Équipe Logan
           </motion.span>
