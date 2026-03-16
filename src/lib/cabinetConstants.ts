@@ -392,7 +392,7 @@ export const PROFILES: CabinetProfile[] = [
   {
     id: 'C-2024-057', dept: 'ma', deptLabel: 'M&A / Corporate',
     title: 'Collaborateur M&A — 4 ans PQE',
-    pqe: '4 ans', nat: 'FR', natFlag: '🇫🇷',
+    pqe: '4 ans', nat: 'FR', natFlag: 'FR',
     origin: 'Cabinet français Tier 1', originTier: 'Tier 1',
     english: 'Courant', seniority: 'Mid Level', isNew: true,
     expertise: ['M&A Industriel', 'Private Equity / LBO'],
