@@ -13,6 +13,7 @@ import { ArrowLeft, ArrowRight, Check } from 'lucide-react';
 import FinanceActivityPanel from './FinanceActivityPanel';
 import RestructuringActivityPanel from './RestructuringActivityPanel';
 import SocialActivityPanel from './SocialActivityPanel';
+import MaActivityPanel from './MaActivityPanel';
 
 const CHART_COLORS = [
   'hsl(215, 60%, 30%)',
