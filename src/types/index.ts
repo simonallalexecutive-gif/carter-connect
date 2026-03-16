@@ -56,6 +56,7 @@ export interface RegistrationState {
   clienteleFrancaise: number;
   positionnementRestr: string[];
   clienteleRestr: string[];
+  restrFinancier: number;
   anglais: string;
   typesClients: string[];
   // Step 4 - Project
