@@ -277,19 +277,23 @@ export const ACTIVITES_BY_PRACTICE: Record<string, { sections: { title: string; 
       {
         title: "Type de financement",
         items: [
-          { key: "acqfin", label: "Financements d'acquisition" },
-          { key: "projfin", label: "Financements de projet" },
-          { key: "struc", label: "Financements structurés" },
-          { key: "immo", label: "Financements immobiliers" },
-          { key: "titr", label: "Titrisation" },
-        ],
-      },
-      {
-        title: "Positionnement",
-        items: [
-          { key: "pret", label: "Côté prêteur" },
-          { key: "empr", label: "Côté emprunteur" },
-          { key: "agent", label: "Côté agent" },
+          {
+            key: "dette",
+            label: "Financement par dette",
+            children: [
+              { key: "dette_obligataire", label: "Financement obligataire" },
+              { key: "dette_structure", label: "Financement structuré",
+                children: [
+                  { key: "struct_projets", label: "Financement de projets" },
+                  { key: "struct_actifs", label: "Financement d'actifs" },
+                  { key: "struct_lbo", label: "Financement LBO" },
+                  { key: "struct_titrisation", label: "Titrisation" },
+                ],
+              },
+            ],
+          },
+          { key: "actions", label: "Financement par actions" },
+          { key: "acqfin", label: "Financement d'acquisitions" },
         ],
       },
       {
