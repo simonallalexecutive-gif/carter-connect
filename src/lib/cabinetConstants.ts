@@ -468,7 +468,7 @@ export const PROFILES: CabinetProfile[] = [
   {
     id: 'C-2024-102', dept: 'banque', deptLabel: 'Banque & Finance',
     title: 'Senior Associate Finance — 7 ans PQE',
-    pqe: '7 ans', nat: 'US', natFlag: '🇺🇸',
+    pqe: '7 ans', nat: 'US', natFlag: 'US',
     origin: 'Cabinet US Tier 1', originTier: 'Tier 1',
     english: 'Langue de travail', seniority: 'Sénior', isNew: false,
     expertise: ['Financement', 'Private Equity / LBO', 'Restructuring'],
