@@ -61,6 +61,14 @@ const initialState = {
   socialPosCabinet: { standalone: 10, corporate: 10, restructuring: 10 } as Record<string, number>,
   socialClientele: [] as string[],
   socialExpertises: [] as string[],
+  // M&A / PE / VC
+  maPeFonds: 50,
+  maSanteVendeur: 50,
+  maVcFonds: 50,
+  maIndusSecteurs: [] as string[],
+  maIndusClientele: [] as string[],
+  maSanteClientele: [] as string[],
+  maVcStades: [] as string[],
   anglais: '',
   typesClients: [] as string[],
   // Step 4

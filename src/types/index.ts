@@ -65,6 +65,14 @@ export interface RegistrationState {
   socialPosCabinet: Record<string, number>;
   socialClientele: string[];
   socialExpertises: string[];
+  // M&A / PE / VC
+  maPeFonds: number;
+  maSanteVendeur: number;
+  maVcFonds: number;
+  maIndusSecteurs: string[];
+  maIndusClientele: string[];
+  maSanteClientele: string[];
+  maVcStades: string[];
   anglais: string;
   typesClients: string[];
   // Step 4 - Project
