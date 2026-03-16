@@ -107,8 +107,8 @@ const LandingPage = () => (
       </motion.div>
     </section>
 
-    {/* Value proposition */}
-    <ValueProposition />
+    {/* Stats ticker */}
+    <StatsTickerSection />
 
     {/* Mot de l'équipe */}
     <section className="py-14 md:py-20 bg-black overflow-hidden">
@@ -146,8 +146,8 @@ const LandingPage = () => (
     {/* Benefits — candidat / cabinet tabs */}
     <BenefitsSection />
 
-    {/* Stats ticker */}
-    <StatsTickerSection />
+    {/* Value proposition / Nos engagements */}
+    <ValueProposition />
 
 
     {/* CTA */}
