@@ -51,7 +51,7 @@ const CabinetStep6Confirm = () => {
         <Check className="w-8 h-8 text-background" strokeWidth={2.5} />
       </div>
 
-      <h2 className="font-serif text-3xl font-bold text-foreground mb-3">Demande transmise à LOGAN</h2>
+      <h2 className="font-sans text-3xl font-bold text-foreground mb-3">Demande transmise à LOGAN</h2>
       <p className="text-sm text-muted-foreground leading-relaxed font-light max-w-md mx-auto mb-8">
         Votre compte a été créé. Vérifiez votre email pour confirmer votre inscription, puis connectez-vous pour accéder à votre espace cabinet.
       </p>
