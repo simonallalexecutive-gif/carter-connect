@@ -51,7 +51,7 @@ const Header = () => {
   const { user, loading, signOut } = useAuth();
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-transparent">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-black">
       <div className="px-6 sm:px-8 lg:px-10 flex items-center justify-between h-20">
         <Link to="/" className="flex items-center">
           <span className="font-serif text-[31px] tracking-[0.04em] text-white">Logan</span>
