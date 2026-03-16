@@ -338,7 +338,7 @@ const SearchValidation = () => {
             <div className="grid grid-cols-3 gap-4">
               <div className="bg-white/[0.05] rounded-lg p-3">
                 <div className="text-[8px] uppercase tracking-[0.1em] text-white/35 mb-1.5">Rétrocession</div>
-                <div className="font-serif text-sm font-bold text-white">
+                <div className="font-sans text-sm font-bold text-white">
                   {s.retroMin || s.retroMax ? `${s.retroMin || '?'}€ – ${s.retroMax || '?'}€` : 'Confidentiel'}
                 </div>
               </div>
