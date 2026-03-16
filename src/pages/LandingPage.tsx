@@ -10,11 +10,11 @@ import { ArrowRight } from 'lucide-react';
 import heroVideo from '@/assets/hero-video-jessica.mp4';
 
 const firmNames = [
-  'bredin prat', 'darrois villey', 'gide', 'cleary gottlieb', 'de pardieu brocas',
-  'freshfields', 'linklaters', 'clifford chance', 'allen & overy', 'sullivan & cromwell',
-  'weil gotshal', 'skadden', 'latham & watkins', 'davis polk', 'hogan lovells',
-  'white & case', 'willkie farr', 'dechert', 'goodwin procter', 'orrick',
-  'august debouzy', 'bdgs', 'racine', 'fidal', 'jeantet',
+  'Bredin Prat', 'Darrois Villey', 'Gide', 'Cleary Gottlieb', 'De Pardieu Brocas',
+  'Freshfields', 'Linklaters', 'Clifford Chance', 'Allen & Overy', 'Sullivan & Cromwell',
+  'Weil Gotshal', 'Skadden', 'Latham & Watkins', 'Davis Polk', 'Hogan Lovells',
+  'White & Case', 'Willkie Farr', 'Dechert', 'Goodwin Procter', 'Orrick',
+  'August Debouzy', 'BDGS', 'Racine', 'Fidal', 'Jeantet',
 ];
 
 const stagger = {
@@ -51,16 +51,16 @@ const LandingPage = () => (
         <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/50" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black" />
       </div>
-      <div className="px-6 sm:px-8 lg:px-10 max-w-6xl relative z-10 pt-24 flex-1 flex items-center">
+      <div className="px-6 sm:px-8 lg:px-10 max-w-6xl relative z-10 pt-24 flex-1 flex items-start pt-[18vh]">
           <motion.div variants={stagger} initial="hidden" animate="visible" className="max-w-3xl">
           <motion.p variants={fadeUp} className="text-xs font-sans font-medium tracking-[0.25em] uppercase text-white/50 mb-10">
             &nbsp;
           </motion.p>
-          <motion.h1 variants={fadeUp} className="text-4xl md:text-6xl lg:text-[5.5rem] font-serif font-normal text-white leading-[1.08] mb-8 tracking-[-0.01em]">
+          <motion.h1 variants={fadeUp} className="text-5xl md:text-7xl lg:text-[6.6rem] font-serif font-normal text-white leading-[1.08] mb-8 tracking-[-0.01em]">
             Leading Lawyers{' '}<span className="text-white/70">Connected</span>
           </motion.h1>
-          <motion.p variants={fadeUp} className="text-lg md:text-2xl text-white font-sans font-bold max-w-xl mb-3 leading-relaxed">
-            La plateforme confidentielle de mise en relation entre avocats d'affaires et cabinets de premier plan.
+          <motion.p variants={fadeUp} className="text-base md:text-xl text-white font-sans font-bold max-w-2xl mb-3 leading-relaxed">
+            La plateforme confidentielle de mise en relation<br />entre avocats d'affaires et cabinets de premier plan.
           </motion.p>
           <motion.div variants={fadeUp} className="mb-14" />
           <motion.div variants={fadeUp}>
@@ -90,7 +90,7 @@ const LandingPage = () => (
           <div className="flex-1 overflow-hidden">
             <div className="flex animate-marquee whitespace-nowrap items-center">
               {[...firmNames, ...firmNames].map((name, i) => (
-                <span key={i} className="mx-8 md:mx-12 text-[11px] md:text-[13px] font-serif font-normal text-white/50 select-none flex-shrink-0 tracking-[0.05em] uppercase">
+                <span key={i} className="mx-8 md:mx-12 text-[11px] md:text-[13px] font-serif font-normal text-white/50 select-none flex-shrink-0 tracking-[0.05em]">
                   {name}
                 </span>
               ))}
@@ -99,7 +99,7 @@ const LandingPage = () => (
 
           {/* Static "Nos partenaires" chip — Harvey style */}
           <div className="flex-shrink-0 pl-6 pr-6 md:pr-10 relative z-20 bg-gradient-to-r from-transparent via-black/80 to-black">
-            <span className="px-6 py-2 border border-white/40 rounded-sm text-[11px] font-normal tracking-[0.06em] text-white uppercase whitespace-nowrap cursor-default">
+            <span className="px-6 py-2 border border-white/40 rounded-sm text-sm font-sans font-medium tracking-wide text-white whitespace-nowrap cursor-default">
               Nos partenaires
             </span>
           </div>

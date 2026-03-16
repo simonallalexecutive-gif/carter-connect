@@ -12,10 +12,10 @@ const Header = () => {
           <span className="font-serif text-[31px] tracking-[0.04em] text-white">Logan</span>
         </Link>
         <nav className="flex items-center gap-8">
-          <Link to="/inscription?espace=candidat" className="font-sans text-[13px] font-light text-white/60 hover:text-white transition-colors duration-300">
+          <Link to="/inscription?espace=candidat" className="font-sans text-sm font-medium text-white/60 hover:text-white transition-colors duration-300 tracking-wide">
             Espace candidat
           </Link>
-          <Link to="/inscription?espace=cabinet" className="font-sans text-[13px] font-light text-white/60 hover:text-white transition-colors duration-300">
+          <Link to="/inscription?espace=cabinet" className="font-sans text-sm font-medium text-white/60 hover:text-white transition-colors duration-300 tracking-wide">
             Espace cabinet
           </Link>
           {!loading && (
@@ -32,7 +32,7 @@ const Header = () => {
                 </button>
               </>
             ) : (
-              <Link to="/demo" className="font-sans text-[13px] font-medium bg-white text-black hover:bg-white/90 rounded-sm px-4 py-2 transition-colors duration-300">
+              <Link to="/demo" className="font-sans text-sm font-medium bg-white text-black hover:bg-white/90 rounded-sm px-4 py-2 transition-colors duration-300 tracking-wide">
                 Explorer
               </Link>
             )
