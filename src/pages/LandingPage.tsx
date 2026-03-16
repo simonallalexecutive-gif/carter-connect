@@ -57,7 +57,7 @@ const LandingPage = () => (
             &nbsp;
           </motion.p>
           <motion.h1 variants={fadeUp} className="text-[2.65rem] md:text-[3.7rem] lg:text-[5.6rem] font-serif font-[500] text-white leading-[1.08] mb-8 tracking-[-0.01em] whitespace-nowrap">
-            Leading Lawyers{' '}<span className="text-white/70">Connected</span>
+            Where Leading Lawyers{' '}<span className="text-white/70">and Firms Meet</span>
           </motion.h1>
           <motion.p variants={fadeUp} className="text-lg md:text-2xl text-white font-sans font-normal max-w-2xl mb-3 leading-relaxed whitespace-nowrap">
             La première plateforme confidentielle de mise en relation entre avocats<br />d'affaires et cabinets de premier plan.
