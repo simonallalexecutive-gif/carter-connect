@@ -78,7 +78,7 @@ const CabinetStep4Subscription = () => {
             <p className="text-[11px] text-white/50 leading-relaxed">Accédez au vivier, restez opportuniste. Identifiez les profils avant vos concurrents.</p>
           </div>
           <div>
-            <div className="font-serif text-2xl font-bold text-white/90 mb-1">2.</div>
+            <div className="font-sans text-2xl font-bold text-white/90 mb-1">2.</div>
             <div className="text-xs font-bold text-white mb-0.5">Matching & approche</div>
             <p className="text-[11px] text-white/50 leading-relaxed">LOGAN approche confidentiellement les candidats alignés avec votre recherche.</p>
           </div>
