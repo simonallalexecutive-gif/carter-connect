@@ -51,16 +51,16 @@ const LandingPage = () => (
         <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/50" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black" />
       </div>
-      <div className="px-6 sm:px-8 lg:px-10 max-w-6xl relative z-10 pt-24 flex-1 flex items-center">
+      <div className="px-6 sm:px-8 lg:px-10 max-w-6xl relative z-10 pt-24 flex-1 flex items-start pt-[18vh]">
           <motion.div variants={stagger} initial="hidden" animate="visible" className="max-w-3xl">
           <motion.p variants={fadeUp} className="text-xs font-sans font-medium tracking-[0.25em] uppercase text-white/50 mb-10">
             &nbsp;
           </motion.p>
-          <motion.h1 variants={fadeUp} className="text-4xl md:text-6xl lg:text-[5.5rem] font-serif font-normal text-white leading-[1.08] mb-8 tracking-[-0.01em]">
+          <motion.h1 variants={fadeUp} className="text-5xl md:text-7xl lg:text-[6.6rem] font-serif font-normal text-white leading-[1.08] mb-8 tracking-[-0.01em]">
             Leading Lawyers{' '}<span className="text-white/70">Connected</span>
           </motion.h1>
-          <motion.p variants={fadeUp} className="text-lg md:text-2xl text-white font-sans font-bold max-w-xl mb-3 leading-relaxed">
-            La plateforme confidentielle de mise en relation entre avocats d'affaires et cabinets de premier plan.
+          <motion.p variants={fadeUp} className="text-base md:text-xl text-white font-sans font-bold max-w-2xl mb-3 leading-relaxed">
+            La plateforme confidentielle de mise en relation<br />entre avocats d'affaires et cabinets de premier plan.
           </motion.p>
           <motion.div variants={fadeUp} className="mb-14" />
           <motion.div variants={fadeUp}>
