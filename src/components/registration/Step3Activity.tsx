@@ -11,6 +11,7 @@ import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import { useMemo } from 'react';
 import { ArrowLeft, ArrowRight, Check } from 'lucide-react';
 import FinanceActivityPanel from './FinanceActivityPanel';
+import RestructuringActivityPanel from './RestructuringActivityPanel';
 
 const CHART_COLORS = [
   'hsl(215, 60%, 30%)',
@@ -75,6 +76,7 @@ const Step3Activity = () => {
         {/* Activity toggle chips by section */}
         {practiceActivities.sections.map(section => {
           const isFinance = store.departement === 'Banque & Finance';
+          const isRestructuring = store.departement === 'Restructuring';
           const hasChildren = section.items.some(i => i.children && i.children.length > 0);
 
           if (isFinance && hasChildren) {
@@ -82,6 +84,15 @@ const Step3Activity = () => {
               <div key={section.title}>
                 <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-3 block">{section.title}</Label>
                 <FinanceActivityPanel items={section.items} />
+              </div>
+            );
+          }
+
+          if (isRestructuring && hasChildren) {
+            return (
+              <div key={section.title}>
+                <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-3 block">{section.title}</Label>
+                <RestructuringActivityPanel items={section.items} />
               </div>
             );
           }
@@ -114,8 +125,8 @@ const Step3Activity = () => {
           );
         })}
 
-        {/* Generic Pie chart (non-finance departments) */}
-        {store.departement !== 'Banque & Finance' && hasActivites && (
+        {/* Generic Pie chart (non-finance, non-restructuring departments) */}
+        {store.departement !== 'Banque & Finance' && store.departement !== 'Restructuring' && hasActivites && (
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}

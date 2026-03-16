@@ -381,27 +381,28 @@ export const ACTIVITES_BY_PRACTICE: Record<string, { sections: { title: string; 
   "Restructuring": {
     sections: [
       {
-        title: "Nature du travail",
+        title: "Répartition de l'activité",
         items: [
-          { key: "ca", label: "Conseil amiable" },
-          { key: "cj", label: "Conseil judiciaire" },
-          { key: "cont", label: "Contentieux des affaires" },
-          { key: "pc", label: "Procédures collectives" },
-        ],
-      },
-      {
-        title: "Positionnement",
-        items: [
-          { key: "deb", label: "Côté débiteur" },
-          { key: "cre", label: "Côté créancier" },
-        ],
-      },
-      {
-        title: "Opérations",
-        items: [
-          { key: "rf", label: "Restructuration financière" },
-          { key: "rb", label: "Reprise à la barre" },
-          { key: "dm", label: "Distressed M&A" },
+          {
+            key: "restr_amiable",
+            label: "Amiable",
+            children: [
+              { key: "amiable_adhoc", label: "Mandats ad hoc" },
+              { key: "amiable_conciliation", label: "Conciliations" },
+            ],
+          },
+          {
+            key: "restr_judiciaire",
+            label: "Judiciaire",
+            children: [
+              { key: "jud_sauvegarde", label: "Sauvegardes" },
+              { key: "jud_rj", label: "Redressement judiciaire" },
+              { key: "jud_lj", label: "Liquidation judiciaire" },
+            ],
+          },
+          { key: "restr_cont_pc", label: "Contentieux procédures collectives" },
+          { key: "restr_cont_comm", label: "Contentieux commercial général" },
+          { key: "restr_financier", label: "Restructuring financier" },
         ],
       },
     ],
