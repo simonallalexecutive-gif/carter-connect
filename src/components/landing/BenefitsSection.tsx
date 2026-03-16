@@ -1,7 +1,9 @@
 import { motion } from 'motion/react';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
-import { User, Building2, Eye, Bell, Handshake } from 'lucide-react';
+import { User, Building2, Eye, Bell, Handshake, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
 
 type Tab = 'candidat' | 'cabinet';
 
@@ -149,6 +151,16 @@ const BenefitsSection = () => {
             </motion.div>
           ))}
         </motion.div>
+
+        {/* Demo CTA */}
+        <div className="py-16 text-center">
+          <Link to="/demo">
+            <Button size="lg" className="bg-foreground text-background hover:bg-foreground/90 font-sans text-sm font-medium px-10 py-6 rounded-sm tracking-wide group transition-all duration-300">
+              Demander une démo
+              <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
+            </Button>
+          </Link>
+        </div>
 
         {/* Engagements — inline under benefits */}
         <motion.div
