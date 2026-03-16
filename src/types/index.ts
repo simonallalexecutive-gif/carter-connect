@@ -57,6 +57,14 @@ export interface RegistrationState {
   positionnementRestr: string[];
   clienteleRestr: string[];
   restrFinancier: number;
+  // Droit Social
+  socialConseil: number;
+  socialRelationType: '' | 'individuelles' | 'collectives' | 'les_deux';
+  socialIndividuel: number;
+  socialEmployeur: number;
+  socialPosCabinet: Record<string, number>;
+  socialClientele: string[];
+  socialExpertises: string[];
   anglais: string;
   typesClients: string[];
   // Step 4 - Project

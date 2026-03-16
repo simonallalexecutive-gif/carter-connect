@@ -12,6 +12,7 @@ import { useMemo } from 'react';
 import { ArrowLeft, ArrowRight, Check } from 'lucide-react';
 import FinanceActivityPanel from './FinanceActivityPanel';
 import RestructuringActivityPanel from './RestructuringActivityPanel';
+import SocialActivityPanel from './SocialActivityPanel';
 
 const CHART_COLORS = [
   'hsl(215, 60%, 30%)',
@@ -93,6 +94,15 @@ const Step3Activity = () => {
               <div key={section.title}>
                 <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-3 block">{section.title}</Label>
                 <RestructuringActivityPanel />
+              </div>
+            );
+          }
+
+          if (store.departement === 'Droit Social') {
+            return (
+              <div key={section.title}>
+                <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-3 block">{section.title}</Label>
+                <SocialActivityPanel />
               </div>
             );
           }

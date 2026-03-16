@@ -53,6 +53,14 @@ const initialState = {
   positionnementRestr: [] as string[],
   clienteleRestr: [] as string[],
   restrFinancier: 0,
+  // Droit Social
+  socialConseil: 50,
+  socialRelationType: '' as '' | 'individuelles' | 'collectives' | 'les_deux',
+  socialIndividuel: 50,
+  socialEmployeur: 50,
+  socialPosCabinet: { standalone: 10, corporate: 10, restructuring: 10 } as Record<string, number>,
+  socialClientele: [] as string[],
+  socialExpertises: [] as string[],
   anglais: '',
   typesClients: [] as string[],
   // Step 4
