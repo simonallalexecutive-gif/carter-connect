@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
+import logoMonogram from '@/assets/logo-logan-monogram.png';
 
 const Header = () => {
   const { user, loading, signOut } = useAuth();
@@ -8,7 +9,8 @@ const Header = () => {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-transparent">
       <div className="px-6 sm:px-8 lg:px-10 flex items-center justify-between h-20">
-        <Link to="/" className="flex items-center">
+        <Link to="/" className="flex items-center gap-3">
+          <img src={logoMonogram} alt="Logan" className="h-8 w-8 invert" />
           <span className="font-display text-2xl tracking-[-0.02em] text-white">Logan</span>
         </Link>
         <nav className="flex items-center gap-8">

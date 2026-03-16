@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
+import logoMonogram from '@/assets/logo-logan-monogram.png';
 
 interface LogoBannerProps {
   subtitle?: string;
@@ -12,8 +13,9 @@ const LogoBanner = ({ subtitle }: LogoBannerProps) => {
     <div className="w-full bg-black">
       <div className="px-6 sm:px-8 lg:px-10 flex items-center justify-between h-20">
         <div className="flex items-center">
-          <Link to="/" className="font-display text-2xl tracking-[-0.02em] text-white hover:text-white/80 transition-colors duration-300">
-            Logan
+          <Link to="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity duration-300">
+            <img src={logoMonogram} alt="Logan" className="h-7 w-7 invert" />
+            <span className="font-display text-2xl tracking-[-0.02em] text-white">Logan</span>
           </Link>
           {subtitle && (
             <>
