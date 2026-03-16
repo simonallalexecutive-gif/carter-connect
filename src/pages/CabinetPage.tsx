@@ -161,7 +161,7 @@ const CabinetDashboardLayout = () => {
             <SidebarTrigger className="text-foreground/60 hover:text-foreground" />
             <div className="flex items-center gap-5 flex-1 min-w-0">
               <Avatar className="w-11 h-11 border border-border shrink-0">
-                <AvatarFallback className="bg-secondary text-foreground text-[11px] font-serif">
+                <AvatarFallback className="bg-secondary text-foreground text-[11px] font-sans">
                   {s.cabinetName ? s.cabinetName[0].toUpperCase() : '?'}
                 </AvatarFallback>
               </Avatar>
