@@ -29,14 +29,14 @@ const AdminSidebar = () => {
   const { signOut } = useAuth();
 
   return (
-    <Sidebar collapsible="icon" className="border-r border-border">
+    <Sidebar collapsible="icon" className="border-r border-sidebar-border bg-sidebar">
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>
+          <SidebarGroupLabel className="text-sidebar-foreground/60">
             {!collapsed && (
-              <span className="font-serif text-sm font-bold tracking-[-0.01em]">Logan · Admin</span>
+              <span className="font-serif text-sm font-bold tracking-[-0.01em] text-accent">Logan · Admin</span>
             )}
-            {collapsed && <span className="font-serif text-sm font-bold">L</span>}
+            {collapsed && <span className="font-serif text-sm font-bold text-accent">L</span>}
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
