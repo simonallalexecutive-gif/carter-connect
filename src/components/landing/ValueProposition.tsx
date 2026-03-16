@@ -58,7 +58,7 @@ const ValueProposition = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-            className="text-3xl sm:text-4xl md:text-6xl lg:text-[4.5rem] font-serif font-normal text-foreground leading-[1.12] tracking-[-0.02em] max-w-4xl mx-auto"
+            className="text-2xl sm:text-3xl md:text-5xl lg:text-[3.5rem] font-serif font-normal text-foreground leading-[1.12] tracking-[-0.02em] max-w-4xl mx-auto"
           >
             Une plateforme de recrutement{' '}
             <em className="text-muted-foreground font-normal">d'excellence</em>
