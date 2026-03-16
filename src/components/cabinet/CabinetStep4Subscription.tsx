@@ -157,7 +157,7 @@ const CabinetStep4Subscription = () => {
         <div className="grid grid-cols-2 gap-4">
           <div className="p-4 rounded border border-border bg-background">
             <div className="text-xs font-bold text-muted-foreground mb-1">Chasseur classique</div>
-            <div className="font-serif text-2xl font-bold text-foreground">20–25K€</div>
+            <div className="font-sans text-2xl font-bold text-foreground">20–25K€</div>
             <p className="text-[10px] text-muted-foreground mt-1">One shot, sans accès au vivier, sans visibilité marché</p>
           </div>
           <div className="p-4 rounded border-2 border-foreground bg-background">
