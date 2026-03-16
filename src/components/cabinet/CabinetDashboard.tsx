@@ -224,7 +224,7 @@ const SearchValidation = () => {
         ← Modifier ma recherche
       </button>
 
-      <h2 className="font-serif text-3xl font-normal text-foreground leading-tight mb-2.5">Validation de la recherche</h2>
+      <h2 className="font-sans text-3xl font-normal text-foreground leading-tight mb-2.5">Validation de la recherche</h2>
       <p className="text-sm text-muted-foreground font-light leading-relaxed mb-8 max-w-xl">
         Vérifiez votre recherche et visualisez comment elle apparaîtra.
       </p>
