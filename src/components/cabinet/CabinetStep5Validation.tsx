@@ -235,7 +235,7 @@ const CabinetStep5Validation = () => {
                       <div className="text-[10px] text-white/50 mt-0.5">Associé(s)</div>
                     </div>
                     <div className="bg-white/[0.05] rounded p-3 text-center">
-                      <div className="font-serif text-lg font-bold text-white">{s.eqCounsels || '0'}</div>
+                      <div className="font-sans text-lg font-bold text-white">{s.eqCounsels || '0'}</div>
                       <div className="text-[10px] text-white/50 mt-0.5">Counsel(s)</div>
                     </div>
                     <div className="bg-white/[0.05] rounded p-3 text-center">
