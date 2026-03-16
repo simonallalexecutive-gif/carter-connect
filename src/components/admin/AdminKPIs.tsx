@@ -21,7 +21,7 @@ const AdminKPIs = () => {
     { name: 'Inactifs', value: MOCK_PROFILES.filter((p) => p.status === 'inactif').length },
   ].filter((d) => d.value > 0);
 
-  const PIE_COLORS = ['hsl(0,0%,7%)', 'hsl(0,0%,29%)', 'hsl(0,0%,48%)', 'hsl(0,0%,68%)', 'hsl(0,0%,84%)'];
+  const PIE_COLORS = ['hsl(220,35%,18%)', 'hsl(40,55%,52%)', 'hsl(220,25%,35%)', 'hsl(40,40%,65%)', 'hsl(220,15%,55%)'];
 
   return (
     <div>
