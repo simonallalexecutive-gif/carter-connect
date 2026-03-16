@@ -51,7 +51,7 @@ const LandingPage = () => (
         <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/50" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black" />
       </div>
-      <div className="px-6 sm:px-8 lg:px-10 max-w-6xl relative z-10 pt-24 flex-1 flex items-center">
+      <div className="px-6 sm:px-8 lg:px-10 max-w-6xl relative z-10 pt-24 flex-1 flex items-start pt-[18vh]">
           <motion.div variants={stagger} initial="hidden" animate="visible" className="max-w-3xl">
           <motion.p variants={fadeUp} className="text-xs font-sans font-medium tracking-[0.25em] uppercase text-white/50 mb-10">
             &nbsp;
@@ -90,7 +90,7 @@ const LandingPage = () => (
           <div className="flex-1 overflow-hidden">
             <div className="flex animate-marquee whitespace-nowrap items-center">
               {[...firmNames, ...firmNames].map((name, i) => (
-                <span key={i} className="mx-8 md:mx-12 text-[15px] md:text-[18px] font-serif font-normal text-white/50 select-none flex-shrink-0 tracking-[0.05em]">
+                <span key={i} className="mx-8 md:mx-12 text-[11px] md:text-[13px] font-serif font-normal text-white/50 select-none flex-shrink-0 tracking-[0.05em]">
                   {name}
                 </span>
               ))}
@@ -126,9 +126,9 @@ const LandingPage = () => (
             whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
             viewport={{ once: true }}
             transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-            className="text-xl sm:text-2xl md:text-3xl lg:text-[2.5rem] font-serif font-normal text-foreground leading-[1.25] italic tracking-[-0.01em] mb-8 max-w-5xl mx-auto"
+            className="text-xl sm:text-2xl md:text-3xl lg:text-[2.5rem] font-serif font-normal text-foreground leading-[1.25] italic tracking-[-0.01em] mb-8"
           >
-            «&nbsp;Logan est la première plateforme de recrutement spécialisé sur le marché des avocats, capable de connecter les <strong className="font-bold">meilleurs talents</strong> aux cabinets de premier plan, tout en préservant la <strong className="font-bold">confidentialité</strong> et en assurant un <strong className="font-bold">accompagnement sur mesure</strong> à chaque étape du processus.&nbsp;»
+            «&nbsp;Logan est aujourd'hui la seule plateforme capable de connecter efficacement les cabinets et les candidats <strong className="font-bold">les plus qualifiés du marché</strong>, tout en préservant la <strong className="font-bold">confidentialité</strong> et en proposant un <strong className="font-bold">accompagnement sur mesure</strong> à chaque étape du processus.&nbsp;»
           </motion.p>
           <motion.span
             initial={{ opacity: 0, y: 12 }}
