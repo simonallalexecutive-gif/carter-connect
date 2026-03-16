@@ -70,7 +70,7 @@ const CabinetStep4Subscription = () => {
 
       {/* How it works */}
       <div className="bg-foreground rounded-md p-6 mb-8">
-        <h3 className="font-serif text-lg font-bold text-white mb-3">Comment ça fonctionne</h3>
+        <h3 className="font-sans text-lg font-bold text-white mb-3">Comment ça fonctionne</h3>
         <div className="grid grid-cols-3 gap-5">
           <div>
             <div className="font-serif text-2xl font-bold text-white/90 mb-1">1.</div>
