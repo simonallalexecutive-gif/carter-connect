@@ -240,7 +240,13 @@ export const LEGAL500_BY_PRACTICE: Record<string, Record<string, { nat: string; 
 };
 
 // Activities specific to each practice area
-export const ACTIVITES_BY_PRACTICE: Record<string, { sections: { title: string; items: { key: string; label: string }[] }[] }> = {
+export interface ActivityItem {
+  key: string;
+  label: string;
+  children?: ActivityItem[];
+}
+
+export const ACTIVITES_BY_PRACTICE: Record<string, { sections: { title: string; items: ActivityItem[] }[] }> = {
   "M&A / Private Equity": {
     sections: [
       {
