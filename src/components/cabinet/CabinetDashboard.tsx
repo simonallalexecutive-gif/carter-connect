@@ -104,7 +104,7 @@ const CabinetDashboard = () => {
           className="group relative text-left rounded-lg border-2 border-border p-6 transition-all hover:border-foreground hover:shadow-lg bg-background"
         >
           <FileText className="w-6 h-6 text-foreground mb-4" />
-          <div className="font-serif text-lg font-bold text-foreground mb-2">Publier une nouvelle recherche</div>
+          <div className="font-sans text-lg font-bold text-foreground mb-2">Publier une nouvelle recherche</div>
           <p className="text-xs text-muted-foreground leading-relaxed mb-4">
             Déposez un mandat confidentiel. LOGAN identifie et approche les meilleurs profils selon vos critères précis.
           </p>
