@@ -115,44 +115,44 @@
     --shadow-elevated: 0 4px 16px -2px hsl(0 0% 0% / 0.1);
   }
 
-  /* Admin theme — Darrois-inspired navy & gold */
+  /* Admin theme — Darrois-inspired deep navy */
   .theme-admin {
-    --background: 220 20% 97%;           /* #F3F4F7 light blue-grey */
-    --foreground: 220 35% 15%;           /* deep navy text */
+    --background: 220 25% 95%;           /* #EEF0F4 subtle blue-grey */
+    --foreground: 222 40% 10%;           /* near-black navy */
 
     --card: 0 0% 100%;
-    --card-foreground: 220 35% 15%;
+    --card-foreground: 222 40% 10%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 220 35% 15%;
+    --popover-foreground: 222 40% 10%;
 
-    --primary: 220 35% 18%;              /* #1E2D47 deep navy */
-    --primary-foreground: 40 50% 92%;    /* cream/gold foreground */
+    --primary: 222 44% 11%;              /* #0F1A2E Darrois navy */
+    --primary-foreground: 0 0% 100%;     /* white on navy */
 
-    --secondary: 220 15% 92%;
-    --secondary-foreground: 220 35% 15%;
+    --secondary: 220 20% 92%;
+    --secondary-foreground: 222 40% 10%;
 
-    --muted: 220 15% 93%;
-    --muted-foreground: 220 10% 46%;
+    --muted: 220 18% 93%;
+    --muted-foreground: 220 12% 46%;
 
-    --accent: 40 55% 52%;                /* #C6963A gold accent */
+    --accent: 222 44% 11%;               /* same navy for accents */
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 55% 50%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 220 15% 85%;
-    --input: 220 15% 85%;
-    --ring: 220 35% 30%;
+    --border: 220 18% 86%;
+    --input: 220 18% 86%;
+    --ring: 222 35% 25%;
 
-    --sidebar-background: 220 35% 15%;   /* deep navy sidebar */
-    --sidebar-foreground: 220 15% 80%;
-    --sidebar-primary: 40 55% 52%;        /* gold active */
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 220 30% 22%;
-    --sidebar-accent-foreground: 220 15% 90%;
-    --sidebar-border: 220 30% 22%;
-    --sidebar-ring: 40 55% 52%;
+    --sidebar-background: 222 44% 11%;   /* #0F1A2E deep navy */
+    --sidebar-foreground: 220 20% 75%;   /* muted white */
+    --sidebar-primary: 0 0% 100%;        /* white active */
+    --sidebar-primary-foreground: 222 44% 11%;
+    --sidebar-accent: 222 38% 16%;       /* slightly lighter navy */
+    --sidebar-accent-foreground: 0 0% 95%;
+    --sidebar-border: 222 35% 18%;
+    --sidebar-ring: 220 20% 60%;
   }
 }
 

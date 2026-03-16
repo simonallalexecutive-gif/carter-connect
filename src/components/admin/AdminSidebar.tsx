@@ -46,8 +46,8 @@ const AdminSidebar = () => {
                     <NavLink
                       to={item.url}
                       end={item.url === '/admin'}
-                      className="text-sidebar-foreground/70 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
-                      activeClassName="bg-sidebar-accent text-accent font-semibold"
+                      className="text-sidebar-foreground/70 hover:bg-sidebar-accent hover:text-white"
+                      activeClassName="bg-sidebar-accent text-white font-semibold"
                     >
                       <item.icon className="mr-2 h-4 w-4" />
                       {!collapsed && <span className="text-[13px]">{item.title}</span>}

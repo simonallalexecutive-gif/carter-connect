@@ -56,8 +56,8 @@ const AdminKPIs = () => {
               <XAxis dataKey="dept" tick={{ fontSize: 10 }} />
               <YAxis tick={{ fontSize: 10 }} allowDecimals={false} />
               <Tooltip contentStyle={{ fontSize: 12 }} />
-              <Bar dataKey="candidats" fill="hsl(220,35%,18%)" radius={[3, 3, 0, 0]} name="Candidats" />
-              <Bar dataKey="offres" fill="hsl(40,55%,52%)" radius={[3, 3, 0, 0]} name="Offres" />
+              <Bar dataKey="candidats" fill="hsl(222,44%,11%)" radius={[3, 3, 0, 0]} name="Candidats" />
+              <Bar dataKey="offres" fill="hsl(220,20%,40%)" radius={[3, 3, 0, 0]} name="Offres" />
             </BarChart>
           </ResponsiveContainer>
         </div>

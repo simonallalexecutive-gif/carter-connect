@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils';
 
 const STATUS_COLORS: Record<string, string> = {
   nouveau: 'bg-primary text-primary-foreground',
-  qualifié: 'bg-accent text-accent-foreground',
+  qualifié: 'bg-primary/70 text-primary-foreground',
   en_process: 'bg-secondary text-foreground border border-border',
   placé: 'bg-primary text-primary-foreground',
   inactif: 'bg-muted text-muted-foreground',

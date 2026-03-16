@@ -3,8 +3,8 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { cn } from '@/lib/utils';
 
 const OFFER_STATUS: Record<string, { label: string; class: string }> = {
-  active: { label: 'Active', class: 'bg-accent text-accent-foreground' },
-  pourvue: { label: 'Pourvue', class: 'bg-primary text-primary-foreground' },
+  active: { label: 'Active', class: 'bg-primary text-primary-foreground' },
+  pourvue: { label: 'Pourvue', class: 'bg-secondary text-secondary-foreground' },
   expirée: { label: 'Expirée', class: 'bg-muted text-muted-foreground' },
 };
 
