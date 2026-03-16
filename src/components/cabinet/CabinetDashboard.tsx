@@ -86,7 +86,7 @@ const CabinetDashboard = () => {
           className="group relative text-left rounded-lg border-2 border-border p-6 transition-all hover:border-foreground hover:shadow-lg bg-background"
         >
           <Eye className="w-6 h-6 text-foreground mb-4" />
-          <div className="font-serif text-lg font-bold text-foreground mb-2">Explorer le marché des candidats</div>
+          <div className="font-sans text-lg font-bold text-foreground mb-2">Explorer le marché des candidats</div>
           <p className="text-xs text-muted-foreground leading-relaxed mb-4">
             Parcourez librement tous les profils à l'écoute du marché, toutes matières confondues. Alertez LOGAN si un candidat vous intéresse — en dehors de tout mandat.
           </p>
