@@ -10,11 +10,11 @@ import { ArrowRight } from 'lucide-react';
 import heroVideo from '@/assets/hero-video-jessica.mp4';
 
 const firmNames = [
-  'bredin prat', 'darrois villey', 'gide', 'cleary gottlieb', 'de pardieu brocas',
-  'freshfields', 'linklaters', 'clifford chance', 'allen & overy', 'sullivan & cromwell',
-  'weil gotshal', 'skadden', 'latham & watkins', 'davis polk', 'hogan lovells',
-  'white & case', 'willkie farr', 'dechert', 'goodwin procter', 'orrick',
-  'august debouzy', 'bdgs', 'racine', 'fidal', 'jeantet',
+  'Bredin Prat', 'Darrois Villey', 'Gide', 'Cleary Gottlieb', 'De Pardieu Brocas',
+  'Freshfields', 'Linklaters', 'Clifford Chance', 'Allen & Overy', 'Sullivan & Cromwell',
+  'Weil Gotshal', 'Skadden', 'Latham & Watkins', 'Davis Polk', 'Hogan Lovells',
+  'White & Case', 'Willkie Farr', 'Dechert', 'Goodwin Procter', 'Orrick',
+  'August Debouzy', 'BDGS', 'Racine', 'Fidal', 'Jeantet',
 ];
 
 const stagger = {
