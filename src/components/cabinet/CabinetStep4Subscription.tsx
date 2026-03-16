@@ -61,7 +61,7 @@ const CabinetStep4Subscription = () => {
         <span className="w-5 h-[1.5px] bg-foreground rounded-sm" />
         Étape 3 / 4
       </div>
-      <h2 className="font-serif text-3xl md:text-4xl font-normal text-foreground leading-tight mb-1">
+      <h2 className="font-sans text-3xl md:text-4xl font-normal text-foreground leading-tight mb-1">
         Restez connecté aux<br /><em className="text-muted-foreground">meilleurs talents.</em>
       </h2>
       <p className="text-sm text-muted-foreground font-light leading-relaxed mb-10 max-w-xl">
@@ -70,20 +70,20 @@ const CabinetStep4Subscription = () => {
 
       {/* How it works */}
       <div className="bg-foreground rounded-md p-6 mb-8">
-        <h3 className="font-serif text-lg font-bold text-white mb-3">Comment ça fonctionne</h3>
+        <h3 className="font-sans text-lg font-bold text-white mb-3">Comment ça fonctionne</h3>
         <div className="grid grid-cols-3 gap-5">
           <div>
-            <div className="font-serif text-2xl font-bold text-white/90 mb-1">1.</div>
+            <div className="font-sans text-2xl font-bold text-white/90 mb-1">1.</div>
             <div className="text-xs font-bold text-white mb-0.5">Abonnement mensuel</div>
             <p className="text-[11px] text-white/50 leading-relaxed">Accédez au vivier, restez opportuniste. Identifiez les profils avant vos concurrents.</p>
           </div>
           <div>
-            <div className="font-serif text-2xl font-bold text-white/90 mb-1">2.</div>
+            <div className="font-sans text-2xl font-bold text-white/90 mb-1">2.</div>
             <div className="text-xs font-bold text-white mb-0.5">Matching & approche</div>
             <p className="text-[11px] text-white/50 leading-relaxed">LOGAN approche confidentiellement les candidats alignés avec votre recherche.</p>
           </div>
           <div>
-            <div className="font-serif text-2xl font-bold text-white/90 mb-1">3.</div>
+            <div className="font-sans text-2xl font-bold text-white/90 mb-1">3.</div>
             <div className="text-xs font-bold text-white mb-0.5">Fee au placement</div>
             <p className="text-[11px] text-white/50 leading-relaxed">Un fee réduit (vs 20–25% marché) uniquement si le profil de vos rêves rejoint votre cabinet.</p>
           </div>
@@ -116,7 +116,7 @@ const CabinetStep4Subscription = () => {
               <div className="text-sm font-bold text-foreground mb-1">{p.name}</div>
 
               <div className="mb-4">
-                <span className="font-serif text-2xl font-bold text-foreground">
+                <span className="font-sans text-2xl font-bold text-foreground">
                   {p.price.includes('devis') ? '' : `${p.price} €`}
                 </span>
                 {p.price.includes('devis') ? (
@@ -128,7 +128,7 @@ const CabinetStep4Subscription = () => {
 
               <div className="bg-secondary rounded p-2.5 mb-4">
                 <div className="text-[9px] font-bold tracking-[0.1em] uppercase text-muted-foreground mb-0.5">Fee au placement</div>
-                <div className="font-serif text-xl font-bold text-foreground">{p.fee}%</div>
+                <div className="font-sans text-xl font-bold text-foreground">{p.fee}%</div>
                 <div className="text-[10px] text-muted-foreground">de la rétrocession annuelle brute</div>
               </div>
 
@@ -157,12 +157,12 @@ const CabinetStep4Subscription = () => {
         <div className="grid grid-cols-2 gap-4">
           <div className="p-4 rounded border border-border bg-background">
             <div className="text-xs font-bold text-muted-foreground mb-1">Chasseur classique</div>
-            <div className="font-serif text-2xl font-bold text-foreground">20–25K€</div>
+            <div className="font-sans text-2xl font-bold text-foreground">20–25K€</div>
             <p className="text-[10px] text-muted-foreground mt-1">One shot, sans accès au vivier, sans visibilité marché</p>
           </div>
           <div className="p-4 rounded border-2 border-foreground bg-background">
             <div className="text-xs font-bold text-foreground mb-1">LOGAN Business</div>
-            <div className="font-serif text-2xl font-bold text-foreground">15K€ <span className="text-sm font-normal text-muted-foreground">+ abo</span></div>
+            <div className="font-sans text-2xl font-bold text-foreground">15K€ <span className="text-sm font-normal text-muted-foreground">+ abo</span></div>
             <p className="text-[10px] text-muted-foreground mt-1">Fee réduit + accès continu au vivier + consultant dédié</p>
           </div>
         </div>
@@ -171,7 +171,7 @@ const CabinetStep4Subscription = () => {
       {/* Loyalty */}
       <div className="border border-border rounded-md p-5 flex items-start gap-5 bg-secondary/50">
         <div className="flex-shrink-0 bg-foreground rounded text-center px-3.5 py-2.5">
-          <div className="font-serif text-xl font-bold text-white">−15%</div>
+          <div className="font-sans text-xl font-bold text-white">−15%</div>
           <div className="text-[8px] font-bold tracking-[0.08em] uppercase text-white/60 mt-0.5">dès l'an 2</div>
         </div>
         <div>

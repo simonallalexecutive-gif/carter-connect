@@ -51,7 +51,7 @@ const CabinetStep6Confirm = () => {
         <Check className="w-8 h-8 text-background" strokeWidth={2.5} />
       </div>
 
-      <h2 className="font-serif text-3xl font-bold text-foreground mb-3">Demande transmise à LOGAN</h2>
+      <h2 className="font-sans text-3xl font-bold text-foreground mb-3">Demande transmise à LOGAN</h2>
       <p className="text-sm text-muted-foreground leading-relaxed font-light max-w-md mx-auto mb-8">
         Votre compte a été créé. Vérifiez votre email pour confirmer votre inscription, puis connectez-vous pour accéder à votre espace cabinet.
       </p>
@@ -63,7 +63,7 @@ const CabinetStep6Confirm = () => {
           { value: '100%', label: 'Confidentiel' },
         ].map((stat) => (
           <div key={stat.label} className="bg-secondary rounded p-4 text-center">
-            <div className="font-serif text-xl font-bold text-foreground">{stat.value}</div>
+            <div className="font-sans text-xl font-bold text-foreground">{stat.value}</div>
             <div className="text-[9px] text-muted-foreground mt-1 uppercase tracking-[0.06em]">{stat.label}</div>
           </div>
         ))}
@@ -71,7 +71,7 @@ const CabinetStep6Confirm = () => {
 
       <div className="bg-foreground rounded p-4 max-w-[440px] mx-auto mb-7 text-left">
         <div className="text-[11px] text-white/40 mb-1">Votre contact LOGAN</div>
-        <div className="font-serif text-base text-white font-semibold">Équipe LOGAN Advisory</div>
+        <div className="font-sans text-base text-white font-semibold">Équipe LOGAN Advisory</div>
         <div className="text-xs text-white/60 mt-1">contact@logan-advisory.com</div>
       </div>
 

@@ -51,7 +51,7 @@ const CabinetStep7Espace = () => {
       <div className="bg-foreground rounded-lg p-6 mb-7 flex items-center justify-between">
         <div>
           <div className="text-[9px] tracking-[0.18em] uppercase text-white/35 mb-1.5">Espace membre · Accès en cours de validation</div>
-          <div className="font-serif text-xl font-bold text-white">{s.cabinetName || 'Mon cabinet'}</div>
+          <div className="font-sans text-xl font-bold text-white">{s.cabinetName || 'Mon cabinet'}</div>
           <div className="flex items-center gap-2.5 mt-1.5">
             <span className="text-[11px] text-white/45">{s.typeCab || '—'}</span>
             {s.ranking && (
@@ -77,7 +77,7 @@ const CabinetStep7Espace = () => {
           { value: '0%', label: 'Commission prélevée', highlight: true },
         ].map((stat) => (
           <div key={stat.label} className={cn('rounded-md p-4 border', stat.highlight ? 'bg-secondary border-border' : 'bg-background border-border')}>
-            <div className="font-serif text-2xl font-bold text-foreground">{stat.value}</div>
+            <div className="font-sans text-2xl font-bold text-foreground">{stat.value}</div>
             <div className="text-[10px] text-muted-foreground mt-0.5 tracking-[0.04em]">{stat.label}</div>
           </div>
         ))}
@@ -130,7 +130,7 @@ const CabinetStep7Espace = () => {
                 </span>
               )}
               <div className="text-[9px] text-muted-foreground tracking-[0.08em] mb-3 font-sans">ID LOGAN · {p.id}</div>
-              <div className="font-serif text-base font-bold text-foreground mb-1.5 leading-tight">{p.title}</div>
+              <div className="font-sans text-base font-bold text-foreground mb-1.5 leading-tight">{p.title}</div>
               <div className="text-[11px] text-muted-foreground mb-3.5">{p.origin} · {p.natFlag} · Droit applicable : Paris</div>
               <div className="flex flex-wrap gap-1 mb-3.5">
                 <span className="text-[9px] font-semibold tracking-[0.05em] uppercase px-2 py-0.5 rounded-sm bg-foreground text-background">{p.deptLabel}</span>
@@ -170,7 +170,7 @@ const CabinetStep7Espace = () => {
               {/* Header card */}
               <div className="bg-foreground rounded-md p-4 mb-5">
                 <div className="text-[9px] tracking-[0.12em] uppercase text-white/30 mb-1.5">{drawerProfile.id}</div>
-                <div className="font-serif text-lg font-bold text-white mb-1">{drawerProfile.title}</div>
+                <div className="font-sans text-lg font-bold text-white mb-1">{drawerProfile.title}</div>
                 <div className="flex items-center gap-2 flex-wrap">
                   <span className="text-[9px] font-bold tracking-[0.06em] px-2 py-0.5 bg-white text-foreground rounded-sm">{drawerProfile.deptLabel}</span>
                   <span className="text-[11px] text-white/45">{drawerProfile.natFlag} {drawerProfile.origin}</span>

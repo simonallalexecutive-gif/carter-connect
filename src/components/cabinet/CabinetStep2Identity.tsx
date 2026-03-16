@@ -58,7 +58,7 @@ const CabinetStep2Identity = () => {
         <span className="w-5 h-[1.5px] bg-foreground rounded-sm" />
         Étape 1 / 3
       </div>
-      <h2 className="font-serif text-3xl md:text-4xl font-normal text-foreground leading-tight mb-2.5">Votre cabinet</h2>
+      <h2 className="font-sans text-3xl md:text-4xl font-normal text-foreground leading-tight mb-2.5">Votre cabinet</h2>
       <p className="text-sm text-muted-foreground font-light leading-relaxed mb-10 max-w-xl">
         Renseignez le nom de votre cabinet. LOGAN identifiera automatiquement votre nationalité et vos classements Legal 500 pour chaque département.
       </p>

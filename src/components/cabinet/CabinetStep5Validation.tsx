@@ -48,7 +48,7 @@ const CabinetStep5Validation = () => {
         <span className="w-5 h-[1.5px] bg-foreground rounded-sm" />
         Étape 4 / 4
       </div>
-      <h2 className="font-serif text-3xl md:text-4xl font-normal text-foreground leading-tight mb-2.5">Validation & aperçu</h2>
+      <h2 className="font-sans text-3xl md:text-4xl font-normal text-foreground leading-tight mb-2.5">Validation & aperçu</h2>
       <p className="text-sm text-muted-foreground font-light leading-relaxed mb-10 max-w-xl">
         Visualisez comment votre recherche apparaîtra aux candidats, puis confirmez votre demande.
       </p>
@@ -149,7 +149,7 @@ const CabinetStep5Validation = () => {
           {/* Header */}
           <div className="p-6 border-b border-white/[0.08]">
             <div className="text-[8px] tracking-[0.16em] uppercase text-white/35 mb-2">Opportunité · Présentée par LOGAN</div>
-            <div className="font-serif text-xl font-bold text-white mb-1.5">
+            <div className="font-sans text-xl font-bold text-white mb-1.5">
               {profileLabel}{senStr ? ` · ${senStr}` : ''}{s.expertise.length ? ` — ${s.expertise.join(', ')}` : ''}
             </div>
             <div className="text-[11px] text-white/50">
@@ -231,15 +231,15 @@ const CabinetStep5Validation = () => {
                   <div className="text-[8px] uppercase tracking-[0.1em] text-white/35 mb-2">Détail de l'équipe</div>
                   <div className="grid grid-cols-3 gap-3">
                     <div className="bg-white/[0.05] rounded p-3 text-center">
-                      <div className="font-serif text-lg font-bold text-white">{s.eqAssocies || '0'}</div>
+                      <div className="font-sans text-lg font-bold text-white">{s.eqAssocies || '0'}</div>
                       <div className="text-[10px] text-white/50 mt-0.5">Associé(s)</div>
                     </div>
                     <div className="bg-white/[0.05] rounded p-3 text-center">
-                      <div className="font-serif text-lg font-bold text-white">{s.eqCounsels || '0'}</div>
+                      <div className="font-sans text-lg font-bold text-white">{s.eqCounsels || '0'}</div>
                       <div className="text-[10px] text-white/50 mt-0.5">Counsel(s)</div>
                     </div>
                     <div className="bg-white/[0.05] rounded p-3 text-center">
-                      <div className="font-serif text-lg font-bold text-white">{s.eqCollab || '0'}</div>
+                      <div className="font-sans text-lg font-bold text-white">{s.eqCollab || '0'}</div>
                       <div className="text-[10px] text-white/50 mt-0.5">Collaborateur(s)</div>
                     </div>
                   </div>
@@ -266,16 +266,16 @@ const CabinetStep5Validation = () => {
             <div className="grid grid-cols-3 gap-4">
               <div className="bg-white/[0.05] rounded-lg p-4">
                 <div className="text-[8px] uppercase tracking-[0.1em] text-white/35 mb-2">Rétrocession</div>
-                <div className="font-serif text-base font-bold text-white">{retroStr || 'Confidentiel'}</div>
+                <div className="font-sans text-base font-bold text-white">{retroStr || 'Confidentiel'}</div>
                 {!retroStr && <div className="text-[10px] text-white/25 mt-1">Transmis si intérêt confirmé</div>}
               </div>
               <div className="bg-white/[0.05] rounded-lg p-4">
                 <div className="text-[8px] uppercase tracking-[0.1em] text-white/35 mb-2">Objectif heures / an</div>
-                <div className="font-serif text-base font-bold text-white">{s.heures ? `${s.heures}h` : 'Non communiqué'}</div>
+                <div className="font-sans text-base font-bold text-white">{s.heures ? `${s.heures}h` : 'Non communiqué'}</div>
               </div>
               <div className="bg-white/[0.05] rounded-lg p-4">
                 <div className="text-[8px] uppercase tracking-[0.1em] text-white/35 mb-2">Télétravail</div>
-                <div className="font-serif text-base font-bold text-white">{s.tt || '—'}</div>
+                <div className="font-sans text-base font-bold text-white">{s.tt || '—'}</div>
               </div>
             </div>
             {s.bonusEnabled && s.bonusTypes.length > 0 && (
@@ -306,7 +306,7 @@ const CabinetStep5Validation = () => {
 
       {/* ── Approval banner ── */}
       <div className="bg-foreground rounded-md p-6 mt-5">
-        <div className="font-serif text-base font-semibold text-white mb-3.5">Confirmez votre demande d'accès</div>
+        <div className="font-sans text-base font-semibold text-white mb-3.5">Confirmez votre demande d'accès</div>
         <div className="flex flex-col gap-2.5">
           {[
             "Je confirme les informations renseignées sur mon cabinet et mes besoins de recrutement.",
