@@ -8,8 +8,8 @@ const STAGE_COLORS: Record<string, string> = {
   entretien_logan: 'bg-secondary text-foreground border border-border',
   présentation: 'bg-primary/80 text-primary-foreground',
   entretien_cabinet: 'bg-primary text-primary-foreground',
-  offre: 'bg-accent text-accent-foreground',
-  placé: 'bg-accent text-accent-foreground',
+  offre: 'bg-primary text-primary-foreground',
+  placé: 'bg-primary text-primary-foreground',
   abandonné: 'bg-destructive/10 text-destructive',
 };
 
