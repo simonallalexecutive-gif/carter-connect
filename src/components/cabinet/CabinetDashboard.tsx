@@ -528,7 +528,7 @@ const ExploreView = ({
             <div className="p-5">
               {/* Anonymous header */}
               <div className="flex items-center gap-4 mb-6">
-                <div className="w-14 h-14 rounded-full bg-secondary flex items-center justify-center text-muted-foreground font-serif text-xl">
+                <div className="w-14 h-14 rounded-full bg-secondary flex items-center justify-center text-muted-foreground font-sans text-xl">
                   ?
                 </div>
                 <div>
