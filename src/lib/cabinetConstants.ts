@@ -513,7 +513,7 @@ export const PROFILES: CabinetProfile[] = [
   {
     id: 'C-2024-058', dept: 'social', deptLabel: 'Droit Social',
     title: 'Collaborateur Droit Social — 4 ans PQE',
-    pqe: '4 ans', nat: 'FR', natFlag: '🇫🇷',
+    pqe: '4 ans', nat: 'FR', natFlag: 'FR',
     origin: 'Cabinet français Tier 2', originTier: 'Tier 2',
     english: 'Professionnel', seniority: 'Mid Level', isNew: false,
     expertise: ['Droit Social'],
