@@ -348,7 +348,7 @@ const SearchValidation = () => {
               </div>
               <div className="bg-white/[0.05] rounded-lg p-3">
                 <div className="text-[8px] uppercase tracking-[0.1em] text-white/35 mb-1.5">Télétravail</div>
-                <div className="font-serif text-sm font-bold text-white">{s.tt || '—'}</div>
+                <div className="font-sans text-sm font-bold text-white">{s.tt || '—'}</div>
               </div>
             </div>
             {s.bonusEnabled && s.bonusTypes.length > 0 && (
