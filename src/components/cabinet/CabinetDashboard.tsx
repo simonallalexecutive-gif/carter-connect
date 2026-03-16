@@ -255,7 +255,7 @@ const SearchValidation = () => {
               {s.currentSearchDeptLabel} · {s.seniorities.join(' / ') || '—'}{s.expertise.length ? ` — ${s.expertise.join(', ')}` : ''}
             </div>
             <div className="text-[11px] text-white/50">
-              {NAT_FLAGS[s.detectedNat] || '🏢'} {NAT_LABELS[s.detectedNat] || 'Cabinet'} · {s.ranking || 'Non classé'}
+              {NAT_FLAGS[s.detectedNat] || '—'} {NAT_LABELS[s.detectedNat] || 'Cabinet'} · {s.ranking || 'Non classé'}
             </div>
             <div className="text-[10px] text-white/30 mt-1">Identité du cabinet protégée · Mise en relation via LOGAN uniquement</div>
             <div className="flex flex-wrap gap-1.5 mt-4 pt-4 border-t border-white/[0.08]">

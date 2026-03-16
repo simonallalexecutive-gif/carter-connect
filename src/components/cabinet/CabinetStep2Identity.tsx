@@ -103,7 +103,7 @@ const CabinetStep2Identity = () => {
           </div>
           
           <div className="flex items-center gap-3 mb-4">
-            <span className="text-2xl">{NAT_FLAGS[s.detectedNat]}</span>
+            <span className="text-sm font-bold">{NAT_FLAGS[s.detectedNat]}</span>
             <div>
               <div className="text-sm font-semibold text-foreground">{s.cabinetName}</div>
               <div className="text-xs text-muted-foreground">{NAT_LABELS[s.detectedNat]}</div>
