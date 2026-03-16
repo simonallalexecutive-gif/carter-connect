@@ -50,7 +50,7 @@ const ValueProposition = () => {
             transition={{ duration: 0.6 }}
             className="text-[10px] font-sans font-semibold tracking-[0.3em] uppercase text-muted-foreground mb-8"
           >
-            Notre plateforme
+            Notre offre
           </motion.p>
 
           <motion.h2
