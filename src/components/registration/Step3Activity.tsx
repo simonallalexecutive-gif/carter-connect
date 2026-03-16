@@ -12,6 +12,7 @@ import { useMemo } from 'react';
 import { ArrowLeft, ArrowRight, Check } from 'lucide-react';
 import FinanceActivityPanel from './FinanceActivityPanel';
 import RestructuringActivityPanel from './RestructuringActivityPanel';
+import SocialActivityPanel from './SocialActivityPanel';
 
 const CHART_COLORS = [
   'hsl(215, 60%, 30%)',
