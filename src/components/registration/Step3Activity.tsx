@@ -98,6 +98,15 @@ const Step3Activity = () => {
             );
           }
 
+          if (store.departement === 'Droit Social') {
+            return (
+              <div key={section.title}>
+                <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-3 block">{section.title}</Label>
+                <SocialActivityPanel />
+              </div>
+            );
+          }
+
           return (
             <div key={section.title}>
               <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-3 block">{section.title}</Label>
