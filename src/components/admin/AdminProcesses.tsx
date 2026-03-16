@@ -35,7 +35,7 @@ const AdminProcesses = () => {
                 <div className="text-[9px] font-semibold tracking-[0.06em] uppercase text-muted-foreground mt-0.5">{STAGE_LABELS[stage]}</div>
               </div>
               <div className="h-1 bg-primary/10 mt-2 rounded-full overflow-hidden">
-                <div className="h-full bg-accent rounded-full" style={{ width: count > 0 ? '100%' : '0%' }} />
+                <div className="h-full bg-primary rounded-full" style={{ width: count > 0 ? '100%' : '0%' }} />
               </div>
             </div>
           );
