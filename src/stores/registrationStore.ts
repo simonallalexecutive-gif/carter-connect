@@ -50,6 +50,8 @@ const initialState = {
   sousActivites: {} as Record<string, Record<string, number>>,
   positionnementPreteur: 50,
   clienteleFrancaise: 50,
+  positionnementRestr: [] as string[],
+  clienteleRestr: [] as string[],
   anglais: '',
   typesClients: [] as string[],
   // Step 4

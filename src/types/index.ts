@@ -54,6 +54,8 @@ export interface RegistrationState {
   sousActivites: Record<string, Record<string, number>>;
   positionnementPreteur: number;
   clienteleFrancaise: number;
+  positionnementRestr: string[];
+  clienteleRestr: string[];
   anglais: string;
   typesClients: string[];
   // Step 4 - Project
