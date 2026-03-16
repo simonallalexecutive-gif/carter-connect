@@ -47,6 +47,9 @@ const initialState = {
   // Step 3
   activites: {} as Record<string, boolean>,
   pourcentages: {} as Record<string, number>,
+  sousActivites: {} as Record<string, Record<string, number>>,
+  positionnementPreteur: 50,
+  clienteleFrancaise: 50,
   anglais: '',
   typesClients: [] as string[],
   // Step 4
