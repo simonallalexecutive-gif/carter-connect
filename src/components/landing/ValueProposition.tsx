@@ -48,7 +48,7 @@ const ValueProposition = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-[10px] font-serif font-semibold tracking-[0.3em] uppercase text-muted-foreground mb-8"
+            className="text-[10px] font-sans font-semibold tracking-[0.3em] uppercase text-muted-foreground mb-8"
           >
             Notre offre
           </motion.p>
