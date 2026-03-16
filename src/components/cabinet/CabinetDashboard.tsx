@@ -532,7 +532,7 @@ const ExploreView = ({
                   ?
                 </div>
                 <div>
-                  <p className="font-serif text-lg text-foreground">{drawerProfile.title}</p>
+                  <p className="font-sans text-lg text-foreground">{drawerProfile.title}</p>
                   <span className="text-xs font-sans font-medium px-2.5 py-1 rounded-sm bg-foreground text-background mt-1 inline-block">
                     {drawerProfile.seniority}
                   </span>
