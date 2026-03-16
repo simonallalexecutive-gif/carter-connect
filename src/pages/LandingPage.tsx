@@ -59,8 +59,8 @@ const LandingPage = () => (
           <motion.h1 variants={fadeUp} className="text-5xl md:text-7xl lg:text-[6.6rem] font-serif font-normal text-white leading-[1.08] mb-8 tracking-[-0.01em] whitespace-nowrap">
             Leading Lawyers{' '}<span className="text-white/70">Connected</span>
           </motion.h1>
-          <motion.p variants={fadeUp} className="text-base md:text-xl text-white font-sans font-bold max-w-2xl mb-3 leading-relaxed whitespace-nowrap">
-            La plateforme confidentielle de mise en relation entre avocats d'affaires et cabinets de premier plan.
+          <motion.p variants={fadeUp} className="text-lg md:text-2xl text-white font-sans font-bold max-w-2xl mb-3 leading-relaxed">
+            La plateforme confidentielle de mise en relation entre avocats d'affaires<br />et cabinets de premier plan.
           </motion.p>
           <motion.div variants={fadeUp} className="mb-14" />
           <motion.div variants={fadeUp}>
@@ -99,7 +99,7 @@ const LandingPage = () => (
 
           {/* Static "Nos partenaires" chip — Harvey style */}
           <div className="flex-shrink-0 pl-6 pr-6 md:pr-10 relative z-20 bg-gradient-to-r from-transparent via-black/80 to-black">
-            <span className="px-6 py-2 border border-white/40 rounded-sm text-sm font-sans font-medium tracking-wide text-white whitespace-nowrap cursor-default">
+            <span className="px-6 py-2 border border-white/40 rounded-sm text-[14px] md:text-[17px] font-sans font-medium tracking-wide text-white whitespace-nowrap cursor-default">
               Nos partenaires
             </span>
           </div>
