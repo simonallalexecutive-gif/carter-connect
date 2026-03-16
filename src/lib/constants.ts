@@ -283,23 +283,13 @@ export const ACTIVITES_BY_PRACTICE: Record<string, { sections: { title: string; 
       {
         title: "Type de financement",
         items: [
-          {
-            key: "dette",
-            label: "Financement par dette",
-            children: [
-              { key: "dette_obligataire", label: "Financement obligataire" },
-              { key: "dette_structure", label: "Financement structuré",
-                children: [
-                  { key: "struct_projets", label: "Financement de projets" },
-                  { key: "struct_actifs", label: "Financement d'actifs" },
-                  { key: "struct_lbo", label: "Financement LBO" },
-                  { key: "struct_titrisation", label: "Titrisation" },
-                ],
-              },
-            ],
-          },
-          { key: "actions", label: "Financement par actions" },
-          { key: "acqfin", label: "Financement d'acquisitions" },
+          { key: "fin_obligataire", label: "Financement obligataire" },
+          { key: "fin_acq", label: "Financement d'acquisitions classique" },
+          { key: "fin_lbo", label: "Financement LBO" },
+          { key: "fin_projets", label: "Financement de projets" },
+          { key: "fin_immo", label: "Financement immobilier" },
+          { key: "fin_actifs", label: "Financement d'actifs" },
+          { key: "fin_titrisation", label: "Titrisation" },
         ],
       },
       {
