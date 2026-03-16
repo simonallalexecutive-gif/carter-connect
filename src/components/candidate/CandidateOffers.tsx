@@ -208,7 +208,7 @@ const CandidateOffers = () => {
                               <div className="grid grid-cols-3 gap-3">
                                 <div className="bg-secondary rounded-lg p-4 text-center">
                                   <div className="text-[8px] uppercase tracking-[0.1em] text-muted-foreground mb-2">Rétrocession</div>
-                                  <div className="font-serif text-base font-bold text-foreground">{offer.retroStr || 'Confidentiel'}</div>
+                                  <div className="font-sans text-base font-bold text-foreground">{offer.retroStr || 'Confidentiel'}</div>
                                 </div>
                                 <div className="bg-secondary rounded-lg p-4 text-center">
                                   <div className="text-[8px] uppercase tracking-[0.1em] text-muted-foreground mb-2">Heures / an</div>
