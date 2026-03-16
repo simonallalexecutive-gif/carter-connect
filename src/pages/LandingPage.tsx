@@ -155,17 +155,8 @@ const LandingPage = () => (
     {/* Benefits — candidat / cabinet tabs */}
     <BenefitsSection />
 
-    {/* Demo CTA after Notre plateforme */}
-    <section className="py-24 md:py-32 bg-background">
-      <div className="carter-container text-center">
-        <Link to="/demo">
-          <Button size="lg" className="bg-foreground text-background hover:bg-foreground/90 font-sans text-sm font-medium px-10 py-6 rounded-sm tracking-wide group transition-all duration-300">
-            Demander une démo
-            <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
-          </Button>
-        </Link>
-      </div>
-    </section>
+
+
 
     {/* Stats ticker */}
     <StatsTickerSection />
