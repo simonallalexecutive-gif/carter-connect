@@ -116,7 +116,7 @@ const CabinetStep4Subscription = () => {
               <div className="text-sm font-bold text-foreground mb-1">{p.name}</div>
 
               <div className="mb-4">
-                <span className="font-serif text-2xl font-bold text-foreground">
+                <span className="font-sans text-2xl font-bold text-foreground">
                   {p.price.includes('devis') ? '' : `${p.price} €`}
                 </span>
                 {p.price.includes('devis') ? (
