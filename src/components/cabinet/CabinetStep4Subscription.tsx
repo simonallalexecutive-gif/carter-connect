@@ -73,7 +73,7 @@ const CabinetStep4Subscription = () => {
         <h3 className="font-sans text-lg font-bold text-white mb-3">Comment ça fonctionne</h3>
         <div className="grid grid-cols-3 gap-5">
           <div>
-            <div className="font-serif text-2xl font-bold text-white/90 mb-1">1.</div>
+            <div className="font-sans text-2xl font-bold text-white/90 mb-1">1.</div>
             <div className="text-xs font-bold text-white mb-0.5">Abonnement mensuel</div>
             <p className="text-[11px] text-white/50 leading-relaxed">Accédez au vivier, restez opportuniste. Identifiez les profils avant vos concurrents.</p>
           </div>
