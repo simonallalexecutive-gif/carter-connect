@@ -33,7 +33,7 @@ const LandingPage = () => (
     <Header />
 
     {/* Hero */}
-    <section className="min-h-screen flex flex-col justify-center relative overflow-hidden bg-black">
+    <section className="min-h-[115vh] flex flex-col justify-center relative overflow-hidden bg-black">
       {/* Background image with gradient overlay */}
       <div className="absolute inset-0">
         <motion.video
@@ -84,22 +84,22 @@ const LandingPage = () => (
         <div className="relative flex items-center py-1">
           {/* Fade edges */}
           <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-black to-transparent z-10 pointer-events-none" />
-          <div className="absolute right-[140px] top-0 bottom-0 w-20 bg-gradient-to-l from-black to-transparent z-10 pointer-events-none" />
+          <div className="absolute right-[180px] top-0 bottom-0 w-20 bg-gradient-to-l from-black to-transparent z-10 pointer-events-none" />
 
           {/* Scrolling logos */}
           <div className="flex-1 overflow-hidden">
             <div className="flex animate-marquee whitespace-nowrap items-center">
               {[...firmNames, ...firmNames].map((name, i) => (
-                <span key={i} className="mx-8 md:mx-12 text-[14px] md:text-[17px] font-sans font-medium text-white/50 select-none flex-shrink-0 tracking-wide">
+                <span key={i} className="mx-6 md:mx-10 text-[12px] md:text-[14.5px] font-serif font-normal text-white/50 select-none flex-shrink-0 tracking-wide">
                   {name}
                 </span>
               ))}
             </div>
           </div>
 
-          {/* Static "Nos partenaires" chip — Harvey style */}
-          <div className="flex-shrink-0 pl-6 pr-6 md:pr-10 relative z-20 bg-gradient-to-r from-transparent via-black/80 to-black">
-            <span className="px-6 py-2 border border-white/40 rounded-sm text-[14px] md:text-[17px] font-sans font-medium tracking-wide text-white whitespace-nowrap cursor-default">
+          {/* Static "Nos partenaires" chip */}
+          <div className="flex-shrink-0 pl-8 pr-6 md:pr-10 relative z-20 bg-gradient-to-r from-transparent via-black to-black">
+            <span className="inline-block px-5 py-2 border border-white/40 rounded-sm text-[12px] md:text-[14.5px] font-serif font-normal tracking-wide text-white whitespace-nowrap cursor-default leading-none">
               Nos partenaires
             </span>
           </div>
