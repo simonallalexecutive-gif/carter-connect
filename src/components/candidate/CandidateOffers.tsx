@@ -119,7 +119,7 @@ const CandidateOffers = () => {
                           <Calendar className="w-3 h-3" />
                           <span>Date de publication : {formatOfferDate(offer.postedAt)}</span>
                         </div>
-                        <div className="text-[9px] tracking-[0.15em] uppercase text-muted-foreground/60 font-serif">{offer.reference}</div>
+                        <div className="text-[9px] tracking-[0.15em] uppercase text-muted-foreground/60 font-sans">{offer.reference}</div>
                       </div>
                     </div>
                     <div className="w-10 h-10 rounded-full flex items-center justify-center bg-secondary shrink-0 mt-1">
