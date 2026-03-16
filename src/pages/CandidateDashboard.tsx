@@ -168,7 +168,7 @@ const CandidateDashboardContent = () => {
           <div className="flex items-center gap-5 flex-1 min-w-0">
             <Avatar className="w-11 h-11 border border-border shrink-0">
               {photoPreviewUrl ? <AvatarImage src={photoPreviewUrl} alt="Photo" /> : null}
-              <AvatarFallback className="bg-secondary text-foreground text-[11px] font-serif">
+              <AvatarFallback className="bg-secondary text-foreground text-[11px] font-sans">
                 {prenom && nom ? `${prenom[0]}${nom[0]}` : <User className="w-4 h-4" />}
               </AvatarFallback>
             </Avatar>
