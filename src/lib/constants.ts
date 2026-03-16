@@ -292,13 +292,6 @@ export const ACTIVITES_BY_PRACTICE: Record<string, { sections: { title: string; 
           { key: "fin_titrisation", label: "Titrisation" },
         ],
       },
-      {
-        title: "Réglementaire",
-        items: [
-          { key: "reg", label: "Réglementaire bancaire" },
-          { key: "conf", label: "Conformité / Compliance" },
-        ],
-      },
     ],
   },
   "Droit Social": {
