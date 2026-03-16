@@ -56,10 +56,10 @@ const LandingPage = () => (
           <motion.p variants={fadeUp} className="text-xs font-sans font-medium tracking-[0.25em] uppercase text-white/50 mb-10">
             &nbsp;
           </motion.p>
-          <motion.h1 variants={fadeUp} className="text-4xl md:text-6xl lg:text-[5.5rem] font-serif font-bold text-white leading-[1.08] mb-8 tracking-[-0.01em]">
+          <motion.h1 variants={fadeUp} className="text-4xl md:text-6xl lg:text-[5.5rem] font-serif font-normal text-white leading-[1.08] mb-8 tracking-[-0.01em]">
             Leading Lawyers{' '}<span className="text-white/70">Connected</span>
           </motion.h1>
-          <motion.p variants={fadeUp} className="text-base md:text-[17px] text-white/60 font-sans font-light max-w-lg mb-3 leading-relaxed">
+          <motion.p variants={fadeUp} className="text-lg md:text-2xl text-white font-sans font-bold max-w-xl mb-3 leading-relaxed">
             La plateforme confidentielle de mise en relation entre avocats d'affaires et cabinets de premier plan.
           </motion.p>
           <motion.div variants={fadeUp} className="mb-14" />
