@@ -63,7 +63,7 @@ const CabinetStep6Confirm = () => {
           { value: '100%', label: 'Confidentiel' },
         ].map((stat) => (
           <div key={stat.label} className="bg-secondary rounded p-4 text-center">
-            <div className="font-serif text-xl font-bold text-foreground">{stat.value}</div>
+            <div className="font-sans text-xl font-bold text-foreground">{stat.value}</div>
             <div className="text-[9px] text-muted-foreground mt-1 uppercase tracking-[0.06em]">{stat.label}</div>
           </div>
         ))}
