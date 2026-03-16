@@ -52,6 +52,7 @@ const initialState = {
   clienteleFrancaise: 50,
   positionnementRestr: [] as string[],
   clienteleRestr: [] as string[],
+  restrFinancier: 0,
   anglais: '',
   typesClients: [] as string[],
   // Step 4
