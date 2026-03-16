@@ -88,11 +88,11 @@ const Step3Activity = () => {
             );
           }
 
-          if (isRestructuring && hasChildren) {
+          if (isRestructuring) {
             return (
               <div key={section.title}>
                 <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-3 block">{section.title}</Label>
-                <RestructuringActivityPanel items={section.items} />
+                <RestructuringActivityPanel />
               </div>
             );
           }
