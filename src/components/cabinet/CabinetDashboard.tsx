@@ -499,9 +499,9 @@ const ExploreView = ({
             {p.isNew && (
               <span className="absolute top-3 right-3 text-[7px] font-bold tracking-[0.12em] uppercase bg-foreground text-background px-2 py-0.5 rounded-sm">NOUVEAU</span>
             )}
-            <div className="text-[9px] text-foreground/40 tracking-[0.08em] mb-3 font-serif">{p.id}</div>
-            <div className="font-serif text-base font-bold text-foreground mb-1.5 leading-tight">{p.title}</div>
-            <div className="text-[11px] text-muted-foreground mb-3 font-serif">{p.origin} · {p.natFlag}</div>
+            <div className="text-[9px] text-foreground/40 tracking-[0.08em] mb-3 font-sans">{p.id}</div>
+            <div className="font-sans text-base font-bold text-foreground mb-1.5 leading-tight">{p.title}</div>
+            <div className="text-[11px] text-muted-foreground mb-3 font-sans">{p.origin} · {p.natFlag}</div>
             <div className="flex flex-wrap gap-1 mb-3">
               <span className="text-[9px] font-semibold px-2 py-0.5 rounded-sm bg-foreground text-background">{p.deptLabel}</span>
               <span className="text-[9px] font-semibold px-2 py-0.5 rounded-sm bg-secondary text-foreground/70 border border-border">{p.seniority}</span>
