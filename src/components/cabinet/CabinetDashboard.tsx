@@ -251,7 +251,7 @@ const SearchValidation = () => {
           {/* Header */}
           <div className="p-6 border-b border-white/[0.08]">
             <div className="text-[8px] tracking-[0.16em] uppercase text-white/35 mb-2">Opportunité · Présentée par LOGAN</div>
-            <div className="font-serif text-xl font-bold text-white mb-1.5">
+            <div className="font-sans text-xl font-bold text-white mb-1.5">
               {s.currentSearchDeptLabel} · {s.seniorities.join(' / ') || '—'}{s.expertise.length ? ` — ${s.expertise.join(', ')}` : ''}
             </div>
             <div className="text-[11px] text-white/50">
