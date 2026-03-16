@@ -56,10 +56,10 @@ const LandingPage = () => (
           <motion.p variants={fadeUp} className="text-xs font-sans font-medium tracking-[0.25em] uppercase text-white/50 mb-10">
             &nbsp;
           </motion.p>
-          <motion.h1 variants={fadeUp} className="text-5xl md:text-7xl lg:text-[6.5rem] font-serif font-normal text-white leading-[1.08] mb-8 tracking-[-0.01em]">
+          <motion.h1 variants={fadeUp} className="text-4xl md:text-6xl lg:text-[5.5rem] font-serif font-normal text-white leading-[1.08] mb-8 tracking-[-0.01em]">
             <em className="italic">Welcome to</em>{' '}<span className="text-white/70">Logan</span>
           </motion.h1>
-          <motion.p variants={fadeUp} className="text-base md:text-lg text-white/60 font-display font-normal max-w-lg mb-3 leading-relaxed">
+          <motion.p variants={fadeUp} className="text-base md:text-[17px] text-white/60 font-sans font-light max-w-lg mb-3 leading-relaxed">
             La plateforme confidentielle de mise en relation entre avocats d'affaires et cabinets de premier plan.
           </motion.p>
           <motion.div variants={fadeUp} className="mb-14" />
@@ -126,7 +126,7 @@ const LandingPage = () => (
             whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
             viewport={{ once: true }}
             transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-            className="text-2xl sm:text-3xl md:text-4xl lg:text-[3.15rem] font-serif font-normal text-foreground leading-[1.2] italic tracking-[-0.01em] mb-8"
+            className="text-xl sm:text-2xl md:text-3xl lg:text-[2.5rem] font-serif font-normal text-foreground leading-[1.25] italic tracking-[-0.01em] mb-8"
           >
             «&nbsp;Logan est aujourd'hui la seule plateforme capable de connecter efficacement les cabinets et les candidats <strong className="font-bold">les plus qualifiés du marché</strong>, tout en préservant la <strong className="font-bold">confidentialité</strong> et en proposant un <strong className="font-bold">accompagnement sur mesure</strong> à chaque étape du processus.&nbsp;»
           </motion.p>
@@ -163,7 +163,7 @@ const LandingPage = () => (
           className="max-w-xl mx-auto"
         >
           <div className="w-12 h-px bg-white/30 mx-auto mb-8" />
-          <h2 className="text-3xl md:text-5xl font-serif font-normal text-white mb-6 tracking-[-0.02em]">
+          <h2 className="text-2xl md:text-4xl lg:text-[2.75rem] font-serif font-normal text-white mb-6 tracking-[-0.02em]">
             Intégrer le réseau
           </h2>
           <p className="text-white/50 font-sans font-light mb-10 leading-relaxed">
