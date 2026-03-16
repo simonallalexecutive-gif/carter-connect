@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
-import { ChevronDown } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { useState, useRef, useEffect } from 'react';
 
 interface NavDropdownProps {
