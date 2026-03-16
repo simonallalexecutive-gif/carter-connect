@@ -80,7 +80,7 @@ const CandidateSidebar = ({
                   </AvatarFallback>
                 </Avatar>
                 <div className="min-w-0">
-                  <p className="text-[12px] font-serif text-white truncate">{prenom && nom ? `${prenom} ${nom}` : 'Candidat'}</p>
+                  <p className="text-[12px] font-sans text-white truncate">{prenom && nom ? `${prenom} ${nom}` : 'Candidat'}</p>
                   <p className="text-[9px] text-white/40 font-sans">Connecté</p>
                 </div>
               </div>
