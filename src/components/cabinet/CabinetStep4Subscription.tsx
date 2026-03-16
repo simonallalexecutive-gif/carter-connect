@@ -162,7 +162,7 @@ const CabinetStep4Subscription = () => {
           </div>
           <div className="p-4 rounded border-2 border-foreground bg-background">
             <div className="text-xs font-bold text-foreground mb-1">LOGAN Business</div>
-            <div className="font-serif text-2xl font-bold text-foreground">15K€ <span className="text-sm font-normal text-muted-foreground">+ abo</span></div>
+            <div className="font-sans text-2xl font-bold text-foreground">15K€ <span className="text-sm font-normal text-muted-foreground">+ abo</span></div>
             <p className="text-[10px] text-muted-foreground mt-1">Fee réduit + accès continu au vivier + consultant dédié</p>
           </div>
         </div>
