@@ -543,7 +543,7 @@ export const PROFILES: CabinetProfile[] = [
   {
     id: 'C-2024-133', dept: 'fiscal', deptLabel: 'Fiscalité',
     title: 'Collaborateur Fiscal International — 6 ans PQE',
-    pqe: '6 ans', nat: 'US', natFlag: '🇺🇸',
+    pqe: '6 ans', nat: 'US', natFlag: 'US',
     origin: 'Cabinet US Tier 2', originTier: 'Tier 2',
     english: 'Bilingue', seniority: 'Sénior', isNew: true,
     expertise: ['Fiscal', 'Private Equity / LBO'],
