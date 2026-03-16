@@ -1,14 +1,20 @@
 import { Link } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { ArrowRight } from 'lucide-react';
-
-
+import { useState, useEffect } from 'react';
 
 const Header = () => {
   const { user, loading, signOut } = useAuth();
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > window.innerHeight * 0.85);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-black">
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-500 ${scrolled ? 'bg-black' : 'bg-transparent'}`}>
       <div className="px-6 sm:px-8 lg:px-10 flex items-center justify-between h-20">
         <Link to="/" className="flex items-center">
           <span className="font-serif text-[31px] tracking-[0.04em] text-white">Logan</span>
