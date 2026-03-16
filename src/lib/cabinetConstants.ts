@@ -407,7 +407,7 @@ export const PROFILES: CabinetProfile[] = [
   {
     id: 'C-2024-071', dept: 'banque', deptLabel: 'Banque & Finance',
     title: 'Collaborateur Finance — 3 ans PQE',
-    pqe: '3 ans', nat: 'UK', natFlag: '🇬🇧',
+    pqe: '3 ans', nat: 'UK', natFlag: 'GB',
     origin: 'Cabinet UK Tier 2', originTier: 'Tier 2',
     english: 'Bilingue', seniority: 'Junior / Mid', isNew: false,
     expertise: ['Financement', 'Restructuring'],
