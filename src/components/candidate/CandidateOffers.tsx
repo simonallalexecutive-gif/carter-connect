@@ -138,7 +138,7 @@ const CandidateOffers = () => {
                             <div className="flex items-center gap-0 mb-1 flex-wrap">
                               <span className="font-sans text-[15px] tracking-[-0.01em] text-foreground">{shortSeniority(offer.seniority)}</span>
                               <span className="mx-2 w-px h-4 bg-border inline-block" />
-                              <span className="font-serif text-[15px] tracking-[-0.01em] text-foreground">{offer.dept}</span>
+                              <span className="font-sans text-[15px] tracking-[-0.01em] text-foreground">{offer.dept}</span>
                               {offer.ranking && (
                                 <>
                                   <span className="mx-2 w-px h-4 bg-border inline-block" />
