@@ -130,7 +130,7 @@ const CabinetStep7Espace = () => {
                 </span>
               )}
               <div className="text-[9px] text-muted-foreground tracking-[0.08em] mb-3 font-sans">ID LOGAN · {p.id}</div>
-              <div className="font-serif text-base font-bold text-foreground mb-1.5 leading-tight">{p.title}</div>
+              <div className="font-sans text-base font-bold text-foreground mb-1.5 leading-tight">{p.title}</div>
               <div className="text-[11px] text-muted-foreground mb-3.5">{p.origin} · {p.natFlag} · Droit applicable : Paris</div>
               <div className="flex flex-wrap gap-1 mb-3.5">
                 <span className="text-[9px] font-semibold tracking-[0.05em] uppercase px-2 py-0.5 rounded-sm bg-foreground text-background">{p.deptLabel}</span>
