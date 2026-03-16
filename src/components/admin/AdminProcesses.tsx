@@ -6,10 +6,10 @@ const STAGE_ORDER = ['intérêt', 'entretien_logan', 'présentation', 'entretien
 const STAGE_COLORS: Record<string, string> = {
   intérêt: 'bg-muted text-foreground',
   entretien_logan: 'bg-secondary text-foreground border border-border',
-  présentation: 'bg-foreground/80 text-background',
-  entretien_cabinet: 'bg-foreground text-background',
-  offre: 'bg-foreground text-background',
-  placé: 'bg-foreground text-background',
+  présentation: 'bg-primary/80 text-primary-foreground',
+  entretien_cabinet: 'bg-primary text-primary-foreground',
+  offre: 'bg-accent text-accent-foreground',
+  placé: 'bg-accent text-accent-foreground',
   abandonné: 'bg-destructive/10 text-destructive',
 };
 
