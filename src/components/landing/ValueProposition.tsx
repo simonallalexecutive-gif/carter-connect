@@ -50,7 +50,7 @@ const ValueProposition = () => {
             transition={{ duration: 0.6 }}
             className="text-[10px] font-sans font-semibold tracking-[0.3em] uppercase text-muted-foreground mb-8"
           >
-            Notre proposition
+            Notre plateforme
           </motion.p>
 
           <motion.h2
@@ -60,11 +60,11 @@ const ValueProposition = () => {
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
             className="text-3xl sm:text-4xl md:text-6xl lg:text-[4.5rem] font-serif font-normal text-foreground leading-[1.12] tracking-[-0.02em] max-w-4xl mx-auto"
           >
-            Là où les trajectoires{' '}
-            <em className="text-muted-foreground font-normal">d'exception</em>
+            Une plateforme de recrutement{' '}
+            <em className="text-muted-foreground font-normal">d'excellence</em>
             <br className="hidden md:block" />{' '}
-            rencontrent les ambitions{' '}
-            <em className="text-muted-foreground font-normal">qui leur correspondent.</em>
+            soutenue par des{' '}
+            <em className="text-muted-foreground font-normal">experts du marché.</em>
           </motion.h2>
 
           {/* Animated divider */}
