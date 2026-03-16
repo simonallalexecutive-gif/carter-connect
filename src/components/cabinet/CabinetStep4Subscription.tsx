@@ -61,7 +61,7 @@ const CabinetStep4Subscription = () => {
         <span className="w-5 h-[1.5px] bg-foreground rounded-sm" />
         Étape 3 / 4
       </div>
-      <h2 className="font-serif text-3xl md:text-4xl font-normal text-foreground leading-tight mb-1">
+      <h2 className="font-sans text-3xl md:text-4xl font-normal text-foreground leading-tight mb-1">
         Restez connecté aux<br /><em className="text-muted-foreground">meilleurs talents.</em>
       </h2>
       <p className="text-sm text-muted-foreground font-light leading-relaxed mb-10 max-w-xl">
