@@ -60,7 +60,7 @@ const StatsTickerSection = () => {
           className="text-center mb-16"
         >
           <div className="w-12 h-px bg-primary-foreground/30 mx-auto mb-8" />
-          <p className="text-[10px] font-sans font-semibold tracking-[0.25em] uppercase text-primary-foreground/40 mb-4">
+          <p className="text-xs font-sans font-medium tracking-[0.2em] uppercase text-primary-foreground/40 mb-4">
             Logan en chiffres
           </p>
           <h2 className="text-2xl md:text-4xl lg:text-[2.75rem] font-serif font-normal text-primary-foreground leading-tight tracking-[-0.02em]">
