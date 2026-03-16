@@ -34,9 +34,9 @@ const AdminSidebar = () => {
         <SidebarGroup>
           <SidebarGroupLabel className="text-sidebar-foreground/60">
             {!collapsed && (
-              <span className="font-serif text-sm font-bold tracking-[-0.01em] text-white">Logan · Admin</span>
+              <span className="font-display text-sm font-bold tracking-[-0.01em] text-white">Logan · Admin</span>
             )}
-            {collapsed && <span className="font-serif text-sm font-bold text-white">L</span>}
+            {collapsed && <span className="font-display text-sm font-bold text-white">L</span>}
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
