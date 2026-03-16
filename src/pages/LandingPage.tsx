@@ -56,7 +56,7 @@ const LandingPage = () => (
           <motion.p variants={fadeUp} className="text-xs font-sans font-medium tracking-[0.25em] uppercase text-white/50 mb-10">
             &nbsp;
           </motion.p>
-          <motion.h1 variants={fadeUp} className="text-5xl md:text-7xl lg:text-[6.6rem] font-serif font-[500] text-white leading-[1.08] mb-8 tracking-[-0.01em] whitespace-nowrap">
+          <motion.h1 variants={fadeUp} className="text-[2.65rem] md:text-[3.7rem] lg:text-[5.6rem] font-serif font-[500] text-white leading-[1.08] mb-8 tracking-[-0.01em] whitespace-nowrap">
             Leading Lawyers{' '}<span className="text-white/70">Connected</span>
           </motion.h1>
           <motion.p variants={fadeUp} className="text-lg md:text-2xl text-white font-sans font-normal max-w-2xl mb-3 leading-relaxed whitespace-nowrap">
