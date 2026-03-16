@@ -266,7 +266,7 @@ const CabinetStep5Validation = () => {
             <div className="grid grid-cols-3 gap-4">
               <div className="bg-white/[0.05] rounded-lg p-4">
                 <div className="text-[8px] uppercase tracking-[0.1em] text-white/35 mb-2">Rétrocession</div>
-                <div className="font-serif text-base font-bold text-white">{retroStr || 'Confidentiel'}</div>
+                <div className="font-sans text-base font-bold text-white">{retroStr || 'Confidentiel'}</div>
                 {!retroStr && <div className="text-[10px] text-white/25 mt-1">Transmis si intérêt confirmé</div>}
               </div>
               <div className="bg-white/[0.05] rounded-lg p-4">
