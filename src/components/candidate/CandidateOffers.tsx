@@ -109,7 +109,7 @@ const CandidateOffers = () => {
                       {!isExpanded && offer.tags.length > 0 && (
                         <div className="flex flex-wrap gap-1.5 mt-1">
                           {offer.tags.slice(0, 4).map((tag) => (
-                            <span key={tag} className="text-[10px] px-2.5 py-1 rounded-full border border-border text-muted-foreground font-serif">{tag}</span>
+                            <span key={tag} className="text-[10px] px-2.5 py-1 rounded-full border border-border text-muted-foreground font-sans">{tag}</span>
                           ))}
                         </div>
                       )}
