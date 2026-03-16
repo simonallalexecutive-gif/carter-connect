@@ -76,6 +76,7 @@ const Step3Activity = () => {
         {/* Activity toggle chips by section */}
         {practiceActivities.sections.map(section => {
           const isFinance = store.departement === 'Banque & Finance';
+          const isRestructuring = store.departement === 'Restructuring';
           const hasChildren = section.items.some(i => i.children && i.children.length > 0);
 
           if (isFinance && hasChildren) {
@@ -83,6 +84,15 @@ const Step3Activity = () => {
               <div key={section.title}>
                 <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-3 block">{section.title}</Label>
                 <FinanceActivityPanel items={section.items} />
+              </div>
+            );
+          }
+
+          if (isRestructuring && hasChildren) {
+            return (
+              <div key={section.title}>
+                <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-3 block">{section.title}</Label>
+                <RestructuringActivityPanel items={section.items} />
               </div>
             );
           }
