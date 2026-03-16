@@ -162,11 +162,11 @@ export const NAT_LABELS: Record<string, string> = {
 };
 
 export const NAT_FLAGS: Record<string, string> = {
-  FR: '🇫🇷',
-  US: '🇺🇸',
-  UK: '🇬🇧',
-  DE: '🇩🇪',
-  NL: '🇳🇱',
+  FR: 'FR',
+  US: 'US',
+  UK: 'GB',
+  DE: 'DE',
+  NL: 'NL',
 };
 
 /**
