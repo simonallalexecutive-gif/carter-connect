@@ -80,53 +80,50 @@ const CandidateOffers = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -12, transition: { duration: 0.25 } }}
                 transition={{ delay: expandedOffer ? 0 : index * 0.08, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                className="rounded-lg overflow-hidden transition-shadow duration-500 hover:shadow-[var(--shadow-elevated)]"
-                style={{ background: 'hsl(220 40% 13%)', boxShadow: 'var(--shadow-card)' }}
+                className="rounded-lg overflow-hidden transition-shadow duration-500 hover:shadow-lg border border-border"
+                style={{ background: 'hsl(0 0% 96%)' }}
               >
                 <button type="button" className="w-full text-left p-6 md:p-8" onClick={() => setExpandedOffer(isExpanded ? null : offer.id)}>
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex-1 min-w-0">
-                      {/* Headline: seniority | dept | ranking badge — 20% larger */}
                       <div className="flex items-center gap-0 mb-3 flex-wrap">
-                        <span className="text-[16px] font-serif tracking-[-0.01em] text-white leading-none">{shortSeniority(offer.seniority)}</span>
-                        <span className="mx-2.5 w-px h-5 bg-white/20 inline-block" />
-                        <span className="text-[16px] font-serif tracking-[-0.01em] text-white leading-none">{offer.dept}</span>
+                        <span className="text-[16px] font-serif tracking-[-0.01em] text-foreground leading-none">{shortSeniority(offer.seniority)}</span>
+                        <span className="mx-2.5 w-px h-5 bg-border inline-block" />
+                        <span className="text-[16px] font-serif tracking-[-0.01em] text-foreground leading-none">{offer.dept}</span>
                         {offer.ranking && (
                           <>
-                            <span className="mx-2.5 w-px h-5 bg-white/20 inline-block" />
-                            <span className="inline-flex items-center gap-2 text-[14px] font-serif text-white">
+                            <span className="mx-2.5 w-px h-5 bg-border inline-block" />
+                            <span className="inline-flex items-center gap-2 text-[14px] font-serif text-foreground">
                               <span className="text-lg leading-none">{offer.natFlag}</span>
                               <span className="font-semibold">{offer.ranking}</span>
                             </span>
                           </>
                         )}
                         {isInterested && (
-                          <span className="ml-3 inline-flex items-center gap-1 text-[10px] text-white/50 font-serif">
+                          <span className="ml-3 inline-flex items-center gap-1 text-[10px] text-muted-foreground font-serif">
                             <CheckCircle2 className="w-3.5 h-3.5" />Intérêt transmis
                           </span>
                         )}
                       </div>
 
-                      {/* Tags */}
                       {!isExpanded && offer.tags.length > 0 && (
                         <div className="flex flex-wrap gap-1.5 mt-1">
                           {offer.tags.slice(0, 4).map((tag) => (
-                            <span key={tag} className="text-[10px] px-2.5 py-1 rounded-full border border-white/10 text-white/60 font-serif">{tag}</span>
+                            <span key={tag} className="text-[10px] px-2.5 py-1 rounded-full border border-border text-muted-foreground font-serif">{tag}</span>
                           ))}
                         </div>
                       )}
 
-                      {/* Footer: date bottom-left, reference bottom-right */}
                       <div className="flex items-center justify-between mt-4">
-                        <div className="flex items-center gap-1.5 text-[11px] text-white/50 font-serif">
+                        <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground font-serif">
                           <Calendar className="w-3 h-3" />
                           <span>Date de publication : {formatOfferDate(offer.postedAt)}</span>
                         </div>
-                        <div className="text-[9px] tracking-[0.15em] uppercase text-white/40 font-serif">{offer.reference}</div>
+                        <div className="text-[9px] tracking-[0.15em] uppercase text-muted-foreground/60 font-serif">{offer.reference}</div>
                       </div>
                     </div>
-                    <div className="w-10 h-10 rounded-full flex items-center justify-center bg-white/10 shrink-0 mt-1">
-                      <ChevronDown className={`w-5 h-5 text-white/50 transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`} />
+                    <div className="w-10 h-10 rounded-full flex items-center justify-center bg-secondary shrink-0 mt-1">
+                      <ChevronDown className={`w-5 h-5 text-muted-foreground transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`} />
                     </div>
                   </div>
                 </button>

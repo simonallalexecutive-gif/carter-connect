@@ -493,22 +493,22 @@ const ExploreView = ({
           <div
             key={p.id}
             onClick={() => setDrawerProfile(p)}
-            className="rounded-lg p-5 cursor-pointer transition-all hover:shadow-[0_4px_24px_-4px_hsl(220_40%_13%/0.4)] hover:-translate-y-0.5 relative"
-            style={{ background: 'hsl(220 40% 13%)' }}
+            className="rounded-lg p-5 cursor-pointer transition-all hover:shadow-lg hover:-translate-y-0.5 relative border border-border"
+            style={{ background: 'hsl(0 0% 96%)' }}
           >
             {p.isNew && (
-              <span className="absolute top-3 right-3 text-[7px] font-bold tracking-[0.12em] uppercase bg-white text-foreground px-2 py-0.5 rounded-sm">NOUVEAU</span>
+              <span className="absolute top-3 right-3 text-[7px] font-bold tracking-[0.12em] uppercase bg-foreground text-background px-2 py-0.5 rounded-sm">NOUVEAU</span>
             )}
-            <div className="text-[9px] text-white/40 tracking-[0.08em] mb-3 font-serif">{p.id}</div>
-            <div className="font-serif text-base font-bold text-white mb-1.5 leading-tight">{p.title}</div>
-            <div className="text-[11px] text-white/50 mb-3 font-serif">{p.origin} · {p.natFlag}</div>
+            <div className="text-[9px] text-foreground/40 tracking-[0.08em] mb-3 font-serif">{p.id}</div>
+            <div className="font-serif text-base font-bold text-foreground mb-1.5 leading-tight">{p.title}</div>
+            <div className="text-[11px] text-muted-foreground mb-3 font-serif">{p.origin} · {p.natFlag}</div>
             <div className="flex flex-wrap gap-1 mb-3">
-              <span className="text-[9px] font-semibold px-2 py-0.5 rounded-sm bg-white text-foreground">{p.deptLabel}</span>
-              <span className="text-[9px] font-semibold px-2 py-0.5 rounded-sm bg-white/10 text-white/70 border border-white/10">{p.seniority}</span>
+              <span className="text-[9px] font-semibold px-2 py-0.5 rounded-sm bg-foreground text-background">{p.deptLabel}</span>
+              <span className="text-[9px] font-semibold px-2 py-0.5 rounded-sm bg-secondary text-foreground/70 border border-border">{p.seniority}</span>
             </div>
-            <div className="grid grid-cols-2 gap-2 border-t border-white/10 pt-3">
-              <div><div className="text-[8px] text-white/35 uppercase tracking-[0.08em]">Anglais</div><div className="text-[11px] font-semibold text-white">{p.english}</div></div>
-              <div><div className="text-[8px] text-white/35 uppercase tracking-[0.08em]">Disponibilité</div><div className="text-[11px] font-semibold text-white">{p.disponibilite}</div></div>
+            <div className="grid grid-cols-2 gap-2 border-t border-border pt-3">
+              <div><div className="text-[8px] text-muted-foreground uppercase tracking-[0.08em]">Anglais</div><div className="text-[11px] font-semibold text-foreground">{p.english}</div></div>
+              <div><div className="text-[8px] text-muted-foreground uppercase tracking-[0.08em]">Disponibilité</div><div className="text-[11px] font-semibold text-foreground">{p.disponibilite}</div></div>
             </div>
           </div>
         ))}
