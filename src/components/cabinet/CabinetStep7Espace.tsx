@@ -51,7 +51,7 @@ const CabinetStep7Espace = () => {
       <div className="bg-foreground rounded-lg p-6 mb-7 flex items-center justify-between">
         <div>
           <div className="text-[9px] tracking-[0.18em] uppercase text-white/35 mb-1.5">Espace membre · Accès en cours de validation</div>
-          <div className="font-serif text-xl font-bold text-white">{s.cabinetName || 'Mon cabinet'}</div>
+          <div className="font-sans text-xl font-bold text-white">{s.cabinetName || 'Mon cabinet'}</div>
           <div className="flex items-center gap-2.5 mt-1.5">
             <span className="text-[11px] text-white/45">{s.typeCab || '—'}</span>
             {s.ranking && (
