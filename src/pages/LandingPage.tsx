@@ -111,7 +111,7 @@ const LandingPage = () => (
     <ValueProposition />
 
     {/* Mot de l'équipe */}
-    <section className="py-24 md:py-32 bg-background overflow-hidden">
+    <section className="py-24 md:py-32 bg-foreground overflow-hidden">
       <div className="carter-container">
         <div className="max-w-3xl mx-auto text-center">
           <motion.div
@@ -119,14 +119,14 @@ const LandingPage = () => (
             whileInView={{ scaleX: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="w-16 h-px bg-foreground/20 mx-auto mb-12 origin-center"
+            className="w-16 h-px bg-white/20 mx-auto mb-12 origin-center"
           />
           <motion.p
             initial={{ opacity: 0, y: 40, filter: 'blur(8px)' }}
             whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
             viewport={{ once: true }}
             transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-            className="text-xl sm:text-2xl md:text-3xl lg:text-[2.5rem] font-serif font-normal text-foreground leading-[1.25] italic tracking-[-0.01em] mb-8"
+            className="text-xl sm:text-2xl md:text-3xl lg:text-[2.5rem] font-serif font-normal text-white leading-[1.25] italic tracking-[-0.01em] mb-8"
           >
             «&nbsp;Logan est aujourd'hui la seule plateforme capable de connecter efficacement les cabinets et les candidats <strong className="font-bold">les plus qualifiés du marché</strong>, tout en préservant la <strong className="font-bold">confidentialité</strong> et en proposant un <strong className="font-bold">accompagnement sur mesure</strong> à chaque étape du processus.&nbsp;»
           </motion.p>
@@ -135,7 +135,7 @@ const LandingPage = () => (
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.8 }}
-            className="inline-block text-xs font-sans font-medium tracking-[0.2em] uppercase text-muted-foreground"
+            className="inline-block text-xs font-sans font-medium tracking-[0.2em] uppercase text-white/50"
           >
             — L'Équipe Logan
           </motion.span>
@@ -145,6 +145,18 @@ const LandingPage = () => (
 
     {/* Benefits — candidat / cabinet tabs */}
     <BenefitsSection />
+
+    {/* Demo CTA after Notre plateforme */}
+    <section className="py-24 md:py-32 bg-background">
+      <div className="carter-container text-center">
+        <Link to="/demo">
+          <Button size="lg" className="bg-foreground text-background hover:bg-foreground/90 font-sans text-sm font-medium px-10 py-6 rounded-sm tracking-wide group transition-all duration-300">
+            Demander une démo
+            <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
+          </Button>
+        </Link>
+      </div>
+    </section>
 
     {/* Stats ticker */}
     <StatsTickerSection />
