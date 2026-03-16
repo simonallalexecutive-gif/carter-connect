@@ -1,7 +1,9 @@
 import { motion } from 'motion/react';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
-import { User, Building2, Eye, Bell, Handshake } from 'lucide-react';
+import { User, Building2, Eye, Bell, Handshake, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
 
 type Tab = 'candidat' | 'cabinet';
 
