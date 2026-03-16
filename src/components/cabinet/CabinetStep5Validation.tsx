@@ -306,7 +306,7 @@ const CabinetStep5Validation = () => {
 
       {/* ── Approval banner ── */}
       <div className="bg-foreground rounded-md p-6 mt-5">
-        <div className="font-serif text-base font-semibold text-white mb-3.5">Confirmez votre demande d'accès</div>
+        <div className="font-sans text-base font-semibold text-white mb-3.5">Confirmez votre demande d'accès</div>
         <div className="flex flex-col gap-2.5">
           {[
             "Je confirme les informations renseignées sur mon cabinet et mes besoins de recrutement.",

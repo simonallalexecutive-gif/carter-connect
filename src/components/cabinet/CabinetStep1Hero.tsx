@@ -186,7 +186,7 @@ const CabinetStep1Hero = () => {
       <div className="bg-secondary border-b border-border px-8 md:px-16 py-5 flex">
         {stats.map((s, i) => (
           <div key={s.label} className={`flex-1 text-center ${i < stats.length - 1 ? 'border-r border-border' : ''}`}>
-            <div className="font-serif text-2xl font-bold text-foreground">{s.value}</div>
+            <div className="font-sans text-2xl font-bold text-foreground">{s.value}</div>
             <div className="text-[9px] text-muted-foreground mt-1 tracking-[0.08em] uppercase">{s.label}</div>
           </div>
         ))}

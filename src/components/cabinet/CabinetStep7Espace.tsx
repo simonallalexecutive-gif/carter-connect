@@ -170,7 +170,7 @@ const CabinetStep7Espace = () => {
               {/* Header card */}
               <div className="bg-foreground rounded-md p-4 mb-5">
                 <div className="text-[9px] tracking-[0.12em] uppercase text-white/30 mb-1.5">{drawerProfile.id}</div>
-                <div className="font-serif text-lg font-bold text-white mb-1">{drawerProfile.title}</div>
+                <div className="font-sans text-lg font-bold text-white mb-1">{drawerProfile.title}</div>
                 <div className="flex items-center gap-2 flex-wrap">
                   <span className="text-[9px] font-bold tracking-[0.06em] px-2 py-0.5 bg-white text-foreground rounded-sm">{drawerProfile.deptLabel}</span>
                   <span className="text-[11px] text-white/45">{drawerProfile.natFlag} {drawerProfile.origin}</span>

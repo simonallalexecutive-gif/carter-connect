@@ -71,7 +71,7 @@ const CabinetStep6Confirm = () => {
 
       <div className="bg-foreground rounded p-4 max-w-[440px] mx-auto mb-7 text-left">
         <div className="text-[11px] text-white/40 mb-1">Votre contact LOGAN</div>
-        <div className="font-serif text-base text-white font-semibold">Équipe LOGAN Advisory</div>
+        <div className="font-sans text-base text-white font-semibold">Équipe LOGAN Advisory</div>
         <div className="text-xs text-white/60 mt-1">contact@logan-advisory.com</div>
       </div>
 

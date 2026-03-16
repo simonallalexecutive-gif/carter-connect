@@ -196,7 +196,7 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
                           : 'bg-background border-border hover:border-foreground'
                       )}
                     >
-                      <div className="font-serif text-sm font-bold mb-0.5">{sen.pqe}</div>
+                      <div className="font-sans text-sm font-bold mb-0.5">{sen.pqe}</div>
                       <div className="text-[10px] font-medium">{sen.label}</div>
                     </button>
                   ))}

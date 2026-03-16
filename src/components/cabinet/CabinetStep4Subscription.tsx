@@ -171,7 +171,7 @@ const CabinetStep4Subscription = () => {
       {/* Loyalty */}
       <div className="border border-border rounded-md p-5 flex items-start gap-5 bg-secondary/50">
         <div className="flex-shrink-0 bg-foreground rounded text-center px-3.5 py-2.5">
-          <div className="font-serif text-xl font-bold text-white">−15%</div>
+          <div className="font-sans text-xl font-bold text-white">−15%</div>
           <div className="text-[8px] font-bold tracking-[0.08em] uppercase text-white/60 mt-0.5">dès l'an 2</div>
         </div>
         <div>
