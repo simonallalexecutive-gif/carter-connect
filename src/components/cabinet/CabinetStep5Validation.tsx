@@ -271,7 +271,7 @@ const CabinetStep5Validation = () => {
               </div>
               <div className="bg-white/[0.05] rounded-lg p-4">
                 <div className="text-[8px] uppercase tracking-[0.1em] text-white/35 mb-2">Objectif heures / an</div>
-                <div className="font-serif text-base font-bold text-white">{s.heures ? `${s.heures}h` : 'Non communiqué'}</div>
+                <div className="font-sans text-base font-bold text-white">{s.heures ? `${s.heures}h` : 'Non communiqué'}</div>
               </div>
               <div className="bg-white/[0.05] rounded-lg p-4">
                 <div className="text-[8px] uppercase tracking-[0.1em] text-white/35 mb-2">Télétravail</div>
