@@ -57,20 +57,12 @@ const Header = () => {
           <span className="font-serif text-[31px] tracking-[0.04em] text-white">Logan</span>
         </Link>
         <nav className="flex items-center gap-8">
-          <NavDropdown
-            label="Espace candidat"
-            items={[
-              { label: "S'inscrire", to: '/inscription?espace=candidat' },
-              { label: 'Se connecter', to: '/auth' },
-            ]}
-          />
-          <NavDropdown
-            label="Espace cabinet"
-            items={[
-              { label: "S'inscrire", to: '/inscription?espace=cabinet' },
-              { label: 'Se connecter', to: '/auth' },
-            ]}
-          />
+          <Link to="/inscription?espace=candidat" className="font-sans text-sm font-medium text-white/60 hover:text-white transition-colors duration-300 tracking-wide">
+            Espace candidat
+          </Link>
+          <Link to="/inscription?espace=cabinet" className="font-sans text-sm font-medium text-white/60 hover:text-white transition-colors duration-300 tracking-wide">
+            Espace cabinet
+          </Link>
           {!loading && (
             user ? (
               <>
@@ -85,12 +77,12 @@ const Header = () => {
                 </button>
               </>
             ) : (
-              <NavDropdown
-                label="Explorer"
-                items={[
-                  { label: 'Prendre rendez-vous pour une présentation', to: '/demo' },
-                ]}
-              />
+              <Link
+                to="/demo"
+                className="font-sans text-sm font-medium text-white/80 hover:text-white border border-white/20 hover:border-white/40 rounded-sm px-5 py-2 transition-colors duration-300 tracking-wide"
+              >
+                Prendre rendez-vous
+              </Link>
             )
           )}
         </nav>
