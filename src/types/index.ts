@@ -51,6 +51,9 @@ export interface RegistrationState {
   // Step 3 - Activity
   activites: Record<string, boolean>;
   pourcentages: Record<string, number>;
+  sousActivites: Record<string, Record<string, number>>;
+  positionnementPreteur: number;
+  clienteleFrancaise: number;
   anglais: string;
   typesClients: string[];
   // Step 4 - Project
