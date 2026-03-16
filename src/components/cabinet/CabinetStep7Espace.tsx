@@ -77,7 +77,7 @@ const CabinetStep7Espace = () => {
           { value: '0%', label: 'Commission prélevée', highlight: true },
         ].map((stat) => (
           <div key={stat.label} className={cn('rounded-md p-4 border', stat.highlight ? 'bg-secondary border-border' : 'bg-background border-border')}>
-            <div className="font-serif text-2xl font-bold text-foreground">{stat.value}</div>
+            <div className="font-sans text-2xl font-bold text-foreground">{stat.value}</div>
             <div className="text-[10px] text-muted-foreground mt-0.5 tracking-[0.04em]">{stat.label}</div>
           </div>
         ))}
