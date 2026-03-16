@@ -292,13 +292,6 @@ export const ACTIVITES_BY_PRACTICE: Record<string, { sections: { title: string; 
           { key: "fin_titrisation", label: "Titrisation" },
         ],
       },
-      {
-        title: "Réglementaire",
-        items: [
-          { key: "reg", label: "Réglementaire bancaire" },
-          { key: "conf", label: "Conformité / Compliance" },
-        ],
-      },
     ],
   },
   "Droit Social": {
@@ -373,26 +366,8 @@ export const ACTIVITES_BY_PRACTICE: Record<string, { sections: { title: string; 
       {
         title: "Répartition de l'activité",
         items: [
-          {
-            key: "restr_amiable",
-            label: "Amiable",
-            children: [
-              { key: "amiable_adhoc", label: "Mandats ad hoc" },
-              { key: "amiable_conciliation", label: "Conciliations" },
-            ],
-          },
-          {
-            key: "restr_judiciaire",
-            label: "Judiciaire",
-            children: [
-              { key: "jud_sauvegarde", label: "Sauvegardes" },
-              { key: "jud_rj", label: "Redressement judiciaire" },
-              { key: "jud_lj", label: "Liquidation judiciaire" },
-            ],
-          },
-          { key: "restr_cont_pc", label: "Contentieux procédures collectives" },
-          { key: "restr_cont_comm", label: "Contentieux commercial général" },
-          { key: "restr_financier", label: "Restructuring financier" },
+          { key: "restr_restructuring", label: "Restructuring" },
+          { key: "restr_contentieux", label: "Contentieux" },
         ],
       },
     ],
