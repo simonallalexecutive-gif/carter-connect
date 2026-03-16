@@ -4,10 +4,10 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { cn } from '@/lib/utils';
 
 const STATUS_COLORS: Record<string, string> = {
-  nouveau: 'bg-foreground text-background',
-  qualifié: 'bg-secondary text-foreground',
-  en_process: 'bg-muted text-foreground border border-border',
-  placé: 'bg-foreground text-background',
+  nouveau: 'bg-primary text-primary-foreground',
+  qualifié: 'bg-accent text-accent-foreground',
+  en_process: 'bg-secondary text-foreground border border-border',
+  placé: 'bg-primary text-primary-foreground',
   inactif: 'bg-muted text-muted-foreground',
 };
 
