@@ -79,7 +79,7 @@ const Step3Activity = () => {
           const isRestructuring = store.departement === 'Restructuring';
           const hasChildren = section.items.some(i => i.children && i.children.length > 0);
 
-          if (isFinance && hasChildren) {
+          if (isFinance && section.title === 'Type de financement') {
             return (
               <div key={section.title}>
                 <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-3 block">{section.title}</Label>
