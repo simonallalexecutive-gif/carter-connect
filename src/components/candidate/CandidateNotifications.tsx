@@ -53,7 +53,7 @@ const CandidateNotifications = () => {
       {INITIAL_NOTIFICATIONS.length === 0 ? (
         <div className="text-center py-16">
           <Bell className="w-8 h-8 text-muted-foreground/30 mx-auto mb-4" />
-          <p className="text-sm font-serif text-muted-foreground">Aucune notification.</p>
+          <p className="text-sm font-sans text-muted-foreground">Aucune notification.</p>
         </div>
       ) : (
         <div className="space-y-3">
@@ -77,28 +77,28 @@ const CandidateNotifications = () => {
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between gap-4 mb-1">
-                        <p className={`text-[16px] font-serif tracking-[-0.01em] ${notif.read ? 'text-foreground/70' : 'text-foreground'}`}>
+                        <p className={`text-[16px] font-sans tracking-[-0.01em] ${notif.read ? 'text-foreground/70' : 'text-foreground'}`}>
                           {notif.message}
                         </p>
                         {!notif.read && <span className="w-2 h-2 rounded-full bg-foreground shrink-0" />}
                       </div>
-                      <p className="text-[11px] font-serif text-muted-foreground leading-relaxed mb-2">{notif.detail}</p>
+                      <p className="text-[11px] font-sans text-muted-foreground leading-relaxed mb-2">{notif.detail}</p>
 
                       {notif.type === 'interest' && offer && offer.ranking && (
                         <div className="flex items-center gap-2 mb-2">
-                          <span className="inline-flex items-center gap-2 text-[12px] font-serif text-foreground bg-secondary border border-border rounded-full px-3 py-1">
-                            <span className="text-base leading-none">{offer.natFlag}</span>
+                          <span className="inline-flex items-center gap-2 text-[12px] font-sans text-foreground bg-secondary border border-border rounded-full px-3 py-1">
+                            <span className="text-xs font-bold leading-none">{offer.natFlag}</span>
                             <span className="font-semibold">{offer.ranking}</span>
                           </span>
                         </div>
                       )}
 
                       <div className="flex items-center gap-3">
-                        <span className="text-[10px] font-serif text-muted-foreground/60">{new Date(notif.date).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' })}</span>
+                        <span className="text-[10px] font-sans text-muted-foreground/60">{new Date(notif.date).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' })}</span>
                         {notif.type === 'interest' && offer && (
                           <button
                             onClick={() => setExpandedNotif(isExpanded ? null : notif.id)}
-                            className="inline-flex items-center gap-1 text-[10px] font-serif font-medium text-foreground hover:text-foreground/70 transition-colors underline underline-offset-2"
+                            className="inline-flex items-center gap-1 text-[10px] font-sans font-medium text-foreground hover:text-foreground/70 transition-colors underline underline-offset-2"
                           >
                             {isExpanded ? 'Masquer l\'offre' : 'Consulter l\'offre'}
                             <ArrowRight className="w-3 h-3" />
@@ -109,50 +109,50 @@ const CandidateNotifications = () => {
                   </div>
                 </div>
 
-                {/* Expanded offer preview — navy bg */}
+                {/* Expanded offer preview */}
                 {isExpanded && offer && (
                   <div className="border-t border-border p-5 rounded-b-lg" style={{ background: 'hsl(0 0% 96%)' }}>
                     <div className="mb-4">
                       <div className="flex items-center gap-0 mb-1.5 flex-wrap">
-                        <span className="text-[16px] font-serif tracking-[-0.01em] text-foreground leading-none">{shortSeniority(offer.seniority)}</span>
+                        <span className="text-[16px] font-sans tracking-[-0.01em] text-foreground leading-none">{shortSeniority(offer.seniority)}</span>
                         <span className="mx-2.5 w-px h-5 bg-border inline-block" />
-                        <span className="text-[16px] font-serif tracking-[-0.01em] text-foreground leading-none">{offer.dept}</span>
+                        <span className="text-[16px] font-sans tracking-[-0.01em] text-foreground leading-none">{offer.dept}</span>
                         {offer.ranking && (
                           <>
                             <span className="mx-2.5 w-px h-5 bg-border inline-block" />
-                            <span className="inline-flex items-center gap-2 text-[14px] font-serif text-foreground">
-                              <span className="text-lg leading-none">{offer.natFlag}</span>
+                            <span className="inline-flex items-center gap-2 text-[14px] font-sans text-foreground">
+                              <span className="text-xs font-bold leading-none">{offer.natFlag}</span>
                               <span className="font-semibold">{offer.ranking}</span>
                             </span>
                           </>
                         )}
                       </div>
-                      <p className="text-[12px] font-serif text-muted-foreground leading-relaxed mt-3">{offer.description}</p>
+                      <p className="text-[12px] font-sans text-muted-foreground leading-relaxed mt-3">{offer.description}</p>
                       {offer.tags.length > 0 && (
                         <div className="flex flex-wrap gap-1.5 mt-3">
                           {offer.tags.map((tag) => (
-                            <span key={tag} className="text-[10px] font-serif px-2.5 py-1 rounded-full border border-border text-muted-foreground">{tag}</span>
+                            <span key={tag} className="text-[10px] font-sans px-2.5 py-1 rounded-full border border-border text-muted-foreground">{tag}</span>
                           ))}
                         </div>
                       )}
                       <div className="flex items-center justify-between mt-4">
-                        <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground font-serif">
+                        <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground font-sans">
                           <Calendar className="w-3 h-3" />
                           <span>Date de publication : {formatOfferDate(offer.postedAt)}</span>
                         </div>
-                        <div className="text-[9px] tracking-[0.15em] uppercase text-muted-foreground/60 font-serif">{offer.reference}</div>
+                        <div className="text-[9px] tracking-[0.15em] uppercase text-muted-foreground/60 font-sans">{offer.reference}</div>
                       </div>
                     </div>
 
                     {isConfirmed ? (
-                      <div className="flex items-center gap-2 text-[13px] font-serif text-muted-foreground bg-secondary rounded-lg px-4 py-3">
+                      <div className="flex items-center gap-2 text-[13px] font-sans text-muted-foreground bg-secondary rounded-lg px-4 py-3">
                         <CheckCircle2 className="w-4 h-4" />
                         Demande d'échange transmise à votre consultant Logan.
                       </div>
                     ) : (
                       <button
                         onClick={() => handleConfirmExchange(notif.id)}
-                        className="w-full flex items-center justify-center gap-2 bg-foreground text-background py-3 rounded-lg text-[13px] font-serif font-semibold hover:bg-foreground/90 transition-colors"
+                        className="w-full flex items-center justify-center gap-2 bg-foreground text-background py-3 rounded-lg text-[13px] font-sans font-semibold hover:bg-foreground/90 transition-colors"
                       >
                         <MessageCircle className="w-4 h-4" />
                         Échanger avec un consultant sur cette opportunité

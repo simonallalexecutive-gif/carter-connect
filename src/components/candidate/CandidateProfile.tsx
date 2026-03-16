@@ -25,12 +25,12 @@ const CandidateProfile = () => {
         <div className="flex items-start gap-6">
           <Avatar className="w-20 h-20 border-2 border-border">
             {photoPreviewUrl ? <AvatarImage src={photoPreviewUrl} alt="Photo" /> : null}
-            <AvatarFallback className="bg-secondary text-foreground text-lg font-serif">
+            <AvatarFallback className="bg-secondary text-foreground text-lg font-sans">
               {prenom && nom ? `${prenom[0]}${nom[0]}` : <User className="w-8 h-8" />}
             </AvatarFallback>
           </Avatar>
           <div className="flex-1 min-w-0">
-            <h3 className="font-serif text-2xl text-foreground mb-1">{prenom && nom ? `${prenom} ${nom}` : 'Votre profil'}</h3>
+            <h3 className="font-sans text-2xl text-foreground mb-1">{prenom && nom ? `${prenom} ${nom}` : 'Votre profil'}</h3>
             <div className="flex flex-wrap items-center gap-2 mb-3">
               {seniorityInfo && (
                 <span className="text-[10px] font-semibold bg-foreground text-background px-2.5 py-1 rounded-sm uppercase tracking-wide">{seniorityInfo.label}</span>
@@ -62,11 +62,11 @@ const CandidateProfile = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="border border-border rounded-lg p-5">
           <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-muted-foreground mb-2">Statut d'écoute</div>
-          <div className="font-serif text-lg text-foreground capitalize">{statutEcoute || 'Non défini'}</div>
+          <div className="font-sans text-lg text-foreground capitalize">{statutEcoute || 'Non défini'}</div>
         </div>
         <div className="border border-border rounded-lg p-5">
           <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-muted-foreground mb-2">Visibilité</div>
-          <div className="font-serif text-lg text-foreground capitalize">{visibilite || 'Non définie'}</div>
+          <div className="font-sans text-lg text-foreground capitalize">{visibilite || 'Non définie'}</div>
         </div>
       </div>
 

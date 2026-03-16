@@ -33,10 +33,10 @@ const CandidateBooking = () => {
         </p>
         <div className="w-8 h-px bg-foreground mb-6" />
         <div className="rounded-lg border border-border p-6 mb-2" style={{ background: 'hsl(0 0% 96%)' }}>
-          <p className="text-[15px] font-serif text-foreground leading-relaxed mb-3">
+          <p className="text-[15px] font-sans text-foreground leading-relaxed mb-3">
             Votre consultant Logan est à votre disposition pour échanger sur votre carrière, votre projet professionnel et votre positionnement sur le marché.
           </p>
-          <p className="text-[13px] font-serif text-muted-foreground leading-relaxed mb-4">
+          <p className="text-[13px] font-sans text-muted-foreground leading-relaxed mb-4">
             Au-delà du recrutement, Logan vous accompagne dans une logique de conseil et de coaching : stratégie de carrière, préparation aux entretiens, analyse du marché, négociation — nous sommes là pour répondre à toutes vos interrogations en toute confidentialité.
           </p>
           <p className="text-[11px] font-sans text-muted-foreground">
@@ -48,8 +48,8 @@ const CandidateBooking = () => {
       {confirmed ? (
         <div className="text-center py-16">
           <CheckCircle2 className="w-10 h-10 text-foreground mx-auto mb-4" />
-          <p className="text-lg font-serif text-foreground mb-2">Créneau confirmé</p>
-          <p className="text-sm font-serif text-muted-foreground">
+          <p className="text-lg font-sans text-foreground mb-2">Créneau confirmé</p>
+          <p className="text-sm font-sans text-muted-foreground">
             {formattedDate} à {selectedSlot}
           </p>
           <p className="text-xs text-muted-foreground mt-4 font-sans">
@@ -119,7 +119,7 @@ const CandidateBooking = () => {
                 )}
               </div>
             ) : (
-              <div className="flex items-center justify-center h-40 text-muted-foreground text-sm font-serif">
+              <div className="flex items-center justify-center h-40 text-muted-foreground text-sm font-sans">
                 <Phone className="w-5 h-5 mr-2 opacity-30" />
                 Choisissez d'abord une date
               </div>

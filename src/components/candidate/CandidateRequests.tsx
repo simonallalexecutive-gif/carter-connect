@@ -27,7 +27,7 @@ const CandidateRequests = () => (
     {MOCK_REQUESTS.length === 0 ? (
       <div className="text-center py-16">
         <Hourglass className="w-8 h-8 text-muted-foreground/30 mx-auto mb-4" />
-        <p className="text-sm font-serif text-muted-foreground">Aucune demande en attente.</p>
+        <p className="text-sm font-sans text-muted-foreground">Aucune demande en attente.</p>
       </div>
     ) : (
       <div className="space-y-4">
@@ -40,14 +40,14 @@ const CandidateRequests = () => (
                   {offer && (
                     <div className="mb-2">
                       <div className="flex items-center gap-0 mb-1.5 flex-wrap">
-                        <span className="text-[16px] font-serif tracking-[-0.01em] text-foreground leading-none">{shortSeniority(offer.seniority)}</span>
+                        <span className="text-[16px] font-sans tracking-[-0.01em] text-foreground leading-none">{shortSeniority(offer.seniority)}</span>
                         <span className="mx-2.5 w-px h-5 bg-border inline-block" />
-                        <span className="text-[16px] font-serif tracking-[-0.01em] text-foreground leading-none">{offer.dept}</span>
+                        <span className="text-[16px] font-sans tracking-[-0.01em] text-foreground leading-none">{offer.dept}</span>
                         {offer.ranking && (
                           <>
                             <span className="mx-2.5 w-px h-5 bg-border inline-block" />
-                            <span className="inline-flex items-center gap-2 text-[14px] font-serif text-foreground">
-                              <span className="text-lg leading-none">{offer.natFlag}</span>
+                            <span className="inline-flex items-center gap-2 text-[14px] font-sans text-foreground">
+                              <span className="text-xs font-bold leading-none">{offer.natFlag}</span>
                               <span className="font-semibold">{offer.ranking}</span>
                             </span>
                           </>
@@ -55,15 +55,15 @@ const CandidateRequests = () => (
                       </div>
                     </div>
                   )}
-                  <p className="text-[11px] font-serif text-muted-foreground">Soumise le {new Date(req.submittedAt).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
+                  <p className="text-[11px] font-sans text-muted-foreground">Soumise le {new Date(req.submittedAt).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
                 </div>
                 <div className="flex items-center gap-2 shrink-0">
                   <Clock className="w-3.5 h-3.5 text-muted-foreground" />
-                  <span className="text-[11px] font-serif font-medium text-foreground">{req.status}</span>
+                  <span className="text-[11px] font-sans font-medium text-foreground">{req.status}</span>
                 </div>
               </div>
               {offer && (
-                <div className="text-[9px] tracking-[0.15em] uppercase text-muted-foreground/60 font-serif text-right">{offer.reference}</div>
+                <div className="text-[9px] tracking-[0.15em] uppercase text-muted-foreground/60 font-sans text-right">{offer.reference}</div>
               )}
             </div>
           );
