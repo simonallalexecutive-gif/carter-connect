@@ -49,15 +49,9 @@ const Footer = () => (
         {/* CTA — à droite */}
         <div className="md:col-span-3 md:text-right">
           <p className="text-[10px] font-sans font-medium tracking-[0.2em] uppercase text-white/30 mb-6">Échangeons</p>
-          <p className="font-sans text-sm text-white/50 font-light leading-relaxed mb-6">
-            Vous souhaitez en savoir plus ?<br />Prenons rendez-vous.
+          <p className="font-sans text-sm text-white/50 font-light leading-relaxed">
+            Vous souhaitez en savoir plus ?<br />Contactez-nous.
           </p>
-          <Link to="/contact">
-            <Button className="bg-white text-black hover:bg-white/90 font-sans text-sm font-medium rounded-sm px-6 py-5 group transition-all duration-300">
-              Prendre rendez-vous
-              <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
-            </Button>
-          </Link>
         </div>
       </div>
 
