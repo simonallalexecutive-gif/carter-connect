@@ -100,7 +100,7 @@ const CandidateOffers = () => {
                           </>
                         )}
                         {isInterested && (
-                          <span className="ml-3 inline-flex items-center gap-1 text-[10px] text-muted-foreground font-serif">
+                          <span className="ml-3 inline-flex items-center gap-1 text-[10px] text-muted-foreground font-sans">
                             <CheckCircle2 className="w-3.5 h-3.5" />Intérêt transmis
                           </span>
                         )}
