@@ -7,6 +7,7 @@ import LandingPage from "./pages/LandingPage";
 import RegisterPage from "./pages/RegisterPage";
 import CabinetPage from "./pages/CabinetPage";
 import DemoPage from "./pages/DemoPage";
+import BookingPage from "./pages/BookingPage";
 import AuthPage from "./pages/AuthPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
 import VideoPreview from "./pages/VideoPreview";
@@ -28,6 +29,7 @@ const App = () => (
           <Route path="/cabinet" element={<CabinetPage />} />
           <Route path="/demo" element={<DemoPage />} />
           <Route path="/auth" element={<AuthPage />} />
+          <Route path="/rendez-vous" element={<BookingPage />} />
           <Route path="/reset-password" element={<ResetPasswordPage />} />
           <Route path="/video-preview" element={<VideoPreview />} />
           <Route path="/espace-candidat" element={<CandidateDashboard />} />

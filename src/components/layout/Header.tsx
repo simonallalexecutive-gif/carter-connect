@@ -58,16 +58,10 @@ const Header = () => {
         </Link>
         <nav className="flex items-center gap-8">
           <NavDropdown
-            label="Espace candidat"
+            label="Rejoindre Logan"
             items={[
-              { label: "S'inscrire", to: '/inscription?espace=candidat' },
-              { label: 'Se connecter', to: '/auth' },
-            ]}
-          />
-          <NavDropdown
-            label="Espace cabinet"
-            items={[
-              { label: "S'inscrire", to: '/inscription?espace=cabinet' },
+              { label: 'Le parcours Logan', to: '/demo' },
+              { label: "S'inscrire", to: '/inscription' },
               { label: 'Se connecter', to: '/auth' },
             ]}
           />
@@ -88,7 +82,7 @@ const Header = () => {
               <NavDropdown
                 label="Explorer"
                 items={[
-                  { label: 'Prendre rendez-vous pour une présentation', to: '/demo' },
+                  { label: 'Prendre rendez-vous', to: '/rendez-vous' },
                 ]}
               />
             )
