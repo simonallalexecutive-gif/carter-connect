@@ -4,7 +4,8 @@ import { Slider } from '@/components/ui/slider';
 import { cn } from '@/lib/utils';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import { useMemo } from 'react';
-import { Check, ChevronDown } from 'lucide-react';
+import { Check } from 'lucide-react';
+import { Checkbox } from '@/components/ui/checkbox';
 import type { ActivityItem } from '@/lib/constants';
 
 const CHART_COLORS = [
@@ -14,6 +15,17 @@ const CHART_COLORS = [
   'hsl(210, 45%, 52%)',
   'hsl(218, 40%, 36%)',
   'hsl(222, 50%, 28%)',
+  'hsl(212, 35%, 46%)',
+];
+
+const TYPES_ACTIFS = [
+  'Aéronautique', 'Ferroviaire', 'Maritime', 'Automobile',
+  'Équipements industriels', 'Télécoms', 'Énergie',
+];
+
+const TYPES_PROJETS = [
+  'Infrastructures', 'Énergie renouvelable', 'PPP / Concessions',
+  'Transport', 'Télécoms', 'Eau / Environnement', 'Social (hôpitaux, écoles)',
 ];
 
 interface FinanceActivityPanelProps {
@@ -22,9 +34,6 @@ interface FinanceActivityPanelProps {
 
 const FinanceActivityPanel = ({ items }: FinanceActivityPanelProps) => {
   const store = useRegistrationStore();
-
-  // Top-level items for the main pie chart
-  const topLevelItems = items.filter(i => !i.children || i.children.length === 0 ? true : true);
 
   const handleToggle = (key: string) => {
     const newActivites = { ...store.activites, [key]: !store.activites[key] };
@@ -38,12 +47,16 @@ const FinanceActivityPanel = ({ items }: FinanceActivityPanelProps) => {
     store.setField('pourcentages', { ...store.pourcentages, [key]: value });
   };
 
-  const handleSubPercentChange = (parentKey: string, childKey: string, value: number) => {
-    const current = store.sousActivites[parentKey] || {};
+  const handleCheckboxToggle = (category: string, value: string) => {
+    const current = store.sousActivites[category] || {};
     store.setField('sousActivites', {
       ...store.sousActivites,
-      [parentKey]: { ...current, [childKey]: value },
+      [category]: { ...current, [value]: current[value] ? 0 : 1 },
     });
+  };
+
+  const isChecked = (category: string, value: string) => {
+    return !!(store.sousActivites[category]?.[value]);
   };
 
   const selectedItems = items.filter(item => store.activites[item.key]);
@@ -58,50 +71,8 @@ const FinanceActivityPanel = ({ items }: FinanceActivityPanelProps) => {
 
   const totalPercent = chartData.reduce((sum, d) => sum + d.value, 0);
 
-  const renderSubBreakdown = (parent: ActivityItem, depth: number = 0) => {
-    if (!parent.children || parent.children.length === 0) return null;
-    if (!store.activites[parent.key]) return null;
-
-    const subs = store.sousActivites[parent.key] || {};
-    // Initialize sub-values if not present
-    const childrenWithValues = parent.children.map(child => ({
-      ...child,
-      value: subs[child.key] ?? Math.round(100 / parent.children!.length),
-    }));
-    const subTotal = childrenWithValues.reduce((s, c) => s + c.value, 0);
-
-    return (
-      <motion.div
-        initial={{ opacity: 0, height: 0 }}
-        animate={{ opacity: 1, height: 'auto' }}
-        className={cn("space-y-3", depth === 0 ? "ml-4 mt-3 pl-4 border-l-2 border-border" : "ml-4 mt-2 pl-3 border-l border-border/50")}
-      >
-        <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">
-          Répartition {parent.label.toLowerCase()}
-        </p>
-        {childrenWithValues.map(child => (
-          <div key={child.key} className="space-y-1">
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-sans text-foreground">{child.label}</span>
-              <span className="text-xs font-sans font-bold text-foreground w-10 text-right">
-                {subTotal > 0 ? Math.round((child.value / subTotal) * 100) : 0}%
-              </span>
-            </div>
-            <Slider
-              value={[child.value]}
-              onValueChange={([v]) => handleSubPercentChange(parent.key, child.key, v)}
-              min={0}
-              max={100}
-              step={5}
-              className="w-full"
-            />
-            {/* Recursive: if this child also has children */}
-            {child.children && child.value > 0 && renderSubBreakdown(child as ActivityItem, depth + 1)}
-          </div>
-        ))}
-      </motion.div>
-    );
-  };
+  const showActifs = store.activites['fin_actifs'];
+  const showProjets = store.activites['fin_projets'];
 
   return (
     <div className="space-y-6">
@@ -123,22 +94,12 @@ const FinanceActivityPanel = ({ items }: FinanceActivityPanelProps) => {
             >
               {isActive && <Check className="w-3 h-3" />}
               {item.label}
-              {item.children && item.children.length > 0 && (
-                <ChevronDown className={cn("w-3 h-3 transition-transform", isActive && "rotate-180")} />
-              )}
             </button>
           );
         })}
       </div>
 
-      {/* Sub-breakdowns for selected items with children */}
-      {items.filter(i => i.children && store.activites[i.key]).map(item => (
-        <div key={item.key}>
-          {renderSubBreakdown(item)}
-        </div>
-      ))}
-
-      {/* Pie chart + sliders + positioning */}
+      {/* Pie chart + sliders + supplementary info */}
       {hasActivites && (
         <motion.div
           initial={{ opacity: 0, y: 10 }}
@@ -196,7 +157,7 @@ const FinanceActivityPanel = ({ items }: FinanceActivityPanelProps) => {
                 </div>
               ))}
 
-              {/* Positioning: Prêteur vs Sponsor */}
+              {/* Positionnement: Prêteur vs Sponsor */}
               <div className="pt-4 border-t border-border space-y-3">
                 <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">Positionnement</p>
                 <div className="space-y-1.5">
@@ -209,7 +170,7 @@ const FinanceActivityPanel = ({ items }: FinanceActivityPanelProps) => {
                     onValueChange={([v]) => store.setField('positionnementPreteur', v)}
                     min={0}
                     max={100}
-                    step={5}
+                    step={10}
                     className="w-full"
                   />
                   <div className="flex items-center justify-between">
@@ -232,7 +193,7 @@ const FinanceActivityPanel = ({ items }: FinanceActivityPanelProps) => {
                     onValueChange={([v]) => store.setField('clienteleFrancaise', v)}
                     min={0}
                     max={100}
-                    step={5}
+                    step={10}
                     className="w-full"
                   />
                   <div className="flex items-center justify-between">
@@ -243,6 +204,49 @@ const FinanceActivityPanel = ({ items }: FinanceActivityPanelProps) => {
               </div>
             </div>
           </div>
+
+          {/* Supplementary checkboxes for specific types */}
+          {(showActifs || showProjets) && (
+            <div className="mt-6 pt-5 border-t border-border space-y-5">
+              {showActifs && (
+                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-3">
+                  <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">
+                    Précisez le type d'actifs
+                  </p>
+                  <div className="flex flex-wrap gap-x-5 gap-y-2.5">
+                    {TYPES_ACTIFS.map(type => (
+                      <label key={type} className="flex items-center gap-2 cursor-pointer">
+                        <Checkbox
+                          checked={isChecked('fin_actifs_types', type)}
+                          onCheckedChange={() => handleCheckboxToggle('fin_actifs_types', type)}
+                        />
+                        <span className="text-xs font-sans text-foreground">{type}</span>
+                      </label>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+
+              {showProjets && (
+                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-3">
+                  <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">
+                    Précisez le type de projets
+                  </p>
+                  <div className="flex flex-wrap gap-x-5 gap-y-2.5">
+                    {TYPES_PROJETS.map(type => (
+                      <label key={type} className="flex items-center gap-2 cursor-pointer">
+                        <Checkbox
+                          checked={isChecked('fin_projets_types', type)}
+                          onCheckedChange={() => handleCheckboxToggle('fin_projets_types', type)}
+                        />
+                        <span className="text-xs font-sans text-foreground">{type}</span>
+                      </label>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+            </div>
+          )}
         </motion.div>
       )}
     </div>
