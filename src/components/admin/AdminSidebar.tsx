@@ -34,9 +34,9 @@ const AdminSidebar = () => {
         <SidebarGroup>
           <SidebarGroupLabel className="text-sidebar-foreground/60">
             {!collapsed && (
-              <span className="font-serif text-sm font-bold tracking-[-0.01em] text-accent">Logan · Admin</span>
+              <span className="font-serif text-sm font-bold tracking-[-0.01em] text-white">Logan · Admin</span>
             )}
-            {collapsed && <span className="font-serif text-sm font-bold text-accent">L</span>}
+            {collapsed && <span className="font-serif text-sm font-bold text-white">L</span>}
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
@@ -46,8 +46,8 @@ const AdminSidebar = () => {
                     <NavLink
                       to={item.url}
                       end={item.url === '/admin'}
-                      className="text-sidebar-foreground/70 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
-                      activeClassName="bg-sidebar-accent text-accent font-semibold"
+                      className="text-sidebar-foreground/70 hover:bg-sidebar-accent hover:text-white"
+                      activeClassName="bg-sidebar-accent text-white font-semibold"
                     >
                       <item.icon className="mr-2 h-4 w-4" />
                       {!collapsed && <span className="text-[13px]">{item.title}</span>}
