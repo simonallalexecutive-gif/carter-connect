@@ -452,7 +452,7 @@ const ExploreView = ({
         ← Retour au tableau de bord
       </button>
 
-      <h2 className="font-serif text-2xl font-normal text-foreground leading-tight mb-1">Explorer le marché</h2>
+      <h2 className="font-sans text-2xl font-normal text-foreground leading-tight mb-1">Explorer le marché</h2>
       <p className="text-xs text-muted-foreground mb-6">
         Parcourez tous les profils enregistrés. Cliquez sur « Ce candidat m'intéresse » pour que LOGAN puisse se rapprocher du candidat en dehors de tout mandat.
       </p>
