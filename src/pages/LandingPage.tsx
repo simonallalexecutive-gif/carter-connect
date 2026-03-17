@@ -37,7 +37,7 @@ const LandingPage = () => (
       {/* Background video with gradient overlay */}
       <div className="absolute inset-0">
         <motion.video
-          src={heroVideo}
+          src={heroVideoAsset.url}
           autoPlay
           muted
           loop
