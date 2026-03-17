@@ -323,47 +323,51 @@ const MaActivityPanel = () => {
                     })}
                   </div>
 
-                  {/* M&A Industriel: Secteurs + Clientèle */}
-                  <div className="space-y-3 pt-2 border-t border-border">
-                    <p className="text-[10px] text-muted-foreground font-sans font-medium uppercase tracking-wider">M&A Industriel – Secteurs</p>
-                    <div className="flex flex-wrap gap-1.5">
-                      {MA_INDUS_SECTEURS.map(s => (
-                        <Chip key={s} active={(store.maIndusSecteurs || []).includes(s)} label={s} onClick={() => toggleArr('maIndusSecteurs', s)} />
-                      ))}
+                  {/* M&A Industriel: Secteurs + Clientèle - only if 'industriel' sub > 0 */}
+                  {((store.sousActivites['ma_ma'] || {})['industriel'] ?? 33) > 0 && (
+                    <div className="space-y-3 pt-2 border-t border-border">
+                      <p className="text-[10px] text-muted-foreground font-sans font-medium uppercase tracking-wider">M&A Industriel – Secteurs</p>
+                      <div className="flex flex-wrap gap-1.5">
+                        {MA_INDUS_SECTEURS.map(s => (
+                          <Chip key={s} active={(store.maIndusSecteurs || []).includes(s)} label={s} onClick={() => toggleArr('maIndusSecteurs', s)} />
+                        ))}
+                      </div>
+                      <p className="text-[10px] text-muted-foreground font-sans font-medium uppercase tracking-wider pt-2">M&A Industriel – Clientèle</p>
+                      <div className="flex flex-wrap gap-1.5">
+                        {MA_INDUS_CLIENTELE.map(s => (
+                          <Chip key={s} active={(store.maIndusClientele || []).includes(s)} label={s} onClick={() => toggleArr('maIndusClientele', s)} />
+                        ))}
+                      </div>
                     </div>
-                    <p className="text-[10px] text-muted-foreground font-sans font-medium uppercase tracking-wider pt-2">M&A Industriel – Clientèle</p>
-                    <div className="flex flex-wrap gap-1.5">
-                      {MA_INDUS_CLIENTELE.map(s => (
-                        <Chip key={s} active={(store.maIndusClientele || []).includes(s)} label={s} onClick={() => toggleArr('maIndusClientele', s)} />
-                      ))}
-                    </div>
-                  </div>
+                  )}
 
-                  {/* M&A Santé: Clientèle + Positionnement */}
-                  <div className="space-y-3 pt-2 border-t border-border">
-                    <p className="text-[10px] text-muted-foreground font-sans font-medium uppercase tracking-wider">M&A Santé – Clientèle</p>
-                    <div className="flex flex-wrap gap-1.5">
-                      {MA_SANTE_CLIENTELE.map(s => (
-                        <Chip key={s} active={(store.maSanteClientele || []).includes(s)} label={s} onClick={() => toggleArr('maSanteClientele', s)} />
-                      ))}
+                  {/* M&A Santé: Clientèle + Positionnement - only if 'sante' sub > 0 */}
+                  {((store.sousActivites['ma_ma'] || {})['sante'] ?? 33) > 0 && (
+                    <div className="space-y-3 pt-2 border-t border-border">
+                      <p className="text-[10px] text-muted-foreground font-sans font-medium uppercase tracking-wider">M&A Santé – Clientèle</p>
+                      <div className="flex flex-wrap gap-1.5">
+                        {MA_SANTE_CLIENTELE.map(s => (
+                          <Chip key={s} active={(store.maSanteClientele || []).includes(s)} label={s} onClick={() => toggleArr('maSanteClientele', s)} />
+                        ))}
+                      </div>
+                      <div className="space-y-2 pt-2">
+                        <p className="text-[10px] text-muted-foreground font-sans font-medium uppercase tracking-wider">Positionnement M&A Santé</p>
+                        <div className="flex items-center justify-between">
+                          <span className="text-xs font-sans text-foreground">Côté vendeur</span>
+                          <span className="text-xs font-sans font-bold text-foreground">{maSanteVendeur}%</span>
+                        </div>
+                        <Slider value={[maSanteVendeur]} onValueChange={([v]) => store.setField('maSanteVendeur', v)} min={0} max={100} step={10} className="w-full" />
+                        <div className="h-2.5 rounded-full overflow-hidden flex border border-border">
+                          <div className="h-full transition-all duration-300" style={{ width: `${maSanteVendeur}%`, backgroundColor: COL_MA }} />
+                          <div className="h-full transition-all duration-300" style={{ width: `${100 - maSanteVendeur}%`, backgroundColor: 'hsl(200, 15%, 60%)' }} />
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-[10px] font-sans text-muted-foreground">Vendeur {maSanteVendeur}%</span>
+                          <span className="text-[10px] font-sans text-muted-foreground">Acquéreur {100 - maSanteVendeur}%</span>
+                        </div>
+                      </div>
                     </div>
-                    <div className="space-y-2 pt-2">
-                      <p className="text-[10px] text-muted-foreground font-sans font-medium uppercase tracking-wider">Positionnement M&A Santé</p>
-                      <div className="flex items-center justify-between">
-                        <span className="text-xs font-sans text-foreground">Côté vendeur</span>
-                        <span className="text-xs font-sans font-bold text-foreground">{maSanteVendeur}%</span>
-                      </div>
-                      <Slider value={[maSanteVendeur]} onValueChange={([v]) => store.setField('maSanteVendeur', v)} min={0} max={100} step={10} className="w-full" />
-                      <div className="h-2.5 rounded-full overflow-hidden flex border border-border">
-                        <div className="h-full transition-all duration-300" style={{ width: `${maSanteVendeur}%`, backgroundColor: COL_MA }} />
-                        <div className="h-full transition-all duration-300" style={{ width: `${100 - maSanteVendeur}%`, backgroundColor: 'hsl(200, 15%, 60%)' }} />
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-[10px] font-sans text-muted-foreground">Vendeur {maSanteVendeur}%</span>
-                        <span className="text-[10px] font-sans text-muted-foreground">Acquéreur {100 - maSanteVendeur}%</span>
-                      </div>
-                    </div>
-                  </div>
+                  )}
                 </div>
               )}
 
