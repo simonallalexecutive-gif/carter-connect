@@ -78,6 +78,16 @@ const initialState = {
   concConsMissions: [] as string[],
   concSecteurs: [] as string[],
   concAutorites: [] as string[],
+  // Fiscal
+  fiscInvestisseur: 50,
+  fiscCtxDefense: 50,
+  fiscDomestique: 50,
+  fiscTransacOps: [] as string[],
+  fiscCtxDossiers: [] as string[],
+  fiscConsMissions: [] as string[],
+  fiscClientele: [] as string[],
+  fiscComplexite: [] as string[],
+  fiscSpecialisations: [] as string[],
   anglais: '',
   typesClients: [] as string[],
   // Step 4
