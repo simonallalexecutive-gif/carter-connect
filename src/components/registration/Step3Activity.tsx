@@ -156,8 +156,8 @@ const Step3Activity = () => {
           </div>
         ))}
 
-        {/* Generic Pie chart (non-finance, non-restructuring departments) */}
-        {store.departement !== 'Banque & Finance' && store.departement !== 'Restructuring' && hasActivites && (
+        {/* Generic Pie chart for departments without specialized panels */}
+        {!['Banque & Finance', 'Restructuring', 'Droit Social', 'M&A / Private Equity', 'Concurrence', 'Fiscal', 'Droit Public'].includes(store.departement) && hasActivites && (
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
