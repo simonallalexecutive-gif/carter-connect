@@ -26,6 +26,7 @@ const Step6Review = () => {
   const store = useRegistrationStore();
   const pqe = usePQE(store.sermentMois, store.sermentAnnee);
   const [previewMode, setPreviewMode] = useState<PreviewMode>('recap');
+  const [submitting, setSubmitting] = useState(false);
 
   const practiceActivities = store.departement
     ? (ACTIVITES_BY_PRACTICE[store.departement] || ACTIVITES_DEFAULT)
