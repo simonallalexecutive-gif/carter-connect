@@ -16,6 +16,7 @@ import SocialActivityPanel from './SocialActivityPanel';
 import MaActivityPanel from './MaActivityPanel';
 import ConcurrenceActivityPanel from './ConcurrenceActivityPanel';
 import FiscalActivityPanel from './FiscalActivityPanel';
+import DroitPublicActivityPanel from './DroitPublicActivityPanel';
 
 const CHART_COLORS = [
   'hsl(215, 60%, 30%)',
@@ -133,6 +134,15 @@ const Step3Activity = () => {
               <div key={section.title}>
                 <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-3 block">{section.title}</Label>
                 <FiscalActivityPanel />
+              </div>
+            );
+          }
+
+          if (store.departement === 'Droit Public') {
+            return (
+              <div key={section.title}>
+                <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-3 block">{section.title}</Label>
+                <DroitPublicActivityPanel />
               </div>
             );
           }

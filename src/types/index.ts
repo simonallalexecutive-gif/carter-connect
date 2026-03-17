@@ -92,6 +92,16 @@ export interface RegistrationState {
   fiscClientele: string[];
   fiscComplexite: string[];
   fiscSpecialisations: string[];
+  // Droit Public
+  dpubPublique: number;
+  dpubCtxDefense: number;
+  dpubDomestique: number;
+  dpubContratsInterventions: string[];
+  dpubCtxInterventions: string[];
+  dpubConsDomaines: string[];
+  dpubClientele: string[];
+  dpubDimensionProjets: string[];
+  dpubSecteurs: string[];
   anglais: string;
   typesClients: string[];
   // Step 4 - Project
