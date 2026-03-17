@@ -211,6 +211,7 @@ const Step6Review = () => {
               {store.motivation && <div><span className="text-muted-foreground text-xs">Motivation</span><p className="mt-1">{store.motivation}</p></div>}
               {store.qualitesAppreciees.length > 0 && <p><span className="text-muted-foreground text-xs">Qualités : </span>{store.qualitesAppreciees.join(', ')}</p>}
               {store.cabinetsCibles.length > 0 && <p><span className="text-muted-foreground text-xs">Cibles : </span>{store.cabinetsCibles.join(', ')}</p>}
+              {store.noGoCabinets.length > 0 && <p><span className="text-muted-foreground text-xs">Cabinets exclus : </span>{store.noGoCabinets.join(', ')}</p>}
               {store.souhaitePrendreRdv && store.creneauPrefere && <p><span className="text-muted-foreground text-xs">RDV souhaité : </span>{store.creneauPrefere}</p>}
             </div>
           </SectionCard>
