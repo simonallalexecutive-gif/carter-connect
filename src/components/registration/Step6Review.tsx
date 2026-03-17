@@ -57,7 +57,33 @@ const Step6Review = () => {
     </div>
   );
 
-  return (
+  const handleSubmit = async () => {
+    if (submitting) return;
+    setSubmitting(true);
+
+    try {
+      const { error } = await (supabase.auth as any).signUp({
+        email: store.email,
+        password: store.password,
+        options: {
+          emailRedirectTo: `${window.location.origin}/auth`,
+          data: {
+            full_name: `${store.prenom} ${store.nom}`.trim(),
+            user_type: 'candidat',
+          },
+        },
+      });
+
+      if (error) throw error;
+      toast.success('Inscription créée. Vérifiez votre email pour activer votre accès.');
+      store.nextStep();
+    } catch (error: any) {
+      toast.error(error.message || 'Impossible de créer votre inscription');
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
