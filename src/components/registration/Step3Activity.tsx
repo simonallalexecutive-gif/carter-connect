@@ -189,7 +189,7 @@ const Step3Activity = () => {
                         const radius = ir + (or - ir) * 0.5;
                         const x = cx + radius * Math.cos(-midAngle * RADIAN);
                         const y = cy + radius * Math.sin(-midAngle * RADIAN);
-                        const pct = Math.round(((store.pourcentages[selectedItems[index]?.key] || 10) / totalPercent) * 100);
+                        const pct = chartData[index]?.value ?? 0;
                         if (pct < 8) return null;
                         return (
                           <text x={x} y={y} fill="white" textAnchor="middle" dominantBaseline="central" fontSize={11} fontWeight={600} fontFamily="Inter, sans-serif">
