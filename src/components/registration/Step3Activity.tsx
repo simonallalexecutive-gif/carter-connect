@@ -217,7 +217,7 @@ const Step3Activity = () => {
                       <span className="w-2.5 h-2.5 rounded-sm flex-shrink-0" style={{ background: CHART_COLORS[i % CHART_COLORS.length] }} />
                       <span className="text-[11px] font-sans text-foreground/80">{item.label}</span>
                       <span className="text-[11px] font-sans font-semibold text-foreground ml-auto">
-                        {Math.round(((store.pourcentages[item.key] || 10) / totalPercent) * 100)}%
+                        {chartData[i]?.value ?? 0}%
                       </span>
                     </div>
                   ))}
