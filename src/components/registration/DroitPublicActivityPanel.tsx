@@ -5,6 +5,7 @@ import { cn } from '@/lib/utils';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import { useMemo } from 'react';
 import { Check, Globe, Landmark, Gavel, FileCheck, Building2, Tag, BarChart3 } from 'lucide-react';
+import { buildQuantizedChartData } from '@/lib/percentages';
 
 const COL_CONTRATS = 'hsl(215, 55%, 28%)';
 const COL_CONTENTIEUX = 'hsl(35, 35%, 48%)';
@@ -116,13 +117,18 @@ const DroitPublicActivityPanel = () => {
   const hasCtx = store.activites['dpub_contentieux'];
   const hasCons = store.activites['dpub_conseil'];
 
-  const mainChartData = useMemo(() => selected.map(c => ({ name: c.label, value: totalRaw > 0 ? Math.round(((store.pourcentages[c.key] || 10) / totalRaw) * 100) : 0, color: c.color })), [selected, store.pourcentages, totalRaw]);
+  const mainChartData = useMemo(() =>
+    buildQuantizedChartData(
+      selected.map(c => ({ key: c.key, name: c.label, raw: store.pourcentages[c.key] || 10, color: c.color })),
+    ),
+    [selected, store.pourcentages]
+  );
 
   const buildSubChart = (parentKey: string, subs: { key: string; label: string; color: string }[]) => {
     const vals = store.sousActivites[parentKey] || {};
-    const items = subs.map(s => ({ ...s, raw: vals[s.key] ?? Math.round(100 / subs.length) }));
-    const total = items.reduce((s, i) => s + i.raw, 0);
-    return items.map(i => ({ name: i.label, value: total > 0 ? Math.round((i.raw / total) * 100) : 0, color: i.color }));
+    return buildQuantizedChartData(
+      subs.map(s => ({ key: s.key, name: s.label, raw: vals[s.key] ?? Math.round(100 / subs.length), color: s.color })),
+    );
   };
 
   const contratsChart = useMemo(() => hasContrats ? buildSubChart('dpub_contrats', CONTRATS_SUBS) : [], [hasContrats, store.sousActivites]);

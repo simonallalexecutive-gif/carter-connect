@@ -1,4 +1,5 @@
 import { motion } from 'motion/react';
+import { supabase } from '@/integrations/supabase/client';
 import { useRegistrationStore } from '@/stores/registrationStore';
 import { Button } from '@/components/ui/button';
 import { usePQE } from '@/hooks/usePQE';
@@ -8,6 +9,7 @@ import { Eye, Lock, ArrowLeft, Check } from 'lucide-react';
 import { useState, useMemo } from 'react';
 import { cn } from '@/lib/utils';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
+import { toast } from 'sonner';
 
 const CHART_COLORS = [
   'hsl(215, 60%, 30%)',
@@ -24,6 +26,7 @@ const Step6Review = () => {
   const store = useRegistrationStore();
   const pqe = usePQE(store.sermentMois, store.sermentAnnee);
   const [previewMode, setPreviewMode] = useState<PreviewMode>('recap');
+  const [submitting, setSubmitting] = useState(false);
 
   const practiceActivities = store.departement
     ? (ACTIVITES_BY_PRACTICE[store.departement] || ACTIVITES_DEFAULT)
@@ -53,6 +56,33 @@ const Step6Review = () => {
       <p className="text-sm font-sans font-medium mt-0.5">{value}</p>
     </div>
   );
+
+  const handleSubmit = async () => {
+    if (submitting) return;
+    setSubmitting(true);
+
+    try {
+      const { error } = await (supabase.auth as any).signUp({
+        email: store.email,
+        password: store.password,
+        options: {
+          emailRedirectTo: `${window.location.origin}/auth`,
+          data: {
+            full_name: `${store.prenom} ${store.nom}`.trim(),
+            user_type: 'candidat',
+          },
+        },
+      });
+
+      if (error) throw error;
+      toast.success('Inscription créée. Vérifiez votre email pour activer votre accès.');
+      store.nextStep();
+    } catch (error: any) {
+      toast.error(error.message || 'Impossible de créer votre inscription');
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   return (
     <motion.div
@@ -182,6 +212,7 @@ const Step6Review = () => {
               {store.motivation && <div><span className="text-muted-foreground text-xs">Motivation</span><p className="mt-1">{store.motivation}</p></div>}
               {store.qualitesAppreciees.length > 0 && <p><span className="text-muted-foreground text-xs">Qualités : </span>{store.qualitesAppreciees.join(', ')}</p>}
               {store.cabinetsCibles.length > 0 && <p><span className="text-muted-foreground text-xs">Cibles : </span>{store.cabinetsCibles.join(', ')}</p>}
+              {store.noGoCabinets.length > 0 && <p><span className="text-muted-foreground text-xs">Cabinets exclus : </span>{store.noGoCabinets.join(', ')}</p>}
               {store.souhaitePrendreRdv && store.creneauPrefere && <p><span className="text-muted-foreground text-xs">RDV souhaité : </span>{store.creneauPrefere}</p>}
             </div>
           </SectionCard>
@@ -404,8 +435,8 @@ const Step6Review = () => {
           <ArrowLeft className="w-4 h-4" />
           Retour
         </Button>
-        <Button onClick={store.nextStep} className="bg-accent text-accent-foreground hover:bg-accent/90 font-sans font-medium px-8 rounded-sm">
-          Soumettre mon profil
+        <Button onClick={handleSubmit} disabled={submitting} className="bg-accent text-accent-foreground hover:bg-accent/90 font-sans font-medium px-8 rounded-sm">
+          {submitting ? 'Envoi...' : 'Soumettre mon profil'}
         </Button>
       </div>
     </motion.div>

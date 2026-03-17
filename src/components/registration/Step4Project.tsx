@@ -107,13 +107,27 @@ const Step4Project = () => {
         </div>
 
         {/* No-Go */}
-        <div>
-          <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-4 block">Critères rédhibitoires (No-Go)</Label>
-          <ChipSelector
-            options={NOGO_SUGGESTIONS}
-            selected={store.noGo}
-            onChange={v => store.setField('noGo', v)}
-          />
+        <div className="space-y-4">
+          <div>
+            <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-4 block">Critères rédhibitoires (No-Go)</Label>
+            <ChipSelector
+              options={NOGO_SUGGESTIONS}
+              selected={store.noGo}
+              onChange={v => store.setField('noGo', v)}
+            />
+          </div>
+          <div>
+            <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-4 block">Cabinets à exclure de votre visibilité (max. 3)</Label>
+            <AutocompleteInput
+              data={CABINETS}
+              value={store.noGoCabinets}
+              onChange={v => store.setField('noGoCabinets', (v as string[]).slice(0, 3))}
+              placeholder="Ajouter un cabinet à exclure..."
+              single={false}
+              showMeta
+            />
+            <p className="text-xs text-muted-foreground font-sans font-light mt-2">Vous pouvez renseigner jusqu’à 3 cabinets qui ne verront jamais votre profil.</p>
+          </div>
         </div>
 
         {/* Process en cours */}

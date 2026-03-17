@@ -9,6 +9,7 @@ import { Slider } from '@/components/ui/slider';
 import { cn } from '@/lib/utils';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import { useMemo } from 'react';
+import { buildQuantizedChartData } from '@/lib/percentages';
 import { ArrowLeft, ArrowRight, Check } from 'lucide-react';
 import FinanceActivityPanel from './FinanceActivityPanel';
 import RestructuringActivityPanel from './RestructuringActivityPanel';
@@ -54,10 +55,14 @@ const Step3Activity = () => {
   const hasActivites = selectedItems.length > 0;
 
   const chartData = useMemo(() => {
-    return selectedItems.map(item => ({
-      name: item.label,
-      value: store.pourcentages[item.key] || 10,
-    }));
+    return buildQuantizedChartData(
+      selectedItems.map((item, index) => ({
+        key: item.key,
+        name: item.label,
+        raw: store.pourcentages[item.key] || 10,
+        color: CHART_COLORS[index % CHART_COLORS.length],
+      })),
+    );
   }, [selectedItems, store.pourcentages]);
 
   const totalPercent = chartData.reduce((sum, d) => sum + d.value, 0);
@@ -184,7 +189,7 @@ const Step3Activity = () => {
                         const radius = ir + (or - ir) * 0.5;
                         const x = cx + radius * Math.cos(-midAngle * RADIAN);
                         const y = cy + radius * Math.sin(-midAngle * RADIAN);
-                        const pct = Math.round(((store.pourcentages[selectedItems[index]?.key] || 10) / totalPercent) * 100);
+                        const pct = chartData[index]?.value ?? 0;
                         if (pct < 8) return null;
                         return (
                           <text x={x} y={y} fill="white" textAnchor="middle" dominantBaseline="central" fontSize={11} fontWeight={600} fontFamily="Inter, sans-serif">
@@ -212,7 +217,7 @@ const Step3Activity = () => {
                       <span className="w-2.5 h-2.5 rounded-sm flex-shrink-0" style={{ background: CHART_COLORS[i % CHART_COLORS.length] }} />
                       <span className="text-[11px] font-sans text-foreground/80">{item.label}</span>
                       <span className="text-[11px] font-sans font-semibold text-foreground ml-auto">
-                        {Math.round(((store.pourcentages[item.key] || 10) / totalPercent) * 100)}%
+                        {chartData[i]?.value ?? 0}%
                       </span>
                     </div>
                   ))}
@@ -223,7 +228,7 @@ const Step3Activity = () => {
               <div className="flex-1 space-y-4 w-full">
                 {selectedItems.map((item, i) => {
                   const raw = store.pourcentages[item.key] || 10;
-                  const displayPercent = totalPercent > 0 ? Math.round((raw / totalPercent) * 100) : 0;
+                  const displayPercent = chartData[i]?.value ?? 0;
                   return (
                     <div key={item.key} className="space-y-1.5">
                       <div className="flex items-center justify-between">

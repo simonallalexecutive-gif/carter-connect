@@ -107,6 +107,7 @@ const initialState = {
   bullets: ['', '', ''],
   cabinetsCibles: [] as string[],
   noGo: [] as string[],
+  noGoCabinets: [] as string[],
   processusCours: '',
   // Step 5
   statutEcoute: '' as '' | 'actif' | 'passif' | 'inactif',

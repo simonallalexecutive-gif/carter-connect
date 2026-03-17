@@ -37,31 +37,31 @@ const Step7Confirm = () => {
         </h1>
 
         <p className="text-base text-muted-foreground font-sans font-light mb-8 leading-relaxed">
-          Votre profil sera examiné par l'équipe Logan sous <strong className="text-foreground font-medium">48 heures ouvrées</strong>.
+          Votre profil sera examiné par l'équipe Logan sous <strong className="text-foreground font-medium">48 heures ouvrées</strong> après validation de votre adresse email.
         </p>
 
         <div className="rounded-sm p-6 text-left mb-10 bg-card border border-border">
           <div className="flex items-start gap-3">
             <Mail className="w-5 h-5 text-accent mt-0.5" />
             <p className="text-sm font-sans font-light text-muted-foreground leading-relaxed">
-              Un email de confirmation vous a été envoyé. Vous recevrez une notification dès que votre profil sera validé.
+              Un email de confirmation vient de vous être envoyé. Validez votre inscription depuis ce lien avant de vous connecter à votre espace candidat.
             </p>
           </div>
         </div>
 
         <div className="flex flex-col gap-3 items-center">
           <Button
-            onClick={() => navigate('/espace-candidat')}
+            onClick={handleGoHome}
             className="bg-white text-black hover:bg-white/90 font-sans font-medium rounded-sm px-8"
           >
-            Accéder à mon espace candidat →
+            Retour à l'accueil
           </Button>
           <Button
-            onClick={handleGoHome}
+            onClick={() => navigate('/auth')}
             variant="outline"
             className="font-sans font-light rounded-sm border-border text-foreground hover:bg-card"
           >
-            Retour à l'accueil
+            Aller à la connexion
           </Button>
         </div>
       </motion.div>

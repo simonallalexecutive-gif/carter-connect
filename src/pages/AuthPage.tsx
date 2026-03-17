@@ -21,7 +21,7 @@ const AuthPage = () => {
   const { user, loading } = useAuth();
 
   useEffect(() => {
-    if (!loading && user) {
+    if (!loading && user?.email_confirmed_at) {
       navigate('/espace-candidat');
     }
   }, [user, loading, navigate]);
@@ -32,8 +32,13 @@ const AuthPage = () => {
 
     try {
       if (isLogin) {
-        const { error } = await (supabase.auth as any).signInWithPassword({ email, password });
+        const { data, error } = await (supabase.auth as any).signInWithPassword({ email, password });
         if (error) throw error;
+        if (!data?.user?.email_confirmed_at) {
+          await (supabase.auth as any).signOut();
+          toast.error('Confirmez votre email avant de vous connecter');
+          return;
+        }
         toast.success('Connexion réussie');
         navigate('/espace-candidat');
       } else {
@@ -41,7 +46,7 @@ const AuthPage = () => {
           email,
           password,
           options: {
-            emailRedirectTo: window.location.origin,
+            emailRedirectTo: `${window.location.origin}/auth`,
             data: { full_name: fullName, user_type: userType },
           },
         });

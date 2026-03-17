@@ -5,6 +5,7 @@ import { cn } from '@/lib/utils';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import { useMemo } from 'react';
 import { Check, Globe, Building2, TrendingUp, Briefcase, Target } from 'lucide-react';
+import { buildQuantizedChartData } from '@/lib/percentages';
 
 /* ── Palette ── */
 const COL_PE = 'hsl(215, 55%, 28%)';
@@ -147,20 +148,23 @@ const MaActivityPanel = () => {
 
   /* ── Main chart ── */
   const mainChartData = useMemo(() =>
-    selected.map(c => ({
-      name: c.label,
-      value: totalRaw > 0 ? Math.round(((store.pourcentages[c.key] || 10) / totalRaw) * 100) : 0,
-      color: c.color,
-    })),
-    [selected, store.pourcentages, totalRaw]
+    buildQuantizedChartData(
+      selected.map(c => ({
+        key: c.key,
+        name: c.label,
+        raw: store.pourcentages[c.key] || 10,
+        color: c.color,
+      })),
+    ),
+    [selected, store.pourcentages]
   );
 
   /* ── Sub charts ── */
   const buildSubChart = (parentKey: string, subs: typeof PE_SUBS) => {
     const vals = store.sousActivites[parentKey] || {};
-    const items = subs.map(s => ({ ...s, raw: vals[s.key] ?? Math.round(100 / subs.length) }));
-    const total = items.reduce((s, i) => s + i.raw, 0);
-    return items.map(i => ({ name: i.label, value: total > 0 ? Math.round((i.raw / total) * 100) : 0, color: i.color }));
+    return buildQuantizedChartData(
+      subs.map(s => ({ key: s.key, name: s.label, raw: vals[s.key] ?? Math.round(100 / subs.length), color: s.color })),
+    );
   };
 
   const peChart = useMemo(() => hasPE ? buildSubChart('ma_pe', PE_SUBS) : [], [hasPE, store.sousActivites]);
