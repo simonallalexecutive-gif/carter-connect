@@ -1,16 +1,15 @@
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { useRegistrationStore } from '@/stores/registrationStore';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import ChipSelector from '@/components/shared/ChipSelector';
 import { ANGLAIS_OPTIONS, TYPES_CLIENTS, ACTIVITES_BY_PRACTICE, ACTIVITES_DEFAULT } from '@/lib/constants';
-import { Slider } from '@/components/ui/slider';
 import { cn } from '@/lib/utils';
-import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
+import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
 import { useMemo } from 'react';
 import { buildQuantizedChartData } from '@/lib/percentages';
-import { ArrowLeft, ArrowRight, Check } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Check, Minus, Plus } from 'lucide-react';
 import FinanceActivityPanel from './FinanceActivityPanel';
 import RestructuringActivityPanel from './RestructuringActivityPanel';
 import SocialActivityPanel from './SocialActivityPanel';
@@ -30,6 +29,8 @@ const CHART_COLORS = [
   'hsl(225, 45%, 18%)',
 ];
 
+const SPECIALIZED_DEPTS = ['Banque & Finance', 'Restructuring', 'Droit Social', 'M&A / Private Equity', 'Concurrence', 'Fiscal', 'Droit Public'];
+
 const Step3Activity = () => {
   const store = useRegistrationStore();
 
@@ -47,8 +48,10 @@ const Step3Activity = () => {
     }
   };
 
-  const handlePercentChange = (key: string, value: number) => {
-    store.setField('pourcentages', { ...store.pourcentages, [key]: value });
+  const handlePercentChange = (key: string, delta: number) => {
+    const current = store.pourcentages[key] || 10;
+    const next = Math.max(10, Math.min(100, current + delta));
+    store.setField('pourcentages', { ...store.pourcentages, [key]: next });
   };
 
   const selectedItems = allItems.filter(item => store.activites[item.key]);
@@ -65,7 +68,7 @@ const Step3Activity = () => {
     );
   }, [selectedItems, store.pourcentages]);
 
-  const totalPercent = chartData.reduce((sum, d) => sum + d.value, 0);
+  const isSpecialized = SPECIALIZED_DEPTS.includes(store.departement);
 
   return (
     <motion.div
@@ -83,7 +86,7 @@ const Step3Activity = () => {
       </p>
 
       <div className="space-y-8">
-        {/* Specialized panels rendered ONCE for departments that have them */}
+        {/* Specialized panels */}
         {store.departement === 'Banque & Finance' && practiceActivities.sections.filter(s => s.title === 'Type de financement').map(section => (
           <div key={section.title}>
             <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-3 block">{section.title}</Label>
@@ -133,8 +136,8 @@ const Step3Activity = () => {
           </div>
         )}
 
-        {/* Generic sections for departments without specialized panels */}
-        {!['Banque & Finance', 'Restructuring', 'Droit Social', 'M&A / Private Equity', 'Concurrence', 'Fiscal', 'Droit Public'].includes(store.departement) && practiceActivities.sections.map(section => (
+        {/* Generic sections for non-specialized departments */}
+        {!isSpecialized && practiceActivities.sections.map(section => (
           <div key={section.title}>
             <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-3 block">{section.title}</Label>
             <div className="flex flex-wrap gap-2">
@@ -161,144 +164,159 @@ const Step3Activity = () => {
           </div>
         ))}
 
-        {/* Generic Pie chart for departments without specialized panels */}
-        {!['Banque & Finance', 'Restructuring', 'Droit Social', 'M&A / Private Equity', 'Concurrence', 'Fiscal', 'Droit Public'].includes(store.departement) && hasActivites && (
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="carter-card p-6"
-          >
-            <p className="carter-label mb-5">Répartition de votre activité</p>
-            <div className="flex gap-8 items-start flex-col lg:flex-row">
-              {/* LEFT: Pie chart + legend */}
-              <div className="flex-shrink-0 mx-auto lg:mx-0 space-y-4" style={{ width: 260 }}>
-                <ResponsiveContainer width={260} height={220}>
-                  <PieChart>
-                    <Pie
-                      data={chartData}
-                      cx="50%"
-                      cy="50%"
-                      innerRadius={42}
-                      outerRadius={78}
-                      dataKey="value"
-                      paddingAngle={2}
-                      stroke="hsl(var(--background))"
-                      strokeWidth={2}
-                      label={({ cx, cy, midAngle, innerRadius: ir, outerRadius: or, index }) => {
-                        const RADIAN = Math.PI / 180;
-                        const radius = ir + (or - ir) * 0.5;
-                        const x = cx + radius * Math.cos(-midAngle * RADIAN);
-                        const y = cy + radius * Math.sin(-midAngle * RADIAN);
-                        const pct = chartData[index]?.value ?? 0;
-                        if (pct < 8) return null;
+        {/* Activity Breakdown – Pie + Controls */}
+        {!isSpecialized && (
+          <AnimatePresence>
+            {hasActivites && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                className="overflow-hidden"
+              >
+                <div className="carter-card p-6 md:p-8">
+                  <p className="carter-label mb-6">Répartition de votre activité</p>
+
+                  <div className="flex flex-col md:flex-row gap-8 items-center md:items-start">
+                    {/* Pie chart */}
+                    <div className="flex-shrink-0" style={{ width: 200, height: 200 }}>
+                      <ResponsiveContainer width="100%" height="100%">
+                        <PieChart>
+                          <Pie
+                            data={chartData}
+                            cx="50%"
+                            cy="50%"
+                            innerRadius={50}
+                            outerRadius={90}
+                            dataKey="value"
+                            paddingAngle={2}
+                            stroke="hsl(var(--background))"
+                            strokeWidth={2}
+                            label={({ cx, cy, midAngle, innerRadius: ir, outerRadius: or, index }) => {
+                              const RADIAN = Math.PI / 180;
+                              const radius = ir + (or - ir) * 0.5;
+                              const x = cx + radius * Math.cos(-midAngle * RADIAN);
+                              const y = cy + radius * Math.sin(-midAngle * RADIAN);
+                              const pct = chartData[index]?.value ?? 0;
+                              if (pct < 15) return null;
+                              return (
+                                <text x={x} y={y} fill="white" textAnchor="middle" dominantBaseline="central" fontSize={12} fontWeight={700} fontFamily="Inter, sans-serif">
+                                  {pct}%
+                                </text>
+                              );
+                            }}
+                            labelLine={false}
+                          >
+                            {chartData.map((_, index) => (
+                              <Cell key={index} fill={CHART_COLORS[index % CHART_COLORS.length]} />
+                            ))}
+                          </Pie>
+                        </PieChart>
+                      </ResponsiveContainer>
+                    </div>
+
+                    {/* Controls */}
+                    <div className="flex-1 w-full space-y-3">
+                      {selectedItems.map((item, i) => {
+                        const displayPercent = chartData.find(d => d.name === item.label)?.value ?? 0;
                         return (
-                          <text x={x} y={y} fill="white" textAnchor="middle" dominantBaseline="central" fontSize={11} fontWeight={600} fontFamily="Inter, sans-serif">
-                            {pct}%
-                          </text>
+                          <div key={item.key} className="flex items-center gap-3 py-2 border-b border-border last:border-b-0">
+                            <div className="w-3 h-3 rounded-sm flex-shrink-0" style={{ backgroundColor: CHART_COLORS[i % CHART_COLORS.length] }} />
+                            <span className="text-sm font-sans text-foreground flex-1 min-w-0 truncate">{item.label}</span>
+                            <div className="flex items-center gap-1.5">
+                              <button
+                                type="button"
+                                onClick={() => handlePercentChange(item.key, -10)}
+                                className="w-7 h-7 rounded-sm border border-border flex items-center justify-center hover:bg-secondary transition-colors"
+                              >
+                                <Minus className="w-3 h-3 text-foreground" />
+                              </button>
+                              <span className="text-sm font-sans font-bold text-foreground w-12 text-center tabular-nums">
+                                {displayPercent}%
+                              </span>
+                              <button
+                                type="button"
+                                onClick={() => handlePercentChange(item.key, 10)}
+                                className="w-7 h-7 rounded-sm border border-border flex items-center justify-center hover:bg-secondary transition-colors"
+                              >
+                                <Plus className="w-3 h-3 text-foreground" />
+                              </button>
+                            </div>
+                          </div>
                         );
-                      }}
-                      labelLine={false}
-                    >
-                      {chartData.map((_, index) => (
-                        <Cell key={index} fill={CHART_COLORS[index % CHART_COLORS.length]} />
-                      ))}
-                    </Pie>
-                    <Tooltip
-                      formatter={(value: number) => [`${Math.round((value / totalPercent) * 100)}%`, '']}
-                      contentStyle={{ fontSize: '11px', fontFamily: 'Inter', background: 'hsl(var(--card))', border: '1px solid hsl(var(--border))', borderRadius: '4px', color: 'hsl(var(--foreground))' }}
-                    />
-                  </PieChart>
-                </ResponsiveContainer>
-
-                {/* Legend */}
-                <div className="space-y-1.5">
-                  {selectedItems.map((item, i) => (
-                    <div key={item.key} className="flex items-center gap-2">
-                      <span className="w-2.5 h-2.5 rounded-sm flex-shrink-0" style={{ background: CHART_COLORS[i % CHART_COLORS.length] }} />
-                      <span className="text-[11px] font-sans text-foreground/80">{item.label}</span>
-                      <span className="text-[11px] font-sans font-semibold text-foreground ml-auto">
-                        {chartData[i]?.value ?? 0}%
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* RIGHT: Sliders + Clientèle + Taille */}
-              <div className="flex-1 space-y-4 w-full">
-                {selectedItems.map((item, i) => {
-                  const raw = store.pourcentages[item.key] || 10;
-                  const displayPercent = chartData[i]?.value ?? 0;
-                  return (
-                    <div key={item.key} className="space-y-1.5">
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-2">
-                          <div className="w-2.5 h-2.5 rounded-sm flex-shrink-0" style={{ backgroundColor: CHART_COLORS[i % CHART_COLORS.length] }} />
-                          <span className="text-xs font-sans text-foreground">{item.label}</span>
-                        </div>
-                        <span className="text-xs font-sans font-bold text-foreground w-10 text-right">{displayPercent}%</span>
-                      </div>
-                      <Slider
-                        value={[raw]}
-                        onValueChange={([v]) => handlePercentChange(item.key, v)}
-                        min={10}
-                        max={100}
-                        step={10}
-                        className="w-full"
-                      />
-                    </div>
-                  );
-                })}
-
-                {/* Clientèle */}
-                <div className="pt-4 border-t border-border space-y-3">
-                  <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">Clientèle</p>
-                  <div className="space-y-1.5">
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs font-sans text-foreground">Clientèle française</span>
-                      <span className="text-xs font-sans font-bold text-foreground">{store.clienteleFrancaise}%</span>
-                    </div>
-                    <Slider value={[store.clienteleFrancaise]} onValueChange={([v]) => store.setField('clienteleFrancaise', v)} min={0} max={100} step={10} className="w-full" />
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs font-sans text-foreground">Clientèle étrangère</span>
-                      <span className="text-xs font-sans font-bold text-foreground">{100 - store.clienteleFrancaise}%</span>
+                      })}
+                      <p className="text-[10px] text-muted-foreground font-sans pt-1">Ajustez le poids relatif de chaque activité par paliers de 10 points.</p>
                     </div>
                   </div>
                 </div>
 
-                {/* Taille des opérations */}
-                <div className="pt-4 border-t border-border space-y-3">
-                  <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">Taille des opérations</p>
-                  <div className="flex flex-wrap gap-2">
-                    {['Small cap', 'Mid cap', 'Large cap'].map(t => {
-                      const active = (store.tailleOperations || []).includes(t);
-                      return (
+                {/* Clientèle + Taille */}
+                <div className="carter-card p-6 md:p-8 mt-4 space-y-6">
+                  <div>
+                    <p className="carter-label mb-4">Clientèle</p>
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-sm font-sans text-foreground">Clientèle française</span>
+                      <span className="text-sm font-sans font-bold text-foreground tabular-nums">{store.clienteleFrancaise}%</span>
+                    </div>
+                    <div className="relative h-2 bg-secondary rounded-full overflow-hidden">
+                      <div className="absolute inset-y-0 left-0 bg-foreground rounded-full transition-all duration-300" style={{ width: `${store.clienteleFrancaise}%` }} />
+                    </div>
+                    <div className="flex justify-between mt-1.5">
+                      <span className="text-[10px] text-muted-foreground font-sans">0%</span>
+                      <span className="text-[10px] text-muted-foreground font-sans">100%</span>
+                    </div>
+                    <div className="flex gap-2 mt-3">
+                      {[20, 40, 50, 60, 80, 100].map(v => (
                         <button
-                          key={t}
+                          key={v}
                           type="button"
-                          onClick={() => {
-                            const current = store.tailleOperations || [];
-                            store.setField('tailleOperations', active ? current.filter(v => v !== t) : [...current, t]);
-                          }}
+                          onClick={() => store.setField('clienteleFrancaise', v)}
                           className={cn(
-                            "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-sm text-xs font-sans transition-all duration-200 border",
-                            active
+                            "px-2.5 py-1 rounded-sm text-[11px] font-sans border transition-all",
+                            store.clienteleFrancaise === v
                               ? "bg-foreground text-background border-foreground"
-                              : "bg-transparent text-foreground border-border hover:border-foreground/40"
+                              : "bg-transparent text-muted-foreground border-border hover:border-foreground"
                           )}
                         >
-                          {active && <Check className="w-3 h-3" />}
-                          {t}
+                          {v}%
                         </button>
-                      );
-                    })}
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="border-t border-border pt-5">
+                    <p className="carter-label mb-3">Taille des opérations</p>
+                    <div className="flex flex-wrap gap-2">
+                      {['Small cap', 'Mid cap', 'Large cap'].map(t => {
+                        const active = (store.tailleOperations || []).includes(t);
+                        return (
+                          <button
+                            key={t}
+                            type="button"
+                            onClick={() => {
+                              const current = store.tailleOperations || [];
+                              store.setField('tailleOperations', active ? current.filter(v => v !== t) : [...current, t]);
+                            }}
+                            className={cn(
+                              "inline-flex items-center gap-1.5 px-4 py-2 rounded-sm text-sm font-sans font-light transition-all duration-200 border",
+                              active
+                                ? "bg-foreground text-background border-foreground"
+                                : "bg-transparent text-foreground border-border hover:border-foreground/40"
+                            )}
+                          >
+                            {active && <Check className="w-3 h-3" />}
+                            {t}
+                          </button>
+                        );
+                      })}
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
-          </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         )}
-
 
         {/* Anglais */}
         <div>
