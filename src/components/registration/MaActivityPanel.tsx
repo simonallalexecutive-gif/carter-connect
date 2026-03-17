@@ -5,6 +5,7 @@ import { cn } from '@/lib/utils';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import { useMemo } from 'react';
 import { Check, Globe, Building2, TrendingUp, Briefcase, Target } from 'lucide-react';
+import { buildQuantizedChartData } from '@/lib/percentages';
 
 /* ── Palette ── */
 const COL_PE = 'hsl(215, 55%, 28%)';

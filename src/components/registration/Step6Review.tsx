@@ -1,4 +1,5 @@
 import { motion } from 'motion/react';
+import { supabase } from '@/integrations/supabase/client';
 import { useRegistrationStore } from '@/stores/registrationStore';
 import { Button } from '@/components/ui/button';
 import { usePQE } from '@/hooks/usePQE';
@@ -8,6 +9,7 @@ import { Eye, Lock, ArrowLeft, Check } from 'lucide-react';
 import { useState, useMemo } from 'react';
 import { cn } from '@/lib/utils';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
+import { toast } from 'sonner';
 
 const CHART_COLORS = [
   'hsl(215, 60%, 30%)',

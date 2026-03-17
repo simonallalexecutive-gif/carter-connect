@@ -9,6 +9,7 @@ import { Slider } from '@/components/ui/slider';
 import { cn } from '@/lib/utils';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import { useMemo } from 'react';
+import { buildQuantizedChartData } from '@/lib/percentages';
 import { ArrowLeft, ArrowRight, Check } from 'lucide-react';
 import FinanceActivityPanel from './FinanceActivityPanel';
 import RestructuringActivityPanel from './RestructuringActivityPanel';
