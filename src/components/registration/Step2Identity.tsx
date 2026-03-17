@@ -72,8 +72,21 @@ const Step2Identity = () => {
     store.email.includes('@') && store.telephone.length >= 10 &&
     store.sermentMois && store.sermentAnnee &&
     store.departement.length >= 2 && store.cabinet.length >= 2 &&
-    store.retrocession.length >= 1 &&
     isPasswordValid && passwordsMatch;
+
+  const missingFields = useMemo(() => {
+    const missing: string[] = [];
+    if (store.prenom.length < 2) missing.push('Prénom');
+    if (store.nom.length < 2) missing.push('Nom');
+    if (!store.email.includes('@')) missing.push('Email');
+    if (store.telephone.length < 10) missing.push('Téléphone');
+    if (!isPasswordValid) missing.push('Mot de passe');
+    if (!passwordsMatch) missing.push('Confirmation mot de passe');
+    if (!store.sermentMois || !store.sermentAnnee) missing.push('Date de serment');
+    if (store.departement.length < 2) missing.push('Département');
+    if (store.cabinet.length < 2) missing.push('Cabinet');
+    return missing;
+  }, [store.prenom, store.nom, store.email, store.telephone, isPasswordValid, passwordsMatch, store.sermentMois, store.sermentAnnee, store.departement, store.cabinet]);
 
   const autoDetectRanking = (cabinetName: string, dept: string) => {
     const practiceData = LEGAL500_BY_PRACTICE[dept];
@@ -634,15 +647,25 @@ const Step2Identity = () => {
         </div>
 
         {/* Navigation */}
-        <div className="flex justify-between pt-6">
-          <Button variant="outline" onClick={store.prevStep} className="font-sans font-light rounded-sm gap-2">
-            <ArrowLeft className="w-4 h-4" />
-            Retour
-          </Button>
-          <Button onClick={store.nextStep} disabled={!canProceed} className="bg-foreground text-background hover:bg-foreground/90 font-sans font-medium rounded-sm gap-2">
-            Continuer
-            <ArrowRight className="w-4 h-4" />
-          </Button>
+        <div className="space-y-3 pt-6">
+          {!canProceed && missingFields.length > 0 && (
+            <div className="flex items-start gap-2 p-3 rounded-sm bg-secondary/50 border border-border">
+              <AlertCircle className="w-4 h-4 text-muted-foreground flex-shrink-0 mt-0.5" />
+              <p className="text-xs text-muted-foreground font-sans font-light">
+                Champs manquants : {missingFields.join(', ')}
+              </p>
+            </div>
+          )}
+          <div className="flex justify-between">
+            <Button variant="outline" onClick={store.prevStep} className="font-sans font-light rounded-sm gap-2">
+              <ArrowLeft className="w-4 h-4" />
+              Retour
+            </Button>
+            <Button onClick={store.nextStep} disabled={!canProceed} className="bg-foreground text-background hover:bg-foreground/90 font-sans font-medium rounded-sm gap-2">
+              Continuer
+              <ArrowRight className="w-4 h-4" />
+            </Button>
+          </div>
         </div>
       </div>
     </motion.div>
