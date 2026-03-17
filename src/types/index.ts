@@ -111,6 +111,7 @@ export interface RegistrationState {
   bullets: string[];
   cabinetsCibles: string[];
   noGo: string[];
+  noGoCabinets: string[];
   processusCours: string;
   // Step 5 - Status
   statutEcoute: 'actif' | 'passif' | 'inactif' | '';
