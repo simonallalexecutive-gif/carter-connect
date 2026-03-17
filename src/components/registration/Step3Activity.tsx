@@ -78,102 +78,83 @@ const Step3Activity = () => {
       </p>
 
       <div className="space-y-8">
-        {/* Activity toggle chips by section */}
-        {practiceActivities.sections.map(section => {
-          const isFinance = store.departement === 'Banque & Finance';
-          const isRestructuring = store.departement === 'Restructuring';
-          const hasChildren = section.items.some(i => i.children && i.children.length > 0);
+        {/* Specialized panels rendered ONCE for departments that have them */}
+        {store.departement === 'Banque & Finance' && practiceActivities.sections.filter(s => s.title === 'Type de financement').map(section => (
+          <div key={section.title}>
+            <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-3 block">{section.title}</Label>
+            <FinanceActivityPanel items={section.items} />
+          </div>
+        ))}
 
-          if (isFinance && section.title === 'Type de financement') {
-            return (
-              <div key={section.title}>
-                <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-3 block">{section.title}</Label>
-                <FinanceActivityPanel items={section.items} />
-              </div>
-            );
-          }
+        {store.departement === 'Restructuring' && (
+          <div>
+            <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-3 block">Répartition de l'activité</Label>
+            <RestructuringActivityPanel />
+          </div>
+        )}
 
-          if (isRestructuring) {
-            return (
-              <div key={section.title}>
-                <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-3 block">{section.title}</Label>
-                <RestructuringActivityPanel />
-              </div>
-            );
-          }
+        {store.departement === 'Droit Social' && (
+          <div>
+            <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-3 block">Nature de l'activité</Label>
+            <SocialActivityPanel />
+          </div>
+        )}
 
-          if (store.departement === 'Droit Social') {
-            return (
-              <div key={section.title}>
-                <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-3 block">{section.title}</Label>
-                <SocialActivityPanel />
-              </div>
-            );
-          }
+        {store.departement === 'M&A / Private Equity' && (
+          <div>
+            <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-3 block">Nature des opérations</Label>
+            <MaActivityPanel />
+          </div>
+        )}
 
-          if (store.departement === 'M&A / Private Equity') {
-            return (
-              <div key={section.title}>
-                <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-3 block">{section.title}</Label>
-                <MaActivityPanel />
-              </div>
-            );
-          }
+        {store.departement === 'Concurrence' && (
+          <div>
+            <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-3 block">Nature de l'activité</Label>
+            <ConcurrenceActivityPanel />
+          </div>
+        )}
 
-          if (store.departement === 'Concurrence') {
-            return (
-              <div key={section.title}>
-                <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-3 block">{section.title}</Label>
-                <ConcurrenceActivityPanel />
-              </div>
-            );
-          }
+        {store.departement === 'Fiscal' && (
+          <div>
+            <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-3 block">Nature de l'activité</Label>
+            <FiscalActivityPanel />
+          </div>
+        )}
 
-          if (store.departement === 'Fiscal') {
-            return (
-              <div key={section.title}>
-                <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-3 block">{section.title}</Label>
-                <FiscalActivityPanel />
-              </div>
-            );
-          }
+        {store.departement === 'Droit Public' && (
+          <div>
+            <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-3 block">Nature de l'activité</Label>
+            <DroitPublicActivityPanel />
+          </div>
+        )}
 
-          if (store.departement === 'Droit Public') {
-            return (
-              <div key={section.title}>
-                <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-3 block">{section.title}</Label>
-                <DroitPublicActivityPanel />
-              </div>
-            );
-          }
-
-          return (
-            <div key={section.title}>
-              <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-3 block">{section.title}</Label>
-              <div className="flex flex-wrap gap-2">
-                {section.items.map(item => {
-                  const isActive = store.activites[item.key];
-                  return (
-                    <button
-                      key={item.key}
-                      type="button"
-                      onClick={() => handleToggle(item.key)}
-                      className={cn(
-                        "inline-flex items-center gap-1.5 px-4 py-2 rounded-sm text-sm font-sans font-light transition-all duration-200 border",
-                        isActive
-                          ? "bg-foreground text-background border-foreground"
-                          : "bg-transparent text-foreground border-border hover:border-foreground/40"
-                      )}
-                    >
-                      {isActive && <Check className="w-3 h-3" />}
-                      {item.label}
-                    </button>
-                  );
-                })}
-              </div>
+        {/* Generic sections for departments without specialized panels */}
+        {!['Banque & Finance', 'Restructuring', 'Droit Social', 'M&A / Private Equity', 'Concurrence', 'Fiscal', 'Droit Public'].includes(store.departement) && practiceActivities.sections.map(section => (
+          <div key={section.title}>
+            <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-3 block">{section.title}</Label>
+            <div className="flex flex-wrap gap-2">
+              {section.items.map(item => {
+                const isActive = store.activites[item.key];
+                return (
+                  <button
+                    key={item.key}
+                    type="button"
+                    onClick={() => handleToggle(item.key)}
+                    className={cn(
+                      "inline-flex items-center gap-1.5 px-4 py-2 rounded-sm text-sm font-sans font-light transition-all duration-200 border",
+                      isActive
+                        ? "bg-foreground text-background border-foreground"
+                        : "bg-transparent text-foreground border-border hover:border-foreground/40"
+                    )}
+                  >
+                    {isActive && <Check className="w-3 h-3" />}
+                    {item.label}
+                  </button>
+                );
+              })}
             </div>
-          );
-        })}
+          </div>
+        ))}
 
         {/* Generic Pie chart (non-finance, non-restructuring departments) */}
         {store.departement !== 'Banque & Finance' && store.departement !== 'Restructuring' && hasActivites && (
