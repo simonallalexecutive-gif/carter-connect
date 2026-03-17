@@ -308,7 +308,7 @@ const FiscalActivityPanel = () => {
                       <span className="text-xs font-sans text-foreground">Côté investisseur / fonds</span>
                       <span className="text-xs font-sans font-bold text-foreground">{fiscInvestisseur}%</span>
                     </div>
-                    <Slider value={[fiscInvestisseur]} onValueChange={([v]) => store.setField('fiscInvestisseur', v)} min={0} max={100} step={5} className="w-full" />
+                    <Slider value={[fiscInvestisseur]} onValueChange={([v]) => store.setField('fiscInvestisseur', v)} min={0} max={100} step={10} className="w-full" />
                     <div className="h-2.5 rounded-full overflow-hidden flex border border-border">
                       <div className="h-full transition-all duration-300" style={{ width: `${fiscInvestisseur}%`, backgroundColor: COL_TRANSAC }} />
                       <div className="h-full transition-all duration-300" style={{ width: `${100 - fiscInvestisseur}%`, backgroundColor: 'hsl(200, 15%, 60%)' }} />
