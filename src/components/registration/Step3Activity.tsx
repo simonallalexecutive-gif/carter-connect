@@ -138,6 +138,15 @@ const Step3Activity = () => {
             );
           }
 
+          if (store.departement === 'Droit Public') {
+            return (
+              <div key={section.title}>
+                <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-3 block">{section.title}</Label>
+                <DroitPublicActivityPanel />
+              </div>
+            );
+          }
+
           return (
             <div key={section.title}>
               <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-3 block">{section.title}</Label>
