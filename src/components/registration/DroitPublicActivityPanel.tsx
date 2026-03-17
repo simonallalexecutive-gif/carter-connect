@@ -328,7 +328,7 @@ const DroitPublicActivityPanel = () => {
                       <span className="text-xs font-sans text-foreground">Défense</span>
                       <span className="text-xs font-sans font-bold text-foreground">{dpubCtxDefense}%</span>
                     </div>
-                    <Slider value={[dpubCtxDefense]} onValueChange={([v]) => store.setField('dpubCtxDefense', v)} min={0} max={100} step={5} className="w-full" />
+                    <Slider value={[dpubCtxDefense]} onValueChange={([v]) => store.setField('dpubCtxDefense', v)} min={0} max={100} step={10} className="w-full" />
                     <div className="h-2.5 rounded-full overflow-hidden flex border border-border">
                       <div className="h-full transition-all duration-300" style={{ width: `${dpubCtxDefense}%`, backgroundColor: COL_CONTENTIEUX }} />
                       <div className="h-full transition-all duration-300" style={{ width: `${100 - dpubCtxDefense}%`, backgroundColor: 'hsl(200, 15%, 60%)' }} />

@@ -408,7 +408,7 @@ const MaActivityPanel = () => {
                       <span className="text-xs font-sans text-foreground">Côté investisseurs / fonds</span>
                       <span className="text-xs font-sans font-bold text-foreground">{vcFonds}%</span>
                     </div>
-                    <Slider value={[vcFonds]} onValueChange={([v]) => store.setField('maVcFonds', v)} min={0} max={100} step={5} className="w-full" />
+                    <Slider value={[vcFonds]} onValueChange={([v]) => store.setField('maVcFonds', v)} min={0} max={100} step={10} className="w-full" />
                     <div className="h-2.5 rounded-full overflow-hidden flex border border-border">
                       <div className="h-full transition-all duration-300" style={{ width: `${vcFonds}%`, backgroundColor: COL_VC }} />
                       <div className="h-full transition-all duration-300" style={{ width: `${100 - vcFonds}%`, backgroundColor: 'hsl(200, 15%, 60%)' }} />

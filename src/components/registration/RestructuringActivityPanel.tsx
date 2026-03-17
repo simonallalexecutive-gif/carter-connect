@@ -245,7 +245,7 @@ const RestructuringActivityPanel = () => {
                     </div>
                     <span className="text-xs font-sans font-bold text-foreground">{restrFinancier}%</span>
                   </div>
-                  <Slider value={[restrFinancier]} onValueChange={([v]) => store.setField('restrFinancier', v)} min={0} max={100} step={5} className="w-full" />
+                  <Slider value={[restrFinancier]} onValueChange={([v]) => store.setField('restrFinancier', v)} min={0} max={100} step={10} className="w-full" />
                   <p className="text-[9px] text-muted-foreground font-sans">Part de votre activité totale en restructuring financier</p>
                 </div>
               )}
