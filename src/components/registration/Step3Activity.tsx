@@ -14,6 +14,7 @@ import FinanceActivityPanel from './FinanceActivityPanel';
 import RestructuringActivityPanel from './RestructuringActivityPanel';
 import SocialActivityPanel from './SocialActivityPanel';
 import MaActivityPanel from './MaActivityPanel';
+import ConcurrenceActivityPanel from './ConcurrenceActivityPanel';
 
 const CHART_COLORS = [
   'hsl(215, 60%, 30%)',
