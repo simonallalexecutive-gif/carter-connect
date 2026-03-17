@@ -82,6 +82,16 @@ export interface RegistrationState {
   concConsMissions: string[];
   concSecteurs: string[];
   concAutorites: string[];
+  // Fiscal
+  fiscInvestisseur: number;
+  fiscCtxDefense: number;
+  fiscDomestique: number;
+  fiscTransacOps: string[];
+  fiscCtxDossiers: string[];
+  fiscConsMissions: string[];
+  fiscClientele: string[];
+  fiscComplexite: string[];
+  fiscSpecialisations: string[];
   anglais: string;
   typesClients: string[];
   // Step 4 - Project
