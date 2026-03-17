@@ -176,7 +176,7 @@ const DroitPublicActivityPanel = () => {
                     <span className="text-xs font-sans text-foreground">Dossiers domestiques</span>
                     <span className="text-xs font-sans font-bold text-foreground">{dpubDomestique}%</span>
                   </div>
-                  <Slider value={[dpubDomestique]} onValueChange={([v]) => store.setField('dpubDomestique', v)} min={0} max={100} step={5} className="w-full" />
+                  <Slider value={[dpubDomestique]} onValueChange={([v]) => store.setField('dpubDomestique', v)} min={0} max={100} step={10} className="w-full" />
                   <div className="h-3 rounded-full overflow-hidden flex border border-border">
                     <div className="bg-foreground/70 h-full transition-all duration-300" style={{ width: `${dpubDomestique}%` }} />
                     <div className="bg-foreground/15 h-full transition-all duration-300" style={{ width: `${100 - dpubDomestique}%` }} />
