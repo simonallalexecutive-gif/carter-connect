@@ -215,7 +215,7 @@ const ConcurrenceActivityPanel = () => {
                     <span className="text-xs font-sans text-foreground">Dossiers domestiques</span>
                     <span className="text-xs font-sans font-bold text-foreground">{concDomestique}%</span>
                   </div>
-                  <Slider value={[concDomestique]} onValueChange={([v]) => store.setField('concDomestique', v)} min={0} max={100} step={5} className="w-full" />
+                  <Slider value={[concDomestique]} onValueChange={([v]) => store.setField('concDomestique', v)} min={0} max={100} step={10} className="w-full" />
                   <div className="h-3 rounded-full overflow-hidden flex border border-border">
                     <div className="bg-foreground/70 h-full transition-all duration-300" style={{ width: `${concDomestique}%` }} />
                     <div className="bg-foreground/15 h-full transition-all duration-300" style={{ width: `${100 - concDomestique}%` }} />
