@@ -88,6 +88,16 @@ const initialState = {
   fiscClientele: [] as string[],
   fiscComplexite: [] as string[],
   fiscSpecialisations: [] as string[],
+  // Droit Public
+  dpubPublique: 50,
+  dpubCtxDefense: 50,
+  dpubDomestique: 50,
+  dpubContratsInterventions: [] as string[],
+  dpubCtxInterventions: [] as string[],
+  dpubConsDomaines: [] as string[],
+  dpubClientele: [] as string[],
+  dpubDimensionProjets: [] as string[],
+  dpubSecteurs: [] as string[],
   anglais: '',
   typesClients: [] as string[],
   // Step 4
