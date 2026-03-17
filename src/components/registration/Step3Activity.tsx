@@ -14,6 +14,7 @@ import FinanceActivityPanel from './FinanceActivityPanel';
 import RestructuringActivityPanel from './RestructuringActivityPanel';
 import SocialActivityPanel from './SocialActivityPanel';
 import MaActivityPanel from './MaActivityPanel';
+import ConcurrenceActivityPanel from './ConcurrenceActivityPanel';
 
 const CHART_COLORS = [
   'hsl(215, 60%, 30%)',
@@ -113,6 +114,15 @@ const Step3Activity = () => {
               <div key={section.title}>
                 <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-3 block">{section.title}</Label>
                 <MaActivityPanel />
+              </div>
+            );
+          }
+
+          if (store.departement === 'Concurrence') {
+            return (
+              <div key={section.title}>
+                <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-3 block">{section.title}</Label>
+                <ConcurrenceActivityPanel />
               </div>
             );
           }

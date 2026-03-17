@@ -73,6 +73,15 @@ export interface RegistrationState {
   maIndusClientele: string[];
   maSanteClientele: string[];
   maVcStades: string[];
+  // Concurrence
+  concAcquereur: number;
+  concCtxDefense: number;
+  concDomestique: number;
+  concOpsTypes: string[];
+  concCtxInterventions: string[];
+  concConsMissions: string[];
+  concSecteurs: string[];
+  concAutorites: string[];
   anglais: string;
   typesClients: string[];
   // Step 4 - Project
