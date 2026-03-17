@@ -228,7 +228,7 @@ const Step3Activity = () => {
               <div className="flex-1 space-y-4 w-full">
                 {selectedItems.map((item, i) => {
                   const raw = store.pourcentages[item.key] || 10;
-                  const displayPercent = totalPercent > 0 ? Math.round((raw / totalPercent) * 100) : 0;
+                  const displayPercent = chartData[i]?.value ?? 0;
                   return (
                     <div key={item.key} className="space-y-1.5">
                       <div className="flex items-center justify-between">

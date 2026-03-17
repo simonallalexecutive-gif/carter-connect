@@ -21,7 +21,7 @@ const AuthPage = () => {
   const { user, loading } = useAuth();
 
   useEffect(() => {
-    if (!loading && user) {
+    if (!loading && user?.email_confirmed_at) {
       navigate('/espace-candidat');
     }
   }, [user, loading, navigate]);

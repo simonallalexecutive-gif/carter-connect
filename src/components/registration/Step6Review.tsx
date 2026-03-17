@@ -434,8 +434,8 @@ const Step6Review = () => {
           <ArrowLeft className="w-4 h-4" />
           Retour
         </Button>
-        <Button onClick={store.nextStep} className="bg-accent text-accent-foreground hover:bg-accent/90 font-sans font-medium px-8 rounded-sm">
-          Soumettre mon profil
+        <Button onClick={handleSubmit} disabled={submitting} className="bg-accent text-accent-foreground hover:bg-accent/90 font-sans font-medium px-8 rounded-sm">
+          {submitting ? 'Envoi...' : 'Soumettre mon profil'}
         </Button>
       </div>
     </motion.div>
