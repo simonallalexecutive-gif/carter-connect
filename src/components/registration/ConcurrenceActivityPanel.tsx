@@ -215,7 +215,7 @@ const ConcurrenceActivityPanel = () => {
                     <span className="text-xs font-sans text-foreground">Dossiers domestiques</span>
                     <span className="text-xs font-sans font-bold text-foreground">{concDomestique}%</span>
                   </div>
-                  <Slider value={[concDomestique]} onValueChange={([v]) => store.setField('concDomestique', v)} min={0} max={100} step={5} className="w-full" />
+                  <Slider value={[concDomestique]} onValueChange={([v]) => store.setField('concDomestique', v)} min={0} max={100} step={10} className="w-full" />
                   <div className="h-3 rounded-full overflow-hidden flex border border-border">
                     <div className="bg-foreground/70 h-full transition-all duration-300" style={{ width: `${concDomestique}%` }} />
                     <div className="bg-foreground/15 h-full transition-all duration-300" style={{ width: `${100 - concDomestique}%` }} />
@@ -298,7 +298,7 @@ const ConcurrenceActivityPanel = () => {
                       <span className="text-xs font-sans text-foreground">Côté acquéreur</span>
                       <span className="text-xs font-sans font-bold text-foreground">{concAcquereur}%</span>
                     </div>
-                    <Slider value={[concAcquereur]} onValueChange={([v]) => store.setField('concAcquereur', v)} min={0} max={100} step={5} className="w-full" />
+                    <Slider value={[concAcquereur]} onValueChange={([v]) => store.setField('concAcquereur', v)} min={0} max={100} step={10} className="w-full" />
                     <div className="h-2.5 rounded-full overflow-hidden flex border border-border">
                       <div className="h-full transition-all duration-300" style={{ width: `${concAcquereur}%`, backgroundColor: COL_CONCENTRATIONS }} />
                       <div className="h-full transition-all duration-300" style={{ width: `${100 - concAcquereur}%`, backgroundColor: 'hsl(200, 15%, 60%)' }} />
@@ -370,7 +370,7 @@ const ConcurrenceActivityPanel = () => {
                       <span className="text-xs font-sans text-foreground">Défense</span>
                       <span className="text-xs font-sans font-bold text-foreground">{ctxDefense}%</span>
                     </div>
-                    <Slider value={[ctxDefense]} onValueChange={([v]) => store.setField('concCtxDefense', v)} min={0} max={100} step={5} className="w-full" />
+                    <Slider value={[ctxDefense]} onValueChange={([v]) => store.setField('concCtxDefense', v)} min={0} max={100} step={10} className="w-full" />
                     <div className="h-2.5 rounded-full overflow-hidden flex border border-border">
                       <div className="h-full transition-all duration-300" style={{ width: `${ctxDefense}%`, backgroundColor: COL_CONTENTIEUX }} />
                       <div className="h-full transition-all duration-300" style={{ width: `${100 - ctxDefense}%`, backgroundColor: 'hsl(200, 15%, 60%)' }} />

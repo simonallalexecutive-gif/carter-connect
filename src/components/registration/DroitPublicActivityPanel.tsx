@@ -176,7 +176,7 @@ const DroitPublicActivityPanel = () => {
                     <span className="text-xs font-sans text-foreground">Dossiers domestiques</span>
                     <span className="text-xs font-sans font-bold text-foreground">{dpubDomestique}%</span>
                   </div>
-                  <Slider value={[dpubDomestique]} onValueChange={([v]) => store.setField('dpubDomestique', v)} min={0} max={100} step={5} className="w-full" />
+                  <Slider value={[dpubDomestique]} onValueChange={([v]) => store.setField('dpubDomestique', v)} min={0} max={100} step={10} className="w-full" />
                   <div className="h-3 rounded-full overflow-hidden flex border border-border">
                     <div className="bg-foreground/70 h-full transition-all duration-300" style={{ width: `${dpubDomestique}%` }} />
                     <div className="bg-foreground/15 h-full transition-all duration-300" style={{ width: `${100 - dpubDomestique}%` }} />
@@ -263,7 +263,7 @@ const DroitPublicActivityPanel = () => {
                       <span className="text-xs font-sans text-foreground">Côté personne publique</span>
                       <span className="text-xs font-sans font-bold text-foreground">{dpubPublique}%</span>
                     </div>
-                    <Slider value={[dpubPublique]} onValueChange={([v]) => store.setField('dpubPublique', v)} min={0} max={100} step={5} className="w-full" />
+                    <Slider value={[dpubPublique]} onValueChange={([v]) => store.setField('dpubPublique', v)} min={0} max={100} step={10} className="w-full" />
                     <div className="h-2.5 rounded-full overflow-hidden flex border border-border">
                       <div className="h-full transition-all duration-300" style={{ width: `${dpubPublique}%`, backgroundColor: COL_CONTRATS }} />
                       <div className="h-full transition-all duration-300" style={{ width: `${100 - dpubPublique}%`, backgroundColor: 'hsl(200, 15%, 60%)' }} />
@@ -328,7 +328,7 @@ const DroitPublicActivityPanel = () => {
                       <span className="text-xs font-sans text-foreground">Défense</span>
                       <span className="text-xs font-sans font-bold text-foreground">{dpubCtxDefense}%</span>
                     </div>
-                    <Slider value={[dpubCtxDefense]} onValueChange={([v]) => store.setField('dpubCtxDefense', v)} min={0} max={100} step={5} className="w-full" />
+                    <Slider value={[dpubCtxDefense]} onValueChange={([v]) => store.setField('dpubCtxDefense', v)} min={0} max={100} step={10} className="w-full" />
                     <div className="h-2.5 rounded-full overflow-hidden flex border border-border">
                       <div className="h-full transition-all duration-300" style={{ width: `${dpubCtxDefense}%`, backgroundColor: COL_CONTENTIEUX }} />
                       <div className="h-full transition-all duration-300" style={{ width: `${100 - dpubCtxDefense}%`, backgroundColor: 'hsl(200, 15%, 60%)' }} />
