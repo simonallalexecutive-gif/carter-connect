@@ -7,7 +7,7 @@ import BenefitsSection from '@/components/landing/BenefitsSection';
 import ValueProposition from '@/components/landing/ValueProposition';
 import StatsTickerSection from '@/components/landing/StatsTickerSection';
 import { ArrowRight } from 'lucide-react';
-import heroVideo from '@/assets/hero-video-jessica.mp4';
+import heroVideoAsset from '@/assets/hero-video-abstract-bw.mp4.asset.json';
 
 const firmNames = [
   'Bredin Prat', 'Darrois Villey', 'Gide', 'Cleary Gottlieb', 'De Pardieu Brocas',
@@ -37,7 +37,7 @@ const LandingPage = () => (
       {/* Background video with gradient overlay */}
       <div className="absolute inset-0">
         <motion.video
-          src={heroVideo}
+          src={heroVideoAsset.url}
           autoPlay
           muted
           loop
