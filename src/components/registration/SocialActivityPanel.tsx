@@ -163,7 +163,7 @@ const SocialActivityPanel = () => {
                   </div>
                   <span className="text-xs font-sans font-bold text-foreground">{conseilPct}%</span>
                 </div>
-                <Slider value={[conseilPct]} onValueChange={([v]) => store.setField('socialConseil', v)} min={0} max={100} step={5} className="w-full" />
+                <Slider value={[conseilPct]} onValueChange={([v]) => store.setField('socialConseil', v)} min={0} max={100} step={10} className="w-full" />
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <div className="w-2 h-2 rounded-sm" style={{ backgroundColor: COL_CONTENTIEUX }} />
