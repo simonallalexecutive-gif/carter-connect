@@ -14,6 +14,224 @@ export type Database = {
   }
   public: {
     Tables: {
+      cabinet_accounts: {
+        Row: {
+          cabinet_name: string
+          created_at: string
+          id: string
+          is_verified: boolean
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          cabinet_name: string
+          created_at?: string
+          id?: string
+          is_verified?: boolean
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          cabinet_name?: string
+          created_at?: string
+          id?: string
+          is_verified?: boolean
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      cabinet_candidate_interests: {
+        Row: {
+          cabinet_account_id: string
+          candidate_user_id: string
+          created_at: string
+          id: string
+          logan_validated: boolean
+          notified_at: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          cabinet_account_id: string
+          candidate_user_id: string
+          created_at?: string
+          id?: string
+          logan_validated?: boolean
+          notified_at?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          cabinet_account_id?: string
+          candidate_user_id?: string
+          created_at?: string
+          id?: string
+          logan_validated?: boolean
+          notified_at?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cabinet_candidate_interests_cabinet_account_id_fkey"
+            columns: ["cabinet_account_id"]
+            isOneToOne: false
+            referencedRelation: "cabinet_accounts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      candidate_identity_unlocks: {
+        Row: {
+          cabinet_account_id: string
+          candidate_user_id: string
+          confirmed_at: string | null
+          created_at: string
+          cv_unlocked: boolean
+          id: string
+          identity_unlocked: boolean
+          interest_id: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          cabinet_account_id: string
+          candidate_user_id: string
+          confirmed_at?: string | null
+          created_at?: string
+          cv_unlocked?: boolean
+          id?: string
+          identity_unlocked?: boolean
+          interest_id: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          cabinet_account_id?: string
+          candidate_user_id?: string
+          confirmed_at?: string | null
+          created_at?: string
+          cv_unlocked?: boolean
+          id?: string
+          identity_unlocked?: boolean
+          interest_id?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "candidate_identity_unlocks_cabinet_account_id_fkey"
+            columns: ["cabinet_account_id"]
+            isOneToOne: false
+            referencedRelation: "cabinet_accounts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "candidate_identity_unlocks_interest_id_fkey"
+            columns: ["interest_id"]
+            isOneToOne: true
+            referencedRelation: "cabinet_candidate_interests"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      candidate_registrations: {
+        Row: {
+          created_at: string
+          email_verified_at: string | null
+          id: string
+          no_go_cabinets: string[]
+          status: string
+          submission_data: Json
+          updated_at: string
+          user_id: string
+          visibility: string
+        }
+        Insert: {
+          created_at?: string
+          email_verified_at?: string | null
+          id?: string
+          no_go_cabinets?: string[]
+          status?: string
+          submission_data?: Json
+          updated_at?: string
+          user_id: string
+          visibility?: string
+        }
+        Update: {
+          created_at?: string
+          email_verified_at?: string | null
+          id?: string
+          no_go_cabinets?: string[]
+          status?: string
+          submission_data?: Json
+          updated_at?: string
+          user_id?: string
+          visibility?: string
+        }
+        Relationships: []
+      }
+      interview_slots: {
+        Row: {
+          admin_notes: string | null
+          cabinet_account_id: string
+          candidate_user_id: string
+          created_at: string
+          ends_at: string
+          id: string
+          interest_id: string | null
+          proposed_by: string
+          starts_at: string
+          status: string
+          timezone: string
+          updated_at: string
+        }
+        Insert: {
+          admin_notes?: string | null
+          cabinet_account_id: string
+          candidate_user_id: string
+          created_at?: string
+          ends_at: string
+          id?: string
+          interest_id?: string | null
+          proposed_by: string
+          starts_at: string
+          status?: string
+          timezone?: string
+          updated_at?: string
+        }
+        Update: {
+          admin_notes?: string | null
+          cabinet_account_id?: string
+          candidate_user_id?: string
+          created_at?: string
+          ends_at?: string
+          id?: string
+          interest_id?: string | null
+          proposed_by?: string
+          starts_at?: string
+          status?: string
+          timezone?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "interview_slots_cabinet_account_id_fkey"
+            columns: ["cabinet_account_id"]
+            isOneToOne: false
+            referencedRelation: "cabinet_accounts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "interview_slots_interest_id_fkey"
+            columns: ["interest_id"]
+            isOneToOne: false
+            referencedRelation: "cabinet_candidate_interests"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           avatar_url: string | null
@@ -47,15 +265,42 @@ export type Database = {
         }
         Relationships: []
       }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "moderator" | "user"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -182,6 +427,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "moderator", "user"],
+    },
   },
 } as const
