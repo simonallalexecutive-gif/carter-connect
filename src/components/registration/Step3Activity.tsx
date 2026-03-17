@@ -55,10 +55,14 @@ const Step3Activity = () => {
   const hasActivites = selectedItems.length > 0;
 
   const chartData = useMemo(() => {
-    return selectedItems.map(item => ({
-      name: item.label,
-      value: store.pourcentages[item.key] || 10,
-    }));
+    return buildQuantizedChartData(
+      selectedItems.map((item, index) => ({
+        key: item.key,
+        name: item.label,
+        raw: store.pourcentages[item.key] || 10,
+        color: CHART_COLORS[index % CHART_COLORS.length],
+      })),
+    );
   }, [selectedItems, store.pourcentages]);
 
   const totalPercent = chartData.reduce((sum, d) => sum + d.value, 0);
