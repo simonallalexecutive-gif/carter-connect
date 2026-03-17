@@ -69,6 +69,15 @@ const initialState = {
   maIndusClientele: [] as string[],
   maSanteClientele: [] as string[],
   maVcStades: [] as string[],
+  // Concurrence
+  concAcquereur: 50,
+  concCtxDefense: 50,
+  concDomestique: 50,
+  concOpsTypes: [] as string[],
+  concCtxInterventions: [] as string[],
+  concConsMissions: [] as string[],
+  concSecteurs: [] as string[],
+  concAutorites: [] as string[],
   anglais: '',
   typesClients: [] as string[],
   // Step 4
