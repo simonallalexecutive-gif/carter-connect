@@ -647,15 +647,25 @@ const Step2Identity = () => {
         </div>
 
         {/* Navigation */}
-        <div className="flex justify-between pt-6">
-          <Button variant="outline" onClick={store.prevStep} className="font-sans font-light rounded-sm gap-2">
-            <ArrowLeft className="w-4 h-4" />
-            Retour
-          </Button>
-          <Button onClick={store.nextStep} disabled={!canProceed} className="bg-foreground text-background hover:bg-foreground/90 font-sans font-medium rounded-sm gap-2">
-            Continuer
-            <ArrowRight className="w-4 h-4" />
-          </Button>
+        <div className="space-y-3 pt-6">
+          {!canProceed && missingFields.length > 0 && (
+            <div className="flex items-start gap-2 p-3 rounded-sm bg-secondary/50 border border-border">
+              <AlertCircle className="w-4 h-4 text-muted-foreground flex-shrink-0 mt-0.5" />
+              <p className="text-xs text-muted-foreground font-sans font-light">
+                Champs manquants : {missingFields.join(', ')}
+              </p>
+            </div>
+          )}
+          <div className="flex justify-between">
+            <Button variant="outline" onClick={store.prevStep} className="font-sans font-light rounded-sm gap-2">
+              <ArrowLeft className="w-4 h-4" />
+              Retour
+            </Button>
+            <Button onClick={store.nextStep} disabled={!canProceed} className="bg-foreground text-background hover:bg-foreground/90 font-sans font-medium rounded-sm gap-2">
+              Continuer
+              <ArrowRight className="w-4 h-4" />
+            </Button>
+          </div>
         </div>
       </div>
     </motion.div>
