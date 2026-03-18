@@ -189,7 +189,7 @@ const FinanceActivityPanel = ({ items }: FinanceActivityPanelProps) => {
                       <span className="text-xs font-sans font-bold text-foreground w-10 text-right">{displayPercent}%</span>
                     </div>
                     <Slider
-                      value={[raw]}
+                      value={[store.pourcentages[item.key] || 10]}
                       onValueChange={([v]) => handlePercentChange(item.key, v)}
                       min={10}
                       max={100}
