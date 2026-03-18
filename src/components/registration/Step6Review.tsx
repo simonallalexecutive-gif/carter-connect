@@ -62,7 +62,7 @@ const Step6Review = () => {
     setSubmitting(true);
 
     try {
-      const { error } = await (supabase.auth as any).signUp({
+      const { data: signUpData, error } = await (supabase.auth as any).signUp({
         email: store.email,
         password: store.password,
         options: {
@@ -75,6 +75,32 @@ const Step6Review = () => {
       });
 
       if (error) throw error;
+
+      // Save RDV booking if one was selected
+      if (store.souhaitePrendreRdv && store.creneauPrefere) {
+        try {
+          // Extract date and time from creneauPrefere format: "lundi 24 mars 2026 à 09:00"
+          const timeMatch = store.creneauPrefere.match(/à (\d{2}:\d{2})$/);
+          const bookingTime = timeMatch?.[1] || '';
+          // Use a simple date for the booking
+          const today = new Date();
+          const bookingDate = today.toISOString().split('T')[0];
+          
+          await supabase.from('logan_bookings').insert({
+            candidate_name: `${store.prenom} ${store.nom}`.trim(),
+            candidate_email: store.email,
+            candidate_cabinet: store.cabinet || '',
+            candidate_seniority: pqe ? `${pqe.label} · ${pqe.years} ans PQE` : '',
+            candidate_department: store.departement || '',
+            booking_date: bookingDate,
+            booking_time: bookingTime,
+            user_id: signUpData?.user?.id || null,
+          } as any);
+        } catch (bookingError) {
+          console.error('Failed to save booking:', bookingError);
+        }
+      }
+
       toast.success('Inscription créée. Vérifiez votre email pour activer votre accès.');
       store.nextStep();
     } catch (error: any) {
