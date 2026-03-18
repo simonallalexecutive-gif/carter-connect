@@ -72,7 +72,9 @@ const Step2Identity = () => {
     store.email.includes('@') && store.telephone.length >= 10 &&
     store.sermentMois && store.sermentAnnee &&
     store.departement.length >= 2 && store.cabinet.length >= 2 &&
-    isPasswordValid && passwordsMatch;
+    isPasswordValid && passwordsMatch &&
+    store.retrocession.length >= 1 &&
+    store.conserverRetrocession !== null;
 
   const missingFields = useMemo(() => {
     const missing: string[] = [];
