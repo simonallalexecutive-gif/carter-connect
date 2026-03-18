@@ -47,7 +47,7 @@ const AdminProfiles = () => {
               <TableHead className="text-[10px] font-semibold tracking-[0.08em] uppercase">ID</TableHead>
               <TableHead className="text-[10px] font-semibold tracking-[0.08em] uppercase">Nom</TableHead>
               <TableHead className="text-[10px] font-semibold tracking-[0.08em] uppercase">Département</TableHead>
-              <TableHead className="text-[10px] font-semibold tracking-[0.08em] uppercase">PQE</TableHead>
+              <TableHead className="text-[10px] font-semibold tracking-[0.08em] uppercase">Séniorité</TableHead>
               <TableHead className="text-[10px] font-semibold tracking-[0.08em] uppercase">Origine</TableHead>
               <TableHead className="text-[10px] font-semibold tracking-[0.08em] uppercase">Anglais</TableHead>
               <TableHead className="text-[10px] font-semibold tracking-[0.08em] uppercase">Statut</TableHead>
