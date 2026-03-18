@@ -1,7 +1,7 @@
 import { motion } from 'motion/react';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
-import { User, Building2, Eye, Bell, Handshake, ArrowRight, Shield, Target, UserCheck, Radar, Network, Zap } from 'lucide-react';
+import { User, Building2, Eye, Bell, Handshake, ArrowRight, Lock, Crosshair, HeartHandshake, ScanSearch, Users, GitMerge } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 
@@ -50,12 +50,12 @@ const cabinetBenefits = [
 ];
 
 const engagements = [
-  { icon: Shield, title: 'Confidentialité absolue' },
-  { icon: Target, title: 'Approche ciblée' },
-  { icon: UserCheck, title: 'Accompagnement personnalisé' },
-  { icon: Radar, title: 'Un accès privilégié constant à votre marché' },
-  { icon: Network, title: 'Un réseau qualifié et actualisé' },
-  { icon: Zap, title: 'Des rapprochements stratégiques' },
+  { icon: Lock, title: 'Confidentialité absolue' },
+  { icon: Crosshair, title: 'Approche ciblée' },
+  { icon: HeartHandshake, title: 'Accompagnement personnalisé' },
+  { icon: ScanSearch, title: 'Un accès privilégié constant à votre marché' },
+  { icon: Users, title: 'Un réseau qualifié et actualisé' },
+  { icon: GitMerge, title: 'Des rapprochements stratégiques' },
 ];
 
 const BenefitsSection = () => {
@@ -152,10 +152,7 @@ const BenefitsSection = () => {
           transition={{ delay: 0.1, duration: 0.6 }}
           className="mt-16 py-14 px-6 md:px-12 bg-foreground rounded-sm"
         >
-          <p className="text-xs font-sans font-medium tracking-[0.2em] uppercase text-white/50 text-center mb-4">Nos engagements</p>
-          <p className="font-serif text-base md:text-lg text-white/70 italic text-center max-w-2xl mx-auto mb-12 leading-relaxed font-light">
-            Une nouvelle approche en phase avec les nouvelles exigences du marché, l'évolution de son écosystème et sa transition vers de nouveaux enjeux.
-          </p>
+          <p className="text-xs font-sans font-medium tracking-[0.2em] uppercase text-white/50 text-center mb-12">Nos engagements</p>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-6 md:gap-8">
             {engagements.map((e, i) => (
               <motion.div
