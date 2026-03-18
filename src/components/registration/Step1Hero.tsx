@@ -188,6 +188,8 @@ const Step1Hero = ({ onBeforeRegister }: Step1HeroProps) => {
               onClick={() => {
                 if (isCabinet) {
                   navigate('/cabinet?start=2');
+                } else if (onBeforeRegister) {
+                  onBeforeRegister();
                 } else {
                   nextStep();
                 }
