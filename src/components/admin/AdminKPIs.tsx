@@ -45,7 +45,7 @@ const AdminKPIs = () => {
   const activeProcesses = MOCK_PROCESSES.filter((p) => p.stage !== 'placé' && p.stage !== 'abandonné').length;
   const placed = MOCK_PROCESSES.filter((p) => p.stage === 'placé').length;
 
-  const deptData = ['M&A', 'Private Equity', 'Banque & Finance', 'Fiscal', 'Droit Social'].map((d) => ({
+  const deptData = ['M&A', 'Private Equity', 'Financement', 'Fiscal', 'Droit Social'].map((d) => ({
     dept: d,
     candidats: MOCK_PROFILES.filter((p) => p.dept === d).length,
     offres: MOCK_OFFERS.filter((o) => o.dept === d).length,
