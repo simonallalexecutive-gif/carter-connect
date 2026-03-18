@@ -131,31 +131,34 @@ const CandidateOffers = () => {
                 <AnimatePresence>
                   {isExpanded && (
                     <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }} className="overflow-hidden">
-                      <div className="border-t border-border" style={{ background: 'hsl(0 0% 96%)' }}>
-                        <div className="p-6 md:p-8">
-                          <div className="mb-6 pb-5 border-b border-border">
-                            <div className="text-[8px] tracking-[0.16em] uppercase text-muted-foreground font-sans mb-2">Opportunité · Présentée par LOGAN</div>
-                            <div className="flex items-center gap-0 mb-1 flex-wrap">
-                              <span className="font-sans text-[15px] tracking-[-0.01em] text-foreground">{shortSeniority(offer.seniority)}</span>
-                              <span className="mx-2 w-px h-4 bg-border inline-block" />
-                              <span className="font-sans text-[15px] tracking-[-0.01em] text-foreground">{offer.dept}</span>
-                              {offer.ranking && (
-                                <>
-                                  <span className="mx-2 w-px h-4 bg-border inline-block" />
-                                  <span className="inline-flex items-center gap-2 text-[13px] font-sans text-foreground">
-                                    <span className="text-xs font-bold leading-none">{offer.natFlag}</span>
-                                    <span className="font-semibold">{offer.ranking}</span>
-                                  </span>
-                                </>
-                              )}
-                            </div>
-                            <div className="text-[11px] font-sans text-muted-foreground">Cabinet anonyme · Identité protégée</div>
-                            <div className="flex flex-wrap gap-1.5 mt-4">
-                              {offer.tags.map((tag) => (
-                                <span key={tag} className="text-[10px] px-3 py-1.5 rounded-full bg-secondary text-foreground/70 font-medium">{tag}</span>
-                              ))}
-                            </div>
+                      <div className="border-t border-border">
+                        {/* Title banner — high contrast */}
+                        <div className="bg-foreground text-background px-6 md:px-8 py-6">
+                          <div className="text-[8px] tracking-[0.16em] uppercase text-background/50 font-sans mb-2">Opportunité · Présentée par LOGAN</div>
+                          <div className="flex items-center gap-0 mb-1 flex-wrap">
+                            <span className="font-sans text-[17px] font-semibold tracking-[-0.01em] text-background">{shortSeniority(offer.seniority)}</span>
+                            <span className="mx-2.5 w-px h-5 bg-background/20 inline-block" />
+                            <span className="font-sans text-[17px] font-semibold tracking-[-0.01em] text-background">{offer.dept}</span>
+                            {offer.ranking && (
+                              <>
+                                <span className="mx-2.5 w-px h-5 bg-background/20 inline-block" />
+                                <span className="inline-flex items-center gap-2 text-[14px] font-sans text-background">
+                                  <span className="text-xs font-bold leading-none">{offer.natFlag}</span>
+                                  <span className="font-semibold">{offer.ranking}</span>
+                                </span>
+                              </>
+                            )}
                           </div>
+                          <div className="text-[11px] font-sans text-background/50">Cabinet anonyme · Identité protégée</div>
+                          <div className="flex flex-wrap gap-1.5 mt-4">
+                            {offer.tags.map((tag) => (
+                              <span key={tag} className="text-[10px] px-3 py-1.5 rounded-full bg-background/10 text-background/80 font-medium border border-background/10">{tag}</span>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Content body */}
+                        <div className="p-6 md:p-8" style={{ background: 'hsl(0 0% 96%)' }}>
 
                           {hasMultipleExpertises && offer.activitySplit && (
                             <div className="mb-6 pb-5 border-b border-border">
