@@ -144,31 +144,36 @@ const BenefitsSection = () => {
           </Link>
         </div>
 
-        {/* Engagements — inline under benefits */}
+        {/* Nos engagements — 6 keywords */}
         <motion.div
-          key={`engagements-${tab}`}
           initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.25, duration: 0.5 }}
-          className="mt-16 py-12 bg-secondary rounded-sm"
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.1, duration: 0.6 }}
+          className="mt-16 py-14 px-6 md:px-12 bg-foreground rounded-sm"
         >
-          <p className="text-xs font-sans font-medium tracking-[0.2em] uppercase text-muted-foreground text-center mb-8">Nos engagements</p>
-          <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-0 px-6">
-            <div className="text-center px-6 md:flex-1">
-              <div className="w-8 h-px bg-border mx-auto mb-5" />
-              <h4 className="font-serif text-lg text-foreground mb-2 font-medium">{commitments[0].title}</h4>
-              <p className="font-sans text-sm text-muted-foreground font-light leading-relaxed">{commitments[0].text}</p>
-            </div>
-            <div className="text-center px-8 py-4 md:py-0 md:flex-shrink-0">
-              <p className="font-serif text-base md:text-lg text-foreground/80 italic font-semibold leading-relaxed max-w-[16rem]">
-                {quote}
-              </p>
-            </div>
-            <div className="text-center px-6 md:flex-1">
-              <div className="w-8 h-px bg-border mx-auto mb-5" />
-              <h4 className="font-serif text-lg text-foreground mb-2 font-medium">{commitments[1].title}</h4>
-              <p className="font-sans text-sm text-muted-foreground font-light leading-relaxed">{commitments[1].text}</p>
-            </div>
+          <p className="text-xs font-sans font-medium tracking-[0.2em] uppercase text-white/50 text-center mb-4">Nos engagements</p>
+          <p className="font-serif text-base md:text-lg text-white/70 italic text-center max-w-2xl mx-auto mb-12 leading-relaxed font-light">
+            Une nouvelle approche en phase avec les nouvelles exigences du marché, l'évolution de son écosystème et sa transition vers de nouveaux enjeux.
+          </p>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-6 md:gap-8">
+            {engagements.map((e, i) => (
+              <motion.div
+                key={e.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.08, duration: 0.5 }}
+                className="text-center group"
+              >
+                <div className="w-11 h-11 rounded-full border border-white/20 flex items-center justify-center mx-auto mb-4 group-hover:border-white/50 transition-colors duration-500">
+                  <e.icon className="w-4.5 h-4.5 text-white/50 group-hover:text-white transition-colors duration-500" />
+                </div>
+                <h4 className="font-serif text-sm md:text-base text-white font-normal leading-snug">
+                  {e.title}
+                </h4>
+              </motion.div>
+            ))}
           </div>
         </motion.div>
       </div>
