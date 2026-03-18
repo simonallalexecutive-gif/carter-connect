@@ -72,8 +72,7 @@ export const CANDIDATE_OFFERS: CandidateOffer[] = [
     heures: '1700h',
     tt: '2 jours / semaine',
     profilCriteres: ['Rigueur & organisation', 'Bon relationnel client'],
-    ranking: 'Tier 2 · Banque & Finance',
-    natFlag: 'FR',
+    ranking: 'Tier 2 · Financement',
   },
   {
     id: 'OFF-C-004',
