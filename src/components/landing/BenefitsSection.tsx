@@ -74,7 +74,7 @@ const BenefitsSection = () => {
         >
           <div className="carter-divider mb-8" />
           <p className="text-xs font-sans font-medium tracking-[0.2em] uppercase text-muted-foreground mb-6">
-            Notre plateforme
+            Comment ça fonctionne concrètement ?
           </p>
 
           {/* Engagement pillars as inline chips */}
