@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { cn } from '@/lib/utils';
+import benefitsVideo from '@/assets/benefits-handshake-video.mp4.asset.json';
 
 const engagements = [
   {
@@ -39,8 +40,20 @@ const BenefitsSection = () => {
   const [activeId, setActiveId] = useState<string | null>(null);
 
   return (
-    <section className="py-24 md:py-32 bg-foreground">
-      <div className="carter-container">
+    <section className="py-24 md:py-32 relative overflow-hidden">
+      {/* Video background */}
+      <div className="absolute inset-0">
+        <video
+          src={benefitsVideo.url}
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-black/75" />
+      </div>
+      <div className="carter-container relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
