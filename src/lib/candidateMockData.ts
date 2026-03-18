@@ -60,8 +60,8 @@ export const CANDIDATE_OFFERS: CandidateOffer[] = [
   {
     id: 'OFF-C-003',
     reference: 'LGN-2026-043',
-    dept: 'Banque & Finance',
-    seniority: 'Collaborateur (3-5 PQE)',
+    dept: 'Financement',
+    seniority: 'Collaborateur (3-5 ans)',
     description: 'Cabinet français indépendant reconnu recherche un collaborateur en financement d\'acquisition et financements structurés. Belle courbe de progression.',
     location: 'Paris',
     postedAt: '2026-03-09',
