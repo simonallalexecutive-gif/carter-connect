@@ -18,6 +18,8 @@ const AuthPage = () => {
   const [userType, setUserType] = useState<'candidat' | 'cabinet'>('candidat');
   const [submitting, setSubmitting] = useState(false);
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const redirectTo = searchParams.get('redirect') || '/espace-candidat';
   const { user, loading } = useAuth();
 
   useEffect(() => {
