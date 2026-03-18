@@ -267,7 +267,7 @@ export interface ActivityItem {
 }
 
 export const ACTIVITES_BY_PRACTICE: Record<string, { sections: { title: string; items: ActivityItem[] }[] }> = {
-  "M&A / Private Equity": {
+  "M&A (dominante)": {
     sections: [
       {
         title: "Nature des opérations",
