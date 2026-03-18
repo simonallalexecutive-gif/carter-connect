@@ -256,11 +256,10 @@ const DiscoverSection = () => {
           transition={{ duration: 0.6 }}
           className="mb-12"
         >
-          <div className="carter-divider mb-8" />
-          <p className="text-xs font-sans font-medium tracking-[0.2em] uppercase text-muted-foreground mb-4">
-            Comment ça fonctionne
+          <p className="text-xs font-sans font-medium tracking-[0.2em] uppercase text-muted-foreground mb-4 text-center">
+            Notre Approche
           </p>
-          <p className="text-sm text-muted-foreground font-light max-w-md leading-relaxed mb-10">
+          <p className="text-sm text-muted-foreground font-light max-w-md leading-relaxed mb-10 text-center mx-auto">
             Explorez le parcours Logan selon votre perspective.
           </p>
 
