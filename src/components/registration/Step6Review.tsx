@@ -90,7 +90,7 @@ const Step6Review = () => {
             candidate_name: `${store.prenom} ${store.nom}`.trim(),
             candidate_email: store.email,
             candidate_cabinet: store.cabinet || '',
-            candidate_seniority: pqe ? `${pqe.label} · ${pqe.years} ans PQE` : '',
+            candidate_seniority: pqe ? `${pqe.label} · ${pqe.years} ans` : '',
             candidate_department: store.departement || '',
             booking_date: bookingDate,
             booking_time: bookingTime,
