@@ -61,8 +61,6 @@ const engagements = [
 const BenefitsSection = () => {
   const [tab, setTab] = useState<Tab>('candidat');
   const benefits = tab === 'candidat' ? candidatBenefits : cabinetBenefits;
-  const commitments = tab === 'candidat' ? candidatCommitments : cabinetCommitments;
-  const quote = tab === 'candidat' ? candidatQuote : cabinetQuote;
 
   return (
     <section className="carter-section bg-background">
