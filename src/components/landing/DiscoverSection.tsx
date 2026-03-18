@@ -264,7 +264,7 @@ const DiscoverSection = () => {
           </p>
 
           {/* Perspective toggle */}
-          <div className="inline-flex bg-secondary rounded-sm p-1 border border-border">
+          <div className="inline-flex bg-secondary rounded-sm p-1 border border-border mx-auto">
           {(['candidat', 'cabinet'] as Perspective[]).map(p => (
               <button
                 key={p}
