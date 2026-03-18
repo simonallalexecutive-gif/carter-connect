@@ -177,8 +177,8 @@ const FinanceActivityPanel = ({ items }: FinanceActivityPanelProps) => {
             <div className="flex-1 space-y-4 w-full">
               {/* Sliders */}
               {selectedItems.map((item, i) => {
-                const raw = store.pourcentages[item.key] || 10;
-                const displayPercent = totalPercent > 0 ? Math.round((raw / totalPercent) * 100) : 0;
+                const chartItem = chartData.find(d => d.name === item.label);
+                const displayPercent = chartItem?.value ?? 0;
                 return (
                   <div key={item.key} className="space-y-1.5">
                     <div className="flex items-center justify-between">
