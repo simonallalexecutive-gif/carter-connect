@@ -1,7 +1,7 @@
 import { motion } from 'motion/react';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
-import { User, Building2, Eye, Bell, Handshake, ArrowRight, Shield, Target, UserCheck, Radar, Network, Zap } from 'lucide-react';
+import { User, Building2, Eye, Bell, Handshake, ArrowRight, Lock, Crosshair, HeartHandshake, ScanSearch, Users, GitMerge } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 
