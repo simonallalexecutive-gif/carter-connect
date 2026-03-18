@@ -150,15 +150,6 @@ const BenefitsSection = () => {
           ))}
         </motion.div>
 
-        {/* Demo CTA */}
-        <div className="py-16 text-center">
-          <Link to="/demo">
-            <Button size="lg" className="bg-foreground text-background hover:bg-foreground/90 font-sans text-sm font-medium px-10 py-6 rounded-sm tracking-wide group transition-all duration-300">
-              Comment ça fonctionne concrètement ?
-              <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
-            </Button>
-          </Link>
-        </div>
       </div>
     </section>
   );
