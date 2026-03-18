@@ -94,7 +94,6 @@ const CandidateOffers = () => {
                           <>
                             <span className="mx-2.5 w-px h-5 bg-border inline-block" />
                             <span className="inline-flex items-center gap-2 text-[14px] font-sans text-foreground">
-                              <span className="text-xs font-bold leading-none">{offer.natFlag}</span>
                               <span className="font-semibold">{offer.ranking}</span>
                             </span>
                           </>
