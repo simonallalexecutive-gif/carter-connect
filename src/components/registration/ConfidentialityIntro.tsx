@@ -21,6 +21,10 @@ const steps = [
     icon: MessageSquare,
     title: 'Logan vous contacte',
     description: 'Si un cabinet s\'intéresse à votre profil, Logan se rapproche de vous — spontanément ou à votre demande — pour vous donner davantage de précisions.',
+    subOptions: [
+      { label: 'Spontanément', detail: 'Un cabinet s\'intéresse à votre profil en dehors de toute recherche diffusée sur la plateforme (hors mandat).' },
+      { label: 'À votre demande', detail: 'Vous consultez une offre déposée à titre confidentiel sur notre plateforme par un cabinet et souhaitez en savoir plus.' },
+    ],
   },
   {
     icon: UserCheck,
