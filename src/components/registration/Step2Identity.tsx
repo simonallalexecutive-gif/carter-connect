@@ -617,27 +617,31 @@ const Step2Identity = () => {
             <Label className="font-sans text-sm font-medium block text-background">
               Souhaitez-vous conserver a minima votre rétrocession actuelle ?
             </Label>
-            <div className="flex gap-6">
-              <label className="flex items-center gap-2 cursor-pointer">
-                <input
-                  type="radio"
-                  name="conserverRetro"
-                  checked={store.conserverRetrocession === true}
-                  onChange={() => store.setField('conserverRetrocession', true)}
-                  className="accent-white"
-                />
-                <span className="font-sans text-sm font-light text-background">Oui, c'est indispensable</span>
-              </label>
-              <label className="flex items-center gap-2 cursor-pointer">
-                <input
-                  type="radio"
-                  name="conserverRetro"
-                  checked={store.conserverRetrocession === false}
-                  onChange={() => store.setField('conserverRetrocession', false)}
-                  className="accent-white"
-                />
-                <span className="font-sans text-sm font-light text-background">Envisageable selon le projet</span>
-              </label>
+            <div className="flex gap-4 flex-wrap">
+              <button
+                type="button"
+                onClick={() => store.setField('conserverRetrocession', true)}
+                className={cn(
+                  "px-4 py-2.5 rounded-sm text-sm font-sans font-light border transition-all duration-200",
+                  store.conserverRetrocession === true
+                    ? "bg-background text-foreground border-background font-medium"
+                    : "bg-transparent text-background/70 border-background/30 hover:border-background/60"
+                )}
+              >
+                Oui, c'est indispensable
+              </button>
+              <button
+                type="button"
+                onClick={() => store.setField('conserverRetrocession', false)}
+                className={cn(
+                  "px-4 py-2.5 rounded-sm text-sm font-sans font-light border transition-all duration-200",
+                  store.conserverRetrocession === false
+                    ? "bg-background text-foreground border-background font-medium"
+                    : "bg-transparent text-background/70 border-background/30 hover:border-background/60"
+                )}
+              >
+                Envisageable selon le projet
+              </button>
             </div>
           </div>
         </div>

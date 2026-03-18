@@ -63,14 +63,14 @@ const Step5Status = () => {
             <label className="flex items-start gap-3 p-5 rounded-sm border border-border hover:border-accent/30 transition-colors duration-300 cursor-pointer bg-card">
               <RadioGroupItem value="confidentiel" className="mt-0.5" />
               <div>
-                <span className="font-sans font-medium text-sm">Confidentiel</span>
+                <span className="font-sans font-medium text-sm">Confidentiel – fermé</span>
                 <p className="text-xs text-muted-foreground font-sans font-light mt-1">Profil visible uniquement par Logan. Aucun cabinet ne peut consulter votre profil.</p>
               </div>
             </label>
             <label className="flex items-start gap-3 p-5 rounded-sm border border-border hover:border-accent/30 transition-colors duration-300 cursor-pointer bg-card">
               <RadioGroupItem value="semi-confidentiel" className="mt-0.5" />
               <div>
-                <span className="font-sans font-medium text-sm">Semi-confidentiel</span>
+                <span className="font-sans font-medium text-sm">Confidentiel – ouvert</span>
                 <p className="text-xs text-muted-foreground font-sans font-light mt-1">Profil anonymisé visible par les cabinets partenaires. Ni votre nom, ni votre cabinet ne seront communiqués.</p>
               </div>
             </label>

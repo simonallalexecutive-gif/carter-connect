@@ -73,17 +73,16 @@ const FinanceActivityPanel = ({ items }: FinanceActivityPanelProps) => {
   const selectedItems = items.filter(item => store.activites[item.key]);
   const hasActivites = selectedItems.length > 0;
 
-  const totalPercent = useMemo(() => {
-    return selectedItems.reduce((sum, item) => sum + (store.pourcentages[item.key] || 10), 0);
-  }, [selectedItems, store.pourcentages]);
-
   const chartData = useMemo(() => {
-    return selectedItems.map(item => {
-      const raw = store.pourcentages[item.key] || 10;
-      const displayPercent = totalPercent > 0 ? Math.round((raw / totalPercent) * 100) : 0;
-      return { name: item.label, value: raw, displayPercent };
-    });
-  }, [selectedItems, store.pourcentages, totalPercent]);
+    return buildQuantizedChartData(
+      selectedItems.map((item, index) => ({
+        key: item.key,
+        name: item.label,
+        raw: store.pourcentages[item.key] || 10,
+        color: CHART_PALETTE[index % CHART_PALETTE.length],
+      })),
+    );
+  }, [selectedItems, store.pourcentages]);
 
   const showActifs = store.activites['fin_actifs'];
   const showProjets = store.activites['fin_projets'];
