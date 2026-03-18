@@ -72,7 +72,9 @@ const Step2Identity = () => {
     store.email.includes('@') && store.telephone.length >= 10 &&
     store.sermentMois && store.sermentAnnee &&
     store.departement.length >= 2 && store.cabinet.length >= 2 &&
-    isPasswordValid && passwordsMatch;
+    isPasswordValid && passwordsMatch &&
+    store.retrocession.length >= 1 &&
+    store.conserverRetrocession !== null;
 
   const missingFields = useMemo(() => {
     const missing: string[] = [];
@@ -85,8 +87,10 @@ const Step2Identity = () => {
     if (!store.sermentMois || !store.sermentAnnee) missing.push('Date de serment');
     if (store.departement.length < 2) missing.push('Département');
     if (store.cabinet.length < 2) missing.push('Cabinet');
+    if (store.retrocession.length < 1) missing.push('Rétrocession');
+    if (store.conserverRetrocession === null) missing.push('Flexibilité rétrocession');
     return missing;
-  }, [store.prenom, store.nom, store.email, store.telephone, isPasswordValid, passwordsMatch, store.sermentMois, store.sermentAnnee, store.departement, store.cabinet]);
+  }, [store.prenom, store.nom, store.email, store.telephone, isPasswordValid, passwordsMatch, store.sermentMois, store.sermentAnnee, store.departement, store.cabinet, store.retrocession, store.conserverRetrocession]);
 
   const autoDetectRanking = (cabinetName: string, dept: string) => {
     const practiceData = LEGAL500_BY_PRACTICE[dept];
@@ -582,11 +586,11 @@ const Step2Identity = () => {
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Rétrocession brute annuelle (€)</Label>
+              <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Rétrocession brute annuelle (€) *</Label>
               <Input value={store.retrocession} onChange={e => store.setField('retrocession', formatNumberWithDots(e.target.value))} placeholder="80.000" className="mt-2" />
             </div>
             <div>
-              <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Bonus (€)</Label>
+              <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Bonus (€) *</Label>
               <Input value={store.bonus} onChange={e => store.setField('bonus', formatNumberWithDots(e.target.value))} placeholder="10.000" className="mt-2" />
             </div>
           </div>
