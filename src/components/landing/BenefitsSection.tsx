@@ -21,11 +21,10 @@ const BenefitsSection = () => {
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           className="mb-16"
         >
-          <div className="w-12 h-px bg-white/30 mb-8" />
-          <p className="text-xs font-sans font-medium tracking-[0.2em] uppercase text-white/50 mb-4">
+          <p className="text-xs font-sans font-medium tracking-[0.2em] uppercase text-white/50 mb-4 text-center">
             Nos engagements
           </p>
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-serif font-normal text-white tracking-[-0.01em] max-w-xl">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-serif font-normal text-white tracking-[-0.01em] max-w-xl text-center mx-auto">
             Ce qui nous distingue
           </h2>
         </motion.div>
