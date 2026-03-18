@@ -160,17 +160,28 @@ const Step2Identity = () => {
 
   const fetchLinkedinPhoto = useCallback(async (url: string) => {
     if (!url.includes('linkedin.com/in/') || linkedinLoading) return;
-    // Don't fetch if we already have a manually uploaded photo (File object)
     if (store.photo) return;
     
+    const match = url.match(/linkedin\.com\/in\/([^/?#]+)/);
+    if (!match?.[1]) return;
+    
+    const username = match[1];
     setLinkedinLoading(true);
     setLinkedinError('');
+    
+    // Try unavatar.io directly as an image URL (no edge function needed)
+    const unavatarUrl = `https://unavatar.io/linkedin/${username}?fallback=false`;
+    
     try {
-      const { data, error } = await supabase.functions.invoke('linkedin-photo', {
-        body: { url },
+      const img = new Image();
+      const loaded = await new Promise<boolean>((resolve) => {
+        img.onload = () => resolve(img.naturalWidth > 1 && img.naturalHeight > 1);
+        img.onerror = () => resolve(false);
+        img.src = unavatarUrl;
       });
-      if (!error && data?.photoUrl) {
-        store.setField('photoPreviewUrl', data.photoUrl);
+      
+      if (loaded) {
+        store.setField('photoPreviewUrl', unavatarUrl);
       } else {
         setLinkedinError('Photo non trouvée — vous pouvez l\'ajouter manuellement.');
       }
