@@ -551,6 +551,7 @@ export const AXES = [
   "Davantage de contentieux (moins de conseil)",
   "Culture & valeurs du cabinet",
   "Taille d'équipe adaptée",
+  "Perspectives d'évolution",
 ];
 
 export const NOGO_SUGGESTIONS = [

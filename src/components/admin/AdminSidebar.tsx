@@ -35,9 +35,9 @@ const AdminSidebar = () => {
           <SidebarGroupLabel className="text-sidebar-foreground/60">
             <Link to="/" className="hover:opacity-80 transition-opacity">
               {!collapsed && (
-                <span className="font-display text-sm font-bold tracking-[-0.01em] text-white">Logan · Admin</span>
+                <span className="font-serif text-lg tracking-[0.04em] text-white">Logan · Admin</span>
               )}
-              {collapsed && <span className="font-display text-sm font-bold text-white">L</span>}
+              {collapsed && <span className="font-serif text-lg tracking-[0.04em] text-white">L</span>}
             </Link>
           </SidebarGroupLabel>
           <SidebarGroupContent>

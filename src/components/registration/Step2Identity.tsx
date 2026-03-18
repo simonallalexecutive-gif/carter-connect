@@ -590,7 +590,7 @@ const Step2Identity = () => {
               <Input value={store.retrocession} onChange={e => store.setField('retrocession', formatNumberWithDots(e.target.value))} placeholder="80.000" className="mt-2" />
             </div>
             <div>
-              <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Bonus (€)</Label>
+              <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Bonus (€) *</Label>
               <Input value={store.bonus} onChange={e => store.setField('bonus', formatNumberWithDots(e.target.value))} placeholder="10.000" className="mt-2" />
             </div>
           </div>

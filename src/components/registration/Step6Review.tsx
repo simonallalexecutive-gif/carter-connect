@@ -91,9 +91,6 @@ const Step6Review = () => {
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
       className="max-w-2xl mx-auto px-6 py-10"
     >
-      {/* Carter header */}
-      <span className="font-display text-xl tracking-[-0.02em] text-foreground block mb-8">Logan</span>
-
       <div className="carter-divider mb-6" />
       <h2 className="text-3xl font-serif text-foreground mb-2 font-normal tracking-[-0.02em]">Récapitulatif</h2>
       <p className="text-muted-foreground font-sans text-sm font-light mb-8">Vérifiez vos informations avant de soumettre votre profil.</p>
