@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import BenefitsSection from '@/components/landing/BenefitsSection';
-import ValueProposition from '@/components/landing/ValueProposition';
+
 import StatsTickerSection from '@/components/landing/StatsTickerSection';
 import { ArrowRight } from 'lucide-react';
 import heroVideoAsset from '@/assets/hero-video-abstract-bw.mp4.asset.json';
@@ -80,9 +80,9 @@ const LandingPage = () => (
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1.4, duration: 1 }}
-        className="absolute bottom-40 md:bottom-52 right-6 sm:right-8 lg:right-10 z-10 max-w-xs md:max-w-sm text-right"
+        className="absolute bottom-48 md:bottom-60 right-6 sm:right-8 lg:right-10 z-10 max-w-sm md:max-w-md text-right"
       >
-        <p className="font-serif text-[15px] sm:text-base md:text-lg text-white/60 italic leading-relaxed mb-2 font-[500] tracking-[-0.01em]">
+        <p className="font-serif text-lg sm:text-xl md:text-[1.35rem] text-white/60 italic leading-snug mb-2 font-[500] tracking-[-0.01em]">
           «&nbsp;Logan se positionne comme la plateforme la plus exigeante et structurée du marché, offrant un accompagnement sur mesure, résolument confidentiel et parfaitement ciblé.&nbsp;»
         </p>
         <span className="text-[10px] sm:text-[11px] font-sans font-medium tracking-[0.15em] uppercase text-white/40">
@@ -123,8 +123,8 @@ const LandingPage = () => (
       </motion.div>
     </section>
 
-    {/* Value proposition */}
-    <ValueProposition />
+    {/* Benefits — candidat / cabinet tabs */}
+    <BenefitsSection />
 
     {/* Qui sommes-nous */}
     <section className="py-24 md:py-32 bg-foreground overflow-hidden">
@@ -188,8 +188,6 @@ const LandingPage = () => (
       </div>
     </section>
 
-    {/* Benefits — candidat / cabinet tabs */}
-    <BenefitsSection />
 
 
 
