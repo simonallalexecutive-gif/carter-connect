@@ -42,7 +42,7 @@ const AuthPage = () => {
           return;
         }
         toast.success('Connexion réussie');
-        navigate('/espace-candidat');
+        navigate(redirectTo);
       } else {
         const { error } = await (supabase.auth as any).signUp({
           email,

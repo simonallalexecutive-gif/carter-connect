@@ -14,7 +14,7 @@ const AdminPage = () => {
 
   useEffect(() => {
     if (!loading && !user) {
-      navigate('/auth', { replace: true });
+      navigate('/auth?redirect=/admin', { replace: true });
     }
   }, [user, loading, navigate]);
 
