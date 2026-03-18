@@ -586,12 +586,12 @@ const Step2Identity = () => {
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Rétrocession brute annuelle (€) *</Label>
-              <Input value={store.retrocession} onChange={e => store.setField('retrocession', formatNumberWithDots(e.target.value))} placeholder="80.000" className="mt-2" />
+              <Label className="font-sans text-xs font-light text-background/50 uppercase tracking-wider">Rétrocession brute annuelle (€) *</Label>
+              <Input value={store.retrocession} onChange={e => store.setField('retrocession', formatNumberWithDots(e.target.value))} placeholder="80.000" className="mt-2 bg-background/10 border-background/20 text-background placeholder:text-background/30 focus:border-background/40" />
             </div>
             <div>
-              <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Bonus (€) *</Label>
-              <Input value={store.bonus} onChange={e => store.setField('bonus', formatNumberWithDots(e.target.value))} placeholder="10.000" className="mt-2" />
+              <Label className="font-sans text-xs font-light text-background/50 uppercase tracking-wider">Bonus (€) *</Label>
+              <Input value={store.bonus} onChange={e => store.setField('bonus', formatNumberWithDots(e.target.value))} placeholder="10.000" className="mt-2 bg-background/10 border-background/20 text-background placeholder:text-background/30 focus:border-background/40" />
             </div>
           </div>
 
