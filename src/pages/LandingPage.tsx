@@ -156,8 +156,8 @@ const LandingPage = () => (
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               className="flex-shrink-0"
             >
-              <div className="w-48 h-48 md:w-56 md:h-56 rounded-full bg-white/10 border border-white/20 overflow-hidden">
-                <img src={founderPhoto} alt="Simon Allal, fondateur de Logan" className="w-full h-full object-cover" />
+              <div className="w-48 h-48 md:w-56 md:h-56 rounded-full bg-black border border-white/20 overflow-hidden">
+                <img src={founderPhoto} alt="Simon Allal, fondateur de Logan" className="w-full h-full object-cover object-[center_15%]" />
               </div>
             </motion.div>
 
