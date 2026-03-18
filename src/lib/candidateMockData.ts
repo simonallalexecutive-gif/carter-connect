@@ -78,7 +78,7 @@ export const CANDIDATE_OFFERS: CandidateOffer[] = [
     id: 'OFF-C-004',
     reference: 'LGN-2026-044',
     dept: 'Fiscal',
-    seniority: 'Collaborateur Senior (5-8 PQE)',
+    seniority: 'Collaborateur Senior (5-8 ans)',
     description: 'Cabinet international de premier rang recherche un fiscaliste senior spécialisé en fiscalité transactionnelle. Interaction directe avec les équipes M&A.',
     location: 'Paris',
     postedAt: '2026-03-06',
