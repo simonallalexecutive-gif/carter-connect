@@ -20,7 +20,7 @@ interface Slide {
 
 const candidatSlides: Slide[] = [
   {
-    icon: <Shield className="w-8 h-8" />,
+    icon: <Shield className="w-6 h-6" />,
     title: 'Créez votre profil confidentiel',
     subtitle: 'Inscription en 5 minutes — votre identité reste strictement protégée.',
     points: [
@@ -29,7 +29,7 @@ const candidatSlides: Slide[] = [
       { icon: <CheckCircle2 className="w-4 h-4" />, text: 'Profil validé sous 48h par l\'équipe Logan.' },
     ],
     visual: (
-      <div className="bg-foreground rounded-lg p-6 text-background max-w-sm mx-auto">
+      <div className="bg-foreground rounded-lg p-6 text-background w-full max-w-xs">
         <div className="text-[8px] tracking-[0.16em] uppercase text-background/30 mb-3">Profil anonymisé</div>
         <div className="font-serif text-lg font-bold mb-1">Collaborateur · M&A / PE</div>
         <div className="text-xs text-background/50 mb-4">5 ans PQE · Cabinet US Tier 1</div>
@@ -45,7 +45,7 @@ const candidatSlides: Slide[] = [
     ),
   },
   {
-    icon: <Bell className="w-8 h-8" />,
+    icon: <Bell className="w-6 h-6" />,
     title: 'Recevez des opportunités ciblées',
     subtitle: 'Les cabinets publient leurs besoins — Logan vous présente ceux qui matchent.',
     points: [
@@ -54,7 +54,7 @@ const candidatSlides: Slide[] = [
       { icon: <Shield className="w-4 h-4" />, text: 'Le cabinet ne sait pas que vous existez tant que vous n\'avez pas dit oui.' },
     ],
     visual: (
-      <div className="bg-foreground rounded-lg overflow-hidden max-w-sm mx-auto">
+      <div className="bg-foreground rounded-lg overflow-hidden w-full max-w-xs">
         <div className="p-5 border-b border-background/[0.06]">
           <div className="text-[8px] tracking-[0.16em] uppercase text-background/30 mb-2">Opportunité · Présentée par LOGAN</div>
           <div className="font-serif text-base font-bold text-background mb-1">Senior · Banque & Finance</div>
@@ -77,7 +77,7 @@ const candidatSlides: Slide[] = [
     ),
   },
   {
-    icon: <Handshake className="w-8 h-8" />,
+    icon: <Handshake className="w-6 h-6" />,
     title: 'Mise en relation orchestrée',
     subtitle: 'Logan lève le rideau uniquement avec votre accord explicite.',
     points: [
@@ -86,7 +86,7 @@ const candidatSlides: Slide[] = [
       { icon: <Shield className="w-4 h-4" />, text: '0% commission côté candidat. Toujours. Sans exception.' },
     ],
     visual: (
-      <div className="max-w-sm mx-auto space-y-3">
+      <div className="w-full max-w-xs space-y-3">
         {[
           { step: '1', label: 'Intérêt mutuel confirmé', done: true },
           { step: '2', label: 'Brief de votre consultant Logan', done: true },
@@ -110,7 +110,7 @@ const candidatSlides: Slide[] = [
 
 const cabinetSlides: Slide[] = [
   {
-    icon: <Building2 className="w-8 h-8" />,
+    icon: <Building2 className="w-6 h-6" />,
     title: 'Publiez votre recherche',
     subtitle: 'Décrivez le profil idéal — Logan cible les candidats pertinents.',
     points: [
@@ -119,7 +119,7 @@ const cabinetSlides: Slide[] = [
       { icon: <Users className="w-4 h-4" />, text: 'Précisez vos cabinets prioritaires pour des alertes ciblées.' },
     ],
     visual: (
-      <div className="bg-secondary rounded-lg p-6 max-w-sm mx-auto">
+      <div className="bg-secondary rounded-lg p-6 w-full max-w-xs">
         <div className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-4">Votre recherche</div>
         <div className="space-y-3">
           {[
@@ -138,7 +138,7 @@ const cabinetSlides: Slide[] = [
     ),
   },
   {
-    icon: <Eye className="w-8 h-8" />,
+    icon: <Eye className="w-6 h-6" />,
     title: 'Consultez le vivier premium',
     subtitle: 'Accédez en temps réel aux profils anonymisés à l\'écoute du marché.',
     points: [
@@ -147,7 +147,7 @@ const cabinetSlides: Slide[] = [
       { icon: <Clock className="w-4 h-4" />, text: 'Recrutement stratégique : identifiez les talents avant vos concurrents.' },
     ],
     visual: (
-      <div className="max-w-sm mx-auto space-y-2.5">
+      <div className="w-full max-w-xs space-y-2.5">
         {[
           { id: 'C-042', title: 'Senior Associate Finance · 5 ans', match: 92, tags: ['Financement', 'PE'], tier: 'Cabinet US Tier 1' },
           { id: 'C-057', title: 'Collaborateur M&A · 4 ans', match: 88, tags: ['M&A', 'PE'], tier: 'Cabinet FR Tier 1' },
@@ -172,7 +172,7 @@ const cabinetSlides: Slide[] = [
     ),
   },
   {
-    icon: <Handshake className="w-8 h-8" />,
+    icon: <Handshake className="w-6 h-6" />,
     title: 'Un modèle hybride gagnant',
     subtitle: 'Abonnement mensuel + fee de placement réduit vs chasseurs traditionnels.',
     points: [
@@ -181,7 +181,7 @@ const cabinetSlides: Slide[] = [
       { icon: <Clock className="w-4 h-4" />, text: 'Accès permanent au vivier : recrutez quand l\'opportunité se présente, pas dans l\'urgence.' },
     ],
     visual: (
-      <div className="max-w-sm mx-auto">
+      <div className="w-full max-w-sm">
         <div className="grid grid-cols-3 gap-2">
           {[
             { name: 'Starter', price: '1.500€', fee: '18%' },
@@ -212,9 +212,9 @@ const cabinetSlides: Slide[] = [
 ];
 
 const slideVariants = {
-  enter: (dir: number) => ({ x: dir > 0 ? 300 : -300, opacity: 0 }),
-  center: { x: 0, opacity: 1 },
-  exit: (dir: number) => ({ x: dir > 0 ? -300 : 300, opacity: 0 }),
+  enter: (dir: number) => ({ y: dir > 0 ? 40 : -40, opacity: 0 }),
+  center: { y: 0, opacity: 1 },
+  exit: (dir: number) => ({ y: dir > 0 ? -40 : 40, opacity: 0 }),
 };
 
 const DiscoverSection = () => {
@@ -248,24 +248,24 @@ const DiscoverSection = () => {
   return (
     <section className="carter-section bg-background">
       <div className="carter-container">
-        {/* Header */}
+        {/* Header — fully centered */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="mb-12 flex flex-col items-center"
+          className="mb-14 text-center"
         >
-          <p className="text-xs font-sans font-medium tracking-[0.2em] uppercase text-muted-foreground mb-4 text-center">
+          <p className="text-xs font-sans font-medium tracking-[0.2em] uppercase text-muted-foreground mb-4">
             Notre Approche
           </p>
-          <p className="text-sm text-muted-foreground font-light max-w-md leading-relaxed mb-10 text-center mx-auto">
+          <p className="text-sm text-muted-foreground font-light max-w-md leading-relaxed mb-10 mx-auto">
             Explorez le parcours Logan selon votre perspective.
           </p>
 
           {/* Perspective toggle */}
-          <div className="inline-flex bg-secondary rounded-sm p-1 border border-border mx-auto">
-          {(['candidat', 'cabinet'] as Perspective[]).map(p => (
+          <div className="inline-flex bg-secondary rounded-sm p-1 border border-border">
+            {(['candidat', 'cabinet'] as Perspective[]).map(p => (
               <button
                 key={p}
                 onClick={() => switchPerspective(p)}
@@ -282,8 +282,8 @@ const DiscoverSection = () => {
           </div>
         </motion.div>
 
-        {/* Progress dots */}
-        <div className="flex gap-2 mb-8">
+        {/* Progress dots — centered */}
+        <div className="flex gap-2 mb-10 justify-center">
           {slides.map((_, i) => (
             <button
               key={i}
@@ -296,7 +296,7 @@ const DiscoverSection = () => {
           ))}
         </div>
 
-        {/* Slide content */}
+        {/* Slide content — stacked & centered */}
         <AnimatePresence mode="wait" custom={direction}>
           <motion.div
             key={`${perspective}-${currentSlide}`}
@@ -306,59 +306,58 @@ const DiscoverSection = () => {
             animate="center"
             exit="exit"
             transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            className="flex flex-col items-center text-center"
           >
-            <div className="grid md:grid-cols-2 gap-10 items-center min-h-[400px]">
-              {/* Left: Content */}
-              <div>
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-14 h-14 rounded-lg bg-secondary border border-border flex items-center justify-center text-foreground">
-                    {slide.icon}
-                  </div>
-                  <div className="text-[9px] font-bold tracking-[0.14em] uppercase text-muted-foreground">
-                    Étape {currentSlide + 1} / {slides.length}
-                  </div>
-                </div>
-
-                <h2 className="font-serif text-2xl md:text-3xl font-normal text-foreground mb-3 leading-tight">
-                  {slide.title}
-                </h2>
-                <p className="text-sm text-muted-foreground font-light leading-relaxed mb-8">
-                  {slide.subtitle}
-                </p>
-
-                <div className="space-y-4">
-                  {slide.points.map((point, i) => (
-                    <motion.div
-                      key={i}
-                      initial={{ opacity: 0, x: -10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.2 + i * 0.1 }}
-                      className="flex gap-3 items-start"
-                    >
-                      <div className="w-8 h-8 rounded-md bg-secondary border border-border flex items-center justify-center flex-shrink-0 text-muted-foreground">
-                        {point.icon}
-                      </div>
-                      <p className="text-sm text-foreground/80 leading-relaxed pt-1">{point.text}</p>
-                    </motion.div>
-                  ))}
-                </div>
+            {/* Step badge + icon */}
+            <div className="flex flex-col items-center gap-3 mb-6">
+              <div className="w-14 h-14 rounded-full bg-secondary border border-border flex items-center justify-center text-foreground">
+                {slide.icon}
               </div>
+              <div className="text-[9px] font-bold tracking-[0.14em] uppercase text-muted-foreground">
+                Étape {currentSlide + 1} / {slides.length}
+              </div>
+            </div>
 
-              {/* Right: Visual */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.3, duration: 0.5 }}
-                className="flex items-center justify-center"
-              >
-                {slide.visual}
-              </motion.div>
+            {/* Title + subtitle */}
+            <h2 className="font-serif text-2xl md:text-3xl font-normal text-foreground mb-3 leading-tight max-w-lg">
+              {slide.title}
+            </h2>
+            <p className="text-sm text-muted-foreground font-light leading-relaxed mb-10 max-w-md">
+              {slide.subtitle}
+            </p>
+
+            {/* Visual card */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.15, duration: 0.5 }}
+              className="flex justify-center mb-10"
+            >
+              {slide.visual}
+            </motion.div>
+
+            {/* Points — centered grid */}
+            <div className="grid sm:grid-cols-3 gap-6 max-w-2xl w-full">
+              {slide.points.map((point, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 + i * 0.1 }}
+                  className="flex flex-col items-center text-center gap-2.5"
+                >
+                  <div className="w-9 h-9 rounded-full bg-secondary border border-border flex items-center justify-center flex-shrink-0 text-muted-foreground">
+                    {point.icon}
+                  </div>
+                  <p className="text-xs text-foreground/70 leading-relaxed">{point.text}</p>
+                </motion.div>
+              ))}
             </div>
           </motion.div>
         </AnimatePresence>
 
-        {/* Navigation */}
-        <div className="flex justify-between items-center mt-12 pt-8 border-t border-border">
+        {/* Navigation — centered */}
+        <div className="flex justify-center items-center gap-4 mt-14 pt-8 border-t border-border">
           <Button
             variant="outline"
             onClick={goPrev}
