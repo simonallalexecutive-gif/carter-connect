@@ -139,7 +139,7 @@ const LandingPage = () => (
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="text-xs font-sans font-medium tracking-[0.2em] uppercase text-muted-foreground mb-16 text-center"
+            className="text-xs font-sans font-medium tracking-[0.2em] uppercase text-white/50 mb-16 text-center"
           >
             Qui sommes-nous
           </motion.p>
