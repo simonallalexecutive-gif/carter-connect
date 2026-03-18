@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import DiscoverSection from '@/components/landing/DiscoverSection';
+import BenefitsSection from '@/components/landing/BenefitsSection';
 
 import StatsTickerSection from '@/components/landing/StatsTickerSection';
 import { ArrowRight } from 'lucide-react';
@@ -125,6 +126,9 @@ const LandingPage = () => (
 
     {/* Découvrir Logan — candidat / cabinet slides */}
     <DiscoverSection />
+
+    {/* Nos engagements */}
+    <BenefitsSection />
 
     {/* Qui sommes-nous */}
     <section className="py-24 md:py-32 bg-foreground overflow-hidden">
