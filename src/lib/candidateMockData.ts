@@ -42,7 +42,7 @@ export const CANDIDATE_OFFERS: CandidateOffer[] = [
     id: 'OFF-C-002',
     reference: 'LGN-2026-042',
     dept: 'Private Equity',
-    seniority: 'Counsel (8-12 PQE)',
+    seniority: 'Counsel (8-12 ans)',
     description: 'Structure anglo-saxonne de référence cherche un counsel pour piloter des opérations de fonds et transactions de capital-investissement. Poste à forte autonomie.',
     location: 'Paris / Londres',
     postedAt: '2026-03-07',
