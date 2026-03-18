@@ -136,15 +136,15 @@ const FinanceActivityPanel = ({ items }: FinanceActivityPanelProps) => {
                     paddingAngle={2}
                     stroke="hsl(var(--background))"
                     strokeWidth={2}
-                    label={({ displayPercent, cx, cy, midAngle, innerRadius, outerRadius }) => {
+                    label={({ value: val, cx, cy, midAngle, innerRadius, outerRadius }) => {
                       const RADIAN = Math.PI / 180;
                       const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
                       const x = cx + radius * Math.cos(-midAngle * RADIAN);
                       const y = cy + radius * Math.sin(-midAngle * RADIAN);
-                      if (displayPercent < 8) return null;
+                      if (val < 8) return null;
                       return (
                         <text x={x} y={y} fill="white" textAnchor="middle" dominantBaseline="central" fontSize={11} fontWeight={600} fontFamily="Inter, sans-serif">
-                          {displayPercent}%
+                          {val}%
                         </text>
                       );
                     }}
