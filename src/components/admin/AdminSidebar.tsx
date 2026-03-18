@@ -1,6 +1,6 @@
 import { Users, Briefcase, GitPullRequest, BarChart3, LogOut } from 'lucide-react';
 import { NavLink } from '@/components/NavLink';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import {
   Sidebar,
   SidebarContent,
@@ -33,10 +33,12 @@ const AdminSidebar = () => {
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel className="text-sidebar-foreground/60">
-            {!collapsed && (
-              <span className="font-display text-sm font-bold tracking-[-0.01em] text-white">Logan · Admin</span>
-            )}
-            {collapsed && <span className="font-display text-sm font-bold text-white">L</span>}
+            <Link to="/" className="hover:opacity-80 transition-opacity">
+              {!collapsed && (
+                <span className="font-display text-sm font-bold tracking-[-0.01em] text-white">Logan · Admin</span>
+              )}
+              {collapsed && <span className="font-display text-sm font-bold text-white">L</span>}
+            </Link>
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
