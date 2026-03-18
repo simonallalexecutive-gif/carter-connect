@@ -19,7 +19,7 @@ const BenefitsSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-16"
+          className="mb-16 flex flex-col items-center"
         >
           <p className="text-xs font-sans font-medium tracking-[0.2em] uppercase text-white/50 mb-4 text-center">
             Nos engagements
