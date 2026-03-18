@@ -1,7 +1,7 @@
 import { motion } from 'motion/react';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
-import { User, Building2, Eye, Bell, Handshake, ArrowRight } from 'lucide-react';
+import { User, Building2, Eye, Bell, Handshake, ArrowRight, Shield, Target, UserCheck, Radar, Network, Zap } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 
@@ -49,36 +49,18 @@ const cabinetBenefits = [
   },
 ];
 
-const candidatCommitments = [
-  {
-    title: 'Confidentialité absolue',
-    text: 'Aucun cabinet n\'aura accès à votre identité tant que vous ne l\'aurez pas décidé.',
-  },
-  {
-    title: 'Un consultant à vos côtés',
-    text: 'Il vous accompagne et organise la mise en relation uniquement si l\'opportunité vous intéresse.',
-  },
+const engagements = [
+  { icon: Shield, title: 'Confidentialité absolue' },
+  { icon: Target, title: 'Approche ciblée' },
+  { icon: UserCheck, title: 'Accompagnement personnalisé' },
+  { icon: Radar, title: 'Un accès privilégié constant à votre marché' },
+  { icon: Network, title: 'Un réseau qualifié et actualisé' },
+  { icon: Zap, title: 'Des rapprochements stratégiques' },
 ];
-
-const cabinetCommitments = [
-  {
-    title: 'Confidentialité absolue',
-    text: 'Seule la nationalité de votre cabinet et le ranking de votre département ne sera visible aux yeux des candidats qui pourront manifester leur intérêt auprès de Logan.',
-  },
-  {
-    title: 'Un consultant à vos côtés',
-    text: 'Logan se chargera de vous présenter uniquement les profils cohérents avec votre recherche et de vous accompagner le cas échéant sur l\'intégralité du processus.',
-  },
-];
-
-const candidatQuote = '« La bonne opportunité arrive souvent lorsqu\'on ne l\'attend pas »';
-const cabinetQuote = '« Le bon candidat ne se recrute pas toujours quand on en a besoin »';
 
 const BenefitsSection = () => {
   const [tab, setTab] = useState<Tab>('candidat');
   const benefits = tab === 'candidat' ? candidatBenefits : cabinetBenefits;
-  const commitments = tab === 'candidat' ? candidatCommitments : cabinetCommitments;
-  const quote = tab === 'candidat' ? candidatQuote : cabinetQuote;
 
   return (
     <section className="carter-section bg-background">
@@ -162,31 +144,36 @@ const BenefitsSection = () => {
           </Link>
         </div>
 
-        {/* Engagements — inline under benefits */}
+        {/* Nos engagements — 6 keywords */}
         <motion.div
-          key={`engagements-${tab}`}
           initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.25, duration: 0.5 }}
-          className="mt-16 py-12 bg-secondary rounded-sm"
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.1, duration: 0.6 }}
+          className="mt-16 py-14 px-6 md:px-12 bg-foreground rounded-sm"
         >
-          <p className="text-xs font-sans font-medium tracking-[0.2em] uppercase text-muted-foreground text-center mb-8">Nos engagements</p>
-          <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-0 px-6">
-            <div className="text-center px-6 md:flex-1">
-              <div className="w-8 h-px bg-border mx-auto mb-5" />
-              <h4 className="font-serif text-lg text-foreground mb-2 font-medium">{commitments[0].title}</h4>
-              <p className="font-sans text-sm text-muted-foreground font-light leading-relaxed">{commitments[0].text}</p>
-            </div>
-            <div className="text-center px-8 py-4 md:py-0 md:flex-shrink-0">
-              <p className="font-serif text-base md:text-lg text-foreground/80 italic font-semibold leading-relaxed max-w-[16rem]">
-                {quote}
-              </p>
-            </div>
-            <div className="text-center px-6 md:flex-1">
-              <div className="w-8 h-px bg-border mx-auto mb-5" />
-              <h4 className="font-serif text-lg text-foreground mb-2 font-medium">{commitments[1].title}</h4>
-              <p className="font-sans text-sm text-muted-foreground font-light leading-relaxed">{commitments[1].text}</p>
-            </div>
+          <p className="text-xs font-sans font-medium tracking-[0.2em] uppercase text-white/50 text-center mb-4">Nos engagements</p>
+          <p className="font-serif text-base md:text-lg text-white/70 italic text-center max-w-2xl mx-auto mb-12 leading-relaxed font-light">
+            Une nouvelle approche en phase avec les nouvelles exigences du marché, l'évolution de son écosystème et sa transition vers de nouveaux enjeux.
+          </p>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-6 md:gap-8">
+            {engagements.map((e, i) => (
+              <motion.div
+                key={e.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.08, duration: 0.5 }}
+                className="text-center group"
+              >
+                <div className="w-11 h-11 rounded-full border border-white/20 flex items-center justify-center mx-auto mb-4 group-hover:border-white/50 transition-colors duration-500">
+                  <e.icon className="w-4.5 h-4.5 text-white/50 group-hover:text-white transition-colors duration-500" />
+                </div>
+                <h4 className="font-serif text-sm md:text-base text-white font-normal leading-snug">
+                  {e.title}
+                </h4>
+              </motion.div>
+            ))}
           </div>
         </motion.div>
       </div>
