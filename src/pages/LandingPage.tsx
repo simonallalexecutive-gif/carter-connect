@@ -123,8 +123,8 @@ const LandingPage = () => (
       </motion.div>
     </section>
 
-    {/* Value proposition */}
-    <ValueProposition />
+    {/* Benefits — candidat / cabinet tabs */}
+    <BenefitsSection />
 
     {/* Qui sommes-nous */}
     <section className="py-24 md:py-32 bg-foreground overflow-hidden">
