@@ -617,8 +617,8 @@ const Step2Identity = () => {
           )}
 
           {/* Rétrocession flexibility */}
-          <div className="border-t border-border pt-6 space-y-4">
-            <Label className="font-sans text-sm font-medium block">
+          <div className="border-t border-background/20 pt-6 space-y-4">
+            <Label className="font-sans text-sm font-medium block text-background">
               Souhaitez-vous conserver a minima votre rétrocession actuelle ?
             </Label>
             <div className="flex gap-6">
@@ -628,9 +628,9 @@ const Step2Identity = () => {
                   name="conserverRetro"
                   checked={store.conserverRetrocession === true}
                   onChange={() => store.setField('conserverRetrocession', true)}
-                  className="accent-[hsl(38,55%,72%)]"
+                  className="accent-white"
                 />
-                <span className="font-sans text-sm font-light">Oui, c'est indispensable</span>
+                <span className="font-sans text-sm font-light text-background">Oui, c'est indispensable</span>
               </label>
               <label className="flex items-center gap-2 cursor-pointer">
                 <input
@@ -638,26 +638,11 @@ const Step2Identity = () => {
                   name="conserverRetro"
                   checked={store.conserverRetrocession === false}
                   onChange={() => store.setField('conserverRetrocession', false)}
-                  className="accent-[hsl(38,55%,72%)]"
+                  className="accent-white"
                 />
-                <span className="font-sans text-sm font-light">Envisageable selon le projet</span>
+                <span className="font-sans text-sm font-light text-background">Envisageable selon le projet</span>
               </label>
             </div>
-            {store.conserverRetrocession === false && (
-              <div className="space-y-3 pl-1">
-                <p className="text-xs text-muted-foreground font-sans font-light">Pour quelles raisons accepteriez-vous une baisse ?</p>
-                {RAISONS_BAISSE_RETRO.map(raison => (
-                  <div key={raison} className="flex items-center gap-2">
-                    <Checkbox
-                      id={`raison-${raison}`}
-                      checked={store.raisonsBaisseRetro.includes(raison)}
-                      onCheckedChange={() => toggleRaisonBaisse(raison)}
-                    />
-                    <label htmlFor={`raison-${raison}`} className="font-sans text-sm font-light cursor-pointer">{raison}</label>
-                  </div>
-                ))}
-              </div>
-            )}
           </div>
         </div>
 
