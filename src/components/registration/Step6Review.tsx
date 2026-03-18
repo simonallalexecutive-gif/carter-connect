@@ -392,7 +392,6 @@ const Step6Review = () => {
             <div className="grid grid-cols-2 gap-4 mb-8">
               <DataRow label="Cabinet" value={store.cabinet} />
               <DataRow label="Pratique" value={store.departement} />
-              {store.cabNat && <DataRow label="Nationalité" value={store.cabNat} />}
               {store.cabTier && <DataRow label="Tier" value={store.cabTier} />}
               {store.tailleOperations.length > 0 && <DataRow label="Taille opérations" value={store.tailleOperations.join(', ')} />}
               {store.anglais && <DataRow label="Anglais" value={store.anglais} />}
