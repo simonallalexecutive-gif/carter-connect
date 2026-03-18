@@ -579,10 +579,10 @@ const Step2Identity = () => {
         )}
 
         {/* Rémunération */}
-        <div className="carter-card p-8 space-y-6">
+        <div className="rounded-sm p-8 space-y-6 bg-foreground text-background">
           <div>
-            <p className="carter-label mb-2">Confidentiel</p>
-            <h3 className="font-serif text-xl text-foreground font-normal">Rémunération</h3>
+            <p className="text-[10px] font-sans font-medium tracking-[0.15em] uppercase text-background/50 mb-2">Confidentiel</p>
+            <h3 className="font-serif text-xl text-background font-normal">Rémunération</h3>
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
