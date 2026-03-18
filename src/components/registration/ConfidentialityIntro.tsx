@@ -21,10 +21,6 @@ const steps = [
     icon: MessageSquare,
     title: 'Logan vous contacte',
     description: 'Si un cabinet s\'intéresse à votre profil, Logan se rapproche de vous — spontanément ou à votre demande — pour vous donner davantage de précisions.',
-    subOptions: [
-      { label: 'Spontanément', detail: 'Un cabinet s\'intéresse à votre profil en dehors de toute recherche diffusée sur la plateforme (hors mandat).' },
-      { label: 'À votre demande', detail: 'Vous consultez une offre déposée à titre confidentiel sur notre plateforme par un cabinet et souhaitez en savoir plus.' },
-    ],
   },
   {
     icon: UserCheck,
@@ -97,19 +93,6 @@ const ConfidentialityIntro = ({ onContinue }: ConfidentialityIntroProps) => {
               <div className="pb-6">
                 <p className="text-sm font-sans font-medium text-white mb-1">{step.title}</p>
                 <p className="text-xs font-sans font-light text-white/45 leading-relaxed">{step.description}</p>
-                {'subOptions' in step && step.subOptions && (
-                  <div className="mt-3 space-y-2">
-                    {step.subOptions.map((opt) => (
-                      <div key={opt.label} className="flex gap-2.5 items-start pl-1">
-                        <div className="w-1 h-1 rounded-full bg-white/30 mt-1.5 flex-shrink-0" />
-                        <div>
-                          <span className="text-xs font-sans font-medium text-white/70">« {opt.label} »</span>
-                          <span className="text-xs font-sans font-light text-white/40"> — {opt.detail}</span>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                )}
               </div>
             </motion.div>
           ))}
