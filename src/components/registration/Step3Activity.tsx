@@ -29,7 +29,7 @@ const CHART_COLORS = [
   'hsl(225, 45%, 18%)',
 ];
 
-const SPECIALIZED_DEPTS = ['Banque & Finance', 'Restructuring', 'Droit Social', 'M&A / Private Equity', 'Concurrence', 'Fiscal', 'Droit Public'];
+const SPECIALIZED_DEPTS = ['Financement', 'Restructuring', 'Droit Social', 'M&A (dominante)', 'Private Equity (dominante)', 'Concurrence', 'Fiscal', 'Droit Public'];
 
 const Step3Activity = () => {
   const store = useRegistrationStore();
