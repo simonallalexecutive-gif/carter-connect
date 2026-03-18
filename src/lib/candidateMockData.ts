@@ -47,7 +47,7 @@ export const CANDIDATE_OFFERS: CandidateOffer[] = [
     location: 'Paris / Londres',
     postedAt: '2026-03-07',
     tags: ['Fonds', 'Capital-investissement', 'Structuration'],
-    activitySplit: { 'Private Equity': 70, 'Banque & Finance': 30 },
+    activitySplit: { 'Private Equity': 70, 'Financement': 30 },
     contexte: 'Départ à remplacer',
     equipe: '2 associé(s), 2 counsel(s), 4 collaborateur(s)',
     retroStr: '150.000€ — 200.000€',
