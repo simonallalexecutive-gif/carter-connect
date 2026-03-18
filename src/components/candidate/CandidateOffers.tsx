@@ -19,8 +19,8 @@ const CandidateOffers = () => {
   const { activites, sermentMois, sermentAnnee } = useRegistrationStore();
   const seniorityInfo = usePQE(sermentMois, sermentAnnee);
 
-  const parsePQERange = (seniority: string): [number, number] | null => {
-    const match = seniority.match(/\((\d+)-(\d+)\s*PQE\)/);
+  const parseSeniorityRange = (seniority: string): [number, number] | null => {
+    const match = seniority.match(/\((\d+)-(\d+)\s*(?:PQE|ans)\)/);
     if (match) return [parseInt(match[1]), parseInt(match[2])];
     return null;
   };
