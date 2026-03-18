@@ -33,7 +33,7 @@ const CandidateOffers = () => {
     if (!hasProfile) return CANDIDATE_OFFERS;
     const matched = CANDIDATE_OFFERS.filter((offer) => {
       if (seniorityInfo) {
-        const range = parsePQERange(offer.seniority);
+        const range = parseSeniorityRange(offer.seniority);
         if (range && (seniorityInfo.years < range[0] - 2 || seniorityInfo.years > range[1] + 2)) return false;
       }
       if (candidateExpertises.length > 0) {
