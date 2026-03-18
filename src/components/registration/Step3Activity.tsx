@@ -108,7 +108,7 @@ const Step3Activity = () => {
           </div>
         )}
 
-        {store.departement === 'M&A / Private Equity' && (
+        {(store.departement === 'M&A (dominante)' || store.departement === 'Private Equity (dominante)') && (
           <div>
             <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-3 block">Nature des opérations</Label>
             <MaActivityPanel />
