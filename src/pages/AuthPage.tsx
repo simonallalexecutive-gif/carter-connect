@@ -3,7 +3,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { useEffect } from 'react';
 import { toast } from 'sonner';
@@ -18,11 +18,13 @@ const AuthPage = () => {
   const [userType, setUserType] = useState<'candidat' | 'cabinet'>('candidat');
   const [submitting, setSubmitting] = useState(false);
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const redirectTo = searchParams.get('redirect') || '/espace-candidat';
   const { user, loading } = useAuth();
 
   useEffect(() => {
     if (!loading && user?.email_confirmed_at) {
-      navigate('/espace-candidat');
+      navigate(redirectTo);
     }
   }, [user, loading, navigate]);
 
@@ -40,7 +42,7 @@ const AuthPage = () => {
           return;
         }
         toast.success('Connexion réussie');
-        navigate('/espace-candidat');
+        navigate(redirectTo);
       } else {
         const { error } = await (supabase.auth as any).signUp({
           email,
