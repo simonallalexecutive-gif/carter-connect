@@ -51,9 +51,9 @@ const BenefitsSection = () => {
           <p className="text-xs font-sans font-medium tracking-[0.2em] uppercase text-white/50 mb-4 text-center">
             Nos engagements
           </p>
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-serif font-normal text-white tracking-[-0.01em] text-center">
+          <p className="text-sm text-white/50 font-light max-w-md leading-relaxed mx-auto text-center">
             Ce qui nous distingue
-          </h2>
+          </p>
         </motion.div>
 
         <div className="max-w-3xl mx-auto space-y-0">
