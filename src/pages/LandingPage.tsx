@@ -131,7 +131,7 @@ const LandingPage = () => (
     <BenefitsSection />
 
     {/* Qui sommes-nous */}
-    <section className="py-24 md:py-32 bg-background overflow-hidden">
+    <section className="py-24 md:py-32 bg-foreground overflow-hidden">
       <div className="carter-container">
         <div className="max-w-4xl mx-auto">
           <motion.p
