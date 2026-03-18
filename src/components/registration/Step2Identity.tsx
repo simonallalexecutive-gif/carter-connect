@@ -87,8 +87,10 @@ const Step2Identity = () => {
     if (!store.sermentMois || !store.sermentAnnee) missing.push('Date de serment');
     if (store.departement.length < 2) missing.push('Département');
     if (store.cabinet.length < 2) missing.push('Cabinet');
+    if (store.retrocession.length < 1) missing.push('Rétrocession');
+    if (store.conserverRetrocession === null) missing.push('Flexibilité rétrocession');
     return missing;
-  }, [store.prenom, store.nom, store.email, store.telephone, isPasswordValid, passwordsMatch, store.sermentMois, store.sermentAnnee, store.departement, store.cabinet]);
+  }, [store.prenom, store.nom, store.email, store.telephone, isPasswordValid, passwordsMatch, store.sermentMois, store.sermentAnnee, store.departement, store.cabinet, store.retrocession, store.conserverRetrocession]);
 
   const autoDetectRanking = (cabinetName: string, dept: string) => {
     const practiceData = LEGAL500_BY_PRACTICE[dept];
