@@ -271,7 +271,6 @@ const Step6Review = () => {
 
             <div className="grid grid-cols-2 gap-4 mb-8">
               <DataRow label="Pratique" value={store.departement} />
-              <DataRow label="Nationalité cabinet" value={store.cabNat || '—'} />
               <DataRow label="Classement Legal 500" value={store.cabTier || '—'} />
               {store.retrocession && <DataRow label="Rétrocession" value={`${store.retrocession} €`} />}
               {store.anglais && <DataRow label="Anglais" value={store.anglais} />}
