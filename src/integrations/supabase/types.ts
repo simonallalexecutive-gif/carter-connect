@@ -232,6 +232,54 @@ export type Database = {
           },
         ]
       }
+      logan_bookings: {
+        Row: {
+          booking_date: string
+          booking_time: string
+          candidate_cabinet: string
+          candidate_department: string
+          candidate_email: string
+          candidate_name: string
+          candidate_seniority: string
+          created_at: string
+          id: string
+          notes: string | null
+          status: string
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          booking_date: string
+          booking_time: string
+          candidate_cabinet?: string
+          candidate_department?: string
+          candidate_email: string
+          candidate_name: string
+          candidate_seniority?: string
+          created_at?: string
+          id?: string
+          notes?: string | null
+          status?: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          booking_date?: string
+          booking_time?: string
+          candidate_cabinet?: string
+          candidate_department?: string
+          candidate_email?: string
+          candidate_name?: string
+          candidate_seniority?: string
+          created_at?: string
+          id?: string
+          notes?: string | null
+          status?: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null
