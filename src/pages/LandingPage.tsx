@@ -80,9 +80,9 @@ const LandingPage = () => (
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1.4, duration: 1 }}
-        className="absolute bottom-24 md:bottom-32 right-6 sm:right-8 lg:right-10 z-10 max-w-xs md:max-w-sm text-right"
+        className="absolute bottom-40 md:bottom-52 right-6 sm:right-8 lg:right-10 z-10 max-w-xs md:max-w-sm text-right"
       >
-        <p className="font-serif text-[11px] sm:text-xs md:text-sm text-white/60 italic leading-relaxed mb-2">
+        <p className="font-serif text-[13px] sm:text-sm md:text-base text-white/60 italic leading-relaxed mb-2 font-[500] tracking-[-0.01em]">
           «&nbsp;Logan se positionne comme la plateforme la plus exigeante et structurée du marché, offrant un accompagnement sur mesure, résolument confidentiel et parfaitement ciblé.&nbsp;»
         </p>
         <span className="text-[10px] sm:text-[11px] font-sans font-medium tracking-[0.15em] uppercase text-white/40">
