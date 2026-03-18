@@ -24,7 +24,7 @@ const AuthPage = () => {
 
   useEffect(() => {
     if (!loading && user?.email_confirmed_at) {
-      navigate('/espace-candidat');
+      navigate(redirectTo);
     }
   }, [user, loading, navigate]);
 
