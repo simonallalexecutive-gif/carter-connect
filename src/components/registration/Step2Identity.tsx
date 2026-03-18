@@ -535,7 +535,7 @@ const Step2Identity = () => {
 
         {/* Département */}
         <div>
-          <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Département / Pratique *</Label>
+          <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Votre pratique *</Label>
           <Select value={store.departement} onValueChange={handleDepartmentChange}>
             <SelectTrigger className="mt-2"><SelectValue placeholder="Sélectionner" /></SelectTrigger>
             <SelectContent>
