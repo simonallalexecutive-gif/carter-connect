@@ -126,6 +126,9 @@ const LandingPage = () => (
     {/* Découvrir Logan — candidat / cabinet slides */}
     <DiscoverSection />
 
+    {/* Nos engagements */}
+    <BenefitsSection />
+
     {/* Qui sommes-nous */}
     <section className="py-24 md:py-32 bg-foreground overflow-hidden">
       <div className="carter-container">
