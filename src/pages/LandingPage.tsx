@@ -128,13 +128,13 @@ const LandingPage = () => (
     {/* Qui sommes-nous */}
     <section className="py-24 md:py-32 bg-foreground overflow-hidden">
       <div className="carter-container">
-        <div className="max-w-3xl mx-auto text-center">
+        <div className="max-w-4xl mx-auto">
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="text-xs font-sans font-medium tracking-[0.2em] uppercase text-white/50 mb-8"
+            className="text-xs font-sans font-medium tracking-[0.2em] uppercase text-white/50 mb-8 text-center"
           >
             Qui sommes-nous
           </motion.p>
@@ -143,26 +143,46 @@ const LandingPage = () => (
             whileInView={{ scaleX: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="w-16 h-px bg-white/20 mx-auto mb-12 origin-center"
+            className="w-16 h-px bg-white/20 mx-auto mb-16 origin-center"
           />
-          <motion.p
-            initial={{ opacity: 0, y: 40, filter: 'blur(8px)' }}
-            whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-            viewport={{ once: true }}
-            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-            className="text-xl sm:text-2xl md:text-3xl lg:text-[2.5rem] font-serif font-normal text-white leading-[1.25] italic tracking-[-0.01em] mb-8"
-          >
-            «&nbsp;Logan est aujourd'hui la seule plateforme capable de connecter efficacement les cabinets et les candidats <strong className="font-bold">les plus qualifiés du marché</strong>, tout en préservant la <strong className="font-bold">confidentialité</strong> et en proposant un <strong className="font-bold">accompagnement sur mesure</strong> à chaque étape du processus.&nbsp;»
-          </motion.p>
-          <motion.span
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.8 }}
-            className="inline-block text-xs font-sans font-medium tracking-[0.2em] uppercase text-white/50"
-          >
-            — L'Équipe Logan
-          </motion.span>
+
+          <div className="flex flex-col md:flex-row items-center gap-12 md:gap-16">
+            {/* Photo */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              className="flex-shrink-0"
+            >
+              <div className="w-48 h-48 md:w-56 md:h-56 rounded-full bg-white/10 border border-white/20 overflow-hidden flex items-center justify-center">
+                <span className="text-white/30 font-serif text-5xl font-light">SA</span>
+              </div>
+            </motion.div>
+
+            {/* Bio */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
+              className="text-center md:text-left flex-1"
+            >
+              <h3 className="font-serif text-2xl md:text-3xl text-white font-normal mb-2 tracking-[-0.01em]">
+                Simon Allal
+              </h3>
+              <p className="text-xs font-sans font-medium tracking-[0.2em] uppercase text-white/50 mb-6">
+                Fondateur
+              </p>
+              <p className="font-sans text-sm md:text-base text-white/60 font-light leading-relaxed mb-8 max-w-lg">
+                Fort d'une expertise approfondie du marché juridique, Simon Allal a fondé Logan avec la conviction qu'une approche confidentielle, ciblée et humaine pouvait transformer le recrutement des avocats d'affaires.
+              </p>
+              <Link to="/a-propos" className="inline-flex items-center gap-2 text-sm font-sans font-medium text-white/70 hover:text-white transition-colors duration-300 group">
+                À propos
+                <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
+              </Link>
+            </motion.div>
+          </div>
         </div>
       </div>
     </section>
