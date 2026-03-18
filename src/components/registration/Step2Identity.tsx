@@ -601,17 +601,17 @@ const Step2Identity = () => {
               checked={store.hasObjectifFacturable === true}
               onCheckedChange={v => store.setField('hasObjectifFacturable', v)}
             />
-            <Label className="font-sans text-sm font-light">Objectif d'heures facturables</Label>
+            <Label className="font-sans text-sm font-light text-background">Objectif d'heures facturables</Label>
           </div>
           {store.hasObjectifFacturable && (
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Objectif (heures/an)</Label>
-                <Input value={store.objectifFacturable} onChange={e => store.setField('objectifFacturable', formatNumberWithDots(e.target.value))} placeholder="1.800" className="mt-2" />
+                <Label className="font-sans text-xs font-light text-background/50 uppercase tracking-wider">Objectif (heures/an)</Label>
+                <Input value={store.objectifFacturable} onChange={e => store.setField('objectifFacturable', formatNumberWithDots(e.target.value))} placeholder="1.800" className="mt-2 bg-background/10 border-background/20 text-background placeholder:text-background/30 focus:border-background/40" />
               </div>
               <div>
-                <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Réalisé en pratique (heures/an)</Label>
-                <Input value={store.objectifFacturableReel} onChange={e => store.setField('objectifFacturableReel', formatNumberWithDots(e.target.value))} placeholder="1.650" className="mt-2" />
+                <Label className="font-sans text-xs font-light text-background/50 uppercase tracking-wider">Réalisé en pratique (heures/an)</Label>
+                <Input value={store.objectifFacturableReel} onChange={e => store.setField('objectifFacturableReel', formatNumberWithDots(e.target.value))} placeholder="1.650" className="mt-2 bg-background/10 border-background/20 text-background placeholder:text-background/30 focus:border-background/40" />
               </div>
             </div>
           )}
