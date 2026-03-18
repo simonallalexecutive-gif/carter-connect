@@ -95,8 +95,8 @@ const Step2Identity = () => {
   const autoDetectRanking = (cabinetName: string, dept: string) => {
     const practiceData = LEGAL500_BY_PRACTICE[dept];
     if (practiceData?.[cabinetName]) {
-      store.setField('cabNat', practiceData[cabinetName].nat);
       store.setField('cabTier', practiceData[cabinetName].band);
+      store.setField('cabNat', '');
       return;
     }
     let firmEntry = LEGAL500_DB[cabinetName];
