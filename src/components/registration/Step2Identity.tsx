@@ -561,11 +561,6 @@ const Step2Identity = () => {
           <div className="carter-card p-5">
             <p className="carter-label mb-3">Classement Legal 500</p>
             <div className="flex items-center gap-3 flex-wrap">
-              {store.cabNat && (
-                <span className="text-xs font-sans font-medium px-3 py-1.5 rounded-sm bg-secondary text-foreground border border-border">
-                  {store.cabNat}
-                </span>
-              )}
               <span className={cn(
                 "text-xs font-sans font-medium px-3 py-1.5 rounded-sm border",
                 store.cabTier && !store.cabTier.includes('Non')
