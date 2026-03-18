@@ -298,7 +298,38 @@ export const ACTIVITES_BY_PRACTICE: Record<string, { sections: { title: string; 
       },
     ],
   },
-  "Banque & Finance": {
+  "Private Equity (dominante)": {
+    sections: [
+      {
+        title: "Nature des opérations",
+        items: [
+          { key: "pe_fonds", label: "Investissements de fonds" },
+          { key: "pe_lbo", label: "LBO / Leveraged Buy-Out" },
+          { key: "pe_vc", label: "Venture Capital" },
+          { key: "pe_cotes", label: "Public-to-Private" },
+          { key: "pe_exit", label: "Exits / Cessions" },
+        ],
+      },
+      {
+        title: "Positionnement",
+        items: [
+          { key: "pe_sell", label: "Côté vendeur" },
+          { key: "pe_buy", label: "Côté acquéreur" },
+          { key: "pe_gp", label: "Côté GP / Management Company" },
+          { key: "pe_mgt", label: "Côté management" },
+        ],
+      },
+      {
+        title: "Taille des opérations",
+        items: [
+          { key: "pe_sm", label: "Small cap (< 50M€)" },
+          { key: "pe_mid", label: "Mid cap (50-500M€)" },
+          { key: "pe_lg", label: "Large cap (> 500M€)" },
+        ],
+      },
+    ],
+  },
+  "Financement": {
     sections: [
       {
         title: "Type de financement",
