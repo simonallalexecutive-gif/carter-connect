@@ -155,7 +155,7 @@ const FinanceActivityPanel = ({ items }: FinanceActivityPanelProps) => {
                     ))}
                   </Pie>
                   <Tooltip
-                    formatter={(_v: number, name: string, props: any) => [`${props.payload?.displayPercent}%`, name]}
+                    formatter={(_v: number, name: string, props: any) => [`${props.payload?.value}%`, name]}
                     contentStyle={{ fontSize: '11px', fontFamily: 'Inter', background: 'hsl(var(--card))', border: '1px solid hsl(var(--border))', borderRadius: '4px', color: 'hsl(var(--foreground))' }}
                   />
                 </PieChart>
