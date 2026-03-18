@@ -94,7 +94,7 @@ export const CANDIDATE_OFFERS: CandidateOffer[] = [
     id: 'OFF-C-005',
     reference: 'LGN-2026-045',
     dept: 'Droit Social',
-    seniority: 'Counsel (8-12 PQE)',
+    seniority: 'Counsel (8-12 ans)',
     description: 'Cabinet de niche en droit social recherche un counsel pour accompagner des opérations de restructuration et de mobilité internationale.',
     location: 'Paris / Lyon',
     postedAt: '2026-03-05',
