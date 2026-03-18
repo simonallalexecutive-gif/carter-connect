@@ -49,30 +49,14 @@ const cabinetBenefits = [
   },
 ];
 
-const candidatCommitments = [
-  {
-    title: 'Confidentialité absolue',
-    text: 'Aucun cabinet n\'aura accès à votre identité tant que vous ne l\'aurez pas décidé.',
-  },
-  {
-    title: 'Un consultant à vos côtés',
-    text: 'Il vous accompagne et organise la mise en relation uniquement si l\'opportunité vous intéresse.',
-  },
+const engagements = [
+  { icon: Shield, title: 'Confidentialité absolue' },
+  { icon: Target, title: 'Approche ciblée' },
+  { icon: UserCheck, title: 'Accompagnement personnalisé' },
+  { icon: Radar, title: 'Un accès privilégié constant à votre marché' },
+  { icon: Network, title: 'Un réseau qualifié et actualisé' },
+  { icon: Zap, title: 'Des rapprochements stratégiques' },
 ];
-
-const cabinetCommitments = [
-  {
-    title: 'Confidentialité absolue',
-    text: 'Seule la nationalité de votre cabinet et le ranking de votre département ne sera visible aux yeux des candidats qui pourront manifester leur intérêt auprès de Logan.',
-  },
-  {
-    title: 'Un consultant à vos côtés',
-    text: 'Logan se chargera de vous présenter uniquement les profils cohérents avec votre recherche et de vous accompagner le cas échéant sur l\'intégralité du processus.',
-  },
-];
-
-const candidatQuote = '« La bonne opportunité arrive souvent lorsqu\'on ne l\'attend pas »';
-const cabinetQuote = '« Le bon candidat ne se recrute pas toujours quand on en a besoin »';
 
 const BenefitsSection = () => {
   const [tab, setTab] = useState<Tab>('candidat');
