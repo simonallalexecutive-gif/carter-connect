@@ -254,30 +254,29 @@ const DiscoverSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="mb-12"
+          className="mb-12 flex flex-col items-center"
         >
-          <div className="carter-divider mb-8" />
-          <p className="text-xs font-sans font-medium tracking-[0.2em] uppercase text-muted-foreground mb-4">
-            Comment ça fonctionne
+          <p className="text-xs font-sans font-medium tracking-[0.2em] uppercase text-muted-foreground mb-4 text-center">
+            Notre Approche
           </p>
-          <p className="text-sm text-muted-foreground font-light max-w-md leading-relaxed mb-10">
+          <p className="text-sm text-muted-foreground font-light max-w-md leading-relaxed mb-10 text-center mx-auto">
             Explorez le parcours Logan selon votre perspective.
           </p>
 
           {/* Perspective toggle */}
-          <div className="inline-flex bg-secondary rounded-sm p-1 border border-border">
-            {(['candidat', 'cabinet'] as Perspective[]).map(p => (
+          <div className="inline-flex bg-secondary rounded-sm p-1 border border-border mx-auto">
+          {(['candidat', 'cabinet'] as Perspective[]).map(p => (
               <button
                 key={p}
                 onClick={() => switchPerspective(p)}
                 className={cn(
-                  'px-6 py-2.5 text-xs font-medium rounded-sm transition-all duration-300',
+                  'px-6 py-2.5 text-xs font-medium rounded-sm transition-all duration-300 inline-flex items-center gap-2',
                   perspective === p
                     ? 'bg-foreground text-background shadow-sm'
                     : 'text-muted-foreground hover:text-foreground'
                 )}
               >
-                {p === 'candidat' ? '👤 Côté Candidat' : '🏛️ Côté Cabinet'}
+                {p === 'candidat' ? <><UserCheck className="w-3.5 h-3.5" /> Côté Candidat</> : <><Building2 className="w-3.5 h-3.5" /> Côté Cabinet</>}
               </button>
             ))}
           </div>
