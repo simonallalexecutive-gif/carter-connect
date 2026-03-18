@@ -3,6 +3,7 @@ import { useRegistrationStore } from '@/stores/registrationStore';
 import { Slider } from '@/components/ui/slider';
 import { cn } from '@/lib/utils';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
+import { buildQuantizedChartData } from '@/lib/percentages';
 import { useMemo } from 'react';
 import { Check } from 'lucide-react';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -72,17 +73,16 @@ const FinanceActivityPanel = ({ items }: FinanceActivityPanelProps) => {
   const selectedItems = items.filter(item => store.activites[item.key]);
   const hasActivites = selectedItems.length > 0;
 
-  const totalPercent = useMemo(() => {
-    return selectedItems.reduce((sum, item) => sum + (store.pourcentages[item.key] || 10), 0);
-  }, [selectedItems, store.pourcentages]);
-
   const chartData = useMemo(() => {
-    return selectedItems.map(item => {
-      const raw = store.pourcentages[item.key] || 10;
-      const displayPercent = totalPercent > 0 ? Math.round((raw / totalPercent) * 100) : 0;
-      return { name: item.label, value: raw, displayPercent };
-    });
-  }, [selectedItems, store.pourcentages, totalPercent]);
+    return buildQuantizedChartData(
+      selectedItems.map((item, index) => ({
+        key: item.key,
+        name: item.label,
+        raw: store.pourcentages[item.key] || 10,
+        color: CHART_PALETTE[index % CHART_PALETTE.length],
+      })),
+    );
+  }, [selectedItems, store.pourcentages]);
 
   const showActifs = store.activites['fin_actifs'];
   const showProjets = store.activites['fin_projets'];
@@ -136,15 +136,15 @@ const FinanceActivityPanel = ({ items }: FinanceActivityPanelProps) => {
                     paddingAngle={2}
                     stroke="hsl(var(--background))"
                     strokeWidth={2}
-                    label={({ displayPercent, cx, cy, midAngle, innerRadius, outerRadius }) => {
+                    label={({ value: val, cx, cy, midAngle, innerRadius, outerRadius }) => {
                       const RADIAN = Math.PI / 180;
                       const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
                       const x = cx + radius * Math.cos(-midAngle * RADIAN);
                       const y = cy + radius * Math.sin(-midAngle * RADIAN);
-                      if (displayPercent < 8) return null;
+                      if (val < 8) return null;
                       return (
                         <text x={x} y={y} fill="white" textAnchor="middle" dominantBaseline="central" fontSize={11} fontWeight={600} fontFamily="Inter, sans-serif">
-                          {displayPercent}%
+                          {val}%
                         </text>
                       );
                     }}
@@ -155,7 +155,7 @@ const FinanceActivityPanel = ({ items }: FinanceActivityPanelProps) => {
                     ))}
                   </Pie>
                   <Tooltip
-                    formatter={(_v: number, name: string, props: any) => [`${props.payload?.displayPercent}%`, name]}
+                    formatter={(_v: number, name: string, props: any) => [`${props.payload?.value}%`, name]}
                     contentStyle={{ fontSize: '11px', fontFamily: 'Inter', background: 'hsl(var(--card))', border: '1px solid hsl(var(--border))', borderRadius: '4px', color: 'hsl(var(--foreground))' }}
                   />
                 </PieChart>
@@ -167,7 +167,7 @@ const FinanceActivityPanel = ({ items }: FinanceActivityPanelProps) => {
                   <div key={item.name} className="flex items-center gap-2">
                     <span className="w-2.5 h-2.5 rounded-sm flex-shrink-0" style={{ background: CHART_PALETTE[i % CHART_PALETTE.length] }} />
                     <span className="text-[11px] font-sans text-foreground/80">{item.name}</span>
-                    <span className="text-[11px] font-sans font-semibold text-foreground ml-auto">{item.displayPercent}%</span>
+                    <span className="text-[11px] font-sans font-semibold text-foreground ml-auto">{item.value}%</span>
                   </div>
                 ))}
               </div>
@@ -177,8 +177,8 @@ const FinanceActivityPanel = ({ items }: FinanceActivityPanelProps) => {
             <div className="flex-1 space-y-4 w-full">
               {/* Sliders */}
               {selectedItems.map((item, i) => {
-                const raw = store.pourcentages[item.key] || 10;
-                const displayPercent = totalPercent > 0 ? Math.round((raw / totalPercent) * 100) : 0;
+                const chartItem = chartData.find(d => d.name === item.label);
+                const displayPercent = chartItem?.value ?? 0;
                 return (
                   <div key={item.key} className="space-y-1.5">
                     <div className="flex items-center justify-between">
@@ -189,7 +189,7 @@ const FinanceActivityPanel = ({ items }: FinanceActivityPanelProps) => {
                       <span className="text-xs font-sans font-bold text-foreground w-10 text-right">{displayPercent}%</span>
                     </div>
                     <Slider
-                      value={[raw]}
+                      value={[store.pourcentages[item.key] || 10]}
                       onValueChange={([v]) => handlePercentChange(item.key, v)}
                       min={10}
                       max={100}

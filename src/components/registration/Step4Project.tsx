@@ -95,15 +95,16 @@ const Step4Project = () => {
 
         {/* Cabinets cibles */}
         <div>
-          <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-4 block">Cabinets cibles</Label>
+          <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-4 block">Cabinets cibles (max. 3)</Label>
           <AutocompleteInput
             data={CABINETS}
             value={store.cabinetsCibles}
-            onChange={v => store.setField('cabinetsCibles', v as string[])}
+            onChange={v => store.setField('cabinetsCibles', (v as string[]).slice(0, 3))}
             placeholder="Ajouter un cabinet..."
             single={false}
             showMeta
           />
+          <p className="text-xs text-muted-foreground font-sans font-light mt-2">Vous pouvez renseigner jusqu'à 3 cabinets cibles.</p>
         </div>
 
         {/* No-Go */}

@@ -322,15 +322,17 @@ const Step3Activity = () => {
           </Select>
         </div>
 
-        {/* Types clients */}
-        <div>
-          <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-3 block">Types de clients</Label>
-          <ChipSelector
-            options={TYPES_CLIENTS}
-            selected={store.typesClients}
-            onChange={v => store.setField('typesClients', v)}
-          />
-        </div>
+        {/* Types clients – hidden for Financement */}
+        {store.departement !== 'Financement' && (
+          <div>
+            <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-3 block">Types de clients</Label>
+            <ChipSelector
+              options={TYPES_CLIENTS}
+              selected={store.typesClients}
+              onChange={v => store.setField('typesClients', v)}
+            />
+          </div>
+        )}
 
         {/* Navigation */}
         <div className="flex justify-between pt-6">
