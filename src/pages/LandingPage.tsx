@@ -188,8 +188,6 @@ const LandingPage = () => (
       </div>
     </section>
 
-    {/* Benefits — candidat / cabinet tabs */}
-    <BenefitsSection />
 
 
 
