@@ -175,7 +175,7 @@ const LandingPage = () => (
               <p className="font-sans text-sm md:text-base text-white/60 font-light leading-relaxed mb-8 max-w-lg">
                 Fort d'une expertise approfondie du marché juridique, Simon Allal a fondé Logan avec la conviction qu'une approche confidentielle, ciblée et humaine pouvait transformer le recrutement des avocats d'affaires.
               </p>
-              <Link to="/a-propos" className="inline-flex items-center gap-2 text-sm font-sans font-medium text-foreground/70 hover:text-foreground transition-colors duration-300 group">
+              <Link to="/a-propos" className="inline-flex items-center gap-2 text-sm font-sans font-medium text-white/70 hover:text-white transition-colors duration-300 group">
                 À propos
                 <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
               </Link>
