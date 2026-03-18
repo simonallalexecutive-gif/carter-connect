@@ -50,12 +50,12 @@ const cabinetBenefits = [
 ];
 
 const engagements = [
-  { icon: Shield, title: 'Confidentialité absolue' },
-  { icon: Target, title: 'Approche ciblée' },
-  { icon: UserCheck, title: 'Accompagnement personnalisé' },
-  { icon: Radar, title: 'Un accès privilégié constant à votre marché' },
-  { icon: Network, title: 'Un réseau qualifié et actualisé' },
-  { icon: Zap, title: 'Des rapprochements stratégiques' },
+  { icon: Lock, title: 'Confidentialité absolue' },
+  { icon: Crosshair, title: 'Approche ciblée' },
+  { icon: HeartHandshake, title: 'Accompagnement personnalisé' },
+  { icon: ScanSearch, title: 'Un accès privilégié constant à votre marché' },
+  { icon: Users, title: 'Un réseau qualifié et actualisé' },
+  { icon: GitMerge, title: 'Des rapprochements stratégiques' },
 ];
 
 const BenefitsSection = () => {
