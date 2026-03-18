@@ -3,6 +3,7 @@ import { useRegistrationStore } from '@/stores/registrationStore';
 import { Slider } from '@/components/ui/slider';
 import { cn } from '@/lib/utils';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
+import { buildQuantizedChartData } from '@/lib/percentages';
 import { useMemo } from 'react';
 import { Check } from 'lucide-react';
 import { Checkbox } from '@/components/ui/checkbox';
