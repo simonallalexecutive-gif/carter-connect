@@ -167,7 +167,7 @@ const FinanceActivityPanel = ({ items }: FinanceActivityPanelProps) => {
                   <div key={item.name} className="flex items-center gap-2">
                     <span className="w-2.5 h-2.5 rounded-sm flex-shrink-0" style={{ background: CHART_PALETTE[i % CHART_PALETTE.length] }} />
                     <span className="text-[11px] font-sans text-foreground/80">{item.name}</span>
-                    <span className="text-[11px] font-sans font-semibold text-foreground ml-auto">{item.displayPercent}%</span>
+                    <span className="text-[11px] font-sans font-semibold text-foreground ml-auto">{item.value}%</span>
                   </div>
                 ))}
               </div>
