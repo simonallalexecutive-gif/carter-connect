@@ -97,6 +97,19 @@ const ConfidentialityIntro = ({ onContinue }: ConfidentialityIntroProps) => {
               <div className="pb-6">
                 <p className="text-sm font-sans font-medium text-white mb-1">{step.title}</p>
                 <p className="text-xs font-sans font-light text-white/45 leading-relaxed">{step.description}</p>
+                {'subOptions' in step && step.subOptions && (
+                  <div className="mt-3 space-y-2">
+                    {step.subOptions.map((opt) => (
+                      <div key={opt.label} className="flex gap-2.5 items-start pl-1">
+                        <div className="w-1 h-1 rounded-full bg-white/30 mt-1.5 flex-shrink-0" />
+                        <div>
+                          <span className="text-xs font-sans font-medium text-white/70">« {opt.label} »</span>
+                          <span className="text-xs font-sans font-light text-white/40"> — {opt.detail}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             </motion.div>
           ))}
