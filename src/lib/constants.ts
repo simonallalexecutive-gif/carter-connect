@@ -57,7 +57,7 @@ export const DEPARTEMENTS = [
 
 // Legal 500 rankings by practice area
 // Each practice maps cabinet names to their band ranking for that specific practice
-export const LEGAL500_BY_PRACTICE: Record<string, Record<string, { nat: string; band: string }>> = {
+export const LEGAL500_BY_PRACTICE: Record<string, Record<string, { band: string }>> = {
   "M&A / Private Equity": {
     "Bredin Prat": { nat: "Français", band: "Band 1" },
     "Darrois Villey Maillot Brochier": { nat: "Français", band: "Band 1" },
