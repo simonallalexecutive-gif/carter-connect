@@ -54,7 +54,6 @@ export const CANDIDATE_OFFERS: CandidateOffer[] = [
     tt: '1 jour / semaine',
     profilCriteres: ['Esprit entrepreneurial', 'Anglais courant', 'Capacité à encadrer'],
     ranking: 'Tier 1 · Private Equity',
-    natFlag: 'US',
   },
   {
     id: 'OFF-C-003',
