@@ -12,7 +12,7 @@ const SeniorityBadge = ({ info, className, hideExactPQE = false }: SeniorityBadg
 
   return (
     <span className={cn("inline-flex items-center gap-1.5 px-3 py-1 rounded-sm text-xs font-sans font-medium tracking-wide", info.colorClass, className)}>
-      {hideExactPQE ? info.label : `${info.label} · ${info.years} ans PQE`}
+      {hideExactPQE ? info.label : `${info.label} · ${info.years} ans`}
     </span>
   );
 };

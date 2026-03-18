@@ -26,14 +26,15 @@ const YEARS = Array.from({ length: currentYear - 1980 + 1 }, (_, i) => currentYe
 
 const DEPT_TO_L500: Record<string, string> = {
   "Arbitrage / Contentieux": "contentieux",
-  "Banque & Finance": "banque",
+  "Financement": "banque",
   "Concurrence": "regulatory",
   "Droit Public": "public",
   "Droit Social": "social",
   "Fiscal": "fiscal",
   "Immobilier": "immo",
   "IP / Tech": "vc",
-  "M&A / Private Equity": "ma",
+  "M&A (dominante)": "ma",
+  "Private Equity (dominante)": "ma",
   "Marchés de Capitaux": "finproj",
   "Restructuring": "restructuring",
 };
@@ -95,8 +96,8 @@ const Step2Identity = () => {
   const autoDetectRanking = (cabinetName: string, dept: string) => {
     const practiceData = LEGAL500_BY_PRACTICE[dept];
     if (practiceData?.[cabinetName]) {
-      store.setField('cabNat', practiceData[cabinetName].nat);
       store.setField('cabTier', practiceData[cabinetName].band);
+      store.setField('cabNat', '');
       return;
     }
     let firmEntry = LEGAL500_DB[cabinetName];
@@ -535,7 +536,7 @@ const Step2Identity = () => {
 
         {/* Département */}
         <div>
-          <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Département / Pratique *</Label>
+          <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Votre pratique *</Label>
           <Select value={store.departement} onValueChange={handleDepartmentChange}>
             <SelectTrigger className="mt-2"><SelectValue placeholder="Sélectionner" /></SelectTrigger>
             <SelectContent>
@@ -561,11 +562,6 @@ const Step2Identity = () => {
           <div className="carter-card p-5">
             <p className="carter-label mb-3">Classement Legal 500</p>
             <div className="flex items-center gap-3 flex-wrap">
-              {store.cabNat && (
-                <span className="text-xs font-sans font-medium px-3 py-1.5 rounded-sm bg-secondary text-foreground border border-border">
-                  {store.cabNat}
-                </span>
-              )}
               <span className={cn(
                 "text-xs font-sans font-medium px-3 py-1.5 rounded-sm border",
                 store.cabTier && !store.cabTier.includes('Non')
@@ -579,19 +575,19 @@ const Step2Identity = () => {
         )}
 
         {/* Rémunération */}
-        <div className="carter-card p-8 space-y-6">
+        <div className="rounded-sm p-8 space-y-6 bg-foreground text-background">
           <div>
-            <p className="carter-label mb-2">Confidentiel</p>
-            <h3 className="font-serif text-xl text-foreground font-normal">Rémunération</h3>
+            <p className="text-[10px] font-sans font-medium tracking-[0.15em] uppercase text-background/50 mb-2">Confidentiel</p>
+            <h3 className="font-serif text-xl text-background font-normal">Rémunération</h3>
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Rétrocession brute annuelle (€) *</Label>
-              <Input value={store.retrocession} onChange={e => store.setField('retrocession', formatNumberWithDots(e.target.value))} placeholder="80.000" className="mt-2" />
+              <Label className="font-sans text-xs font-light text-background/50 uppercase tracking-wider">Rétrocession brute annuelle (€) *</Label>
+              <Input value={store.retrocession} onChange={e => store.setField('retrocession', formatNumberWithDots(e.target.value))} placeholder="80.000" className="mt-2 bg-background/10 border-background/20 text-background placeholder:text-background/30 focus:border-background/40" />
             </div>
             <div>
-              <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Bonus (€) *</Label>
-              <Input value={store.bonus} onChange={e => store.setField('bonus', formatNumberWithDots(e.target.value))} placeholder="10.000" className="mt-2" />
+              <Label className="font-sans text-xs font-light text-background/50 uppercase tracking-wider">Bonus (€) *</Label>
+              <Input value={store.bonus} onChange={e => store.setField('bonus', formatNumberWithDots(e.target.value))} placeholder="10.000" className="mt-2 bg-background/10 border-background/20 text-background placeholder:text-background/30 focus:border-background/40" />
             </div>
           </div>
 
@@ -601,24 +597,24 @@ const Step2Identity = () => {
               checked={store.hasObjectifFacturable === true}
               onCheckedChange={v => store.setField('hasObjectifFacturable', v)}
             />
-            <Label className="font-sans text-sm font-light">Objectif d'heures facturables</Label>
+            <Label className="font-sans text-sm font-light text-background">Objectif d'heures facturables</Label>
           </div>
           {store.hasObjectifFacturable && (
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Objectif (heures/an)</Label>
-                <Input value={store.objectifFacturable} onChange={e => store.setField('objectifFacturable', formatNumberWithDots(e.target.value))} placeholder="1.800" className="mt-2" />
+                <Label className="font-sans text-xs font-light text-background/50 uppercase tracking-wider">Objectif (heures/an)</Label>
+                <Input value={store.objectifFacturable} onChange={e => store.setField('objectifFacturable', formatNumberWithDots(e.target.value))} placeholder="1.800" className="mt-2 bg-background/10 border-background/20 text-background placeholder:text-background/30 focus:border-background/40" />
               </div>
               <div>
-                <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Réalisé en pratique (heures/an)</Label>
-                <Input value={store.objectifFacturableReel} onChange={e => store.setField('objectifFacturableReel', formatNumberWithDots(e.target.value))} placeholder="1.650" className="mt-2" />
+                <Label className="font-sans text-xs font-light text-background/50 uppercase tracking-wider">Réalisé en pratique (heures/an)</Label>
+                <Input value={store.objectifFacturableReel} onChange={e => store.setField('objectifFacturableReel', formatNumberWithDots(e.target.value))} placeholder="1.650" className="mt-2 bg-background/10 border-background/20 text-background placeholder:text-background/30 focus:border-background/40" />
               </div>
             </div>
           )}
 
           {/* Rétrocession flexibility */}
-          <div className="border-t border-border pt-6 space-y-4">
-            <Label className="font-sans text-sm font-medium block">
+          <div className="border-t border-background/20 pt-6 space-y-4">
+            <Label className="font-sans text-sm font-medium block text-background">
               Souhaitez-vous conserver a minima votre rétrocession actuelle ?
             </Label>
             <div className="flex gap-6">
@@ -628,9 +624,9 @@ const Step2Identity = () => {
                   name="conserverRetro"
                   checked={store.conserverRetrocession === true}
                   onChange={() => store.setField('conserverRetrocession', true)}
-                  className="accent-[hsl(38,55%,72%)]"
+                  className="accent-white"
                 />
-                <span className="font-sans text-sm font-light">Oui, c'est indispensable</span>
+                <span className="font-sans text-sm font-light text-background">Oui, c'est indispensable</span>
               </label>
               <label className="flex items-center gap-2 cursor-pointer">
                 <input
@@ -638,26 +634,11 @@ const Step2Identity = () => {
                   name="conserverRetro"
                   checked={store.conserverRetrocession === false}
                   onChange={() => store.setField('conserverRetrocession', false)}
-                  className="accent-[hsl(38,55%,72%)]"
+                  className="accent-white"
                 />
-                <span className="font-sans text-sm font-light">Envisageable selon le projet</span>
+                <span className="font-sans text-sm font-light text-background">Envisageable selon le projet</span>
               </label>
             </div>
-            {store.conserverRetrocession === false && (
-              <div className="space-y-3 pl-1">
-                <p className="text-xs text-muted-foreground font-sans font-light">Pour quelles raisons accepteriez-vous une baisse ?</p>
-                {RAISONS_BAISSE_RETRO.map(raison => (
-                  <div key={raison} className="flex items-center gap-2">
-                    <Checkbox
-                      id={`raison-${raison}`}
-                      checked={store.raisonsBaisseRetro.includes(raison)}
-                      onCheckedChange={() => toggleRaisonBaisse(raison)}
-                    />
-                    <label htmlFor={`raison-${raison}`} className="font-sans text-sm font-light cursor-pointer">{raison}</label>
-                  </div>
-                ))}
-              </div>
-            )}
           </div>
         </div>
 

@@ -1,13 +1,14 @@
 import { useRegistrationStore } from '@/stores/registrationStore';
 import StepProgress from '@/components/registration/StepProgress';
 import Step1Hero from '@/components/registration/Step1Hero';
+import ConfidentialityIntro from '@/components/registration/ConfidentialityIntro';
 import Step2Identity from '@/components/registration/Step2Identity';
 import Step3Activity from '@/components/registration/Step3Activity';
 import Step4Project from '@/components/registration/Step4Project';
 import Step5Status from '@/components/registration/Step5Status';
 import Step6Review from '@/components/registration/Step6Review';
 import Step7Confirm from '@/components/registration/Step7Confirm';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import LogoBanner from '@/components/layout/LogoBanner';
 
@@ -18,6 +19,9 @@ const RegisterPage = () => {
   const navigate = useNavigate();
   const isDarkStep = currentStep === 1 || currentStep === 7;
 
+  // Show the confidentiality intro between Step 1 "Je m'inscris" and Step 2
+  const [showConfIntro, setShowConfIntro] = useState(false);
+
   useEffect(() => {
     const startStep = searchParams.get('start');
     if (startStep === '2' && currentStep === 1) {
@@ -27,35 +31,50 @@ const RegisterPage = () => {
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, [currentStep]);
+  }, [currentStep, showConfIntro]);
 
   // Apply theme-light to <body> so Radix portals (Select, Popover, etc.) inherit light tokens
   useEffect(() => {
-    if (!isDarkStep) {
+    if (!isDarkStep && !showConfIntro) {
       document.body.classList.add('theme-light');
     } else {
       document.body.classList.remove('theme-light');
     }
     return () => document.body.classList.remove('theme-light');
-  }, [isDarkStep]);
+  }, [isDarkStep, showConfIntro]);
+
+  // Intercept nextStep from Step1Hero to show confidentiality intro
+  useEffect(() => {
+    if (currentStep === 2 && showConfIntro) {
+      // Stay on intro
+    }
+  }, [currentStep, showConfIntro]);
+
+  const handleConfIntroComplete = () => {
+    setShowConfIntro(false);
+    goToStep(2);
+  };
 
   const renderStep = () => {
+    if (showConfIntro) {
+      return <ConfidentialityIntro onContinue={handleConfIntroComplete} />;
+    }
     switch (currentStep) {
-      case 1: return <Step1Hero />;
+      case 1: return <Step1Hero onBeforeRegister={() => setShowConfIntro(true)} />;
       case 2: return <Step2Identity />;
       case 3: return <Step3Activity />;
       case 4: return <Step4Project />;
       case 5: return <Step5Status />;
       case 6: return <Step6Review />;
       case 7: return <Step7Confirm />;
-      default: return <Step1Hero />;
+      default: return <Step1Hero onBeforeRegister={() => setShowConfIntro(true)} />;
     }
   };
 
-  const showProgress = currentStep >= 2 && currentStep <= 6;
+  const showProgress = !showConfIntro && currentStep >= 2 && currentStep <= 6;
 
   return (
-    <div className={isDarkStep ? '' : 'theme-light bg-background min-h-screen'}>
+    <div className={(isDarkStep || showConfIntro) ? '' : 'theme-light bg-background min-h-screen'}>
       {showProgress && (
         <>
           <LogoBanner subtitle="Espace Candidat" />

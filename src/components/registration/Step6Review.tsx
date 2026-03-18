@@ -90,7 +90,7 @@ const Step6Review = () => {
             candidate_name: `${store.prenom} ${store.nom}`.trim(),
             candidate_email: store.email,
             candidate_cabinet: store.cabinet || '',
-            candidate_seniority: pqe ? `${pqe.label} · ${pqe.years} ans PQE` : '',
+            candidate_seniority: pqe ? `${pqe.label} · ${pqe.years} ans` : '',
             candidate_department: store.departement || '',
             booking_date: bookingDate,
             booking_time: bookingTime,
@@ -170,7 +170,6 @@ const Step6Review = () => {
             <div className="grid grid-cols-2 gap-4">
               <DataRow label="Département" value={store.departement} />
               <DataRow label="Cabinet" value={store.cabinet} />
-              {store.cabNat && <DataRow label="Nationalité" value={store.cabNat} />}
               {store.cabTier && <DataRow label="Tier Legal 500" value={store.cabTier} />}
               {store.isAssocieOrCounsel && store.chiffreAffairesPortable && <DataRow label="CA portable" value={`${store.chiffreAffairesPortable} €`} />}
             </div>
@@ -272,7 +271,6 @@ const Step6Review = () => {
 
             <div className="grid grid-cols-2 gap-4 mb-8">
               <DataRow label="Pratique" value={store.departement} />
-              <DataRow label="Nationalité cabinet" value={store.cabNat || '—'} />
               <DataRow label="Classement Legal 500" value={store.cabTier || '—'} />
               {store.retrocession && <DataRow label="Rétrocession" value={`${store.retrocession} €`} />}
               {store.anglais && <DataRow label="Anglais" value={store.anglais} />}
@@ -394,7 +392,6 @@ const Step6Review = () => {
             <div className="grid grid-cols-2 gap-4 mb-8">
               <DataRow label="Cabinet" value={store.cabinet} />
               <DataRow label="Pratique" value={store.departement} />
-              {store.cabNat && <DataRow label="Nationalité" value={store.cabNat} />}
               {store.cabTier && <DataRow label="Tier" value={store.cabTier} />}
               {store.tailleOperations.length > 0 && <DataRow label="Taille opérations" value={store.tailleOperations.join(', ')} />}
               {store.anglais && <DataRow label="Anglais" value={store.anglais} />}

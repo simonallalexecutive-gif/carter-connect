@@ -19,8 +19,8 @@ const CandidateOffers = () => {
   const { activites, sermentMois, sermentAnnee } = useRegistrationStore();
   const seniorityInfo = usePQE(sermentMois, sermentAnnee);
 
-  const parsePQERange = (seniority: string): [number, number] | null => {
-    const match = seniority.match(/\((\d+)-(\d+)\s*PQE\)/);
+  const parseSeniorityRange = (seniority: string): [number, number] | null => {
+    const match = seniority.match(/\((\d+)-(\d+)\s*(?:PQE|ans)\)/);
     if (match) return [parseInt(match[1]), parseInt(match[2])];
     return null;
   };
@@ -33,7 +33,7 @@ const CandidateOffers = () => {
     if (!hasProfile) return CANDIDATE_OFFERS;
     const matched = CANDIDATE_OFFERS.filter((offer) => {
       if (seniorityInfo) {
-        const range = parsePQERange(offer.seniority);
+        const range = parseSeniorityRange(offer.seniority);
         if (range && (seniorityInfo.years < range[0] - 2 || seniorityInfo.years > range[1] + 2)) return false;
       }
       if (candidateExpertises.length > 0) {
@@ -94,7 +94,6 @@ const CandidateOffers = () => {
                           <>
                             <span className="mx-2.5 w-px h-5 bg-border inline-block" />
                             <span className="inline-flex items-center gap-2 text-[14px] font-sans text-foreground">
-                              <span className="text-xs font-bold leading-none">{offer.natFlag}</span>
                               <span className="font-semibold">{offer.ranking}</span>
                             </span>
                           </>
@@ -143,7 +142,6 @@ const CandidateOffers = () => {
                               <>
                                 <span className="mx-2.5 w-px h-5 bg-background/20 inline-block" />
                                 <span className="inline-flex items-center gap-2 text-[14px] font-sans text-background">
-                                  <span className="text-xs font-bold leading-none">{offer.natFlag}</span>
                                   <span className="font-semibold">{offer.ranking}</span>
                                 </span>
                               </>
