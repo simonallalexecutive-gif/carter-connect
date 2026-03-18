@@ -11,7 +11,11 @@ import { toast } from 'sonner';
 
 type View = 'choice' | 'login-candidat' | 'login-cabinet';
 
-const Step1Hero = () => {
+interface Step1HeroProps {
+  onBeforeRegister?: () => void;
+}
+
+const Step1Hero = ({ onBeforeRegister }: Step1HeroProps) => {
   const nextStep = useRegistrationStore(s => s.nextStep);
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
