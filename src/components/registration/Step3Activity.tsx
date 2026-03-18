@@ -255,25 +255,18 @@ const Step3Activity = () => {
                 <div className="carter-card p-6 md:p-8 mt-4 space-y-6">
                   <div>
                     <p className="carter-label mb-4">Clientèle</p>
-                    <div className="flex items-center justify-between mb-2">
+                    <div className="flex items-center justify-between mb-3">
                       <span className="text-sm font-sans text-foreground">Clientèle française</span>
                       <span className="text-sm font-sans font-bold text-foreground tabular-nums">{store.clienteleFrancaise}%</span>
                     </div>
-                    <div className="relative h-2 bg-secondary rounded-full overflow-hidden">
-                      <div className="absolute inset-y-0 left-0 bg-foreground rounded-full transition-all duration-300" style={{ width: `${store.clienteleFrancaise}%` }} />
-                    </div>
-                    <div className="flex justify-between mt-1.5">
-                      <span className="text-[10px] text-muted-foreground font-sans">0%</span>
-                      <span className="text-[10px] text-muted-foreground font-sans">100%</span>
-                    </div>
-                    <div className="flex gap-2 mt-3">
-                      {[20, 40, 50, 60, 80, 100].map(v => (
+                    <div className="flex gap-1.5 flex-wrap">
+                      {[0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100].map(v => (
                         <button
                           key={v}
                           type="button"
                           onClick={() => store.setField('clienteleFrancaise', v)}
                           className={cn(
-                            "px-2.5 py-1 rounded-sm text-[11px] font-sans border transition-all",
+                            "px-2.5 py-1.5 rounded-sm text-[11px] font-sans border transition-all min-w-[40px]",
                             store.clienteleFrancaise === v
                               ? "bg-foreground text-background border-foreground"
                               : "bg-transparent text-muted-foreground border-border hover:border-foreground"
