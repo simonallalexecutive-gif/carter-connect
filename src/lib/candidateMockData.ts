@@ -36,7 +36,6 @@ export const CANDIDATE_OFFERS: CandidateOffer[] = [
     tt: '2 jours / semaine',
     profilCriteres: ['Autonome', 'Anglais courant', 'Gestion de dossiers complexes'],
     ranking: 'Tier 1 · M&A',
-    natFlag: 'GB',
   },
   {
     id: 'OFF-C-002',
