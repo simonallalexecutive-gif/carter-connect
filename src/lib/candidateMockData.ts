@@ -23,7 +23,7 @@ export const CANDIDATE_OFFERS: CandidateOffer[] = [
     id: 'OFF-C-001',
     reference: 'LGN-2026-041',
     dept: 'M&A',
-    seniority: 'Collaborateur Senior (5-8 PQE)',
+    seniority: 'Collaborateur Senior (5-8 ans)',
     description: 'Cabinet de premier plan recherche un collaborateur senior en M&A pour renforcer son équipe dédiée aux opérations de haut de bilan. Environnement international, dossiers cross-border.',
     location: 'Paris',
     postedAt: '2026-03-08',
