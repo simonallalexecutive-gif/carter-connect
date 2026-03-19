@@ -115,15 +115,11 @@ const LandingPage = () => (
     {/* Qui sommes-nous */}
     <FounderSection />
 
-    {/* Nos engagements */}
-    <BenefitsSection />
-
-
-
-
-
     {/* Stats ticker */}
     <StatsTickerSection />
+
+    {/* Nos engagements */}
+    <BenefitsSection />
 
 
     {/* CTA */}
