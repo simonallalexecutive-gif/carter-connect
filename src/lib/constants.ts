@@ -51,7 +51,7 @@ export const CABINET_META: Record<string, { nat: string; tier: string }> = {
 
 export const DEPARTEMENTS = [
   "Arbitrage / Contentieux", "Concurrence", "Droit Public",
-  "Droit Social", "Financement", "Fiscal", "Immobilier", "IP / Tech",
+  "Droit Social", "Financement LBO", "Financement de projets", "Fiscal", "Immobilier", "IP / Tech",
   "M&A (dominante)", "Marchés de Capitaux", "Private Equity (dominante)", "Restructuring", "Autre"
 ];
 
@@ -104,7 +104,7 @@ export const LEGAL500_BY_PRACTICE: Record<string, Record<string, { band: string 
     "DLA Piper": { band: "Band 4" },
     "Baker McKenzie": { band: "Band 4" },
   },
-  "Financement": {
+  "Financement LBO": {
     "A&O Shearman": { band: "Band 1" },
     "Clifford Chance": { band: "Band 1" },
     "Linklaters": { band: "Band 1" },
@@ -120,6 +120,20 @@ export const LEGAL500_BY_PRACTICE: Record<string, Record<string, { band: string 
     "DLA Piper": { band: "Band 3" },
     "Baker McKenzie": { band: "Band 3" },
     "De Pardieu Brocas Maffei": { band: "Band 3" },
+    "Dentons": { band: "Band 4" },
+  },
+  "Financement de projets": {
+    "Gide Loyrette Nouel": { band: "Band 1" },
+    "White & Case": { band: "Band 1" },
+    "Clifford Chance": { band: "Band 1" },
+    "Linklaters": { band: "Band 2" },
+    "A&O Shearman": { band: "Band 2" },
+    "Norton Rose Fulbright": { band: "Band 2" },
+    "Hogan Lovells": { band: "Band 3" },
+    "Herbert Smith Freehills": { band: "Band 3" },
+    "DLA Piper": { band: "Band 3" },
+    "CMS Francis Lefebvre": { band: "Band 3" },
+    "Baker McKenzie": { band: "Band 4" },
     "Dentons": { band: "Band 4" },
   },
   "Droit Social": {
@@ -329,7 +343,7 @@ export const ACTIVITES_BY_PRACTICE: Record<string, { sections: { title: string; 
       },
     ],
   },
-  "Financement": {
+  "Financement LBO": {
     sections: [
       {
         title: "Type de financement",
@@ -337,10 +351,24 @@ export const ACTIVITES_BY_PRACTICE: Record<string, { sections: { title: string; 
           { key: "fin_obligataire", label: "Financement obligataire" },
           { key: "fin_acq", label: "Financement d'acquisition" },
           { key: "fin_lbo", label: "Financement LBO" },
-          { key: "fin_projets", label: "Financement de projets" },
           { key: "fin_immo", label: "Financement immobilier" },
           { key: "fin_actifs", label: "Financement d'actifs" },
           { key: "fin_titrisation", label: "Titrisation" },
+        ],
+      },
+    ],
+  },
+  "Financement de projets": {
+    sections: [
+      {
+        title: "Type de financement",
+        items: [
+          { key: "finp_infra", label: "Infrastructures" },
+          { key: "finp_energie", label: "Énergie & ENR" },
+          { key: "finp_ppp", label: "PPP / Concessions" },
+          { key: "finp_export", label: "Crédit export" },
+          { key: "finp_immo", label: "Financement immobilier" },
+          { key: "finp_structuré", label: "Financements structurés" },
         ],
       },
     ],

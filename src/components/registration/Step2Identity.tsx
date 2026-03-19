@@ -26,7 +26,8 @@ const YEARS = Array.from({ length: currentYear - 1980 + 1 }, (_, i) => currentYe
 
 const DEPT_TO_L500: Record<string, string> = {
   "Arbitrage / Contentieux": "contentieux",
-  "Financement": "banque",
+  "Financement LBO": "banque",
+  "Financement de projets": "finproj",
   "Concurrence": "regulatory",
   "Droit Public": "public",
   "Droit Social": "social",

@@ -29,7 +29,7 @@ const CHART_COLORS = [
   'hsl(225, 45%, 18%)',
 ];
 
-const SPECIALIZED_DEPTS = ['Financement', 'Restructuring', 'Droit Social', 'M&A (dominante)', 'Private Equity (dominante)', 'Concurrence', 'Fiscal', 'Droit Public'];
+const SPECIALIZED_DEPTS = ['Financement LBO', 'Financement de projets', 'Restructuring', 'Droit Social', 'M&A (dominante)', 'Private Equity (dominante)', 'Concurrence', 'Fiscal', 'Droit Public'];
 
 const Step3Activity = () => {
   const store = useRegistrationStore();
@@ -87,7 +87,7 @@ const Step3Activity = () => {
 
       <div className="space-y-8">
         {/* Specialized panels */}
-        {store.departement === 'Financement' && practiceActivities.sections.filter(s => s.title === 'Type de financement').map(section => (
+        {(store.departement === 'Financement LBO' || store.departement === 'Financement de projets') && practiceActivities.sections.filter(s => s.title === 'Type de financement').map(section => (
           <div key={section.title}>
             <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-3 block">{section.title}</Label>
             <FinanceActivityPanel items={section.items} />
@@ -323,7 +323,7 @@ const Step3Activity = () => {
         </div>
 
         {/* Types clients – hidden for Financement */}
-        {store.departement !== 'Financement' && (
+        {store.departement !== 'Financement LBO' && store.departement !== 'Financement de projets' && (
           <div>
             <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-3 block">Types de clients</Label>
             <ChipSelector

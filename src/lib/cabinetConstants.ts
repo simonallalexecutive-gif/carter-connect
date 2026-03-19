@@ -572,8 +572,9 @@ export const SPLIT_COLORS = [
 
 export const L500_URLS: Record<string, string> = {
   'Banque & Finance — Transactions': 'https://www.legal500.fr/c/paris/banque-et-finance/banque-et-finance-transactions',
-  'Corporate / M&A': 'https://www.legal500.fr/c/paris/corporate-and-ma/corporate-and-ma',
-  'Private Equity': 'https://www.legal500.fr/c/paris/corporate-and-ma/private-equity',
+  'Corporate / M&A': 'https://www.legal500.fr/c/paris/fusions-acquisitions',
+  'Private Equity': 'https://www.legal500.com/c/france/private-equity-lbo',
+  'Financement de projets': 'https://www.legal500.fr/c/paris/financement-de-projets',
   'Droit Social': 'https://www.legal500.fr/c/paris/employment/employment',
   'Immobilier': 'https://www.legal500.fr/c/paris/real-estate/real-estate',
   'Restructuring / Insolvabilité': 'https://www.legal500.fr/c/paris/dispute-resolution/restructuring-and-insolvency',
