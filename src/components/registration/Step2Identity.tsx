@@ -35,7 +35,7 @@ const DEPT_TO_L500: Record<string, string> = {
   "Immobilier": "immo",
   "IP / Tech": "vc",
   "M&A (dominante)": "ma",
-  "Private Equity (dominante)": "ma",
+  "Private Equity (dominante)": "pe",
   "Marchés de Capitaux": "finproj",
   "Restructuring": "restructuring",
 };
