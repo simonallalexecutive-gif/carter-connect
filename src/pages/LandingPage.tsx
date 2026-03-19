@@ -5,11 +5,11 @@ import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import DiscoverSection from '@/components/landing/DiscoverSection';
 import BenefitsSection from '@/components/landing/BenefitsSection';
+import FounderSection from '@/components/landing/FounderSection';
 
 import StatsTickerSection from '@/components/landing/StatsTickerSection';
 import { ArrowRight } from 'lucide-react';
 import heroVideoAsset from '@/assets/hero-video-abstract-bw.mp4.asset.json';
-import founderPhoto from '@/assets/founder-simon.jpeg';
 
 const firmNames = [
   'Bredin Prat', 'Darrois Villey', 'Gide', 'Cleary Gottlieb', 'De Pardieu Brocas',
@@ -76,21 +76,6 @@ const LandingPage = () => (
         </motion.div>
       </div>
 
-      {/* Bottom-right citation */}
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.4, duration: 1 }}
-        className="absolute bottom-36 md:bottom-48 right-6 sm:right-8 lg:right-10 z-10 max-w-[22rem] md:max-w-lg text-right"
-      >
-        <p className="font-serif text-lg sm:text-xl md:text-[1.35rem] text-white/60 italic leading-snug mb-2 font-[500] tracking-[-0.01em]">
-          «&nbsp;Logan se positionne comme la plateforme la plus exigeante et structurée du marché, offrant un accompagnement sur mesure, résolument confidentiel et parfaitement ciblé.&nbsp;»
-        </p>
-        <span className="text-[10px] sm:text-[11px] font-sans font-medium tracking-[0.15em] uppercase text-white/40">
-          — L'équipe Logan
-        </span>
-      </motion.div>
-
       {/* Logo marquee */}
       <motion.div
         initial={{ opacity: 0 }}
@@ -131,59 +116,7 @@ const LandingPage = () => (
     <BenefitsSection />
 
     {/* Qui sommes-nous */}
-    <section className="py-24 md:py-32 bg-foreground overflow-hidden">
-      <div className="carter-container">
-        <div className="max-w-4xl mx-auto">
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="text-xs font-sans font-medium tracking-[0.2em] uppercase text-white/50 mb-16 text-center"
-          >
-            Qui sommes-nous
-          </motion.p>
-
-          <div className="flex flex-col md:flex-row items-center gap-12 md:gap-16">
-            {/* Photo */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              className="flex-shrink-0"
-            >
-              <div className="w-48 h-48 md:w-56 md:h-56 rounded-full bg-black border border-white/20 overflow-hidden">
-                <img src={founderPhoto} alt="Simon Allal, fondateur de Logan" className="w-full h-full object-cover object-[45%_25%]" />
-              </div>
-            </motion.div>
-
-            {/* Bio */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
-              className="text-center md:text-left flex-1"
-            >
-              <h3 className="font-serif text-2xl md:text-3xl text-white font-normal mb-2 tracking-[-0.01em]">
-                Simon Allal
-              </h3>
-              <p className="text-xs font-sans font-medium tracking-[0.2em] uppercase text-white/50 mb-6">
-                Fondateur
-              </p>
-              <p className="font-sans text-sm md:text-base text-white/60 font-light leading-relaxed mb-8 max-w-lg">
-                Fort d'une expertise approfondie du marché juridique, Simon Allal a fondé Logan avec la conviction qu'une approche confidentielle, ciblée et humaine pouvait transformer le recrutement des avocats d'affaires.
-              </p>
-              <Link to="/a-propos" className="inline-flex items-center gap-2 text-sm font-sans font-medium text-white/70 hover:text-white transition-colors duration-300 group">
-                À propos
-                <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
-              </Link>
-            </motion.div>
-          </div>
-        </div>
-      </div>
-    </section>
+    <FounderSection />
 
 
 
