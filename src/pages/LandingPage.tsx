@@ -59,7 +59,7 @@ const LandingPage = () => (
             &nbsp;
           </motion.p>
           <motion.h1 variants={fadeUp} className="text-[1.65rem] sm:text-[2rem] md:text-[2.78rem] lg:text-[4.2rem] font-serif font-[500] text-white leading-[1.12] md:leading-[1.08] mb-6 md:mb-8 tracking-[-0.01em]">
-            Connecting top{' '}<span className="text-white/70">legal minds</span>
+            Connecting top-tier{' '}<span className="text-white/70">legal minds</span>
           </motion.h1>
           <motion.p variants={fadeUp} className="text-base sm:text-lg md:text-xl text-white/80 font-sans font-light max-w-2xl mb-3 leading-relaxed">
             Le premier hub confidentiel, piloté par des chasseurs spécialisés, dédié aux candidats et cabinets d'affaires les plus exigeants du marché.
