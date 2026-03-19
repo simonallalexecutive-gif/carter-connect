@@ -112,11 +112,11 @@ const LandingPage = () => (
     {/* Découvrir Logan — candidat / cabinet slides */}
     <DiscoverSection />
 
-    {/* Nos engagements */}
-    <BenefitsSection />
-
     {/* Qui sommes-nous */}
     <FounderSection />
+
+    {/* Nos engagements */}
+    <BenefitsSection />
 
 
 

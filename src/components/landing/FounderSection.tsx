@@ -1,17 +1,11 @@
-import { useState } from 'react';
 import { motion } from 'motion/react';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
-import { Slider } from '@/components/ui/slider';
 import founderPhoto from '@/assets/founder-simon.jpeg';
 
 const FounderSection = () => {
-  const [posX, setPosX] = useState(45);
-  const [posY, setPosY] = useState(25);
-  const [editing, setEditing] = useState(false);
-
   return (
-    <section className="py-20 md:py-28 bg-black overflow-hidden">
+    <section className="py-20 md:py-28 bg-foreground overflow-hidden">
       <div className="carter-container">
         <div className="max-w-5xl mx-auto">
           {/* Section label */}
@@ -25,7 +19,7 @@ const FounderSection = () => {
             Qui sommes-nous
           </motion.p>
 
-          {/* Citation — moved from hero */}
+          {/* Citation */}
           <motion.blockquote
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -43,73 +37,22 @@ const FounderSection = () => {
 
           {/* Founder card */}
           <div className="flex flex-col md:flex-row items-center gap-10 md:gap-16">
-            {/* Photo with crop control */}
+            {/* Photo */}
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              className="flex-shrink-0 flex flex-col items-center gap-4"
+              className="flex-shrink-0"
             >
-              <div
-                className="w-48 h-48 md:w-56 md:h-56 rounded-full bg-black border border-white/20 overflow-hidden cursor-pointer group relative"
-                onClick={() => setEditing(!editing)}
-              >
+              <div className="w-48 h-48 md:w-56 md:h-56 rounded-full bg-black border border-white/20 overflow-hidden">
                 <img
                   src={founderPhoto}
                   alt="Simon Allal, fondateur de Logan"
-                  className="w-full h-full object-cover transition-transform duration-300"
-                  style={{ objectPosition: `${posX}% ${posY}%` }}
+                  className="w-full h-full object-cover"
+                  style={{ objectPosition: '45% 25%' }}
                 />
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center">
-                  <span className="text-white/0 group-hover:text-white/70 text-[10px] font-sans font-medium tracking-wider uppercase transition-colors">
-                    Recadrer
-                  </span>
-                </div>
               </div>
-
-              {/* Crop sliders — LinkedIn-style */}
-              {editing && (
-                <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
-                  className="w-48 md:w-56 space-y-3 pt-2"
-                >
-                  <div>
-                    <label className="text-[9px] font-sans font-medium tracking-[0.15em] uppercase text-white/40 mb-1 block">
-                      Horizontal
-                    </label>
-                    <Slider
-                      value={[posX]}
-                      onValueChange={([v]) => setPosX(v)}
-                      min={0}
-                      max={100}
-                      step={1}
-                      className="[&_[role=slider]]:h-3.5 [&_[role=slider]]:w-3.5 [&_[role=slider]]:border-white/60 [&_[role=slider]]:bg-white [&_.relative]:h-1 [&_.absolute]:bg-white/50 [&_.relative]:bg-white/20"
-                    />
-                  </div>
-                  <div>
-                    <label className="text-[9px] font-sans font-medium tracking-[0.15em] uppercase text-white/40 mb-1 block">
-                      Vertical
-                    </label>
-                    <Slider
-                      value={[posY]}
-                      onValueChange={([v]) => setPosY(v)}
-                      min={0}
-                      max={100}
-                      step={1}
-                      className="[&_[role=slider]]:h-3.5 [&_[role=slider]]:w-3.5 [&_[role=slider]]:border-white/60 [&_[role=slider]]:bg-white [&_.relative]:h-1 [&_.absolute]:bg-white/50 [&_.relative]:bg-white/20"
-                    />
-                  </div>
-                  <button
-                    onClick={(e) => { e.stopPropagation(); setEditing(false); }}
-                    className="w-full text-[10px] font-sans font-medium tracking-wider uppercase text-white/60 hover:text-white border border-white/20 rounded-sm py-1.5 transition-colors"
-                  >
-                    Valider
-                  </button>
-                </motion.div>
-              )}
             </motion.div>
 
             {/* Bio */}
