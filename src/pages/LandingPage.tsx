@@ -76,21 +76,6 @@ const LandingPage = () => (
         </motion.div>
       </div>
 
-      {/* Bottom-right citation */}
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.4, duration: 1 }}
-        className="absolute bottom-36 md:bottom-48 right-6 sm:right-8 lg:right-10 z-10 max-w-[22rem] md:max-w-lg text-right"
-      >
-        <p className="font-serif text-lg sm:text-xl md:text-[1.35rem] text-white/60 italic leading-snug mb-2 font-[500] tracking-[-0.01em]">
-          «&nbsp;Logan se positionne comme la plateforme la plus exigeante et structurée du marché, offrant un accompagnement sur mesure, résolument confidentiel et parfaitement ciblé.&nbsp;»
-        </p>
-        <span className="text-[10px] sm:text-[11px] font-sans font-medium tracking-[0.15em] uppercase text-white/40">
-          — L'équipe Logan
-        </span>
-      </motion.div>
-
       {/* Logo marquee */}
       <motion.div
         initial={{ opacity: 0 }}
