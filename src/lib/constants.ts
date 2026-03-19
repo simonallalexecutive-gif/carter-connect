@@ -104,7 +104,7 @@ export const LEGAL500_BY_PRACTICE: Record<string, Record<string, { band: string 
     "DLA Piper": { band: "Band 4" },
     "Baker McKenzie": { band: "Band 4" },
   },
-  "Financement": {
+  "Financement LBO": {
     "A&O Shearman": { band: "Band 1" },
     "Clifford Chance": { band: "Band 1" },
     "Linklaters": { band: "Band 1" },
@@ -120,6 +120,20 @@ export const LEGAL500_BY_PRACTICE: Record<string, Record<string, { band: string 
     "DLA Piper": { band: "Band 3" },
     "Baker McKenzie": { band: "Band 3" },
     "De Pardieu Brocas Maffei": { band: "Band 3" },
+    "Dentons": { band: "Band 4" },
+  },
+  "Financement de projets": {
+    "Gide Loyrette Nouel": { band: "Band 1" },
+    "White & Case": { band: "Band 1" },
+    "Clifford Chance": { band: "Band 1" },
+    "Linklaters": { band: "Band 2" },
+    "A&O Shearman": { band: "Band 2" },
+    "Norton Rose Fulbright": { band: "Band 2" },
+    "Hogan Lovells": { band: "Band 3" },
+    "Herbert Smith Freehills": { band: "Band 3" },
+    "DLA Piper": { band: "Band 3" },
+    "CMS Francis Lefebvre": { band: "Band 3" },
+    "Baker McKenzie": { band: "Band 4" },
     "Dentons": { band: "Band 4" },
   },
   "Droit Social": {
