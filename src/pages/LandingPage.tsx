@@ -5,6 +5,7 @@ import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import DiscoverSection from '@/components/landing/DiscoverSection';
 import BenefitsSection from '@/components/landing/BenefitsSection';
+import FounderSection from '@/components/landing/FounderSection';
 
 import StatsTickerSection from '@/components/landing/StatsTickerSection';
 import { ArrowRight } from 'lucide-react';
