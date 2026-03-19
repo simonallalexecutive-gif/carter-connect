@@ -87,7 +87,7 @@ const Step3Activity = () => {
 
       <div className="space-y-8">
         {/* Specialized panels */}
-        {store.departement === 'Financement' && practiceActivities.sections.filter(s => s.title === 'Type de financement').map(section => (
+        {(store.departement === 'Financement LBO' || store.departement === 'Financement de projets') && practiceActivities.sections.filter(s => s.title === 'Type de financement').map(section => (
           <div key={section.title}>
             <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-3 block">{section.title}</Label>
             <FinanceActivityPanel items={section.items} />
