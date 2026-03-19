@@ -343,7 +343,7 @@ export const ACTIVITES_BY_PRACTICE: Record<string, { sections: { title: string; 
       },
     ],
   },
-  "Financement": {
+  "Financement LBO": {
     sections: [
       {
         title: "Type de financement",
@@ -351,10 +351,24 @@ export const ACTIVITES_BY_PRACTICE: Record<string, { sections: { title: string; 
           { key: "fin_obligataire", label: "Financement obligataire" },
           { key: "fin_acq", label: "Financement d'acquisition" },
           { key: "fin_lbo", label: "Financement LBO" },
-          { key: "fin_projets", label: "Financement de projets" },
           { key: "fin_immo", label: "Financement immobilier" },
           { key: "fin_actifs", label: "Financement d'actifs" },
           { key: "fin_titrisation", label: "Titrisation" },
+        ],
+      },
+    ],
+  },
+  "Financement de projets": {
+    sections: [
+      {
+        title: "Type de financement",
+        items: [
+          { key: "finp_infra", label: "Infrastructures" },
+          { key: "finp_energie", label: "Énergie & ENR" },
+          { key: "finp_ppp", label: "PPP / Concessions" },
+          { key: "finp_export", label: "Crédit export" },
+          { key: "finp_immo", label: "Financement immobilier" },
+          { key: "finp_structuré", label: "Financements structurés" },
         ],
       },
     ],

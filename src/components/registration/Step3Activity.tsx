@@ -323,7 +323,7 @@ const Step3Activity = () => {
         </div>
 
         {/* Types clients – hidden for Financement */}
-        {store.departement !== 'Financement' && (
+        {store.departement !== 'Financement LBO' && store.departement !== 'Financement de projets' && (
           <div>
             <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-3 block">Types de clients</Label>
             <ChipSelector
