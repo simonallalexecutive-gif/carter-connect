@@ -10,7 +10,6 @@ import FounderSection from '@/components/landing/FounderSection';
 import StatsTickerSection from '@/components/landing/StatsTickerSection';
 import { ArrowRight } from 'lucide-react';
 import heroVideoAsset from '@/assets/hero-video-abstract-bw.mp4.asset.json';
-import founderPhoto from '@/assets/founder-simon.jpeg';
 
 const firmNames = [
   'Bredin Prat', 'Darrois Villey', 'Gide', 'Cleary Gottlieb', 'De Pardieu Brocas',
