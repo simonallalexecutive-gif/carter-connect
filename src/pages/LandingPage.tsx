@@ -58,7 +58,7 @@ const LandingPage = () => (
           <motion.p variants={fadeUp} className="text-xs font-sans font-medium tracking-[0.25em] uppercase text-white/50 mb-6 md:mb-10">
             &nbsp;
           </motion.p>
-          <motion.h1 variants={fadeUp} className="text-[1.65rem] sm:text-[2rem] md:text-[2.78rem] lg:text-[4.2rem] font-serif font-[500] text-white leading-[1.12] md:leading-[1.08] mb-6 md:mb-8 tracking-[-0.01em]">
+          <motion.h1 variants={fadeUp} className="text-[1.45rem] sm:text-[1.75rem] md:text-[2.4rem] lg:text-[3.5rem] font-serif font-[500] text-white leading-[1.12] md:leading-[1.08] mb-6 md:mb-8 tracking-[-0.01em] whitespace-nowrap">
             Connecting <em className="italic">top-tier</em>{' '}<span className="text-white/70">legal minds</span>
           </motion.h1>
           <motion.p variants={fadeUp} className="text-base sm:text-lg md:text-xl text-white/80 font-sans font-light max-w-2xl mb-3 leading-relaxed">
