@@ -101,7 +101,7 @@ const LandingPage = () => (
 
           {/* Static "Nos partenaires" chip — hidden on small mobile */}
           <div className="hidden sm:block flex-shrink-0 pl-8 pr-6 md:pr-10 relative z-20 bg-gradient-to-r from-transparent via-black to-black">
-            <span className="inline-block px-5 py-2 border border-white/40 rounded-sm text-[12px] md:text-[14.5px] font-serif font-normal tracking-wide text-white whitespace-nowrap cursor-default leading-none">
+            <span className="inline-block px-5 py-2 border border-white/40 rounded-sm text-sm font-sans font-medium tracking-wide text-white whitespace-nowrap cursor-default leading-none">
               Nos partenaires
             </span>
           </div>
