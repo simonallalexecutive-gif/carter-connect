@@ -62,7 +62,7 @@ const LandingPage = () => (
             Connecting <em className="italic">top-tier</em>{' '}<span className="text-white/70">legal minds</span>
           </motion.h1>
           <motion.p variants={fadeUp} className="text-base sm:text-lg md:text-xl text-white/80 font-sans font-light max-w-2xl mb-3 leading-relaxed">
-            Un réseau confidentiel, piloté par des chasseurs spécialisés, dédié aux candidats et cabinets d'affaires les plus exigeants du marché.
+            Un réseau confidentiel, piloté, entretenu et encadré par des chasseurs spécialisés, dédié aux candidats et cabinets d'affaires les plus exigeants du marché.
           </motion.p>
           <motion.div variants={fadeUp} className="mb-8 md:mb-14" />
           <motion.div variants={fadeUp}>
