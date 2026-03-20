@@ -10,27 +10,27 @@ const engagements = [
   },
   {
     id: 'ciblee',
-    label: 'Approche ciblée',
+    label: 'Approche ciblée et accompagnement sur mesure',
     detail: 'Des rapprochements précis, fondés sur l\'expertise, la séniorité et les aspirations de chaque profil.',
   },
   {
     id: 'accompagnement',
-    label: 'Accompagnement individualisé et sur mesure',
+    label: 'Accompagnement individualisé et coaching personnalisé',
     detail: 'Un consultant dédié valide chaque mise en relation et vous guide de bout en bout, avec une attention personnalisée.',
   },
   {
     id: 'acces',
-    label: 'Un accès privilégié constant à votre marché',
+    label: 'Accès privilégié et visibilité continu de votre marché',
     detail: 'Restez connecté en permanence aux mouvements du marché juridique, sans effort et en toute discrétion.',
   },
   {
     id: 'reseau',
-    label: 'Un réseau qualifié et actualisé',
+    label: 'Réseau ultra qualifié entretenu et alimenté chaque jour',
     detail: 'Un vivier fermé de profils rigoureusement sélectionnés, mis à jour en continu dans chaque spécialité.',
   },
   {
     id: 'strategique',
-    label: 'Des rapprochements stratégiques',
+    label: 'Matching intelligent des profils et opportunités',
     detail: 'Un modèle transparent qui aligne les intérêts de toutes les parties pour des collaborations durables.',
   },
 ];
