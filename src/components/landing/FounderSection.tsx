@@ -35,17 +35,17 @@ const FounderSection = () => {
             </span>
           </motion.blockquote>
 
-          {/* Founder card */}
-          <div className="flex flex-col items-center gap-10">
-            {/* Photo */}
+          {/* Founder card — photo left, bio right */}
+          <div className="flex flex-col md:flex-row items-center md:items-start gap-10 md:gap-14 max-w-3xl mx-auto">
+            {/* Photo + name */}
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              className="flex-shrink-0"
+              className="flex-shrink-0 text-center"
             >
-              <div className="w-48 h-48 md:w-56 md:h-56 rounded-full bg-black border border-white/20 overflow-hidden">
+              <div className="w-40 h-40 md:w-48 md:h-48 rounded-full bg-black border border-white/20 overflow-hidden mx-auto mb-4">
                 <img
                   src={founderPhoto}
                   alt="Simon Allal, fondateur de Logan"
@@ -53,24 +53,26 @@ const FounderSection = () => {
                   style={{ objectPosition: '45% 25%' }}
                 />
               </div>
+              <h3 className="font-serif text-xl md:text-2xl text-white font-normal mb-1 tracking-[-0.01em]">
+                Simon Allal
+              </h3>
+              <p className="text-[10px] font-sans font-medium tracking-[0.2em] uppercase text-white/50">
+                Fondateur
+              </p>
             </motion.div>
 
             {/* Bio */}
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
-              className="text-center flex-1"
+              className="flex-1 text-center md:text-left md:pt-4"
             >
-              <h3 className="font-serif text-2xl md:text-3xl text-white font-normal mb-2 tracking-[-0.01em]">
-                Simon Allal
-              </h3>
-              <p className="text-xs font-sans font-medium tracking-[0.2em] uppercase text-white/50 mb-6">
-                Fondateur
-              </p>
-              <p className="font-sans text-sm md:text-base text-white/60 font-light leading-relaxed mb-8 max-w-lg mx-auto">
-                Fort d'une expertise approfondie du marché juridique, Simon Allal a fondé Logan avec la conviction qu'une approche confidentielle, ciblée et humaine pouvait transformer le recrutement des avocats d'affaires.
+              <p className="font-sans text-sm md:text-[0.95rem] text-white/60 font-light leading-relaxed mb-8">
+                Fort d'un réseau solidement ancré et d'une expertise approfondie du marché des avocats d'affaires, Simon Allal a fondé Logan avec une ambition claire&nbsp;: accélérer et affiner le matching grâce à l'IA, pour capter toute la dynamique du marché.
+                <br /><br />
+                Mais c'est l'intervention humaine qui fait la différence — celle qui transforme une compatibilité évidente sur le papier en une collaboration réellement réussie.
               </p>
               <Link to="/a-propos" className="inline-flex items-center gap-2 text-sm font-sans font-medium text-white/70 hover:text-white transition-colors duration-300 group">
                 À propos
