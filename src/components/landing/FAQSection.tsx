@@ -19,65 +19,65 @@ const candidatFAQ: FAQItem[] = [
   {
     question: 'Mon profil peut-il être identifié par mon cabinet actuel ?',
     answer:
-      'Non, les cabinets n\'auront jamais accès directement à votre identité (nom et prénom) et ne peuvent pas identifier non plus le nom de votre cabinet actuel. Seul Logan pourra, avec votre accord explicite, organiser un rapprochement avec un cabinet qui a manifesté un intérêt pour votre profil. Dans ce dernier cas, la mise en relation se fera dans des conditions classiques avec transmission du CV et accompagnement complet tout au long du processus de recrutement.',
+      'Non. Votre identité — nom, prénom et cabinet d\'origine — n\'est jamais accessible aux cabinets recruteurs. Seul Logan peut, avec votre accord explicite, organiser un rapprochement avec un cabinet ayant manifesté un intérêt pour votre profil. Le cas échéant, la mise en relation s\'effectue dans un cadre classique : transmission de votre CV et accompagnement complet tout au long du processus de recrutement.',
   },
   {
-    question: 'Mon profil peut-il être deviné par mon cabinet actuel avec les informations transmises ?',
+    question: 'Mon profil peut-il être deviné grâce aux informations affichées ?',
     answer:
-      'Non, Logan s\'assure que les membres d\'un même cabinet ne puissent apparaître sur leurs espaces respectifs.',
+      'Non. Logan applique un principe de cloisonnement strict : les membres d\'un même cabinet ne peuvent jamais apparaître sur leurs espaces respectifs. Les informations visibles (séniorité, domaines d\'expertise, type de cabinet) sont formulées de manière à rendre toute identification impossible.',
   },
   {
     question: 'Mon profil est-il strictement protégé ?',
     answer:
-      'Oui, en vous inscrivant à Logan, vous avez deux options concernant votre statut de visibilité : confidentiel — fermé, ce qui signifie que vous êtes bien inscrits, que Logan peut vous contacter si une opportunité paraît cohérente et pertinente pour vous, mais les cabinets ne peuvent explorer votre profil ; confidentiel — ouvert, les cabinets pourront consulter votre profil (séniorité, expertise, projet) mais à aucun moment votre identité (nom, prénom) et l\'origine de votre cabinet.',
+      'Oui. Lors de votre inscription, vous choisissez l\'un des deux statuts de visibilité :\n\n• Confidentiel — Fermé : votre profil est enregistré mais non consultable par les cabinets. Logan vous contacte uniquement si une opportunité pertinente se présente.\n\n• Confidentiel — Ouvert : les cabinets peuvent consulter votre profil (séniorité, expertise, projet professionnel) sans jamais accéder à votre identité ni au nom de votre cabinet actuel.\n\nVous pouvez modifier ce statut à tout moment depuis votre espace personnel.',
   },
   {
     question: 'Les cabinets peuvent-ils me contacter directement ?',
     answer:
-      'Non, Logan est le seul à pouvoir vous mettre en relation avec un cabinet qui aura manifesté son intérêt pour votre profil, soit dans le cadre d\'un mandat soit par opportunisme en dehors de toute recherche. Vous restez alors attractif en continu aux yeux du marché pour ne louper aucune opportunité mais la décision de rencontrer ou non un cabinet, par notre intermédiaire, vous appartient.',
+      'Non. Logan est l\'unique intermédiaire entre vous et les cabinets. Qu\'il s\'agisse d\'un mandat de recrutement ou d\'une démarche spontanée, c\'est toujours Logan qui initie la mise en relation — et la décision de rencontrer ou non un cabinet vous appartient entièrement. Vous restez ainsi attractif en continu sur le marché, sans jamais perdre le contrôle de vos démarches.',
   },
   {
-    question: 'Quel intérêt de rejoindre Logan ?',
+    question: 'Quel est l\'intérêt de rejoindre Logan ?',
     answer:
-      'Logan vous permet de rester visible, tout en préservant votre anonymat et tout en assurant la confidentialité de vos démarches, aux yeux de votre marché de sorte que vous pourrez en continu être informé de sa dynamique, des intérêts manifestés par les cabinets, et de rester alerte dans un espace protégé qui vous permet, sans effort, de répondre, quand vous le souhaitez, à l\'opportunité que vous avez toujours recherché, sans devoir attendre nécessairement d\'être contacté par un chasseur de têtes dans les conditions habituelles : Logan vous offre votre espace pour une parfaite transparence de vos démarches, un parfait suivi, un parfait accompagnement.',
+      'Logan vous offre une visibilité permanente et maîtrisée sur votre marché, dans un cadre strictement confidentiel. Vous êtes informé en continu de la dynamique du marché et des intérêts manifestés par les cabinets, sans avoir à entreprendre de démarches actives. Lorsqu\'une opportunité correspond à vos aspirations, vous décidez d\'y répondre — au moment qui vous convient. Plus besoin d\'attendre qu\'un chasseur de têtes vous sollicite : Logan vous offre transparence, suivi personnalisé et accompagnement sur mesure.',
   },
   {
-    question: 'En quoi cette plateforme apporte quelque chose de plus que l\'approche classique de chasseurs de têtes ?',
+    question: 'En quoi Logan se distingue-t-il de l\'approche classique d\'un chasseur de têtes ?',
     answer:
-      'Logan s\'ajoute à l\'approche classique et n\'a pas pour objectif de la remplacer : elle est complémentaire et en même temps propose une toute nouvelle approche en phase avec les attentes des candidats — un espace plus dynamique, plus transparent, plus attractif.',
+      'Logan ne remplace pas l\'approche traditionnelle : il la complète en proposant un modèle inédit, pensé pour répondre aux attentes des candidats. Un espace plus dynamique, une visibilité continue, une transparence totale sur les opportunités et un accompagnement structuré — le tout dans un environnement confidentiel que vous contrôlez.',
   },
   {
-    question: 'Les candidats inscrits sur la plateforme peuvent-ils consulter mon profil ?',
+    question: 'Les autres candidats inscrits peuvent-ils voir mon profil ?',
     answer:
-      'Non, seuls les cabinets peuvent explorer le réseau des candidats inscrits sur la plateforme.',
+      'Non. L\'accès au réseau de profils est réservé exclusivement aux cabinets partenaires. Aucun candidat ne peut consulter le profil d\'un autre candidat.',
   },
 ];
 
 const cabinetFAQ: FAQItem[] = [
   {
-    question: 'Comment fonctionne l\'accès aux profils des candidats ?',
+    question: 'Comment fonctionne l\'accès aux profils candidats ?',
     answer:
-      'Vous accédez à un vivier de profils anonymisés — expertise, séniorité, projet professionnel — sans jamais connaître l\'identité du candidat. Si un profil vous intéresse, Logan organise la mise en relation après accord explicite du candidat.',
+      'Vous accédez à un vivier de profils entièrement anonymisés : expertise, séniorité, langues, projet professionnel. L\'identité du candidat et son cabinet d\'origine restent confidentiels. Lorsqu\'un profil retient votre attention, Logan organise la mise en relation après avoir obtenu l\'accord explicite du candidat.',
   },
   {
-    question: 'Puis-je contacter directement un candidat ?',
+    question: 'Puis-je contacter un candidat directement ?',
     answer:
-      'Non, toutes les mises en relation passent par Logan. C\'est cette intermédiation qui garantit la confidentialité et la qualité du processus pour les deux parties.',
+      'Non. Chaque mise en relation passe exclusivement par Logan. Cette intermédiation garantit la confidentialité du processus, la qualité de l\'expérience pour les deux parties et un accompagnement structuré jusqu\'à la finalisation du recrutement.',
   },
   {
-    question: 'Quels types de profils sont disponibles sur Logan ?',
+    question: 'Quels types de profils sont disponibles sur la plateforme ?',
     answer:
-      'Logan réunit des avocats d\'affaires de tous niveaux de séniorité (collaborateurs juniors à counsels/associés), issus des cabinets d\'affaires les plus reconnus du marché parisien et international.',
+      'Logan réunit des avocats d\'affaires à tous les stades de leur carrière — collaborateurs juniors, mid-levels, seniors, counsels et associés — issus des cabinets d\'affaires les plus reconnus du marché parisien et international (Magic Circle, cabinets US, cabinets français de premier plan).',
   },
   {
-    question: 'Comment sont validés les profils candidats ?',
+    question: 'Comment les profils sont-ils vérifiés ?',
     answer:
-      'Chaque profil est vérifié et validé par l\'équipe Logan sous 48h avant d\'être rendu accessible. Nous nous assurons de la cohérence et de la qualité des informations renseignées.',
+      'Chaque inscription fait l\'objet d\'une validation par l\'équipe Logan sous 48 heures. Nous vérifions la cohérence des informations renseignées, le parcours professionnel et la pertinence du profil au regard des standards du réseau.',
   },
   {
-    question: 'Quel est le modèle tarifaire de Logan ?',
+    question: 'Quel est le modèle tarifaire ?',
     answer:
-      'Logan propose un modèle hybride : un abonnement mensuel donnant accès au vivier de candidats, combiné à un fee de placement réduit par rapport aux standards du marché (chasseurs classiques : 20–25%).',
+      'Logan propose un modèle hybride conçu pour optimiser vos coûts de recrutement : un abonnement mensuel donnant un accès permanent au vivier de candidats, associé à un fee de placement significativement réduit par rapport aux standards du marché (chasseurs classiques : 20 à 25 % de fee). Ce modèle vous permet de recruter de manière proactive, au bon moment, sans surprises tarifaires.',
   },
 ];
 
