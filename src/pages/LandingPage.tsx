@@ -122,6 +122,9 @@ const LandingPage = () => (
     {/* Nos engagements */}
     <BenefitsSection />
 
+    {/* FAQ */}
+    <FAQSection />
+
 
     {/* CTA */}
     <section className="py-24 md:py-32 bg-black relative">
