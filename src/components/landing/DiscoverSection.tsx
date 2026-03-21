@@ -225,14 +225,6 @@ const DiscoverSection = () => {
 
   return (
     <section className="py-24 md:py-32 bg-[hsl(0_0%_96%)] relative overflow-hidden">
-      {/* Subtle grid pattern */}
-      <div
-        className="absolute inset-0 opacity-[0.03]"
-        style={{
-          backgroundImage: 'linear-gradient(hsl(0 0% 0%) 1px, transparent 1px), linear-gradient(90deg, hsl(0 0% 0%) 1px, transparent 1px)',
-          backgroundSize: '60px 60px',
-        }}
-      />
 
       <div className="carter-container relative z-10">
         {/* Header */}
