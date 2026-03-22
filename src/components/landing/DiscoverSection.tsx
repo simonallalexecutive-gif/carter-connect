@@ -174,49 +174,58 @@ const candidatSteps: Step[] = [
 const cabinetSteps: Step[] = [
   {
     number: '01',
-    title: 'Publiez votre recherche',
-    description: 'Décrivez le profil idéal — Logan cible les candidats pertinents.',
+    title: 'Deux leviers pour recruter',
+    description: 'Publiez une recherche et/ou explorez le vivier — deux approches complémentaires, activables simultanément.',
     details: [
-      'Séniorité, expertise, taille d\'opérations, anglais, cabinet d\'origine…',
-      '3 niveaux de confidentialité : confidentielle, semi-confidentielle, ouverte.',
-      'Précisez vos cabinets prioritaires pour des alertes ciblées.',
+      'Rôle passif : publiez votre recherche en toute confidentialité. Logan identifie et approche pour votre compte les talents correspondant à votre besoin.',
+      'Rôle actif : explorez à tout moment le réseau des talents à l\'écoute du marché. Consultez les profils anonymisés (séniorité, activité, projet) et déclenchez l\'intervention de Logan sur chaque opportunité.',
+      'Les deux approches se complètent : restez opportuniste tout en structurant vos recrutements prioritaires.',
     ],
     visual: (
-      <div className="bg-foreground rounded-2xl p-6 text-background w-full shadow-[0_20px_60px_-15px_rgba(0,0,0,0.4)] border border-white/[0.06] relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-white/[0.04] to-transparent pointer-events-none" />
-        <div className="relative z-10">
-          <div className="flex items-center justify-between mb-5">
-            <div className="text-[8px] tracking-[0.2em] uppercase text-background/30 font-medium font-sans">Mandat de recherche · Confidentiel</div>
-            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-background/[0.08] border border-background/[0.06]">
-              <EyeOff className="w-2.5 h-2.5 text-background/40" />
-              <span className="text-[7px] tracking-[0.1em] uppercase text-background/40 font-medium font-sans">Confidentiel</span>
+      <div className="w-full space-y-3">
+        {/* Passive card */}
+        <div className="bg-foreground rounded-2xl p-5 text-background shadow-[0_20px_60px_-15px_rgba(0,0,0,0.4)] border border-white/[0.06] relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-br from-white/[0.04] to-transparent pointer-events-none" />
+          <div className="relative z-10">
+            <div className="flex items-center gap-2 mb-3">
+              <div className="w-6 h-6 rounded-lg bg-background/[0.08] flex items-center justify-center">
+                <Bell className="w-3 h-3 text-background/50" />
+              </div>
+              <div className="text-[8px] tracking-[0.2em] uppercase text-background/40 font-medium font-sans">Rôle passif</div>
+            </div>
+            <div className="font-sans text-sm font-bold leading-tight mb-1">Publiez votre recherche</div>
+            <div className="text-[10px] text-background/40 font-sans leading-relaxed">Logan cible et approche les candidats pour votre compte</div>
+            <div className="flex flex-wrap gap-1.5 mt-3">
+              {['M&A / PE', 'Mid Level', 'Confidentiel'].map(tag => (
+                <span key={tag} className="text-[8px] px-2 py-0.5 rounded-full bg-background/[0.08] text-background/50 font-medium font-sans border border-background/[0.06]">{tag}</span>
+              ))}
             </div>
           </div>
-          <div className="font-sans text-lg font-bold leading-tight mb-0.5">Collaborateur Mid Level</div>
-          <div className="text-[11px] text-background/50 font-medium font-sans mb-1">M&A / Private Equity</div>
-          <div className="flex flex-wrap gap-1.5 mb-5 mt-3">
-            {['M&A Industriel', 'PE / LBO', 'Anglais courant'].map(tag => (
-              <span key={tag} className="text-[9px] px-2.5 py-1 rounded-full bg-background/[0.08] text-background/60 font-medium font-sans border border-background/[0.06]">{tag}</span>
-            ))}
-          </div>
-          <div className="grid grid-cols-2 gap-3 mb-5">
-            <div className="px-3 py-2.5 rounded-lg bg-background/[0.05] border border-background/[0.06]">
-              <div className="text-[8px] uppercase text-background/25 tracking-[0.1em] mb-1 font-sans">Rétrocession</div>
-              <div className="font-sans text-sm font-bold text-background">90–120 K€</div>
+        </div>
+        {/* AND/OR separator */}
+        <div className="flex items-center gap-3 px-2">
+          <div className="flex-1 h-px bg-border" />
+          <span className="text-[9px] font-sans font-bold tracking-[0.15em] uppercase text-muted-foreground/60">et / ou</span>
+          <div className="flex-1 h-px bg-border" />
+        </div>
+        {/* Active card */}
+        <div className="bg-foreground rounded-2xl p-5 text-background shadow-[0_20px_60px_-15px_rgba(0,0,0,0.4)] border border-white/[0.06] relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-br from-white/[0.04] to-transparent pointer-events-none" />
+          <div className="relative z-10">
+            <div className="flex items-center gap-2 mb-3">
+              <div className="w-6 h-6 rounded-lg bg-background/[0.08] flex items-center justify-center">
+                <Search className="w-3 h-3 text-background/50" />
+              </div>
+              <div className="text-[8px] tracking-[0.2em] uppercase text-background/40 font-medium font-sans">Rôle actif</div>
             </div>
-            <div className="px-3 py-2.5 rounded-lg bg-background/[0.05] border border-background/[0.06]">
-              <div className="text-[8px] uppercase text-background/25 tracking-[0.1em] mb-1 font-sans">Équipe</div>
-              <div className="font-sans text-sm font-bold text-background">2 assoc. · 6 collabs</div>
-            </div>
-          </div>
-          <div className="pt-4 border-t border-background/[0.08] space-y-2.5">
-            <div className="flex items-center justify-between">
-              <span className="text-[9px] text-background/30 uppercase tracking-[0.12em] font-medium font-sans">Contexte</span>
-              <span className="text-[11px] font-semibold text-background/70 font-sans">Renforcement d'équipe</span>
-            </div>
-            <div className="flex items-center justify-between">
-              <span className="text-[9px] text-background/30 uppercase tracking-[0.12em] font-medium font-sans">Confidentialité</span>
-              <span className="text-[11px] font-semibold text-background/70 font-sans">🔒 Confidentielle</span>
+            <div className="font-sans text-sm font-bold leading-tight mb-1">Explorez le vivier premium</div>
+            <div className="text-[10px] text-background/40 font-sans leading-relaxed">Consultez les profils anonymisés et déclenchez Logan par opportunité</div>
+            <div className="grid grid-cols-3 gap-2 mt-3">
+              {['Séniorité', 'Activité', 'Projet'].map(item => (
+                <div key={item} className="text-center px-2 py-1.5 rounded-lg bg-background/[0.05] border border-background/[0.06]">
+                  <div className="text-[8px] text-background/50 font-sans font-medium">{item}</div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -225,48 +234,37 @@ const cabinetSteps: Step[] = [
   },
   {
     number: '02',
-    title: 'Consultez le vivier premium',
-    description: 'Accédez en temps réel aux profils anonymisés à l\'écoute du marché.',
+    title: 'Logan, seul intermédiaire',
+    description: 'Quelle que soit l\'approche choisie, Logan orchestre chaque rapprochement en toute confidentialité.',
     details: [
-      'Score de matching intelligent : expertise, séniorité, motivations.',
-      'Alertes prioritaires dès qu\'un profil correspond à vos critères.',
-      'Recrutement stratégique : identifiez les talents avant vos concurrents.',
+      'Aucun contact direct entre le cabinet et le candidat sans validation préalable de Logan.',
+      'Logan approche les candidats pour votre compte, qualifie l\'intérêt et prépare la mise en relation.',
+      'Votre identité de recruteur reste protégée jusqu\'à l\'entretien confirmé.',
     ],
     visual: (
       <div className="bg-foreground rounded-2xl p-6 text-background w-full shadow-[0_20px_60px_-15px_rgba(0,0,0,0.4)] border border-white/[0.06] relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-white/[0.04] to-transparent pointer-events-none" />
         <div className="relative z-10">
-          <div className="flex items-center justify-between mb-5">
-            <div className="text-[8px] tracking-[0.2em] uppercase text-background/30 font-medium font-sans">Profil anonymisé</div>
-            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-background/[0.08] border border-background/[0.06]">
-              <EyeOff className="w-2.5 h-2.5 text-background/40" />
-              <span className="text-[7px] tracking-[0.1em] uppercase text-background/40 font-medium font-sans">Confidentiel</span>
-            </div>
+          <div className="text-[8px] tracking-[0.2em] uppercase text-background/30 font-medium font-sans mb-5">Processus de rapprochement</div>
+          <div className="space-y-3">
+            {[
+              { icon: Eye, label: 'Identification du talent', sub: 'Via recherche publiée ou exploration du vivier' },
+              { icon: Shield, label: 'Qualification par Logan', sub: 'Approche confidentielle, validation de l\'intérêt mutuel' },
+              { icon: Handshake, label: 'Mise en relation orchestrée', sub: 'Entretien préparé — identités révélées à ce stade uniquement' },
+            ].map((item, i) => (
+              <div key={i} className="flex items-start gap-3 px-4 py-3 rounded-xl bg-background/[0.06] border border-background/[0.08]">
+                <div className="w-8 h-8 rounded-lg bg-background/[0.08] flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <item.icon className="w-4 h-4 text-background/50" />
+                </div>
+                <div>
+                  <div className="text-[11px] font-semibold text-background/80 font-sans">{item.label}</div>
+                  <div className="text-[9px] text-background/35 font-sans mt-0.5">{item.sub}</div>
+                </div>
+              </div>
+            ))}
           </div>
-          <div className="font-sans text-lg font-bold leading-tight mb-0.5">Collaborateur Mid Level</div>
-          <div className="text-[11px] text-background/50 font-medium font-sans mb-1">Private Equity / LBO</div>
-          <div className="flex items-center gap-3 mb-5 mt-4 px-4 py-3 rounded-xl bg-background/[0.06] border border-background/[0.08] backdrop-blur-sm">
-            <div className="w-8 h-8 rounded-lg bg-background/[0.08] flex items-center justify-center flex-shrink-0">
-              <BarChart3 className="w-4 h-4 text-background/50" />
-            </div>
-            <div>
-              <div className="text-[11px] font-semibold text-background/80 font-sans">Cabinet du Tier 4</div>
-              <div className="text-[9px] text-background/35 font-sans">Classement Private Equity</div>
-            </div>
-          </div>
-          <div className="grid grid-cols-2 gap-3 mb-5">
-            <div className="px-3 py-2.5 rounded-lg bg-background/[0.05] border border-background/[0.06]">
-              <div className="text-[8px] uppercase text-background/25 tracking-[0.1em] mb-1 font-sans">Rétrocession</div>
-              <div className="font-sans text-sm font-bold text-background">90–110 K€</div>
-            </div>
-            <div className="px-3 py-2.5 rounded-lg bg-background/[0.05] border border-background/[0.06]">
-              <div className="text-[8px] uppercase text-background/25 tracking-[0.1em] mb-1 font-sans">Équipe</div>
-              <div className="font-sans text-sm font-bold text-background">3 assoc. · 8 collabs</div>
-            </div>
-          </div>
-          <div className="pt-4 border-t border-background/[0.08] flex items-center justify-between">
-            <span className="text-[9px] text-background/30 uppercase tracking-[0.12em] font-medium font-sans">Contexte</span>
-            <span className="text-[11px] font-semibold text-background/70 font-sans">Renforcement d'équipe</span>
+          <div className="mt-5 pt-4 border-t border-background/[0.08] text-center">
+            <span className="text-[9px] text-background/30 uppercase tracking-[0.12em] font-medium font-sans">Dans tous les cas, Logan est votre seul point de contact</span>
           </div>
         </div>
       </div>
@@ -275,37 +273,49 @@ const cabinetSteps: Step[] = [
   {
     number: '03',
     title: 'Un modèle hybride gagnant',
-    description: 'Abonnement mensuel + fee de placement réduit vs chasseurs traditionnels.',
+    description: 'Logan accompagne votre cabinet au quotidien avec un modèle économique transparent et compétitif.',
     details: [
-      'Starter à 1.500€/mois (fee 18%) — Business à 3.000€/mois (fee 15%) — Enterprise sur devis (fee 12%).',
-      'Jusqu\'à 50% d\'économie vs un chasseur classique (20–25% de fee).',
-      'Accès permanent au vivier : recrutez quand l\'opportunité se présente, pas dans l\'urgence.',
+      'Rôle actif & opportuniste : explorez tout au long de l\'année la dynamique des talents de votre marché, tous départements confondus. Le vivier est alimenté en continu par Logan pour vous offrir une visibilité permanente sur les meilleurs profils.',
+      'Rôle traditionnel & confidentiel : publiez vos recherches sur Logan qui interviendra pour votre compte afin de vous présenter les profils correspondant à votre besoin, en toute discrétion.',
+      'Modèle économique : un abonnement trimestriel (sur devis, adapté à la taille et aux besoins du cabinet) + un fee de placement compris entre 15% et 18% de la rétrocession annuelle brute, selon la formule retenue.',
     ],
     visual: (
-      <div className="w-full">
-        <div className="grid grid-cols-3 gap-2">
-          {[
-            { name: 'Starter', price: '1.500€', fee: '18%' },
-            { name: 'Business', price: '3.000€', fee: '15%', badge: true },
-            { name: 'Enterprise', price: 'Devis', fee: '12%' },
-          ].map(p => (
-            <div key={p.name} className={cn(
-              'rounded-lg p-4 text-center border',
-              p.badge ? 'bg-foreground text-background border-foreground' : 'bg-muted border-border'
-            )}>
-              <div className="text-[9px] font-bold tracking-[0.1em] uppercase mb-2" style={{ opacity: 0.5 }}>{p.name}</div>
-              <div className="font-serif text-base font-bold mb-1">{p.price}</div>
-              <div className="text-[10px]" style={{ opacity: 0.5 }}>/mois</div>
-              <div className="mt-3 pt-3 border-t" style={{ borderColor: p.badge ? 'rgba(255,255,255,0.1)' : undefined }}>
-                <div className="font-serif text-lg font-bold">{p.fee}</div>
-                <div className="text-[9px]" style={{ opacity: 0.4 }}>fee placement</div>
+      <div className="w-full space-y-3">
+        <div className="bg-foreground rounded-2xl p-6 text-background shadow-[0_20px_60px_-15px_rgba(0,0,0,0.4)] border border-white/[0.06] relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-br from-white/[0.04] to-transparent pointer-events-none" />
+          <div className="relative z-10">
+            <div className="text-[8px] tracking-[0.2em] uppercase text-background/30 font-medium font-sans mb-4">Votre investissement</div>
+            <div className="grid grid-cols-2 gap-3 mb-4">
+              <div className="px-4 py-3 rounded-xl bg-background/[0.06] border border-background/[0.08]">
+                <div className="text-[8px] uppercase text-background/25 tracking-[0.1em] mb-1.5 font-sans">Abonnement</div>
+                <div className="font-sans text-base font-bold text-background">Trimestriel</div>
+                <div className="text-[9px] text-background/35 font-sans mt-1">Sur devis · adapté à votre cabinet</div>
+              </div>
+              <div className="px-4 py-3 rounded-xl bg-background/[0.06] border border-background/[0.08]">
+                <div className="text-[8px] uppercase text-background/25 tracking-[0.1em] mb-1.5 font-sans">Fee de placement</div>
+                <div className="font-sans text-base font-bold text-background">15 – 18%</div>
+                <div className="text-[9px] text-background/35 font-sans mt-1">De la rétrocession annuelle brute</div>
               </div>
             </div>
-          ))}
+            <div className="pt-4 border-t border-background/[0.08] space-y-2">
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="w-3 h-3 text-background/40 flex-shrink-0" />
+                <span className="text-[10px] text-background/50 font-sans">Accès continu au vivier — tous départements</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="w-3 h-3 text-background/40 flex-shrink-0" />
+                <span className="text-[10px] text-background/50 font-sans">Vivier alimenté au quotidien par Logan</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="w-3 h-3 text-background/40 flex-shrink-0" />
+                <span className="text-[10px] text-background/50 font-sans">Recherches publiées en toute confidentialité</span>
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="mt-4 p-3 rounded bg-muted border border-border text-center">
-          <span className="text-[11px] text-muted-foreground">Chasseur classique : </span>
-          <span className="text-[11px] font-bold text-foreground line-through">20–25% fee</span>
+        <div className="p-3 rounded-xl bg-muted border border-border text-center">
+          <span className="text-[10px] text-muted-foreground font-sans">Chasseur classique : </span>
+          <span className="text-[10px] font-bold text-foreground line-through font-sans">20–25% fee · sans visibilité marché</span>
         </div>
       </div>
     ),
