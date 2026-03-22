@@ -10,10 +10,7 @@ import FAQSection from '@/components/landing/FAQSection';
 
 import StatsTickerSection from '@/components/landing/StatsTickerSection';
 import { ArrowRight } from 'lucide-react';
-import heroClip1 from '@/assets/hero-clip-1.mp4.asset.json';
-import heroClip2 from '@/assets/hero-clip-2.mp4.asset.json';
-import heroClip3 from '@/assets/hero-clip-3.mp4.asset.json';
-import { useState, useEffect, useCallback } from 'react';
+import heroVideoAsset from '@/assets/hero-video-abstract-bw.mp4.asset.json';
 
 const firmNames = [
   'Bredin Prat', 'Darrois Villey', 'Gide', 'Cleary Gottlieb', 'De Pardieu Brocas',
@@ -33,21 +30,8 @@ const fadeUp = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] as const } },
 };
 
-const heroClips = [heroClip1.url, heroClip2.url, heroClip3.url];
 
-const LandingPage = () => {
-  const [currentClip, setCurrentClip] = useState(0);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-
-  const handleVideoEnd = useCallback(() => {
-    setIsTransitioning(true);
-    setTimeout(() => {
-      setCurrentClip((prev) => (prev + 1) % heroClips.length);
-      setIsTransitioning(false);
-    }, 600);
-  }, []);
-
-  return (
+const LandingPage = () => (
   <div className="min-h-screen bg-background">
     <Header />
 
@@ -56,15 +40,14 @@ const LandingPage = () => {
       {/* Background video with gradient overlay */}
       <div className="absolute inset-0">
         <motion.video
-          key={currentClip}
-          src={heroClips[currentClip]}
+          src={heroVideoAsset.url}
           autoPlay
           muted
+          loop
           playsInline
-          onEnded={handleVideoEnd}
           initial={{ opacity: 0, scale: 1.05 }}
-          animate={{ opacity: isTransitioning ? 0 : 0.85, scale: 1 }}
-          transition={{ duration: 1.2, ease: 'easeOut' }}
+          animate={{ opacity: 0.85, scale: 1 }}
+          transition={{ duration: 2, ease: 'easeOut' }}
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-black/45 to-black/85" />
@@ -174,7 +157,6 @@ const LandingPage = () => {
 
     <Footer />
   </div>
-  );
-};
+);
 
 export default LandingPage;
