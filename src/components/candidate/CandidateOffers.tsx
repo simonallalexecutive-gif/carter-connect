@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { CANDIDATE_OFFERS, type CandidateOffer } from '@/lib/candidateMockData';
-import { Calendar, CheckCircle2, BarChart3, EyeOff, Users, Clock } from 'lucide-react';
+import { Calendar, CheckCircle2, ChevronDown, Star } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { toast } from 'sonner';
 import ActivityPieChart from '@/components/shared/ActivityPieChart';
@@ -10,6 +10,7 @@ import { usePQE } from '@/hooks/usePQE';
 export const formatOfferDate = (dateStr: string) =>
   new Date(dateStr).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
 
+/** Extracts a short seniority label like "Collaborateur Senior" from full seniority string */
 export const shortSeniority = (s: string) => s.replace(/\s*\(.*\)/, '');
 
 const CandidateOffers = () => {
@@ -79,99 +80,95 @@ const CandidateOffers = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -12, transition: { duration: 0.25 } }}
                 transition={{ delay: expandedOffer ? 0 : index * 0.08, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                className="rounded-2xl overflow-hidden shadow-[0_20px_60px_-15px_rgba(0,0,0,0.4)] border border-white/[0.06] relative bg-foreground text-background"
+                className="rounded-lg overflow-hidden transition-shadow duration-500 hover:shadow-lg border border-border"
+                style={{ background: 'hsl(0 0% 96%)' }}
               >
-                {/* Subtle gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-br from-white/[0.04] to-transparent pointer-events-none" />
-
-                {/* Card preview — clickable */}
-                <button type="button" className="w-full text-left relative z-10" onClick={() => setExpandedOffer(isExpanded ? null : offer.id)}>
-                  <div className="p-6 md:p-7">
-                    {/* Header row */}
-                    <div className="flex items-center justify-between mb-5">
-                      <div className="text-[8px] tracking-[0.2em] uppercase text-background/30 font-medium">Opportunité · Présentée par LOGAN</div>
-                      <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-background/[0.08] border border-background/[0.06]">
-                        <EyeOff className="w-2.5 h-2.5 text-background/40" />
-                        <span className="text-[7px] tracking-[0.1em] uppercase text-background/40 font-medium">Confidentiel</span>
+                <button type="button" className="w-full text-left p-6 md:p-8" onClick={() => setExpandedOffer(isExpanded ? null : offer.id)}>
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-0 mb-3 flex-wrap">
+                        <span className="text-[16px] font-sans tracking-[-0.01em] text-foreground leading-none">{shortSeniority(offer.seniority)}</span>
+                        <span className="mx-2.5 w-px h-5 bg-border inline-block" />
+                        <span className="text-[16px] font-sans tracking-[-0.01em] text-foreground leading-none">{offer.dept}</span>
+                        {offer.ranking && (
+                          <>
+                            <span className="mx-2.5 w-px h-5 bg-border inline-block" />
+                            <span className="inline-flex items-center gap-2 text-[14px] font-sans text-foreground">
+                              <span className="font-semibold">{offer.ranking}</span>
+                            </span>
+                          </>
+                        )}
+                        {isInterested && (
+                          <span className="ml-3 inline-flex items-center gap-1 text-[10px] text-muted-foreground font-sans">
+                            <CheckCircle2 className="w-3.5 h-3.5" />Intérêt transmis
+                          </span>
+                        )}
                       </div>
-                    </div>
 
-                    {/* Seniority & Dept */}
-                    <div className="font-serif text-lg font-bold leading-tight mb-0.5">
-                      {shortSeniority(offer.seniority)} · {offer.dept}
-                    </div>
-                    <div className="text-[11px] text-background/45 mb-1">Cabinet anonyme · Identité protégée</div>
-
-                    {/* Ranking badge */}
-                    {offer.ranking && (
-                      <div className="flex items-center gap-3 mt-4 mb-5 px-4 py-3 rounded-xl bg-background/[0.06] border border-background/[0.08] backdrop-blur-sm">
-                        <div className="w-8 h-8 rounded-lg bg-background/[0.08] flex items-center justify-center flex-shrink-0">
-                          <BarChart3 className="w-4 h-4 text-background/50" />
-                        </div>
-                        <div>
-                          <div className="text-[11px] font-semibold text-background/80">Cabinet du {offer.ranking.split(' · ')[0]}</div>
-                          <div className="text-[9px] text-background/35">Classement {offer.ranking.split(' · ')[1] || offer.dept}</div>
-                        </div>
-                      </div>
-                    )}
-
-                    {/* Key info grid */}
-                    <div className="grid grid-cols-2 gap-3">
-                      {offer.retroStr && (
-                        <div className="px-3 py-2.5 rounded-lg bg-background/[0.05] border border-background/[0.06]">
-                          <div className="text-[8px] uppercase text-background/25 tracking-[0.1em] mb-1">Rétrocession</div>
-                          <div className="font-serif text-sm font-bold text-background">{offer.retroStr}</div>
+                      {!isExpanded && offer.tags.length > 0 && (
+                        <div className="flex flex-wrap gap-1.5 mt-1">
+                          {offer.tags.slice(0, 4).map((tag) => (
+                            <span key={tag} className="text-[10px] px-2.5 py-1 rounded-full border border-border text-muted-foreground font-sans">{tag}</span>
+                          ))}
                         </div>
                       )}
-                      {offer.equipe && (
-                        <div className="px-3 py-2.5 rounded-lg bg-background/[0.05] border border-background/[0.06]">
-                          <div className="text-[8px] uppercase text-background/25 tracking-[0.1em] mb-1">Équipe</div>
-                          <div className="font-serif text-sm font-bold text-background">{offer.equipe.replace(/\(s\)/g, '')}</div>
+
+                      <div className="flex items-center justify-between mt-4">
+                        <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground font-sans">
+                          <Calendar className="w-3 h-3" />
+                          <span>Date de publication : {formatOfferDate(offer.postedAt)}</span>
                         </div>
-                      )}
-                    </div>
-
-                    {/* Context footer */}
-                    {offer.contexte && (
-                      <div className="pt-4 mt-5 border-t border-background/[0.08] flex items-center justify-between">
-                        <span className="text-[9px] text-background/30 uppercase tracking-[0.12em] font-medium">Contexte</span>
-                        <span className="text-[11px] font-semibold text-background/70">{offer.contexte}</span>
+                        <div className="text-[9px] tracking-[0.15em] uppercase text-muted-foreground/60 font-sans">{offer.reference}</div>
                       </div>
-                    )}
-
-                    {/* Interest badge + reference */}
-                    <div className="flex items-center justify-between mt-4">
-                      {isInterested ? (
-                        <span className="inline-flex items-center gap-1.5 text-[10px] text-background/50 font-sans">
-                          <CheckCircle2 className="w-3.5 h-3.5" />Intérêt transmis
-                        </span>
-                      ) : (
-                        <span className="text-[10px] text-background/30 font-sans">Cliquez pour consulter le détail →</span>
-                      )}
-                      <div className="text-[9px] tracking-[0.15em] uppercase text-background/20 font-sans">{offer.reference}</div>
+                    </div>
+                    <div className="w-10 h-10 rounded-full flex items-center justify-center bg-secondary shrink-0 mt-1">
+                      <ChevronDown className={`w-5 h-5 text-muted-foreground transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`} />
                     </div>
                   </div>
                 </button>
 
-                {/* Expanded detail */}
                 <AnimatePresence>
                   {isExpanded && (
-                    <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }} className="overflow-hidden relative z-10">
-                      <div className="border-t border-background/[0.08]">
-                        {/* Detail content on slightly lighter dark bg */}
-                        <div className="p-6 md:p-8 bg-background/[0.03]">
+                    <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }} className="overflow-hidden">
+                      <div className="border-t border-border">
+                        {/* Title banner — high contrast */}
+                        <div className="bg-foreground text-background px-6 md:px-8 py-6">
+                          <div className="text-[8px] tracking-[0.16em] uppercase text-background/50 font-sans mb-2">Opportunité · Présentée par LOGAN</div>
+                          <div className="flex items-center gap-0 mb-1 flex-wrap">
+                            <span className="font-sans text-[17px] font-semibold tracking-[-0.01em] text-background">{shortSeniority(offer.seniority)}</span>
+                            <span className="mx-2.5 w-px h-5 bg-background/20 inline-block" />
+                            <span className="font-sans text-[17px] font-semibold tracking-[-0.01em] text-background">{offer.dept}</span>
+                            {offer.ranking && (
+                              <>
+                                <span className="mx-2.5 w-px h-5 bg-background/20 inline-block" />
+                                <span className="inline-flex items-center gap-2 text-[14px] font-sans text-background">
+                                  <span className="font-semibold">{offer.ranking}</span>
+                                </span>
+                              </>
+                            )}
+                          </div>
+                          <div className="text-[11px] font-sans text-background/50">Cabinet anonyme · Identité protégée</div>
+                          <div className="flex flex-wrap gap-1.5 mt-4">
+                            {offer.tags.map((tag) => (
+                              <span key={tag} className="text-[10px] px-3 py-1.5 rounded-full bg-background/10 text-background/80 font-medium border border-background/10">{tag}</span>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Content body */}
+                        <div className="p-6 md:p-8" style={{ background: 'hsl(0 0% 96%)' }}>
 
                           {hasMultipleExpertises && offer.activitySplit && (
-                            <div className="mb-6 pb-5 border-b border-background/[0.08]">
-                              <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-background/30 mb-4">Répartition de l'activité</div>
+                            <div className="mb-6 pb-5 border-b border-border">
+                              <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-muted-foreground mb-4">Répartition de l'activité</div>
                               <div className="flex items-start gap-6">
-                                <ActivityPieChart data={offer.activitySplit} size={120} innerRadius={28} outerRadius={52} showLegend={false} darkMode />
+                                <ActivityPieChart data={offer.activitySplit} size={120} innerRadius={28} outerRadius={52} showLegend={false} />
                                 <div className="flex-1 space-y-2.5">
                                   {Object.entries(offer.activitySplit).map(([name, value]) => (
                                     <div key={name}>
                                       <div className="flex justify-between items-center mb-0.5">
-                                        <span className="text-xs font-medium text-background/80">{name}</span>
-                                        <span className="text-xs font-bold text-background">{value}%</span>
+                                        <span className="text-xs font-medium text-foreground">{name}</span>
+                                        <span className="text-xs font-bold text-foreground">{value}%</span>
                                       </div>
                                     </div>
                                   ))}
@@ -180,67 +177,66 @@ const CandidateOffers = () => {
                             </div>
                           )}
 
-                          <div className="mb-6 pb-5 border-b border-background/[0.08]">
-                            <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-background/30 mb-3">Description du poste</div>
-                            <p className="text-sm text-background/60 leading-relaxed">{offer.description}</p>
+                          <div className="mb-6 pb-5 border-b border-border">
+                            <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-muted-foreground mb-3">Description du poste</div>
+                            <p className="text-sm text-muted-foreground leading-relaxed">{offer.description}</p>
                           </div>
 
-                          {offer.tags.length > 0 && (
-                            <div className="mb-6 pb-5 border-b border-background/[0.08]">
-                              <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-background/30 mb-3">Expertise</div>
-                              <div className="flex flex-wrap gap-1.5">
-                                {offer.tags.map((tag) => (
-                                  <span key={tag} className="text-[10px] px-3 py-1.5 rounded-full bg-background/[0.08] text-background/70 font-medium border border-background/[0.06]">{tag}</span>
-                                ))}
+                          {(offer.contexte || offer.equipe) && (
+                            <div className="mb-6 pb-5 border-b border-border">
+                              <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-muted-foreground mb-3">Contexte & équipe</div>
+                              <div className="grid grid-cols-2 gap-4">
+                                {offer.contexte && (<div><div className="text-[8px] uppercase tracking-[0.1em] text-muted-foreground mb-1">Contexte</div><div className="text-sm font-semibold text-foreground">{offer.contexte}</div></div>)}
+                                {offer.equipe && (<div><div className="text-[8px] uppercase tracking-[0.1em] text-muted-foreground mb-1">Composition</div><div className="text-sm font-semibold text-foreground">{offer.equipe}</div></div>)}
                               </div>
                             </div>
                           )}
 
                           {offer.profilCriteres && offer.profilCriteres.length > 0 && (
-                            <div className="mb-6 pb-5 border-b border-background/[0.08]">
-                              <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-background/30 mb-3">Profil idéal</div>
+                            <div className="mb-6 pb-5 border-b border-border">
+                              <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-muted-foreground mb-3">Profil idéal</div>
                               <div className="flex flex-wrap gap-1.5">
                                 {offer.profilCriteres.map((c) => (
-                                  <span key={c} className="text-[10px] bg-background/[0.06] border border-background/[0.08] rounded-full px-3 py-1.5 text-background/70 font-medium">{c}</span>
+                                  <span key={c} className="text-[10px] bg-secondary border border-border rounded-full px-3 py-1.5 text-foreground font-medium">{c}</span>
                                 ))}
                               </div>
                             </div>
                           )}
 
                           {(offer.retroStr || offer.heures || offer.tt) && (
-                            <div className="mb-6 pb-5 border-b border-background/[0.08]">
-                              <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-background/30 mb-3">Rémunération & conditions</div>
+                            <div className="mb-6 pb-5 border-b border-border">
+                              <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-muted-foreground mb-3">Rémunération & conditions</div>
                               <div className="grid grid-cols-3 gap-3">
-                                <div className="bg-background/[0.06] border border-background/[0.08] rounded-lg p-4 text-center">
-                                  <div className="text-[8px] uppercase tracking-[0.1em] text-background/30 mb-2">Rétrocession</div>
-                                  <div className="font-serif text-base font-bold text-background">{offer.retroStr || 'Confidentiel'}</div>
+                                <div className="bg-secondary rounded-lg p-4 text-center">
+                                  <div className="text-[8px] uppercase tracking-[0.1em] text-muted-foreground mb-2">Rétrocession</div>
+                                  <div className="font-sans text-base font-bold text-foreground">{offer.retroStr || 'Confidentiel'}</div>
                                 </div>
-                                <div className="bg-background/[0.06] border border-background/[0.08] rounded-lg p-4 text-center">
-                                  <div className="text-[8px] uppercase tracking-[0.1em] text-background/30 mb-2">Heures / an</div>
-                                  <div className="font-serif text-base font-bold text-background">{offer.heures || 'Non communiqué'}</div>
+                                <div className="bg-secondary rounded-lg p-4 text-center">
+                                  <div className="text-[8px] uppercase tracking-[0.1em] text-muted-foreground mb-2">Heures / an</div>
+                                  <div className="font-sans text-base font-bold text-foreground">{offer.heures || 'Non communiqué'}</div>
                                 </div>
-                                <div className="bg-background/[0.06] border border-background/[0.08] rounded-lg p-4 text-center">
-                                  <div className="text-[8px] uppercase tracking-[0.1em] text-background/30 mb-2">Télétravail</div>
-                                  <div className="font-serif text-base font-bold text-background">{offer.tt || '—'}</div>
+                                <div className="bg-secondary rounded-lg p-4 text-center">
+                                  <div className="text-[8px] uppercase tracking-[0.1em] text-muted-foreground mb-2">Télétravail</div>
+                                  <div className="font-sans text-base font-bold text-foreground">{offer.tt || '—'}</div>
                                 </div>
                               </div>
                             </div>
                           )}
 
                           <div className="text-center pt-2">
-                            <p className="text-[10px] text-background/40 mb-4 leading-relaxed">
+                            <p className="text-[10px] text-muted-foreground mb-4 leading-relaxed">
                               LOGAN qualifie l'opportunité des deux côtés avant toute mise en relation. Votre identité reste confidentielle jusqu'à accord mutuel.
                             </p>
                             <button
                               onClick={(e) => { e.stopPropagation(); handleInterest(offer); }}
                               disabled={isInterested}
-                              className={`w-full py-3.5 font-bold text-sm rounded-lg transition-all duration-300 ${isInterested ? 'bg-background/10 text-background/50 cursor-default' : 'bg-background text-foreground hover:bg-background/90'}`}
+                              className={`w-full py-3.5 font-bold text-sm rounded-lg transition-all duration-300 ${isInterested ? 'bg-secondary text-muted-foreground cursor-default' : 'bg-foreground text-background hover:bg-foreground/90'}`}
                             >
                               {isInterested ? (
                                 <span className="flex items-center justify-center gap-2"><CheckCircle2 className="w-4 h-4" />Intérêt transmis à Logan</span>
-                              ) : 'Je suis intéressé(e) →'}
+                              ) : 'Je suis intéressé(e) par cette opportunité →'}
                             </button>
-                            <div className="mt-2 text-[10px] text-background/30">0% commission · Levée de rideau conditionnée à votre accord</div>
+                            <div className="mt-2 text-[10px] text-muted-foreground">0% commission · Levée de rideau conditionnée à votre accord</div>
                           </div>
                         </div>
                       </div>
