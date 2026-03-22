@@ -57,27 +57,42 @@ const cabinetFAQ: FAQItem[] = [
   {
     question: 'Comment fonctionne l\'accès aux profils candidats ?',
     answer:
-      'Vous accédez à un vivier de profils entièrement anonymisés : expertise, séniorité, langues, projet professionnel. L\'identité du candidat et son cabinet d\'origine restent confidentiels. Lorsqu\'un profil retient votre attention, Logan organise la mise en relation après avoir obtenu l\'accord explicite du candidat.',
+      'Vous accédez à un vivier de profils entièrement anonymisés présentant l\'expertise, la séniorité, les langues pratiquées et le projet professionnel de chaque candidat. L\'identité et le cabinet d\'origine restent strictement confidentiels. Lorsqu\'un profil retient votre attention, vous manifestez votre intérêt et Logan se charge d\'organiser la mise en relation après avoir obtenu l\'accord explicite du candidat.',
   },
   {
     question: 'Puis-je contacter un candidat directement ?',
     answer:
-      'Non. Chaque mise en relation passe exclusivement par Logan. Cette intermédiation garantit la confidentialité du processus, la qualité de l\'expérience pour les deux parties et un accompagnement structuré jusqu\'à la finalisation du recrutement.',
+      'Non. Chaque mise en relation passe exclusivement par Logan, qui joue le rôle d\'intermédiaire de confiance. Cette intermédiation garantit la confidentialité du processus pour les deux parties, préserve la qualité de l\'expérience candidat et assure un accompagnement structuré à chaque étape, de la prise de contact jusqu\'à la finalisation du recrutement.',
   },
   {
     question: 'Quels types de profils sont disponibles sur la plateforme ?',
     answer:
-      'Logan réunit des avocats d\'affaires à tous les stades de leur carrière — collaborateurs juniors, mid-levels, seniors, counsels et associés — issus des cabinets d\'affaires les plus reconnus du marché parisien et international (Magic Circle, cabinets US, cabinets français de premier plan).',
+      'Logan réunit des avocats d\'affaires à tous les stades de leur carrière — collaborateurs juniors, mid-levels, seniors, counsels et associés — issus des cabinets d\'affaires les plus reconnus du marché parisien et international : Magic Circle, cabinets US, cabinets français indépendants de premier plan. Chaque profil est qualifié manuellement avant d\'intégrer le réseau.',
   },
   {
-    question: 'Comment les profils sont-ils vérifiés ?',
+    question: 'Comment les profils sont-ils vérifiés avant d\'intégrer le réseau ?',
     answer:
-      'Chaque inscription fait l\'objet d\'une validation par l\'équipe Logan sous 48 heures. Nous vérifions la cohérence des informations renseignées, le parcours professionnel et la pertinence du profil au regard des standards du réseau.',
+      'Chaque inscription fait l\'objet d\'une validation manuelle par l\'équipe Logan sous 48 heures. Nous vérifions la cohérence du parcours professionnel, la pertinence des informations renseignées et l\'adéquation du profil avec les standards d\'exigence du réseau. Seuls les profils validés sont rendus accessibles aux cabinets partenaires.',
   },
   {
-    question: 'Quel est le modèle tarifaire ?',
+    question: 'Quel est le modèle tarifaire de Logan ?',
     answer:
-      'Logan propose un modèle hybride conçu pour optimiser vos coûts de recrutement : un abonnement mensuel donnant un accès permanent au vivier de candidats, associé à un fee de placement significativement réduit par rapport aux standards du marché (chasseurs classiques : 20 à 25 % de fee). Ce modèle vous permet de recruter de manière proactive, au bon moment, sans surprises tarifaires.',
+      'Logan repose sur un modèle hybride pensé pour optimiser vos coûts de recrutement : un abonnement donnant un accès permanent au vivier de candidats qualifiés, associé à un fee de placement significativement réduit par rapport aux standards du marché (les chasseurs classiques facturent généralement entre 20 et 25 %). Ce modèle vous permet de recruter de manière proactive, au bon moment, avec une parfaite maîtrise budgétaire.',
+  },
+  {
+    question: 'Puis-je publier une recherche ciblée sur la plateforme ?',
+    answer:
+      'Oui. En complément de l\'exploration libre du vivier, vous pouvez publier un mandat de recherche confidentiel en précisant vos critères : domaine d\'expertise, niveau de séniorité, langues, type de cabinet d\'origine. Logan identifie alors les profils les plus pertinents et vous les propose directement, accélérant ainsi le processus de rapprochement.',
+  },
+  {
+    question: 'Comment Logan garantit-il la confidentialité de mes recherches ?',
+    answer:
+      'Le cloisonnement est au cœur de la plateforme. Vos recherches et mandats ne sont jamais visibles par les candidats ni par les autres cabinets. Seul Logan connaît la nature de vos besoins et assure la mise en relation de manière ciblée et discrète, dans le respect absolu de la confidentialité de votre stratégie de recrutement.',
+  },
+  {
+    question: 'Quel accompagnement Logan propose-t-il tout au long du processus ?',
+    answer:
+      'Logan ne se limite pas à la mise en relation. Notre équipe vous accompagne de bout en bout : qualification du besoin, présélection des profils, coordination des entretiens, débriefings réguliers et suivi post-intégration. L\'objectif est de garantir non seulement la pertinence du matching, mais aussi la réussite durable de la collaboration.',
   },
 ];
 
