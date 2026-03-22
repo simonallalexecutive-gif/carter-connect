@@ -15,7 +15,13 @@ interface FAQItem {
   answer: string;
 }
 
+/* Ordered logically: confidentiality → how it works → value → practical */
 const candidatFAQ: FAQItem[] = [
+  {
+    question: 'Mon profil est-il strictement protégé ?',
+    answer:
+      'Oui. Lors de votre inscription, vous choisissez l\'un des deux statuts de visibilité :\n\n• Confidentiel — Fermé : votre profil est enregistré mais non consultable par les cabinets. Logan vous contacte uniquement si une opportunité pertinente se présente.\n\n• Confidentiel — Ouvert : les cabinets peuvent consulter votre profil (séniorité, expertise, projet professionnel) sans jamais accéder à votre identité ni au nom de votre cabinet actuel.\n\nVous pouvez modifier ce statut à tout moment depuis votre espace personnel.',
+  },
   {
     question: 'Mon profil peut-il être identifié par mon cabinet actuel ?',
     answer:
@@ -25,11 +31,6 @@ const candidatFAQ: FAQItem[] = [
     question: 'Mon profil peut-il être deviné grâce aux informations affichées ?',
     answer:
       'Non. Logan applique un principe de cloisonnement strict : les membres d\'un même cabinet ne peuvent jamais apparaître sur leurs espaces respectifs. Au-delà de ce cloisonnement, les informations visibles sont volontairement généralisées — fourchettes de séniorité, catégories d\'expertise larges, type de structure — de sorte qu\'aucun recoupement ne permette d\'identifier un candidat, même au sein d\'un marché restreint.',
-  },
-  {
-    question: 'Mon profil est-il strictement protégé ?',
-    answer:
-      'Oui. Lors de votre inscription, vous choisissez l\'un des deux statuts de visibilité :\n\n• Confidentiel — Fermé : votre profil est enregistré mais non consultable par les cabinets. Logan vous contacte uniquement si une opportunité pertinente se présente.\n\n• Confidentiel — Ouvert : les cabinets peuvent consulter votre profil (séniorité, expertise, projet professionnel) sans jamais accéder à votre identité ni au nom de votre cabinet actuel.\n\nVous pouvez modifier ce statut à tout moment depuis votre espace personnel.',
   },
   {
     question: 'Mon CV est-il partagé sans mon accord ?',
@@ -42,9 +43,14 @@ const candidatFAQ: FAQItem[] = [
       'Non. Logan est l\'unique intermédiaire entre vous et les cabinets. Qu\'il s\'agisse d\'un mandat de recrutement ou d\'une démarche spontanée, c\'est toujours Logan qui initie la mise en relation — et la décision de rencontrer ou non un cabinet vous appartient entièrement. Vous restez ainsi attractif en continu sur le marché, sans jamais perdre le contrôle de vos démarches.',
   },
   {
-    question: 'Comment suis-je informé des opportunités ?',
+    question: 'Les autres candidats inscrits peuvent-ils voir mon profil ?',
     answer:
-      'Depuis votre espace personnel, vous recevez des notifications dès qu\'un cabinet manifeste un intérêt pour votre profil ou qu\'une opportunité correspond à vos critères. Vous pouvez également consulter à tout moment la dynamique de votre marché : mouvements, tendances, et nouveaux besoins identifiés par Logan. Tout est centralisé dans un tableau de bord clair et confidentiel.',
+      'Non. L\'accès au réseau de profils est réservé exclusivement aux cabinets partenaires. Aucun candidat ne peut consulter le profil d\'un autre candidat. Votre espace est strictement personnel et cloisonné.',
+  },
+  {
+    question: 'En quoi Logan se distingue-t-il de l\'approche classique d\'un chasseur de têtes ?',
+    answer:
+      'Logan ne remplace pas la chasse de têtes traditionnelle : il la complète en y ajoutant une dimension inédite. Là où l\'approche classique repose sur des sollicitations ponctuelles, Logan vous offre un espace personnel dédié avec une visibilité continue sur votre marché, un matching intelligent alimenté par l\'IA et validé par l\'intervention humaine, et une transparence totale sur l\'avancement de chaque processus. Vous passez d\'une posture passive à une posture informée et maîtrisée.',
   },
   {
     question: 'Quel est l\'intérêt de rejoindre Logan ?',
@@ -52,9 +58,9 @@ const candidatFAQ: FAQItem[] = [
       'Logan vous permet de rester visible aux yeux du marché sans effort et sans risque. Concrètement : vous êtes alerté lorsqu\'un cabinet s\'intéresse à votre profil, vous suivez en temps réel les dynamiques de votre segment d\'expertise, et vous pouvez saisir une opportunité au moment précis où elle correspond à vos aspirations — sans avoir à multiplier les démarches ni dépendre du calendrier d\'un chasseur de têtes.',
   },
   {
-    question: 'En quoi Logan se distingue-t-il de l\'approche classique d\'un chasseur de têtes ?',
+    question: 'Comment suis-je informé des opportunités ?',
     answer:
-      'Logan ne remplace pas la chasse de têtes traditionnelle : il la complète en y ajoutant une dimension inédite. Là où l\'approche classique repose sur des sollicitations ponctuelles, Logan vous offre un espace personnel dédié avec une visibilité continue sur votre marché, un matching intelligent alimenté par l\'IA et validé par l\'intervention humaine, et une transparence totale sur l\'avancement de chaque processus. Vous passez d\'une posture passive à une posture informée et maîtrisée.',
+      'Depuis votre espace personnel, vous recevez des notifications dès qu\'un cabinet manifeste un intérêt pour votre profil ou qu\'une opportunité correspond à vos critères. Vous pouvez également consulter à tout moment la dynamique de votre marché : mouvements, tendances, et nouveaux besoins identifiés par Logan. Tout est centralisé dans un tableau de bord clair et confidentiel.',
   },
   {
     question: 'L\'inscription est-elle gratuite ?',
@@ -71,13 +77,9 @@ const candidatFAQ: FAQItem[] = [
     answer:
       'Oui. Vous pouvez supprimer votre compte et l\'ensemble de vos données à tout moment depuis votre espace personnel. La suppression est définitive et immédiate : votre profil est retiré du réseau et aucune information n\'est conservée.',
   },
-  {
-    question: 'Les autres candidats inscrits peuvent-ils voir mon profil ?',
-    answer:
-      'Non. L\'accès au réseau de profils est réservé exclusivement aux cabinets partenaires. Aucun candidat ne peut consulter le profil d\'un autre candidat. Votre espace est strictement personnel et cloisonné.',
-  },
 ];
 
+/* Ordered logically: access & how it works → profiles → pricing → support */
 const cabinetFAQ: FAQItem[] = [
   {
     question: 'Comment fonctionne l\'accès aux profils candidats ?',
@@ -88,6 +90,16 @@ const cabinetFAQ: FAQItem[] = [
     question: 'Puis-je contacter un candidat directement ?',
     answer:
       'Non. Chaque mise en relation passe exclusivement par Logan, qui joue le rôle d\'intermédiaire de confiance. Cette intermédiation garantit la confidentialité du processus pour les deux parties, préserve la qualité de l\'expérience candidat et assure un accompagnement structuré à chaque étape, de la prise de contact jusqu\'à la finalisation du recrutement.',
+  },
+  {
+    question: 'Comment Logan garantit-il la confidentialité de mes recherches ?',
+    answer:
+      'Le cloisonnement est au cœur de la plateforme. Vos recherches et mandats ne sont jamais visibles par les candidats ni par les autres cabinets. Seul Logan connaît la nature de vos besoins et assure la mise en relation de manière ciblée et discrète, dans le respect absolu de la confidentialité de votre stratégie de recrutement.',
+  },
+  {
+    question: 'Puis-je publier une recherche ciblée sur la plateforme ?',
+    answer:
+      'Oui. En complément de l\'exploration libre du vivier, vous pouvez publier un mandat de recherche confidentiel en précisant vos critères : domaine d\'expertise, niveau de séniorité, langues, type de cabinet d\'origine. Logan identifie alors les profils les plus pertinents et vous les propose directement, accélérant ainsi le processus de rapprochement.',
   },
   {
     question: 'Quels types de profils sont disponibles sur la plateforme ?',
@@ -103,16 +115,6 @@ const cabinetFAQ: FAQItem[] = [
     question: 'Quel est le modèle tarifaire de Logan ?',
     answer:
       'Logan repose sur un modèle hybride pensé pour optimiser vos coûts de recrutement : un abonnement donnant un accès permanent au vivier de candidats qualifiés, associé à un fee de placement significativement réduit par rapport aux standards du marché (les chasseurs classiques facturent généralement entre 20 et 25 %). Ce modèle vous permet de recruter de manière proactive, au bon moment, avec une parfaite maîtrise budgétaire.',
-  },
-  {
-    question: 'Puis-je publier une recherche ciblée sur la plateforme ?',
-    answer:
-      'Oui. En complément de l\'exploration libre du vivier, vous pouvez publier un mandat de recherche confidentiel en précisant vos critères : domaine d\'expertise, niveau de séniorité, langues, type de cabinet d\'origine. Logan identifie alors les profils les plus pertinents et vous les propose directement, accélérant ainsi le processus de rapprochement.',
-  },
-  {
-    question: 'Comment Logan garantit-il la confidentialité de mes recherches ?',
-    answer:
-      'Le cloisonnement est au cœur de la plateforme. Vos recherches et mandats ne sont jamais visibles par les candidats ni par les autres cabinets. Seul Logan connaît la nature de vos besoins et assure la mise en relation de manière ciblée et discrète, dans le respect absolu de la confidentialité de votre stratégie de recrutement.',
   },
   {
     question: 'Quel accompagnement Logan propose-t-il tout au long du processus ?',

@@ -1,43 +1,46 @@
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
-import { cn } from '@/lib/utils';
+import { motion } from 'motion/react';
+import { Shield, Target, UserCheck, Eye, Users, Sparkles } from 'lucide-react';
 
 const engagements = [
   {
     id: 'confidentialite',
+    icon: Shield,
     label: 'Confidentialité absolue',
     detail: 'Votre identité reste protégée à chaque étape. Aucune information partagée sans votre accord explicite.',
   },
   {
     id: 'ciblee',
-    label: 'Approche ciblée et accompagnement sur mesure',
+    icon: Target,
+    label: 'Approche ciblée',
     detail: 'Des rapprochements précis, fondés sur l\'expertise, la séniorité et les aspirations de chaque profil.',
   },
   {
     id: 'accompagnement',
-    label: 'Accompagnement individualisé et coaching personnalisé',
+    icon: UserCheck,
+    label: 'Coaching personnalisé',
     detail: 'Un consultant dédié valide chaque mise en relation et vous guide de bout en bout, avec une attention personnalisée.',
   },
   {
     id: 'acces',
-    label: 'Accès privilégié et visibilité continu de votre marché',
+    icon: Eye,
+    label: 'Visibilité continue',
     detail: 'Restez connecté en permanence aux mouvements du marché juridique, sans effort et en toute discrétion.',
   },
   {
     id: 'reseau',
-    label: 'Réseau ultra qualifié entretenu et alimenté chaque jour',
+    icon: Users,
+    label: 'Réseau ultra qualifié',
     detail: 'Un vivier fermé de profils rigoureusement sélectionnés, mis à jour en continu dans chaque spécialité.',
   },
   {
     id: 'strategique',
-    label: 'Matching intelligent des profils et opportunités',
+    icon: Sparkles,
+    label: 'Matching intelligent',
     detail: 'Un modèle transparent qui aligne les intérêts de toutes les parties pour des collaborations durables.',
   },
 ];
 
 const BenefitsSection = () => {
-  const [activeId, setActiveId] = useState<string | null>(null);
-
   return (
     <section className="py-24 md:py-32 bg-foreground">
       <div className="carter-container">
@@ -56,69 +59,32 @@ const BenefitsSection = () => {
           </p>
         </motion.div>
 
-        <div className="max-w-3xl mx-auto space-y-0">
-          {engagements.map((item, i) => {
-            const isActive = activeId === item.id;
-            return (
-              <motion.div
-                key={item.id}
-                initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.06, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              >
-                <button
-                  onClick={() => setActiveId(isActive ? null : item.id)}
-                  className="w-full text-left group"
-                >
-                  <div className={cn(
-                    'flex items-center justify-between py-6 border-b transition-all duration-500',
-                    isActive ? 'border-white/30' : 'border-white/[0.08]'
-                  )}>
-                    <div className="flex items-center gap-5">
-                      <span className={cn(
-                        'text-[10px] font-mono tracking-wider transition-colors duration-500',
-                        isActive ? 'text-white' : 'text-white/25'
-                      )}>
-                        {String(i + 1).padStart(2, '0')}
-                      </span>
-                      <span className={cn(
-                        'font-serif text-lg md:text-xl tracking-[-0.01em] transition-all duration-500',
-                        isActive ? 'text-white' : 'text-white/60 group-hover:text-white/80'
-                      )}>
-                        {item.label}
-                      </span>
-                    </div>
-                    <motion.span
-                      animate={{ rotate: isActive ? 45 : 0 }}
-                      transition={{ duration: 0.3 }}
-                      className={cn(
-                        'text-lg font-light flex-shrink-0 ml-4 transition-colors duration-500',
-                        isActive ? 'text-white' : 'text-white/30 group-hover:text-white/50'
-                      )}
-                    >
-                      +
-                    </motion.span>
-                  </div>
-                </button>
-                <AnimatePresence>
-                  {isActive && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: 'auto', opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                      className="overflow-hidden"
-                    >
-                      <p className="pl-[3.25rem] pr-8 pb-6 pt-2 text-sm text-white/50 font-light leading-relaxed max-w-lg">
-                        {item.detail}
-                      </p>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </motion.div>
-            );
-          })}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-white/[0.06] rounded-sm overflow-hidden max-w-5xl mx-auto">
+          {engagements.map((item, i) => (
+            <motion.div
+              key={item.id}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.08, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              className="bg-foreground p-8 md:p-10 group hover:bg-white/[0.03] transition-colors duration-500"
+            >
+              <div className="flex items-start gap-4 mb-5">
+                <div className="w-10 h-10 rounded-lg bg-white/[0.06] flex items-center justify-center flex-shrink-0 group-hover:bg-white/[0.1] transition-colors duration-500">
+                  <item.icon className="w-4.5 h-4.5 text-white/40 group-hover:text-white/70 transition-colors duration-500" />
+                </div>
+                <span className="text-[10px] font-mono text-white/20 mt-2">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+              </div>
+              <h3 className="font-serif text-lg text-white/90 mb-3 tracking-[-0.01em] leading-snug">
+                {item.label}
+              </h3>
+              <p className="text-[13px] font-sans text-white/40 font-light leading-relaxed">
+                {item.detail}
+              </p>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>
