@@ -59,10 +59,10 @@ const LandingPage = () => (
           <motion.p variants={fadeUp} className="text-xs font-sans font-medium tracking-[0.25em] uppercase text-white/50 mb-6 md:mb-10">
             &nbsp;
           </motion.p>
-          <motion.h1 variants={fadeUp} className="text-[1.45rem] sm:text-[1.75rem] md:text-[2.4rem] lg:text-[3.5rem] font-serif font-[500] text-white leading-[1.12] md:leading-[1.08] mb-6 md:mb-8 tracking-[-0.01em] whitespace-nowrap">
+          <motion.h1 variants={fadeUp} className="text-[2rem] sm:text-[2.45rem] md:text-[3.35rem] lg:text-[4.9rem] font-serif font-[500] text-white leading-[1.12] md:leading-[1.08] mb-6 md:mb-8 tracking-[-0.01em]">
             Connecting <em className="italic">top-tier</em>{' '}<span className="text-white/70">legal minds</span>
           </motion.h1>
-          <motion.p variants={fadeUp} className="text-base sm:text-lg md:text-xl text-white/80 font-sans font-light max-w-2xl mb-3 leading-relaxed">
+          <motion.p variants={fadeUp} className="text-[1.05rem] sm:text-[1.18rem] md:text-[1.32rem] text-white font-sans font-[350] max-w-2xl mb-3 leading-relaxed">
             Un réseau confidentiel, entretenu et piloté par des chasseurs spécialisés, dédié aux candidats et cabinets d'affaires les plus exigeants du marché.
           </motion.p>
           <motion.div variants={fadeUp} className="mb-8 md:mb-14" />
