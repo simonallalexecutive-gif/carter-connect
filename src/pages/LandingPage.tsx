@@ -78,7 +78,7 @@ const LandingPage = () => (
             &nbsp;
           </motion.p>
           <motion.h1 variants={fadeUp} className="text-[3.8rem] sm:text-[4.6rem] md:text-[6.35rem] lg:text-[9.25rem] font-serif font-[500] text-white leading-[1.05] md:leading-[1.02] mb-6 md:mb-8 tracking-[-0.03em]">
-            Connecting <em className="italic">top-tier</em>{' '}<span className="text-white/70">legal minds</span>
+            Connecting <span className="text-white/70">legal minds</span>
           </motion.h1>
           <motion.p variants={fadeUp} className="text-[1.15rem] sm:text-[1.3rem] md:text-[1.45rem] text-white font-sans font-medium max-w-2xl mb-3 leading-relaxed">
             Un réseau confidentiel d'exception, dédié aux candidats et cabinets d'affaires les plus exigeants du marché.
