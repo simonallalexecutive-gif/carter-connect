@@ -10,7 +10,7 @@ import FAQSection from '@/components/landing/FAQSection';
 
 import StatsTickerSection from '@/components/landing/StatsTickerSection';
 import { ArrowRight } from 'lucide-react';
-import heroVideoAsset from '@/assets/hero-video-abstract-bw.mp4.asset.json';
+import heroVideoAsset from '@/assets/hero-video-harvey-style.mp4.asset.json';
 
 const firmNames = [
   'Bredin Prat', 'Darrois Villey', 'Gide', 'Cleary Gottlieb', 'De Pardieu Brocas',
@@ -77,7 +77,7 @@ const LandingPage = () => (
           <motion.p variants={fadeUp} className="text-xs font-sans font-medium tracking-[0.25em] uppercase text-white/50 mb-2 md:mb-4">
             &nbsp;
           </motion.p>
-          <motion.h1 variants={fadeUp} className="text-[2.5rem] sm:text-[3rem] md:text-[4.1rem] lg:text-[6rem] font-serif font-[500] text-white leading-[1.05] md:leading-[1.02] mb-3 md:mb-4 tracking-[-0.03em] whitespace-nowrap">
+          <motion.h1 variants={fadeUp} className="text-[3.25rem] sm:text-[3.9rem] md:text-[5.3rem] lg:text-[7.8rem] font-serif font-[500] text-white leading-[1.05] md:leading-[1.02] mb-3 md:mb-4 tracking-[-0.03em] whitespace-nowrap">
             Connecting <span className="text-white/70">Legal Minds</span>
           </motion.h1>
           <motion.p variants={fadeUp} className="text-[1.06rem] sm:text-[1.12rem] md:text-[1.19rem] text-white font-sans font-[420] max-w-3xl mb-3 leading-relaxed">
