@@ -105,24 +105,57 @@ const candidatSteps: Step[] = [
       'Le cabinet ne sait pas que vous existez tant que vous n\'avez pas dit oui.',
     ],
     visual: (
-      <div className="bg-foreground rounded-xl overflow-hidden w-full">
-        <div className="p-5 border-b border-background/[0.06]">
-          <div className="text-[9px] tracking-[0.16em] uppercase text-background/30 mb-2">Opportunité · Présentée par LOGAN</div>
-          <div className="font-serif text-base font-bold text-background mb-1">Senior · Banque & Finance</div>
-          <div className="text-[11px] text-background/45">Cabinet anonyme · Tier 1</div>
-        </div>
-        <div className="p-5 grid grid-cols-2 gap-3">
-          <div>
-            <div className="text-[9px] uppercase text-background/30 mb-1">Rétrocession</div>
-            <div className="font-serif text-sm font-bold text-background">65–80 K€</div>
+      <div className="bg-foreground rounded-2xl p-6 text-background w-full shadow-[0_20px_60px_-15px_rgba(0,0,0,0.4)] border border-white/[0.06] relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-white/[0.04] to-transparent pointer-events-none" />
+        <div className="relative z-10">
+          {/* Header */}
+          <div className="flex items-center justify-between mb-5">
+            <div className="text-[8px] tracking-[0.2em] uppercase text-background/30 font-medium">Opportunité · Présentée par Logan</div>
+            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-background/[0.08] border border-background/[0.06]">
+              <EyeOff className="w-2.5 h-2.5 text-background/40" />
+              <span className="text-[7px] tracking-[0.1em] uppercase text-background/40 font-medium">Confidentiel</span>
+            </div>
           </div>
-          <div>
-            <div className="text-[9px] uppercase text-background/30 mb-1">Équipe</div>
-            <div className="font-serif text-sm font-bold text-background">2 associés · 5 collabs</div>
+
+          {/* Seniority & Expertise */}
+          <div className="font-serif text-lg font-bold leading-tight mb-0.5">Collaborateur Sénior</div>
+          <div className="text-[11px] text-background/50 font-medium mb-1">Restructuring & Contentieux</div>
+
+          {/* Ranking */}
+          <div className="flex items-center gap-3 mb-5 mt-4 px-4 py-3 rounded-xl bg-background/[0.06] border border-background/[0.08] backdrop-blur-sm">
+            <div className="w-8 h-8 rounded-lg bg-background/[0.08] flex items-center justify-center flex-shrink-0">
+              <BarChart3 className="w-4 h-4 text-background/50" />
+            </div>
+            <div>
+              <div className="text-[11px] font-semibold text-background/80">Cabinet du Tier 3</div>
+              <div className="text-[9px] text-background/35">Classement Entreprises en difficulté</div>
+            </div>
           </div>
-        </div>
-        <div className="p-5 pt-0">
-          <div className="w-full py-2.5 bg-background text-foreground font-bold text-xs rounded text-center">Je suis intéressé(e) →</div>
+
+          {/* Activité principale recherchée */}
+          <div className="mb-5 px-4 py-3 rounded-xl bg-background/[0.06] border border-background/[0.08]">
+            <div className="text-[8px] tracking-[0.15em] uppercase text-background/25 mb-2 font-medium">Activité principale recherchée</div>
+            <div className="text-[11px] font-semibold text-background/80">Restructuring (amiable et judiciaire)</div>
+            <div className="text-[9px] text-background/35 mt-1 italic">Dominante côté débiteur</div>
+          </div>
+
+          {/* Key info grid */}
+          <div className="grid grid-cols-2 gap-3 mb-5">
+            <div className="px-3 py-2.5 rounded-lg bg-background/[0.05] border border-background/[0.06]">
+              <div className="text-[8px] uppercase text-background/25 tracking-[0.1em] mb-1">Rétrocession</div>
+              <div className="font-serif text-sm font-bold text-background">145–170 K€</div>
+            </div>
+            <div className="px-3 py-2.5 rounded-lg bg-background/[0.05] border border-background/[0.06]">
+              <div className="text-[8px] uppercase text-background/25 tracking-[0.1em] mb-1">Équipe</div>
+              <div className="font-serif text-sm font-bold text-background">3 assoc. · 8 collabs</div>
+            </div>
+          </div>
+
+          {/* Context */}
+          <div className="pt-4 border-t border-background/[0.08] flex items-center justify-between">
+            <span className="text-[9px] text-background/30 uppercase tracking-[0.12em] font-medium">Contexte</span>
+            <span className="text-[11px] font-semibold text-background/70">Départ</span>
+          </div>
         </div>
       </div>
     ),
