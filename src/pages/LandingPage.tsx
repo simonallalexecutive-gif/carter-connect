@@ -10,7 +10,10 @@ import FAQSection from '@/components/landing/FAQSection';
 
 import StatsTickerSection from '@/components/landing/StatsTickerSection';
 import { ArrowRight } from 'lucide-react';
-import heroVideoAsset from '@/assets/hero-video-abstract-bw.mp4.asset.json';
+import heroClip1 from '@/assets/hero-clip-1.mp4.asset.json';
+import heroClip2 from '@/assets/hero-clip-2.mp4.asset.json';
+import heroClip3 from '@/assets/hero-clip-3.mp4.asset.json';
+import { useState, useEffect, useCallback } from 'react';
 
 const firmNames = [
   'Bredin Prat', 'Darrois Villey', 'Gide', 'Cleary Gottlieb', 'De Pardieu Brocas',
