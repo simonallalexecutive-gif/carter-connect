@@ -29,61 +29,68 @@ const candidatSteps: Step[] = [
       'Profil validé sous 48h par l\'équipe Logan.',
     ],
     visual: (
-      <div className="bg-foreground rounded-xl p-5 text-background w-full">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-4">
-          <div className="text-[8px] tracking-[0.18em] uppercase text-background/25 font-medium">Profil anonymisé</div>
-          <div className="flex items-center gap-1.5 text-[8px] text-background/30">
-            <EyeOff className="w-3 h-3" /> Confidentiel
-          </div>
-        </div>
-
-        {/* Seniority */}
-        <div className="font-serif text-base font-bold leading-tight mb-0.5">Collaborateur Mid Level</div>
-        <div className="text-[10px] text-background/40 mb-4">Prestation de serment : 2020</div>
-
-        {/* Ranking */}
-        <div className="flex items-center gap-2 mb-4 px-3 py-2 rounded-lg bg-background/[0.06] border border-background/[0.08]">
-          <BarChart3 className="w-3.5 h-3.5 text-background/40 flex-shrink-0" />
-          <div>
-            <div className="text-[10px] font-medium text-background/70">Cabinet classé Tier 2</div>
-            <div className="text-[9px] text-background/35">Legal 500 · Private Equity</div>
-          </div>
-        </div>
-
-        {/* Mini pie chart — activity split */}
-        <div className="mb-4">
-          <div className="text-[8px] tracking-[0.12em] uppercase text-background/25 mb-2.5">Répartition d'activité</div>
-          <div className="flex items-center gap-3">
-            {/* SVG donut */}
-            <svg width="52" height="52" viewBox="0 0 52 52" className="flex-shrink-0">
-              {/* 75% slice — financement LBO */}
-              <circle cx="26" cy="26" r="18" fill="none" stroke="hsl(0,0%,55%)" strokeWidth="7"
-                strokeDasharray={`${0.75 * 113.1} ${0.25 * 113.1}`}
-                strokeDashoffset="28.3" />
-              {/* 25% slice — financement immo */}
-              <circle cx="26" cy="26" r="18" fill="none" stroke="hsl(0,0%,75%)" strokeWidth="7"
-                strokeDasharray={`${0.25 * 113.1} ${0.75 * 113.1}`}
-                strokeDashoffset={28.3 - 0.75 * 113.1} />
-            </svg>
-            <div className="space-y-1.5">
-              <div className="flex items-center gap-1.5">
-                <span className="w-2 h-2 rounded-sm flex-shrink-0" style={{ background: 'hsl(0,0%,55%)' }} />
-                <span className="text-[9px] text-background/50">Financement LBO · 75%</span>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <span className="w-2 h-2 rounded-sm flex-shrink-0" style={{ background: 'hsl(0,0%,75%)' }} />
-                <span className="text-[9px] text-background/50">Financement Immo · 25%</span>
-              </div>
-              <div className="text-[8px] text-background/30 italic pl-3.5">Dominante côté prêteur</div>
+      <div className="bg-foreground rounded-2xl p-6 text-background w-full shadow-[0_20px_60px_-15px_rgba(0,0,0,0.4)] border border-white/[0.06] relative overflow-hidden">
+        {/* Subtle gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-white/[0.04] to-transparent pointer-events-none" />
+        <div className="relative z-10">
+          {/* Header */}
+          <div className="flex items-center justify-between mb-5">
+            <div className="text-[8px] tracking-[0.2em] uppercase text-background/30 font-medium">Profil anonymisé</div>
+            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-background/[0.08] border border-background/[0.06]">
+              <EyeOff className="w-2.5 h-2.5 text-background/40" />
+              <span className="text-[7px] tracking-[0.1em] uppercase text-background/40 font-medium">Confidentiel</span>
             </div>
           </div>
-        </div>
 
-        {/* Rétrocession */}
-        <div className="pt-3.5 border-t border-background/[0.08] flex items-center justify-between">
-          <span className="text-[9px] text-background/35 uppercase tracking-wider">Rétrocession</span>
-          <span className="font-serif text-sm font-bold text-background">125 K€ HT</span>
+          {/* Seniority */}
+          <div className="font-serif text-lg font-bold leading-tight mb-0.5">Collaborateur Mid Level</div>
+          <div className="text-[10px] text-background/35 mb-5">Prestation de serment : 2020</div>
+
+          {/* Ranking */}
+          <div className="flex items-center gap-3 mb-5 px-4 py-3 rounded-xl bg-background/[0.06] border border-background/[0.08] backdrop-blur-sm">
+            <div className="w-8 h-8 rounded-lg bg-background/[0.08] flex items-center justify-center flex-shrink-0">
+              <BarChart3 className="w-4 h-4 text-background/50" />
+            </div>
+            <div>
+              <div className="text-[11px] font-semibold text-background/80">Cabinet du Tier 2</div>
+              <div className="text-[9px] text-background/35">Classement Banque & Finance</div>
+            </div>
+          </div>
+
+          {/* Mini donut chart — activity split */}
+          <div className="mb-5">
+            <div className="text-[8px] tracking-[0.15em] uppercase text-background/25 mb-3 font-medium">Répartition d'activité</div>
+            <div className="flex items-center gap-4">
+              <div className="relative flex-shrink-0">
+                <svg width="56" height="56" viewBox="0 0 56 56">
+                  <circle cx="28" cy="28" r="20" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="8" />
+                  <circle cx="28" cy="28" r="20" fill="none" stroke="hsl(0,0%,65%)" strokeWidth="8"
+                    strokeDasharray={`${0.75 * 125.66} ${0.25 * 125.66}`}
+                    strokeDashoffset="31.4" strokeLinecap="round" />
+                  <circle cx="28" cy="28" r="20" fill="none" stroke="hsl(0,0%,82%)" strokeWidth="8"
+                    strokeDasharray={`${0.25 * 125.66} ${0.75 * 125.66}`}
+                    strokeDashoffset={31.4 - 0.75 * 125.66} strokeLinecap="round" />
+                </svg>
+              </div>
+              <div className="space-y-2">
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: 'hsl(0,0%,65%)' }} />
+                  <span className="text-[10px] text-background/55 font-medium">Financement LBO · 75%</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: 'hsl(0,0%,82%)' }} />
+                  <span className="text-[10px] text-background/55 font-medium">Financement Immo · 25%</span>
+                </div>
+                <div className="text-[9px] text-background/30 italic pl-4">Dominante côté prêteur</div>
+              </div>
+            </div>
+          </div>
+
+          {/* Rétrocession */}
+          <div className="pt-4 border-t border-background/[0.08] flex items-center justify-between">
+            <span className="text-[9px] text-background/30 uppercase tracking-[0.12em] font-medium">Rétrocession</span>
+            <span className="font-serif text-base font-bold text-background">125 K€ HT</span>
+          </div>
         </div>
       </div>
     ),
@@ -191,27 +198,52 @@ const cabinetSteps: Step[] = [
       'Recrutement stratégique : identifiez les talents avant vos concurrents.',
     ],
     visual: (
-      <div className="w-full space-y-2.5">
-        {[
-          { id: 'C-042', title: 'Senior Associate Finance · 5 ans', match: 92, tags: ['Financement', 'PE'], tier: 'Cabinet US Tier 1' },
-          { id: 'C-057', title: 'Collaborateur M&A · 4 ans', match: 88, tags: ['M&A', 'PE'], tier: 'Cabinet FR Tier 1' },
-          { id: 'C-071', title: 'Collaborateur Finance · 3 ans', match: 79, tags: ['Financement', 'Restructuring'], tier: 'Cabinet UK Tier 2' },
-        ].map(p => (
-          <div key={p.id} className="bg-foreground rounded-lg p-4 flex items-center gap-4">
-            <div className="w-12 h-12 rounded-full bg-background/10 flex items-center justify-center text-background font-serif text-sm font-bold flex-shrink-0">
-              {p.match}%
-            </div>
-            <div className="flex-1 min-w-0">
-              <div className="text-xs font-medium text-background truncate">{p.title}</div>
-              <div className="text-[10px] text-background/40 mt-0.5">{p.tier}</div>
-              <div className="flex gap-1 mt-1.5">
-                {p.tags.map(t => (
-                  <span key={t} className="text-[9px] px-2 py-0.5 rounded-full border border-background/15 text-background/50">{t}</span>
-                ))}
-              </div>
+      <div className="bg-foreground rounded-2xl p-6 text-background w-full shadow-[0_20px_60px_-15px_rgba(0,0,0,0.4)] border border-white/[0.06] relative overflow-hidden">
+        {/* Subtle gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-white/[0.04] to-transparent pointer-events-none" />
+        <div className="relative z-10">
+          {/* Header */}
+          <div className="flex items-center justify-between mb-5">
+            <div className="text-[8px] tracking-[0.2em] uppercase text-background/30 font-medium">Profil anonymisé</div>
+            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-background/[0.08] border border-background/[0.06]">
+              <EyeOff className="w-2.5 h-2.5 text-background/40" />
+              <span className="text-[7px] tracking-[0.1em] uppercase text-background/40 font-medium">Confidentiel</span>
             </div>
           </div>
-        ))}
+
+          {/* Seniority & Expertise */}
+          <div className="font-serif text-lg font-bold leading-tight mb-0.5">Collaborateur Mid Level</div>
+          <div className="text-[11px] text-background/50 font-medium mb-1">Private Equity / LBO</div>
+
+          {/* Ranking */}
+          <div className="flex items-center gap-3 mb-5 mt-4 px-4 py-3 rounded-xl bg-background/[0.06] border border-background/[0.08] backdrop-blur-sm">
+            <div className="w-8 h-8 rounded-lg bg-background/[0.08] flex items-center justify-center flex-shrink-0">
+              <BarChart3 className="w-4 h-4 text-background/50" />
+            </div>
+            <div>
+              <div className="text-[11px] font-semibold text-background/80">Cabinet du Tier 4</div>
+              <div className="text-[9px] text-background/35">Classement Private Equity</div>
+            </div>
+          </div>
+
+          {/* Key info grid */}
+          <div className="grid grid-cols-2 gap-3 mb-5">
+            <div className="px-3 py-2.5 rounded-lg bg-background/[0.05] border border-background/[0.06]">
+              <div className="text-[8px] uppercase text-background/25 tracking-[0.1em] mb-1">Rétrocession</div>
+              <div className="font-serif text-sm font-bold text-background">90–110 K€</div>
+            </div>
+            <div className="px-3 py-2.5 rounded-lg bg-background/[0.05] border border-background/[0.06]">
+              <div className="text-[8px] uppercase text-background/25 tracking-[0.1em] mb-1">Équipe</div>
+              <div className="font-serif text-sm font-bold text-background">3 assoc. · 8 collabs</div>
+            </div>
+          </div>
+
+          {/* Context */}
+          <div className="pt-4 border-t border-background/[0.08] flex items-center justify-between">
+            <span className="text-[9px] text-background/30 uppercase tracking-[0.12em] font-medium">Contexte</span>
+            <span className="text-[11px] font-semibold text-background/70">Renforcement d'équipe</span>
+          </div>
+        </div>
       </div>
     ),
   },
@@ -410,7 +442,9 @@ const DiscoverSection = () => {
                 </div>
 
                 {/* Right — Visual */}
-                <div className="bg-[hsl(0_0%_96%)] p-8 md:p-10 flex items-center justify-center">
+                <div className="bg-gradient-to-br from-[hsl(0_0%_94%)] to-[hsl(0_0%_90%)] p-8 md:p-10 flex items-center justify-center relative overflow-hidden">
+                  {/* Decorative subtle grid */}
+                  <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, hsl(0 0% 0%) 1px, transparent 0)', backgroundSize: '24px 24px' }} />
                   <motion.div
                     initial={{ opacity: 0, scale: 0.96 }}
                     animate={{ opacity: 1, scale: 1 }}
