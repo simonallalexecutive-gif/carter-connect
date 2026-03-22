@@ -71,8 +71,6 @@ const FounderSection = () => {
             >
               <p className="font-sans text-sm md:text-[0.95rem] text-white/60 font-light leading-relaxed mb-8">
                 Fort d'un réseau établi et d'une connaissance fine du marché des avocats d'affaires, Simon Allal a fondé Logan avec l'ambition de faire émerger des rencontres décisives et de leur donner les conditions de se concrétiser pleinement.
-                <br /><br />
-                À travers son intervention, cette plateforme devient un véritable lieu de rencontre où les attentes des candidats et les besoins des cabinets sont révélés avec justesse, permettant à chacun de trouver le partenaire idéal et de bâtir des collaborations pleinement réussies.
               </p>
               <Link to="/a-propos" className="inline-flex items-center gap-2 text-sm font-sans font-medium text-white/70 hover:text-white transition-colors duration-300 group">
                 À propos
