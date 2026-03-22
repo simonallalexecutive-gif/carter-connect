@@ -29,17 +29,61 @@ const candidatSteps: Step[] = [
       'Profil validé sous 48h par l\'équipe Logan.',
     ],
     visual: (
-      <div className="bg-foreground rounded-xl p-6 text-background w-full">
-        <div className="text-[9px] tracking-[0.16em] uppercase text-background/30 mb-4">Profil anonymisé</div>
-        <div className="font-serif text-lg font-bold mb-1">Collaborateur · M&A / PE</div>
-        <div className="text-xs text-background/50 mb-5">5 ans PQE · Cabinet US Tier 1</div>
-        <div className="flex gap-1.5 flex-wrap mb-5">
-          {['M&A Industriel', 'Private Equity', 'Bilingue'].map(t => (
-            <span key={t} className="text-[10px] px-3 py-1 rounded-full border border-background/15 text-background/60">{t}</span>
-          ))}
+      <div className="bg-foreground rounded-xl p-5 text-background w-full">
+        {/* Header */}
+        <div className="flex items-center justify-between mb-4">
+          <div className="text-[8px] tracking-[0.18em] uppercase text-background/25 font-medium">Profil anonymisé</div>
+          <div className="flex items-center gap-1.5 text-[8px] text-background/30">
+            <EyeOff className="w-3 h-3" /> Confidentiel
+          </div>
         </div>
-        <div className="pt-4 border-t border-background/10 text-[11px] text-background/40 flex items-center gap-2">
-          <EyeOff className="w-3.5 h-3.5" /> Identité protégée
+
+        {/* Seniority */}
+        <div className="font-serif text-base font-bold leading-tight mb-0.5">Collaborateur Mid Level</div>
+        <div className="text-[10px] text-background/40 mb-4">Prestation de serment : 2020</div>
+
+        {/* Ranking */}
+        <div className="flex items-center gap-2 mb-4 px-3 py-2 rounded-lg bg-background/[0.06] border border-background/[0.08]">
+          <BarChart3 className="w-3.5 h-3.5 text-background/40 flex-shrink-0" />
+          <div>
+            <div className="text-[10px] font-medium text-background/70">Cabinet classé Tier 2</div>
+            <div className="text-[9px] text-background/35">Legal 500 · Private Equity</div>
+          </div>
+        </div>
+
+        {/* Mini pie chart — activity split */}
+        <div className="mb-4">
+          <div className="text-[8px] tracking-[0.12em] uppercase text-background/25 mb-2.5">Répartition d'activité</div>
+          <div className="flex items-center gap-3">
+            {/* SVG donut */}
+            <svg width="52" height="52" viewBox="0 0 52 52" className="flex-shrink-0">
+              {/* 75% slice — financement LBO */}
+              <circle cx="26" cy="26" r="18" fill="none" stroke="hsl(0,0%,55%)" strokeWidth="7"
+                strokeDasharray={`${0.75 * 113.1} ${0.25 * 113.1}`}
+                strokeDashoffset="28.3" />
+              {/* 25% slice — financement immo */}
+              <circle cx="26" cy="26" r="18" fill="none" stroke="hsl(0,0%,75%)" strokeWidth="7"
+                strokeDasharray={`${0.25 * 113.1} ${0.75 * 113.1}`}
+                strokeDashoffset={28.3 - 0.75 * 113.1} />
+            </svg>
+            <div className="space-y-1.5">
+              <div className="flex items-center gap-1.5">
+                <span className="w-2 h-2 rounded-sm flex-shrink-0" style={{ background: 'hsl(0,0%,55%)' }} />
+                <span className="text-[9px] text-background/50">Financement LBO · 75%</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <span className="w-2 h-2 rounded-sm flex-shrink-0" style={{ background: 'hsl(0,0%,75%)' }} />
+                <span className="text-[9px] text-background/50">Financement Immo · 25%</span>
+              </div>
+              <div className="text-[8px] text-background/30 italic pl-3.5">Dominante côté prêteur</div>
+            </div>
+          </div>
+        </div>
+
+        {/* Rétrocession */}
+        <div className="pt-3.5 border-t border-background/[0.08] flex items-center justify-between">
+          <span className="text-[9px] text-background/35 uppercase tracking-wider">Rétrocession</span>
+          <span className="font-serif text-sm font-bold text-background">125 K€ HT</span>
         </div>
       </div>
     ),
