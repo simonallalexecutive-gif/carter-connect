@@ -60,10 +60,10 @@ const LandingPage = () => (
             &nbsp;
           </motion.p>
           <motion.h1 variants={fadeUp} className="text-[2.4rem] sm:text-[3rem] md:text-[4rem] lg:text-[5.2rem] font-serif font-[500] text-white leading-[1.05] md:leading-[1.02] mb-3 md:mb-4 tracking-[-0.03em] whitespace-nowrap">
-            Bridging <span className="text-white/70">Legal Minds</span>
+            Connecting <span className="text-white/70">top-tier legal minds</span>
           </motion.h1>
           <motion.p variants={fadeUp} className="text-[1.06rem] sm:text-[1.12rem] md:text-[1.19rem] text-white font-sans font-[420] max-w-3xl mb-3 leading-relaxed">
-            Repenser l'expérience recrutement au service des candidats et cabinets d'affaires les plus exigeants du marché.
+            Un réseau confidentiel, entretenu et piloté par des chasseurs spécialisés, dédié aux candidats et cabinets d'affaires les plus exigeants du marché.
           </motion.p>
           <motion.div variants={fadeUp} className="mb-14 md:mb-20" />
           <motion.div variants={fadeUp}>
