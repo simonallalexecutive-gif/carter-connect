@@ -170,20 +170,42 @@ const cabinetSteps: Step[] = [
       'Précisez vos cabinets prioritaires pour des alertes ciblées.',
     ],
     visual: (
-      <div className="bg-muted rounded-xl p-6 w-full">
-        <div className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-4">Votre recherche</div>
-        <div className="space-y-3">
-          {[
-            { label: 'Séniorité', value: 'Mid Level · Sénior' },
-            { label: 'Expertise', value: 'M&A Industriel, PE / LBO' },
-            { label: 'Anglais', value: 'Courant / Bilingue' },
-            { label: 'Confidentialité', value: '🔒 Confidentielle' },
-          ].map(r => (
-            <div key={r.label} className="flex justify-between items-baseline py-1.5 border-b border-border last:border-b-0">
-              <span className="text-[11px] text-muted-foreground">{r.label}</span>
-              <span className="text-xs font-medium text-foreground">{r.value}</span>
+      <div className="rounded-lg overflow-hidden w-full border border-border shadow-[0_8px_30px_-10px_rgba(0,0,0,0.12)]">
+        {/* Header banner */}
+        <div className="bg-foreground text-background px-5 py-4">
+          <div className="text-[8px] tracking-[0.16em] uppercase text-background/40 font-sans mb-2">Mandat de recherche · Confidentiel</div>
+          <div className="flex items-center gap-0 mb-1 flex-wrap">
+            <span className="font-sans text-[15px] font-semibold tracking-[-0.01em] text-background">Collaborateur Mid Level</span>
+            <span className="mx-2 w-px h-4 bg-background/20 inline-block" />
+            <span className="font-sans text-[15px] font-semibold tracking-[-0.01em] text-background">M&A / PE</span>
+          </div>
+          <div className="text-[10px] font-sans text-background/40 mt-1">Cabinet anonyme · Identité protégée</div>
+          <div className="flex flex-wrap gap-1.5 mt-3">
+            {['M&A Industriel', 'PE / LBO', 'Anglais courant'].map(tag => (
+              <span key={tag} className="text-[9px] px-2.5 py-1 rounded-full bg-background/10 text-background/70 font-medium border border-background/10">{tag}</span>
+            ))}
+          </div>
+        </div>
+        {/* Body */}
+        <div className="bg-background p-5">
+          <div className="grid grid-cols-2 gap-3 mb-4">
+            <div className="bg-secondary rounded-lg p-3 text-center">
+              <div className="text-[8px] uppercase tracking-[0.1em] text-muted-foreground mb-1">Rétrocession</div>
+              <div className="font-sans text-sm font-bold text-foreground">90–120 K€</div>
             </div>
-          ))}
+            <div className="bg-secondary rounded-lg p-3 text-center">
+              <div className="text-[8px] uppercase tracking-[0.1em] text-muted-foreground mb-1">Équipe</div>
+              <div className="font-sans text-sm font-bold text-foreground">2 assoc. · 6 collabs</div>
+            </div>
+          </div>
+          <div className="flex items-center justify-between pt-3 border-t border-border">
+            <span className="text-[9px] text-muted-foreground uppercase tracking-[0.1em]">Contexte</span>
+            <span className="text-[11px] font-semibold text-foreground">Renforcement d'équipe</span>
+          </div>
+          <div className="flex items-center justify-between mt-2">
+            <span className="text-[9px] text-muted-foreground uppercase tracking-[0.1em]">Confidentialité</span>
+            <span className="text-[11px] font-semibold text-foreground">🔒 Confidentielle</span>
+          </div>
         </div>
       </div>
     ),
@@ -442,9 +464,7 @@ const DiscoverSection = () => {
                 </div>
 
                 {/* Right — Visual */}
-                <div className="bg-gradient-to-br from-[hsl(0_0%_94%)] to-[hsl(0_0%_90%)] p-8 md:p-10 flex items-center justify-center relative overflow-hidden">
-                  {/* Decorative subtle grid */}
-                  <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, hsl(0 0% 0%) 1px, transparent 0)', backgroundSize: '24px 24px' }} />
+                <div className="p-8 md:p-10 flex items-center justify-center relative overflow-hidden">
                   <motion.div
                     initial={{ opacity: 0, scale: 0.96 }}
                     animate={{ opacity: 1, scale: 1 }}
