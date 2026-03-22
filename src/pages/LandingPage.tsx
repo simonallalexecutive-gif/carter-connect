@@ -74,16 +74,16 @@ const LandingPage = () => (
       </div>
       <div className="px-6 sm:px-8 lg:px-10 max-w-6xl relative z-10 pt-24 flex-1 flex items-center">
         <motion.div variants={stagger} initial="hidden" animate="visible" className="max-w-3xl">
-          <motion.p variants={fadeUp} className="text-xs font-sans font-medium tracking-[0.25em] uppercase text-white/50 mb-6 md:mb-10">
+          <motion.p variants={fadeUp} className="text-xs font-sans font-medium tracking-[0.25em] uppercase text-white/50 mb-2 md:mb-4">
             &nbsp;
           </motion.p>
-          <motion.h1 variants={fadeUp} className="text-[2.5rem] sm:text-[3rem] md:text-[4.1rem] lg:text-[6rem] font-serif font-[500] text-white leading-[1.05] md:leading-[1.02] mb-4 md:mb-6 tracking-[-0.03em] whitespace-nowrap">
-            Connecting <span className="text-white/70">legal minds</span>
+          <motion.h1 variants={fadeUp} className="text-[2.5rem] sm:text-[3rem] md:text-[4.1rem] lg:text-[6rem] font-serif font-[500] text-white leading-[1.05] md:leading-[1.02] mb-3 md:mb-4 tracking-[-0.03em] whitespace-nowrap">
+            Connecting <span className="text-white/70">Legal Minds</span>
           </motion.h1>
-          <motion.p variants={fadeUp} className="text-[0.85rem] sm:text-[0.9rem] md:text-[0.95rem] text-white font-sans font-[350] max-w-xl mb-3 leading-relaxed">
+          <motion.p variants={fadeUp} className="text-[1.06rem] sm:text-[1.12rem] md:text-[1.19rem] text-white font-sans font-[420] max-w-xl mb-3 leading-relaxed">
             Un réseau confidentiel d'excellence, piloté par des chasseurs spécialisés, pour accompagner les candidats et cabinets d'affaires les plus exigeants du marché.
           </motion.p>
-          <motion.div variants={fadeUp} className="mb-8 md:mb-14" />
+          <motion.div variants={fadeUp} className="mb-14 md:mb-20" />
           <motion.div variants={fadeUp}>
             <Link to="/demo">
               <Button size="lg" className="bg-white text-black border border-white hover:bg-white/90 font-sans text-sm font-medium px-6 sm:px-8 py-5 sm:py-6 rounded-sm tracking-wide group transition-all duration-300">
