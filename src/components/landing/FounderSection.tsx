@@ -50,7 +50,7 @@ const FounderSection = () => {
                   src={founderPhoto}
                   alt="Simon Allal, fondateur de Logan"
                   className="w-full h-full object-cover"
-                  style={{ objectPosition: '50% 15%' }}
+                  style={{ objectPosition: '50% 45%' }}
                 />
               </div>
               <h3 className="font-serif text-xl md:text-2xl text-white font-normal mb-1 tracking-[-0.01em]">
