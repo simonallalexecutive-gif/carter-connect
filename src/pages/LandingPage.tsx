@@ -39,35 +39,17 @@ const LandingPage = () => (
     <section className="min-h-screen md:min-h-[115vh] flex flex-col justify-center relative overflow-hidden bg-black">
       {/* Background video with gradient overlay */}
       <div className="absolute inset-0">
-        {/* B&W layer — left 50% */}
-        <div className="absolute inset-0" style={{ clipPath: 'inset(0 50% 0 0)' }}>
-          <motion.video
-            src={heroVideoAsset.url}
-            autoPlay
-            muted
-            loop
-            playsInline
-            initial={{ opacity: 0, scale: 1.05 }}
-            animate={{ opacity: 0.75, scale: 1 }}
-            transition={{ duration: 2, ease: 'easeOut' }}
-            className="w-full h-full object-cover"
-            style={{ filter: 'grayscale(100%)' }}
-          />
-        </div>
-        {/* Color layer — right 50% */}
-        <div className="absolute inset-0" style={{ clipPath: 'inset(0 0 0 50%)' }}>
-          <motion.video
-            src={heroVideoAsset.url}
-            autoPlay
-            muted
-            loop
-            playsInline
-            initial={{ opacity: 0, scale: 1.05 }}
-            animate={{ opacity: 0.75, scale: 1 }}
-            transition={{ duration: 2, ease: 'easeOut' }}
-            className="w-full h-full object-cover"
-          />
-        </div>
+        <motion.video
+          src={heroVideoAsset.url}
+          autoPlay
+          muted
+          loop
+          playsInline
+          initial={{ opacity: 0, scale: 1.05 }}
+          animate={{ opacity: 0.75, scale: 1 }}
+          transition={{ duration: 2, ease: 'easeOut' }}
+          className="w-full h-full object-cover"
+        />
         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-black/45 to-black/85" />
         <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/50" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black" />
