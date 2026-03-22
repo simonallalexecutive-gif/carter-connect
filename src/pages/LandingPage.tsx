@@ -46,7 +46,7 @@ const LandingPage = () => (
           loop
           playsInline
           initial={{ opacity: 0, scale: 1.05 }}
-          animate={{ opacity: 0.75, scale: 1 }}
+          animate={{ opacity: 0.85, scale: 1 }}
           transition={{ duration: 2, ease: 'easeOut' }}
           className="w-full h-full object-cover"
         />
@@ -59,13 +59,13 @@ const LandingPage = () => (
           <motion.p variants={fadeUp} className="text-xs font-sans font-medium tracking-[0.25em] uppercase text-white/50 mb-2 md:mb-4">
             &nbsp;
           </motion.p>
-          <motion.h1 variants={fadeUp} className="text-[2.4rem] sm:text-[3rem] md:text-[4rem] lg:text-[5.2rem] font-serif font-[500] text-white leading-[1.05] md:leading-[1.02] mb-3 md:mb-4 tracking-[-0.03em] whitespace-nowrap">
-            Connecting <span className="text-white/70">top-tier legal minds</span>
+          <motion.h1 variants={fadeUp} className="text-[3rem] sm:text-[3.75rem] md:text-[5rem] lg:text-[6.5rem] font-serif font-[500] text-white leading-[1.05] md:leading-[1.02] mb-8 md:mb-10 tracking-[-0.03em] whitespace-nowrap">
+            Connecting <span className="text-white/70"><em>top-tier</em> legal minds</span>
           </motion.h1>
           <motion.p variants={fadeUp} className="text-[1.06rem] sm:text-[1.12rem] md:text-[1.19rem] text-white font-sans font-[420] max-w-3xl mb-3 leading-relaxed">
             Un réseau confidentiel, entretenu et piloté par des chasseurs spécialisés, dédié aux candidats et cabinets d'affaires les plus exigeants du marché.
           </motion.p>
-          <motion.div variants={fadeUp} className="mb-14 md:mb-20" />
+          <motion.div variants={fadeUp} className="mb-20 md:mb-28" />
           <motion.div variants={fadeUp}>
             <Link to="/demo">
               <Button size="lg" className="bg-white text-black border border-white hover:bg-white/90 font-sans text-sm font-medium px-6 sm:px-8 py-5 sm:py-6 rounded-sm tracking-wide group transition-all duration-300">
@@ -93,7 +93,7 @@ const LandingPage = () => (
           <div className="flex-1 overflow-hidden">
             <div className="flex animate-marquee whitespace-nowrap items-center">
               {[...firmNames, ...firmNames].map((name, i) => (
-                <span key={i} className="mx-4 md:mx-10 text-sm font-sans font-medium text-white/50 select-none flex-shrink-0 tracking-wide">
+                <span key={i} className="mx-6 md:mx-14 text-sm font-sans font-medium text-white/50 select-none flex-shrink-0 tracking-wide">
                   {name}
                 </span>
               ))}

@@ -1,6 +1,6 @@
 import { motion, useInView } from 'motion/react';
 import { useRef, useEffect, useState } from 'react';
-import { Shield, TrendingUp, Users, Building2, CheckCircle } from 'lucide-react';
+import { Shield, TrendingUp, Users, Building2, CheckCircle, FileCheck } from 'lucide-react';
 
 interface AnimatedCounterProps {
   target: number;
@@ -42,6 +42,7 @@ const stats = [
   { icon: TrendingUp, value: 89, suffix: '', label: 'Placements réalisés', detail: 'Depuis le lancement' },
   { icon: Shield, value: 100, suffix: '%', label: 'Confidentiel', detail: 'Anonymat garanti à chaque étape' },
   { icon: CheckCircle, value: 48, suffix: 'h', label: 'Validation profil', detail: 'Délai moyen de vérification' },
+  { icon: FileCheck, value: 100, suffix: '%', label: 'Conformité RGPD', detail: 'Protection des données personnelles' },
 ];
 
 const StatsTickerSection = () => {
@@ -69,7 +70,7 @@ const StatsTickerSection = () => {
         </motion.div>
 
         {/* Stats grid */}
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-px bg-border rounded-sm overflow-hidden">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-px bg-border rounded-sm overflow-hidden">
           {stats.map((stat, i) => (
             <motion.div
               key={stat.label}

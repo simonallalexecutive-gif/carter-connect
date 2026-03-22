@@ -442,9 +442,7 @@ const DiscoverSection = () => {
                 </div>
 
                 {/* Right — Visual */}
-                <div className="bg-gradient-to-br from-[hsl(0_0%_94%)] to-[hsl(0_0%_90%)] p-8 md:p-10 flex items-center justify-center relative overflow-hidden">
-                  {/* Decorative subtle grid */}
-                  <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, hsl(0 0% 0%) 1px, transparent 0)', backgroundSize: '24px 24px' }} />
+                <div className="p-8 md:p-10 flex items-center justify-center relative overflow-hidden">
                   <motion.div
                     initial={{ opacity: 0, scale: 0.96 }}
                     animate={{ opacity: 1, scale: 1 }}

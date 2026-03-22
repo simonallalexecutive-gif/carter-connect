@@ -1,7 +1,7 @@
 import { motion } from 'motion/react';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
-import founderPhoto from '@/assets/founder-simon.jpeg';
+import founderPhoto from '@/assets/founder-simon-suit.jpeg';
 
 const FounderSection = () => {
   return (
