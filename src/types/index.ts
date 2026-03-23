@@ -117,6 +117,7 @@ export interface RegistrationState {
   statutEcoute: 'actif' | 'passif' | 'inactif' | '';
   visibilite: 'confidentiel' | 'semi-confidentiel' | '';
   cvFile: File | null;
+  isAdminMode: boolean;
   consentement: boolean;
   consentementExactitude: boolean;
   consentementMiseEnRelation: boolean;

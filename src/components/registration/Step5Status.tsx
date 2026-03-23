@@ -9,9 +9,10 @@ import { ArrowLeft, ArrowRight, Zap } from 'lucide-react';
 
 const Step5Status = () => {
   const store = useRegistrationStore();
+  const isAdmin = store.isAdminMode;
 
   const canProceed = store.statutEcoute !== '' && store.visibilite !== '' &&
-    store.consentement && store.consentementExactitude && store.consentementMiseEnRelation;
+    (isAdmin || (store.consentement && store.consentementExactitude && store.consentementMiseEnRelation));
 
   return (
     <motion.div
@@ -83,7 +84,8 @@ const Step5Status = () => {
           <FileDropzone file={store.cvFile} onFileChange={f => store.setField('cvFile', f)} />
         </div>
 
-        {/* Consentements */}
+        {/* Consentements — hidden in admin mode (candidate will consent via invite link) */}
+        {!isAdmin && (
         <div className="carter-card p-8 space-y-5">
           <div>
             <p className="carter-label mb-2">Engagement</p>
@@ -108,6 +110,7 @@ const Step5Status = () => {
             </div>
           ))}
         </div>
+        )}
 
         {/* Navigation */}
         <div className="flex justify-between pt-6">
