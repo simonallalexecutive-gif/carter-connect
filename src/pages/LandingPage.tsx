@@ -49,6 +49,26 @@ const LandingPage = () => (
           className="w-full h-full object-cover"
           style={{ willChange: 'transform' }}
         />
+        {/* Animated warm sunlight sweep */}
+        <motion.div
+          className="absolute inset-0"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: [0, 0.15, 0.25, 0.12, 0.2, 0.08] }}
+          transition={{ duration: 18, ease: 'easeInOut', repeat: Infinity, repeatType: 'reverse' }}
+          style={{
+            background: 'radial-gradient(ellipse 80% 60% at 75% 30%, rgba(255,200,120,0.4) 0%, rgba(255,160,60,0.15) 40%, transparent 70%)',
+          }}
+        />
+        {/* Slow golden-hour shift overlay */}
+        <motion.div
+          className="absolute inset-0"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: [0, 0.1, 0.18, 0.06] }}
+          transition={{ duration: 25, ease: 'easeInOut', repeat: Infinity, repeatType: 'mirror' }}
+          style={{
+            background: 'linear-gradient(135deg, rgba(255,180,80,0.2) 0%, transparent 50%, rgba(180,140,255,0.08) 100%)',
+          }}
+        />
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/80" />
         <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/60" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black" />
