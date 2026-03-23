@@ -8,13 +8,14 @@ import CabinetStep4Subscription from '@/components/cabinet/CabinetStep4Subscript
 import CabinetStep5Validation from '@/components/cabinet/CabinetStep5Validation';
 import CabinetStep6Confirm from '@/components/cabinet/CabinetStep6Confirm';
 import CabinetDashboard from '@/components/cabinet/CabinetDashboard';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
 import { NAT_FLAGS, NAT_LABELS } from '@/lib/legal500Rankings';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { Building2, Eye, FileText, LogOut, Home } from 'lucide-react';
+import { Building2, Eye, FileText, LogOut, Home, Bell } from 'lucide-react';
+import CabinetNotificationAlerts from '@/components/cabinet/CabinetNotificationAlerts';
 import {
   SidebarProvider,
   Sidebar,
@@ -39,9 +40,11 @@ const CABINET_TABS: { key: CabinetTabKey; label: string; icon: typeof Building2 
 const CabinetSidebar = ({
   activeTab,
   setActiveTab,
+  onOpenAlerts,
 }: {
   activeTab: CabinetTabKey;
   setActiveTab: (tab: CabinetTabKey) => void;
+  onOpenAlerts: () => void;
 }) => {
   const { state } = useSidebar();
   const collapsed = state === 'collapsed';
@@ -109,6 +112,12 @@ const CabinetSidebar = ({
         <div className="px-2 space-y-1">
           <SidebarMenu>
             <SidebarMenuItem>
+              <SidebarMenuButton onClick={onOpenAlerts} tooltip="Alertes prioritaires" className="text-white/40 hover:text-white hover:bg-white/5 font-sans text-[11px] rounded-md mx-1">
+                <Bell className="w-4 h-4" />
+                {!collapsed && <span>Alertes prioritaires</span>}
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+            <SidebarMenuItem>
               <SidebarMenuButton asChild tooltip="Accueil" className="text-white/40 hover:text-white hover:bg-white/5 font-sans text-[11px] rounded-md mx-1">
                 <Link to="/">
                   <Home className="w-4 h-4" />
@@ -132,6 +141,7 @@ const CabinetSidebar = ({
 const CabinetDashboardLayout = () => {
   const s = useCabinetStore();
   const { user } = useAuth();
+  const [showAlerts, setShowAlerts] = useState(false);
 
   const getActiveTab = (): CabinetTabKey => {
     if (s.dashboardView === 'explore') return 'explore';
@@ -153,7 +163,7 @@ const CabinetDashboardLayout = () => {
   return (
     <SidebarProvider>
       <div className="min-h-screen flex w-full">
-        <CabinetSidebar activeTab={getActiveTab()} setActiveTab={setActiveTab} />
+        <CabinetSidebar activeTab={getActiveTab()} setActiveTab={setActiveTab} onOpenAlerts={() => setShowAlerts(true)} />
 
         <div className="flex-1 flex flex-col min-h-screen">
           {/* Top bar */}
@@ -201,6 +211,7 @@ const CabinetDashboardLayout = () => {
           </div>
         </div>
       </div>
+      {showAlerts && <CabinetNotificationAlerts onClose={() => setShowAlerts(false)} />}
     </SidebarProvider>
   );
 };

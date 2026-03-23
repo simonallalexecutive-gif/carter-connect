@@ -433,15 +433,17 @@ const ExploreView = ({
   setDrawerProfile: (p: CabinetProfile | null) => void;
 }) => {
   const s = useCabinetStore();
+  const [legal500Only, setLegal500Only] = useState(false);
 
   const filtered = useMemo(() => {
     let profiles = [...PROFILES];
     if (filter === 'new') profiles = profiles.filter((p) => p.isNew);
     else if (filter !== 'all') profiles = profiles.filter((p) => p.dept === filter);
+    if (legal500Only) profiles = profiles.filter((p) => p.originTier && p.originTier.startsWith('Tier'));
     if (sort === 'pqe') profiles.sort((a, b) => parseInt(b.pqe) - parseInt(a.pqe));
     else if (sort === 'match') profiles.sort((a, b) => b.match - a.match);
     return profiles;
-  }, [filter, sort]);
+  }, [filter, sort, legal500Only]);
 
   return (
     <div>
@@ -485,6 +487,20 @@ const ExploreView = ({
             <option value="match">Matching</option>
           </select>
         </div>
+      </div>
+
+      {/* Legal 500 checkbox */}
+      <div className="flex items-center gap-2 mb-5">
+        <input
+          type="checkbox"
+          id="legal500filter"
+          checked={legal500Only}
+          onChange={e => setLegal500Only(e.target.checked)}
+          className="w-3.5 h-3.5 rounded border-border accent-foreground cursor-pointer"
+        />
+        <label htmlFor="legal500filter" className="text-[11px] text-foreground font-medium cursor-pointer select-none">
+          Candidats issus du Legal 500 uniquement
+        </label>
       </div>
 
       {/* Grid */}

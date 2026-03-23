@@ -6,6 +6,8 @@ import AdminKPIs from '@/components/admin/AdminKPIs';
 import AdminProfiles from '@/components/admin/AdminProfiles';
 import AdminOffers from '@/components/admin/AdminOffers';
 import AdminProcesses from '@/components/admin/AdminProcesses';
+import AdminAgenda from '@/components/admin/AdminAgenda';
+import AdminRegistration from '@/components/admin/AdminRegistration';
 import { useAuth } from '@/hooks/useAuth';
 
 const AdminPage = () => {
@@ -41,6 +43,8 @@ const AdminPage = () => {
             <main className="flex-1 p-6 lg:p-8 overflow-y-auto">
               <Routes>
                 <Route index element={<AdminKPIs />} />
+                <Route path="agenda" element={<AdminAgenda />} />
+                <Route path="inscrire" element={<AdminRegistration />} />
                 <Route path="profils" element={<AdminProfiles />} />
                 <Route path="offres" element={<AdminOffers />} />
                 <Route path="processus" element={<AdminProcesses />} />
