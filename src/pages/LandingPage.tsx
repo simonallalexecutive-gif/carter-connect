@@ -108,7 +108,7 @@ const LandingPage = () => (
             Connecting Legal Minds
           </motion.h1>
           <motion.p variants={fadeUp} className="text-[1.06rem] sm:text-[1.12rem] md:text-[1.19rem] text-white font-sans font-[350] max-w-3xl mb-3 leading-relaxed -mt-6">
-            Un réseau confidentiel d'excellence, entretenu et orchestré par des chasseurs spécialisés, au service des candidats et cabinets d'affaires les plus exigeants du marché.
+            Un réseau confidentiel d'excellence, entretenu et orchestré par des chasseurs spécialisés,<br />au service des candidats et cabinets d'affaires les plus exigeants du marché.
           </motion.p>
           <motion.div variants={fadeUp} className="mb-20 md:mb-28" />
           <motion.div variants={fadeUp}>
