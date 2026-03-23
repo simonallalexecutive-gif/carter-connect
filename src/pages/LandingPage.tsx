@@ -49,10 +49,6 @@ const LandingPage = () => (
           className="w-full h-full object-cover"
           style={{ willChange: 'transform' }}
         />
-        <motion.div
-          className="absolute inset-0 w-full h-full object-cover"
-          style={{ backgroundImage: `url(${heroBoardroom})`, backgroundSize: 'cover', backgroundPosition: 'center', position: 'absolute', inset: 0, opacity: 0 }}
-        />
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/80" />
         <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/60" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black" />
