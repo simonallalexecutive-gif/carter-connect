@@ -11,6 +11,7 @@ import FAQSection from '@/components/landing/FAQSection';
 import StatsTickerSection from '@/components/landing/StatsTickerSection';
 import { ArrowRight } from 'lucide-react';
 import heroVideoAsset from '@/assets/hero-video-abstract-bw.mp4.asset.json';
+import heroBoardroom from '@/assets/hero-boardroom.jpeg';
 
 const firmNames = [
   'Bredin Prat', 'Darrois Villey', 'Gide', 'Cleary Gottlieb', 'De Pardieu Brocas',
@@ -37,21 +38,19 @@ const LandingPage = () => (
 
     {/* Hero */}
     <section className="min-h-screen md:min-h-[115vh] flex flex-col justify-center relative overflow-hidden bg-black">
-      {/* Background video with gradient overlay */}
+      {/* Background photo with Ken Burns animation */}
       <div className="absolute inset-0">
-        <motion.video
-          src={heroVideoAsset.url}
-          autoPlay
-          muted
-          loop
-          playsInline
-          initial={{ opacity: 0, scale: 1.05 }}
-          animate={{ opacity: 0.85, scale: 1 }}
-          transition={{ duration: 2, ease: 'easeOut' }}
+        <motion.img
+          src={heroBoardroom}
+          alt=""
+          initial={{ opacity: 0, scale: 1.15 }}
+          animate={{ opacity: 0.85, scale: 1.05 }}
+          transition={{ duration: 20, ease: 'linear' }}
           className="w-full h-full object-cover"
+          style={{ willChange: 'transform' }}
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-black/45 to-black/85" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/50" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/80" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/60" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black" />
       </div>
       <div className="px-6 sm:px-8 lg:px-10 max-w-6xl relative z-10 pt-24 flex-1 flex items-center">
@@ -127,9 +126,21 @@ const LandingPage = () => (
 
 
     {/* CTA */}
-    <section className="py-24 md:py-32 bg-black relative">
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] rounded-full opacity-[0.08]" style={{ background: 'radial-gradient(circle, hsl(0 0% 50%), transparent 70%)' }} />
+    <section className="py-24 md:py-32 bg-black relative overflow-hidden">
+      <div className="absolute inset-0">
+        <motion.video
+          src={heroVideoAsset.url}
+          autoPlay
+          muted
+          loop
+          playsInline
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 0.4 }}
+          viewport={{ once: true }}
+          transition={{ duration: 2 }}
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black" />
       </div>
       <div className="carter-container text-center relative z-10">
         <motion.div
