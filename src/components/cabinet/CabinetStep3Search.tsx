@@ -359,58 +359,6 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
             </div>
           </div>
 
-          <div className="h-px bg-border my-6" />
-
-          <div className="mb-6">
-            <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2 block">Cabinet d'origine du candidat</label>
-            <button
-              onClick={() => s.setField('l500cand', !s.l500cand)}
-              className={cn(
-                'w-full flex items-center justify-between p-4 rounded border transition-all mb-3',
-                s.l500cand ? 'border-foreground bg-secondary' : 'border-border bg-background'
-              )}
-            >
-              <div className="text-left">
-                <div className="text-sm text-foreground">Le candidat doit évoluer actuellement dans une équipe reconnue par le Legal 500</div>
-                <div className="text-[11px] text-muted-foreground mt-0.5">Garantit un profil issu d'une structure de référence</div>
-              </div>
-              <div className={cn('w-9 h-5 rounded-full relative transition-colors flex-shrink-0', s.l500cand ? 'bg-foreground' : 'bg-border')}>
-                <div className={cn('absolute w-3.5 h-3.5 rounded-full bg-white top-[3px] transition-transform shadow-sm', s.l500cand ? 'translate-x-4' : 'translate-x-[3px]')} />
-              </div>
-            </button>
-
-            <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2 block mt-3">Préférence de nationalité du cabinet d'origine</label>
-            <div className="flex gap-2 flex-wrap">
-              {['Cabinet US', 'Cabinet UK', 'Cabinet français', 'Pas de préférence'].map((n) => (
-                <button
-                  key={n}
-                  onClick={() => s.setField('natOrigin', n)}
-                  className={cn(
-                    'px-4 py-2 rounded-sm border text-xs transition-all',
-                    s.natOrigin === n ? 'bg-foreground text-background border-foreground' : 'bg-background text-muted-foreground border-border hover:border-foreground'
-                  )}
-                >
-                  {n}
-                </button>
-              ))}
-            </div>
-
-            <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2 block mt-5">
-              Cabinets prioritaires <span className="font-normal normal-case tracking-normal text-[10px] text-border">facultatif — notifications ciblées</span>
-            </label>
-            <p className="text-[11px] text-muted-foreground mb-2.5 leading-relaxed">
-              Souhaitez-vous être notifié en priorité pour des candidats issus de cabinets spécifiques ? Sélectionnez les structures qui vous intéressent.
-            </p>
-            <AutocompleteInput
-              data={Object.keys(FIRMS_DB)}
-              value={s.prefFirms}
-              onChange={(val) => s.setField('prefFirms', val as string[])}
-              placeholder="Ex : Sullivan & Cromwell, Skadden, White & Case…"
-              single={false}
-            />
-          </div>
-        </div>
-      )}
 
       {/* Tab 1: Contexte & équipe */}
       {activeTab === 1 && (
@@ -449,49 +397,6 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
                 <Input value={s.eqCollab} onChange={(e) => s.setField('eqCollab', e.target.value)} type="number" min="0" placeholder="Ex : 4" className="bg-background" />
               </div>
             </div>
-          </div>
-
-          <div className="mb-6">
-            <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2 block">
-              Profil idéal — qualités recherchées <span className="font-normal normal-case tracking-normal text-[10px] text-border">facultatif — plusieurs choix possibles</span>
-            </label>
-            <div className="flex gap-2 flex-wrap">
-              {[
-                'Autonome',
-                'Anglais courant',
-                'Esprit entrepreneurial',
-                'Rigueur & organisation',
-                'Bon relationnel client',
-                'Capacité à encadrer',
-                'Gestion de dossiers complexes',
-                'Polyvalent',
-                'Esprit d\'équipe',
-                'Capacité rédactionnelle',
-                'Proactivité',
-                'Résilience',
-              ].map((crit) => {
-                const profilCriteres = (s as any).profilCriteres as string[] || [];
-                const isSelected = profilCriteres.includes(crit);
-                return (
-                  <button
-                    key={crit}
-                    onClick={() => {
-                      const current = (s as any).profilCriteres as string[] || [];
-                      s.setField('profilCriteres' as any, isSelected ? current.filter((c: string) => c !== crit) : [...current, crit]);
-                    }}
-                    className={cn(
-                      'px-3.5 py-2 rounded-sm border text-xs transition-all',
-                      isSelected
-                        ? 'bg-foreground text-background border-foreground'
-                        : 'bg-background text-muted-foreground border-border hover:border-foreground hover:text-foreground'
-                    )}
-                  >
-                    {crit}
-                  </button>
-                );
-              })}
-            </div>
-            <p className="text-[11px] text-muted-foreground mt-1.5">Ces critères seront visibles par le candidat dans l'aperçu de votre recherche.</p>
           </div>
         </div>
       )}
