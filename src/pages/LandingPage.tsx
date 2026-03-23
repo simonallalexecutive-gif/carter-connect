@@ -79,10 +79,10 @@ const LandingPage = () => (
             &nbsp;
           </motion.p>
           <motion.h1 variants={fadeUp} className="text-[3rem] sm:text-[3.75rem] md:text-[5rem] lg:text-[6.5rem] font-serif font-[500] text-white leading-[1.05] md:leading-[1.02] mb-8 md:mb-10 tracking-[-0.03em] whitespace-nowrap">
-            The Lawyer <span className="text-white/70">Society</span>
+            Moves Made <span className="text-white/70">Private</span>
           </motion.h1>
-          <motion.p variants={fadeUp} className="text-[1.06rem] sm:text-[1.12rem] md:text-[1.19rem] text-white font-sans font-[380] max-w-3xl mb-3 leading-relaxed -mt-6">
-            Un réseau confidentiel, entretenu et piloté, dédié aux candidats et cabinets d'affaires les plus exigeants du marché.
+          <motion.p variants={fadeUp} className="text-[1.06rem] sm:text-[1.12rem] md:text-[1.19rem] text-white font-sans font-[350] max-w-3xl mb-3 leading-relaxed -mt-6">
+            Un réseau confidentiel d'excellence, entretenu et orchestré par des chasseurs spécialisés, au service des candidats et cabinets d'affaires les plus exigeants du marché.
           </motion.p>
           <motion.div variants={fadeUp} className="mb-20 md:mb-28" />
           <motion.div variants={fadeUp}>
