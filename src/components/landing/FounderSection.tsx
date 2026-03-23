@@ -35,35 +35,39 @@ const FounderSection = () => {
             </span>
           </motion.blockquote>
 
-          {/* Founder bio with photo */}
+          {/* Founder bio — side by side */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
-            className="max-w-2xl mx-auto text-center flex flex-col items-center"
+            className="max-w-3xl mx-auto flex flex-col md:flex-row items-center md:items-start gap-8 md:gap-12"
           >
-            <div className="w-28 h-28 md:w-32 md:h-32 rounded-full overflow-hidden mb-6 ring-2 ring-white/10">
+            {/* Photo */}
+            <div className="flex-shrink-0 w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden ring-2 ring-white/10">
               <img
                 src={founderPhoto}
                 alt="Simon Allal"
                 className="w-full h-full object-cover object-[center_30%]"
               />
-            </div
-          >
-            <h3 className="font-serif text-xl md:text-2xl text-white font-normal mb-1 tracking-[-0.01em]">
-              Simon Allal
-            </h3>
-            <p className="text-[10px] font-sans font-medium tracking-[0.2em] uppercase text-white/50 mb-6">
-              Fondateur
-            </p>
-            <p className="font-sans text-sm md:text-[0.95rem] text-white/60 font-light leading-relaxed mb-8">
-              Fort d'un réseau établi et d'une connaissance fine du marché des avocats d'affaires, Simon Allal a fondé Logan avec l'ambition de faire émerger des rencontres décisives et de leur donner les conditions de se concrétiser pleinement.
-            </p>
-            <Link to="/a-propos" className="inline-flex items-center gap-2 text-sm font-sans font-medium text-white/70 hover:text-white transition-colors duration-300 group">
-              À propos
-              <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
-            </Link>
+            </div>
+
+            {/* Text */}
+            <div className="text-center md:text-left">
+              <h3 className="font-serif text-xl md:text-2xl text-white font-normal mb-1 tracking-[-0.01em]">
+                Simon Allal
+              </h3>
+              <p className="text-[10px] font-sans font-medium tracking-[0.2em] uppercase text-white/50 mb-5">
+                Fondateur
+              </p>
+              <p className="font-sans text-sm md:text-[0.95rem] text-white/60 font-light leading-relaxed mb-6">
+                Fort d'un réseau établi et d'une connaissance fine du marché des avocats d'affaires, Simon Allal a fondé Logan avec l'ambition de faire émerger des rencontres décisives et de leur donner les conditions de se concrétiser pleinement.
+              </p>
+              <Link to="/a-propos" className="inline-flex items-center gap-2 text-sm font-sans font-medium text-white/70 hover:text-white transition-colors duration-300 group">
+                À propos
+                <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
+              </Link>
+            </div>
           </motion.div>
         </div>
       </div>
