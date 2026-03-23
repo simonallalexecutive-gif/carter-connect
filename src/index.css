@@ -115,44 +115,44 @@
     --shadow-elevated: 0 4px 16px -2px hsl(0 0% 0% / 0.1);
   }
 
-  /* Admin theme — Darrois-inspired deep navy */
+  /* Admin theme — same monochrome as candidate/cabinet */
   .theme-admin {
-    --background: 220 25% 95%;           /* #EEF0F4 subtle blue-grey */
-    --foreground: 222 40% 10%;           /* near-black navy */
+    --background: 0 0% 96%;              /* #F5F5F5 — same as theme-light */
+    --foreground: 0 0% 7%;               /* #111111 */
 
     --card: 0 0% 100%;
-    --card-foreground: 222 40% 10%;
+    --card-foreground: 0 0% 7%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222 40% 10%;
+    --popover-foreground: 0 0% 7%;
 
-    --primary: 222 44% 11%;              /* #0F1A2E Darrois navy */
-    --primary-foreground: 0 0% 100%;     /* white on navy */
+    --primary: 0 0% 7%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 220 20% 92%;
-    --secondary-foreground: 222 40% 10%;
+    --secondary: 0 0% 92%;
+    --secondary-foreground: 0 0% 7%;
 
-    --muted: 220 18% 93%;
-    --muted-foreground: 220 12% 46%;
+    --muted: 0 0% 92%;
+    --muted-foreground: 0 0% 42%;
 
-    --accent: 222 44% 11%;               /* same navy for accents */
-    --accent-foreground: 0 0% 100%;
+    --accent: 0 0% 92%;
+    --accent-foreground: 0 0% 7%;
 
     --destructive: 0 55% 50%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 220 18% 86%;
-    --input: 220 18% 86%;
-    --ring: 222 35% 25%;
+    --border: 0 0% 78%;
+    --input: 0 0% 78%;
+    --ring: 0 0% 29%;
 
-    --sidebar-background: 222 44% 11%;   /* #0F1A2E deep navy */
-    --sidebar-foreground: 220 20% 75%;   /* muted white */
+    --sidebar-background: 0 0% 7%;       /* #111111 dark sidebar */
+    --sidebar-foreground: 0 0% 65%;      /* muted white */
     --sidebar-primary: 0 0% 100%;        /* white active */
-    --sidebar-primary-foreground: 222 44% 11%;
-    --sidebar-accent: 222 38% 16%;       /* slightly lighter navy */
+    --sidebar-primary-foreground: 0 0% 7%;
+    --sidebar-accent: 0 0% 14%;          /* slightly lighter */
     --sidebar-accent-foreground: 0 0% 95%;
-    --sidebar-border: 222 35% 18%;
-    --sidebar-ring: 220 20% 60%;
+    --sidebar-border: 0 0% 18%;
+    --sidebar-ring: 0 0% 48%;
   }
 }
 
