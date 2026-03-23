@@ -337,103 +337,109 @@ const DiscoverSection = () => {
   return (
     <>
     <section className="py-24 md:py-32 bg-[hsl(0_0%_96%)] relative overflow-hidden">
-
       <div className="carter-container relative z-10">
-        {/* Header — label only */}
+
+        {/* Section label */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="text-center mb-10"
+          className="text-center mb-12 md:mb-16"
         >
-          <p className="text-[10px] font-sans font-medium tracking-[0.25em] uppercase text-muted-foreground">
+          <p className="text-[10px] font-sans font-medium tracking-[0.25em] uppercase text-muted-foreground mb-6">
             Notre Approche
           </p>
+          <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-[2.75rem] font-normal text-foreground tracking-[-0.02em] leading-[1.1]">
+            Intelligence artificielle &amp; discernement humain
+          </h2>
         </motion.div>
 
-        {/* Intro block — AI + human */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
+        {/* Lead paragraph */}
+        <motion.p
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          className="max-w-2xl mx-auto mb-12 md:mb-14"
+          transition={{ duration: 0.7, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+          className="text-[13px] md:text-sm text-foreground/70 font-sans font-light leading-[1.8] text-center max-w-2xl mx-auto mb-10"
         >
-          <p className="text-sm md:text-[15px] text-foreground/80 font-light leading-relaxed text-center mb-6">
-            Logan combine la puissance de l'intelligence artificielle et l'exigence du discernement humain pour offrir un accès continu à la dynamique réelle du marché.
-          </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3 max-w-lg mx-auto mb-6">
-            {[
-              'Identification et matching en continu',
-              'Approche ciblée de profils souvent inaccessibles',
-              'Confidentialité absolue des recherches',
-              'Accompagnement sur mesure à chaque étape',
-            ].map((item) => (
-              <div key={item} className="flex items-start gap-2.5">
-                <div className="w-1.5 h-1.5 rounded-full bg-foreground/40 mt-[7px] flex-shrink-0" />
-                <span className="text-xs text-foreground/65 font-normal leading-relaxed">{item}</span>
-              </div>
-            ))}
-          </div>
-          <p className="text-sm md:text-[15px] text-foreground/80 font-light leading-relaxed text-center">
-            Là où les modèles traditionnels reposent sur des missions ponctuelles, Logan propose un accès structuré, fluide et permanent aux meilleures opportunités du marché.
-          </p>
+          Logan combine la puissance de l'intelligence artificielle et l'exigence du discernement humain pour offrir un accès continu à la dynamique réelle du marché.
+        </motion.p>
+
+        {/* 4 key points — horizontal on desktop */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
+          className="flex flex-wrap justify-center gap-x-8 gap-y-2 max-w-2xl mx-auto mb-10"
+        >
+          {[
+            'Identification et matching en continu',
+            'Approche ciblée de profils souvent inaccessibles',
+            'Confidentialité absolue des recherches',
+            'Accompagnement sur mesure à chaque étape',
+          ].map((item) => (
+            <div key={item} className="flex items-center gap-2">
+              <div className="w-1 h-1 rounded-full bg-foreground/35 flex-shrink-0" />
+              <span className="text-[12px] text-foreground/55 font-sans font-normal whitespace-nowrap">{item}</span>
+            </div>
+          ))}
         </motion.div>
+
+        {/* Closing lead */}
+        <motion.p
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, delay: 0.16, ease: [0.16, 1, 0.3, 1] }}
+          className="text-[13px] md:text-sm text-foreground/70 font-sans font-light leading-[1.8] text-center max-w-2xl mx-auto mb-16 md:mb-20"
+        >
+          Là où les modèles traditionnels reposent sur des missions ponctuelles, Logan propose un accès structuré, fluide et permanent aux meilleures opportunités du marché.
+        </motion.p>
+
+        {/* Divider */}
+        <div className="w-10 h-px bg-foreground/15 mx-auto mb-16 md:mb-20" />
 
         {/* Three pillars */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-          className="max-w-4xl mx-auto mb-8 md:mb-10"
-        >
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
-            {[
-              {
-                title: 'Une approche continue du marché',
-                paragraphs: [
-                  'Le marché des avocats d\'affaires ne se limite pas à des besoins ponctuels. Il repose sur des équilibres subtils, des temporalités spécifiques et des opportunités souvent informelles.',
-                  'Logan donne un accès continu à cette réalité, en permettant aux cabinets d\'identifier, d\'approcher et d\'engager, avec discernement, les profils les plus pertinents — y compris les plus difficiles à capter.',
-                ],
-              },
-              {
-                title: 'Une exigence de méthode',
-                paragraphs: [
-                  'La technologie permet d\'éclairer le marché et d\'en structurer l\'information. L\'intervention humaine en garantit la lecture, l\'appréciation et la justesse.',
-                  'C\'est de cette exigence combinée que naît la qualité des rapprochements opérés.',
-                ],
-              },
-              {
-                title: 'Modalités d\'intervention',
-                paragraphs: [
-                  'Logan propose un modèle fondé sur un accès continu, associé à un accompagnement adapté à la nature et à la sensibilité des recherches.',
-                  'Les modalités sont définies en fonction des enjeux propres à chaque cabinet.',
-                ],
-              },
-            ].map((pillar, i) => (
-              <motion.div
-                key={pillar.title}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-40px' }}
-                transition={{ delay: i * 0.1, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                className="text-center md:text-left"
-              >
-                <div className="w-8 h-px bg-foreground/20 mx-auto md:mx-0 mb-5" />
-                <h3 className="font-serif text-lg md:text-xl text-foreground mb-3 tracking-[-0.01em] leading-snug font-normal">
-                  {pillar.title}
-                </h3>
-                {pillar.paragraphs.map((p, j) => (
-                  <p key={j} className="text-[13px] text-foreground/55 font-light leading-relaxed mb-2 last:mb-0">
-                    {p}
-                  </p>
-                ))}
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 max-w-4xl mx-auto">
+          {[
+            {
+              number: '01',
+              title: 'Une approche continue du marché',
+              text: 'Le marché des avocats d\'affaires repose sur des équilibres subtils, des temporalités spécifiques et des opportunités souvent informelles. Logan donne un accès continu à cette réalité, en permettant d\'identifier, d\'approcher et d\'engager les profils les plus pertinents — y compris les plus difficiles à capter.',
+            },
+            {
+              number: '02',
+              title: 'Une exigence de méthode',
+              text: 'La technologie permet d\'éclairer le marché et d\'en structurer l\'information. L\'intervention humaine en garantit la lecture, l\'appréciation et la justesse. C\'est de cette exigence combinée que naît la qualité des rapprochements opérés.',
+            },
+            {
+              number: '03',
+              title: 'Modalités d\'intervention',
+              text: 'Logan propose un modèle fondé sur un accès continu, associé à un accompagnement adapté à la nature et à la sensibilité des recherches. Les modalités sont définies en fonction des enjeux propres à chaque cabinet.',
+            },
+          ].map((pillar, i) => (
+            <motion.div
+              key={pillar.number}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-40px' }}
+              transition={{ delay: i * 0.1, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <span className="text-[10px] font-sans font-medium text-foreground/25 tracking-[0.15em] mb-4 block">
+                {pillar.number}
+              </span>
+              <h3 className="font-sans text-[15px] font-semibold text-foreground mb-3 leading-snug">
+                {pillar.title}
+              </h3>
+              <p className="text-[13px] text-foreground/55 font-sans font-light leading-[1.75]">
+                {pillar.text}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+
       </div>
     </section>
 
