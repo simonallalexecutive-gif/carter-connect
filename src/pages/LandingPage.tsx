@@ -11,6 +11,7 @@ import FAQSection from '@/components/landing/FAQSection';
 import StatsTickerSection from '@/components/landing/StatsTickerSection';
 import { ArrowRight } from 'lucide-react';
 import heroVideoAsset from '@/assets/hero-video-abstract-bw.mp4.asset.json';
+import heroBoardroom from '@/assets/hero-boardroom.jpeg';
 
 const firmNames = [
   'Bredin Prat', 'Darrois Villey', 'Gide', 'Cleary Gottlieb', 'De Pardieu Brocas',
