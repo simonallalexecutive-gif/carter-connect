@@ -1,9 +1,20 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useCabinetStore } from '@/stores/cabinetStore';
 import { Button } from '@/components/ui/button';
-import { SENIORITY_MAP, CABINET_EXPERTISE_DETAIL } from '@/lib/cabinetConstants';
+import { SENIORITY_MAP, CABINET_EXPERTISE_DETAIL, NAT_LABELS } from '@/lib/cabinetConstants';
 import { cn } from '@/lib/utils';
-import ActivityPieChart from '@/components/shared/ActivityPieChart';
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
+
+const PREVIEW_PALETTE = [
+  'hsl(210, 60%, 22%)',   // navy
+  'hsl(210, 50%, 35%)',   // medium navy
+  'hsl(0, 0%, 72%)',      // light grey
+  'hsl(155, 35%, 28%)',   // dark green
+  'hsl(210, 40%, 48%)',   // steel blue
+  'hsl(0, 0%, 82%)',      // lighter grey
+  'hsl(155, 25%, 40%)',   // muted green
+  'hsl(210, 30%, 55%)',   // soft blue
+];
 
 const CabinetStep5Validation = () => {
   const s = useCabinetStore();
@@ -17,14 +28,8 @@ const CabinetStep5Validation = () => {
 
   const allChecked = checks.every(Boolean);
   const profileTypes = (s as any).profileTypes as string[] || [];
-  const profilCriteres = (s as any).profilCriteres as string[] || [];
   const profileLabel = profileTypes.includes('associe') ? 'Associé' : profileTypes.includes('counsel') ? 'Counsel' : 'Collaborateur';
   const senStr = s.seniorities.length ? s.seniorities.map((k) => SENIORITY_MAP[k] || k).join(', ') : '';
-  const eqStr = [
-    s.eqAssocies ? s.eqAssocies + ' associé(s)' : '',
-    s.eqCounsels ? s.eqCounsels + ' counsel(s)' : '',
-    s.eqCollab ? s.eqCollab + ' collaborateur(s)' : '',
-  ].filter(Boolean).join(', ');
   const retroStr = s.retroMin && s.retroMax ? `${s.retroMin}€ — ${s.retroMax}€` : s.retroMin ? `À partir de ${s.retroMin}€` : s.retroMax ? `Jusqu'à ${s.retroMax}€` : '';
 
   const activeActivities = Object.entries(s.cabinetActivites)
@@ -42,6 +47,24 @@ const CabinetStep5Validation = () => {
       return k;
     });
 
+  const chartData = useMemo(() => {
+    return Object.entries(s.activitySplit)
+      .filter(([, v]) => v > 0)
+      .map(([name, value]) => ({ name, value }));
+  }, [s.activitySplit]);
+
+  // Build title
+  const titleExpertise = s.expertise.length ? s.expertise.join(' / ') : '';
+  const titleSeniority = senStr ? `Profil ${senStr}` : '';
+  const searchTitle = `${profileLabel}${titleExpertise ? ` ${titleExpertise}` : ''}${titleSeniority ? ` — ${titleSeniority}` : ''}`;
+
+  // Rankings display
+  const rankings = s.detectedRankings && s.detectedRankings.length > 0
+    ? s.detectedRankings.map(r => `${r.label} : Tier ${r.tier}`).join(' · ')
+    : '';
+
+  const natLabel = s.detectedNat ? (NAT_LABELS[s.detectedNat] || s.detectedNat) : '';
+
   return (
     <div className="max-w-[780px] mx-auto">
       <div className="text-[9px] font-bold text-muted-foreground tracking-[0.16em] uppercase mb-3 flex items-center gap-2">
@@ -49,257 +72,132 @@ const CabinetStep5Validation = () => {
         Étape 4 / 4
       </div>
       <h2 className="font-sans text-3xl md:text-4xl font-normal text-foreground leading-tight mb-2.5">Validation & aperçu</h2>
-      <p className="text-sm text-muted-foreground font-light leading-relaxed mb-10 max-w-xl">
-        Visualisez comment votre recherche apparaîtra aux candidats, puis confirmez votre demande.
+      <p className="text-sm text-muted-foreground font-light leading-relaxed mb-8 max-w-xl">
+        Voici comment votre recherche apparaîtra aux candidats. Vérifiez puis confirmez.
       </p>
 
-      {/* ── RÉCAPITULATIF (grey bg, black text) ── */}
+      {/* ── APERÇU COMPACT (white bg, 50% reduced) ── */}
       <div className="mb-8">
-        <div className="flex items-center gap-2 mb-3.5">
+        <div className="flex items-center gap-2 mb-3">
           <div className="w-1.5 h-1.5 rounded-full bg-foreground" />
-          <span className="text-[9px] font-bold tracking-[0.14em] uppercase text-muted-foreground">Récapitulatif de votre recherche</span>
+          <span className="text-[9px] font-bold tracking-[0.14em] uppercase text-muted-foreground">Aperçu — visible par les candidats</span>
         </div>
 
-        <div className="bg-[#F0F0F0] rounded-lg p-6 space-y-5">
-          <div>
-            <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-black/40 mb-2">Profil & séniorité</div>
-            <div className="text-sm font-semibold text-black">{profileLabel}{senStr ? ` · ${senStr}` : ''}</div>
-          </div>
-
-          {s.expertise.length > 0 && (
-            <div>
-              <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-black/40 mb-2">Domaines d'expertise</div>
-              <div className="flex flex-wrap gap-1.5">
-                {s.expertise.map((e) => (
-                  <span key={e} className="text-[11px] bg-white border border-black/10 rounded px-2.5 py-1 text-black font-medium">{e}{s.activitySplit[e] ? ` (${s.activitySplit[e]}%)` : ''}</span>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {activeActivities.length > 0 && (
-            <div>
-              <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-black/40 mb-2">Positionnement</div>
-              <div className="flex flex-wrap gap-1.5">
-                {activeActivities.map((a) => (
-                  <span key={a} className="text-[10px] bg-white border border-black/8 rounded px-2.5 py-1 text-black/70">{a}</span>
-                ))}
-              </div>
-            </div>
-          )}
-
-          <div className="grid grid-cols-2 gap-4">
-            {s.contexte && (
-              <div>
-                <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-black/40 mb-1">Contexte</div>
-                <div className="text-xs text-black">{s.contexte}</div>
-              </div>
-            )}
-            {eqStr && (
-              <div>
-                <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-black/40 mb-1">Équipe</div>
-                <div className="text-xs text-black">{eqStr}</div>
-              </div>
-            )}
-          </div>
-
-          <div className="grid grid-cols-3 gap-4">
-            <div>
-              <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-black/40 mb-1">Rétrocession</div>
-              <div className="text-xs font-semibold text-black">{retroStr || 'Non renseigné'}</div>
-            </div>
-            <div>
-              <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-black/40 mb-1">Heures / an</div>
-              <div className="text-xs font-semibold text-black">{s.heures ? `${s.heures}h` : 'Non renseigné'}</div>
-            </div>
-            <div>
-              <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-black/40 mb-1">Télétravail</div>
-              <div className="text-xs font-semibold text-black">{s.tt || '—'}</div>
-            </div>
-          </div>
-
-          {profilCriteres.length > 0 && (
-            <div>
-              <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-black/40 mb-2">Profil idéal</div>
-              <div className="flex flex-wrap gap-1.5">
-                {profilCriteres.map((c) => (
-                  <span key={c} className="text-[10px] bg-white border border-black/8 rounded px-2.5 py-1 text-black/70">{c}</span>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {s.confNiveau && (
-            <div>
-              <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-black/40 mb-1">Confidentialité</div>
-              <div className="text-xs text-black">{s.confNiveau === 'confidentielle' ? 'Confidentielle (LOGAN proactif)' : s.confNiveau === 'semi' ? 'Semi-confidentielle' : 'Ouverte'}</div>
-            </div>
-          )}
-        </div>
-      </div>
-
-      {/* ── APERÇU CANDIDAT (petrol blue / dark bg, white text) ── */}
-      <div className="mb-8">
-        <div className="flex items-center gap-2 mb-3.5">
-          <div className="w-1.5 h-1.5 rounded-full bg-foreground" />
-          <span className="text-[9px] font-bold tracking-[0.14em] uppercase text-muted-foreground">Aperçu — votre recherche telle que vue par les candidats</span>
-        </div>
-
-        <div className="bg-[#0F3443] rounded-lg overflow-hidden">
+        <div className="bg-white border border-border rounded-lg overflow-hidden shadow-sm" style={{ fontSize: '0.85em' }}>
           {/* Header */}
-          <div className="p-6 border-b border-white/[0.08]">
-            <div className="text-[8px] tracking-[0.16em] uppercase text-white/35 mb-2">Opportunité · Présentée par LOGAN</div>
-            <div className="font-sans text-xl font-bold text-white mb-1.5">
-              {profileLabel}{senStr ? ` · ${senStr}` : ''}{s.expertise.length ? ` — ${s.expertise.join(', ')}` : ''}
-            </div>
-            <div className="text-[11px] text-white/50">
-              {s.confNiveau === 'ouverte' ? s.cabinetName || 'Cabinet' : 'Cabinet anonyme · Identité protégée'}
-            </div>
-            <div className="flex flex-wrap gap-1.5 mt-4 pt-4 border-t border-white/[0.08]">
-              <span className="text-[10px] px-2.5 py-1 rounded-full border border-white/15 text-white/65">{profileLabel}</span>
-              {s.seniorities.map((se) => (
-                <span key={se} className="text-[10px] px-2.5 py-1 rounded-full border border-white/15 text-white/65">{SENIORITY_MAP[se] || se}</span>
-              ))}
-              {s.expertise.map((e) => (
-                <span key={e} className="text-[10px] px-2.5 py-1 rounded-full border border-white/15 text-white/65">{e}</span>
-              ))}
-              {s.english && <span className="text-[10px] px-2.5 py-1 rounded-full border border-white/15 text-white/65">Anglais : {s.english}</span>}
-            </div>
-          </div>
-
-          {/* Activity breakdown with pie chart */}
-          {s.expertise.length > 0 && (
-            <div className="p-6 border-b border-white/[0.08]">
-              <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-white/35 mb-4">Répartition de l'activité</div>
-              {s.expertise.length >= 2 && Object.keys(s.activitySplit).length > 0 ? (
-                <div className="flex items-start gap-6">
-                  <ActivityPieChart data={s.activitySplit} size={130} innerRadius={32} outerRadius={58} showLegend={false} darkMode />
-                  <div className="flex-1 space-y-2.5">
-                    {s.expertise.map((exp) => (
-                      <div key={exp}>
-                        <div className="flex justify-between items-center mb-0.5">
-                          <span className="text-xs font-medium text-white">{exp}</span>
-                          <span className="text-xs font-bold text-white">{s.activitySplit[exp] || 0}%</span>
-                        </div>
-                        <div className="w-full h-1 bg-white/10 rounded-full overflow-hidden">
-                          <div className="h-full bg-white/40 rounded-full" style={{ width: `${s.activitySplit[exp] || 0}%` }} />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              ) : (
-                <div className="flex flex-wrap gap-1.5">
-                  {s.expertise.map((e) => (
-                    <span key={e} className="text-[10px] bg-white/[0.07] border border-white/[0.12] rounded px-2.5 py-1 text-white/65">{e}</span>
-                  ))}
-                </div>
-              )}
-
-              {activeActivities.length > 0 && (
-                <div className="mt-4 pt-3 border-t border-white/[0.08]">
-                  <div className="text-[8px] uppercase tracking-[0.1em] text-white/35 mb-2">Scope d'intervention</div>
-                  <div className="flex flex-wrap gap-1.5">
-                    {activeActivities.map((a) => (
-                      <span key={a} className="text-[10px] bg-white/[0.06] border border-white/[0.10] rounded px-2.5 py-1 text-white/55">{a}</span>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
-          )}
-
-          {/* Context & team — enriched */}
-          <div className="p-6 border-b border-white/[0.08]">
-            <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-white/35 mb-4">Contexte & équipe</div>
-            <div className="grid grid-cols-2 gap-x-6 gap-y-4">
-              {s.contexte && (
-                <div>
-                  <div className="text-[8px] uppercase tracking-[0.1em] text-white/35 mb-1">Contexte du recrutement</div>
-                  <div className="text-sm font-semibold text-white">{s.contexte}</div>
-                </div>
-              )}
-              {eqStr && (
-                <div>
-                  <div className="text-[8px] uppercase tracking-[0.1em] text-white/35 mb-1">Composition de l'équipe</div>
-                  <div className="text-sm font-semibold text-white">{eqStr}</div>
-                </div>
-              )}
-              {/* Detailed team breakdown */}
-              {(s.eqAssocies || s.eqCounsels || s.eqCollab) && (
-                <div className="col-span-2">
-                  <div className="text-[8px] uppercase tracking-[0.1em] text-white/35 mb-2">Détail de l'équipe</div>
-                  <div className="grid grid-cols-3 gap-3">
-                    <div className="bg-white/[0.05] rounded p-3 text-center">
-                      <div className="font-sans text-lg font-bold text-white">{s.eqAssocies || '0'}</div>
-                      <div className="text-[10px] text-white/50 mt-0.5">Associé(s)</div>
-                    </div>
-                    <div className="bg-white/[0.05] rounded p-3 text-center">
-                      <div className="font-sans text-lg font-bold text-white">{s.eqCounsels || '0'}</div>
-                      <div className="text-[10px] text-white/50 mt-0.5">Counsel(s)</div>
-                    </div>
-                    <div className="bg-white/[0.05] rounded p-3 text-center">
-                      <div className="font-sans text-lg font-bold text-white">{s.eqCollab || '0'}</div>
-                      <div className="text-[10px] text-white/50 mt-0.5">Collaborateur(s)</div>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* Profil idéal - criteria */}
-          {profilCriteres.length > 0 && (
-            <div className="p-6 border-b border-white/[0.08]">
-              <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-white/35 mb-3">Profil idéal</div>
-              <div className="flex flex-wrap gap-1.5">
-                {profilCriteres.map((c) => (
-                  <span key={c} className="text-[10px] bg-white/[0.08] border border-white/[0.15] rounded-full px-3 py-1.5 text-white/70 font-medium">{c}</span>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Rémunération & conditions — enriched */}
-          <div className="p-6 border-b border-white/[0.08]">
-            <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-white/35 mb-4">Rémunération & conditions</div>
-            <div className="grid grid-cols-3 gap-4">
-              <div className="bg-white/[0.05] rounded-lg p-4">
-                <div className="text-[8px] uppercase tracking-[0.1em] text-white/35 mb-2">Rétrocession</div>
-                <div className="font-sans text-base font-bold text-white">{retroStr || 'Confidentiel'}</div>
-                {!retroStr && <div className="text-[10px] text-white/25 mt-1">Transmis si intérêt confirmé</div>}
-              </div>
-              <div className="bg-white/[0.05] rounded-lg p-4">
-                <div className="text-[8px] uppercase tracking-[0.1em] text-white/35 mb-2">Objectif heures / an</div>
-                <div className="font-sans text-base font-bold text-white">{s.heures ? `${s.heures}h` : 'Non communiqué'}</div>
-              </div>
-              <div className="bg-white/[0.05] rounded-lg p-4">
-                <div className="text-[8px] uppercase tracking-[0.1em] text-white/35 mb-2">Télétravail</div>
-                <div className="font-sans text-base font-bold text-white">{s.tt || '—'}</div>
-              </div>
-            </div>
-            {s.bonusEnabled && s.bonusTypes.length > 0 && (
-              <div className="mt-4 pt-3 border-t border-white/[0.08]">
-                <div className="text-[8px] uppercase tracking-[0.1em] text-white/35 mb-2">Bonus & avantages</div>
-                <div className="flex flex-wrap gap-1.5">
-                  {s.bonusTypes.map((b) => (
-                    <span key={b} className="text-[10px] bg-white/[0.06] border border-white/[0.10] rounded px-2.5 py-1 text-white/55">{b}</span>
-                  ))}
-                </div>
+          <div className="px-5 py-4 border-b border-border">
+            <div className="text-[8px] tracking-[0.16em] uppercase text-muted-foreground/60 mb-1.5">Recherche en cours</div>
+            <h3 className="font-sans text-base font-bold text-foreground leading-snug">{searchTitle}</h3>
+            {(natLabel || rankings) && (
+              <div className="flex flex-wrap items-center gap-2 mt-2">
+                {natLabel && (
+                  <span className="text-[10px] px-2 py-0.5 rounded bg-muted text-muted-foreground font-medium">{natLabel}</span>
+                )}
+                {rankings && (
+                  <span className="text-[10px] text-muted-foreground">{rankings}</span>
+                )}
               </div>
             )}
           </div>
 
-          {/* CTA */}
-          <div className="p-6 text-center">
-            <p className="text-[11px] text-white/30 mb-3.5 leading-relaxed">
-              LOGAN qualifie l'opportunité des deux côtés avant toute mise en relation.<br />
-              Votre identité reste confidentielle jusqu'à accord mutuel.
-            </p>
-            <button className="w-full py-3 bg-white text-[#0F3443] font-bold text-sm rounded cursor-default">
-              Je suis intéressé(e) par cette opportunité →
-            </button>
-            <div className="mt-3 text-[10px] text-white/25">0% commission · Levée de rideau conditionnée à votre accord</div>
+          {/* Activity split + side info */}
+          {(chartData.length > 0 || s.english || activeActivities.length > 0) && (
+            <div className="px-5 py-4 border-b border-border">
+              <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-muted-foreground/50 mb-3">Répartition de l'activité</div>
+              <div className="flex items-start gap-5">
+                {/* Pie chart */}
+                {chartData.length > 0 && (
+                  <div className="flex flex-col items-center flex-shrink-0">
+                    <ResponsiveContainer width={100} height={100}>
+                      <PieChart>
+                        <Pie
+                          data={chartData}
+                          cx="50%"
+                          cy="50%"
+                          innerRadius={24}
+                          outerRadius={45}
+                          dataKey="value"
+                          stroke="white"
+                          strokeWidth={2}
+                        >
+                          {chartData.map((_, i) => (
+                            <Cell key={i} fill={PREVIEW_PALETTE[i % PREVIEW_PALETTE.length]} />
+                          ))}
+                        </Pie>
+                        <Tooltip
+                          formatter={(value: number, name: string) => [`${value}%`, name]}
+                          contentStyle={{ fontSize: '10px', borderRadius: '4px' }}
+                        />
+                      </PieChart>
+                    </ResponsiveContainer>
+                    <div className="flex flex-wrap gap-x-3 gap-y-1 mt-2 justify-center max-w-[140px]">
+                      {chartData.map((item, i) => (
+                        <div key={item.name} className="flex items-center gap-1">
+                          <span className="w-2 h-2 rounded-sm flex-shrink-0" style={{ background: PREVIEW_PALETTE[i % PREVIEW_PALETTE.length] }} />
+                          <span className="text-[9px] text-muted-foreground">{item.name} ({item.value}%)</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Side details */}
+                <div className="flex-1 space-y-2.5 min-w-0">
+                  {activeActivities.length > 0 && (
+                    <div>
+                      <div className="text-[8px] uppercase tracking-[0.1em] text-muted-foreground/50 mb-1.5">Positionnement</div>
+                      <div className="flex flex-wrap gap-1">
+                        {activeActivities.map((a) => (
+                          <span key={a} className="text-[9px] bg-muted border border-border rounded px-2 py-0.5 text-muted-foreground">{a}</span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  {s.english && (
+                    <div>
+                      <div className="text-[8px] uppercase tracking-[0.1em] text-muted-foreground/50 mb-1">Anglais</div>
+                      <span className="text-[10px] font-medium text-foreground">{s.english}</span>
+                    </div>
+                  )}
+                  {s.contexte && (
+                    <div>
+                      <div className="text-[8px] uppercase tracking-[0.1em] text-muted-foreground/50 mb-1">Contexte</div>
+                      <span className="text-[10px] text-foreground">{s.contexte}</span>
+                    </div>
+                  )}
+                  {(s.eqAssocies || s.eqCounsels || s.eqCollab) && (
+                    <div>
+                      <div className="text-[8px] uppercase tracking-[0.1em] text-muted-foreground/50 mb-1">Équipe</div>
+                      <div className="flex gap-3">
+                        {s.eqAssocies && <span className="text-[10px] text-foreground">{s.eqAssocies} associé(s)</span>}
+                        {s.eqCounsels && <span className="text-[10px] text-foreground">{s.eqCounsels} counsel(s)</span>}
+                        {s.eqCollab && <span className="text-[10px] text-foreground">{s.eqCollab} collab(s)</span>}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Rémunération compact */}
+          <div className="px-5 py-3 flex items-center gap-6 text-[10px]">
+            <div>
+              <span className="text-muted-foreground/50 uppercase tracking-wider text-[8px]">Rétrocession</span>
+              <div className="font-semibold text-foreground mt-0.5">{retroStr || 'Confidentiel'}</div>
+            </div>
+            {s.heures && (
+              <div>
+                <span className="text-muted-foreground/50 uppercase tracking-wider text-[8px]">Heures / an</span>
+                <div className="font-semibold text-foreground mt-0.5">{s.heures}h</div>
+              </div>
+            )}
+            {s.tt && (
+              <div>
+                <span className="text-muted-foreground/50 uppercase tracking-wider text-[8px]">Télétravail</span>
+                <div className="font-semibold text-foreground mt-0.5">{s.tt}</div>
+              </div>
+            )}
           </div>
         </div>
       </div>
