@@ -1,9 +1,44 @@
 import { motion } from 'motion/react';
 import { Link } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Move } from 'lucide-react';
+import { useState, useRef, useCallback } from 'react';
 import founderPhoto from '@/assets/founder-simon-suit.jpeg';
 
+const STORAGE_KEY = 'founder-photo-position';
+
+const getStoredPosition = () => {
+  try {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (stored) return JSON.parse(stored);
+  } catch {}
+  return { x: 50, y: 30 };
+};
+
 const FounderSection = () => {
+  const [position, setPosition] = useState(getStoredPosition);
+  const [isDragging, setIsDragging] = useState(false);
+  const [showControls, setShowControls] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const handlePointerDown = useCallback((e: React.PointerEvent) => {
+    e.preventDefault();
+    setIsDragging(true);
+    (e.target as HTMLElement).setPointerCapture(e.pointerId);
+  }, []);
+
+  const handlePointerMove = useCallback((e: React.PointerEvent) => {
+    if (!isDragging || !containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    const x = Math.max(0, Math.min(100, ((e.clientX - rect.left) / rect.width) * 100));
+    const y = Math.max(0, Math.min(100, ((e.clientY - rect.top) / rect.height) * 100));
+    setPosition({ x, y });
+  }, [isDragging]);
+
+  const handlePointerUp = useCallback(() => {
+    setIsDragging(false);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(position));
+  }, [position]);
+
   return (
     <section className="py-20 md:py-28 bg-foreground overflow-hidden">
       <div className="carter-container">
@@ -45,13 +80,32 @@ const FounderSection = () => {
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               className="flex-shrink-0 text-center"
             >
-              <div className="w-36 h-36 sm:w-40 sm:h-40 md:w-48 md:h-48 rounded-full bg-black border border-white/20 overflow-hidden mx-auto mb-4">
+              <div
+                ref={containerRef}
+                className="w-36 h-36 sm:w-40 sm:h-40 md:w-48 md:h-48 rounded-full bg-black border border-white/20 overflow-hidden mx-auto mb-4 relative group cursor-pointer select-none"
+                onClick={() => setShowControls(!showControls)}
+                onPointerDown={showControls ? handlePointerDown : undefined}
+                onPointerMove={showControls ? handlePointerMove : undefined}
+                onPointerUp={showControls ? handlePointerUp : undefined}
+                title="Cliquez pour repositionner la photo"
+              >
                 <img
                   src={founderPhoto}
                   alt="Simon Allal, fondateur de Logan"
-                  className="w-full h-full object-cover"
-                  style={{ objectPosition: '50% 45%' }}
+                  className="w-full h-full object-cover pointer-events-none"
+                  draggable={false}
+                  style={{ objectPosition: `${position.x}% ${position.y}%` }}
                 />
+                {showControls && (
+                  <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
+                    <Move className="w-6 h-6 text-white/80" />
+                  </div>
+                )}
+                {!showControls && (
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+                    <Move className="w-4 h-4 text-white/60" />
+                  </div>
+                )}
               </div>
               <h3 className="font-serif text-xl md:text-2xl text-white font-normal mb-1 tracking-[-0.01em]">
                 Simon Allal
