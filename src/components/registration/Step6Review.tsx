@@ -462,7 +462,7 @@ const Step6Review = () => {
           Retour
         </Button>
         <Button onClick={handleSubmit} disabled={submitting} className="bg-accent text-accent-foreground hover:bg-accent/90 font-sans font-medium px-8 rounded-sm">
-          {submitting ? 'Envoi...' : 'Soumettre mon profil'}
+          {submitting ? 'Envoi...' : isAdmin ? 'Générer le lien d\'invitation →' : 'Soumettre mon profil'}
         </Button>
       </div>
     </motion.div>
