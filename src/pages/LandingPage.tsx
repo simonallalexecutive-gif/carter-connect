@@ -106,7 +106,7 @@ const LandingPage = () => (
           </motion.p>
           <div className="inline-block">
             <motion.h1 variants={fadeUp} className="text-[3rem] sm:text-[3.75rem] md:text-[5rem] lg:text-[6.5rem] font-serif font-[500] text-white leading-[1.05] md:leading-[1.02] mb-8 md:mb-10 tracking-[-0.03em] whitespace-nowrap">
-              Moves Made Private
+              Connecting Leading Lawyers
             </motion.h1>
             <motion.p variants={fadeUp} className="text-[0.92rem] sm:text-[0.98rem] md:text-[1.05rem] text-white font-sans font-[350] mb-3 leading-relaxed -mt-6 text-justify">
               Un réseau d'excellence, entretenu et orchestré par des chasseurs spécialisés, conçu pour rapprocher dans la plus stricte confidentialité les candidats et cabinets d'affaires les plus exigeants du marché.

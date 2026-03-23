@@ -15,15 +15,6 @@ const INITIAL_NOTIFICATIONS = [
     offerId: 'OFF-C-001',
   },
   {
-    id: 'NOTIF-002',
-    type: 'interest' as const,
-    message: 'Un cabinet souhaite en savoir plus sur votre parcours.',
-    detail: 'Souhaitez-vous que votre consultant organise un échange confidentiel ?',
-    date: '2026-03-11',
-    read: false,
-    offerId: 'OFF-C-004',
-  },
-  {
     id: 'NOTIF-003',
     type: 'update' as const,
     message: 'Votre profil a été validé par l\'équipe Logan.',
