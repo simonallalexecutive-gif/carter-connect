@@ -52,6 +52,32 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
   const allComplete = tabComplete[0] && tabComplete[1] && tabComplete[2] && tabComplete[3];
 
 
+          {/* Department section */}
+          <div className="mb-6">
+            <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2 block">
+              Département concerné par la recherche
+            </label>
+            <div className="flex gap-2 flex-wrap">
+              {['M&A', 'Private Equity', 'Banque & Finance', 'Droit Social', 'Fiscal', 'Concurrence', 'Restructuring', 'Droit Public'].map((dept) => (
+                <button
+                  key={dept}
+                  onClick={() => {
+                    s.setField('currentSearchDeptLabel', dept);
+                    const keyMap: Record<string, string> = { 'M&A': 'ma', 'Private Equity': 'pe', 'Banque & Finance': 'banque', 'Droit Social': 'social', 'Fiscal': 'fiscal', 'Concurrence': 'concurrence', 'Restructuring': 'restructuring', 'Droit Public': 'droit-public' };
+                    s.setField('currentSearchDept', keyMap[dept] || dept.toLowerCase());
+                  }}
+                  className={cn(
+                    'px-4 py-2 rounded-sm border text-xs transition-all',
+                    s.currentSearchDeptLabel === dept ? 'bg-foreground text-background border-foreground' : 'bg-background text-muted-foreground border-border hover:border-foreground hover:text-foreground'
+                  )}
+                >
+                  {dept}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
 
   // Sub-category toggle
   const toggleActivity = (key: string) => {
