@@ -141,6 +141,7 @@ const CabinetSidebar = ({
 const CabinetDashboardLayout = () => {
   const s = useCabinetStore();
   const { user } = useAuth();
+  const [showAlerts, setShowAlerts] = useState(false);
 
   const getActiveTab = (): CabinetTabKey => {
     if (s.dashboardView === 'explore') return 'explore';
@@ -162,7 +163,7 @@ const CabinetDashboardLayout = () => {
   return (
     <SidebarProvider>
       <div className="min-h-screen flex w-full">
-        <CabinetSidebar activeTab={getActiveTab()} setActiveTab={setActiveTab} />
+        <CabinetSidebar activeTab={getActiveTab()} setActiveTab={setActiveTab} onOpenAlerts={() => setShowAlerts(true)} />
 
         <div className="flex-1 flex flex-col min-h-screen">
           {/* Top bar */}
