@@ -104,7 +104,7 @@ const LandingPage = () => (
           <motion.p variants={fadeUp} className="text-xs font-sans font-medium tracking-[0.25em] uppercase text-white/50 mb-2 md:mb-4">
             &nbsp;
           </motion.p>
-          <div className="inline-block" style={{ marginLeft: '-3%' }}>
+          <div className="inline-block">
             <motion.h1 variants={fadeUp} className="text-[3rem] sm:text-[3.75rem] md:text-[5rem] lg:text-[6.5rem] font-serif font-[500] text-white leading-[1.05] md:leading-[1.02] mb-8 md:mb-10 tracking-[-0.03em] whitespace-nowrap">
               Connecting Legal Minds
             </motion.h1>
