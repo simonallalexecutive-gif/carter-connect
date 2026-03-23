@@ -1,44 +1,7 @@
-import { useEffect, useState } from 'react';
 import { MOCK_PROFILES, MOCK_OFFERS, MOCK_PROCESSES } from '@/lib/adminMockData';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, ResponsiveContainer, Tooltip, PieChart, Pie, Cell } from 'recharts';
-import { supabase } from '@/integrations/supabase/client';
-import { CalendarIcon, Clock, User } from 'lucide-react';
-
-interface Booking {
-  id: string;
-  candidate_name: string;
-  candidate_cabinet: string;
-  candidate_seniority: string;
-  candidate_department: string;
-  booking_date: string;
-  booking_time: string;
-  status: string;
-  created_at: string;
-}
 
 const AdminKPIs = () => {
-  const [bookings, setBookings] = useState<Booking[]>([]);
-
-  useEffect(() => {
-    const fetchBookings = async () => {
-      const { data } = await supabase
-        .from('logan_bookings')
-        .select('*')
-        .order('booking_date', { ascending: true })
-        .limit(20) as { data: Booking[] | null };
-      if (data) setBookings(data);
-    };
-    fetchBookings();
-
-    const channel = supabase
-      .channel('logan_bookings_realtime')
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'logan_bookings' }, () => {
-        fetchBookings();
-      })
-      .subscribe();
-
-    return () => { supabase.removeChannel(channel); };
-  }, []);
 
   const newThisMonth = MOCK_PROFILES.filter((p) => p.createdAt >= '2026-03-01').length;
   const activeOffers = MOCK_OFFERS.filter((o) => o.status === 'active').length;
@@ -84,48 +47,8 @@ const AdminKPIs = () => {
         ))}
       </div>
 
-      {/* Agenda — RDV candidats */}
-      <div className="bg-background border border-border rounded-lg p-5 mb-8">
-        <div className="flex items-center gap-2 mb-5">
-          <CalendarIcon className="w-4 h-4 text-muted-foreground" />
-          <div className="text-[10px] font-semibold tracking-[0.1em] uppercase text-muted-foreground">Agenda — Rendez-vous candidats</div>
-        </div>
-        {bookings.length === 0 ? (
-          <p className="text-sm text-muted-foreground font-light py-6 text-center">Aucun rendez-vous programmé pour le moment.</p>
-        ) : (
-          <div className="space-y-3">
-            {bookings.map((b) => (
-              <div key={b.id} className="flex items-center gap-4 p-4 rounded-md border border-border bg-card hover:shadow-sm transition-shadow">
-                <div className="flex-shrink-0 w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                  <User className="w-5 h-5 text-primary" />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm font-semibold text-foreground truncate">{b.candidate_name}</p>
-                  <p className="text-xs text-muted-foreground font-light">
-                    {b.candidate_cabinet && `${b.candidate_cabinet} · `}{b.candidate_department}
-                  </p>
-                  {b.candidate_seniority && (
-                    <p className="text-[10px] text-muted-foreground mt-0.5">{b.candidate_seniority}</p>
-                  )}
-                </div>
-                <div className="flex-shrink-0 text-right">
-                  <div className="flex items-center gap-1.5 text-xs font-medium text-foreground">
-                    <CalendarIcon className="w-3 h-3" />
-                    {new Date(b.booking_date).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' })}
-                  </div>
-                  <div className="flex items-center gap-1.5 text-xs text-muted-foreground mt-0.5">
-                    <Clock className="w-3 h-3" />
-                    {b.booking_time}
-                  </div>
-                </div>
-                <span className="text-[9px] font-bold tracking-[0.08em] uppercase px-2.5 py-1 rounded-sm bg-primary text-primary-foreground">
-                  {b.status === 'confirmed' ? 'Confirmé' : b.status}
-                </span>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
+
+
 
       {/* Charts */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
