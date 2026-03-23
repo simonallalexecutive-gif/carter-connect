@@ -35,13 +35,21 @@ const FounderSection = () => {
             </span>
           </motion.blockquote>
 
-          {/* Founder bio — centered without photo */}
+          {/* Founder bio with photo */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
-            className="max-w-2xl mx-auto text-center"
+            className="max-w-2xl mx-auto text-center flex flex-col items-center"
+          >
+            <div className="w-28 h-28 md:w-32 md:h-32 rounded-full overflow-hidden mb-6 ring-2 ring-white/10">
+              <img
+                src={founderPhoto}
+                alt="Simon Allal"
+                className="w-full h-full object-cover object-[center_30%]"
+              />
+            </div
           >
             <h3 className="font-serif text-xl md:text-2xl text-white font-normal mb-1 tracking-[-0.01em]">
               Simon Allal
