@@ -16,7 +16,7 @@ import {
 import { useAuth } from '@/hooks/useAuth';
 
 const NAV_ITEMS = [
-  { title: 'KPIs', url: '/admin', icon: BarChart3 },
+  { title: 'Dashboard', url: '/admin', icon: BarChart3 },
   { title: 'Agenda', url: '/admin/agenda', icon: CalendarDays },
   { title: 'Inscrire un candidat', url: '/admin/inscrire', icon: UserPlus },
   { title: 'Profils candidats', url: '/admin/profils', icon: Users },
