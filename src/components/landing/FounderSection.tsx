@@ -54,10 +54,10 @@ const FounderSection = () => {
 
             {/* Text */}
             <div className="text-center md:text-left">
-              <h3 className="font-serif text-xl md:text-2xl text-white font-normal mb-1 tracking-[-0.01em]">
+              <h3 className="font-serif text-xl md:text-2xl text-white font-normal mb-1 tracking-[-0.01em] text-center">
                 Simon Allal
               </h3>
-              <p className="text-[10px] font-sans font-medium tracking-[0.2em] uppercase text-white/50 mb-5">
+              <p className="text-[10px] font-sans font-medium tracking-[0.2em] uppercase text-white/50 mb-5 text-center">
                 Fondateur
               </p>
               <p className="font-sans text-sm md:text-[0.95rem] text-white/60 font-light leading-relaxed mb-6">
