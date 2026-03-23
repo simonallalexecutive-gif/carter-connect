@@ -14,6 +14,39 @@ export type Database = {
   }
   public: {
     Tables: {
+      admin_candidate_invites: {
+        Row: {
+          claimed_by: string | null
+          created_at: string
+          created_by: string
+          id: string
+          status: string
+          submission_data: Json
+          token: string
+          updated_at: string
+        }
+        Insert: {
+          claimed_by?: string | null
+          created_at?: string
+          created_by: string
+          id?: string
+          status?: string
+          submission_data?: Json
+          token?: string
+          updated_at?: string
+        }
+        Update: {
+          claimed_by?: string | null
+          created_at?: string
+          created_by?: string
+          id?: string
+          status?: string
+          submission_data?: Json
+          token?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       cabinet_accounts: {
         Row: {
           cabinet_name: string
@@ -75,6 +108,53 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "cabinet_candidate_interests_cabinet_account_id_fkey"
+            columns: ["cabinet_account_id"]
+            isOneToOne: false
+            referencedRelation: "cabinet_accounts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      cabinet_notification_alerts: {
+        Row: {
+          cabinet_account_id: string
+          created_at: string
+          id: string
+          is_active: boolean
+          label: string
+          origin_firms: string[]
+          practice_criteria: string[]
+          seniority_criteria: string[]
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          cabinet_account_id: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          label?: string
+          origin_firms?: string[]
+          practice_criteria?: string[]
+          seniority_criteria?: string[]
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          cabinet_account_id?: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          label?: string
+          origin_firms?: string[]
+          practice_criteria?: string[]
+          seniority_criteria?: string[]
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cabinet_notification_alerts_cabinet_account_id_fkey"
             columns: ["cabinet_account_id"]
             isOneToOne: false
             referencedRelation: "cabinet_accounts"
