@@ -45,7 +45,7 @@ const LandingPage = () => (
           alt=""
           initial={{ opacity: 0, scale: 1.18, x: '0%', y: '0%' }}
           animate={{
-            opacity: 0.85,
+            opacity: 1,
             scale: [1.18, 1.08, 1.12, 1.06, 1.1, 1.05],
             x: ['0%', '-1.5%', '0.5%', '-0.8%', '0.3%', '0%'],
             y: ['0%', '-0.8%', '0.3%', '-0.5%', '0.2%', '0%'],
@@ -95,9 +95,9 @@ const LandingPage = () => (
             background: 'radial-gradient(ellipse 70% 60% at 50% 50%, transparent 0%, rgba(0,0,0,0.5) 100%)',
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/80" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/60" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/25 to-black/55" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-transparent to-black/70" />
       </div>
       <div className="px-6 sm:px-8 lg:px-10 max-w-6xl relative z-10 pt-24 flex-1 flex items-center">
         <motion.div variants={stagger} initial="hidden" animate="visible" className="max-w-3xl">
