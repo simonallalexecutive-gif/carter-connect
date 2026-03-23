@@ -8,13 +8,20 @@ import { cn } from '@/lib/utils';
 import { formatNumberWithDots } from '@/lib/formatters';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import { Check } from 'lucide-react';
-import { FIRMS_DB } from '@/lib/cabinetConstants';
-import AutocompleteInput from '@/components/shared/AutocompleteInput';
-import ActivityPieChart, { BLUE_PALETTE } from '@/components/shared/ActivityPieChart';
+import ActivityPieChart from '@/components/shared/ActivityPieChart';
 
 const TABS = ['Profil recherché', 'Contexte & équipe', 'Rémunération & conditions', 'Confidentialité'];
 
-const CHART_COLORS = BLUE_PALETTE;
+const PIE_COLORS = [
+  'hsl(210, 60%, 45%)',
+  'hsl(210, 45%, 60%)',
+  'hsl(210, 35%, 72%)',
+  'hsl(0, 0%, 55%)',
+  'hsl(0, 0%, 68%)',
+  'hsl(210, 50%, 52%)',
+  'hsl(0, 0%, 42%)',
+  'hsl(210, 40%, 78%)',
+];
 
 interface CabinetStep3SearchProps {
   isEmbedded?: boolean;
@@ -51,40 +58,10 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
   const tabComplete = [isTab0Complete(), isTab1Complete(), isTab2Complete(), isTab3Complete()];
   const allComplete = tabComplete[0] && tabComplete[1] && tabComplete[2] && tabComplete[3];
 
-
-          {/* Department section */}
-          <div className="mb-6">
-            <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2 block">
-              Département concerné par la recherche
-            </label>
-            <div className="flex gap-2 flex-wrap">
-              {['M&A', 'Private Equity', 'Banque & Finance', 'Droit Social', 'Fiscal', 'Concurrence', 'Restructuring', 'Droit Public'].map((dept) => (
-                <button
-                  key={dept}
-                  onClick={() => {
-                    s.setField('currentSearchDeptLabel', dept);
-                    const keyMap: Record<string, string> = { 'M&A': 'ma', 'Private Equity': 'pe', 'Banque & Finance': 'banque', 'Droit Social': 'social', 'Fiscal': 'fiscal', 'Concurrence': 'concurrence', 'Restructuring': 'restructuring', 'Droit Public': 'droit-public' };
-                    s.setField('currentSearchDept', keyMap[dept] || dept.toLowerCase());
-                  }}
-                  className={cn(
-                    'px-4 py-2 rounded-sm border text-xs transition-all',
-                    s.currentSearchDeptLabel === dept ? 'bg-foreground text-background border-foreground' : 'bg-background text-muted-foreground border-border hover:border-foreground hover:text-foreground'
-                  )}
-                >
-                  {dept}
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
-
-  // Sub-category toggle
   const toggleActivity = (key: string) => {
     s.setField('cabinetActivites', { ...s.cabinetActivites, [key]: !s.cabinetActivites[key] });
   };
 
-  // Pie chart data
   const chartData = useMemo(() => {
     return s.expertise.map((k) => ({
       name: k,
@@ -99,7 +76,7 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
         Étape 2 / 4
       </div>
       <h2 className="font-sans text-3xl md:text-4xl font-normal text-foreground leading-tight mb-2.5">Ma recherche</h2>
-      <p className="text-sm text-muted-foreground font-light leading-relaxed mb-10 max-w-xl">
+      <p className="text-[11px] text-muted-foreground font-light leading-relaxed mb-10 max-w-xl">
         Décrivez le profil que vous recherchez et le contexte de votre recrutement. Plus vous êtes précis, plus le matching LOGAN est efficace.
       </p>
 
@@ -110,7 +87,7 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
             key={tab}
             onClick={() => setActiveTab(i)}
             className={cn(
-              'px-5 py-2.5 text-xs font-medium whitespace-nowrap border-b-2 -mb-[2px] transition-all flex items-center gap-1.5',
+              'px-5 py-2.5 text-[11px] font-medium whitespace-nowrap border-b-2 -mb-[2px] transition-all flex items-center gap-1.5',
               activeTab === i ? 'text-foreground border-foreground font-semibold' : 'text-muted-foreground border-transparent hover:text-foreground'
             )}
           >
@@ -123,7 +100,7 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
       {/* Tab 0: Profil recherché */}
       {activeTab === 0 && (
         <div className="animate-fade-in">
-          {/* Profile type - grid like seniority */}
+          {/* Profile type */}
           <div className="mb-8">
             <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-3 block">
               Type de profil recherché
@@ -150,7 +127,7 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
                         : 'bg-background border-border hover:border-foreground'
                     )}
                   >
-                    <div className="text-sm font-medium">{pt.label}</div>
+                    <div className="text-[11px] font-medium">{pt.label}</div>
                   </button>
                 );
               })}
@@ -171,11 +148,11 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
                   <div className="grid grid-cols-2 gap-3">
                     <div className="relative">
                       <Input value={s.assocCAMin} onChange={(e) => s.setField('assocCAMin', formatNumberWithDots(e.target.value))} placeholder="Min — Ex : 500" className="bg-background pr-12" />
-                      <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-muted-foreground">K€</span>
+                      <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[11px] text-muted-foreground">K€</span>
                     </div>
                     <div className="relative">
                       <Input value={s.assocCAMax} onChange={(e) => s.setField('assocCAMax', formatNumberWithDots(e.target.value))} placeholder="Max — Ex : 2.000" className="bg-background pr-12" />
-                      <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-muted-foreground">K€</span>
+                      <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[11px] text-muted-foreground">K€</span>
                     </div>
                   </div>
                 </div>
@@ -183,25 +160,25 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
                   <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2 block">
                     Expertise & positionnement attendus
                   </label>
-                  <Textarea value={s.assocExpertiseDesc} onChange={(e) => s.setField('assocExpertiseDesc', e.target.value)} rows={3} placeholder="Ex : Associé M&A mid-cap avec une clientèle PE établie…" className="bg-background" />
+                  <Textarea value={s.assocExpertiseDesc} onChange={(e) => s.setField('assocExpertiseDesc', e.target.value)} rows={3} placeholder="Ex : Associé M&A mid-cap avec une clientèle PE établie…" className="bg-background text-[11px]" />
                 </div>
                 <div>
                   <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2 block">
                     Type de clientèle attendue
                   </label>
-                  <Textarea value={s.assocClienteleDesc} onChange={(e) => s.setField('assocClienteleDesc', e.target.value)} rows={2} placeholder="Ex : Fonds PE mid-cap, industriels du CAC 40…" className="bg-background" />
+                  <Textarea value={s.assocClienteleDesc} onChange={(e) => s.setField('assocClienteleDesc', e.target.value)} rows={2} placeholder="Ex : Fonds PE mid-cap, industriels du CAC 40…" className="bg-background text-[11px]" />
                 </div>
                 <div>
                   <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2 block">
                     Projet d'intégration <span className="font-normal normal-case tracking-normal text-[10px] text-border">facultatif</span>
                   </label>
-                  <Textarea value={s.assocProjetDesc} onChange={(e) => s.setField('assocProjetDesc', e.target.value)} rows={3} placeholder="Gouvernance, perspectives, intégration…" className="bg-background" />
+                  <Textarea value={s.assocProjetDesc} onChange={(e) => s.setField('assocProjetDesc', e.target.value)} rows={3} placeholder="Gouvernance, perspectives, intégration…" className="bg-background text-[11px]" />
                 </div>
               </div>
             </div>
           )}
 
-          {/* Seniority - only shown if collaborateur is selected (not counsel/associé only) */}
+          {/* Seniority */}
           {(() => {
             const profileTypes = (s as any).profileTypes as string[] || [];
             const showSeniority = profileTypes.length === 0 || profileTypes.includes('collaborateur');
@@ -222,7 +199,7 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
                           : 'bg-background border-border hover:border-foreground'
                       )}
                     >
-                      <div className="font-sans text-sm font-bold mb-0.5">{sen.pqe}</div>
+                      <div className="font-sans text-[11px] font-bold mb-0.5">{sen.pqe}</div>
                       <div className="text-[10px] font-medium">{sen.label}</div>
                     </button>
                   ))}
@@ -241,7 +218,7 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
                   key={exp}
                   onClick={() => s.toggleExpertise(exp)}
                   className={cn(
-                    'px-4 py-2 rounded-sm border text-xs transition-all',
+                    'px-4 py-2 rounded-sm border text-[11px] transition-all',
                     s.expertise.includes(exp)
                       ? 'bg-foreground text-background border-foreground'
                       : 'bg-background text-muted-foreground border-border hover:border-foreground hover:text-foreground'
@@ -252,7 +229,7 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
               ))}
             </div>
 
-            {/* Sub-categories for selected expertises */}
+            {/* Sub-categories */}
             {s.expertise.length > 0 && (
               <div className="mt-5 space-y-5">
                 {s.expertise.map((exp) => {
@@ -282,7 +259,6 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
                           </div>
                         </div>
                       ))}
-                      {/* Selected sub-activities summary */}
                       {(() => {
                         const selectedItems = detail.sections.flatMap(sec =>
                           sec.items.filter(item => s.cabinetActivites[item.key])
@@ -305,13 +281,11 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
               </div>
             )}
 
-            {/* Activity split with pie chart - no gauges */}
+            {/* Activity split with pie chart — blue/grey palette */}
             {s.expertise.length >= 2 && (
               <div className="mt-5">
                 <p className="text-[11px] text-muted-foreground mb-3">Quelle part représente chaque expertise dans l'activité globale du poste ?</p>
-
                 <div className="flex gap-6 items-start">
-                  {/* Pie chart */}
                   <div className="flex-shrink-0">
                     <ResponsiveContainer width={140} height={140}>
                       <PieChart>
@@ -326,7 +300,7 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
                           strokeWidth={2}
                         >
                           {chartData.map((_, i) => (
-                            <Cell key={i} fill={CHART_COLORS[i % CHART_COLORS.length]} />
+                            <Cell key={i} fill={PIE_COLORS[i % PIE_COLORS.length]} />
                           ))}
                         </Pie>
                         <Tooltip
@@ -337,27 +311,38 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
                     </ResponsiveContainer>
                   </div>
 
-                  {/* Percentage inputs (no slider/gauge) */}
                   <div className="flex-1">
-                    {s.expertise.map((k, i) => (
-                      <div key={k} className="mb-3 flex items-center gap-3">
-                        <span className="w-2.5 h-2.5 rounded-sm flex-shrink-0" style={{ background: CHART_COLORS[i % CHART_COLORS.length] }} />
-                        <span className="text-xs font-medium text-foreground flex-1">{k}</span>
-                        <div className="flex items-center gap-1">
-                          <input
-                            type="number"
-                            min="0"
-                            max="100"
-                            step="10"
-                            value={s.activitySplit[k] || 0}
-                            onChange={(e) => s.updateSplit(k, parseInt(e.target.value) || 0)}
-                            className="w-16 text-right text-sm font-bold bg-secondary border border-border rounded px-2 py-1 text-foreground"
-                          />
-                          <span className="text-xs text-muted-foreground">%</span>
+                    {s.expertise.map((k, i) => {
+                      const pct = s.activitySplit[k] || 0;
+                      return (
+                        <div key={k} className="mb-3">
+                          <div className="flex items-center gap-3 mb-1">
+                            <span className="w-2.5 h-2.5 rounded-sm flex-shrink-0" style={{ background: PIE_COLORS[i % PIE_COLORS.length] }} />
+                            <span className="text-[11px] font-medium text-foreground flex-1">{k}</span>
+                            <div className="flex items-center gap-1">
+                              <input
+                                type="number"
+                                min="0"
+                                max="100"
+                                step="10"
+                                value={pct}
+                                onChange={(e) => s.updateSplit(k, parseInt(e.target.value) || 0)}
+                                className="w-16 text-right text-[11px] font-bold bg-secondary border border-border rounded px-2 py-1 text-foreground"
+                              />
+                              <span className="text-[11px] text-muted-foreground">%</span>
+                            </div>
+                          </div>
+                          {/* Gauge bar */}
+                          <div className="h-1.5 bg-secondary rounded-full overflow-hidden ml-5">
+                            <div
+                              className="h-full rounded-full transition-all duration-300"
+                              style={{ width: `${pct}%`, background: PIE_COLORS[i % PIE_COLORS.length] }}
+                            />
+                          </div>
                         </div>
-                      </div>
-                    ))}
-                    <div className="flex justify-between items-center p-3 bg-secondary rounded text-sm mt-2">
+                      );
+                    })}
+                    <div className="flex justify-between items-center p-3 bg-secondary rounded text-[11px] mt-2">
                       <span className="text-muted-foreground">Total</span>
                       <span className={cn('font-bold', splitTotal === 100 ? 'text-green-700' : 'text-orange-600')}>{splitTotal} %</span>
                     </div>
@@ -375,7 +360,7 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
                   key={e}
                   onClick={() => s.setField('english', e)}
                   className={cn(
-                    'px-4 py-2 rounded-sm border text-xs transition-all',
+                    'px-4 py-2 rounded-sm border text-[11px] transition-all',
                     s.english === e ? 'bg-foreground text-background border-foreground' : 'bg-background text-muted-foreground border-border hover:border-foreground'
                   )}
                 >
@@ -385,6 +370,32 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
             </div>
           </div>
 
+          {/* Department */}
+          <div className="mb-6">
+            <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2 block">
+              Département concerné par la recherche
+            </label>
+            <div className="flex gap-2 flex-wrap">
+              {['M&A', 'Private Equity', 'Banque & Finance', 'Droit Social', 'Fiscal', 'Concurrence', 'Restructuring', 'Droit Public'].map((dept) => (
+                <button
+                  key={dept}
+                  onClick={() => {
+                    s.setField('currentSearchDeptLabel', dept);
+                    const keyMap: Record<string, string> = { 'M&A': 'ma', 'Private Equity': 'pe', 'Banque & Finance': 'banque', 'Droit Social': 'social', 'Fiscal': 'fiscal', 'Concurrence': 'concurrence', 'Restructuring': 'restructuring', 'Droit Public': 'droit-public' };
+                    s.setField('currentSearchDept', keyMap[dept] || dept.toLowerCase());
+                  }}
+                  className={cn(
+                    'px-4 py-2 rounded-sm border text-[11px] transition-all',
+                    s.currentSearchDeptLabel === dept ? 'bg-foreground text-background border-foreground' : 'bg-background text-muted-foreground border-border hover:border-foreground hover:text-foreground'
+                  )}
+                >
+                  {dept}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Tab 1: Contexte & équipe */}
       {activeTab === 1 && (
@@ -397,7 +408,7 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
                   key={c}
                   onClick={() => s.setField('contexte', c)}
                   className={cn(
-                    'px-4 py-2 rounded-sm border text-xs transition-all',
+                    'px-4 py-2 rounded-sm border text-[11px] transition-all',
                     s.contexte === c ? 'bg-foreground text-background border-foreground' : 'bg-background text-muted-foreground border-border hover:border-foreground'
                   )}
                 >
@@ -437,17 +448,16 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
             <div className="grid grid-cols-2 gap-3">
               <div className="relative">
                 <Input value={s.retroMin} onChange={(e) => s.setField('retroMin', formatNumberWithDots(e.target.value))} placeholder="Min — Ex : 90.000" className="bg-background pr-12" />
-                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-muted-foreground">€/an</span>
+                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[11px] text-muted-foreground">€/an</span>
               </div>
               <div className="relative">
                 <Input value={s.retroMax} onChange={(e) => s.setField('retroMax', formatNumberWithDots(e.target.value))} placeholder="Max — Ex : 130.000" className="bg-background pr-12" />
-                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-muted-foreground">€/an</span>
+                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[11px] text-muted-foreground">€/an</span>
               </div>
             </div>
             <p className="text-[11px] text-muted-foreground mt-1.5">Transmis par LOGAN uniquement si le candidat est en discussion avancée.</p>
           </div>
 
-          {/* Objectif heures & bonus */}
           <div className="mb-6">
             <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2 block">
               Y a-t-il un objectif annuel d'heures facturables ?
@@ -458,7 +468,7 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
                   key={v}
                   onClick={() => s.setField('hasHeures', v === 'Oui')}
                   className={cn(
-                    'px-4 py-2 rounded-sm border text-xs transition-all',
+                    'px-4 py-2 rounded-sm border text-[11px] transition-all',
                     (v === 'Oui' && s.hasHeures) || (v === 'Non' && !s.hasHeures && s.heures === '' && s.bonusDesc === '' ? false : v === 'Non' && !s.hasHeures)
                       ? 'bg-foreground text-background border-foreground'
                       : 'bg-background text-muted-foreground border-border hover:border-foreground'
@@ -477,11 +487,9 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
                   </label>
                   <div className="relative max-w-[260px]">
                     <Input value={s.heures} onChange={(e) => s.setField('heures', formatNumberWithDots(e.target.value))} placeholder="Ex : 1.800" className="bg-background pr-12" />
-                    <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-muted-foreground">h/an</span>
+                    <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[11px] text-muted-foreground">h/an</span>
                   </div>
                 </div>
-
-
               </div>
             )}
           </div>
@@ -494,7 +502,7 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
                   key={t}
                   onClick={() => s.setField('tt', t)}
                   className={cn(
-                    'px-4 py-2 rounded-sm border text-xs transition-all',
+                    'px-4 py-2 rounded-sm border text-[11px] transition-all',
                     s.tt === t ? 'bg-foreground text-background border-foreground' : 'bg-background text-muted-foreground border-border hover:border-foreground'
                   )}
                 >
@@ -531,7 +539,7 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
                     {s.confNiveau === c.key && <div className="w-1.5 h-1.5 rounded-full bg-white" />}
                   </div>
                   <div>
-                    <div className="text-sm font-semibold text-foreground mb-1 flex items-center gap-2">
+                    <div className="text-[11px] font-semibold text-foreground mb-1 flex items-center gap-2">
                       {c.title}
                       {c.badge && (
                         <span className={cn(
@@ -542,7 +550,7 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
                         </span>
                       )}
                     </div>
-                    <p className="text-xs text-muted-foreground leading-relaxed">{c.desc}</p>
+                    <p className="text-[11px] text-muted-foreground leading-relaxed">{c.desc}</p>
                   </div>
                 </button>
               ))}
@@ -553,11 +561,11 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
 
       {/* Nav */}
       <div className="flex justify-between items-center mt-11 pt-7 border-t border-border">
-        <Button variant="outline" onClick={() => isEmbedded && onBack ? onBack() : s.setStep(2)} className="font-sans text-sm rounded-sm">← Retour</Button>
+        <Button variant="outline" onClick={() => isEmbedded && onBack ? onBack() : s.setStep(2)} className="font-sans text-[11px] rounded-sm">← Retour</Button>
         <Button
           onClick={() => isEmbedded && onNext ? onNext() : s.setStep(4)}
           disabled={!allComplete}
-          className="bg-foreground text-background hover:bg-foreground/90 font-sans text-sm font-bold rounded-sm px-8 disabled:opacity-40"
+          className="bg-foreground text-background hover:bg-foreground/90 font-sans text-[11px] font-bold rounded-sm px-8 disabled:opacity-40"
         >
           Continuer →
         </Button>
