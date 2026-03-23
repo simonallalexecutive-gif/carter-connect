@@ -487,20 +487,21 @@ const ExploreView = ({
             <option value="match">Matching</option>
           </select>
         </div>
+      </div>
 
-        {/* Legal 500 checkbox */}
-        <div className="flex items-center gap-2 mb-5">
-          <input
-            type="checkbox"
-            id="legal500filter"
-            checked={legal500Only}
-            onChange={e => setLegal500Only(e.target.checked)}
-            className="w-3.5 h-3.5 rounded border-border accent-foreground cursor-pointer"
-          />
-          <label htmlFor="legal500filter" className="text-[11px] text-foreground font-medium cursor-pointer select-none">
-            Candidats issus du Legal 500 uniquement
-          </label>
-        </div>
+      {/* Legal 500 checkbox */}
+      <div className="flex items-center gap-2 mb-5">
+        <input
+          type="checkbox"
+          id="legal500filter"
+          checked={legal500Only}
+          onChange={e => setLegal500Only(e.target.checked)}
+          className="w-3.5 h-3.5 rounded border-border accent-foreground cursor-pointer"
+        />
+        <label htmlFor="legal500filter" className="text-[11px] text-foreground font-medium cursor-pointer select-none">
+          Candidats issus du Legal 500 uniquement
+        </label>
+      </div>
 
       {/* Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
