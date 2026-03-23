@@ -42,6 +42,7 @@ const DEPT_TO_L500: Record<string, string> = {
 
 const Step2Identity = () => {
   const store = useRegistrationStore();
+  const isAdmin = store.isAdminMode;
   const pqe = usePQE(store.sermentMois, store.sermentAnnee);
   const photoInputRef = useRef<HTMLInputElement>(null);
   const [showPassword, setShowPassword] = useState(false);
@@ -71,10 +72,10 @@ const Step2Identity = () => {
   }, []);
 
   const canProceed = store.prenom.length >= 2 && store.nom.length >= 2 &&
-    store.email.includes('@') && store.telephone.length >= 10 &&
+    (isAdmin || store.email.includes('@')) && store.telephone.length >= 10 &&
     store.sermentMois && store.sermentAnnee &&
     store.departement.length >= 2 && store.cabinet.length >= 2 &&
-    isPasswordValid && passwordsMatch &&
+    (isAdmin || (isPasswordValid && passwordsMatch)) &&
     store.retrocession.length >= 1 &&
     store.conserverRetrocession !== null;
 
@@ -82,17 +83,17 @@ const Step2Identity = () => {
     const missing: string[] = [];
     if (store.prenom.length < 2) missing.push('Prénom');
     if (store.nom.length < 2) missing.push('Nom');
-    if (!store.email.includes('@')) missing.push('Email');
+    if (!isAdmin && !store.email.includes('@')) missing.push('Email');
     if (store.telephone.length < 10) missing.push('Téléphone');
-    if (!isPasswordValid) missing.push('Mot de passe');
-    if (!passwordsMatch) missing.push('Confirmation mot de passe');
+    if (!isAdmin && !isPasswordValid) missing.push('Mot de passe');
+    if (!isAdmin && !passwordsMatch) missing.push('Confirmation mot de passe');
     if (!store.sermentMois || !store.sermentAnnee) missing.push('Date de serment');
     if (store.departement.length < 2) missing.push('Département');
     if (store.cabinet.length < 2) missing.push('Cabinet');
     if (store.retrocession.length < 1) missing.push('Rétrocession');
     if (store.conserverRetrocession === null) missing.push('Flexibilité rétrocession');
     return missing;
-  }, [store.prenom, store.nom, store.email, store.telephone, isPasswordValid, passwordsMatch, store.sermentMois, store.sermentAnnee, store.departement, store.cabinet, store.retrocession, store.conserverRetrocession]);
+  }, [store.prenom, store.nom, store.email, store.telephone, isPasswordValid, passwordsMatch, store.sermentMois, store.sermentAnnee, store.departement, store.cabinet, store.retrocession, store.conserverRetrocession, isAdmin]);
 
   const autoDetectRanking = (cabinetName: string, dept: string) => {
     const practiceData = LEGAL500_BY_PRACTICE[dept];
@@ -288,18 +289,26 @@ const Step2Identity = () => {
         </div>
 
         {/* Email / Tel */}
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Email *</Label>
-            <Input type="email" value={store.email} onChange={e => store.setField('email', e.target.value)} placeholder="jean@cabinet.com" className="mt-2" />
-          </div>
+        {isAdmin ? (
           <div>
             <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Téléphone *</Label>
             <Input value={store.telephone} onChange={e => store.setField('telephone', formatPhoneWithDots(e.target.value))} placeholder="06.50.10.20.30" className="mt-2" />
           </div>
-        </div>
+        ) : (
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Email *</Label>
+              <Input type="email" value={store.email} onChange={e => store.setField('email', e.target.value)} placeholder="jean@cabinet.com" className="mt-2" />
+            </div>
+            <div>
+              <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Téléphone *</Label>
+              <Input value={store.telephone} onChange={e => store.setField('telephone', formatPhoneWithDots(e.target.value))} placeholder="06.50.10.20.30" className="mt-2" />
+            </div>
+          </div>
+        )}
 
-        {/* Password */}
+        {/* Password — hidden in admin mode */}
+        {!isAdmin && (
         <div className="space-y-4">
           <div>
             <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Mot de passe *</Label>
@@ -373,6 +382,7 @@ const Step2Identity = () => {
             )}
           </div>
         </div>
+        )}
         {/* Serment */}
         <div>
           <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Date de prestation de serment *</Label>

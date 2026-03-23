@@ -24,6 +24,7 @@ type PreviewMode = 'recap' | 'cabinet' | 'carter';
 
 const Step6Review = () => {
   const store = useRegistrationStore();
+  const isAdmin = store.isAdminMode;
   const pqe = usePQE(store.sermentMois, store.sermentAnnee);
   const [previewMode, setPreviewMode] = useState<PreviewMode>('recap');
   const [submitting, setSubmitting] = useState(false);
@@ -59,6 +60,13 @@ const Step6Review = () => {
 
   const handleSubmit = async () => {
     if (submitting) return;
+
+    // In admin mode, just advance to step 7 — AdminRegistration intercepts
+    if (isAdmin) {
+      store.nextStep();
+      return;
+    }
+
     setSubmitting(true);
 
     try {
@@ -79,10 +87,8 @@ const Step6Review = () => {
       // Save RDV booking if one was selected
       if (store.souhaitePrendreRdv && store.creneauPrefere) {
         try {
-          // Extract date and time from creneauPrefere format: "lundi 24 mars 2026 à 09:00"
           const timeMatch = store.creneauPrefere.match(/à (\d{2}:\d{2})$/);
           const bookingTime = timeMatch?.[1] || '';
-          // Use a simple date for the booking
           const today = new Date();
           const bookingDate = today.toISOString().split('T')[0];
           
@@ -456,7 +462,7 @@ const Step6Review = () => {
           Retour
         </Button>
         <Button onClick={handleSubmit} disabled={submitting} className="bg-accent text-accent-foreground hover:bg-accent/90 font-sans font-medium px-8 rounded-sm">
-          {submitting ? 'Envoi...' : 'Soumettre mon profil'}
+          {submitting ? 'Envoi...' : isAdmin ? 'Générer le lien d\'invitation →' : 'Soumettre mon profil'}
         </Button>
       </div>
     </motion.div>
