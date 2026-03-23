@@ -380,6 +380,65 @@ const DiscoverSection = () => {
           </p>
         </motion.div>
 
+        {/* Three pillars */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+          className="max-w-4xl mx-auto mb-8 md:mb-10"
+        >
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
+            {[
+              {
+                title: 'Une approche continue du marché',
+                paragraphs: [
+                  'Le marché des avocats d\'affaires ne se limite pas à des besoins ponctuels. Il repose sur des équilibres subtils, des temporalités spécifiques et des opportunités souvent informelles.',
+                  'Logan donne un accès continu à cette réalité, en permettant aux cabinets d\'identifier, d\'approcher et d\'engager, avec discernement, les profils les plus pertinents — y compris les plus difficiles à capter.',
+                ],
+              },
+              {
+                title: 'Une exigence de méthode',
+                paragraphs: [
+                  'La technologie permet d\'éclairer le marché et d\'en structurer l\'information. L\'intervention humaine en garantit la lecture, l\'appréciation et la justesse.',
+                  'C\'est de cette exigence combinée que naît la qualité des rapprochements opérés.',
+                ],
+              },
+              {
+                title: 'Modalités d\'intervention',
+                paragraphs: [
+                  'Logan propose un modèle fondé sur un accès continu, associé à un accompagnement adapté à la nature et à la sensibilité des recherches.',
+                  'Les modalités sont définies en fonction des enjeux propres à chaque cabinet.',
+                ],
+              },
+            ].map((pillar, i) => (
+              <motion.div
+                key={pillar.title}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-40px' }}
+                transition={{ delay: i * 0.1, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                className="text-center md:text-left"
+              >
+                <div className="w-8 h-px bg-foreground/20 mx-auto md:mx-0 mb-5" />
+                <h3 className="font-serif text-lg md:text-xl text-foreground mb-3 tracking-[-0.01em] leading-snug font-normal">
+                  {pillar.title}
+                </h3>
+                {pillar.paragraphs.map((p, j) => (
+                  <p key={j} className="text-[13px] text-foreground/55 font-light leading-relaxed mb-2 last:mb-0">
+                    {p}
+                  </p>
+                ))}
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+      </div>
+    </section>
+
+    {/* Parcours Logan — separate section */}
+    <section className="py-24 md:py-32 bg-background relative overflow-hidden">
+      <div className="carter-container relative z-10">
         {/* Parcours heading */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
@@ -388,6 +447,9 @@ const DiscoverSection = () => {
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           className="text-center mb-12 md:mb-16"
         >
+          <p className="text-[10px] font-sans font-medium tracking-[0.25em] uppercase text-muted-foreground mb-5">
+            Le parcours Logan
+          </p>
           <h2 className="font-serif text-3xl md:text-4xl lg:text-[2.75rem] font-normal text-foreground mb-4 tracking-[-0.02em] leading-[1.1]">
             Un parcours pensé pour <em className="italic">chaque</em> acteur
           </h2>
