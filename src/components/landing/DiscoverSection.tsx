@@ -338,22 +338,16 @@ const DiscoverSection = () => {
     <section className="py-24 md:py-32 bg-[hsl(0_0%_96%)] relative overflow-hidden">
 
       <div className="carter-container relative z-10">
-        {/* Header */}
+        {/* Header — label only */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="text-center mb-16 md:mb-20"
+          className="text-center mb-10"
         >
-          <p className="text-[10px] font-sans font-medium tracking-[0.25em] uppercase text-muted-foreground mb-5">
+          <p className="text-[10px] font-sans font-medium tracking-[0.25em] uppercase text-muted-foreground">
             Notre Approche
-          </p>
-          <h2 className="font-serif text-3xl md:text-4xl lg:text-[2.75rem] font-normal text-foreground mb-4 tracking-[-0.02em] leading-[1.1]">
-            Un parcours pensé pour <em className="italic">chaque</em> acteur
-          </h2>
-          <p className="text-sm md:text-base text-muted-foreground font-light max-w-lg mx-auto leading-relaxed">
-            Explorez le parcours Logan selon votre perspective.
           </p>
         </motion.div>
 
@@ -363,7 +357,7 @@ const DiscoverSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          className="max-w-2xl mx-auto mb-16 md:mb-20"
+          className="max-w-2xl mx-auto mb-12 md:mb-14"
         >
           <p className="text-sm md:text-[15px] text-foreground/80 font-light leading-relaxed text-center mb-6">
             Logan combine la puissance de l'intelligence artificielle et l'exigence du discernement humain pour offrir un accès continu à la dynamique réelle du marché.
@@ -383,6 +377,22 @@ const DiscoverSection = () => {
           </div>
           <p className="text-sm md:text-[15px] text-foreground/80 font-light leading-relaxed text-center">
             Là où les modèles traditionnels reposent sur des missions ponctuelles, Logan propose un accès structuré, fluide et permanent aux meilleures opportunités du marché.
+          </p>
+        </motion.div>
+
+        {/* Parcours heading */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="text-center mb-12 md:mb-16"
+        >
+          <h2 className="font-serif text-3xl md:text-4xl lg:text-[2.75rem] font-normal text-foreground mb-4 tracking-[-0.02em] leading-[1.1]">
+            Un parcours pensé pour <em className="italic">chaque</em> acteur
+          </h2>
+          <p className="text-sm md:text-base text-muted-foreground font-light max-w-lg mx-auto leading-relaxed">
+            Explorez le parcours Logan selon votre perspective.
           </p>
         </motion.div>
 
