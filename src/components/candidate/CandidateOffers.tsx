@@ -83,80 +83,56 @@ const CandidateOffers = () => {
                 className="rounded-lg overflow-hidden transition-shadow duration-500 hover:shadow-lg border border-border"
                 style={{ background: 'hsl(0 0% 96%)' }}
               >
-                <button type="button" className="w-full text-left p-6 md:p-8" onClick={() => setExpandedOffer(isExpanded ? null : offer.id)}>
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-0 mb-3 flex-wrap">
-                        <span className="text-[16px] font-sans tracking-[-0.01em] text-foreground leading-none">{shortSeniority(offer.seniority)}</span>
-                        <span className="mx-2.5 w-px h-5 bg-border inline-block" />
-                        <span className="text-[16px] font-sans tracking-[-0.01em] text-foreground leading-none">{offer.dept}</span>
-                        {offer.ranking && (
-                          <>
-                            <span className="mx-2.5 w-px h-5 bg-border inline-block" />
-                            <span className="inline-flex items-center gap-2 text-[14px] font-sans text-foreground">
-                              <span className="font-semibold">{offer.ranking}</span>
+                  <button type="button" className="w-full text-left p-6 md:p-8" onClick={() => setExpandedOffer(isExpanded ? null : offer.id)}>
+                    <div className="flex items-start justify-between gap-4">
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-0 mb-3 flex-wrap">
+                          <span className="text-[16px] font-sans tracking-[-0.01em] text-white leading-none">{shortSeniority(offer.seniority)}</span>
+                          <span className="mx-2.5 w-px h-5 bg-white/20 inline-block" />
+                          <span className="text-[16px] font-sans tracking-[-0.01em] text-white leading-none">{offer.dept}</span>
+                          {offer.ranking && (
+                            <>
+                              <span className="mx-2.5 w-px h-5 bg-white/20 inline-block" />
+                              <span className="inline-flex items-center gap-2 text-[14px] font-sans text-white">
+                                <span className="font-semibold">{offer.ranking}</span>
+                              </span>
+                            </>
+                          )}
+                          {isInterested && (
+                            <span className="ml-3 inline-flex items-center gap-1 text-[10px] text-white/50 font-sans">
+                              <CheckCircle2 className="w-3.5 h-3.5" />Intérêt transmis
                             </span>
-                          </>
+                          )}
+                        </div>
+
+                        {!isExpanded && offer.tags.length > 0 && (
+                          <div className="flex flex-wrap gap-1.5 mt-1">
+                            {offer.tags.slice(0, 4).map((tag) => (
+                              <span key={tag} className="text-[10px] px-2.5 py-1 rounded-full border border-white/15 text-white/60 font-sans">{tag}</span>
+                            ))}
+                          </div>
                         )}
-                        {isInterested && (
-                          <span className="ml-3 inline-flex items-center gap-1 text-[10px] text-muted-foreground font-sans">
-                            <CheckCircle2 className="w-3.5 h-3.5" />Intérêt transmis
-                          </span>
-                        )}
+
+                        <div className="flex items-center justify-between mt-4">
+                          <div className="flex items-center gap-1.5 text-[11px] text-white/50 font-sans">
+                            <Calendar className="w-3 h-3" />
+                            <span>Date de publication : {formatOfferDate(offer.postedAt)}</span>
+                          </div>
+                          <div className="text-[9px] tracking-[0.15em] uppercase text-white/30 font-sans">{offer.reference}</div>
+                        </div>
                       </div>
-
-                      {!isExpanded && offer.tags.length > 0 && (
-                        <div className="flex flex-wrap gap-1.5 mt-1">
-                          {offer.tags.slice(0, 4).map((tag) => (
-                            <span key={tag} className="text-[10px] px-2.5 py-1 rounded-full border border-border text-muted-foreground font-sans">{tag}</span>
-                          ))}
-                        </div>
-                      )}
-
-                      <div className="flex items-center justify-between mt-4">
-                        <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground font-sans">
-                          <Calendar className="w-3 h-3" />
-                          <span>Date de publication : {formatOfferDate(offer.postedAt)}</span>
-                        </div>
-                        <div className="text-[9px] tracking-[0.15em] uppercase text-muted-foreground/60 font-sans">{offer.reference}</div>
+                      <div className="w-10 h-10 rounded-full flex items-center justify-center bg-white/10 shrink-0 mt-1">
+                        <ChevronDown className={`w-5 h-5 text-white/60 transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`} />
                       </div>
                     </div>
-                    <div className="w-10 h-10 rounded-full flex items-center justify-center bg-secondary shrink-0 mt-1">
-                      <ChevronDown className={`w-5 h-5 text-muted-foreground transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`} />
-                    </div>
-                  </div>
-                </button>
+                  </button>
 
                 <AnimatePresence>
                   {isExpanded && (
                     <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }} className="overflow-hidden">
-                      <div className="border-t border-border">
-                        {/* Title banner — high contrast */}
-                        <div className="bg-foreground text-background px-6 md:px-8 py-6">
-                          <div className="text-[8px] tracking-[0.16em] uppercase text-background/50 font-sans mb-2">Opportunité · Présentée par LOGAN</div>
-                          <div className="flex items-center gap-0 mb-1 flex-wrap">
-                            <span className="font-sans text-[17px] font-semibold tracking-[-0.01em] text-background">{shortSeniority(offer.seniority)}</span>
-                            <span className="mx-2.5 w-px h-5 bg-background/20 inline-block" />
-                            <span className="font-sans text-[17px] font-semibold tracking-[-0.01em] text-background">{offer.dept}</span>
-                            {offer.ranking && (
-                              <>
-                                <span className="mx-2.5 w-px h-5 bg-background/20 inline-block" />
-                                <span className="inline-flex items-center gap-2 text-[14px] font-sans text-background">
-                                  <span className="font-semibold">{offer.ranking}</span>
-                                </span>
-                              </>
-                            )}
-                          </div>
-                          <div className="text-[11px] font-sans text-background/50">Cabinet anonyme · Identité protégée</div>
-                          <div className="flex flex-wrap gap-1.5 mt-4">
-                            {offer.tags.map((tag) => (
-                              <span key={tag} className="text-[10px] px-3 py-1.5 rounded-full bg-background/10 text-background/80 font-medium border border-background/10">{tag}</span>
-                            ))}
-                          </div>
-                        </div>
-
-                        {/* Content body */}
-                        <div className="p-6 md:p-8" style={{ background: 'hsl(0 0% 96%)' }}>
+                      <div className="border-t border-white/10">
+                        {/* Content body — directly show content, no black banner */}
+                        <div className="p-6 md:p-8 bg-white text-foreground">
 
                           {hasMultipleExpertises && offer.activitySplit && (
                             <div className="mb-6 pb-5 border-b border-border">
@@ -236,7 +212,7 @@ const CandidateOffers = () => {
                                 <span className="flex items-center justify-center gap-2"><CheckCircle2 className="w-4 h-4" />Intérêt transmis à Logan</span>
                               ) : 'Je suis intéressé(e) par cette opportunité →'}
                             </button>
-                            <div className="mt-2 text-[10px] text-muted-foreground">0% commission · Levée de rideau conditionnée à votre accord</div>
+                            <div className="mt-2 text-[10px] text-muted-foreground">Un consultant Logan vous contactera sous 48h pour échanger plus en détails sur cette opportunité</div>
                           </div>
                         </div>
                       </div>

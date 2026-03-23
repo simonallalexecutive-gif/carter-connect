@@ -524,7 +524,7 @@ const ExploreView = ({
             </div>
             <div className="grid grid-cols-2 gap-2 border-t border-border pt-3">
               <div><div className="text-[8px] text-muted-foreground uppercase tracking-[0.08em]">Anglais</div><div className="text-[11px] font-semibold text-foreground">{p.english}</div></div>
-              <div><div className="text-[8px] text-muted-foreground uppercase tracking-[0.08em]">Disponibilité</div><div className="text-[11px] font-semibold text-foreground">{p.disponibilite}</div></div>
+              <div><div className="text-[8px] text-muted-foreground uppercase tracking-[0.08em]">Séniorité</div><div className="text-[11px] font-semibold text-foreground">{p.seniority}</div></div>
             </div>
           </div>
         ))}
@@ -561,8 +561,6 @@ const ExploreView = ({
                 <div><span className="text-xs text-muted-foreground font-sans font-light">Nationalité cabinet</span><p className="text-sm font-sans font-medium mt-0.5">{drawerProfile.natFlag} {drawerProfile.origin}</p></div>
                 <div><span className="text-xs text-muted-foreground font-sans font-light">Classement Legal 500</span><p className="text-sm font-sans font-medium mt-0.5">{drawerProfile.originTier}</p></div>
                 <div><span className="text-xs text-muted-foreground font-sans font-light">Anglais</span><p className="text-sm font-sans font-medium mt-0.5">{drawerProfile.english}</p></div>
-                <div><span className="text-xs text-muted-foreground font-sans font-light">Disponibilité</span><p className="text-sm font-sans font-medium mt-0.5">{drawerProfile.disponibilite}</p></div>
-                {drawerProfile.formation && <div><span className="text-xs text-muted-foreground font-sans font-light">Formation</span><p className="text-sm font-sans font-medium mt-0.5">{drawerProfile.formation}</p></div>}
               </div>
 
               {/* Activity pie chart */}
@@ -601,7 +599,6 @@ const ExploreView = ({
                   <p className="text-[9px] font-bold tracking-[0.14em] uppercase text-muted-foreground mb-3">Conditions</p>
                   <div className="grid grid-cols-2 gap-3">
                     <div><span className="text-xs text-muted-foreground font-sans font-light">Rétrocession</span><p className="text-sm font-sans font-medium mt-0.5">{drawerProfile.retro_actuel}</p></div>
-                    <div><span className="text-xs text-muted-foreground font-sans font-light">Mobilité</span><p className="text-sm font-sans font-medium mt-0.5">{drawerProfile.mobilite}</p></div>
                   </div>
                 </div>
               )}
