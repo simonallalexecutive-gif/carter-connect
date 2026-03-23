@@ -114,7 +114,7 @@ const LandingPage = () => (
           </div>
           <motion.div variants={fadeUp} className="mb-20 md:mb-28" />
           <motion.div variants={fadeUp}>
-            <Link to="/demo">
+            <Link to="/inscription">
               <Button size="lg" className="bg-white text-black border border-white hover:bg-white/90 font-sans text-sm font-medium px-6 sm:px-8 py-5 sm:py-6 rounded-sm tracking-wide group transition-all duration-300">
                 Rejoindre Logan
                 <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
