@@ -38,35 +38,61 @@ const LandingPage = () => (
 
     {/* Hero */}
     <section className="min-h-screen md:min-h-[115vh] flex flex-col justify-center relative overflow-hidden bg-black">
-      {/* Background photo with Ken Burns animation */}
+      {/* Background photo with cinematic living Ken Burns */}
       <div className="absolute inset-0">
         <motion.img
           src={heroBoardroom}
           alt=""
-          initial={{ opacity: 0, scale: 1.15 }}
-          animate={{ opacity: 0.85, scale: 1.05 }}
-          transition={{ duration: 20, ease: 'linear' }}
+          initial={{ opacity: 0, scale: 1.18, x: '0%', y: '0%' }}
+          animate={{
+            opacity: 0.85,
+            scale: [1.18, 1.08, 1.12, 1.06, 1.1, 1.05],
+            x: ['0%', '-1.5%', '0.5%', '-0.8%', '0.3%', '0%'],
+            y: ['0%', '-0.8%', '0.3%', '-0.5%', '0.2%', '0%'],
+          }}
+          transition={{
+            opacity: { duration: 2, ease: 'easeOut' },
+            scale: { duration: 40, ease: 'easeInOut', repeat: Infinity, repeatType: 'reverse' },
+            x: { duration: 35, ease: 'easeInOut', repeat: Infinity, repeatType: 'reverse' },
+            y: { duration: 30, ease: 'easeInOut', repeat: Infinity, repeatType: 'reverse' },
+          }}
           className="w-full h-full object-cover"
           style={{ willChange: 'transform' }}
         />
-        {/* Animated warm sunlight sweep */}
+        {/* Animated warm sunlight sweep — moves across the frame */}
         <motion.div
           className="absolute inset-0"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: [0, 0.15, 0.25, 0.12, 0.2, 0.08] }}
-          transition={{ duration: 18, ease: 'easeInOut', repeat: Infinity, repeatType: 'reverse' }}
-          style={{
-            background: 'radial-gradient(ellipse 80% 60% at 75% 30%, rgba(255,200,120,0.4) 0%, rgba(255,160,60,0.15) 40%, transparent 70%)',
+          animate={{
+            opacity: [0, 0.18, 0.28, 0.1, 0.22, 0.06, 0.15],
+            background: [
+              'radial-gradient(ellipse 80% 60% at 65% 25%, rgba(255,200,120,0.45) 0%, rgba(255,160,60,0.15) 40%, transparent 70%)',
+              'radial-gradient(ellipse 70% 55% at 80% 35%, rgba(255,210,130,0.4) 0%, rgba(255,170,70,0.12) 45%, transparent 75%)',
+              'radial-gradient(ellipse 90% 65% at 60% 40%, rgba(255,190,100,0.35) 0%, rgba(255,150,50,0.18) 35%, transparent 65%)',
+              'radial-gradient(ellipse 75% 50% at 75% 30%, rgba(255,200,120,0.4) 0%, rgba(255,160,60,0.1) 40%, transparent 70%)',
+            ],
           }}
+          transition={{ duration: 20, ease: 'easeInOut', repeat: Infinity, repeatType: 'reverse' }}
         />
-        {/* Slow golden-hour shift overlay */}
+        {/* Slow golden-hour shift with movement */}
         <motion.div
           className="absolute inset-0"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: [0, 0.1, 0.18, 0.06] }}
-          transition={{ duration: 25, ease: 'easeInOut', repeat: Infinity, repeatType: 'mirror' }}
+          animate={{
+            opacity: [0.05, 0.14, 0.2, 0.08, 0.16, 0.05],
+            background: [
+              'linear-gradient(125deg, rgba(255,180,80,0.22) 0%, transparent 50%, rgba(180,140,255,0.06) 100%)',
+              'linear-gradient(145deg, rgba(255,190,90,0.18) 0%, transparent 55%, rgba(200,160,255,0.1) 100%)',
+              'linear-gradient(135deg, rgba(255,170,70,0.25) 0%, transparent 45%, rgba(160,120,255,0.08) 100%)',
+            ],
+          }}
+          transition={{ duration: 28, ease: 'easeInOut', repeat: Infinity, repeatType: 'mirror' }}
+        />
+        {/* Subtle vignette pulse */}
+        <motion.div
+          className="absolute inset-0"
+          animate={{ opacity: [0.6, 0.75, 0.65, 0.8, 0.7] }}
+          transition={{ duration: 15, ease: 'easeInOut', repeat: Infinity, repeatType: 'reverse' }}
           style={{
-            background: 'linear-gradient(135deg, rgba(255,180,80,0.2) 0%, transparent 50%, rgba(180,140,255,0.08) 100%)',
+            background: 'radial-gradient(ellipse 70% 60% at 50% 50%, transparent 0%, rgba(0,0,0,0.5) 100%)',
           }}
         />
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/80" />
@@ -79,7 +105,7 @@ const LandingPage = () => (
             &nbsp;
           </motion.p>
           <motion.h1 variants={fadeUp} className="text-[3rem] sm:text-[3.75rem] md:text-[5rem] lg:text-[6.5rem] font-serif font-[500] text-white leading-[1.05] md:leading-[1.02] mb-8 md:mb-10 tracking-[-0.03em] whitespace-nowrap">
-            Moves Made <span className="text-white/70">Private</span>
+            Connecting Legal <span className="text-white/70 italic">Minds</span>
           </motion.h1>
           <motion.p variants={fadeUp} className="text-[1.06rem] sm:text-[1.12rem] md:text-[1.19rem] text-white font-sans font-[350] max-w-3xl mb-3 leading-relaxed -mt-6">
             Un réseau confidentiel d'excellence, entretenu et orchestré par des chasseurs spécialisés, au service des candidats et cabinets d'affaires les plus exigeants du marché.
