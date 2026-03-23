@@ -357,6 +357,35 @@ const DiscoverSection = () => {
           </p>
         </motion.div>
 
+        {/* Intro block — AI + human */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          className="max-w-2xl mx-auto mb-16 md:mb-20"
+        >
+          <p className="text-sm md:text-[15px] text-foreground/80 font-light leading-relaxed text-center mb-6">
+            Logan combine la puissance de l'intelligence artificielle et l'exigence du discernement humain pour offrir un accès continu à la dynamique réelle du marché.
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3 max-w-lg mx-auto mb-6">
+            {[
+              'Identification et matching en continu',
+              'Approche ciblée de profils souvent inaccessibles',
+              'Confidentialité absolue des recherches',
+              'Accompagnement sur mesure à chaque étape',
+            ].map((item) => (
+              <div key={item} className="flex items-start gap-2.5">
+                <div className="w-1.5 h-1.5 rounded-full bg-foreground/40 mt-[7px] flex-shrink-0" />
+                <span className="text-xs text-foreground/65 font-normal leading-relaxed">{item}</span>
+              </div>
+            ))}
+          </div>
+          <p className="text-sm md:text-[15px] text-foreground/80 font-light leading-relaxed text-center">
+            Là où les modèles traditionnels reposent sur des missions ponctuelles, Logan propose un accès structuré, fluide et permanent aux meilleures opportunités du marché.
+          </p>
+        </motion.div>
+
         {/* Perspective toggle — pill style */}
         <motion.div
           initial={{ opacity: 0, y: 12 }}
