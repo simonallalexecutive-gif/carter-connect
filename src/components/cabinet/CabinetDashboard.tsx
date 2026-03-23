@@ -434,16 +434,27 @@ const ExploreView = ({
 }) => {
   const s = useCabinetStore();
   const [legal500Only, setLegal500Only] = useState(false);
+  const [seniorityFilter, setSeniorityFilter] = useState<string>('all');
+
+  const SENIORITY_FILTERS = [
+    { key: 'all', label: 'Toutes' },
+    { key: 'Junior', label: 'Junior' },
+    { key: 'Mid Level', label: 'Mid' },
+    { key: 'Senior', label: 'Senior' },
+    { key: 'Counsel', label: 'Counsel' },
+    { key: 'Associé', label: 'Associé' },
+  ];
 
   const filtered = useMemo(() => {
     let profiles = [...PROFILES];
     if (filter === 'new') profiles = profiles.filter((p) => p.isNew);
     else if (filter !== 'all') profiles = profiles.filter((p) => p.dept === filter);
     if (legal500Only) profiles = profiles.filter((p) => p.originTier && p.originTier.startsWith('Tier'));
+    if (seniorityFilter !== 'all') profiles = profiles.filter((p) => p.seniority === seniorityFilter);
     if (sort === 'pqe') profiles.sort((a, b) => parseInt(b.pqe) - parseInt(a.pqe));
     else if (sort === 'match') profiles.sort((a, b) => b.match - a.match);
     return profiles;
-  }, [filter, sort, legal500Only]);
+  }, [filter, sort, legal500Only, seniorityFilter]);
 
   return (
     <div>
@@ -489,18 +500,32 @@ const ExploreView = ({
         </div>
       </div>
 
-      {/* Legal 500 checkbox */}
-      <div className="flex items-center gap-2 mb-5">
-        <input
-          type="checkbox"
-          id="legal500filter"
-          checked={legal500Only}
-          onChange={e => setLegal500Only(e.target.checked)}
-          className="w-3.5 h-3.5 rounded border-border accent-foreground cursor-pointer"
-        />
-        <label htmlFor="legal500filter" className="text-[11px] text-foreground font-medium cursor-pointer select-none">
-          Candidats issus du Legal 500 uniquement
-        </label>
+      {/* Legal 500 checkbox + seniority filter */}
+      <div className="flex items-center gap-4 mb-5 flex-wrap">
+        <div className="flex items-center gap-2">
+          <input
+            type="checkbox"
+            id="legal500filter"
+            checked={legal500Only}
+            onChange={e => setLegal500Only(e.target.checked)}
+            className="w-3.5 h-3.5 rounded border-border accent-foreground cursor-pointer"
+          />
+          <label htmlFor="legal500filter" className="text-[11px] text-foreground font-medium cursor-pointer select-none">
+            Candidats issus du Legal 500 uniquement
+          </label>
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="text-[11px] font-semibold text-foreground">Séniorité :</span>
+          <select
+            value={seniorityFilter}
+            onChange={(e) => setSeniorityFilter(e.target.value)}
+            className="text-[11px] border border-border rounded px-2 py-1 bg-background text-foreground cursor-pointer"
+          >
+            {SENIORITY_FILTERS.map((sf) => (
+              <option key={sf.key} value={sf.key}>{sf.label}</option>
+            ))}
+          </select>
+        </div>
       </div>
 
       {/* Grid */}
