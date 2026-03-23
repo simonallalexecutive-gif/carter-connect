@@ -14,7 +14,8 @@ import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
 import { NAT_FLAGS, NAT_LABELS } from '@/lib/legal500Rankings';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { Building2, Eye, FileText, LogOut, Home } from 'lucide-react';
+import { Building2, Eye, FileText, LogOut, Home, Bell } from 'lucide-react';
+import CabinetNotificationAlerts from '@/components/cabinet/CabinetNotificationAlerts';
 import {
   SidebarProvider,
   Sidebar,
@@ -39,9 +40,11 @@ const CABINET_TABS: { key: CabinetTabKey; label: string; icon: typeof Building2 
 const CabinetSidebar = ({
   activeTab,
   setActiveTab,
+  onOpenAlerts,
 }: {
   activeTab: CabinetTabKey;
   setActiveTab: (tab: CabinetTabKey) => void;
+  onOpenAlerts: () => void;
 }) => {
   const { state } = useSidebar();
   const collapsed = state === 'collapsed';
@@ -108,6 +111,12 @@ const CabinetSidebar = ({
         {/* Bottom actions */}
         <div className="px-2 space-y-1">
           <SidebarMenu>
+            <SidebarMenuItem>
+              <SidebarMenuButton onClick={onOpenAlerts} tooltip="Alertes prioritaires" className="text-white/40 hover:text-white hover:bg-white/5 font-sans text-[11px] rounded-md mx-1">
+                <Bell className="w-4 h-4" />
+                {!collapsed && <span>Alertes prioritaires</span>}
+              </SidebarMenuButton>
+            </SidebarMenuItem>
             <SidebarMenuItem>
               <SidebarMenuButton asChild tooltip="Accueil" className="text-white/40 hover:text-white hover:bg-white/5 font-sans text-[11px] rounded-md mx-1">
                 <Link to="/">
