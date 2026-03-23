@@ -17,7 +17,7 @@ const RegisterPage = () => {
   const goToStep = useRegistrationStore(s => s.goToStep);
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const isDarkStep = currentStep === 1 || currentStep === 7;
+  const isDarkStep = currentStep === 7;
 
   // Show the confidentiality intro between Step 1 "Je m'inscris" and Step 2
   const [showConfIntro, setShowConfIntro] = useState(false);
