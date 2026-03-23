@@ -611,6 +611,7 @@ const DiscoverSection = () => {
         </div>
       </div>
     </section>
+    </>
   );
 };
 
