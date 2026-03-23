@@ -335,6 +335,7 @@ const DiscoverSection = () => {
   };
 
   return (
+    <>
     <section className="py-24 md:py-32 bg-[hsl(0_0%_96%)] relative overflow-hidden">
 
       <div className="carter-container relative z-10">
