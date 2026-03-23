@@ -211,6 +211,7 @@ const CabinetDashboardLayout = () => {
           </div>
         </div>
       </div>
+      {showAlerts && <CabinetNotificationAlerts onClose={() => setShowAlerts(false)} />}
     </SidebarProvider>
   );
 };
