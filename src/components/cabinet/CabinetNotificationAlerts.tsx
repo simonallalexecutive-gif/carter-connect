@@ -200,7 +200,7 @@ const CabinetNotificationAlerts = ({ onClose }: CabinetNotificationAlertsProps) 
                 <AutocompleteInput
                   value={currentFirm}
                   onChange={addFirm}
-                  suggestions={allFirms}
+                  data={allFirms}
                   placeholder="Rechercher un cabinet..."
                 />
                 {originFirms.length > 0 && (

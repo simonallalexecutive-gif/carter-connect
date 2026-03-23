@@ -260,7 +260,7 @@ const AdminRegistration = () => {
             <AutocompleteInput
               value={cabinet}
               onChange={handleCabinetSelect}
-              suggestions={allCabinets}
+              data={allCabinets}
               placeholder="Nom du cabinet"
             />
           </div>
