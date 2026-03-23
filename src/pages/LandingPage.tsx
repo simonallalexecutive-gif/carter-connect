@@ -109,7 +109,7 @@ const LandingPage = () => (
               Moves Made Private
             </motion.h1>
             <motion.p variants={fadeUp} className="text-[0.92rem] sm:text-[0.98rem] md:text-[1.05rem] text-white font-sans font-[350] mb-3 leading-relaxed -mt-6 text-justify">
-              Un réseau confidentiel d'excellence, entretenu et orchestré par des chasseurs spécialisés, au service des candidats et cabinets d'affaires les plus exigeants du marché.
+              Un réseau d'excellence, entretenu et orchestré par des chasseurs spécialisés, conçu pour rapprocher dans la plus stricte confidentialité les candidats et cabinets d'affaires les plus exigeants du marché.
             </motion.p>
           </div>
           <motion.div variants={fadeUp} className="mb-20 md:mb-28" />
