@@ -41,7 +41,7 @@ const FounderSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
-            className="max-w-3xl mx-auto flex flex-col md:flex-row items-center md:items-start gap-8 md:gap-12"
+            className="max-w-3xl mx-auto flex flex-col md:flex-row items-center gap-8 md:gap-12"
           >
             {/* Photo */}
             <div className="flex-shrink-0 w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden ring-2 ring-white/10">
