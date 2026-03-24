@@ -61,8 +61,11 @@ const FounderSection = () => {
                 <p className="text-[11px] font-sans font-medium tracking-[0.15em] uppercase text-white/40 mb-5">
                   Fondateur
                 </p>
+                <p className="font-sans text-sm text-white/55 font-light leading-relaxed mb-4">
+                  Fort d'un réseau reconnu et d'une compréhension aiguë du marché des avocats, Simon a fondé Logan avec une conviction : l'expérience recrutement doit être repensée en proposant une approche plus structurée, plus confidentielle et plus exigeante.
+                </p>
                 <p className="font-sans text-sm text-white/55 font-light leading-relaxed">
-                  Ancien chasseur de têtes spécialisé dans le recrutement d'avocats d'affaires au sein des plus grands cabinets parisiens, Simon a fondé Logan avec une conviction : le marché du recrutement juridique mérite une approche plus structurée, plus confidentielle et plus exigeante. Logan est né de cette ambition — créer un écosystème où chaque mise en relation est pensée, préparée et orchestrée avec la rigueur qu'exigent les meilleurs talents et les cabinets les plus prestigieux.
+                  Logan est né de cette ambition — créer un écosystème où chaque mise en relation est pensée, préparée et orchestrée avec la rigueur qu'exigent les meilleurs candidats et les cabinets les plus prestigieux.
                 </p>
               </div>
             </div>
