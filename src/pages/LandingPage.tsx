@@ -1,4 +1,5 @@
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import Header from '@/components/layout/Header';
@@ -32,7 +33,23 @@ const fadeUp = {
 };
 
 
-const LandingPage = () => (
+const MANIFESTO = [
+  'Un cercle privé d\'excellence',
+  'Conçu, animé et piloté par des chasseurs spécialisés',
+  'Accès limité',
+];
+
+const LandingPage = () => {
+  const [manifestoIdx, setManifestoIdx] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setManifestoIdx((prev) => (prev + 1) % MANIFESTO.length);
+    }, 3200);
+    return () => clearInterval(timer);
+  }, []);
+
+  return (
   <div className="min-h-screen bg-background">
     <Header />
 
@@ -104,45 +121,41 @@ const LandingPage = () => (
           <motion.p variants={fadeUp} className="text-xs font-sans font-medium tracking-[0.25em] uppercase text-white/50 mb-2 md:mb-4">
             &nbsp;
           </motion.p>
-          <div>
-            <motion.h1 variants={fadeUp} className="text-[3rem] sm:text-[3.75rem] md:text-[5rem] lg:text-[6.5rem] font-serif font-[500] text-white leading-[1.05] md:leading-[1.02] mb-8 md:mb-10 tracking-[-0.03em] whitespace-nowrap">
-              Curating Leading Lawyers
-            </motion.h1>
-            <div className="font-sans font-[500] text-white -mt-6 text-[0.92rem] sm:text-[0.98rem] md:text-[1.05rem] space-y-1">
-              {[
-                { text: 'Un cercle privé d\'excellence', delay: 1.0 },
-                { text: 'Conçu, animé et piloté par des chasseurs spécialisés', delay: 1.6 },
-                { text: 'Accès limité', delay: 2.2 },
-              ].map((line, i) => (
-                <div key={i} className="overflow-hidden relative">
-                  {/* Reveal mask — slides up to show text */}
-                  <motion.p
-                    initial={{ y: '110%', opacity: 0 }}
-                    animate={{ y: '0%', opacity: 1 }}
-                    transition={{ delay: line.delay, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                    className="leading-relaxed"
-                  >
-                    {line.text}
-                  </motion.p>
-                  {/* Horizontal wipe accent — sweeps across after text reveals */}
-                  <motion.div
-                    initial={{ scaleX: 0 }}
-                    animate={{ scaleX: [0, 1, 1, 0] }}
-                    transition={{
-                      delay: line.delay + 0.15,
-                      duration: 0.9,
-                      times: [0, 0.4, 0.6, 1],
-                      ease: [0.16, 1, 0.3, 1],
-                    }}
-                    className="absolute bottom-0 left-0 right-0 h-full bg-white/10 origin-left"
-                    style={{ transformOrigin: 'left' }}
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
+          <motion.h1 variants={fadeUp} className="text-[3rem] sm:text-[3.75rem] md:text-[5rem] lg:text-[6.5rem] font-serif font-[500] text-white leading-[1.05] md:leading-[1.02] tracking-[-0.03em] whitespace-nowrap">
+            Curating Leading Lawyers
+          </motion.h1>
           <motion.div variants={fadeUp} className="mb-20 md:mb-28" />
         </motion.div>
+      </div>
+
+      {/* Cycling manifesto — bottom-right, italic small-caps */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.2, duration: 1.5 }}
+        className="absolute bottom-28 md:bottom-32 right-6 sm:right-8 lg:right-10 z-10 text-right"
+      >
+        <div className="relative h-[1.6em] overflow-hidden">
+          <AnimatePresence mode="wait">
+            <motion.p
+              key={manifestoIdx}
+              initial={{ y: 30, opacity: 0, filter: 'blur(6px)' }}
+              animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
+              exit={{ y: -30, opacity: 0, filter: 'blur(6px)' }}
+              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              className="font-sans italic font-[300] text-white/70 text-[0.8rem] sm:text-[0.85rem] md:text-[0.95rem] tracking-[0.18em] uppercase whitespace-nowrap"
+            >
+              {MANIFESTO[manifestoIdx]}
+            </motion.p>
+          </AnimatePresence>
+        </div>
+        {/* Thin accent line */}
+        <motion.div
+          className="ml-auto mt-3 h-px bg-white/25"
+          initial={{ width: 0 }}
+          animate={{ width: '100%' }}
+          transition={{ delay: 1.6, duration: 1.2, ease: 'easeOut' }}
+        />
       </div>
 
       {/* Logo marquee */}
