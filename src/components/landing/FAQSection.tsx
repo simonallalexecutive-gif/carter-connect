@@ -185,7 +185,10 @@ const FAQSection = () => {
                 className="border-b border-foreground/[0.08] first:border-t first:border-foreground/[0.08] rounded-none px-0 overflow-hidden"
               >
                 <AccordionTrigger className="text-left font-sans text-sm md:text-[15px] font-medium text-foreground/85 hover:text-foreground hover:no-underline py-6 gap-4 transition-colors">
-                  {item.question}
+                  <span className="flex items-baseline gap-3">
+                    <span className="text-foreground/30 font-sans text-xs tabular-nums">{String(i + 1).padStart(2, '0')}</span>
+                    {item.question}
+                  </span>
                 </AccordionTrigger>
                 <AccordionContent className="text-foreground/55 font-sans text-sm leading-relaxed pb-6">
                   {item.answer}
