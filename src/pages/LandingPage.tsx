@@ -156,7 +156,7 @@ const LandingPage = () => {
           animate={{ width: '100%' }}
           transition={{ delay: 1.6, duration: 1.2, ease: 'easeOut' }}
         />
-      </div>
+      </motion.div>
 
       {/* Logo marquee */}
       <motion.div
@@ -250,6 +250,6 @@ const LandingPage = () => {
 
     <Footer />
   </div>
-);
-
+  );
+};
 export default LandingPage;
