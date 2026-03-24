@@ -55,7 +55,7 @@ const candidatSteps: Step[] = [
             <div className="flex items-center gap-4">
               <div className="relative flex-shrink-0">
                 <svg width="56" height="56" viewBox="0 0 56 56">
-                  <circle cx="28" cy="28" r="20" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="8" />
+                  <circle cx="28" cy="28" r="20" fill="none" stroke="rgba(0,0,0,0.06)" strokeWidth="8" />
                   <circle cx="28" cy="28" r="20" fill="none" stroke="hsl(0,0%,65%)" strokeWidth="8"
                     strokeDasharray={`${0.75 * 125.66} ${0.25 * 125.66}`}
                     strokeDashoffset="31.4" strokeLinecap="round" />
