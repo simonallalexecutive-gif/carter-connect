@@ -2,7 +2,7 @@ import { motion } from 'motion/react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Briefcase, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import LogoBanner from '@/components/layout/LogoBanner';
+
 import Footer from '@/components/layout/Footer';
 
 const ConnexionPage = () => {
@@ -16,7 +16,7 @@ const ConnexionPage = () => {
           </Link>
         </div>
       </div>
-      <main className="flex-1 flex items-center justify-center pt-20 px-6">
+      <main className="flex-1 flex items-center justify-center px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
