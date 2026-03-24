@@ -114,11 +114,8 @@ const FounderSection = () => {
                   Fondateur
                 </p>
               </div>
-              <p className="font-sans text-[0.92rem] text-foreground/70 font-light leading-relaxed mb-4">
-                Fort d'un réseau reconnu et d'une compréhension aiguë du marché des avocats, Simon a fondé Logan avec une conviction&nbsp;: l'expérience recrutement doit être repensée en proposant une approche plus structurée, plus confidentielle et plus exigeante.
-              </p>
               <p className="font-sans text-[0.92rem] text-foreground/70 font-light leading-relaxed">
-                Logan est né de cette ambition — créer un écosystème où chaque mise en relation est pensée, préparée et piloté avec la rigueur qu'exigent les meilleurs candidats et les cabinets les plus prestigieux.
+                Fort d'un réseau reconnu et d'une compréhension aiguë du marché des avocats, Simon a fondé Logan avec une conviction&nbsp;: l'expérience recrutement doit être repensée en proposant une approche plus structurée, plus confidentielle et plus exigeante.
               </p>
             </div>
           </motion.div>
