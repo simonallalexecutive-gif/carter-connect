@@ -116,47 +116,38 @@ const LandingPage = () => {
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-transparent to-black/70" />
       </div>
-      <div className="px-6 sm:px-8 lg:px-10 max-w-6xl relative z-10 pt-24 flex-1 flex items-center">
-        <motion.div variants={stagger} initial="hidden" animate="visible" className="max-w-3xl">
+      <div className="px-6 sm:px-8 lg:px-10 max-w-6xl relative z-10 pt-24 flex-1 flex flex-col justify-center">
+        <motion.div variants={stagger} initial="hidden" animate="visible">
           <motion.p variants={fadeUp} className="text-xs font-sans font-medium tracking-[0.25em] uppercase text-white/50 mb-2 md:mb-4">
             &nbsp;
           </motion.p>
-          <motion.h1 variants={fadeUp} className="text-[3rem] sm:text-[3.75rem] md:text-[5rem] lg:text-[6.5rem] font-serif font-[500] text-white leading-[1.05] md:leading-[1.02] tracking-[-0.03em] whitespace-nowrap">
+          <motion.h1 variants={fadeUp} className="text-[3rem] sm:text-[3.75rem] md:text-[5rem] lg:text-[6.5rem] font-serif font-[500] text-white leading-[1.05] md:leading-[1.02] tracking-[-0.03em] whitespace-nowrap mb-10 md:mb-14">
             Curating Leading Lawyers
           </motion.h1>
-          <motion.div variants={fadeUp} className="mb-20 md:mb-28" />
+
+          {/* Three manifesto lines — serif like title, staggered with 3D perspective */}
+          <div className="space-y-2 md:space-y-3" style={{ perspective: '800px' }}>
+            {MANIFESTO.map((line, i) => (
+              <div key={i} className="overflow-hidden">
+                <motion.p
+                  initial={{ opacity: 0, rotateX: 50, y: 40 }}
+                  animate={{ opacity: 1, rotateX: 0, y: 0 }}
+                  transition={{
+                    delay: 1.0 + i * 0.35,
+                    duration: 0.9,
+                    ease: [0.16, 1, 0.3, 1],
+                  }}
+                  className="font-serif text-white/90 text-[1.1rem] sm:text-[1.3rem] md:text-[1.6rem] lg:text-[1.9rem] font-[400] tracking-[-0.01em]"
+                  style={{ transformOrigin: 'bottom center' }}
+                >
+                  {line}
+                </motion.p>
+              </div>
+            ))}
+          </div>
+          <motion.div variants={fadeUp} className="mb-16 md:mb-24" />
         </motion.div>
       </div>
-
-      {/* Cycling manifesto — bottom-right, italic small-caps */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.2, duration: 1.5 }}
-        className="absolute bottom-28 md:bottom-32 right-6 sm:right-8 lg:right-10 z-10 text-right"
-      >
-        <div className="relative h-[1.6em] overflow-hidden">
-          <AnimatePresence mode="wait">
-            <motion.p
-              key={manifestoIdx}
-              initial={{ y: 30, opacity: 0, filter: 'blur(6px)' }}
-              animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
-              exit={{ y: -30, opacity: 0, filter: 'blur(6px)' }}
-              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              className="font-sans italic font-[300] text-white/70 text-[0.8rem] sm:text-[0.85rem] md:text-[0.95rem] tracking-[0.18em] uppercase whitespace-nowrap"
-            >
-              {MANIFESTO[manifestoIdx]}
-            </motion.p>
-          </AnimatePresence>
-        </div>
-        {/* Thin accent line */}
-        <motion.div
-          className="ml-auto mt-3 h-px bg-white/25"
-          initial={{ width: 0 }}
-          animate={{ width: '100%' }}
-          transition={{ delay: 1.6, duration: 1.2, ease: 'easeOut' }}
-        />
-      </motion.div>
 
       {/* Logo marquee */}
       <motion.div
