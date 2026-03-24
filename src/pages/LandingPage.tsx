@@ -123,17 +123,17 @@ const LandingPage = () => (
         </motion.div>
       </div>
 
-      {/* Logo marquee */}
+      {/* Logo marquee — Harvey-style frosted glass band */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.2, duration: 1.5 }}
-        className="relative z-10 pb-6 md:pb-10 overflow-hidden"
+        className="relative z-10 mb-0 overflow-hidden"
       >
-        <div className="relative flex items-center py-1">
+        <div className="relative flex items-center py-3 bg-white/[0.06] backdrop-blur-md border-t border-b border-white/[0.08]">
           {/* Fade edges */}
-          <div className="absolute left-0 top-0 bottom-0 w-12 md:w-20 bg-gradient-to-r from-black to-transparent z-10 pointer-events-none" />
-          <div className="absolute right-0 md:right-[180px] top-0 bottom-0 w-12 md:w-20 bg-gradient-to-l from-black to-transparent z-10 pointer-events-none" />
+          <div className="absolute left-0 top-0 bottom-0 w-12 md:w-20 bg-gradient-to-r from-black/40 to-transparent z-10 pointer-events-none" />
+          <div className="absolute right-0 md:right-[180px] top-0 bottom-0 w-12 md:w-20 bg-gradient-to-l from-black/40 to-transparent z-10 pointer-events-none" />
 
           {/* Scrolling logos */}
           <div className="flex-1 overflow-hidden">
