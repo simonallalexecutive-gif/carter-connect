@@ -42,7 +42,7 @@ const engagements = [
 
 const BenefitsSection = () => {
   return (
-    <section className="py-24 md:py-32 bg-foreground">
+    <section className="py-16 md:py-20 bg-foreground">
       <div className="carter-container">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -69,18 +69,18 @@ const BenefitsSection = () => {
               transition={{ delay: i * 0.08, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
               className="bg-foreground p-8 md:p-10 group hover:bg-white/[0.06] transition-colors duration-500"
             >
-              <div className="flex items-start gap-4 mb-5">
-                <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center flex-shrink-0 group-hover:bg-white/15 transition-colors duration-500">
+              <div className="flex flex-col items-center gap-2 mb-5">
+              <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center mx-auto group-hover:bg-white/15 transition-colors duration-500">
                   <item.icon className="w-4.5 h-4.5 text-white/40 group-hover:text-white/70 transition-colors duration-500" />
                 </div>
-                <span className="text-[10px] font-mono text-white/25 mt-2">
+                <span className="text-[10px] font-mono text-white/25">
                   {String(i + 1).padStart(2, '0')}
                 </span>
               </div>
-              <h3 className="font-serif text-lg text-white mb-3 tracking-[-0.01em] leading-snug">
+              <h3 className="font-serif text-lg text-white mb-3 tracking-[-0.01em] leading-snug text-center">
                 {item.label}
               </h3>
-              <p className="text-[13px] font-sans text-white/50 font-light leading-relaxed">
+              <p className="text-[13px] font-sans text-white/50 font-light leading-relaxed text-center">
                 {item.detail}
               </p>
             </motion.div>
