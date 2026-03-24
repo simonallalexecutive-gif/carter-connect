@@ -26,18 +26,37 @@ const FounderSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="text-xs font-sans font-medium tracking-[0.2em] uppercase text-muted-foreground mb-10 text-center"
+            className="text-xs font-sans font-medium tracking-[0.2em] uppercase text-muted-foreground mb-16 md:mb-20 text-center"
           >
             Notre vision
           </motion.p>
 
-          {/* Founder row — photo left, text right */}
+          {/* Centered team quote — FIRST */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-            className="flex flex-col md:flex-row items-center md:items-start gap-10 md:gap-14 mb-16 max-w-3xl mx-auto"
+            className="text-center max-w-3xl mx-auto mb-16 md:mb-20"
+          >
+            <p className="font-serif text-base sm:text-lg md:text-xl text-foreground/55 italic leading-relaxed mb-4 tracking-[-0.01em]">
+              «&nbsp;Logan se positionne comme la plateforme la plus exigeante et structurée du marché, offrant un accompagnement sur mesure, résolument confidentiel et parfaitement ciblé.&nbsp;»
+            </p>
+            <span className="text-[10px] font-sans font-medium tracking-[0.15em] uppercase text-muted-foreground/60">
+              — L'équipe Logan
+            </span>
+          </motion.div>
+
+          {/* Separator */}
+          <div className="w-12 h-px bg-foreground/15 mx-auto mb-16 md:mb-20" />
+
+          {/* Founder row — photo left, text right, centered */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.15, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+            className="flex flex-col md:flex-row items-center md:items-start gap-10 md:gap-14 max-w-3xl mx-auto"
           >
             {/* Photo — left */}
             <div className="flex-shrink-0 flex flex-col items-center gap-3">
@@ -74,7 +93,7 @@ const FounderSection = () => {
                 </div>
               )}
 
-              {/* Name under photo on mobile, beside on desktop */}
+              {/* Name under photo on mobile */}
               <div className="text-center md:hidden">
                 <h3 className="font-serif text-2xl text-foreground font-normal mb-0.5 tracking-[-0.01em]">
                   Simon Allal
@@ -102,23 +121,6 @@ const FounderSection = () => {
                 Logan est né de cette ambition — créer un écosystème où chaque mise en relation est pensée, préparée et piloté avec la rigueur qu'exigent les meilleurs candidats et les cabinets les plus prestigieux.
               </p>
             </div>
-          </motion.div>
-
-          {/* Centered team quote */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-            className="text-center max-w-3xl mx-auto"
-          >
-            <div className="w-12 h-px bg-foreground/15 mx-auto mb-8" />
-            <p className="font-serif text-base sm:text-lg md:text-xl text-foreground/55 italic leading-relaxed mb-4 tracking-[-0.01em]">
-              «&nbsp;Logan se positionne comme la plateforme la plus exigeante et structurée du marché, offrant un accompagnement sur mesure, résolument confidentiel et parfaitement ciblé.&nbsp;»
-            </p>
-            <span className="text-[10px] font-sans font-medium tracking-[0.15em] uppercase text-muted-foreground/60">
-              — L'équipe Logan
-            </span>
           </motion.div>
         </div>
       </div>
