@@ -1,39 +1,27 @@
-import { motion, useInView } from 'motion/react';
-import { useRef, useEffect, useState } from 'react';
+import { motion, useInView, useSpring, useTransform, useMotionValue } from 'motion/react';
+import { useRef, useEffect } from 'react';
 import { Shield, TrendingUp, Users, Building2, CheckCircle, FileCheck } from 'lucide-react';
 
 interface AnimatedCounterProps {
   target: number;
   suffix?: string;
-  prefix?: string;
   duration?: number;
   inView: boolean;
 }
 
-const AnimatedCounter = ({ target, suffix = '', prefix = '', duration = 2, inView }: AnimatedCounterProps) => {
-  const [count, setCount] = useState(0);
+const AnimatedCounter = ({ target, suffix = '', duration = 2, inView }: AnimatedCounterProps) => {
+  const motionValue = useMotionValue(0);
+  const spring = useSpring(motionValue, { duration: duration * 1000, bounce: 0 });
+  const display = useTransform(spring, (v: number) => `${Math.round(v).toLocaleString('fr-FR')}${suffix}`);
+  const ref = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
-    if (!inView) return;
-    let start = 0;
-    const increment = target / (duration * 60);
-    const timer = setInterval(() => {
-      start += increment;
-      if (start >= target) {
-        setCount(target);
-        clearInterval(timer);
-      } else {
-        setCount(Math.floor(start));
-      }
-    }, 1000 / 60);
-    return () => clearInterval(timer);
-  }, [inView, target, duration]);
+    if (inView) {
+      motionValue.set(target);
+    }
+  }, [inView, target, motionValue]);
 
-  return (
-    <span className="tabular-nums">
-      {prefix}{count.toLocaleString('fr-FR')}{suffix}
-    </span>
-  );
+  return <motion.span ref={ref} className="tabular-nums">{display}</motion.span>;
 };
 
 const stats = [
@@ -47,16 +35,15 @@ const stats = [
 
 const StatsTickerSection = () => {
   const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: '-80px' });
+  const inView = useInView(ref, { once: false, margin: '-80px' });
 
   return (
     <section ref={ref} className="relative py-16 md:py-20 bg-foreground overflow-hidden">
-
       <div className="carter-container relative z-10">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
+          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.7 }}
           className="text-center mb-16"
         >
@@ -75,7 +62,7 @@ const StatsTickerSection = () => {
             <motion.div
               key={stat.label}
               initial={{ opacity: 0, y: 30 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
+              animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               transition={{ delay: 0.15 * i, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
               className="bg-foreground p-6 md:p-8 text-center flex flex-col items-center justify-center group hover:bg-white/[0.06] transition-colors duration-500"
             >
@@ -96,7 +83,7 @@ const StatsTickerSection = () => {
         {/* Bottom ticker line */}
         <motion.div
           initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : {}}
+          animate={inView ? { opacity: 1 } : { opacity: 0 }}
           transition={{ delay: 1, duration: 1 }}
           className="mt-8 flex items-center justify-center gap-6 text-[10px] font-sans text-white/40 tracking-[0.1em] uppercase"
         >

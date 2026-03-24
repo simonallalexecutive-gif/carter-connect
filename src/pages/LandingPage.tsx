@@ -212,7 +212,6 @@ const LandingPage = () => (
           viewport={{ once: true }}
           className="max-w-xl mx-auto"
         >
-          <div className="w-12 h-px bg-white/30 mx-auto mb-8" />
           <h2 className="text-2xl md:text-4xl lg:text-[2.75rem] font-serif font-normal text-white mb-6 tracking-[-0.02em]">
             Intégrer le réseau
           </h2>
@@ -222,7 +221,7 @@ const LandingPage = () => (
           </p>
           <Link to="/demander-acces">
             <Button size="lg" className="bg-white text-black hover:bg-white/90 font-sans text-sm font-medium px-10 py-6 rounded-sm tracking-wide">
-              Demander un accès
+              Request access
             </Button>
           </Link>
         </motion.div>

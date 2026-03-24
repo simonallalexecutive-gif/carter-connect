@@ -128,7 +128,7 @@ const FAQSection = () => {
   const items = tab === 'candidat' ? candidatFAQ : cabinetFAQ;
 
   return (
-    <section className="py-24 md:py-32 bg-[hsl(30,6%,14%)] relative">
+    <section className="py-24 md:py-32 bg-[hsl(25,8%,12%)] relative">
       <div className="max-w-4xl mx-auto px-6 sm:px-8 lg:px-10">
         {/* Header */}
         <motion.div
@@ -184,7 +184,7 @@ const FAQSection = () => {
               <AccordionItem
                 key={i}
                 value={`item-${i}`}
-                className="border border-white/10 bg-white/[0.04] rounded-lg px-6 overflow-hidden data-[state=open]:bg-white/[0.06] transition-all"
+                className="border border-white/[0.08] bg-[hsl(0,0%,6%)] rounded-lg px-6 overflow-hidden data-[state=open]:bg-[hsl(0,0%,8%)] transition-all"
               >
                 <AccordionTrigger className="text-left font-sans text-sm md:text-[15px] font-medium text-white hover:no-underline py-5 gap-4">
                   <span className="flex items-start gap-3">
