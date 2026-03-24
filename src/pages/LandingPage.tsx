@@ -154,8 +154,8 @@ const LandingPage = () => (
       <DiscoverSection />
     </div>
 
-    {/* Qui sommes-nous */}
-    <div id="qui-sommes-nous">
+    {/* Notre vision */}
+    <div id="notre-vision">
       <FounderSection />
     </div>
 
@@ -163,7 +163,7 @@ const LandingPage = () => (
     <StatsTickerSection />
 
     {/* Nos engagements */}
-    <div id="engagements">
+    <div id="nos-engagements">
       <BenefitsSection />
     </div>
 
