@@ -128,7 +128,7 @@ const FAQSection = () => {
   const items = tab === 'candidat' ? candidatFAQ : cabinetFAQ;
 
   return (
-    <section className="py-24 md:py-32 bg-[hsl(0_0%_96%)] relative">
+    <section className="py-24 md:py-32 bg-foreground relative">
       <div className="max-w-4xl mx-auto px-6 sm:px-8 lg:px-10">
         {/* Header */}
         <motion.div
@@ -138,10 +138,10 @@ const FAQSection = () => {
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           className="text-center mb-16"
         >
-          <p className="text-[10px] tracking-[0.3em] uppercase text-foreground/40 font-sans font-medium mb-4">
+          <p className="text-[10px] tracking-[0.3em] uppercase text-white/40 font-sans font-medium mb-4">
             Questions fréquentes
           </p>
-          <h2 className="text-2xl sm:text-3xl md:text-[2.5rem] font-serif font-normal text-foreground tracking-[-0.02em]">
+          <h2 className="text-2xl sm:text-3xl md:text-[2.5rem] font-serif font-normal text-white tracking-[-0.02em]">
             FAQ
           </h2>
         </motion.div>
@@ -154,7 +154,7 @@ const FAQSection = () => {
           transition={{ duration: 0.5, delay: 0.1 }}
           className="flex justify-center mb-12"
         >
-          <div className="inline-flex rounded-full border border-border bg-background p-1">
+          <div className="inline-flex rounded-full border border-white/20 bg-white/[0.06] p-1">
             {(['candidat', 'cabinet'] as Tab[]).map((t) => (
               <button
                 key={t}
@@ -162,8 +162,8 @@ const FAQSection = () => {
                 className={cn(
                   'px-6 py-2 rounded-full text-sm font-sans font-medium transition-all duration-300 capitalize',
                   tab === t
-                    ? 'bg-foreground text-background shadow-sm'
-                    : 'text-muted-foreground hover:text-foreground'
+                    ? 'bg-white text-foreground shadow-sm'
+                    : 'text-white/50 hover:text-white'
                 )}
               >
                 {t}
@@ -184,17 +184,17 @@ const FAQSection = () => {
               <AccordionItem
                 key={i}
                 value={`item-${i}`}
-                className="border border-border bg-background rounded-lg px-6 overflow-hidden data-[state=open]:shadow-sm transition-shadow"
+                className="border border-white/10 bg-white/[0.04] rounded-lg px-6 overflow-hidden data-[state=open]:bg-white/[0.06] transition-all"
               >
-                <AccordionTrigger className="text-left font-sans text-sm md:text-[15px] font-medium text-foreground hover:no-underline py-5 gap-4">
+                <AccordionTrigger className="text-left font-sans text-sm md:text-[15px] font-medium text-white hover:no-underline py-5 gap-4">
                   <span className="flex items-start gap-3">
-                    <span className="text-xs font-serif text-muted-foreground/50 mt-0.5 flex-shrink-0">
+                    <span className="text-xs font-serif text-white/30 mt-0.5 flex-shrink-0">
                       {String(i + 1).padStart(2, '0')}
                     </span>
                     {item.question}
                   </span>
                 </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground font-sans text-sm leading-relaxed pl-8 pb-6">
+                <AccordionContent className="text-white/50 font-sans text-sm leading-relaxed pl-8 pb-6">
                   {item.answer}
                 </AccordionContent>
               </AccordionItem>
