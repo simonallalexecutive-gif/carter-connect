@@ -426,19 +426,19 @@ const DiscoverSection = () => {
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
             className="max-w-5xl mx-auto"
           >
-            <div className="bg-background rounded-2xl shadow-[0_4px_24px_hsl(0_0%_0%/0.06),0_1px_4px_hsl(0_0%_0%/0.04)] overflow-hidden">
+            <div className="bg-foreground rounded-2xl shadow-[0_4px_24px_hsl(0_0%_0%/0.06),0_1px_4px_hsl(0_0%_0%/0.04)] overflow-hidden">
               <div className="grid md:grid-cols-2 gap-0">
                 {/* Left — Content */}
                 <div className="p-8 md:p-12 flex flex-col justify-center">
                   <div className="mb-6">
-                    <span className="text-[10px] font-mono font-bold text-muted-foreground/50 tracking-wider">
+                    <span className="text-[10px] font-mono font-bold text-background/50 tracking-wider">
                       Étape {step.number}
                     </span>
                   </div>
-                  <h3 className="font-serif text-2xl md:text-3xl font-normal text-foreground mb-3 tracking-[-0.01em] leading-tight">
+                  <h3 className="font-serif text-2xl md:text-3xl font-normal text-background mb-3 tracking-[-0.01em] leading-tight">
                     {step.title}
                   </h3>
-                  <p className="text-sm text-muted-foreground font-light leading-relaxed mb-8">
+                  <p className="text-sm text-background/60 font-light leading-relaxed mb-8">
                     {step.description}
                   </p>
 
@@ -452,8 +452,8 @@ const DiscoverSection = () => {
                         transition={{ delay: 0.2 + i * 0.08, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                         className="flex items-start gap-3"
                       >
-                        <div className="w-1.5 h-1.5 rounded-full bg-foreground/30 mt-1.5 flex-shrink-0" />
-                        <p className="text-xs text-foreground/70 leading-relaxed">{detail}</p>
+                        <div className="w-1.5 h-1.5 rounded-full bg-background/30 mt-1.5 flex-shrink-0" />
+                        <p className="text-xs text-background/70 leading-relaxed">{detail}</p>
                       </motion.div>
                     ))}
                   </div>
@@ -467,7 +467,7 @@ const DiscoverSection = () => {
                       className="mt-10"
                     >
                       <Link to={perspective === 'candidat' ? '/inscription?start=2' : '/cabinet?start=2'}>
-                        <Button className="bg-foreground text-background hover:bg-foreground/90 text-xs font-medium rounded-full px-8 py-5 group">
+                        <Button className="bg-background text-foreground hover:bg-background/90 text-xs font-medium rounded-full px-8 py-5 group">
                           {perspective === 'candidat' ? 'Créer mon profil' : 'Inscrire mon cabinet'}
                           <ArrowRight className="w-3.5 h-3.5 ml-2 transition-transform group-hover:translate-x-1" />
                         </Button>
