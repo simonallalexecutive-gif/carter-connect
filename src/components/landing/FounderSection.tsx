@@ -39,19 +39,7 @@ const FounderSection = () => {
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
             className="flex flex-col md:flex-row items-start gap-12 md:gap-16 max-w-4xl mx-auto"
           >
-            {/* LEFT — Team quote */}
-            <div className="flex-1 flex items-start pt-2">
-              <div>
-                <p className="font-serif text-base sm:text-lg md:text-xl text-foreground/55 italic leading-relaxed mb-4 tracking-[-0.01em]">
-                  «&nbsp;Logan se positionne comme la plateforme la plus exigeante et structurée du marché, offrant un accompagnement sur mesure, résolument confidentiel et parfaitement ciblé.&nbsp;»
-                </p>
-                <span className="text-[10px] font-sans font-medium tracking-[0.15em] uppercase text-muted-foreground/60">
-                  — L'équipe Logan
-                </span>
-              </div>
-            </div>
-
-            {/* RIGHT — Founder */}
+            {/* LEFT — Founder */}
             <div className="flex-1 flex flex-col items-center">
               <div className="flex-shrink-0 flex flex-col items-center gap-3">
                 <div
@@ -98,6 +86,18 @@ const FounderSection = () => {
               <p className="font-sans text-[0.92rem] text-foreground/70 font-light leading-relaxed mt-5 text-center max-w-sm">
                 Fort d'un réseau reconnu et d'une compréhension aiguë du marché des avocats, Simon a fondé Logan avec une conviction&nbsp;: l'expérience recrutement doit être repensée en proposant une approche plus structurée, plus confidentielle et plus exigeante.
               </p>
+            </div>
+
+            {/* RIGHT — Team quote */}
+            <div className="flex-1 flex items-start pt-2">
+              <div>
+                <p className="font-serif text-base sm:text-lg md:text-xl text-foreground/55 italic leading-relaxed mb-4 tracking-[-0.01em]">
+                  «&nbsp;Logan se positionne comme la plateforme la plus exigeante et structurée du marché, offrant un accompagnement sur mesure, résolument confidentiel et parfaitement ciblé.&nbsp;»
+                </p>
+                <span className="text-[10px] font-sans font-medium tracking-[0.15em] uppercase text-muted-foreground/60">
+                  — L'équipe Logan
+                </span>
+              </div>
             </div>
           </motion.div>
         </div>
