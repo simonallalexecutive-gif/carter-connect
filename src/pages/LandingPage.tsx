@@ -119,7 +119,7 @@ const LandingPage = () => (
               </Button>
             </Link>
           </motion.div>
-          <motion.div variants={fadeUp} className="mb-10 md:mb-16" />
+          <motion.div variants={fadeUp} className="mb-2 md:mb-4" />
         </motion.div>
       </div>
 
@@ -128,7 +128,7 @@ const LandingPage = () => (
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.2, duration: 1.5 }}
-        className="relative z-10 mb-0 overflow-hidden"
+        className="relative z-10 mb-0 overflow-hidden w-[120%] -ml-[10%]"
       >
         <div className="relative flex items-center py-3 bg-white/[0.06] backdrop-blur-md border-t border-b border-white/[0.08]">
           {/* Fade edges */}
