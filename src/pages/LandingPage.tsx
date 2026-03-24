@@ -102,14 +102,14 @@ const LandingPage = () => (
       <div className="px-6 sm:px-8 lg:px-10 max-w-6xl relative z-10 pt-20 flex-1 flex items-center">
         <motion.div variants={stagger} initial="hidden" animate="visible" className="max-w-3xl">
           <div className="inline-block">
-            <motion.h1 variants={fadeUp} className="text-[3rem] sm:text-[3.75rem] md:text-[5rem] lg:text-[6.5rem] font-serif font-[500] text-white leading-[1.05] md:leading-[1.02] mb-3 md:mb-5 tracking-[-0.03em] whitespace-nowrap">
+            <motion.h1 variants={fadeUp} className="text-[2rem] sm:text-[3.75rem] md:text-[5rem] lg:text-[6.5rem] font-serif font-[500] text-white leading-[1.1] md:leading-[1.02] mb-3 md:mb-5 tracking-[-0.03em]">
               Curating Leading Lawyers
             </motion.h1>
           </div>
-          <motion.p variants={fadeUp} className="text-[1.02rem] sm:text-[1.08rem] md:text-[1.14rem] text-white/50 font-sans font-[480] leading-relaxed max-w-3xl">
+          <motion.p variants={fadeUp} className="text-[0.92rem] sm:text-[1.08rem] md:text-[1.14rem] text-white/50 font-sans font-[480] leading-relaxed max-w-3xl">
             Un cercle privé d'excellence, structuré et piloté par des chasseurs spécialisés, dédié aux profils et cabinets d'affaires les plus exigeants du marché.
           </motion.p>
-          <motion.div variants={fadeUp} className="mt-14">
+          <motion.div variants={fadeUp} className="mt-8 sm:mt-14">
             <Link to="/demander-acces">
               <Button
                 size="lg"
