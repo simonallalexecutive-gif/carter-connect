@@ -150,19 +150,27 @@ const LandingPage = () => (
     </section>
 
     {/* Découvrir Logan — candidat / cabinet slides */}
-    <DiscoverSection />
+    <div id="notre-approche">
+      <DiscoverSection />
+    </div>
 
     {/* Qui sommes-nous */}
-    <FounderSection />
+    <div id="qui-sommes-nous">
+      <FounderSection />
+    </div>
 
     {/* Stats ticker */}
     <StatsTickerSection />
 
     {/* Nos engagements */}
-    <BenefitsSection />
+    <div id="engagements">
+      <BenefitsSection />
+    </div>
 
     {/* FAQ */}
-    <FAQSection />
+    <div id="faq">
+      <FAQSection />
+    </div>
 
 
     {/* CTA */}

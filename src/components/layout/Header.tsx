@@ -1,12 +1,16 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
-import { ArrowRight, Menu, X } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { ArrowRight, ChevronDown, Menu, X } from 'lucide-react';
+import { useState, useEffect, useCallback } from 'react';
 
 const Header = () => {
   const { user, loading, signOut } = useAuth();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const isLanding = location.pathname === '/';
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > window.innerHeight * 0.85);
@@ -19,43 +23,85 @@ const Header = () => {
     return () => { document.body.style.overflow = ''; };
   }, [menuOpen]);
 
+  const scrollToSection = useCallback((sectionId: string) => {
+    setMenuOpen(false);
+    if (!isLanding) {
+      navigate('/', { state: { scrollTo: sectionId } });
+      return;
+    }
+    const el = document.getElementById(sectionId);
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  }, [isLanding, navigate]);
+
+  // Handle scroll-to from navigation state
+  useEffect(() => {
+    if (location.state?.scrollTo) {
+      setTimeout(() => {
+        const el = document.getElementById(location.state.scrollTo);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 300);
+    }
+  }, [location.state]);
+
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-500 ${scrolled || menuOpen ? 'bg-black' : 'bg-transparent'}`}>
-      <div className="px-6 sm:px-8 lg:px-10 flex items-center justify-between h-20">
-        <Link to="/" className="flex items-center">
-          <span className="font-serif text-[31px] tracking-[0.04em] text-white">Logan</span>
-        </Link>
-
-        {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-8">
-          <Link to="/demander-acces" className="font-sans text-sm font-medium text-white/60 hover:text-white transition-colors duration-300 tracking-wide">
-            Demander un accès
+      <div className="px-6 sm:px-8 lg:px-10 flex items-center justify-between h-16">
+        {/* Left: Logo + center nav links */}
+        <div className="flex items-center gap-10">
+          <Link to="/" className="flex items-center">
+            <span className="font-serif text-[22px] tracking-[0.04em] text-white">Logan</span>
           </Link>
-          <Link to="/rendez-vous" className="font-sans text-sm font-medium text-white/60 hover:text-white transition-colors duration-300 tracking-wide">
+
+          {/* Center nav — Harvey-style */}
+          <nav className="hidden md:flex items-center gap-1">
+            <button
+              onClick={() => scrollToSection('qui-sommes-nous')}
+              className="flex items-center gap-1 px-3 py-1.5 text-[13px] font-sans font-normal text-white/60 hover:text-white transition-colors duration-200 tracking-wide"
+            >
+              Qui sommes-nous
+            </button>
+            <button
+              onClick={() => scrollToSection('notre-approche')}
+              className="flex items-center gap-1 px-3 py-1.5 text-[13px] font-sans font-normal text-white/60 hover:text-white transition-colors duration-200 tracking-wide"
+            >
+              Notre approche
+            </button>
+            <button
+              onClick={() => scrollToSection('engagements')}
+              className="flex items-center gap-1 px-3 py-1.5 text-[13px] font-sans font-normal text-white/60 hover:text-white transition-colors duration-200 tracking-wide"
+            >
+              Engagements
+            </button>
+            <button
+              onClick={() => scrollToSection('faq')}
+              className="flex items-center gap-1 px-3 py-1.5 text-[13px] font-sans font-normal text-white/60 hover:text-white transition-colors duration-200 tracking-wide"
+            >
+              FAQ
+            </button>
+          </nav>
+        </div>
+
+        {/* Right: Connexion, Prendre RDV + Demander un accès button */}
+        <div className="hidden md:flex items-center gap-6">
+          <Link
+            to="/connexion"
+            className="text-[13px] font-sans font-normal text-white/60 hover:text-white transition-colors duration-200 tracking-wide"
+          >
+            Connexion
+          </Link>
+          <Link
+            to="/rendez-vous"
+            className="text-[13px] font-sans font-normal text-white/60 hover:text-white transition-colors duration-200 tracking-wide"
+          >
             Prendre RDV
           </Link>
-          {!loading && user ? (
-            <>
-              <Link to="/espace-candidat" className="font-sans text-[13px] font-light text-white/60 hover:text-white transition-colors duration-300">
-                Mon espace
-              </Link>
-              <button
-                onClick={signOut}
-                className="font-sans text-[13px] font-light text-white/80 hover:text-white border border-white/20 hover:border-white/40 rounded-sm px-4 py-2 transition-colors duration-300"
-              >
-                Déconnexion
-              </button>
-            </>
-          ) : (
-            <Link
-              to="/connexion"
-              className="font-sans text-sm font-medium text-black bg-white hover:bg-white/90 rounded-sm px-5 py-2 transition-colors duration-300 tracking-wide inline-flex items-center gap-2 group"
-            >
-              Connexion
-              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-            </Link>
-          )}
-        </nav>
+          <Link
+            to="/demander-acces"
+            className="text-[13px] font-sans font-normal text-white border border-white/30 hover:border-white/60 hover:bg-white/[0.06] rounded-sm px-5 py-2 transition-all duration-200 tracking-wide"
+          >
+            Demander un accès
+          </Link>
+        </div>
 
         {/* Mobile hamburger */}
         <button
@@ -69,43 +115,35 @@ const Header = () => {
 
       {/* Mobile overlay menu */}
       {menuOpen && (
-        <div className="md:hidden bg-black min-h-[calc(100dvh-5rem)] flex flex-col px-6 pt-8 pb-12 gap-6 animate-in fade-in slide-in-from-top-2 duration-200">
+        <div className="md:hidden bg-black min-h-[calc(100dvh-4rem)] flex flex-col px-6 pt-8 pb-12 gap-5 animate-in fade-in slide-in-from-top-2 duration-200">
+          <button onClick={() => scrollToSection('qui-sommes-nous')} className="font-sans text-base font-normal text-white/70 hover:text-white transition-colors tracking-wide text-left">
+            Qui sommes-nous
+          </button>
+          <button onClick={() => scrollToSection('notre-approche')} className="font-sans text-base font-normal text-white/70 hover:text-white transition-colors tracking-wide text-left">
+            Notre approche
+          </button>
+          <button onClick={() => scrollToSection('engagements')} className="font-sans text-base font-normal text-white/70 hover:text-white transition-colors tracking-wide text-left">
+            Engagements
+          </button>
+          <button onClick={() => scrollToSection('faq')} className="font-sans text-base font-normal text-white/70 hover:text-white transition-colors tracking-wide text-left">
+            FAQ
+          </button>
+
+          <div className="h-px bg-white/10 my-2" />
+
+          <Link to="/connexion" onClick={() => setMenuOpen(false)} className="font-sans text-base font-normal text-white/70 hover:text-white transition-colors tracking-wide">
+            Connexion
+          </Link>
+          <Link to="/rendez-vous" onClick={() => setMenuOpen(false)} className="font-sans text-base font-normal text-white/70 hover:text-white transition-colors tracking-wide">
+            Prendre RDV
+          </Link>
           <Link
             to="/demander-acces"
             onClick={() => setMenuOpen(false)}
-            className="font-sans text-lg font-medium text-white/70 hover:text-white transition-colors tracking-wide"
+            className="font-sans text-sm font-normal text-white border border-white/30 rounded-sm px-6 py-3 transition-colors tracking-wide inline-flex items-center gap-2 mt-2 w-fit"
           >
             Demander un accès
           </Link>
-          <Link
-            to="/rendez-vous"
-            onClick={() => setMenuOpen(false)}
-            className="font-sans text-lg font-medium text-white/70 hover:text-white transition-colors tracking-wide"
-          >
-            Prendre RDV
-          </Link>
-          {!loading && user ? (
-            <>
-              <Link to="/espace-candidat" onClick={() => setMenuOpen(false)} className="font-sans text-lg font-medium text-white/70 hover:text-white transition-colors">
-                Mon espace
-              </Link>
-              <button
-                onClick={() => { signOut(); setMenuOpen(false); }}
-                className="font-sans text-lg font-medium text-white/80 hover:text-white border border-white/20 rounded-sm px-5 py-3 transition-colors mt-2 text-left"
-              >
-                Déconnexion
-              </button>
-            </>
-          ) : (
-            <Link
-              to="/connexion"
-              onClick={() => setMenuOpen(false)}
-              className="font-sans text-base font-medium text-black bg-white hover:bg-white/90 rounded-sm px-6 py-3.5 transition-colors tracking-wide inline-flex items-center gap-2 group mt-4 w-fit"
-            >
-              Connexion
-              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-            </Link>
-          )}
         </div>
       )}
     </header>
