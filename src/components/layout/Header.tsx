@@ -49,35 +49,35 @@ const Header = () => {
         {/* Left: Logo + center nav links */}
         <div className="flex items-center gap-10">
           <Link to="/" className="flex items-center">
-            <span className="font-serif text-[22px] tracking-[0.04em] text-white">Logan</span>
+            <span className="font-serif text-[28px] tracking-[0.04em] text-white">Logan</span>
           </Link>
 
           {/* Center nav — Harvey-style */}
           <nav className="hidden md:flex items-center gap-1">
             <button
               onClick={() => scrollToSection('notre-vision')}
-              className="flex items-center gap-1 px-3 py-1.5 text-[13px] font-sans font-normal text-white/60 hover:text-white transition-colors duration-200 tracking-wide"
+              className="flex items-center gap-1 px-3 py-1.5 text-[14px] font-sans font-normal text-white/70 hover:text-white transition-colors duration-200 tracking-wide"
             >
               Vision
               <ChevronDown className="w-3 h-3 opacity-60" />
             </button>
             <button
               onClick={() => scrollToSection('notre-approche')}
-              className="flex items-center gap-1 px-3 py-1.5 text-[13px] font-sans font-normal text-white/60 hover:text-white transition-colors duration-200 tracking-wide"
+              className="flex items-center gap-1 px-3 py-1.5 text-[14px] font-sans font-normal text-white/70 hover:text-white transition-colors duration-200 tracking-wide"
             >
               Approche
               <ChevronDown className="w-3 h-3 opacity-60" />
             </button>
             <button
               onClick={() => scrollToSection('nos-engagements')}
-              className="flex items-center gap-1 px-3 py-1.5 text-[13px] font-sans font-normal text-white/60 hover:text-white transition-colors duration-200 tracking-wide"
+              className="flex items-center gap-1 px-3 py-1.5 text-[14px] font-sans font-normal text-white/70 hover:text-white transition-colors duration-200 tracking-wide"
             >
               Engagements
               <ChevronDown className="w-3 h-3 opacity-60" />
             </button>
             <button
               onClick={() => scrollToSection('faq')}
-              className="flex items-center gap-1 px-3 py-1.5 text-[13px] font-sans font-normal text-white/60 hover:text-white transition-colors duration-200 tracking-wide"
+              className="flex items-center gap-1 px-3 py-1.5 text-[14px] font-sans font-normal text-white/70 hover:text-white transition-colors duration-200 tracking-wide"
             >
               FAQ
               <ChevronDown className="w-3 h-3 opacity-60" />
@@ -86,16 +86,16 @@ const Header = () => {
         </div>
 
         {/* Right: Connexion, Prendre RDV + Demander un accès button */}
-        <div className="hidden md:flex items-center gap-6">
+        <div className="hidden md:flex items-center gap-3">
           <Link
             to="/connexion"
-            className="text-[13px] font-sans font-normal text-white/60 hover:text-white transition-colors duration-200 tracking-wide"
+            className="text-[14px] font-sans font-normal text-white/70 hover:text-white border border-white/30 hover:border-white/60 rounded-sm px-4 py-1.5 transition-colors duration-200 tracking-wide"
           >
             Connexion
           </Link>
           <Link
             to="/rendez-vous"
-            className="text-[13px] font-sans font-normal text-white/60 hover:text-white transition-colors duration-200 tracking-wide"
+            className="text-[14px] font-sans font-normal text-white/70 hover:text-white border border-white/30 hover:border-white/60 rounded-sm px-4 py-1.5 transition-colors duration-200 tracking-wide"
           >
             Prendre RDV
           </Link>

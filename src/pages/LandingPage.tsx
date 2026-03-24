@@ -109,10 +109,8 @@ const LandingPage = () => (
               Curating Leading Lawyers
             </motion.h1>
           </div>
-          <motion.p variants={fadeUp} className="text-[0.85rem] sm:text-[0.9rem] md:text-[0.95rem] text-white/50 font-sans font-[400] leading-relaxed max-w-xl">
-            Un cercle privé d'excellence, structuré et orchestré par des chasseurs spécialisés,
-            <br />
-            dédié aux profils et cabinets d'affaires les plus exigeants du marché.
+          <motion.p variants={fadeUp} className="text-[0.85rem] sm:text-[0.9rem] md:text-[0.95rem] text-white/50 font-sans font-[400] leading-relaxed max-w-3xl">
+            Un cercle privé d'excellence, structuré et orchestré par des chasseurs spécialisés, dédié aux profils et cabinets d'affaires les plus exigeants du marché.
           </motion.p>
           <motion.div variants={fadeUp} className="mt-10">
             <Link to="/demander-acces">
