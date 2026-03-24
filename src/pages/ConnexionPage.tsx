@@ -1,11 +1,51 @@
-import { motion } from 'motion/react';
-import { Link } from 'react-router-dom';
-import { ArrowRight, Briefcase, Users } from 'lucide-react';
+import { useState } from 'react';
+import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '@/hooks/useAuth';
+import { useEffect } from 'react';
+import { toast } from 'sonner';
+import { motion } from 'motion/react';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 
 const ConnexionPage = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [submitting, setSubmitting] = useState(false);
+  const navigate = useNavigate();
+  const { user, loading } = useAuth();
+
+  useEffect(() => {
+    if (!loading && user?.email_confirmed_at) {
+      navigate('/espace-candidat');
+    }
+  }, [user, loading, navigate]);
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitting(true);
+    try {
+      const { data, error } = await (supabase.auth as any).signInWithPassword({ email, password });
+      if (error) throw error;
+      if (!data?.user?.email_confirmed_at) {
+        await (supabase.auth as any).signOut();
+        toast.error('Confirmez votre email avant de vous connecter');
+        return;
+      }
+      toast.success('Connexion réussie');
+      navigate('/espace-candidat');
+    } catch (error: any) {
+      toast.error(error.message);
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  if (loading) return null;
+
   return (
     <div className="min-h-screen bg-background flex flex-col theme-light">
       <Header />
@@ -14,7 +54,7 @@ const ConnexionPage = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="w-full max-w-lg text-center"
+          className="w-full max-w-md text-center"
         >
           <div className="w-12 h-px bg-foreground/20 mx-auto mb-8" />
           <h1 className="font-serif text-3xl md:text-4xl text-foreground mb-4">
@@ -24,33 +64,49 @@ const ConnexionPage = () => {
             Accédez à votre espace Logan
           </p>
 
-          <div className="flex flex-col gap-4 max-w-sm mx-auto">
-            <Link to="/connexion/candidat">
-              <Button
-                size="lg"
-                className="w-full font-sans text-sm font-medium px-8 py-6 rounded-sm tracking-wide group justify-between"
-              >
-                <span className="flex items-center gap-3">
-                  <Users className="w-5 h-5" />
-                  Espace candidat
-                </span>
-                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-              </Button>
-            </Link>
-            <Link to="/auth?redirect=/cabinet">
-              <Button
-                size="lg"
-                variant="outline"
-                className="w-full font-sans text-sm font-medium px-8 py-6 rounded-sm tracking-wide group justify-between"
-              >
-                <span className="flex items-center gap-3">
-                  <Briefcase className="w-5 h-5" />
-                  Espace cabinet
-                </span>
-                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-              </Button>
-            </Link>
-          </div>
+          <form onSubmit={handleLogin} className="space-y-4 max-w-sm mx-auto text-left">
+            <div>
+              <Label htmlFor="email" className="font-sans text-xs text-muted-foreground uppercase tracking-wider">
+                Email
+              </Label>
+              <Input
+                id="email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className="mt-1"
+              />
+            </div>
+            <div>
+              <Label htmlFor="password" className="font-sans text-xs text-muted-foreground uppercase tracking-wider">
+                Mot de passe
+              </Label>
+              <Input
+                id="password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                minLength={6}
+                className="mt-1"
+              />
+            </div>
+            <Button
+              type="submit"
+              className="w-full py-6 font-sans text-sm"
+              disabled={submitting}
+            >
+              {submitting ? 'Chargement...' : 'Se connecter'}
+            </Button>
+          </form>
+
+          <p className="text-center text-sm text-muted-foreground mt-6 font-sans">
+            Pas encore de compte ?{' '}
+            <a href="/demander-acces" className="text-foreground underline hover:no-underline">
+              Demander un accès
+            </a>
+          </p>
         </motion.div>
       </main>
       <Footer />

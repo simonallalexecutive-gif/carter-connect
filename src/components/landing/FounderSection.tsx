@@ -1,27 +1,5 @@
 import { motion } from 'motion/react';
-import { Link } from 'react-router-dom';
-import { ArrowRight, Target, Users, ShieldCheck } from 'lucide-react';
-
-const pillars = [
-  {
-    icon: Target,
-    title: 'Précision',
-    description:
-      'Chaque mise en relation est le fruit d\'une analyse approfondie des attentes, des trajectoires et des ambitions — côté candidat comme côté cabinet.',
-  },
-  {
-    icon: ShieldCheck,
-    title: 'Confidentialité',
-    description:
-      'L\'anonymat est garanti à chaque étape du processus. Aucune information n\'est transmise sans accord préalable et explicite.',
-  },
-  {
-    icon: Users,
-    title: 'Exigence',
-    description:
-      'Logan réunit exclusivement des profils et des cabinets triés sur le volet, pour des rencontres à la hauteur des standards du marché.',
-  },
-];
+import founderImg from '@/assets/founder-simon.jpeg';
 
 const FounderSection = () => {
   return (
@@ -39,7 +17,7 @@ const FounderSection = () => {
             Notre vision
           </motion.p>
 
-          {/* Citation */}
+          {/* Citation — équipe Logan */}
           <motion.blockquote
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -51,46 +29,43 @@ const FounderSection = () => {
               «&nbsp;Logan se positionne comme la plateforme la plus exigeante et structurée du marché, offrant un accompagnement sur mesure, résolument confidentiel et parfaitement ciblé.&nbsp;»
             </p>
             <span className="text-[10px] sm:text-[11px] font-sans font-medium tracking-[0.15em] uppercase text-white/40">
-              — Simon Allal, Fondateur
+              — L'équipe Logan
             </span>
           </motion.blockquote>
 
-          {/* Pillars grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 max-w-4xl mx-auto">
-            {pillars.map((pillar, i) => (
-              <motion.div
-                key={pillar.title}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: i * 0.12 }}
-                className="text-center"
-              >
-                <div className="w-10 h-10 rounded-full border border-white/15 flex items-center justify-center mx-auto mb-5">
-                  <pillar.icon className="w-4.5 h-4.5 text-white/50" strokeWidth={1.5} />
-                </div>
-                <h3 className="font-serif text-lg text-white font-normal mb-3 tracking-[-0.01em]">
-                  {pillar.title}
-                </h3>
-                <p className="font-sans text-sm text-white/50 font-light leading-relaxed">
-                  {pillar.description}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-
-          {/* Link */}
+          {/* Founder presentation */}
           <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-center mt-14"
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+            className="max-w-3xl mx-auto"
           >
-            <Link to="/a-propos" className="inline-flex items-center gap-2 text-sm font-sans font-medium text-white/60 hover:text-white transition-colors duration-300 group">
-              En savoir plus
-              <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
-            </Link>
+            <div className="flex flex-col md:flex-row items-center gap-10 md:gap-14">
+              {/* Photo */}
+              <div className="flex-shrink-0">
+                <div className="w-36 h-36 md:w-44 md:h-44 rounded-full overflow-hidden border-2 border-white/10">
+                  <img
+                    src={founderImg}
+                    alt="Simon Allal, Fondateur de Logan"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              </div>
+
+              {/* Bio */}
+              <div className="text-center md:text-left">
+                <h3 className="font-serif text-xl md:text-2xl text-white font-normal mb-1 tracking-[-0.01em]">
+                  Simon Allal
+                </h3>
+                <p className="text-[11px] font-sans font-medium tracking-[0.15em] uppercase text-white/40 mb-5">
+                  Fondateur
+                </p>
+                <p className="font-sans text-sm text-white/55 font-light leading-relaxed">
+                  Ancien chasseur de têtes spécialisé dans le recrutement d'avocats d'affaires au sein des plus grands cabinets parisiens, Simon a fondé Logan avec une conviction : le marché du recrutement juridique mérite une approche plus structurée, plus confidentielle et plus exigeante. Logan est né de cette ambition — créer un écosystème où chaque mise en relation est pensée, préparée et orchestrée avec la rigueur qu'exigent les meilleurs talents et les cabinets les plus prestigieux.
+                </p>
+              </div>
+            </div>
           </motion.div>
         </div>
       </div>

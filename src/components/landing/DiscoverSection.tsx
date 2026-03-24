@@ -29,33 +29,33 @@ const candidatSteps: Step[] = [
       'Profil validé sous 48h par l\'équipe Logan.',
     ],
     visual: (
-      <div className="bg-foreground rounded-2xl p-6 text-background w-full shadow-[0_20px_60px_-15px_rgba(0,0,0,0.4)] border border-white/[0.06] relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-white/[0.04] to-transparent pointer-events-none" />
+      <div className="bg-background rounded-2xl p-6 text-foreground w-full shadow-[0_20px_60px_-15px_rgba(0,0,0,0.15)] border border-foreground/[0.08] relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-foreground/[0.02] to-transparent pointer-events-none" />
         <div className="relative z-10">
           <div className="flex items-center justify-between mb-5">
-            <div className="text-[8px] tracking-[0.2em] uppercase text-background/30 font-medium font-sans">Profil anonymisé</div>
-            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-background/[0.08] border border-background/[0.06]">
-              <EyeOff className="w-2.5 h-2.5 text-background/40" />
-              <span className="text-[7px] tracking-[0.1em] uppercase text-background/40 font-medium font-sans">Confidentiel</span>
+            <div className="text-[8px] tracking-[0.2em] uppercase text-foreground/30 font-medium font-sans">Profil anonymisé</div>
+            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-foreground/[0.06] border border-foreground/[0.08]">
+              <EyeOff className="w-2.5 h-2.5 text-foreground/40" />
+              <span className="text-[7px] tracking-[0.1em] uppercase text-foreground/40 font-medium font-sans">Confidentiel</span>
             </div>
           </div>
           <div className="font-sans text-lg font-bold leading-tight mb-0.5">Collaborateur Mid Level</div>
-          <div className="text-[10px] text-background/35 font-sans mb-5">Prestation de serment : 2020</div>
-          <div className="flex items-center gap-3 mb-5 px-4 py-3 rounded-xl bg-background/[0.06] border border-background/[0.08] backdrop-blur-sm">
-            <div className="w-8 h-8 rounded-lg bg-background/[0.08] flex items-center justify-center flex-shrink-0">
-              <BarChart3 className="w-4 h-4 text-background/50" />
+          <div className="text-[10px] text-foreground/35 font-sans mb-5">Prestation de serment : 2020</div>
+          <div className="flex items-center gap-3 mb-5 px-4 py-3 rounded-xl bg-foreground/[0.04] border border-foreground/[0.08] backdrop-blur-sm">
+            <div className="w-8 h-8 rounded-lg bg-foreground/[0.06] flex items-center justify-center flex-shrink-0">
+              <BarChart3 className="w-4 h-4 text-foreground/50" />
             </div>
             <div>
-              <div className="text-[11px] font-semibold text-background/80 font-sans">Cabinet du Tier 2</div>
-              <div className="text-[9px] text-background/35 font-sans">Classement Banque & Finance</div>
+              <div className="text-[11px] font-semibold text-foreground/80 font-sans">Cabinet du Tier 2</div>
+              <div className="text-[9px] text-foreground/35 font-sans">Classement Banque & Finance</div>
             </div>
           </div>
           <div className="mb-5">
-            <div className="text-[8px] tracking-[0.15em] uppercase text-background/25 mb-3 font-medium font-sans">Répartition d'activité</div>
+            <div className="text-[8px] tracking-[0.15em] uppercase text-foreground/25 mb-3 font-medium font-sans">Répartition d'activité</div>
             <div className="flex items-center gap-4">
               <div className="relative flex-shrink-0">
                 <svg width="56" height="56" viewBox="0 0 56 56">
-                  <circle cx="28" cy="28" r="20" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="8" />
+                  <circle cx="28" cy="28" r="20" fill="none" stroke="rgba(0,0,0,0.06)" strokeWidth="8" />
                   <circle cx="28" cy="28" r="20" fill="none" stroke="hsl(0,0%,65%)" strokeWidth="8"
                     strokeDasharray={`${0.75 * 125.66} ${0.25 * 125.66}`}
                     strokeDashoffset="31.4" strokeLinecap="round" />
@@ -67,19 +67,19 @@ const candidatSteps: Step[] = [
               <div className="space-y-2">
                 <div className="flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: 'hsl(0,0%,65%)' }} />
-                  <span className="text-[10px] text-background/55 font-medium font-sans">Financement LBO · 75%</span>
+                  <span className="text-[10px] text-foreground/55 font-medium font-sans">Financement LBO · 75%</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: 'hsl(0,0%,82%)' }} />
-                  <span className="text-[10px] text-background/55 font-medium font-sans">Financement Immo · 25%</span>
+                  <span className="text-[10px] text-foreground/55 font-medium font-sans">Financement Immo · 25%</span>
                 </div>
-                <div className="text-[9px] text-background/30 italic pl-4 font-sans">Dominante côté prêteur</div>
+                <div className="text-[9px] text-foreground/30 italic pl-4 font-sans">Dominante côté prêteur</div>
               </div>
             </div>
           </div>
-          <div className="pt-4 border-t border-background/[0.08] flex items-center justify-between">
-            <span className="text-[9px] text-background/30 uppercase tracking-[0.12em] font-medium font-sans">Rétrocession</span>
-            <span className="font-sans text-base font-bold text-background">125 K€ HT</span>
+          <div className="pt-4 border-t border-foreground/[0.08] flex items-center justify-between">
+            <span className="text-[9px] text-foreground/30 uppercase tracking-[0.12em] font-medium font-sans">Rétrocession</span>
+            <span className="font-sans text-base font-bold text-foreground">125 K€ HT</span>
           </div>
         </div>
       </div>
@@ -95,44 +95,44 @@ const candidatSteps: Step[] = [
       'Le cabinet ne sait pas que vous existez tant que vous n\'avez pas dit oui.',
     ],
     visual: (
-      <div className="bg-foreground rounded-2xl p-6 text-background w-full shadow-[0_20px_60px_-15px_rgba(0,0,0,0.4)] border border-white/[0.06] relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-white/[0.04] to-transparent pointer-events-none" />
+      <div className="bg-background rounded-2xl p-6 text-foreground w-full shadow-[0_20px_60px_-15px_rgba(0,0,0,0.15)] border border-foreground/[0.08] relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-foreground/[0.02] to-transparent pointer-events-none" />
         <div className="relative z-10">
           <div className="flex items-center justify-between mb-5">
-            <div className="text-[8px] tracking-[0.2em] uppercase text-background/30 font-medium font-sans">Opportunité · Présentée par Logan</div>
-            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-background/[0.08] border border-background/[0.06]">
-              <EyeOff className="w-2.5 h-2.5 text-background/40" />
-              <span className="text-[7px] tracking-[0.1em] uppercase text-background/40 font-medium font-sans">Confidentiel</span>
+            <div className="text-[8px] tracking-[0.2em] uppercase text-foreground/30 font-medium font-sans">Opportunité · Présentée par Logan</div>
+            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-foreground/[0.06] border border-foreground/[0.08]">
+              <EyeOff className="w-2.5 h-2.5 text-foreground/40" />
+              <span className="text-[7px] tracking-[0.1em] uppercase text-foreground/40 font-medium font-sans">Confidentiel</span>
             </div>
           </div>
           <div className="font-sans text-lg font-bold leading-tight mb-0.5">Collaborateur Sénior</div>
-          <div className="text-[11px] text-background/50 font-medium font-sans mb-1">Restructuring & Contentieux</div>
-          <div className="flex items-center gap-3 mb-5 mt-4 px-4 py-3 rounded-xl bg-background/[0.06] border border-background/[0.08] backdrop-blur-sm">
-            <div className="w-8 h-8 rounded-lg bg-background/[0.08] flex items-center justify-center flex-shrink-0">
-              <BarChart3 className="w-4 h-4 text-background/50" />
+          <div className="text-[11px] text-foreground/50 font-medium font-sans mb-1">Restructuring & Contentieux</div>
+          <div className="flex items-center gap-3 mb-5 mt-4 px-4 py-3 rounded-xl bg-foreground/[0.04] border border-foreground/[0.08] backdrop-blur-sm">
+            <div className="w-8 h-8 rounded-lg bg-foreground/[0.06] flex items-center justify-center flex-shrink-0">
+              <BarChart3 className="w-4 h-4 text-foreground/50" />
             </div>
             <div>
-              <div className="text-[11px] font-semibold text-background/80 font-sans">Cabinet du Tier 3</div>
-              <div className="text-[9px] text-background/35 font-sans">Classement Entreprises en difficulté</div>
+              <div className="text-[11px] font-semibold text-foreground/80 font-sans">Cabinet du Tier 3</div>
+              <div className="text-[9px] text-foreground/35 font-sans">Classement Entreprises en difficulté</div>
             </div>
           </div>
-          <div className="mb-5 px-4 py-3 rounded-xl bg-background/[0.06] border border-background/[0.08]">
-            <div className="text-[8px] tracking-[0.15em] uppercase text-background/25 mb-2 font-medium font-sans">Activité principale recherchée</div>
-            <div className="text-[11px] font-semibold text-background/80 font-sans">Restructuring (amiable et judiciaire)</div>
-            <div className="text-[9px] text-background/35 mt-1 italic font-sans">Dominante côté débiteur</div>
+          <div className="mb-5 px-4 py-3 rounded-xl bg-foreground/[0.04] border border-foreground/[0.08]">
+            <div className="text-[8px] tracking-[0.15em] uppercase text-foreground/25 mb-2 font-medium font-sans">Activité principale recherchée</div>
+            <div className="text-[11px] font-semibold text-foreground/80 font-sans">Restructuring (amiable et judiciaire)</div>
+            <div className="text-[9px] text-foreground/35 mt-1 italic font-sans">Dominante côté débiteur</div>
           </div>
           <div className="grid grid-cols-2 gap-3 mb-5">
-            <div className="px-3 py-2.5 rounded-lg bg-background/[0.05] border border-background/[0.06]">
-              <div className="text-[8px] uppercase text-background/25 tracking-[0.1em] mb-1 font-sans">Rétrocession</div>
-              <div className="font-sans text-sm font-bold text-background">145–170 K€</div>
+            <div className="px-3 py-2.5 rounded-lg bg-foreground/[0.04] border border-foreground/[0.08]">
+              <div className="text-[8px] uppercase text-foreground/25 tracking-[0.1em] mb-1 font-sans">Rétrocession</div>
+              <div className="font-sans text-sm font-bold text-foreground">145–170 K€</div>
             </div>
-            <div className="px-3 py-2.5 rounded-lg bg-background/[0.05] border border-background/[0.06]">
-              <div className="text-[8px] uppercase text-background/25 tracking-[0.1em] mb-1 font-sans">Équipe</div>
-              <div className="font-sans text-sm font-bold text-background">3 assoc. · 8 collabs</div>
+            <div className="px-3 py-2.5 rounded-lg bg-foreground/[0.04] border border-foreground/[0.08]">
+              <div className="text-[8px] uppercase text-foreground/25 tracking-[0.1em] mb-1 font-sans">Équipe</div>
+              <div className="font-sans text-sm font-bold text-foreground">3 assoc. · 8 collabs</div>
             </div>
           </div>
-          <div className="pt-4 border-t border-background/[0.08] flex items-center justify-between">
-            <span className="text-[9px] text-background/30 uppercase tracking-[0.12em] font-medium font-sans">Contexte</span>
+          <div className="pt-4 border-t border-foreground/[0.08] flex items-center justify-between">
+            <span className="text-[9px] text-foreground/30 uppercase tracking-[0.12em] font-medium font-sans">Contexte</span>
             <span className="text-[11px] font-semibold text-background/70 font-sans">Départ</span>
           </div>
         </div>
@@ -157,13 +157,13 @@ const candidatSteps: Step[] = [
         ].map(s => (
           <div key={s.step} className={cn(
             'flex items-center gap-4 p-4 rounded-lg border transition-all',
-            s.done ? 'bg-foreground text-background border-foreground' : 'bg-muted border-border'
+            s.done ? 'bg-background text-foreground border-foreground/10' : 'bg-foreground border-foreground text-background'
           )}>
             <div className={cn(
               'w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0',
-              s.done ? 'bg-background text-foreground' : 'bg-foreground text-background'
+              s.done ? 'bg-foreground text-background' : 'bg-background text-foreground'
             )}>{s.done ? '✓' : s.step}</div>
-            <span className={cn('text-sm font-medium', s.done ? 'text-background' : 'text-foreground')}>{s.label}</span>
+            <span className={cn('text-sm font-medium', s.done ? 'text-foreground' : 'text-background')}>{s.label}</span>
           </div>
         ))}
       </div>
@@ -184,20 +184,20 @@ const cabinetSteps: Step[] = [
     visual: (
       <div className="w-full space-y-3">
         {/* Passive card */}
-        <div className="bg-foreground rounded-2xl p-5 text-background shadow-[0_20px_60px_-15px_rgba(0,0,0,0.4)] border border-white/[0.06] relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-white/[0.04] to-transparent pointer-events-none" />
+        <div className="bg-background rounded-2xl p-5 text-foreground shadow-[0_20px_60px_-15px_rgba(0,0,0,0.15)] border border-foreground/[0.08] relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-br from-foreground/[0.02] to-transparent pointer-events-none" />
           <div className="relative z-10">
             <div className="flex items-center gap-2 mb-3">
-              <div className="w-6 h-6 rounded-lg bg-background/[0.08] flex items-center justify-center">
-                <Bell className="w-3 h-3 text-background/50" />
+              <div className="w-6 h-6 rounded-lg bg-foreground/[0.06] flex items-center justify-center">
+                <Bell className="w-3 h-3 text-foreground/50" />
               </div>
-              <div className="text-[8px] tracking-[0.2em] uppercase text-background/40 font-medium font-sans">Rôle passif</div>
+              <div className="text-[8px] tracking-[0.2em] uppercase text-foreground/40 font-medium font-sans">Rôle passif</div>
             </div>
             <div className="font-sans text-sm font-bold leading-tight mb-1">Publiez votre recherche</div>
-            <div className="text-[10px] text-background/40 font-sans leading-relaxed">Logan cible et approche les candidats pour votre compte</div>
+            <div className="text-[10px] text-foreground/40 font-sans leading-relaxed">Logan cible et approche les candidats pour votre compte</div>
             <div className="flex flex-wrap gap-1.5 mt-3">
               {['M&A / PE', 'Mid Level', 'Confidentiel'].map(tag => (
-                <span key={tag} className="text-[8px] px-2 py-0.5 rounded-full bg-background/[0.08] text-background/50 font-medium font-sans border border-background/[0.06]">{tag}</span>
+                <span key={tag} className="text-[8px] px-2 py-0.5 rounded-full bg-foreground/[0.06] text-foreground/50 font-medium font-sans border border-foreground/[0.08]">{tag}</span>
               ))}
             </div>
           </div>
@@ -209,21 +209,21 @@ const cabinetSteps: Step[] = [
           <div className="flex-1 h-px bg-border" />
         </div>
         {/* Active card */}
-        <div className="bg-foreground rounded-2xl p-5 text-background shadow-[0_20px_60px_-15px_rgba(0,0,0,0.4)] border border-white/[0.06] relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-white/[0.04] to-transparent pointer-events-none" />
+        <div className="bg-background rounded-2xl p-5 text-foreground shadow-[0_20px_60px_-15px_rgba(0,0,0,0.15)] border border-foreground/[0.08] relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-br from-foreground/[0.02] to-transparent pointer-events-none" />
           <div className="relative z-10">
             <div className="flex items-center gap-2 mb-3">
-              <div className="w-6 h-6 rounded-lg bg-background/[0.08] flex items-center justify-center">
-                <Search className="w-3 h-3 text-background/50" />
+              <div className="w-6 h-6 rounded-lg bg-foreground/[0.06] flex items-center justify-center">
+                <Search className="w-3 h-3 text-foreground/50" />
               </div>
-              <div className="text-[8px] tracking-[0.2em] uppercase text-background/40 font-medium font-sans">Rôle actif</div>
+              <div className="text-[8px] tracking-[0.2em] uppercase text-foreground/40 font-medium font-sans">Rôle actif</div>
             </div>
             <div className="font-sans text-sm font-bold leading-tight mb-1">Explorez le vivier premium</div>
-            <div className="text-[10px] text-background/40 font-sans leading-relaxed">Consultez les profils anonymisés et déclenchez Logan par opportunité</div>
+            <div className="text-[10px] text-foreground/40 font-sans leading-relaxed">Consultez les profils anonymisés et déclenchez Logan par opportunité</div>
             <div className="grid grid-cols-3 gap-2 mt-3">
               {['Séniorité', 'Activité', 'Projet'].map(item => (
-                <div key={item} className="text-center px-2 py-1.5 rounded-lg bg-background/[0.05] border border-background/[0.06]">
-                  <div className="text-[8px] text-background/50 font-sans font-medium">{item}</div>
+                <div key={item} className="text-center px-2 py-1.5 rounded-lg bg-foreground/[0.04] border border-foreground/[0.08]">
+                  <div className="text-[8px] text-foreground/50 font-sans font-medium">{item}</div>
                 </div>
               ))}
             </div>
@@ -242,29 +242,29 @@ const cabinetSteps: Step[] = [
       'Votre identité de recruteur reste protégée jusqu\'à l\'entretien confirmé.',
     ],
     visual: (
-      <div className="bg-foreground rounded-2xl p-6 text-background w-full shadow-[0_20px_60px_-15px_rgba(0,0,0,0.4)] border border-white/[0.06] relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-white/[0.04] to-transparent pointer-events-none" />
+      <div className="bg-background rounded-2xl p-6 text-foreground w-full shadow-[0_20px_60px_-15px_rgba(0,0,0,0.15)] border border-foreground/[0.08] relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-foreground/[0.02] to-transparent pointer-events-none" />
         <div className="relative z-10">
-          <div className="text-[8px] tracking-[0.2em] uppercase text-background/30 font-medium font-sans mb-5">Processus de rapprochement</div>
+          <div className="text-[8px] tracking-[0.2em] uppercase text-foreground/30 font-medium font-sans mb-5">Processus de rapprochement</div>
           <div className="space-y-3">
             {[
               { icon: Eye, label: 'Identification du talent', sub: 'Via recherche publiée ou exploration du vivier' },
               { icon: Shield, label: 'Qualification par Logan', sub: 'Approche confidentielle, validation de l\'intérêt mutuel' },
               { icon: Handshake, label: 'Mise en relation orchestrée', sub: 'Entretien préparé — identités révélées à ce stade uniquement' },
             ].map((item, i) => (
-              <div key={i} className="flex items-start gap-3 px-4 py-3 rounded-xl bg-background/[0.06] border border-background/[0.08]">
-                <div className="w-8 h-8 rounded-lg bg-background/[0.08] flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <item.icon className="w-4 h-4 text-background/50" />
+              <div key={i} className="flex items-start gap-3 px-4 py-3 rounded-xl bg-foreground/[0.04] border border-foreground/[0.08]">
+                <div className="w-8 h-8 rounded-lg bg-foreground/[0.06] flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <item.icon className="w-4 h-4 text-foreground/50" />
                 </div>
                 <div>
-                  <div className="text-[11px] font-semibold text-background/80 font-sans">{item.label}</div>
-                  <div className="text-[9px] text-background/35 font-sans mt-0.5">{item.sub}</div>
+                  <div className="text-[11px] font-semibold text-foreground/80 font-sans">{item.label}</div>
+                  <div className="text-[9px] text-foreground/35 font-sans mt-0.5">{item.sub}</div>
                 </div>
               </div>
             ))}
           </div>
-          <div className="mt-5 pt-4 border-t border-background/[0.08] text-center">
-            <span className="text-[9px] text-background/30 uppercase tracking-[0.12em] font-medium font-sans">Dans tous les cas, Logan est votre seul point de contact</span>
+          <div className="mt-5 pt-4 border-t border-foreground/[0.08] text-center">
+            <span className="text-[9px] text-foreground/30 uppercase tracking-[0.12em] font-medium font-sans">Dans tous les cas, Logan est votre seul point de contact</span>
           </div>
         </div>
       </div>
@@ -281,34 +281,34 @@ const cabinetSteps: Step[] = [
     ],
     visual: (
       <div className="w-full space-y-3">
-        <div className="bg-foreground rounded-2xl p-6 text-background shadow-[0_20px_60px_-15px_rgba(0,0,0,0.4)] border border-white/[0.06] relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-white/[0.04] to-transparent pointer-events-none" />
+        <div className="bg-background rounded-2xl p-6 text-foreground shadow-[0_20px_60px_-15px_rgba(0,0,0,0.15)] border border-foreground/[0.08] relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-br from-foreground/[0.02] to-transparent pointer-events-none" />
           <div className="relative z-10">
-            <div className="text-[8px] tracking-[0.2em] uppercase text-background/30 font-medium font-sans mb-4">Votre investissement</div>
+            <div className="text-[8px] tracking-[0.2em] uppercase text-foreground/30 font-medium font-sans mb-4">Votre investissement</div>
             <div className="grid grid-cols-2 gap-3 mb-4">
-              <div className="px-4 py-3 rounded-xl bg-background/[0.06] border border-background/[0.08]">
-                <div className="text-[8px] uppercase text-background/25 tracking-[0.1em] mb-1.5 font-sans">Abonnement</div>
-                <div className="font-sans text-base font-bold text-background">Trimestriel</div>
-                <div className="text-[9px] text-background/35 font-sans mt-1">Sur devis · adapté à votre cabinet</div>
+              <div className="px-4 py-3 rounded-xl bg-foreground/[0.04] border border-foreground/[0.08]">
+                <div className="text-[8px] uppercase text-foreground/25 tracking-[0.1em] mb-1.5 font-sans">Abonnement</div>
+                <div className="font-sans text-base font-bold text-foreground">Trimestriel</div>
+                <div className="text-[9px] text-foreground/35 font-sans mt-1">Sur devis · adapté à votre cabinet</div>
               </div>
-              <div className="px-4 py-3 rounded-xl bg-background/[0.06] border border-background/[0.08]">
-                <div className="text-[8px] uppercase text-background/25 tracking-[0.1em] mb-1.5 font-sans">Fee de placement</div>
-                <div className="font-sans text-base font-bold text-background">15 – 18%</div>
-                <div className="text-[9px] text-background/35 font-sans mt-1">De la rétrocession annuelle brute</div>
+              <div className="px-4 py-3 rounded-xl bg-foreground/[0.04] border border-foreground/[0.08]">
+                <div className="text-[8px] uppercase text-foreground/25 tracking-[0.1em] mb-1.5 font-sans">Fee de placement</div>
+                <div className="font-sans text-base font-bold text-foreground">15 – 18%</div>
+                <div className="text-[9px] text-foreground/35 font-sans mt-1">De la rétrocession annuelle brute</div>
               </div>
             </div>
-            <div className="pt-4 border-t border-background/[0.08] space-y-2">
+            <div className="pt-4 border-t border-foreground/[0.08] space-y-2">
               <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-3 h-3 text-background/40 flex-shrink-0" />
-                <span className="text-[10px] text-background/50 font-sans">Accès continu au vivier — tous départements</span>
+                <CheckCircle2 className="w-3 h-3 text-foreground/40 flex-shrink-0" />
+                <span className="text-[10px] text-foreground/50 font-sans">Accès continu au vivier — tous départements</span>
               </div>
               <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-3 h-3 text-background/40 flex-shrink-0" />
-                <span className="text-[10px] text-background/50 font-sans">Vivier alimenté au quotidien par Logan</span>
+                <CheckCircle2 className="w-3 h-3 text-foreground/40 flex-shrink-0" />
+                <span className="text-[10px] text-foreground/50 font-sans">Vivier alimenté au quotidien par Logan</span>
               </div>
               <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-3 h-3 text-background/40 flex-shrink-0" />
-                <span className="text-[10px] text-background/50 font-sans">Recherches publiées en toute confidentialité</span>
+                <CheckCircle2 className="w-3 h-3 text-foreground/40 flex-shrink-0" />
+                <span className="text-[10px] text-foreground/50 font-sans">Recherches publiées en toute confidentialité</span>
               </div>
             </div>
           </div>
@@ -373,7 +373,7 @@ const DiscoverSection = () => {
                 className={cn(
                   'px-7 py-2.5 text-xs font-sans font-medium rounded-full transition-all duration-400 inline-flex items-center gap-2',
                   perspective === p
-                    ? 'bg-foreground text-background shadow-md'
+                    ? 'bg-foreground text-foreground shadow-md'
                     : 'text-muted-foreground hover:text-foreground'
                 )}
               >
@@ -393,7 +393,7 @@ const DiscoverSection = () => {
                   className={cn(
                     'flex items-center gap-3 px-5 py-3 rounded-full transition-all duration-400',
                     i === activeStep
-                      ? 'bg-foreground text-background shadow-lg'
+                      ? 'bg-foreground text-foreground shadow-lg'
                       : 'text-muted-foreground hover:text-foreground hover:bg-background'
                   )}
                 >
@@ -426,19 +426,19 @@ const DiscoverSection = () => {
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
             className="max-w-5xl mx-auto"
           >
-            <div className="bg-background rounded-2xl shadow-[0_4px_24px_hsl(0_0%_0%/0.06),0_1px_4px_hsl(0_0%_0%/0.04)] overflow-hidden">
+            <div className="bg-foreground rounded-2xl shadow-[0_4px_24px_hsl(0_0%_0%/0.06),0_1px_4px_hsl(0_0%_0%/0.04)] overflow-hidden">
               <div className="grid md:grid-cols-2 gap-0">
                 {/* Left — Content */}
                 <div className="p-8 md:p-12 flex flex-col justify-center">
                   <div className="mb-6">
-                    <span className="text-[10px] font-mono font-bold text-muted-foreground/50 tracking-wider">
+                    <span className="text-[10px] font-mono font-bold text-foreground/50 tracking-wider">
                       Étape {step.number}
                     </span>
                   </div>
                   <h3 className="font-serif text-2xl md:text-3xl font-normal text-foreground mb-3 tracking-[-0.01em] leading-tight">
                     {step.title}
                   </h3>
-                  <p className="text-sm text-muted-foreground font-light leading-relaxed mb-8">
+                  <p className="text-sm text-background/60 font-light leading-relaxed mb-8">
                     {step.description}
                   </p>
 
@@ -452,8 +452,8 @@ const DiscoverSection = () => {
                         transition={{ delay: 0.2 + i * 0.08, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                         className="flex items-start gap-3"
                       >
-                        <div className="w-1.5 h-1.5 rounded-full bg-foreground/30 mt-1.5 flex-shrink-0" />
-                        <p className="text-xs text-foreground/70 leading-relaxed">{detail}</p>
+                        <div className="w-1.5 h-1.5 rounded-full bg-background/30 mt-1.5 flex-shrink-0" />
+                        <p className="text-xs text-background/70 leading-relaxed">{detail}</p>
                       </motion.div>
                     ))}
                   </div>
@@ -467,7 +467,7 @@ const DiscoverSection = () => {
                       className="mt-10"
                     >
                       <Link to={perspective === 'candidat' ? '/inscription?start=2' : '/cabinet?start=2'}>
-                        <Button className="bg-foreground text-background hover:bg-foreground/90 text-xs font-medium rounded-full px-8 py-5 group">
+                        <Button className="bg-background text-foreground hover:bg-background/90 text-xs font-medium rounded-full px-8 py-5 group">
                           {perspective === 'candidat' ? 'Créer mon profil' : 'Inscrire mon cabinet'}
                           <ArrowRight className="w-3.5 h-3.5 ml-2 transition-transform group-hover:translate-x-1" />
                         </Button>
