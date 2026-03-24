@@ -37,7 +37,7 @@ const LandingPage = () => (
     <Header />
 
     {/* Hero */}
-    <section className="h-screen flex flex-col justify-center relative overflow-hidden bg-black">
+    <section className="h-[100svh] flex flex-col relative overflow-hidden bg-black">
       {/* Background photo with cinematic living Ken Burns */}
       <div className="absolute inset-0">
         <motion.img
@@ -99,7 +99,7 @@ const LandingPage = () => (
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-transparent to-black/70" />
       </div>
-      <div className="px-6 sm:px-8 lg:px-10 max-w-6xl relative z-10 pt-20 flex-1 flex items-center">
+      <div className="px-6 sm:px-8 lg:px-10 max-w-6xl relative z-10 pt-24 flex-1 flex items-center pb-4">
         <motion.div variants={stagger} initial="hidden" animate="visible" className="max-w-3xl">
           <div className="inline-block">
             <motion.h1 variants={fadeUp} className="text-[2rem] sm:text-[3.75rem] md:text-[5rem] lg:text-[6.5rem] font-serif font-[500] text-white leading-[1.1] md:leading-[1.02] mb-3 md:mb-5 tracking-[-0.03em]">
@@ -139,7 +139,7 @@ const LandingPage = () => (
           <div className="flex-1 overflow-hidden">
             <div className="flex animate-marquee whitespace-nowrap items-center">
               {[...firmNames, ...firmNames].map((name, i) => (
-                <span key={i} className="mx-6 md:mx-14 text-sm font-serif font-medium text-white/50 select-none flex-shrink-0 tracking-wide">
+                <span key={i} className="mx-6 md:mx-14 text-base md:text-[1.05rem] font-serif font-medium text-white/50 select-none flex-shrink-0 tracking-wide">
                   {name}
                 </span>
               ))}
