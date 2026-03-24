@@ -58,21 +58,21 @@ const Header = () => {
               onClick={() => scrollToSection('notre-vision')}
               className="flex items-center gap-1 px-3 py-1.5 text-[13px] font-sans font-normal text-white/60 hover:text-white transition-colors duration-200 tracking-wide"
             >
-              Notre vision
+              Vision
               <ChevronDown className="w-3 h-3 opacity-60" />
             </button>
             <button
               onClick={() => scrollToSection('notre-approche')}
               className="flex items-center gap-1 px-3 py-1.5 text-[13px] font-sans font-normal text-white/60 hover:text-white transition-colors duration-200 tracking-wide"
             >
-              Notre approche
+              Approche
               <ChevronDown className="w-3 h-3 opacity-60" />
             </button>
             <button
               onClick={() => scrollToSection('nos-engagements')}
               className="flex items-center gap-1 px-3 py-1.5 text-[13px] font-sans font-normal text-white/60 hover:text-white transition-colors duration-200 tracking-wide"
             >
-              Nos engagements
+              Engagements
               <ChevronDown className="w-3 h-3 opacity-60" />
             </button>
             <button
