@@ -34,8 +34,8 @@ const fadeUp = {
 
 
 const MANIFESTO = [
-  'Un cercle privé d\'excellence',
-  'Conçu, animé et piloté par des chasseurs spécialisés',
+  'Un cercle privé d\'excellence,',
+  'Conçu, animé et piloté par des chasseurs spécialisés.',
   'Accès limité',
 ];
 
@@ -137,7 +137,7 @@ const LandingPage = () => {
                     duration: 0.9,
                     ease: [0.16, 1, 0.3, 1],
                   }}
-                  className="font-sans text-white/90 text-[0.82rem] sm:text-[0.97rem] md:text-[1.2rem] lg:text-[1.42rem] font-[500] tracking-[0.01em]"
+                  className="font-sans text-white/90 text-[0.82rem] sm:text-[0.97rem] md:text-[1.2rem] lg:text-[1.42rem] font-[450] tracking-[0.01em]"
                   style={{ transformOrigin: 'bottom center' }}
                 >
                   {line}
