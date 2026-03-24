@@ -467,7 +467,7 @@ const DiscoverSection = () => {
                       className="mt-10"
                     >
                       <Link to={perspective === 'candidat' ? '/inscription?start=2' : '/cabinet?start=2'}>
-                        <Button className="bg-background text-foreground hover:bg-background/90 text-xs font-medium rounded-full px-8 py-5 group">
+                        <Button className="bg-white text-foreground hover:bg-white/90 text-xs font-medium rounded-full px-8 py-5 group">
                           {perspective === 'candidat' ? 'Créer mon profil' : 'Inscrire mon cabinet'}
                           <ArrowRight className="w-3.5 h-3.5 ml-2 transition-transform group-hover:translate-x-1" />
                         </Button>
