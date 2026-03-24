@@ -128,74 +128,81 @@ const FAQSection = () => {
   const items = tab === 'candidat' ? candidatFAQ : cabinetFAQ;
 
   return (
-    <section className="py-24 md:py-32 bg-[hsl(25,8%,18%)] relative">
-      <div className="max-w-4xl mx-auto px-6 sm:px-8 lg:px-10">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="text-center mb-16"
-        >
-          <p className="text-[10px] tracking-[0.3em] uppercase text-white/40 font-sans font-medium mb-4">
-            Questions fréquentes
-          </p>
-          <h2 className="text-2xl sm:text-3xl md:text-[2.5rem] font-serif font-normal text-white tracking-[-0.02em]">
-            FAQ
-          </h2>
-        </motion.div>
+    <section className="relative">
+      {/* Top area — taupe */}
+      <div className="bg-[hsl(25,8%,18%)] pt-24 md:pt-32 pb-16">
+        <div className="max-w-4xl mx-auto px-6 sm:px-8 lg:px-10">
+          {/* Header */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            className="text-center mb-16"
+          >
+            <p className="text-[10px] tracking-[0.3em] uppercase text-white/40 font-sans font-medium mb-4">
+              Questions fréquentes
+            </p>
+            <h2 className="text-2xl sm:text-3xl md:text-[2.5rem] font-serif font-normal text-white tracking-[-0.02em]">
+              FAQ
+            </h2>
+          </motion.div>
 
-        {/* Tab toggle */}
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="flex justify-center mb-12"
-        >
-          <div className="inline-flex rounded-full border border-white/15 bg-white/[0.05] p-1">
-            {(['candidat', 'cabinet'] as Tab[]).map((t) => (
-              <button
-                key={t}
-                onClick={() => setTab(t)}
-                className={cn(
-                  'px-6 py-2 rounded-full text-sm font-sans font-medium transition-all duration-300 capitalize',
-                  tab === t
-                    ? 'bg-white text-foreground shadow-sm'
-                    : 'text-white/50 hover:text-white'
-                )}
-              >
-                {t}
-              </button>
-            ))}
-          </div>
-        </motion.div>
+          {/* Tab toggle */}
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="flex justify-center"
+          >
+            <div className="inline-flex rounded-full border border-white/15 bg-white/[0.05] p-1">
+              {(['candidat', 'cabinet'] as Tab[]).map((t) => (
+                <button
+                  key={t}
+                  onClick={() => setTab(t)}
+                  className={cn(
+                    'px-6 py-2 rounded-full text-sm font-sans font-medium transition-all duration-300 capitalize',
+                    tab === t
+                      ? 'bg-white text-foreground shadow-sm'
+                      : 'text-white/50 hover:text-white'
+                  )}
+                >
+                  {t}
+                </button>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </div>
 
-        {/* Accordion — clean, minimal, taupe-native */}
-        <motion.div
-          key={tab}
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <Accordion type="single" collapsible className="space-y-0">
-            {items.map((item, i) => (
-              <AccordionItem
-                key={i}
-                value={`item-${i}`}
-                className="border-b border-white/[0.08] first:border-t first:border-white/[0.08] rounded-none px-0 overflow-hidden"
-              >
-                <AccordionTrigger className="text-left font-sans text-sm md:text-[15px] font-medium text-white/85 hover:text-white hover:no-underline py-6 gap-4 transition-colors">
-                  {item.question}
-                </AccordionTrigger>
-                <AccordionContent className="text-white/45 font-sans text-sm leading-relaxed pb-6">
-                  {item.answer}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        </motion.div>
+      {/* Bottom area — black, for the accordion */}
+      <div className="bg-[hsl(0,0%,4%)] pb-24 md:pb-32 pt-8">
+        <div className="max-w-4xl mx-auto px-6 sm:px-8 lg:px-10">
+          <motion.div
+            key={tab}
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <Accordion type="single" collapsible className="space-y-0">
+              {items.map((item, i) => (
+                <AccordionItem
+                  key={i}
+                  value={`item-${i}`}
+                  className="border-b border-white/[0.06] first:border-t first:border-white/[0.06] rounded-none px-0 overflow-hidden"
+                >
+                  <AccordionTrigger className="text-left font-sans text-sm md:text-[15px] font-medium text-white/80 hover:text-white hover:no-underline py-6 gap-4 transition-colors">
+                    {item.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-white/40 font-sans text-sm leading-relaxed pb-6">
+                    {item.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </motion.div>
+        </div>
       </div>
     </section>
   );
