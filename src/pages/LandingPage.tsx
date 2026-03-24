@@ -34,8 +34,7 @@ const fadeUp = {
 
 
 const MANIFESTO = [
-  'Un cercle privé d\'excellence,',
-  'Conçu, animé et piloté par des chasseurs spécialisés.',
+  'Un cercle privé d\'excellence, conçu, animé, et piloté par des chasseurs spécialisés.',
   'Accès limité',
 ];
 
@@ -121,11 +120,11 @@ const LandingPage = () => {
           <motion.p variants={fadeUp} className="text-xs font-sans font-medium tracking-[0.25em] uppercase text-white/50 mb-2 md:mb-4">
             &nbsp;
           </motion.p>
-          <motion.h1 variants={fadeUp} className="text-[3rem] sm:text-[3.75rem] md:text-[5rem] lg:text-[6.5rem] font-serif font-[500] text-white leading-[1.05] md:leading-[1.02] tracking-[-0.03em] whitespace-nowrap mb-10 md:mb-14">
+          <motion.h1 variants={fadeUp} className="text-[3rem] sm:text-[3.75rem] md:text-[5rem] lg:text-[6.5rem] font-serif font-[500] text-white leading-[1.05] md:leading-[1.02] tracking-[-0.03em] whitespace-nowrap mb-3 md:mb-4">
             Curating Leading Lawyers
           </motion.h1>
 
-          {/* Three manifesto lines — serif like title, staggered with 3D perspective */}
+          {/* Manifesto lines */}
           <div className="space-y-2 md:space-y-3" style={{ perspective: '800px' }}>
             {MANIFESTO.map((line, i) => (
               <div key={i} className="overflow-hidden">
@@ -137,7 +136,7 @@ const LandingPage = () => {
                     duration: 0.9,
                     ease: [0.16, 1, 0.3, 1],
                   }}
-                  className="font-sans text-white/90 text-[0.82rem] sm:text-[0.97rem] md:text-[1.2rem] lg:text-[1.42rem] font-[450] tracking-[0.01em]"
+                  className="font-sans text-white/90 text-[0.58rem] sm:text-[0.68rem] md:text-[0.84rem] lg:text-[1rem] font-[360] tracking-[0.01em]"
                   style={{ transformOrigin: 'bottom center' }}
                 >
                   {line}
