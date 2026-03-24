@@ -105,24 +105,24 @@ const LandingPage = () => (
             &nbsp;
           </motion.p>
           <div className="inline-block">
-            <motion.h1 variants={fadeUp} className="text-[3rem] sm:text-[3.75rem] md:text-[5rem] lg:text-[6.5rem] font-serif font-[500] text-white leading-[1.05] md:leading-[1.02] mb-6 md:mb-8 tracking-[-0.03em] whitespace-nowrap">
+            <motion.h1 variants={fadeUp} className="text-[3rem] sm:text-[3.75rem] md:text-[5rem] lg:text-[6.5rem] font-serif font-[500] text-white leading-[1.05] md:leading-[1.02] mb-4 md:mb-6 tracking-[-0.03em] whitespace-nowrap">
               Curating Leading Lawyers
             </motion.h1>
           </div>
-          <motion.div variants={fadeUp} className="mt-2 mb-4">
+          <motion.p variants={fadeUp} className="text-[0.85rem] sm:text-[0.9rem] md:text-[0.95rem] text-white/50 font-sans font-[400] leading-relaxed max-w-xl">
+            Un cercle privé d'excellence, structuré et orchestré par des chasseurs spécialisés,<br />
+            dédié aux profils et cabinets d'affaires les plus exigeants du marché.
+          </motion.p>
+          <motion.div variants={fadeUp} className="mt-10">
             <Link to="/demander-acces">
               <Button
                 size="lg"
                 className="bg-white text-black hover:bg-white/90 font-sans text-sm font-medium px-8 py-5 rounded-sm tracking-wide"
               >
-                Demander un accès
+                Request access
               </Button>
             </Link>
           </motion.div>
-          <motion.p variants={fadeUp} className="text-[0.85rem] sm:text-[0.9rem] md:text-[0.95rem] text-white/50 font-sans font-[400] leading-relaxed mt-4 max-w-xl">
-            Un cercle privé d'excellence, structuré et orchestré par des chasseurs spécialisés,<br className="hidden sm:inline" />
-            dédié aux profils et cabinets d'affaires les plus exigeants du marché
-          </motion.p>
           <motion.div variants={fadeUp} className="mb-20 md:mb-28" />
         </motion.div>
       </div>
