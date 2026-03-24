@@ -102,7 +102,7 @@ const LandingPage = () => (
       <div className="px-6 sm:px-8 lg:px-10 max-w-6xl relative z-10 pt-20 flex-1 flex items-center">
         <motion.div variants={stagger} initial="hidden" animate="visible" className="max-w-3xl">
           <div className="inline-block">
-            <motion.h1 variants={fadeUp} className="text-[3rem] sm:text-[3.75rem] md:text-[5rem] lg:text-[6.5rem] font-serif font-[500] text-white leading-[1.05] md:leading-[1.02] mb-3 md:mb-5 tracking-[-0.03em] whitespace-nowrap">
+            <motion.h1 variants={fadeUp} className="text-[2rem] sm:text-[3.75rem] md:text-[5rem] lg:text-[6.5rem] font-serif font-[500] text-white leading-[1.1] md:leading-[1.02] mb-3 md:mb-5 tracking-[-0.03em]">
               Curating Leading Lawyers
             </motion.h1>
           </div>
