@@ -50,7 +50,7 @@ const StatsTickerSection = () => {
   const inView = useInView(ref, { once: true, margin: '-80px' });
 
   return (
-    <section ref={ref} className="relative py-24 md:py-32 bg-background overflow-hidden">
+    <section ref={ref} className="relative py-24 md:py-32 bg-foreground overflow-hidden">
 
       <div className="carter-container relative z-10">
         {/* Header */}
@@ -60,33 +60,33 @@ const StatsTickerSection = () => {
           transition={{ duration: 0.7 }}
           className="text-center mb-16"
         >
-          <p className="text-xs font-sans font-medium tracking-[0.2em] uppercase text-muted-foreground mb-4">
+          <p className="text-xs font-sans font-medium tracking-[0.2em] uppercase text-white/50 mb-4">
             Logan en chiffres
           </p>
-          <h2 className="text-2xl md:text-4xl lg:text-[2.75rem] font-serif font-normal text-foreground leading-tight tracking-[-0.02em]">
+          <h2 className="text-2xl md:text-4xl lg:text-[2.75rem] font-serif font-normal text-white leading-tight tracking-[-0.02em]">
             La confiance se mesure<br />
-            <em className="text-muted-foreground font-normal">en résultats</em>
+            <em className="text-white/50 font-normal">en résultats</em>
           </h2>
         </motion.div>
 
         {/* Stats grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-px bg-border rounded-sm overflow-hidden">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-px bg-white/10 rounded-sm overflow-hidden">
           {stats.map((stat, i) => (
             <motion.div
               key={stat.label}
               initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.15 * i, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              className="bg-background p-6 md:p-8 text-center flex flex-col items-center justify-center group hover:bg-secondary transition-colors duration-500"
+              className="bg-foreground p-6 md:p-8 text-center flex flex-col items-center justify-center group hover:bg-white/[0.06] transition-colors duration-500"
             >
-              <stat.icon className="w-5 h-5 text-muted-foreground/50 mb-4 group-hover:text-foreground/60 transition-colors duration-500" />
-              <div className="font-serif text-4xl md:text-5xl font-bold text-foreground mb-2 tracking-tight">
+              <stat.icon className="w-5 h-5 text-white/30 mb-4 group-hover:text-white/50 transition-colors duration-500" />
+              <div className="font-serif text-4xl md:text-5xl font-bold text-white mb-2 tracking-tight">
                 <AnimatedCounter target={stat.value} suffix={stat.suffix} inView={inView} />
               </div>
-              <div className="text-[11px] font-sans font-semibold tracking-[0.1em] uppercase text-foreground/60 mb-1">
+              <div className="text-[11px] font-sans font-semibold tracking-[0.1em] uppercase text-white/60 mb-1">
                 {stat.label}
               </div>
-              <div className="text-[10px] font-sans text-muted-foreground font-light leading-relaxed">
+              <div className="text-[10px] font-sans text-white/40 font-light leading-relaxed">
                 {stat.detail}
               </div>
             </motion.div>
@@ -98,10 +98,10 @@ const StatsTickerSection = () => {
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
           transition={{ delay: 1, duration: 1 }}
-          className="mt-8 flex items-center justify-center gap-6 text-[10px] font-sans text-muted-foreground/60 tracking-[0.1em] uppercase"
+          className="mt-8 flex items-center justify-center gap-6 text-[10px] font-sans text-white/40 tracking-[0.1em] uppercase"
         >
           <span className="flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-foreground/40 animate-pulse" />
+            <span className="w-1.5 h-1.5 rounded-full bg-white/40 animate-pulse" />
             Plateforme active
           </span>
           <span className="hidden md:inline">·</span>
