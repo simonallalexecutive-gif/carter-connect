@@ -157,13 +157,13 @@ const candidatSteps: Step[] = [
         ].map(s => (
           <div key={s.step} className={cn(
             'flex items-center gap-4 p-4 rounded-lg border transition-all',
-            s.done ? 'bg-foreground text-foreground border-foreground' : 'bg-muted border-border'
+            s.done ? 'bg-background text-foreground border-foreground/10' : 'bg-foreground border-foreground text-background'
           )}>
             <div className={cn(
               'w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0',
-              s.done ? 'bg-background text-foreground' : 'bg-foreground text-background'
+              s.done ? 'bg-foreground text-background' : 'bg-background text-foreground'
             )}>{s.done ? '✓' : s.step}</div>
-            <span className={cn('text-sm font-medium', s.done ? 'text-background' : 'text-foreground')}>{s.label}</span>
+            <span className={cn('text-sm font-medium', s.done ? 'text-foreground' : 'text-background')}>{s.label}</span>
           </div>
         ))}
       </div>
