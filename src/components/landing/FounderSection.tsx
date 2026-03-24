@@ -1,7 +1,6 @@
 import { motion } from 'motion/react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Target, Users, ShieldCheck } from 'lucide-react';
-import simonPhoto from '@/assets/simon-allal.jpeg';
 
 const pillars = [
   {
@@ -40,38 +39,21 @@ const FounderSection = () => {
             Notre vision
           </motion.p>
 
-          {/* Founder — photo + conviction */}
-          <motion.div
+          {/* Citation */}
+          <motion.blockquote
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-            className="flex flex-col md:flex-row items-center gap-10 md:gap-16 max-w-3xl mx-auto mb-20"
+            className="max-w-3xl mx-auto text-center mb-16 md:mb-20"
           >
-            {/* Photo */}
-            <div className="flex-shrink-0">
-              <div className="w-28 h-28 md:w-32 md:h-32 rounded-full overflow-hidden border border-white/10">
-                <img
-                  src={simonPhoto}
-                  alt="Simon Allal, Fondateur de Logan"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            </div>
-
-            {/* Text */}
-            <div className="text-center md:text-left">
-              <blockquote className="font-serif text-lg md:text-xl text-white/60 italic leading-snug mb-4 font-[500] tracking-[-0.01em]">
-                «&nbsp;Le marché juridique mérite mieux que l'opacité. Logan est né d'une conviction simple&nbsp;: les meilleurs talents et les cabinets les plus ambitieux doivent se rencontrer dans un cadre d'excellence, de confiance et de confidentialité absolue.&nbsp;»
-              </blockquote>
-              <div className="flex items-center gap-3 justify-center md:justify-start">
-                <div className="w-8 h-px bg-white/20" />
-                <span className="text-[11px] font-sans font-medium tracking-[0.15em] uppercase text-white/40">
-                  Simon Allal, Fondateur
-                </span>
-              </div>
-            </div>
-          </motion.div>
+            <p className="font-serif text-lg sm:text-xl md:text-[1.35rem] text-white/60 italic leading-snug mb-3 font-[500] tracking-[-0.01em]">
+              «&nbsp;Logan se positionne comme la plateforme la plus exigeante et structurée du marché, offrant un accompagnement sur mesure, résolument confidentiel et parfaitement ciblé.&nbsp;»
+            </p>
+            <span className="text-[10px] sm:text-[11px] font-sans font-medium tracking-[0.15em] uppercase text-white/40">
+              — Simon Allal, Fondateur
+            </span>
+          </motion.blockquote>
 
           {/* Pillars grid */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 max-w-4xl mx-auto">
