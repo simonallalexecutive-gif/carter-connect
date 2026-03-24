@@ -49,10 +49,9 @@ const Header = () => {
           ) : (
             <Link
               to="/connexion"
-              className="font-sans text-sm font-medium text-black bg-white hover:bg-white/90 rounded-sm px-5 py-2 transition-colors duration-300 tracking-wide inline-flex items-center gap-2 group"
+              className="font-sans text-sm font-medium text-white/60 hover:text-white transition-colors duration-300 tracking-wide"
             >
               Connexion
-              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
             </Link>
           )}
         </nav>
@@ -100,10 +99,9 @@ const Header = () => {
             <Link
               to="/connexion"
               onClick={() => setMenuOpen(false)}
-              className="font-sans text-base font-medium text-black bg-white hover:bg-white/90 rounded-sm px-6 py-3.5 transition-colors tracking-wide inline-flex items-center gap-2 group mt-4 w-fit"
+              className="font-sans text-lg font-medium text-white/70 hover:text-white transition-colors tracking-wide"
             >
               Connexion
-              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
             </Link>
           )}
         </div>
