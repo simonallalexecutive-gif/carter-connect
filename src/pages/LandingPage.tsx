@@ -37,7 +37,7 @@ const LandingPage = () => (
     <Header />
 
     {/* Hero */}
-    <section className="min-h-screen md:min-h-[115vh] flex flex-col justify-center relative overflow-hidden bg-black">
+    <section className="h-screen flex flex-col justify-center relative overflow-hidden bg-black">
       {/* Background photo with cinematic living Ken Burns */}
       <div className="absolute inset-0">
         <motion.img
