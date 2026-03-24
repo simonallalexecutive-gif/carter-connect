@@ -14,6 +14,9 @@ import VideoPreview from "./pages/VideoPreview";
 import AdminPage from "./pages/AdminPage";
 import CandidateDashboard from "./pages/CandidateDashboard";
 import NotFound from "./pages/NotFound";
+import AccessRequestPage from "./pages/AccessRequestPage";
+import ConnexionPage from "./pages/ConnexionPage";
+import ConnexionCandidatPage from "./pages/ConnexionCandidatPage";
 
 const queryClient = new QueryClient();
 
@@ -29,6 +32,9 @@ const App = () => (
           <Route path="/cabinet" element={<CabinetPage />} />
           <Route path="/demo" element={<DemoPage />} />
           <Route path="/rendez-vous" element={<BookingPage />} />
+          <Route path="/demander-acces" element={<AccessRequestPage />} />
+          <Route path="/connexion" element={<ConnexionPage />} />
+          <Route path="/connexion/candidat" element={<ConnexionCandidatPage />} />
           <Route path="/auth" element={<AuthPage />} />
           <Route path="/reset-password" element={<ResetPasswordPage />} />
           <Route path="/video-preview" element={<VideoPreview />} />
