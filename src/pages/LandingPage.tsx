@@ -104,13 +104,15 @@ const LandingPage = () => (
           <motion.p variants={fadeUp} className="text-xs font-sans font-medium tracking-[0.25em] uppercase text-white/50 mb-2 md:mb-4">
             &nbsp;
           </motion.p>
-          <div className="inline-block">
+          <div>
             <motion.h1 variants={fadeUp} className="text-[3rem] sm:text-[3.75rem] md:text-[5rem] lg:text-[6.5rem] font-serif font-[500] text-white leading-[1.05] md:leading-[1.02] mb-8 md:mb-10 tracking-[-0.03em] whitespace-nowrap">
               Curating Leading Lawyers
             </motion.h1>
-            <motion.p variants={fadeUp} className="text-[0.92rem] sm:text-[0.98rem] md:text-[1.05rem] text-white font-sans font-[430] mb-3 leading-relaxed -mt-6" style={{ maxWidth: 'fit-content' }}>
-              Un cercle d'excellence, confidentiel et sélectif, conçu et piloté par des chasseurs spécialisés
-            </motion.p>
+            <motion.div variants={fadeUp} className="font-sans font-[500] text-white leading-[1.7] -mt-6 text-[0.92rem] sm:text-[0.98rem] md:text-[1.05rem]">
+              <p>Un cercle privé d'excellence</p>
+              <p>Conçu, animé et piloté par des chasseurs spécialisés</p>
+              <p>Accès limité</p>
+            </motion.div>
           </div>
           <motion.div variants={fadeUp} className="mb-20 md:mb-28" />
         </motion.div>
