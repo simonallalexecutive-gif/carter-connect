@@ -128,7 +128,7 @@ const FAQSection = () => {
   const items = tab === 'candidat' ? candidatFAQ : cabinetFAQ;
 
   return (
-    <section className="py-24 md:py-32 bg-foreground relative">
+    <section className="py-24 md:py-32 bg-[hsl(25,8%,20%)] relative">
       <div className="max-w-4xl mx-auto px-6 sm:px-8 lg:px-10">
         {/* Header */}
         <motion.div

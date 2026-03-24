@@ -335,7 +335,7 @@ const DiscoverSection = () => {
   };
 
   return (
-    <section className="py-24 md:py-32 bg-foreground relative overflow-hidden">
+    <section className="py-24 md:py-32 bg-background relative overflow-hidden">
 
       <div className="carter-container relative z-10">
         {/* Header */}
@@ -346,13 +346,13 @@ const DiscoverSection = () => {
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           className="text-center mb-16 md:mb-20"
         >
-          <p className="text-[10px] font-sans font-medium tracking-[0.25em] uppercase text-white/50 mb-5">
+          <p className="text-[10px] font-sans font-medium tracking-[0.25em] uppercase text-muted-foreground mb-5">
             Notre Approche
           </p>
-          <h2 className="font-serif text-3xl md:text-4xl lg:text-[2.75rem] font-normal text-white mb-4 tracking-[-0.02em] leading-[1.1]">
+          <h2 className="font-serif text-3xl md:text-4xl lg:text-[2.75rem] font-normal text-foreground mb-4 tracking-[-0.02em] leading-[1.1]">
             Un parcours pensé pour <em className="italic">chaque</em> acteur
           </h2>
-          <p className="text-sm md:text-base text-white/50 font-light max-w-lg mx-auto leading-relaxed">
+          <p className="text-sm md:text-base text-muted-foreground font-light max-w-lg mx-auto leading-relaxed">
             Explorez le parcours Logan selon votre perspective.
           </p>
         </motion.div>
@@ -365,7 +365,7 @@ const DiscoverSection = () => {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="flex justify-center mb-16"
         >
-          <div className="inline-flex bg-white/10 rounded-full p-1.5 backdrop-blur-sm">
+          <div className="inline-flex bg-foreground/10 rounded-full p-1.5">
             {(['candidat', 'cabinet'] as Perspective[]).map(p => (
               <button
                 key={p}
@@ -373,8 +373,8 @@ const DiscoverSection = () => {
                 className={cn(
                   'px-7 py-2.5 text-xs font-sans font-medium rounded-full transition-all duration-400 inline-flex items-center gap-2',
                   perspective === p
-                    ? 'bg-white text-foreground shadow-md'
-                    : 'text-white/50 hover:text-white/80'
+                    ? 'bg-foreground text-background shadow-md'
+                    : 'text-foreground/50 hover:text-foreground/80'
                 )}
               >
                 {p === 'candidat' ? <><UserCheck className="w-3.5 h-3.5" /> Candidat</> : <><Building2 className="w-3.5 h-3.5" /> Cabinet</>}
@@ -393,13 +393,13 @@ const DiscoverSection = () => {
                   className={cn(
                     'flex items-center gap-3 px-5 py-3 rounded-full transition-all duration-400',
                     i === activeStep
-                      ? 'bg-white text-foreground shadow-lg'
-                      : 'text-white/50 hover:text-white/80 hover:bg-white/10'
+                      ? 'bg-foreground text-background shadow-lg'
+                      : 'text-foreground/50 hover:text-foreground/80 hover:bg-foreground/10'
                   )}
                 >
                   <span className={cn(
                     'text-[10px] font-mono font-bold',
-                    i === activeStep ? 'text-foreground/60' : 'text-white/40'
+                    i === activeStep ? 'text-background/60' : 'text-foreground/40'
                   )}>
                     {s.number}
                   </span>
@@ -408,7 +408,7 @@ const DiscoverSection = () => {
                 {i < steps.length - 1 && (
                   <div className={cn(
                     'w-8 md:w-12 h-px mx-1',
-                    i < activeStep ? 'bg-white' : 'bg-white/20'
+                    i < activeStep ? 'bg-foreground' : 'bg-foreground/20'
                   )} />
                 )}
               </div>
@@ -426,19 +426,19 @@ const DiscoverSection = () => {
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
             className="max-w-5xl mx-auto"
           >
-            <div className="bg-white/[0.06] border border-white/[0.08] backdrop-blur-sm rounded-2xl shadow-[0_4px_24px_hsl(0_0%_0%/0.06),0_1px_4px_hsl(0_0%_0%/0.04)] overflow-hidden">
+            <div className="bg-foreground/[0.04] border border-foreground/[0.08] rounded-2xl shadow-[0_4px_24px_hsl(0_0%_0%/0.06),0_1px_4px_hsl(0_0%_0%/0.04)] overflow-hidden">
               <div className="grid md:grid-cols-2 gap-0">
                 {/* Left — Content */}
                 <div className="p-8 md:p-12 flex flex-col justify-center">
                   <div className="mb-6">
-                    <span className="text-[10px] font-mono font-bold text-white/50 tracking-wider">
+                    <span className="text-[10px] font-mono font-bold text-muted-foreground tracking-wider">
                       Étape {step.number}
                     </span>
                   </div>
-                  <h3 className="font-serif text-2xl md:text-3xl font-normal text-white mb-3 tracking-[-0.01em] leading-tight">
+                  <h3 className="font-serif text-2xl md:text-3xl font-normal text-foreground mb-3 tracking-[-0.01em] leading-tight">
                     {step.title}
                   </h3>
-                  <p className="text-sm text-white/60 font-light leading-relaxed mb-8">
+                  <p className="text-sm text-muted-foreground font-light leading-relaxed mb-8">
                     {step.description}
                   </p>
 
@@ -452,8 +452,8 @@ const DiscoverSection = () => {
                         transition={{ delay: 0.2 + i * 0.08, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                         className="flex items-start gap-3"
                       >
-                        <div className="w-1.5 h-1.5 rounded-full bg-white/30 mt-1.5 flex-shrink-0" />
-                        <p className="text-xs text-white/70 leading-relaxed">{detail}</p>
+                        <div className="w-1.5 h-1.5 rounded-full bg-foreground/30 mt-1.5 flex-shrink-0" />
+                        <p className="text-xs text-foreground/70 leading-relaxed">{detail}</p>
                       </motion.div>
                     ))}
                   </div>
@@ -467,7 +467,7 @@ const DiscoverSection = () => {
                       className="mt-10"
                     >
                       <Link to={perspective === 'candidat' ? '/inscription?start=2' : '/cabinet?start=2'}>
-                        <Button className="bg-white text-foreground hover:bg-white/90 text-xs font-medium rounded-full px-8 py-5 group">
+                        <Button className="bg-foreground text-background hover:bg-foreground/90 text-xs font-medium rounded-full px-8 py-5 group">
                           {perspective === 'candidat' ? 'Créer mon profil' : 'Inscrire mon cabinet'}
                           <ArrowRight className="w-3.5 h-3.5 ml-2 transition-transform group-hover:translate-x-1" />
                         </Button>
@@ -497,9 +497,9 @@ const DiscoverSection = () => {
           <button
             onClick={() => setActiveStep(Math.max(0, activeStep - 1))}
             disabled={activeStep === 0}
-            className="w-10 h-10 rounded-full border border-white/15 hover:border-white/40 flex items-center justify-center transition-all disabled:opacity-20 disabled:cursor-not-allowed hover:bg-white/5"
+            className="w-10 h-10 rounded-full border border-foreground/15 hover:border-foreground/40 flex items-center justify-center transition-all disabled:opacity-20 disabled:cursor-not-allowed hover:bg-foreground/5"
           >
-            <ArrowRight className="w-4 h-4 text-white rotate-180" />
+            <ArrowRight className="w-4 h-4 text-foreground rotate-180" />
           </button>
           <div className="flex items-center gap-3">
             {steps.map((_, i) => (
@@ -509,8 +509,8 @@ const DiscoverSection = () => {
                 className={cn(
                   'transition-all duration-400 rounded-full',
                   i === activeStep
-                    ? 'w-8 h-2 bg-white'
-                    : 'w-2 h-2 bg-white/20 hover:bg-white/40'
+                    ? 'w-8 h-2 bg-foreground'
+                    : 'w-2 h-2 bg-foreground/20 hover:bg-foreground/40'
                 )}
               />
             ))}
@@ -518,9 +518,9 @@ const DiscoverSection = () => {
           <button
             onClick={() => setActiveStep(Math.min(steps.length - 1, activeStep + 1))}
             disabled={activeStep === steps.length - 1}
-            className="w-10 h-10 rounded-full border border-white/15 hover:border-white/40 flex items-center justify-center transition-all disabled:opacity-20 disabled:cursor-not-allowed hover:bg-white/5"
+            className="w-10 h-10 rounded-full border border-foreground/15 hover:border-foreground/40 flex items-center justify-center transition-all disabled:opacity-20 disabled:cursor-not-allowed hover:bg-foreground/5"
           >
-            <ArrowRight className="w-4 h-4 text-white" />
+            <ArrowRight className="w-4 h-4 text-foreground" />
           </button>
         </div>
       </div>

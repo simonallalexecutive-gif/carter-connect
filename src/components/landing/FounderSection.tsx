@@ -17,7 +17,7 @@ const FounderSection = () => {
   };
 
   return (
-    <section className="py-20 md:py-32 bg-background overflow-hidden">
+    <section className="py-20 md:py-32 bg-secondary overflow-hidden">
       <div className="carter-container">
         <div className="max-w-6xl mx-auto">
           {/* Section label */}

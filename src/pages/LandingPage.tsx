@@ -128,12 +128,12 @@ const LandingPage = () => (
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.2, duration: 1.5 }}
-        className="relative z-10 mb-0 overflow-hidden w-[120%] -ml-[10%]"
+        className="relative z-10 mb-0 w-full"
       >
         <div className="relative flex items-center py-5 bg-white/[0.06] backdrop-blur-md border-t border-b border-white/[0.08]">
           {/* Fade edges */}
           <div className="absolute left-0 top-0 bottom-0 w-12 md:w-20 bg-gradient-to-r from-black/40 to-transparent z-10 pointer-events-none" />
-          <div className="absolute right-0 md:right-[180px] top-0 bottom-0 w-12 md:w-20 bg-gradient-to-l from-black/40 to-transparent z-10 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-12 md:w-20 bg-gradient-to-l from-black/40 to-transparent z-10 pointer-events-none sm:hidden" />
 
           {/* Scrolling logos */}
           <div className="flex-1 overflow-hidden">
@@ -146,9 +146,10 @@ const LandingPage = () => (
             </div>
           </div>
 
-          {/* Static "Nos partenaires" chip — hidden on small mobile */}
-          <div className="hidden sm:block flex-shrink-0 pl-8 pr-6 md:pr-10 relative z-20 bg-gradient-to-r from-transparent via-black to-black">
-            <span className="inline-block px-5 py-2 border border-white/40 rounded-sm text-sm font-sans font-medium tracking-wide text-white whitespace-nowrap cursor-default leading-none">
+          {/* Static "Nos partenaires" chip */}
+          <div className="hidden sm:flex flex-shrink-0 items-center pl-6 pr-6 md:pr-10 relative z-20">
+            <div className="absolute inset-y-0 -left-16 right-0 bg-gradient-to-r from-transparent via-black/80 to-black pointer-events-none" />
+            <span className="relative inline-block px-5 py-2 border border-white/40 rounded-sm text-sm font-sans font-medium tracking-wide text-white whitespace-nowrap cursor-default leading-none">
               Nos partenaires
             </span>
           </div>
