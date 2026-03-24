@@ -128,7 +128,7 @@ const FAQSection = () => {
   const items = tab === 'candidat' ? candidatFAQ : cabinetFAQ;
 
   return (
-    <section className="py-24 md:py-32 bg-[hsl(25,8%,12%)] relative">
+    <section className="py-24 md:py-32 bg-[hsl(25,8%,18%)] relative">
       <div className="max-w-4xl mx-auto px-6 sm:px-8 lg:px-10">
         {/* Header */}
         <motion.div
@@ -154,7 +154,7 @@ const FAQSection = () => {
           transition={{ duration: 0.5, delay: 0.1 }}
           className="flex justify-center mb-12"
         >
-          <div className="inline-flex rounded-full border border-white/20 bg-white/[0.06] p-1">
+          <div className="inline-flex rounded-full border border-white/15 bg-white/[0.05] p-1">
             {(['candidat', 'cabinet'] as Tab[]).map((t) => (
               <button
                 key={t}
@@ -172,29 +172,24 @@ const FAQSection = () => {
           </div>
         </motion.div>
 
-        {/* Accordion */}
+        {/* Accordion — clean, minimal, taupe-native */}
         <motion.div
           key={tab}
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
         >
-          <Accordion type="single" collapsible className="space-y-3">
+          <Accordion type="single" collapsible className="space-y-0">
             {items.map((item, i) => (
               <AccordionItem
                 key={i}
                 value={`item-${i}`}
-                className="border border-white/[0.08] bg-[hsl(0,0%,6%)] rounded-lg px-6 overflow-hidden data-[state=open]:bg-[hsl(0,0%,8%)] transition-all"
+                className="border-b border-white/[0.08] first:border-t first:border-white/[0.08] rounded-none px-0 overflow-hidden"
               >
-                <AccordionTrigger className="text-left font-sans text-sm md:text-[15px] font-medium text-white hover:no-underline py-5 gap-4">
-                  <span className="flex items-start gap-3">
-                    <span className="text-xs font-serif text-white/30 mt-0.5 flex-shrink-0">
-                      {String(i + 1).padStart(2, '0')}
-                    </span>
-                    {item.question}
-                  </span>
+                <AccordionTrigger className="text-left font-sans text-sm md:text-[15px] font-medium text-white/85 hover:text-white hover:no-underline py-6 gap-4 transition-colors">
+                  {item.question}
                 </AccordionTrigger>
-                <AccordionContent className="text-white/50 font-sans text-sm leading-relaxed pl-8 pb-6">
+                <AccordionContent className="text-white/45 font-sans text-sm leading-relaxed pb-6">
                   {item.answer}
                 </AccordionContent>
               </AccordionItem>
