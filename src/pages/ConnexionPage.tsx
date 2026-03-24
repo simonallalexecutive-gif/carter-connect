@@ -2,21 +2,14 @@ import { motion } from 'motion/react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Briefcase, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-
+import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 
 const ConnexionPage = () => {
   return (
     <div className="min-h-screen bg-background flex flex-col theme-light">
-      {/* Light header with dark text */}
-      <div className="w-full bg-white border-b border-border">
-        <div className="px-6 sm:px-8 lg:px-10 flex items-center justify-between h-20">
-          <Link to="/" className="flex items-center">
-            <span className="font-serif text-[31px] tracking-[0.04em] text-foreground">Logan</span>
-          </Link>
-        </div>
-      </div>
-      <main className="flex-1 flex items-center justify-center px-6">
+      <Header />
+      <main className="flex-1 flex items-center justify-center pt-20 px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

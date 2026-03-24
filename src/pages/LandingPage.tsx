@@ -1,5 +1,4 @@
-import { motion, AnimatePresence } from 'motion/react';
-import { useState, useEffect } from 'react';
+import { motion } from 'motion/react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import Header from '@/components/layout/Header';
@@ -33,22 +32,7 @@ const fadeUp = {
 };
 
 
-const MANIFESTO = [
-  'Un cercle privé d\'excellence, conçu, animé, et piloté par des chasseurs spécialisés.',
-  'Accès limité',
-];
-
-const LandingPage = () => {
-  const [manifestoIdx, setManifestoIdx] = useState(0);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setManifestoIdx((prev) => (prev + 1) % MANIFESTO.length);
-    }, 3200);
-    return () => clearInterval(timer);
-  }, []);
-
-  return (
+const LandingPage = () => (
   <div className="min-h-screen bg-background">
     <Header />
 
@@ -115,36 +99,20 @@ const LandingPage = () => {
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-transparent to-black/70" />
       </div>
-      <div className="px-6 sm:px-8 lg:px-10 max-w-6xl relative z-10 pt-24 flex-1 flex flex-col justify-center">
-        <motion.div variants={stagger} initial="hidden" animate="visible">
+      <div className="px-6 sm:px-8 lg:px-10 max-w-6xl relative z-10 pt-24 flex-1 flex items-center">
+        <motion.div variants={stagger} initial="hidden" animate="visible" className="max-w-3xl">
           <motion.p variants={fadeUp} className="text-xs font-sans font-medium tracking-[0.25em] uppercase text-white/50 mb-2 md:mb-4">
             &nbsp;
           </motion.p>
-          <motion.h1 variants={fadeUp} className="text-[3rem] sm:text-[3.75rem] md:text-[5rem] lg:text-[6.5rem] font-serif font-[500] text-white leading-[1.05] md:leading-[1.02] tracking-[-0.03em] whitespace-nowrap mb-3 md:mb-4">
-            Curating Leading Lawyers
-          </motion.h1>
-
-          {/* Manifesto lines */}
-          <div className="space-y-2 md:space-y-3" style={{ perspective: '800px' }}>
-            {MANIFESTO.map((line, i) => (
-              <div key={i} className="overflow-hidden">
-                <motion.p
-                  initial={{ opacity: 0, rotateX: 50, y: 40 }}
-                  animate={{ opacity: 1, rotateX: 0, y: 0 }}
-                  transition={{
-                    delay: 1.0 + i * 0.35,
-                    duration: 0.9,
-                    ease: [0.16, 1, 0.3, 1],
-                  }}
-                  className="font-sans text-white/90 text-[0.58rem] sm:text-[0.68rem] md:text-[0.84rem] lg:text-[1rem] font-[360] tracking-[0.01em]"
-                  style={{ transformOrigin: 'bottom center' }}
-                >
-                  {line}
-                </motion.p>
-              </div>
-            ))}
+          <div className="inline-block">
+            <motion.h1 variants={fadeUp} className="text-[3rem] sm:text-[3.75rem] md:text-[5rem] lg:text-[6.5rem] font-serif font-[500] text-white leading-[1.05] md:leading-[1.02] mb-8 md:mb-10 tracking-[-0.03em] whitespace-nowrap">
+              Curating Leading Lawyers
+            </motion.h1>
+            <motion.p variants={fadeUp} className="text-[0.92rem] sm:text-[0.98rem] md:text-[1.05rem] text-white font-sans font-[430] mb-3 leading-relaxed -mt-6" style={{ maxWidth: 'fit-content' }}>
+              Un cercle d'excellence, confidentiel et sélectif, conçu et piloté par des chasseurs spécialisés
+            </motion.p>
           </div>
-          <motion.div variants={fadeUp} className="mb-16 md:mb-24" />
+          <motion.div variants={fadeUp} className="mb-20 md:mb-28" />
         </motion.div>
       </div>
 
@@ -240,6 +208,6 @@ const LandingPage = () => {
 
     <Footer />
   </div>
-  );
-};
+);
+
 export default LandingPage;
