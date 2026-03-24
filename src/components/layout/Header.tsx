@@ -99,12 +99,6 @@ const Header = () => {
           >
             Prendre RDV
           </Link>
-          <Link
-            to="/demander-acces"
-            className="text-[13px] font-sans font-normal text-white border border-white/30 hover:border-white/60 hover:bg-white/[0.06] rounded-sm px-5 py-2 transition-all duration-200 tracking-wide"
-          >
-            Demander un accès
-          </Link>
         </div>
 
         {/* Mobile hamburger */}
