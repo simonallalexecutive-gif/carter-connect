@@ -197,9 +197,9 @@ const LandingPage = () => (
             Inscription confidentielle en moins de 10 minutes.<br />
             Profil validé sous 48h.
           </p>
-          <Link to="/inscription">
+          <Link to="/demander-acces">
             <Button size="lg" className="bg-white text-black hover:bg-white/90 font-sans text-sm font-medium px-10 py-6 rounded-sm tracking-wide">
-              Commencer maintenant
+              Demander un accès
             </Button>
           </Link>
         </motion.div>
