@@ -102,11 +102,11 @@ const LandingPage = () => (
       <div className="px-6 sm:px-8 lg:px-10 max-w-6xl relative z-10 pt-24 flex-1 flex items-center pb-4">
         <motion.div variants={stagger} initial="hidden" animate="visible" className="max-w-3xl">
           <div className="inline-block">
-            <motion.h1 variants={fadeUp} className="text-[2rem] sm:text-[3.75rem] md:text-[5rem] lg:text-[6.5rem] font-serif font-[500] text-white leading-[1.1] md:leading-[1.02] mb-3 md:mb-5 tracking-[-0.03em] whitespace-nowrap">
+          <motion.h1 variants={fadeUp} className="text-[2rem] sm:text-[3.75rem] md:text-[5rem] lg:text-[6.5rem] font-serif font-[500] text-white/50 leading-[1.1] md:leading-[1.02] mb-3 md:mb-5 tracking-[-0.03em] whitespace-nowrap">
               Curating Leading Lawyers
             </motion.h1>
           </div>
-          <motion.p variants={fadeUp} className="text-[0.92rem] sm:text-[1.08rem] md:text-[1.14rem] text-white/50 font-sans font-[480] leading-relaxed max-w-3xl">
+          <motion.p variants={fadeUp} className="text-[0.92rem] sm:text-[1.08rem] md:text-[1.14rem] text-white font-sans font-[480] leading-relaxed max-w-3xl">
             Un cercle privé d'excellence, structuré et piloté par des chasseurs spécialisés, dédié aux profils et cabinets d'affaires les plus exigeants du marché.
           </motion.p>
           <motion.div variants={fadeUp} className="mt-8 sm:mt-14">
@@ -139,7 +139,7 @@ const LandingPage = () => (
           <div className="flex-1 overflow-hidden">
             <div className="flex animate-marquee whitespace-nowrap items-center">
               {[...firmNames, ...firmNames].map((name, i) => (
-                <span key={i} className="mx-6 md:mx-14 text-base md:text-[1.05rem] font-serif font-medium text-white/50 select-none flex-shrink-0 tracking-wide">
+                <span key={i} className="mx-6 md:mx-14 text-base md:text-[1.05rem] font-serif font-medium text-white select-none flex-shrink-0 tracking-wide">
                   {name}
                 </span>
               ))}
@@ -149,7 +149,7 @@ const LandingPage = () => (
           {/* Static "Nos partenaires" chip */}
           <div className="hidden sm:flex flex-shrink-0 items-center pl-6 pr-6 md:pr-10 relative z-20">
             <div className="absolute inset-y-0 -left-16 right-0 bg-gradient-to-r from-transparent via-black/80 to-black pointer-events-none" />
-            <span className="relative inline-block px-5 py-2 border border-white/40 rounded-sm text-sm font-sans font-medium tracking-wide text-white whitespace-nowrap cursor-default leading-none">
+            <span className="relative inline-block px-5 py-2 border border-white/40 rounded-sm text-sm font-sans font-normal tracking-wide text-white whitespace-nowrap cursor-default leading-none">
               Nos partenaires
             </span>
           </div>
@@ -167,20 +167,20 @@ const LandingPage = () => (
       <FounderSection />
     </div>
 
-    {/* Nos engagements */}
-    <div id="nos-engagements">
-      <BenefitsSection />
-    </div>
+    {/* Stats ticker */}
+    <StatsTickerSection />
 
-    {/* Subtle divider between Benefits and Stats */}
+    {/* Subtle divider between Stats and Benefits */}
     <div className="bg-foreground">
       <div className="max-w-5xl mx-auto">
         <div className="h-px bg-white/[0.08]" />
       </div>
     </div>
 
-    {/* Stats ticker */}
-    <StatsTickerSection />
+    {/* Nos engagements */}
+    <div id="nos-engagements">
+      <BenefitsSection />
+    </div>
 
     {/* FAQ */}
     <div id="faq">

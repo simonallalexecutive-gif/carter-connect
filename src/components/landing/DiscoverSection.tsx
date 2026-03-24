@@ -335,7 +335,7 @@ const DiscoverSection = () => {
   };
 
   return (
-    <section className="py-24 md:py-32 bg-background relative overflow-hidden" id="notre-approche-section">
+    <section className="py-16 md:py-20 bg-background relative overflow-hidden" id="notre-approche-section">
 
       <div className="carter-container relative z-10">
         {/* Header */}
@@ -365,13 +365,13 @@ const DiscoverSection = () => {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="flex justify-center mb-16"
         >
-          <div className="inline-flex bg-foreground/10 rounded-full p-1.5">
+          <div className="inline-flex bg-foreground/10 rounded-none p-1.5">
             {(['candidat', 'cabinet'] as Perspective[]).map(p => (
               <button
                 key={p}
                 onClick={() => switchPerspective(p)}
                 className={cn(
-                  'px-7 py-2.5 text-xs font-sans font-medium rounded-full transition-all duration-400 inline-flex items-center gap-2',
+                  'px-7 py-2.5 text-xs font-sans font-medium rounded-none transition-all duration-400 inline-flex items-center gap-2',
                   perspective === p
                     ? 'bg-foreground text-background shadow-md'
                     : 'text-foreground/50 hover:text-foreground/80'
@@ -391,7 +391,7 @@ const DiscoverSection = () => {
                 <button
                   onClick={() => setActiveStep(i)}
                   className={cn(
-                    'flex items-center gap-3 px-5 py-3 rounded-full transition-all duration-400',
+                    'flex items-center gap-3 px-5 py-3 rounded-none transition-all duration-400',
                     i === activeStep
                       ? 'bg-foreground text-background shadow-lg'
                       : 'text-foreground/50 hover:text-foreground/80 hover:bg-foreground/10'
@@ -426,20 +426,20 @@ const DiscoverSection = () => {
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
             className="max-w-5xl mx-auto"
           >
-            <div className="bg-[hsl(0,0%,7%)] border border-white/[0.06] rounded-2xl shadow-[0_8px_40px_hsl(0_0%_0%/0.4)] overflow-hidden">
+            <div className="bg-[hsl(40,20%,96%)] border border-foreground/[0.08] rounded-none shadow-[0_8px_40px_hsl(0_0%_0%/0.12)] overflow-hidden">
               <div className="grid md:grid-cols-5 gap-0">
                 {/* Left — Content (3/5) */}
                 <div className="md:col-span-3 p-8 md:p-12 lg:p-14 flex flex-col justify-center">
                   <div className="mb-5 flex items-center gap-3">
-                    <span className="w-8 h-8 rounded-full bg-white/[0.08] flex items-center justify-center text-[11px] font-mono font-bold text-white/50">
+                    <span className="w-8 h-8 rounded-none bg-foreground/[0.08] flex items-center justify-center text-[11px] font-mono font-bold text-foreground/50">
                       {step.number}
                     </span>
-                    <div className="h-px flex-1 bg-white/[0.06]" />
+                    <div className="h-px flex-1 bg-foreground/[0.08]" />
                   </div>
-                  <h3 className="font-serif text-2xl md:text-3xl font-normal text-white mb-3 tracking-[-0.01em] leading-tight">
+                  <h3 className="font-serif text-2xl md:text-3xl font-normal text-foreground mb-3 tracking-[-0.01em] leading-tight">
                     {step.title}
                   </h3>
-                  <p className="text-sm text-white/45 font-light leading-relaxed mb-8">
+                  <p className="text-sm text-foreground/50 font-light leading-relaxed mb-8">
                     {step.description}
                   </p>
 
@@ -453,8 +453,8 @@ const DiscoverSection = () => {
                         transition={{ delay: 0.2 + i * 0.08, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                         className="flex items-start gap-3"
                       >
-                        <div className="w-1 h-1 rounded-full bg-white/25 mt-2 flex-shrink-0" />
-                        <p className="text-[13px] text-white/55 leading-relaxed">{detail}</p>
+                        <div className="w-1 h-1 rounded-full bg-foreground/30 mt-2 flex-shrink-0" />
+                        <p className="text-[13px] text-foreground/60 leading-relaxed">{detail}</p>
                       </motion.div>
                     ))}
                   </div>
@@ -468,7 +468,7 @@ const DiscoverSection = () => {
                       className="mt-10"
                     >
                       <Link to={perspective === 'candidat' ? '/inscription?start=2' : '/cabinet?start=2'}>
-                        <Button className="bg-white text-black hover:bg-white/90 text-xs font-medium rounded-full px-8 py-5 group">
+                        <Button className="bg-foreground text-background hover:bg-foreground/90 text-xs font-medium rounded-none px-8 py-5 group">
                           {perspective === 'candidat' ? 'Créer mon profil' : 'Inscrire mon cabinet'}
                           <ArrowRight className="w-3.5 h-3.5 ml-2 transition-transform group-hover:translate-x-1" />
                         </Button>
@@ -478,7 +478,7 @@ const DiscoverSection = () => {
                 </div>
 
                 {/* Right — Visual preview (2/5) */}
-                <div className="md:col-span-2 p-6 md:p-8 flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-white/[0.04] to-white/[0.01] border-t md:border-t-0 md:border-l border-white/[0.06]">
+                <div className="md:col-span-2 p-6 md:p-8 flex items-center justify-center relative overflow-hidden bg-[hsl(0,0%,95%)] border-t md:border-t-0 md:border-l border-foreground/[0.06]">
                   <motion.div
                     initial={{ opacity: 0, scale: 0.94, y: 8 }}
                     animate={{ opacity: 1, scale: 1, y: 0 }}

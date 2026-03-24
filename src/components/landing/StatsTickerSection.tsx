@@ -50,7 +50,7 @@ const StatsTickerSection = () => {
   const inView = useInView(ref, { once: true, margin: '-80px' });
 
   return (
-    <section ref={ref} className="relative py-24 md:py-32 bg-foreground overflow-hidden">
+    <section ref={ref} className="relative py-16 md:py-20 bg-foreground overflow-hidden">
 
       <div className="carter-container relative z-10">
         {/* Header */}

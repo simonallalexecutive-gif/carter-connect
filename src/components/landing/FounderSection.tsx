@@ -17,7 +17,7 @@ const FounderSection = () => {
   };
 
   return (
-    <section className="py-20 md:py-32 bg-secondary overflow-hidden">
+    <section className="py-14 md:py-20 bg-secondary overflow-hidden">
       <div className="carter-container">
         <div className="max-w-5xl mx-auto">
           {/* Section label */}
@@ -26,7 +26,7 @@ const FounderSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="text-xs font-sans font-medium tracking-[0.2em] uppercase text-muted-foreground mb-16 text-center"
+            className="text-xs font-sans font-medium tracking-[0.2em] uppercase text-muted-foreground mb-10 text-center"
           >
             Notre vision
           </motion.p>
@@ -37,7 +37,7 @@ const FounderSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-            className="flex flex-col md:flex-row items-center md:items-start gap-10 md:gap-14 mb-20"
+            className="flex flex-col items-center gap-6 mb-16"
           >
             {/* Photo */}
             <div className="flex-shrink-0 flex flex-col items-center gap-3">
@@ -76,7 +76,7 @@ const FounderSection = () => {
             </div>
 
             {/* Bio text */}
-            <div className="text-center md:text-left flex-1">
+            <div className="text-center max-w-2xl">
               <h3 className="font-serif text-2xl md:text-3xl text-foreground font-normal mb-1 tracking-[-0.01em]">
                 Simon Allal
               </h3>
@@ -101,7 +101,7 @@ const FounderSection = () => {
             className="text-center max-w-3xl mx-auto"
           >
             <div className="w-12 h-px bg-foreground/15 mx-auto mb-8" />
-            <p className="font-serif text-lg sm:text-xl md:text-2xl text-foreground/40 italic leading-relaxed mb-4 tracking-[-0.01em]">
+            <p className="font-serif text-lg sm:text-xl md:text-2xl text-foreground/55 italic leading-relaxed mb-4 tracking-[-0.01em]">
               «&nbsp;Logan se positionne comme la plateforme la plus exigeante et structurée du marché, offrant un accompagnement sur mesure, résolument confidentiel et parfaitement ciblé.&nbsp;»
             </p>
             <span className="text-[10px] font-sans font-medium tracking-[0.15em] uppercase text-muted-foreground/60">

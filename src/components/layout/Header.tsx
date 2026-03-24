@@ -82,22 +82,22 @@ const Header = () => {
               FAQ
               <ChevronDown className="w-3 h-3 opacity-60" />
             </button>
+            <Link
+              to="/rendez-vous"
+              className="flex items-center gap-1 px-3 py-1.5 text-[14px] font-sans font-normal text-white/70 hover:text-white transition-colors duration-200 tracking-wide"
+            >
+              Prendre RDV
+            </Link>
           </nav>
         </div>
 
         {/* Right: Connexion, Prendre RDV + Demander un accès button */}
-        <div className="hidden md:flex items-center gap-3">
+        <div className="hidden md:flex items-center">
           <Link
             to="/connexion"
             className="text-[14px] font-sans font-normal text-white/70 hover:text-white px-3 py-1.5 transition-colors duration-200 tracking-wide"
           >
             Connexion
-          </Link>
-          <Link
-            to="/rendez-vous"
-            className="text-[14px] font-sans font-normal text-white/70 hover:text-white px-3 py-1.5 transition-colors duration-200 tracking-wide"
-          >
-            Prendre RDV
           </Link>
         </div>
 
