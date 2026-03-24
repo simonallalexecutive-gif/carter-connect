@@ -51,7 +51,7 @@ const FounderSection = () => {
               «&nbsp;Logan se positionne comme la plateforme la plus exigeante et structurée du marché, offrant un accompagnement sur mesure, résolument confidentiel et parfaitement ciblé.&nbsp;»
             </p>
             <span className="text-[10px] sm:text-[11px] font-sans font-medium tracking-[0.15em] uppercase text-white/40">
-              — L'équipe Logan
+              — Simon Allal, Fondateur
             </span>
           </motion.blockquote>
 
