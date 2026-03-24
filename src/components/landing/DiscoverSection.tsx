@@ -492,20 +492,36 @@ const DiscoverSection = () => {
           </motion.div>
         </AnimatePresence>
 
-        {/* Navigation arrows */}
-        <div className="flex justify-center items-center gap-3 mt-10">
-          {steps.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => setActiveStep(i)}
-              className={cn(
-                'transition-all duration-400 rounded-full',
-                i === activeStep
-                  ? 'w-8 h-2 bg-foreground'
-                  : 'w-2 h-2 bg-foreground/20 hover:bg-foreground/40'
-              )}
-            />
-          ))}
+        {/* Navigation arrows + dots */}
+        <div className="flex justify-center items-center gap-6 mt-10">
+          <button
+            onClick={() => setActiveStep(Math.max(0, activeStep - 1))}
+            disabled={activeStep === 0}
+            className="w-10 h-10 rounded-full border border-foreground/15 hover:border-foreground/40 flex items-center justify-center transition-all disabled:opacity-20 disabled:cursor-not-allowed hover:bg-foreground/5"
+          >
+            <ArrowRight className="w-4 h-4 text-foreground rotate-180" />
+          </button>
+          <div className="flex items-center gap-3">
+            {steps.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setActiveStep(i)}
+                className={cn(
+                  'transition-all duration-400 rounded-full',
+                  i === activeStep
+                    ? 'w-8 h-2 bg-foreground'
+                    : 'w-2 h-2 bg-foreground/20 hover:bg-foreground/40'
+                )}
+              />
+            ))}
+          </div>
+          <button
+            onClick={() => setActiveStep(Math.min(steps.length - 1, activeStep + 1))}
+            disabled={activeStep === steps.length - 1}
+            className="w-10 h-10 rounded-full border border-foreground/15 hover:border-foreground/40 flex items-center justify-center transition-all disabled:opacity-20 disabled:cursor-not-allowed hover:bg-foreground/5"
+          >
+            <ArrowRight className="w-4 h-4 text-foreground" />
+          </button>
         </div>
       </div>
     </section>
