@@ -108,11 +108,38 @@ const LandingPage = () => (
             <motion.h1 variants={fadeUp} className="text-[3rem] sm:text-[3.75rem] md:text-[5rem] lg:text-[6.5rem] font-serif font-[500] text-white leading-[1.05] md:leading-[1.02] mb-8 md:mb-10 tracking-[-0.03em] whitespace-nowrap">
               Curating Leading Lawyers
             </motion.h1>
-            <motion.div variants={fadeUp} className="font-sans font-[500] text-white leading-[1.7] -mt-6 text-[0.92rem] sm:text-[0.98rem] md:text-[1.05rem]">
-              <p>Un cercle privé d'excellence</p>
-              <p>Conçu, animé et piloté par des chasseurs spécialisés</p>
-              <p>Accès limité</p>
-            </motion.div>
+            <div className="font-sans font-[500] text-white -mt-6 text-[0.92rem] sm:text-[0.98rem] md:text-[1.05rem] space-y-1">
+              {[
+                { text: 'Un cercle privé d\'excellence', delay: 1.0 },
+                { text: 'Conçu, animé et piloté par des chasseurs spécialisés', delay: 1.6 },
+                { text: 'Accès limité', delay: 2.2 },
+              ].map((line, i) => (
+                <div key={i} className="overflow-hidden relative">
+                  {/* Reveal mask — slides up to show text */}
+                  <motion.p
+                    initial={{ y: '110%', opacity: 0 }}
+                    animate={{ y: '0%', opacity: 1 }}
+                    transition={{ delay: line.delay, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                    className="leading-relaxed"
+                  >
+                    {line.text}
+                  </motion.p>
+                  {/* Horizontal wipe accent — sweeps across after text reveals */}
+                  <motion.div
+                    initial={{ scaleX: 0 }}
+                    animate={{ scaleX: [0, 1, 1, 0] }}
+                    transition={{
+                      delay: line.delay + 0.15,
+                      duration: 0.9,
+                      times: [0, 0.4, 0.6, 1],
+                      ease: [0.16, 1, 0.3, 1],
+                    }}
+                    className="absolute bottom-0 left-0 right-0 h-full bg-white/10 origin-left"
+                    style={{ transformOrigin: 'left' }}
+                  />
+                </div>
+              ))}
+            </div>
           </div>
           <motion.div variants={fadeUp} className="mb-20 md:mb-28" />
         </motion.div>
