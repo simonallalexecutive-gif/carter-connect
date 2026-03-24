@@ -106,21 +106,13 @@ const LandingPage = () => (
           </motion.p>
           <div className="inline-block">
             <motion.h1 variants={fadeUp} className="text-[3rem] sm:text-[3.75rem] md:text-[5rem] lg:text-[6.5rem] font-serif font-[500] text-white leading-[1.05] md:leading-[1.02] mb-8 md:mb-10 tracking-[-0.03em] whitespace-nowrap">
-              Connecting Leading Lawyers
+              Curating Leading Lawyers
             </motion.h1>
             <motion.p variants={fadeUp} className="text-[0.92rem] sm:text-[0.98rem] md:text-[1.05rem] text-white font-sans font-[430] mb-3 leading-relaxed -mt-6" style={{ maxWidth: 'fit-content' }}>
-              Un réseau d'excellence, entretenu et orchestré par des chasseurs spécialisés, conçu pour rapprocher dans la plus stricte confidentialité les candidats et cabinets d'affaires les plus exigeants du marché.
+              Un cercle d'excellence, confidentiel et sélectif, conçu et piloté par des chasseurs spécialisés
             </motion.p>
           </div>
           <motion.div variants={fadeUp} className="mb-20 md:mb-28" />
-          <motion.div variants={fadeUp}>
-            <Link to="/inscription">
-              <Button size="lg" className="bg-white text-black border border-white hover:bg-white/90 font-sans text-sm font-medium px-6 sm:px-8 py-5 sm:py-6 rounded-sm tracking-wide group transition-all duration-300">
-                Rejoindre Logan
-                <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
-              </Button>
-            </Link>
-          </motion.div>
         </motion.div>
       </div>
 
