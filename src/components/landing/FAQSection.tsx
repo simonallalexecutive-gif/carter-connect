@@ -128,7 +128,7 @@ const FAQSection = () => {
   const items = tab === 'candidat' ? candidatFAQ : cabinetFAQ;
 
   return (
-    <section className="py-24 md:py-32 bg-[hsl(220,10%,8%)] relative">
+    <section className="py-24 md:py-32 bg-[hsl(30,6%,14%)] relative">
       <div className="max-w-4xl mx-auto px-6 sm:px-8 lg:px-10">
         {/* Header */}
         <motion.div

@@ -167,20 +167,20 @@ const LandingPage = () => (
       <FounderSection />
     </div>
 
-    {/* Stats ticker */}
-    <StatsTickerSection />
+    {/* Nos engagements */}
+    <div id="nos-engagements">
+      <BenefitsSection />
+    </div>
 
-    {/* Subtle divider between Stats and Benefits */}
+    {/* Subtle divider between Benefits and Stats */}
     <div className="bg-foreground">
       <div className="max-w-5xl mx-auto">
         <div className="h-px bg-white/[0.08]" />
       </div>
     </div>
 
-    {/* Nos engagements */}
-    <div id="nos-engagements">
-      <BenefitsSection />
-    </div>
+    {/* Stats ticker */}
+    <StatsTickerSection />
 
     {/* FAQ */}
     <div id="faq">

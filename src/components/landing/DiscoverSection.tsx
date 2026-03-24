@@ -426,19 +426,20 @@ const DiscoverSection = () => {
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
             className="max-w-5xl mx-auto"
           >
-            <div className="bg-[hsl(0,0%,7%)] border border-white/[0.06] rounded-2xl shadow-[0_4px_24px_hsl(0_0%_0%/0.3)] overflow-hidden">
-              <div className="grid md:grid-cols-2 gap-0">
-                {/* Left — Content */}
-                <div className="p-8 md:p-12 flex flex-col justify-center">
-                  <div className="mb-6">
-                    <span className="text-[10px] font-mono font-bold text-white/40 tracking-wider">
-                      Étape {step.number}
+            <div className="bg-[hsl(0,0%,7%)] border border-white/[0.06] rounded-2xl shadow-[0_8px_40px_hsl(0_0%_0%/0.4)] overflow-hidden">
+              <div className="grid md:grid-cols-5 gap-0">
+                {/* Left — Content (3/5) */}
+                <div className="md:col-span-3 p-8 md:p-12 lg:p-14 flex flex-col justify-center">
+                  <div className="mb-5 flex items-center gap-3">
+                    <span className="w-8 h-8 rounded-full bg-white/[0.08] flex items-center justify-center text-[11px] font-mono font-bold text-white/50">
+                      {step.number}
                     </span>
+                    <div className="h-px flex-1 bg-white/[0.06]" />
                   </div>
                   <h3 className="font-serif text-2xl md:text-3xl font-normal text-white mb-3 tracking-[-0.01em] leading-tight">
                     {step.title}
                   </h3>
-                  <p className="text-sm text-white/50 font-light leading-relaxed mb-8">
+                  <p className="text-sm text-white/45 font-light leading-relaxed mb-8">
                     {step.description}
                   </p>
 
@@ -452,8 +453,8 @@ const DiscoverSection = () => {
                         transition={{ delay: 0.2 + i * 0.08, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                         className="flex items-start gap-3"
                       >
-                        <div className="w-1.5 h-1.5 rounded-full bg-white/30 mt-1.5 flex-shrink-0" />
-                        <p className="text-xs text-white/60 leading-relaxed">{detail}</p>
+                        <div className="w-1 h-1 rounded-full bg-white/25 mt-2 flex-shrink-0" />
+                        <p className="text-[13px] text-white/55 leading-relaxed">{detail}</p>
                       </motion.div>
                     ))}
                   </div>
@@ -476,13 +477,13 @@ const DiscoverSection = () => {
                   )}
                 </div>
 
-                {/* Right — Visual (white preview cards) */}
-                <div className="p-8 md:p-10 flex items-center justify-center relative overflow-hidden bg-white/[0.03] border-l border-white/[0.06]">
+                {/* Right — Visual preview (2/5) */}
+                <div className="md:col-span-2 p-6 md:p-8 flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-white/[0.04] to-white/[0.01] border-t md:border-t-0 md:border-l border-white/[0.06]">
                   <motion.div
-                    initial={{ opacity: 0, scale: 0.96 }}
-                    animate={{ opacity: 1, scale: 1 }}
+                    initial={{ opacity: 0, scale: 0.94, y: 8 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
                     transition={{ delay: 0.15, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                    className="w-full max-w-xs"
+                    className="w-full max-w-[280px]"
                   >
                     {step.visual}
                   </motion.div>
