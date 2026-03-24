@@ -14,6 +14,9 @@ import VideoPreview from "./pages/VideoPreview";
 import AdminPage from "./pages/AdminPage";
 import CandidateDashboard from "./pages/CandidateDashboard";
 import NotFound from "./pages/NotFound";
+import AccessRequestPage from "./pages/AccessRequestPage";
+import ConnexionPage from "./pages/ConnexionPage";
+import ConnexionCandidatPage from "./pages/ConnexionCandidatPage";
 
 const queryClient = new QueryClient();
 
