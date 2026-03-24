@@ -31,15 +31,15 @@ const FounderSection = () => {
             Notre vision
           </motion.p>
 
-          {/* Founder row */}
+          {/* Founder row — photo left, text right */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-            className="flex flex-col items-center gap-6 mb-16"
+            className="flex flex-col md:flex-row items-center md:items-start gap-10 md:gap-14 mb-16 max-w-3xl mx-auto"
           >
-            {/* Photo */}
+            {/* Photo — left */}
             <div className="flex-shrink-0 flex flex-col items-center gap-3">
               <div
                 className="w-36 h-36 sm:w-44 sm:h-44 rounded-full overflow-hidden border-2 border-foreground/10 shadow-lg cursor-pointer relative group"
@@ -73,16 +73,28 @@ const FounderSection = () => {
                   </Button>
                 </div>
               )}
+
+              {/* Name under photo on mobile, beside on desktop */}
+              <div className="text-center md:hidden">
+                <h3 className="font-serif text-2xl text-foreground font-normal mb-0.5 tracking-[-0.01em]">
+                  Simon Allal
+                </h3>
+                <p className="text-[11px] font-sans font-medium tracking-[0.15em] uppercase text-muted-foreground">
+                  Fondateur
+                </p>
+              </div>
             </div>
 
-            {/* Bio text */}
-            <div className="text-center max-w-2xl">
-              <h3 className="font-serif text-2xl md:text-3xl text-foreground font-normal mb-1 tracking-[-0.01em]">
-                Simon Allal
-              </h3>
-              <p className="text-[11px] font-sans font-medium tracking-[0.15em] uppercase text-muted-foreground mb-6">
-                Fondateur
-              </p>
+            {/* Bio text — right */}
+            <div className="text-center md:text-left flex-1">
+              <div className="hidden md:block mb-4">
+                <h3 className="font-serif text-2xl md:text-3xl text-foreground font-normal mb-0.5 tracking-[-0.01em]">
+                  Simon Allal
+                </h3>
+                <p className="text-[11px] font-sans font-medium tracking-[0.15em] uppercase text-muted-foreground">
+                  Fondateur
+                </p>
+              </div>
               <p className="font-sans text-[0.92rem] text-foreground/70 font-light leading-relaxed mb-4">
                 Fort d'un réseau reconnu et d'une compréhension aiguë du marché des avocats, Simon a fondé Logan avec une conviction&nbsp;: l'expérience recrutement doit être repensée en proposant une approche plus structurée, plus confidentielle et plus exigeante.
               </p>
@@ -101,7 +113,7 @@ const FounderSection = () => {
             className="text-center max-w-3xl mx-auto"
           >
             <div className="w-12 h-px bg-foreground/15 mx-auto mb-8" />
-            <p className="font-serif text-lg sm:text-xl md:text-2xl text-foreground/55 italic leading-relaxed mb-4 tracking-[-0.01em]">
+            <p className="font-serif text-base sm:text-lg md:text-xl text-foreground/55 italic leading-relaxed mb-4 tracking-[-0.01em]">
               «&nbsp;Logan se positionne comme la plateforme la plus exigeante et structurée du marché, offrant un accompagnement sur mesure, résolument confidentiel et parfaitement ciblé.&nbsp;»
             </p>
             <span className="text-[10px] font-sans font-medium tracking-[0.15em] uppercase text-muted-foreground/60">
