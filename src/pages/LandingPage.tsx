@@ -102,7 +102,7 @@ const LandingPage = () => (
       <div className="px-6 sm:px-8 lg:px-10 max-w-6xl relative z-10 pt-24 flex-1 flex items-center pb-4">
         <motion.div variants={stagger} initial="hidden" animate="visible" className="max-w-3xl">
           <div className="inline-block">
-            <motion.h1 variants={fadeUp} className="text-[2rem] sm:text-[3.75rem] md:text-[5rem] lg:text-[6.5rem] font-serif font-[500] text-white leading-[1.1] md:leading-[1.02] mb-3 md:mb-5 tracking-[-0.03em]">
+            <motion.h1 variants={fadeUp} className="text-[2rem] sm:text-[3.75rem] md:text-[5rem] lg:text-[6.5rem] font-serif font-[500] text-white leading-[1.1] md:leading-[1.02] mb-3 md:mb-5 tracking-[-0.03em] whitespace-nowrap">
               Curating Leading Lawyers
             </motion.h1>
           </div>
@@ -169,6 +169,13 @@ const LandingPage = () => (
 
     {/* Stats ticker */}
     <StatsTickerSection />
+
+    {/* Subtle divider between Stats and Benefits */}
+    <div className="bg-foreground">
+      <div className="max-w-5xl mx-auto">
+        <div className="h-px bg-white/[0.08]" />
+      </div>
+    </div>
 
     {/* Nos engagements */}
     <div id="nos-engagements">

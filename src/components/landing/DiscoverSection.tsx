@@ -335,7 +335,7 @@ const DiscoverSection = () => {
   };
 
   return (
-    <section className="py-24 md:py-32 bg-background relative overflow-hidden">
+    <section className="py-24 md:py-32 bg-background relative overflow-hidden" id="notre-approche-section">
 
       <div className="carter-container relative z-10">
         {/* Header */}
@@ -426,19 +426,19 @@ const DiscoverSection = () => {
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
             className="max-w-5xl mx-auto"
           >
-            <div className="bg-foreground/[0.04] border border-foreground/[0.08] rounded-2xl shadow-[0_4px_24px_hsl(0_0%_0%/0.06),0_1px_4px_hsl(0_0%_0%/0.04)] overflow-hidden">
+            <div className="bg-[hsl(0,0%,7%)] border border-white/[0.06] rounded-2xl shadow-[0_4px_24px_hsl(0_0%_0%/0.3)] overflow-hidden">
               <div className="grid md:grid-cols-2 gap-0">
                 {/* Left — Content */}
                 <div className="p-8 md:p-12 flex flex-col justify-center">
                   <div className="mb-6">
-                    <span className="text-[10px] font-mono font-bold text-muted-foreground tracking-wider">
+                    <span className="text-[10px] font-mono font-bold text-white/40 tracking-wider">
                       Étape {step.number}
                     </span>
                   </div>
-                  <h3 className="font-serif text-2xl md:text-3xl font-normal text-foreground mb-3 tracking-[-0.01em] leading-tight">
+                  <h3 className="font-serif text-2xl md:text-3xl font-normal text-white mb-3 tracking-[-0.01em] leading-tight">
                     {step.title}
                   </h3>
-                  <p className="text-sm text-muted-foreground font-light leading-relaxed mb-8">
+                  <p className="text-sm text-white/50 font-light leading-relaxed mb-8">
                     {step.description}
                   </p>
 
@@ -452,8 +452,8 @@ const DiscoverSection = () => {
                         transition={{ delay: 0.2 + i * 0.08, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                         className="flex items-start gap-3"
                       >
-                        <div className="w-1.5 h-1.5 rounded-full bg-foreground/30 mt-1.5 flex-shrink-0" />
-                        <p className="text-xs text-foreground/70 leading-relaxed">{detail}</p>
+                        <div className="w-1.5 h-1.5 rounded-full bg-white/30 mt-1.5 flex-shrink-0" />
+                        <p className="text-xs text-white/60 leading-relaxed">{detail}</p>
                       </motion.div>
                     ))}
                   </div>
@@ -467,7 +467,7 @@ const DiscoverSection = () => {
                       className="mt-10"
                     >
                       <Link to={perspective === 'candidat' ? '/inscription?start=2' : '/cabinet?start=2'}>
-                        <Button className="bg-foreground text-background hover:bg-foreground/90 text-xs font-medium rounded-full px-8 py-5 group">
+                        <Button className="bg-white text-black hover:bg-white/90 text-xs font-medium rounded-full px-8 py-5 group">
                           {perspective === 'candidat' ? 'Créer mon profil' : 'Inscrire mon cabinet'}
                           <ArrowRight className="w-3.5 h-3.5 ml-2 transition-transform group-hover:translate-x-1" />
                         </Button>
@@ -476,8 +476,8 @@ const DiscoverSection = () => {
                   )}
                 </div>
 
-                {/* Right — Visual */}
-                <div className="p-8 md:p-10 flex items-center justify-center relative overflow-hidden">
+                {/* Right — Visual (white preview cards) */}
+                <div className="p-8 md:p-10 flex items-center justify-center relative overflow-hidden bg-white/[0.03] border-l border-white/[0.06]">
                   <motion.div
                     initial={{ opacity: 0, scale: 0.96 }}
                     animate={{ opacity: 1, scale: 1 }}
@@ -497,7 +497,7 @@ const DiscoverSection = () => {
           <button
             onClick={() => setActiveStep(Math.max(0, activeStep - 1))}
             disabled={activeStep === 0}
-            className="w-10 h-10 rounded-full border border-foreground/15 hover:border-foreground/40 flex items-center justify-center transition-all disabled:opacity-20 disabled:cursor-not-allowed hover:bg-foreground/5"
+            className="w-10 h-10 rounded-full border border-foreground/15 hover:border-foreground/40 flex items-center justify-center transition-all disabled:opacity-20 disabled:cursor-not-allowed hover:bg-foreground/[0.03]"
           >
             <ArrowRight className="w-4 h-4 text-foreground rotate-180" />
           </button>
@@ -518,7 +518,7 @@ const DiscoverSection = () => {
           <button
             onClick={() => setActiveStep(Math.min(steps.length - 1, activeStep + 1))}
             disabled={activeStep === steps.length - 1}
-            className="w-10 h-10 rounded-full border border-foreground/15 hover:border-foreground/40 flex items-center justify-center transition-all disabled:opacity-20 disabled:cursor-not-allowed hover:bg-foreground/5"
+            className="w-10 h-10 rounded-full border border-foreground/15 hover:border-foreground/40 flex items-center justify-center transition-all disabled:opacity-20 disabled:cursor-not-allowed hover:bg-foreground/[0.03]"
           >
             <ArrowRight className="w-4 h-4 text-foreground" />
           </button>
