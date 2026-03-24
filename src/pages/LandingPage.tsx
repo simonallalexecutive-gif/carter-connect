@@ -213,7 +213,7 @@ const LandingPage = () => (
           className="max-w-xl mx-auto"
         >
           <h2 className="text-2xl md:text-4xl lg:text-[2.75rem] font-serif font-normal text-white mb-6 tracking-[-0.02em]">
-            Intégrer le réseau
+            Request access
           </h2>
           <p className="text-white/50 font-sans font-light mb-10 leading-relaxed">
             Inscription confidentielle en moins de 10 minutes.<br />
