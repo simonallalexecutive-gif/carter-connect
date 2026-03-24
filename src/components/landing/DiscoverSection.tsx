@@ -431,14 +431,14 @@ const DiscoverSection = () => {
                 {/* Left — Content */}
                 <div className="p-8 md:p-12 flex flex-col justify-center">
                   <div className="mb-6">
-                    <span className="text-[10px] font-mono font-bold text-foreground/50 tracking-wider">
+                    <span className="text-[10px] font-mono font-bold text-white/50 tracking-wider">
                       Étape {step.number}
                     </span>
                   </div>
-                  <h3 className="font-serif text-2xl md:text-3xl font-normal text-foreground mb-3 tracking-[-0.01em] leading-tight">
+                  <h3 className="font-serif text-2xl md:text-3xl font-normal text-white mb-3 tracking-[-0.01em] leading-tight">
                     {step.title}
                   </h3>
-                  <p className="text-sm text-background/60 font-light leading-relaxed mb-8">
+                  <p className="text-sm text-white/60 font-light leading-relaxed mb-8">
                     {step.description}
                   </p>
 
@@ -452,8 +452,8 @@ const DiscoverSection = () => {
                         transition={{ delay: 0.2 + i * 0.08, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                         className="flex items-start gap-3"
                       >
-                        <div className="w-1.5 h-1.5 rounded-full bg-background/30 mt-1.5 flex-shrink-0" />
-                        <p className="text-xs text-background/70 leading-relaxed">{detail}</p>
+                        <div className="w-1.5 h-1.5 rounded-full bg-white/30 mt-1.5 flex-shrink-0" />
+                        <p className="text-xs text-white/70 leading-relaxed">{detail}</p>
                       </motion.div>
                     ))}
                   </div>
