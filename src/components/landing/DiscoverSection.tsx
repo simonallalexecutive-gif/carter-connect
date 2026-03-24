@@ -133,7 +133,7 @@ const candidatSteps: Step[] = [
           </div>
           <div className="pt-4 border-t border-foreground/[0.08] flex items-center justify-between">
             <span className="text-[9px] text-foreground/30 uppercase tracking-[0.12em] font-medium font-sans">Contexte</span>
-            <span className="text-[11px] font-semibold text-background/70 font-sans">Départ</span>
+            <span className="text-[11px] font-semibold text-foreground/70 font-sans">Départ</span>
           </div>
         </div>
       </div>
@@ -373,7 +373,7 @@ const DiscoverSection = () => {
                 className={cn(
                   'px-7 py-2.5 text-xs font-sans font-medium rounded-full transition-all duration-400 inline-flex items-center gap-2',
                   perspective === p
-                    ? 'bg-foreground text-foreground shadow-md'
+                    ? 'bg-foreground text-background shadow-md'
                     : 'text-muted-foreground hover:text-foreground'
                 )}
               >
@@ -393,7 +393,7 @@ const DiscoverSection = () => {
                   className={cn(
                     'flex items-center gap-3 px-5 py-3 rounded-full transition-all duration-400',
                     i === activeStep
-                      ? 'bg-foreground text-foreground shadow-lg'
+                      ? 'bg-foreground text-background shadow-lg'
                       : 'text-muted-foreground hover:text-foreground hover:bg-background'
                   )}
                 >
