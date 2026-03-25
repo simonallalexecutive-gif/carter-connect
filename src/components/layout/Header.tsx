@@ -12,8 +12,15 @@ const Header = () => {
   const isLanding = location.pathname === '/';
 
   useEffect(() => {
+    const headerRef = { current: null as HTMLElement | null };
     const detect = () => {
+      const header = headerRef.current ?? document.querySelector('header');
+      if (header) {
+        headerRef.current = header;
+        header.style.pointerEvents = 'none';
+      }
       const el = document.elementFromPoint(window.innerWidth / 2, 32);
+      if (header) header.style.pointerEvents = '';
       if (!el) return;
       let target: Element | null = el;
       let bg = '';
@@ -22,6 +29,10 @@ const Header = () => {
         bg = style.backgroundColor;
         if (bg && bg !== 'rgba(0, 0, 0, 0)' && bg !== 'transparent') break;
         target = target.parentElement;
+      }
+      // fallback: if we hit body, check body bg
+      if (!bg || bg === 'rgba(0, 0, 0, 0)' || bg === 'transparent') {
+        bg = window.getComputedStyle(document.body).backgroundColor;
       }
       if (bg && bg !== 'rgba(0, 0, 0, 0)' && bg !== 'transparent') {
         const match = bg.match(/\d+/g);
