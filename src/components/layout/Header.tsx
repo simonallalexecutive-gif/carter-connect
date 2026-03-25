@@ -46,47 +46,47 @@ const Header = () => {
   }, [location.state]);
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-500 ${scrolled || menuOpen ? 'bg-black' : 'bg-transparent'}`}>
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${menuOpen ? 'bg-black' : showWhiteNav ? 'bg-white shadow-sm' : 'bg-transparent'}`}>
       <div className="px-6 sm:px-8 lg:px-10 flex items-center justify-between h-16">
         {/* Left: Logo + center nav links */}
         <div className="flex items-center gap-10">
           <Link to="/" className="flex items-center">
-            <span className="font-serif text-[32px] tracking-[0.04em] text-white">Logan</span>
+            <span className={`font-serif text-[32px] tracking-[0.04em] transition-colors duration-500 ${showWhiteNav && !menuOpen ? 'text-foreground' : 'text-white'}`}>Logan</span>
           </Link>
 
           {/* Center nav — Harvey-style */}
           <nav className="hidden md:flex items-center gap-1">
             <button
               onClick={() => scrollToSection('notre-vision')}
-              className="flex items-center gap-1 px-3 py-1.5 text-[14px] font-sans font-normal text-white/70 hover:text-white transition-colors duration-200 tracking-wide"
+              className={`flex items-center gap-1 px-3 py-1.5 text-[14px] font-sans font-normal transition-colors duration-200 tracking-wide ${showWhiteNav && !menuOpen ? 'text-foreground/70 hover:text-foreground' : 'text-white/70 hover:text-white'}`}
             >
               Vision
               <ChevronDown className="w-3 h-3 opacity-60" />
             </button>
             <button
               onClick={() => scrollToSection('notre-approche')}
-              className="flex items-center gap-1 px-3 py-1.5 text-[14px] font-sans font-normal text-white/70 hover:text-white transition-colors duration-200 tracking-wide"
+              className={`flex items-center gap-1 px-3 py-1.5 text-[14px] font-sans font-normal transition-colors duration-200 tracking-wide ${showWhiteNav && !menuOpen ? 'text-foreground/70 hover:text-foreground' : 'text-white/70 hover:text-white'}`}
             >
               Approche
               <ChevronDown className="w-3 h-3 opacity-60" />
             </button>
             <button
               onClick={() => scrollToSection('nos-engagements')}
-              className="flex items-center gap-1 px-3 py-1.5 text-[14px] font-sans font-normal text-white/70 hover:text-white transition-colors duration-200 tracking-wide"
+              className={`flex items-center gap-1 px-3 py-1.5 text-[14px] font-sans font-normal transition-colors duration-200 tracking-wide ${showWhiteNav && !menuOpen ? 'text-foreground/70 hover:text-foreground' : 'text-white/70 hover:text-white'}`}
             >
               Engagements
               <ChevronDown className="w-3 h-3 opacity-60" />
             </button>
             <button
               onClick={() => scrollToSection('faq')}
-              className="flex items-center gap-1 px-3 py-1.5 text-[14px] font-sans font-normal text-white/70 hover:text-white transition-colors duration-200 tracking-wide"
+              className={`flex items-center gap-1 px-3 py-1.5 text-[14px] font-sans font-normal transition-colors duration-200 tracking-wide ${showWhiteNav && !menuOpen ? 'text-foreground/70 hover:text-foreground' : 'text-white/70 hover:text-white'}`}
             >
               FAQ
               <ChevronDown className="w-3 h-3 opacity-60" />
             </button>
             <Link
               to="/rendez-vous"
-              className="flex items-center gap-1 px-3 py-1.5 text-[14px] font-sans font-normal text-white/70 hover:text-white transition-colors duration-200 tracking-wide"
+              className={`flex items-center gap-1 px-3 py-1.5 text-[14px] font-sans font-normal transition-colors duration-200 tracking-wide ${showWhiteNav && !menuOpen ? 'text-foreground/70 hover:text-foreground' : 'text-white/70 hover:text-white'}`}
             >
               Prendre RDV
             </Link>
@@ -97,7 +97,7 @@ const Header = () => {
         <div className="hidden md:flex items-center">
           <Link
             to="/connexion"
-            className="text-[14px] font-sans font-normal text-white/70 hover:text-white px-3 py-1.5 transition-colors duration-200 tracking-wide"
+            className={`text-[14px] font-sans font-normal px-3 py-1.5 transition-colors duration-200 tracking-wide ${showWhiteNav && !menuOpen ? 'text-foreground/70 hover:text-foreground' : 'text-white/70 hover:text-white'}`}
           >
             Connexion
           </Link>
@@ -106,7 +106,7 @@ const Header = () => {
         {/* Mobile hamburger */}
         <button
           onClick={() => setMenuOpen(!menuOpen)}
-          className="md:hidden text-white p-2 -mr-2"
+          className={`md:hidden p-2 -mr-2 ${showWhiteNav && !menuOpen ? 'text-foreground' : 'text-white'}`}
           aria-label="Menu"
         >
           {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
