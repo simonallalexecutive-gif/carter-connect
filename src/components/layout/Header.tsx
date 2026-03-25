@@ -81,42 +81,29 @@ const Header = () => {
         {/* Left: Logo + center nav links */}
         <div className="flex items-center gap-10">
           <Link to="/" className="flex items-center">
-            <span className={`font-serif text-[32px] tracking-[0.04em] transition-colors duration-500 ${showWhiteNav && !menuOpen ? 'text-foreground' : 'text-white'}`}>Logan</span>
+            <span className={`font-serif text-[32px] tracking-[0.04em] transition-colors duration-500 ${showWhiteNav && !menuOpen ? 'text-foreground' : useWhiteText || menuOpen ? 'text-white' : 'text-foreground'}`}>Logan</span>
           </Link>
 
           {/* Center nav — Harvey-style */}
           <nav className="hidden md:flex items-center gap-1">
-            <button
-              onClick={() => scrollToSection('notre-vision')}
-              className={`flex items-center gap-1 px-3 py-1.5 text-[14px] font-sans font-normal transition-colors duration-200 tracking-wide ${showWhiteNav && !menuOpen ? 'text-foreground/70 hover:text-foreground' : 'text-white/70 hover:text-white'}`}
-            >
-              Vision
-              <ChevronDown className="w-3 h-3 opacity-60" />
-            </button>
-            <button
-              onClick={() => scrollToSection('notre-approche')}
-              className={`flex items-center gap-1 px-3 py-1.5 text-[14px] font-sans font-normal transition-colors duration-200 tracking-wide ${showWhiteNav && !menuOpen ? 'text-foreground/70 hover:text-foreground' : 'text-white/70 hover:text-white'}`}
-            >
-              Approche
-              <ChevronDown className="w-3 h-3 opacity-60" />
-            </button>
-            <button
-              onClick={() => scrollToSection('nos-engagements')}
-              className={`flex items-center gap-1 px-3 py-1.5 text-[14px] font-sans font-normal transition-colors duration-200 tracking-wide ${showWhiteNav && !menuOpen ? 'text-foreground/70 hover:text-foreground' : 'text-white/70 hover:text-white'}`}
-            >
-              Engagements
-              <ChevronDown className="w-3 h-3 opacity-60" />
-            </button>
-            <button
-              onClick={() => scrollToSection('faq')}
-              className={`flex items-center gap-1 px-3 py-1.5 text-[14px] font-sans font-normal transition-colors duration-200 tracking-wide ${showWhiteNav && !menuOpen ? 'text-foreground/70 hover:text-foreground' : 'text-white/70 hover:text-white'}`}
-            >
-              FAQ
-              <ChevronDown className="w-3 h-3 opacity-60" />
-            </button>
+            {[
+              { label: 'Vision', section: 'notre-vision' },
+              { label: 'Approche', section: 'notre-approche' },
+              { label: 'Engagements', section: 'nos-engagements' },
+              { label: 'FAQ', section: 'faq' },
+            ].map(({ label, section }) => (
+              <button
+                key={section}
+                onClick={() => scrollToSection(section)}
+                className={`flex items-center gap-1 px-3 py-1.5 text-[14px] font-sans font-normal transition-colors duration-200 tracking-wide ${showWhiteNav && !menuOpen ? 'text-foreground/70 hover:text-foreground' : useWhiteText || menuOpen ? 'text-white/70 hover:text-white' : 'text-foreground/70 hover:text-foreground'}`}
+              >
+                {label}
+                <ChevronDown className="w-3 h-3 opacity-60" />
+              </button>
+            ))}
             <Link
               to="/rendez-vous"
-              className={`flex items-center gap-1 px-3 py-1.5 text-[14px] font-sans font-normal transition-colors duration-200 tracking-wide ${showWhiteNav && !menuOpen ? 'text-foreground/70 hover:text-foreground' : 'text-white/70 hover:text-white'}`}
+              className={`flex items-center gap-1 px-3 py-1.5 text-[14px] font-sans font-normal transition-colors duration-200 tracking-wide ${showWhiteNav && !menuOpen ? 'text-foreground/70 hover:text-foreground' : useWhiteText || menuOpen ? 'text-white/70 hover:text-white' : 'text-foreground/70 hover:text-foreground'}`}
             >
               Prendre RDV
             </Link>
@@ -127,7 +114,7 @@ const Header = () => {
         <div className="hidden md:flex items-center">
           <Link
             to="/connexion"
-            className={`text-[14px] font-sans font-normal px-3 py-1.5 transition-colors duration-200 tracking-wide ${showWhiteNav && !menuOpen ? 'text-foreground/70 hover:text-foreground' : 'text-white/70 hover:text-white'}`}
+            className={`text-[14px] font-sans font-normal px-3 py-1.5 transition-colors duration-200 tracking-wide ${showWhiteNav && !menuOpen ? 'text-foreground/70 hover:text-foreground' : useWhiteText || menuOpen ? 'text-white/70 hover:text-white' : 'text-foreground/70 hover:text-foreground'}`}
           >
             Connexion
           </Link>
@@ -136,7 +123,7 @@ const Header = () => {
         {/* Mobile hamburger */}
         <button
           onClick={() => setMenuOpen(!menuOpen)}
-          className={`md:hidden p-2 -mr-2 ${showWhiteNav && !menuOpen ? 'text-foreground' : 'text-white'}`}
+          className={`md:hidden p-2 -mr-2 ${showWhiteNav && !menuOpen ? 'text-foreground' : useWhiteText || menuOpen ? 'text-white' : 'text-foreground'}`}
           aria-label="Menu"
         >
           {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
