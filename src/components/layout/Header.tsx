@@ -11,14 +11,44 @@ const Header = () => {
   const navigate = useNavigate();
 
   const isLanding = location.pathname === '/';
+  const [isDarkBg, setIsDarkBg] = useState(true);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > window.innerHeight * 0.85);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+    const onScroll = () => {
+      setScrolled(window.scrollY > window.innerHeight * 0.85);
 
-  const showWhiteNav = scrolled || !isLanding;
+      // Detect background darkness at nav position
+      if (!isLanding) {
+        const el = document.elementFromPoint(window.innerWidth / 2, 32);
+        if (el) {
+          let target: Element | null = el;
+          let bg = '';
+          while (target && target !== document.body) {
+            const style = window.getComputedStyle(target);
+            bg = style.backgroundColor;
+            if (bg && bg !== 'rgba(0, 0, 0, 0)' && bg !== 'transparent') break;
+            target = target.parentElement;
+          }
+          if (bg && bg !== 'rgba(0, 0, 0, 0)' && bg !== 'transparent') {
+            const match = bg.match(/\d+/g);
+            if (match) {
+              const [r, g, b] = match.map(Number);
+              const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+              setIsDarkBg(luminance < 0.5);
+            }
+          }
+        }
+      }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener('scroll', onScroll);
+  }, [isLanding]);
+
+  // On landing: transparent over hero (white text), then white bg after scroll
+  // On other pages: always transparent, text adapts to bg darkness
+  const showWhiteNav = isLanding && scrolled;
+  const useWhiteText = isLanding ? !scrolled : isDarkBg;
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : '';
@@ -51,42 +81,29 @@ const Header = () => {
         {/* Left: Logo + center nav links */}
         <div className="flex items-center gap-10">
           <Link to="/" className="flex items-center">
-            <span className={`font-serif text-[32px] tracking-[0.04em] transition-colors duration-500 ${showWhiteNav && !menuOpen ? 'text-foreground' : 'text-white'}`}>Logan</span>
+            <span className={`font-serif text-[32px] tracking-[0.04em] transition-colors duration-500 ${showWhiteNav && !menuOpen ? 'text-foreground' : useWhiteText || menuOpen ? 'text-white' : 'text-foreground'}`}>Logan</span>
           </Link>
 
           {/* Center nav — Harvey-style */}
           <nav className="hidden md:flex items-center gap-1">
-            <button
-              onClick={() => scrollToSection('notre-vision')}
-              className={`flex items-center gap-1 px-3 py-1.5 text-[14px] font-sans font-normal transition-colors duration-200 tracking-wide ${showWhiteNav && !menuOpen ? 'text-foreground/70 hover:text-foreground' : 'text-white/70 hover:text-white'}`}
-            >
-              Vision
-              <ChevronDown className="w-3 h-3 opacity-60" />
-            </button>
-            <button
-              onClick={() => scrollToSection('notre-approche')}
-              className={`flex items-center gap-1 px-3 py-1.5 text-[14px] font-sans font-normal transition-colors duration-200 tracking-wide ${showWhiteNav && !menuOpen ? 'text-foreground/70 hover:text-foreground' : 'text-white/70 hover:text-white'}`}
-            >
-              Approche
-              <ChevronDown className="w-3 h-3 opacity-60" />
-            </button>
-            <button
-              onClick={() => scrollToSection('nos-engagements')}
-              className={`flex items-center gap-1 px-3 py-1.5 text-[14px] font-sans font-normal transition-colors duration-200 tracking-wide ${showWhiteNav && !menuOpen ? 'text-foreground/70 hover:text-foreground' : 'text-white/70 hover:text-white'}`}
-            >
-              Engagements
-              <ChevronDown className="w-3 h-3 opacity-60" />
-            </button>
-            <button
-              onClick={() => scrollToSection('faq')}
-              className={`flex items-center gap-1 px-3 py-1.5 text-[14px] font-sans font-normal transition-colors duration-200 tracking-wide ${showWhiteNav && !menuOpen ? 'text-foreground/70 hover:text-foreground' : 'text-white/70 hover:text-white'}`}
-            >
-              FAQ
-              <ChevronDown className="w-3 h-3 opacity-60" />
-            </button>
+            {[
+              { label: 'Vision', section: 'notre-vision' },
+              { label: 'Approche', section: 'notre-approche' },
+              { label: 'Engagements', section: 'nos-engagements' },
+              { label: 'FAQ', section: 'faq' },
+            ].map(({ label, section }) => (
+              <button
+                key={section}
+                onClick={() => scrollToSection(section)}
+                className={`flex items-center gap-1 px-3 py-1.5 text-[14px] font-sans font-normal transition-colors duration-200 tracking-wide ${showWhiteNav && !menuOpen ? 'text-foreground/70 hover:text-foreground' : useWhiteText || menuOpen ? 'text-white/70 hover:text-white' : 'text-foreground/70 hover:text-foreground'}`}
+              >
+                {label}
+                <ChevronDown className="w-3 h-3 opacity-60" />
+              </button>
+            ))}
             <Link
               to="/rendez-vous"
-              className={`flex items-center gap-1 px-3 py-1.5 text-[14px] font-sans font-normal transition-colors duration-200 tracking-wide ${showWhiteNav && !menuOpen ? 'text-foreground/70 hover:text-foreground' : 'text-white/70 hover:text-white'}`}
+              className={`flex items-center gap-1 px-3 py-1.5 text-[14px] font-sans font-normal transition-colors duration-200 tracking-wide ${showWhiteNav && !menuOpen ? 'text-foreground/70 hover:text-foreground' : useWhiteText || menuOpen ? 'text-white/70 hover:text-white' : 'text-foreground/70 hover:text-foreground'}`}
             >
               Prendre RDV
             </Link>
@@ -97,7 +114,7 @@ const Header = () => {
         <div className="hidden md:flex items-center">
           <Link
             to="/connexion"
-            className={`text-[14px] font-sans font-normal px-3 py-1.5 transition-colors duration-200 tracking-wide ${showWhiteNav && !menuOpen ? 'text-foreground/70 hover:text-foreground' : 'text-white/70 hover:text-white'}`}
+            className={`text-[14px] font-sans font-normal px-3 py-1.5 transition-colors duration-200 tracking-wide ${showWhiteNav && !menuOpen ? 'text-foreground/70 hover:text-foreground' : useWhiteText || menuOpen ? 'text-white/70 hover:text-white' : 'text-foreground/70 hover:text-foreground'}`}
           >
             Connexion
           </Link>
@@ -106,7 +123,7 @@ const Header = () => {
         {/* Mobile hamburger */}
         <button
           onClick={() => setMenuOpen(!menuOpen)}
-          className={`md:hidden p-2 -mr-2 ${showWhiteNav && !menuOpen ? 'text-foreground' : 'text-white'}`}
+          className={`md:hidden p-2 -mr-2 ${showWhiteNav && !menuOpen ? 'text-foreground' : useWhiteText || menuOpen ? 'text-white' : 'text-foreground'}`}
           aria-label="Menu"
         >
           {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
