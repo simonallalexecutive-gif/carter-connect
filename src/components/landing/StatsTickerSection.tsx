@@ -38,7 +38,7 @@ const StatsTickerSection = () => {
   const inView = useInView(ref, { once: false, margin: '-80px' });
 
   return (
-    <section ref={ref} className="relative py-16 md:py-20 bg-foreground overflow-hidden" style={{ minHeight: 'auto' }}>
+    <section ref={ref} className="relative py-20 md:py-28 bg-foreground overflow-hidden" style={{ minHeight: 'auto' }}>
       <div className="carter-container relative z-10">
         {/* Header */}
         <motion.div
