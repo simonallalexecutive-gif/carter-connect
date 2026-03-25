@@ -162,6 +162,9 @@ const LandingPage = () => (
       <FounderSection />
     </div>
 
+    {/* Notre raison d'être */}
+    <MissionSection />
+
     {/* Découvrir Logan — candidat / cabinet slides */}
     <div id="notre-approche">
       <DiscoverSection />
