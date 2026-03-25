@@ -157,13 +157,13 @@ const LandingPage = () => (
       </motion.div>
     </section>
 
+    {/* Notre raison d'être */}
+    <MissionSection />
+
     {/* Notre vision */}
     <div id="notre-vision">
       <FounderSection />
     </div>
-
-    {/* Notre raison d'être */}
-    <MissionSection />
 
     {/* Découvrir Logan — candidat / cabinet slides */}
     <div id="notre-approche">
