@@ -1,54 +1,43 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
-import { ArrowRight, ChevronDown, Menu, X } from 'lucide-react';
+import { ChevronDown, Menu, X } from 'lucide-react';
 import { useState, useEffect, useCallback } from 'react';
 
 const Header = () => {
   const { user, loading, signOut } = useAuth();
-  const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isDarkBg, setIsDarkBg] = useState(true);
   const location = useLocation();
   const navigate = useNavigate();
-
   const isLanding = location.pathname === '/';
-  const [isDarkBg, setIsDarkBg] = useState(true);
 
   useEffect(() => {
-    const onScroll = () => {
-      setScrolled(window.scrollY > window.innerHeight * 0.85);
-
-      // Detect background darkness at nav position
-      if (!isLanding) {
-        const el = document.elementFromPoint(window.innerWidth / 2, 32);
-        if (el) {
-          let target: Element | null = el;
-          let bg = '';
-          while (target && target !== document.body) {
-            const style = window.getComputedStyle(target);
-            bg = style.backgroundColor;
-            if (bg && bg !== 'rgba(0, 0, 0, 0)' && bg !== 'transparent') break;
-            target = target.parentElement;
-          }
-          if (bg && bg !== 'rgba(0, 0, 0, 0)' && bg !== 'transparent') {
-            const match = bg.match(/\d+/g);
-            if (match) {
-              const [r, g, b] = match.map(Number);
-              const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
-              setIsDarkBg(luminance < 0.5);
-            }
-          }
+    const detect = () => {
+      const el = document.elementFromPoint(window.innerWidth / 2, 32);
+      if (!el) return;
+      let target: Element | null = el;
+      let bg = '';
+      while (target && target !== document.body) {
+        const style = window.getComputedStyle(target);
+        bg = style.backgroundColor;
+        if (bg && bg !== 'rgba(0, 0, 0, 0)' && bg !== 'transparent') break;
+        target = target.parentElement;
+      }
+      if (bg && bg !== 'rgba(0, 0, 0, 0)' && bg !== 'transparent') {
+        const match = bg.match(/\d+/g);
+        if (match) {
+          const [r, g, b] = match.map(Number);
+          const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+          setIsDarkBg(luminance < 0.5);
         }
       }
     };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-    return () => window.removeEventListener('scroll', onScroll);
-  }, [isLanding]);
+    window.addEventListener('scroll', detect, { passive: true });
+    detect();
+    return () => window.removeEventListener('scroll', detect);
+  }, [location.pathname]);
 
-  // On landing: transparent over hero (white text), then white bg after scroll
-  // On other pages: always transparent, text adapts to bg darkness
-  const showWhiteNav = isLanding && scrolled;
-  const useWhiteText = isLanding ? !scrolled : isDarkBg;
+  const useWhiteText = isDarkBg;
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : '';
@@ -65,7 +54,6 @@ const Header = () => {
     if (el) el.scrollIntoView({ behavior: 'smooth' });
   }, [isLanding, navigate]);
 
-  // Handle scroll-to from navigation state
   useEffect(() => {
     if (location.state?.scrollTo) {
       setTimeout(() => {
@@ -75,16 +63,26 @@ const Header = () => {
     }
   }, [location.state]);
 
+  const textClass = menuOpen
+    ? 'text-white'
+    : useWhiteText
+      ? 'text-white/70 hover:text-white'
+      : 'text-foreground/70 hover:text-foreground';
+
+  const logoClass = menuOpen
+    ? 'text-white'
+    : useWhiteText
+      ? 'text-white'
+      : 'text-foreground';
+
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${menuOpen ? 'bg-black' : showWhiteNav ? 'bg-white shadow-sm' : 'bg-transparent'}`}>
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${menuOpen ? 'bg-black' : 'bg-transparent'}`}>
       <div className="px-6 sm:px-8 lg:px-10 flex items-center justify-between h-16">
-        {/* Left: Logo + center nav links */}
         <div className="flex items-center gap-10">
           <Link to="/" className="flex items-center">
-            <span className={`font-serif text-[32px] tracking-[0.04em] transition-colors duration-500 ${showWhiteNav && !menuOpen ? 'text-foreground' : useWhiteText || menuOpen ? 'text-white' : 'text-foreground'}`}>Logan</span>
+            <span className={`font-serif text-[32px] tracking-[0.04em] transition-colors duration-500 ${logoClass}`}>Logan</span>
           </Link>
 
-          {/* Center nav — Harvey-style */}
           <nav className="hidden md:flex items-center gap-1">
             {[
               { label: 'Vision', section: 'notre-vision' },
@@ -95,72 +93,49 @@ const Header = () => {
               <button
                 key={section}
                 onClick={() => scrollToSection(section)}
-                className={`flex items-center gap-1 px-3 py-1.5 text-[14px] font-sans font-normal transition-colors duration-200 tracking-wide ${showWhiteNav && !menuOpen ? 'text-foreground/70 hover:text-foreground' : useWhiteText || menuOpen ? 'text-white/70 hover:text-white' : 'text-foreground/70 hover:text-foreground'}`}
+                className={`flex items-center gap-1 px-2.5 py-1.5 text-[11.2px] font-sans font-normal transition-colors duration-200 tracking-wide ${textClass}`}
               >
                 {label}
-                <ChevronDown className="w-3 h-3 opacity-60" />
+                <ChevronDown className="w-2.5 h-2.5 opacity-60" />
               </button>
             ))}
             <Link
               to="/rendez-vous"
-              className={`flex items-center gap-1 px-3 py-1.5 text-[14px] font-sans font-normal transition-colors duration-200 tracking-wide ${showWhiteNav && !menuOpen ? 'text-foreground/70 hover:text-foreground' : useWhiteText || menuOpen ? 'text-white/70 hover:text-white' : 'text-foreground/70 hover:text-foreground'}`}
+              className={`flex items-center gap-1 px-2.5 py-1.5 text-[11.2px] font-sans font-normal transition-colors duration-200 tracking-wide ${textClass}`}
             >
               Prendre RDV
             </Link>
           </nav>
         </div>
 
-        {/* Right: Connexion, Prendre RDV + Demander un accès button */}
         <div className="hidden md:flex items-center">
           <Link
             to="/connexion"
-            className={`text-[14px] font-sans font-normal px-3 py-1.5 transition-colors duration-200 tracking-wide ${showWhiteNav && !menuOpen ? 'text-foreground/70 hover:text-foreground' : useWhiteText || menuOpen ? 'text-white/70 hover:text-white' : 'text-foreground/70 hover:text-foreground'}`}
+            className={`text-[11.2px] font-sans font-normal px-2.5 py-1.5 transition-colors duration-200 tracking-wide ${textClass}`}
           >
             Connexion
           </Link>
         </div>
 
-        {/* Mobile hamburger */}
         <button
           onClick={() => setMenuOpen(!menuOpen)}
-          className={`md:hidden p-2 -mr-2 ${showWhiteNav && !menuOpen ? 'text-foreground' : useWhiteText || menuOpen ? 'text-white' : 'text-foreground'}`}
+          className={`md:hidden p-2 -mr-2 ${logoClass}`}
           aria-label="Menu"
         >
           {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </button>
       </div>
 
-      {/* Mobile overlay menu */}
       {menuOpen && (
         <div className="md:hidden bg-black min-h-[calc(100dvh-4rem)] flex flex-col px-6 pt-8 pb-12 gap-5 animate-in fade-in slide-in-from-top-2 duration-200">
-          <button onClick={() => scrollToSection('notre-vision')} className="font-sans text-base font-normal text-white/70 hover:text-white transition-colors tracking-wide text-left">
-            Notre vision
-          </button>
-          <button onClick={() => scrollToSection('notre-approche')} className="font-sans text-base font-normal text-white/70 hover:text-white transition-colors tracking-wide text-left">
-            Notre approche
-          </button>
-          <button onClick={() => scrollToSection('nos-engagements')} className="font-sans text-base font-normal text-white/70 hover:text-white transition-colors tracking-wide text-left">
-            Nos engagements
-          </button>
-          <button onClick={() => scrollToSection('faq')} className="font-sans text-base font-normal text-white/70 hover:text-white transition-colors tracking-wide text-left">
-            FAQ
-          </button>
-
+          <button onClick={() => scrollToSection('notre-vision')} className="font-sans text-base font-normal text-white/70 hover:text-white transition-colors tracking-wide text-left">Notre vision</button>
+          <button onClick={() => scrollToSection('notre-approche')} className="font-sans text-base font-normal text-white/70 hover:text-white transition-colors tracking-wide text-left">Notre approche</button>
+          <button onClick={() => scrollToSection('nos-engagements')} className="font-sans text-base font-normal text-white/70 hover:text-white transition-colors tracking-wide text-left">Nos engagements</button>
+          <button onClick={() => scrollToSection('faq')} className="font-sans text-base font-normal text-white/70 hover:text-white transition-colors tracking-wide text-left">FAQ</button>
           <div className="h-px bg-white/10 my-2" />
-
-          <Link to="/connexion" onClick={() => setMenuOpen(false)} className="font-sans text-base font-normal text-white/70 hover:text-white transition-colors tracking-wide">
-            Connexion
-          </Link>
-          <Link to="/rendez-vous" onClick={() => setMenuOpen(false)} className="font-sans text-base font-normal text-white/70 hover:text-white transition-colors tracking-wide">
-            Prendre RDV
-          </Link>
-          <Link
-            to="/demander-acces"
-            onClick={() => setMenuOpen(false)}
-            className="font-sans text-sm font-normal text-white border border-white/30 rounded-sm px-6 py-3 transition-colors tracking-wide inline-flex items-center gap-2 mt-2 w-fit"
-          >
-            Demander un accès
-          </Link>
+          <Link to="/connexion" onClick={() => setMenuOpen(false)} className="font-sans text-base font-normal text-white/70 hover:text-white transition-colors tracking-wide">Connexion</Link>
+          <Link to="/rendez-vous" onClick={() => setMenuOpen(false)} className="font-sans text-base font-normal text-white/70 hover:text-white transition-colors tracking-wide">Prendre RDV</Link>
+          <Link to="/demander-acces" onClick={() => setMenuOpen(false)} className="font-sans text-sm font-normal text-white border border-white/30 rounded-sm px-6 py-3 transition-colors tracking-wide inline-flex items-center gap-2 mt-2 w-fit">Demander un accès</Link>
         </div>
       )}
     </header>
