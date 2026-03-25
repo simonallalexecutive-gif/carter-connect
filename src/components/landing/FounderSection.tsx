@@ -17,24 +17,16 @@ const FounderSection = () => {
             Notre vision
           </motion.p>
 
-          {/* Founder — photo beside bio */}
+          {/* Founder — bio left, photo right (mirror layout) */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-            className="flex flex-col sm:flex-row items-center sm:items-center justify-center gap-8 sm:gap-12 mb-14 md:mb-16"
+            className="flex flex-col-reverse sm:flex-row items-center justify-center gap-8 sm:gap-14 mb-14 md:mb-16"
           >
-            <div className="w-36 h-36 sm:w-44 sm:h-44 rounded-full overflow-hidden border-2 border-white/10 shadow-lg flex-shrink-0">
-              <img
-                src={founderImg}
-                alt="Simon Allal, Fondateur de Logan"
-                className="w-full h-full object-cover"
-                style={{ objectPosition: '50% 30%' }}
-              />
-            </div>
-
-            <div className="text-center sm:text-left max-w-sm">
+            {/* Left — bio */}
+            <div className="text-center sm:text-right max-w-sm">
               <h3 className="font-serif text-2xl text-white font-normal mb-0.5 tracking-[-0.01em]">
                 Simon Allal
               </h3>
@@ -44,6 +36,16 @@ const FounderSection = () => {
               <p className="font-sans text-[0.92rem] text-white/60 font-light leading-relaxed">
                 Fort d'un réseau reconnu et d'une compréhension aiguë du marché des avocats, Simon a fondé Logan avec une conviction&nbsp;: l'expérience recrutement doit être repensée en proposant une approche plus structurée, plus confidentielle et plus exigeante.
               </p>
+            </div>
+
+            {/* Right — photo */}
+            <div className="w-36 h-36 sm:w-44 sm:h-44 rounded-full overflow-hidden border-2 border-white/10 shadow-lg flex-shrink-0">
+              <img
+                src={founderImg}
+                alt="Simon Allal, Fondateur de Logan"
+                className="w-full h-full object-cover"
+                style={{ objectPosition: '50% 30%' }}
+              />
             </div>
           </motion.div>
 

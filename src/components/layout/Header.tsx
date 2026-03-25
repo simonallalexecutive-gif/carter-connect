@@ -11,14 +11,44 @@ const Header = () => {
   const navigate = useNavigate();
 
   const isLanding = location.pathname === '/';
+  const [isDarkBg, setIsDarkBg] = useState(true);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > window.innerHeight * 0.85);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+    const onScroll = () => {
+      setScrolled(window.scrollY > window.innerHeight * 0.85);
 
-  const showWhiteNav = scrolled || !isLanding;
+      // Detect background darkness at nav position
+      if (!isLanding) {
+        const el = document.elementFromPoint(window.innerWidth / 2, 32);
+        if (el) {
+          let target: Element | null = el;
+          let bg = '';
+          while (target && target !== document.body) {
+            const style = window.getComputedStyle(target);
+            bg = style.backgroundColor;
+            if (bg && bg !== 'rgba(0, 0, 0, 0)' && bg !== 'transparent') break;
+            target = target.parentElement;
+          }
+          if (bg && bg !== 'rgba(0, 0, 0, 0)' && bg !== 'transparent') {
+            const match = bg.match(/\d+/g);
+            if (match) {
+              const [r, g, b] = match.map(Number);
+              const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+              setIsDarkBg(luminance < 0.5);
+            }
+          }
+        }
+      }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener('scroll', onScroll);
+  }, [isLanding]);
+
+  // On landing: transparent over hero (white text), then white bg after scroll
+  // On other pages: always transparent, text adapts to bg darkness
+  const showWhiteNav = isLanding && scrolled;
+  const useWhiteText = isLanding ? !scrolled : isDarkBg;
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : '';
