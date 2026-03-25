@@ -55,17 +55,17 @@ const Header = () => {
           {/* Center nav — Harvey-style */}
           <nav className="hidden md:flex items-center gap-1">
             <button
-              onClick={() => scrollToSection('notre-approche')}
-              className="flex items-center gap-1 px-3 py-1.5 text-[14px] font-sans font-normal text-white/70 hover:text-white transition-colors duration-200 tracking-wide"
-            >
-              Approche
-              <ChevronDown className="w-3 h-3 opacity-60" />
-            </button>
-            <button
               onClick={() => scrollToSection('notre-vision')}
               className="flex items-center gap-1 px-3 py-1.5 text-[14px] font-sans font-normal text-white/70 hover:text-white transition-colors duration-200 tracking-wide"
             >
               Vision
+              <ChevronDown className="w-3 h-3 opacity-60" />
+            </button>
+            <button
+              onClick={() => scrollToSection('notre-approche')}
+              className="flex items-center gap-1 px-3 py-1.5 text-[14px] font-sans font-normal text-white/70 hover:text-white transition-colors duration-200 tracking-wide"
+            >
+              Approche
               <ChevronDown className="w-3 h-3 opacity-60" />
             </button>
             <button
@@ -114,11 +114,11 @@ const Header = () => {
       {/* Mobile overlay menu */}
       {menuOpen && (
         <div className="md:hidden bg-black min-h-[calc(100dvh-4rem)] flex flex-col px-6 pt-8 pb-12 gap-5 animate-in fade-in slide-in-from-top-2 duration-200">
-          <button onClick={() => scrollToSection('notre-approche')} className="font-sans text-base font-normal text-white/70 hover:text-white transition-colors tracking-wide text-left">
-            Notre approche
-          </button>
           <button onClick={() => scrollToSection('notre-vision')} className="font-sans text-base font-normal text-white/70 hover:text-white transition-colors tracking-wide text-left">
             Notre vision
+          </button>
+          <button onClick={() => scrollToSection('notre-approche')} className="font-sans text-base font-normal text-white/70 hover:text-white transition-colors tracking-wide text-left">
+            Notre approche
           </button>
           <button onClick={() => scrollToSection('nos-engagements')} className="font-sans text-base font-normal text-white/70 hover:text-white transition-colors tracking-wide text-left">
             Nos engagements
