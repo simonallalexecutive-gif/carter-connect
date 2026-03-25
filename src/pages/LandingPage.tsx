@@ -106,7 +106,7 @@ const LandingPage = () => (
               Curating <em className="italic">top-tier</em> Lawyers
             </motion.h1>
           </div>
-          <motion.p variants={fadeUp} className="text-[0.92rem] sm:text-[1.08rem] md:text-[1.14rem] text-white font-sans font-[480] leading-[1.7] max-w-lg">
+          <motion.p variants={fadeUp} className="text-[0.92rem] sm:text-[1.08rem] md:text-[1.14rem] text-white font-sans font-[480] leading-[1.7] max-w-2xl">
             Un réseau de premier plan, une approche strictement confidentielle et un accompagnement sur mesure, dédiés aux cabinets d'affaires et aux candidats les plus exigeants du marché.
           </motion.p>
           <motion.div variants={fadeUp} className="mt-14 sm:mt-20">
