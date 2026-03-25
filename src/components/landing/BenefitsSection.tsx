@@ -42,7 +42,7 @@ const engagements = [
 
 const BenefitsSection = () => {
   return (
-    <section className="py-16 md:py-20" style={{ background: 'hsl(18 30% 10%)' }}>
+    <section className="py-16 md:py-20" style={{ background: 'hsl(30 8% 18%)' }}>
       <div className="carter-container">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -68,7 +68,7 @@ const BenefitsSection = () => {
               viewport={{ once: true }}
               transition={{ delay: i * 0.08, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
               className="p-8 md:p-10 group hover:bg-white/[0.06] transition-colors duration-500"
-              style={{ background: 'hsl(18 30% 10%)' }}
+              style={{ background: 'hsl(30 8% 18%)' }}
             >
               <div className="flex flex-col items-center gap-2 mb-5">
               <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center mx-auto group-hover:bg-white/15 transition-colors duration-500">
