@@ -106,10 +106,10 @@ const LandingPage = () => (
               Curating <em className="italic">top-tier</em> Lawyers
             </motion.h1>
           </div>
-          <motion.p variants={fadeUp} className="text-[0.92rem] sm:text-[1.08rem] md:text-[1.14rem] text-white font-sans font-[480] leading-relaxed max-w-2xl">
+          <motion.p variants={fadeUp} className="text-[0.92rem] sm:text-[1.08rem] md:text-[1.14rem] text-white font-sans font-[480] leading-[1.6] max-w-xl">
             Un réseau de premier plan, une approche strictement confidentielle et un accompagnement sur mesure, dédiés aux cabinets d'affaires et aux candidats les plus exigeants du marché.
           </motion.p>
-          <motion.div variants={fadeUp} className="mt-8 sm:mt-14">
+          <motion.div variants={fadeUp} className="mt-14 sm:mt-20">
             <Link to="/demander-acces">
               <Button
                 size="lg"
@@ -212,15 +212,15 @@ const LandingPage = () => (
           viewport={{ once: true }}
           className="max-w-xl mx-auto"
         >
-          <p className="text-white/50 font-sans font-light mb-10 leading-relaxed">
-            Inscription confidentielle en moins de 10 minutes.<br />
-            Profil validé sous 48h.
-          </p>
           <Link to="/demander-acces">
-            <Button size="lg" className="bg-white text-black hover:bg-white/90 font-sans text-sm font-medium px-10 py-6 rounded-sm tracking-wide">
+            <Button size="lg" className="bg-white text-black hover:bg-white/90 font-sans text-sm font-medium px-10 py-6 rounded-sm tracking-wide mb-10">
               Request access
             </Button>
           </Link>
+          <p className="text-white/50 font-sans font-light leading-relaxed">
+            Inscription confidentielle en moins de 10 minutes.<br />
+            Profil validé sous 48h.
+          </p>
         </motion.div>
       </div>
     </section>
