@@ -1,13 +1,14 @@
 import { useState } from 'react';
 import { motion } from 'motion/react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, ArrowRight, CalendarDays, Clock, Video, CheckCircle2 } from 'lucide-react';
+import { ArrowLeft, ArrowRight, CalendarDays, Clock, Video, CheckCircle2, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
 import { cn } from '@/lib/utils';
-import { format, addDays, isWeekend } from 'date-fns';
+import { format, isWeekend } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import { toast } from 'sonner';
+import { supabase } from '@/integrations/supabase/client';
 
 const timeSlots = [
   '09:00', '09:30', '10:00', '10:30', '11:00', '11:30',
@@ -29,12 +30,34 @@ const BookingPage = () => {
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [format_, setFormat_] = useState<'visio' | 'physique'>('visio');
   const [confirmed, setConfirmed] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
     if (!selectedDate || !selectedTime || !name || !email) return;
-    setConfirmed(true);
-    toast.success('Rendez-vous confirmé !');
+    setSubmitting(true);
+    try {
+      const bookingDate = format(selectedDate, 'yyyy-MM-dd');
+      const { error } = await supabase.from('logan_bookings').insert({
+        candidate_name: name,
+        candidate_email: email,
+        booking_date: bookingDate,
+        booking_time: selectedTime,
+        candidate_cabinet: '',
+        candidate_department: '',
+        candidate_seniority: '',
+        status: 'confirmed',
+        notes: format_ === 'physique' ? 'RDV en physique dans les locaux du cabinet' : 'Visioconférence',
+      });
+      if (error) throw error;
+      setConfirmed(true);
+      toast.success('Rendez-vous confirmé !');
+    } catch {
+      toast.error('Erreur lors de la confirmation. Veuillez réessayer.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const disabledDays = (date: Date) => {
@@ -59,8 +82,11 @@ const BookingPage = () => {
           <p className="text-white/50 font-sans text-sm leading-relaxed mb-2">
             {format(selectedDate!, 'EEEE d MMMM yyyy', { locale: fr })} à {selectedTime}
           </p>
+          <p className="text-white/40 font-sans text-xs leading-relaxed mb-2">
+            {format_ === 'physique' ? 'En physique dans les locaux du cabinet' : 'En visioconférence'}
+          </p>
           <p className="text-white/40 font-sans text-xs leading-relaxed mb-10">
-            Un membre de l'équipe Logan vous contactera par email pour confirmer les détails de l'échange.
+            Un membre de l'équipe Logan vous contactera par email pour confirmer les détails.
           </p>
           <Link to="/">
             <Button variant="outline" className="border-foreground/20 text-foreground hover:bg-foreground/10 rounded-sm px-6">
@@ -97,13 +123,11 @@ const BookingPage = () => {
               <h1 className="font-serif text-3xl md:text-5xl font-normal text-white mb-5 tracking-[-0.02em]">
                 Échangeons ensemble
               </h1>
-              <p className="text-base text-white/60 font-sans font-light max-w-lg mx-auto leading-relaxed mb-3">
-                L'équipe Logan se tient à votre disposition pour vous présenter la plateforme, 
-                répondre à vos questions et comprendre vos besoins en recrutement.
+              <p className="text-base text-white/60 font-sans font-light max-w-xl mx-auto leading-relaxed mb-3">
+                Nos équipes sont à votre disposition pour vous présenter Logan, répondre à vos questions et envisager avec vous la formule la plus adaptée à vos besoins.
               </p>
               <p className="text-sm text-white/40 font-sans font-light max-w-md mx-auto leading-relaxed">
-                Choisissez un créneau qui vous convient — l'appel dure environ 20 minutes, 
-                en visioconférence ou par téléphone, selon votre préférence.
+                Choisissez un créneau qui vous convient — l'échange dure environ 20 minutes, en visioconférence ou en physique dans les locaux du cabinet, selon votre préférence.
               </p>
             </motion.div>
 
@@ -184,17 +208,47 @@ const BookingPage = () => {
                               className="w-full bg-white/[0.05] border border-white/10 text-white placeholder:text-white/20 rounded-sm px-3 py-2.5 text-sm focus:border-white/30 focus:outline-none transition-colors"
                             />
                           </div>
+
+                          {/* Format choice */}
+                          <div>
+                            <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-white/40 mb-2 block">Format du rendez-vous</label>
+                            <div className="grid grid-cols-2 gap-2">
+                              <button
+                                onClick={() => setFormat_('visio')}
+                                className={cn(
+                                  'py-2.5 rounded-sm text-sm font-sans font-medium transition-all border flex items-center justify-center gap-2',
+                                  format_ === 'visio'
+                                    ? 'bg-white text-black border-white'
+                                    : 'bg-transparent text-white/60 border-white/10 hover:border-white/30 hover:text-white'
+                                )}
+                              >
+                                <Video className="w-3.5 h-3.5" /> Visio
+                              </button>
+                              <button
+                                onClick={() => setFormat_('physique')}
+                                className={cn(
+                                  'py-2.5 rounded-sm text-sm font-sans font-medium transition-all border flex items-center justify-center gap-2',
+                                  format_ === 'physique'
+                                    ? 'bg-white text-black border-white'
+                                    : 'bg-transparent text-white/60 border-white/10 hover:border-white/30 hover:text-white'
+                                )}
+                              >
+                                <MapPin className="w-3.5 h-3.5" /> En physique
+                              </button>
+                            </div>
+                          </div>
+
                           <Button
                             onClick={handleConfirm}
-                            disabled={!name || !email}
+                            disabled={!name || !email || submitting}
                             className="w-full bg-white text-black hover:bg-white/90 font-sans text-sm font-bold rounded-sm py-5 mt-2 group"
                           >
-                            Confirmer le rendez-vous
-                            <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
+                            {submitting ? 'Confirmation...' : 'Confirmer le rendez-vous'}
+                            {!submitting && <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />}
                           </Button>
                         </div>
                         <p className="text-[10px] text-white/30 mt-4 text-center leading-relaxed">
-                          Appel de 20 min · Visio ou téléphone · Sans engagement
+                          Appel de 20 min · Visio ou en physique · Sans engagement
                         </p>
                       </motion.div>
                     )}
