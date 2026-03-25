@@ -103,10 +103,10 @@ const LandingPage = () => (
         <motion.div variants={stagger} initial="hidden" animate="visible" className="max-w-3xl">
           <div className="inline-block">
           <motion.h1 variants={fadeUp} className="text-[2rem] sm:text-[3.75rem] md:text-[5rem] lg:text-[6.5rem] font-serif font-[500] text-white/50 leading-[1.1] md:leading-[1.02] mb-3 md:mb-5 tracking-[-0.03em] whitespace-nowrap">
-              Curating Top Tier Lawyers
+              Curating <em className="italic">top-tier</em> Lawyers
             </motion.h1>
           </div>
-          <motion.p variants={fadeUp} className="text-[0.92rem] sm:text-[1.08rem] md:text-[1.14rem] text-white font-sans font-[480] leading-relaxed max-w-3xl">
+          <motion.p variants={fadeUp} className="text-[0.92rem] sm:text-[1.08rem] md:text-[1.14rem] text-white font-sans font-[480] leading-relaxed max-w-2xl">
             Un réseau de premier plan, une approche strictement confidentielle et un accompagnement sur mesure, dédiés aux cabinets d'affaires et aux candidats les plus exigeants du marché.
           </motion.p>
           <motion.div variants={fadeUp} className="mt-8 sm:mt-14">
@@ -212,9 +212,6 @@ const LandingPage = () => (
           viewport={{ once: true }}
           className="max-w-xl mx-auto"
         >
-          <h2 className="text-2xl md:text-4xl lg:text-[2.75rem] font-serif font-normal text-white mb-6 tracking-[-0.02em]">
-            Request access
-          </h2>
           <p className="text-white/50 font-sans font-light mb-10 leading-relaxed">
             Inscription confidentielle en moins de 10 minutes.<br />
             Profil validé sous 48h.
