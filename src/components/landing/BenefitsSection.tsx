@@ -42,7 +42,7 @@ const engagements = [
 
 const BenefitsSection = () => {
   return (
-    <section className="py-16 md:py-20" style={{ background: 'hsl(30 8% 18%)' }}>
+    <section className="py-16 md:py-20" style={{ background: 'hsl(18 30% 10%)' }}>
       <div className="carter-container">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
