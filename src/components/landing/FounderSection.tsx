@@ -17,7 +17,7 @@ const FounderSection = () => {
   };
 
   return (
-    <section className="py-14 md:py-20 bg-white overflow-hidden border-t border-foreground/[0.08]">
+    <section className="py-14 md:py-20 overflow-hidden border-t border-foreground/[0.08]" style={{ background: 'hsl(0 0% 96%)' }}>
       <div className="carter-container">
         <div className="max-w-5xl mx-auto">
           {/* Section label */}
@@ -26,12 +26,23 @@ const FounderSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="text-xs font-sans font-medium tracking-[0.2em] uppercase text-muted-foreground mb-16 md:mb-20 text-center"
+            className="text-xs font-sans font-medium tracking-[0.2em] uppercase text-muted-foreground mb-6 text-center"
           >
             Notre vision
           </motion.p>
 
-          {/* Two-column layout: Quote LEFT — Founder RIGHT */}
+          {/* Intro phrase */}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            className="font-sans text-sm md:text-base text-foreground/60 font-light leading-relaxed text-center max-w-2xl mx-auto mb-16 md:mb-20"
+          >
+            Logan a été fondé avec une conviction : le recrutement juridique d'excellence mérite une approche plus structurée, plus confidentielle et plus exigeante.
+          </motion.p>
+
+          {/* Two-column layout: Citation LEFT — Founder RIGHT */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -39,7 +50,19 @@ const FounderSection = () => {
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
             className="flex flex-col md:flex-row items-start gap-12 md:gap-16 max-w-4xl mx-auto"
           >
-            {/* LEFT — Founder */}
+            {/* LEFT — Team quote */}
+            <div className="flex-1 flex items-start pt-2">
+              <div>
+                <p className="font-serif text-base sm:text-lg md:text-xl text-foreground/55 italic leading-relaxed mb-4 tracking-[-0.01em]">
+                  «&nbsp;Logan se positionne comme la plateforme la plus exigeante et structurée du marché, offrant un accompagnement sur mesure, résolument confidentiel et parfaitement ciblé.&nbsp;»
+                </p>
+                <span className="text-[10px] font-sans font-medium tracking-[0.15em] uppercase text-muted-foreground/60">
+                  — L'équipe Logan
+                </span>
+              </div>
+            </div>
+
+            {/* RIGHT — Founder */}
             <div className="flex-1 flex flex-col items-center">
               <div className="flex-shrink-0 flex flex-col items-center gap-3">
                 <div
@@ -86,18 +109,6 @@ const FounderSection = () => {
               <p className="font-sans text-[0.92rem] text-foreground/70 font-light leading-relaxed mt-5 text-center max-w-sm">
                 Fort d'un réseau reconnu et d'une compréhension aiguë du marché des avocats, Simon a fondé Logan avec une conviction&nbsp;: l'expérience recrutement doit être repensée en proposant une approche plus structurée, plus confidentielle et plus exigeante.
               </p>
-            </div>
-
-            {/* RIGHT — Team quote */}
-            <div className="flex-1 flex items-start pt-2">
-              <div>
-                <p className="font-serif text-base sm:text-lg md:text-xl text-foreground/55 italic leading-relaxed mb-4 tracking-[-0.01em]">
-                  «&nbsp;Logan se positionne comme la plateforme la plus exigeante et structurée du marché, offrant un accompagnement sur mesure, résolument confidentiel et parfaitement ciblé.&nbsp;»
-                </p>
-                <span className="text-[10px] font-sans font-medium tracking-[0.15em] uppercase text-muted-foreground/60">
-                  — L'équipe Logan
-                </span>
-              </div>
             </div>
           </motion.div>
         </div>

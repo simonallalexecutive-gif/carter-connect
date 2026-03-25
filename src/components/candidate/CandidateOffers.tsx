@@ -87,19 +87,19 @@ const CandidateOffers = () => {
                     <div className="flex items-start justify-between gap-4">
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-0 mb-3 flex-wrap">
-                          <span className="text-[16px] font-sans tracking-[-0.01em] text-white leading-none">{shortSeniority(offer.seniority)}</span>
-                          <span className="mx-2.5 w-px h-5 bg-white/20 inline-block" />
-                          <span className="text-[16px] font-sans tracking-[-0.01em] text-white leading-none">{offer.dept}</span>
+                          <span className="text-[16px] font-sans tracking-[-0.01em] text-foreground leading-none">{shortSeniority(offer.seniority)}</span>
+                          <span className="mx-2.5 w-px h-5 bg-foreground/20 inline-block" />
+                          <span className="text-[16px] font-sans tracking-[-0.01em] text-foreground leading-none">{offer.dept}</span>
                           {offer.ranking && (
                             <>
-                              <span className="mx-2.5 w-px h-5 bg-white/20 inline-block" />
-                              <span className="inline-flex items-center gap-2 text-[14px] font-sans text-white">
+                              <span className="mx-2.5 w-px h-5 bg-foreground/20 inline-block" />
+                              <span className="inline-flex items-center gap-2 text-[14px] font-sans text-foreground">
                                 <span className="font-semibold">{offer.ranking}</span>
                               </span>
                             </>
                           )}
                           {isInterested && (
-                            <span className="ml-3 inline-flex items-center gap-1 text-[10px] text-white/50 font-sans">
+                            <span className="ml-3 inline-flex items-center gap-1 text-[10px] text-foreground/50 font-sans">
                               <CheckCircle2 className="w-3.5 h-3.5" />Intérêt transmis
                             </span>
                           )}
@@ -108,21 +108,21 @@ const CandidateOffers = () => {
                         {!isExpanded && offer.tags.length > 0 && (
                           <div className="flex flex-wrap gap-1.5 mt-1">
                             {offer.tags.slice(0, 4).map((tag) => (
-                              <span key={tag} className="text-[10px] px-2.5 py-1 rounded-full border border-white/15 text-white/60 font-sans">{tag}</span>
+                              <span key={tag} className="text-[10px] px-2.5 py-1 rounded-full border border-foreground/15 text-foreground/60 font-sans">{tag}</span>
                             ))}
                           </div>
                         )}
 
                         <div className="flex items-center justify-between mt-4">
-                          <div className="flex items-center gap-1.5 text-[11px] text-white/50 font-sans">
+                          <div className="flex items-center gap-1.5 text-[11px] text-foreground/50 font-sans">
                             <Calendar className="w-3 h-3" />
                             <span>Date de publication : {formatOfferDate(offer.postedAt)}</span>
                           </div>
-                          <div className="text-[9px] tracking-[0.15em] uppercase text-white/30 font-sans">{offer.reference}</div>
+                          <div className="text-[9px] tracking-[0.15em] uppercase text-foreground/30 font-sans">{offer.reference}</div>
                         </div>
                       </div>
-                      <div className="w-10 h-10 rounded-full flex items-center justify-center bg-white/10 shrink-0 mt-1">
-                        <ChevronDown className={`w-5 h-5 text-white/60 transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`} />
+                      <div className="w-10 h-10 rounded-full flex items-center justify-center bg-foreground/10 shrink-0 mt-1">
+                        <ChevronDown className={`w-5 h-5 text-foreground/60 transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`} />
                       </div>
                     </div>
                   </button>
@@ -130,7 +130,7 @@ const CandidateOffers = () => {
                 <AnimatePresence>
                   {isExpanded && (
                     <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }} className="overflow-hidden">
-                      <div className="border-t border-white/10">
+                      <div className="border-t border-foreground/10">
                         {/* Content body — directly show content, no black banner */}
                         <div className="p-6 md:p-8 bg-white text-foreground">
 
