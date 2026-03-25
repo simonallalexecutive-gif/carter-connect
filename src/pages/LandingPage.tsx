@@ -100,14 +100,15 @@ const LandingPage = () => (
         <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-transparent to-black/70" />
       </div>
       <div className="px-6 sm:px-8 lg:px-10 max-w-6xl relative z-10 pt-24 flex-1 flex items-center pb-4">
-        <motion.div variants={stagger} initial="hidden" animate="visible" className="max-w-3xl">
+        <motion.div variants={stagger} initial="hidden" animate="visible" className="max-w-[min(95vw,72rem)]">
           <div className="inline-block">
           <motion.h1 variants={fadeUp} className="text-[2rem] sm:text-[3.75rem] md:text-[5rem] lg:text-[6.5rem] font-serif font-[500] text-white/50 leading-[1.1] md:leading-[1.02] mb-3 md:mb-5 tracking-[-0.03em] whitespace-nowrap">
               Curating <em className="italic">top-tier</em> Lawyers
             </motion.h1>
           </div>
-          <motion.p variants={fadeUp} className="text-[0.92rem] sm:text-[1.08rem] md:text-[1.14rem] text-white font-sans font-[480] leading-[1.7] max-w-2xl">
-            Un réseau de premier plan, une approche strictement confidentielle et un accompagnement sur mesure, dédiés aux cabinets d'affaires et aux candidats les plus exigeants du marché.
+          <motion.p variants={fadeUp} className="text-[0.92rem] sm:text-[1rem] md:text-[1.02rem] text-white font-sans font-[480] leading-[1.65] max-w-none">
+            <span className="block md:whitespace-nowrap">Un réseau de premier plan, une approche strictement confidentielle</span>
+            <span className="block md:whitespace-nowrap">et un accompagnement sur mesure, dédiés aux cabinets d'affaires et aux candidats les plus exigeants du marché.</span>
           </motion.p>
           <motion.div variants={fadeUp} className="mt-14 sm:mt-20">
             <Link to="/demander-acces">
