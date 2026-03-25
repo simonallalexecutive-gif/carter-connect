@@ -107,8 +107,8 @@ const LandingPage = () => (
             </motion.h1>
           </div>
           <motion.p variants={fadeUp} className="text-[0.92rem] sm:text-[1rem] md:text-[1.02rem] text-white font-sans font-[480] leading-[1.65] max-w-none">
-            <span className="block md:whitespace-nowrap">Un réseau de premier plan, une approche strictement confidentielle</span>
-            <span className="block md:whitespace-nowrap">et un accompagnement sur mesure, dédiés aux cabinets d'affaires et aux candidats les plus exigeants du marché.</span>
+            <span className="block md:whitespace-nowrap">Un réseau de premier plan, une approche strictement confidentielle et un accompagnement sur mesure,</span>
+            <span className="block md:whitespace-nowrap">dédiés aux cabinets d'affaires et aux candidats les plus exigeants du marché.</span>
           </motion.p>
           <motion.div variants={fadeUp} className="mt-14 sm:mt-20">
             <Link to="/demander-acces">
