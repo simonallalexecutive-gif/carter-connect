@@ -1,19 +1,34 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { ChevronDown, Menu, X } from 'lucide-react';
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 
 const Header = () => {
   const { user, loading, signOut } = useAuth();
   const [menuOpen, setMenuOpen] = useState(false);
   const [isDarkBg, setIsDarkBg] = useState(true);
+  const [hidden, setHidden] = useState(false);
+  const lastScrollY = useRef(0);
   const location = useLocation();
   const navigate = useNavigate();
   const isLanding = location.pathname === '/';
 
   useEffect(() => {
     const headerRef = { current: null as HTMLElement | null };
-    const detect = () => {
+    const heroH = window.innerHeight;
+
+    const onScroll = () => {
+      const y = window.scrollY;
+
+      // Hide/show based on scroll direction (only after hero)
+      if (y > heroH) {
+        setHidden(y > lastScrollY.current);
+      } else {
+        setHidden(false);
+      }
+      lastScrollY.current = y;
+
+      // Detect background luminance
       const header = headerRef.current ?? document.querySelector('header');
       if (header) {
         headerRef.current = header;
@@ -30,7 +45,6 @@ const Header = () => {
         if (bg && bg !== 'rgba(0, 0, 0, 0)' && bg !== 'transparent') break;
         target = target.parentElement;
       }
-      // fallback: if we hit body, check body bg
       if (!bg || bg === 'rgba(0, 0, 0, 0)' || bg === 'transparent') {
         bg = window.getComputedStyle(document.body).backgroundColor;
       }
@@ -43,9 +57,9 @@ const Header = () => {
         }
       }
     };
-    window.addEventListener('scroll', detect, { passive: true });
-    detect();
-    return () => window.removeEventListener('scroll', detect);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener('scroll', onScroll);
   }, [location.pathname]);
 
   const useWhiteText = isDarkBg;
@@ -87,7 +101,9 @@ const Header = () => {
       : 'text-foreground';
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${menuOpen ? 'bg-black' : 'bg-transparent'}`}>
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${menuOpen ? 'bg-black' : 'bg-transparent'} ${hidden && !menuOpen ? '-translate-y-full' : 'translate-y-0'}`}
+    >
       <div className="px-6 sm:px-8 lg:px-10 flex items-center justify-between h-16">
         <div className="flex items-center gap-10">
           <Link to="/" className="flex items-center">
