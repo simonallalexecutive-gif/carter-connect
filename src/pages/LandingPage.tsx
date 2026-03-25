@@ -106,7 +106,7 @@ const LandingPage = () => (
               Curating <em className="italic">top-tier</em> Lawyers
             </motion.h1>
           </div>
-          <motion.p variants={fadeUp} className="text-[0.92rem] sm:text-[1.08rem] md:text-[1.14rem] text-white font-sans font-[480] leading-[1.6] max-w-2xl">
+          <motion.p variants={fadeUp} className="text-[0.92rem] sm:text-[1.08rem] md:text-[1.14rem] text-white font-sans font-[480] leading-[1.7] max-w-lg">
             Un réseau de premier plan, une approche strictement confidentielle et un accompagnement sur mesure, dédiés aux cabinets d'affaires et aux candidats les plus exigeants du marché.
           </motion.p>
           <motion.div variants={fadeUp} className="mt-14 sm:mt-20">
@@ -215,17 +215,20 @@ const LandingPage = () => (
           viewport={{ once: true }}
           className="max-w-xl mx-auto"
         >
-          <Link to="/demander-acces">
-            <Button size="lg" className="bg-white text-black hover:bg-white/90 font-sans text-sm font-medium px-10 py-6 rounded-sm tracking-wide mb-10">
-              Rejoindre Logan
-            </Button>
-          </Link>
+          <span className="font-serif text-3xl md:text-4xl text-white tracking-[0.04em] block mb-10">
+            Rejoindre Logan
+          </span>
           <p className="text-white/50 font-sans font-light leading-relaxed mb-10">
             Inscription confidentielle en moins de 10 minutes.<br />
             Profil validé sous 48h.
           </p>
-          <Link to="/demander-acces" className="text-white/40 hover:text-white/70 font-sans text-sm font-medium tracking-wide transition-colors underline underline-offset-4">
-            Request access
+          <Link to="/demander-acces">
+            <Button
+              size="lg"
+              className="bg-white text-black hover:bg-white/90 font-sans text-sm font-medium px-8 py-5 rounded-sm tracking-wide"
+            >
+              Request access
+            </Button>
           </Link>
         </motion.div>
       </div>

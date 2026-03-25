@@ -1,10 +1,9 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
-import { ArrowRight, CheckCircle, Shield, Clock, ArrowLeft } from 'lucide-react';
+import { ArrowRight, ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Header from '@/components/layout/Header';
-import Footer from '@/components/layout/Footer';
 
 const statuses = [
   { label: 'Associé', description: "Partner au sein d'un cabinet d'avocats d'affaires" },
@@ -18,7 +17,7 @@ const AccessRequestPage = () => {
   return (
     <div className="min-h-screen bg-white flex flex-col">
       <Header />
-      <main className="flex-1 flex items-center justify-center pt-20 px-6">
+      <main className="flex-1 flex items-center justify-center pt-20 pb-20 px-6">
         <AnimatePresence mode="wait">
           {!showStatusSelect ? (
             <motion.div
@@ -27,42 +26,21 @@ const AccessRequestPage = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.6 }}
-              className="w-full max-w-2xl text-center"
+              className="w-full max-w-md text-center"
             >
-              <div className="w-12 h-px bg-black/20 mx-auto mb-8" />
-              <h1 className="font-serif text-3xl md:text-4xl text-black mb-6">
+              <span className="font-serif text-[32px] tracking-[0.04em] text-foreground block mb-12">Logan</span>
+
+              <h1 className="font-serif text-2xl md:text-3xl text-foreground mb-4 tracking-[-0.02em]">
                 Demander un accès
               </h1>
-              <p className="text-[0.92rem] md:text-[0.98rem] font-sans font-[430] text-black/60 leading-relaxed mb-10 max-w-xl mx-auto">
-                Un cercle privé d'excellence, structuré et piloté par des chasseurs spécialisés,<br />
-                dédié aux profils et cabinets d'affaires les plus exigeants du marché
+              <p className="text-[0.88rem] font-sans font-light text-muted-foreground leading-relaxed mb-14 max-w-sm mx-auto">
+                Un cercle privé d'excellence, structuré et piloté par des chasseurs spécialisés, dédié aux profils et cabinets d'affaires les plus exigeants du marché.
               </p>
 
-              <div className="space-y-4 mb-10 text-left max-w-sm mx-auto">
-                <div className="flex items-start gap-3">
-                  <Shield className="w-5 h-5 text-black/50 mt-0.5 flex-shrink-0" />
-                  <p className="text-sm font-sans text-black/70">
-                    Processus de sélection rigoureux pour garantir la qualité du réseau
-                  </p>
-                </div>
-                <div className="flex items-start gap-3">
-                  <Clock className="w-5 h-5 text-black/50 mt-0.5 flex-shrink-0" />
-                  <p className="text-sm font-sans text-black/70">
-                    Chaque profil est étudié attentivement et validé sous 48h
-                  </p>
-                </div>
-                <div className="flex items-start gap-3">
-                  <CheckCircle className="w-5 h-5 text-black/50 mt-0.5 flex-shrink-0" />
-                  <p className="text-sm font-sans text-black/70">
-                    Accès complet à la plateforme une fois votre profil validé
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <div className="flex flex-col gap-3 max-w-xs mx-auto">
                 <Button
                   size="lg"
-                  className="font-sans text-sm font-medium px-8 py-6 rounded-sm tracking-wide group w-full sm:w-auto"
+                  className="font-sans text-sm font-medium px-8 py-6 rounded-sm tracking-wide group w-full"
                   onClick={() => setShowStatusSelect(true)}
                 >
                   Espace candidat
@@ -72,7 +50,7 @@ const AccessRequestPage = () => {
                   <Button
                     size="lg"
                     variant="outline"
-                    className="font-sans text-sm font-medium px-8 py-6 rounded-sm tracking-wide group w-full sm:w-auto"
+                    className="font-sans text-sm font-medium px-8 py-6 rounded-sm tracking-wide group w-full"
                   >
                     Espace cabinet
                     <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
@@ -87,17 +65,18 @@ const AccessRequestPage = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.5 }}
-              className="w-full max-w-lg text-center"
+              className="w-full max-w-md text-center"
             >
-              <div className="w-12 h-px bg-black/20 mx-auto mb-8" />
-              <h1 className="font-serif text-3xl md:text-4xl text-black mb-4">
+              <span className="font-serif text-[32px] tracking-[0.04em] text-foreground block mb-12">Logan</span>
+
+              <h1 className="font-serif text-2xl md:text-3xl text-foreground mb-3 tracking-[-0.02em]">
                 Espace candidat
               </h1>
-              <p className="text-sm text-black/50 font-sans leading-relaxed mb-10">
+              <p className="text-sm text-muted-foreground font-sans font-light leading-relaxed mb-10">
                 Sélectionnez votre statut pour démarrer votre inscription
               </p>
 
-              <div className="flex flex-col gap-4 max-w-sm mx-auto">
+              <div className="flex flex-col gap-3 max-w-xs mx-auto">
                 {statuses.map((s) => (
                   <Link key={s.label} to="/inscription?espace=candidat">
                     <Button
@@ -117,7 +96,7 @@ const AccessRequestPage = () => {
 
               <button
                 onClick={() => setShowStatusSelect(false)}
-                className="inline-flex items-center gap-2 text-sm font-sans text-black/50 hover:text-black transition-colors mt-8"
+                className="inline-flex items-center gap-2 text-sm font-sans text-muted-foreground hover:text-foreground transition-colors mt-10"
               >
                 <ArrowLeft className="w-3.5 h-3.5" />
                 Retour
@@ -126,7 +105,6 @@ const AccessRequestPage = () => {
           )}
         </AnimatePresence>
       </main>
-      <Footer />
     </div>
   );
 };

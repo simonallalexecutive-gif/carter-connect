@@ -58,7 +58,7 @@ const FounderSection = () => {
           className="flex justify-end"
         >
           <div className="max-w-lg text-right">
-            <p className="font-serif text-lg sm:text-xl md:text-2xl text-white/45 italic leading-relaxed mb-4 tracking-[-0.01em]">
+            <p className="font-sans text-[0.92rem] text-white/45 italic font-light leading-[1.75] mb-4 tracking-[-0.01em]">
               «&nbsp;Logan se positionne comme la plateforme la plus exigeante et structurée du marché, offrant un accompagnement sur mesure, résolument confidentiel et parfaitement ciblé.&nbsp;»
             </p>
             <span className="text-[10px] font-sans font-medium tracking-[0.15em] uppercase text-white/25">
