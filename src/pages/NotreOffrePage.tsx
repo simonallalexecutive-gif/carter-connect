@@ -50,7 +50,7 @@ const advantages = [
 ];
 
 const NotreOffrePage = () => (
-  <div className="min-h-screen bg-black">
+  <div className="min-h-screen" style={{ background: 'hsl(0 0% 6%)' }}>
     <Header />
 
     {/* Hero */}
@@ -88,49 +88,46 @@ const NotreOffrePage = () => (
           {plans.map((plan) => (
             <div
               key={plan.name}
-              className={`relative rounded-sm p-8 md:p-10 flex flex-col ${
-                plan.featured
-                  ? 'bg-white text-black border-2 border-white'
-                  : 'bg-white/[0.04] backdrop-blur-sm border border-white/[0.08] text-white'
-              }`}
+              className="relative rounded-sm p-8 md:p-10 flex flex-col border border-white/[0.08]"
+              style={{ background: 'hsl(0 0% 4%)' }}
             >
               {plan.featured && (
-                <span className="absolute -top-3 left-1/2 -translate-x-1/2 text-[10px] font-sans font-medium tracking-[0.2em] uppercase px-4 py-1.5 bg-black text-white rounded-sm">
+                <span className="absolute -top-3 left-1/2 -translate-x-1/2 text-[10px] font-sans font-medium tracking-[0.2em] uppercase px-4 py-1.5 bg-white text-black rounded-sm">
                   Recommandé
                 </span>
               )}
 
-              <h3 className={`font-serif text-xl md:text-2xl mb-2 ${plan.featured ? 'text-black' : 'text-white/90'}`}>
+              <h3 className="font-serif text-xl md:text-2xl text-white/90 mb-2">
                 {plan.name}
               </h3>
-              <p className={`font-sans text-sm leading-[1.6] mb-8 ${plan.featured ? 'text-black/50' : 'text-white/40'}`}>
+              <p className="font-sans text-sm leading-[1.6] text-white/40 mb-8">
                 {plan.tagline}
               </p>
 
               <div className="flex-1">
                 <div className="mb-6">
-                  <span className={`font-serif text-3xl md:text-4xl font-medium ${plan.featured ? 'text-black' : 'text-white/85'}`}>
+                  <span className="font-serif text-3xl md:text-4xl font-medium text-white/85">
                     {plan.price} €
                   </span>
-                  <span className={`font-sans text-sm ml-1 ${plan.featured ? 'text-black/40' : 'text-white/30'}`}>
+                  <span className="font-sans text-sm ml-1 text-white/30">
                     / mois
                   </span>
                 </div>
 
                 <div className="space-y-4 mb-8">
-                  <div className={`flex items-center gap-3 pb-4 border-b ${plan.featured ? 'border-black/10' : 'border-white/[0.08]'}`}>
-                    <span className={`font-sans text-xs font-medium tracking-[0.15em] uppercase ${plan.featured ? 'text-black/40' : 'text-white/30'}`}>
+                  <div className="flex items-center gap-3 pb-4 border-b border-white/[0.08]">
+                    <span className="font-sans text-xs font-medium tracking-[0.15em] uppercase text-white/30">
                       Engagement
                     </span>
-                    <span className={`font-sans text-sm ml-auto ${plan.featured ? 'text-black' : 'text-white/60'}`}>
+                    <span className="font-sans text-sm ml-auto text-white/60">
                       {plan.engagement}
                     </span>
                   </div>
                   <div className="flex items-center gap-3">
-                    <span className={`font-sans text-xs font-medium tracking-[0.15em] uppercase ${plan.featured ? 'text-black/40' : 'text-white/30'}`}>
+                    <span className="font-sans text-xs font-medium tracking-[0.15em] uppercase text-white/30">
                       Success fee
                     </span>
-                    <span className={`font-sans text-sm ml-auto font-medium ${plan.featured ? 'text-black' : 'text-white/60'}`}>
+                    <span className="font-sans text-sm ml-auto font-medium text-white/60">
                       {plan.successFee}
                     </span>
                   </div>
@@ -139,17 +136,14 @@ const NotreOffrePage = () => (
 
               <Link to="/demander-acces">
                 <Button
-                  className={`w-full font-sans text-sm font-medium py-5 rounded-sm tracking-wide ${
-                    plan.featured
-                      ? 'bg-black text-white hover:bg-black/90'
-                      : 'bg-white text-black hover:bg-white/90'
-                  }`}
+                  className="w-full font-sans text-sm font-medium py-5 rounded-sm tracking-wide bg-white text-black hover:bg-white/90"
                 >
                   Demander un accès
                 </Button>
               </Link>
             </div>
           ))}
+
         </motion.div>
       </div>
     </section>
@@ -169,7 +163,7 @@ const NotreOffrePage = () => (
 
           <div className="grid sm:grid-cols-2 gap-6 md:gap-10">
             {advantages.map(({ icon: Icon, text }) => (
-              <div key={text} className="bg-white/[0.04] backdrop-blur-sm border border-white/[0.08] rounded-sm p-8 md:p-10 flex items-start gap-5">
+              <div key={text} className="border border-white/[0.08] rounded-sm p-8 md:p-10 flex items-start gap-5" style={{ background: 'hsl(0 0% 4%)' }}>
                 <Icon className="w-5 h-5 text-white/25 flex-shrink-0 mt-0.5" strokeWidth={1.5} />
                 <p className="font-sans text-[0.95rem] leading-[1.7] text-white/55">{text}</p>
               </div>
