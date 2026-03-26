@@ -225,7 +225,7 @@ const LandingPage = () => (
           className="max-w-xl mx-auto"
         >
           <span className="font-serif text-3xl md:text-4xl text-white tracking-[0.04em] block mb-10">
-            <em className="italic">Legal recruitment, redefined.</em>{' '}Logan
+            <em className="italic">Legal recruitment, redefined.</em>{' '}Logan.
           </span>
           <p className="text-white/50 font-sans font-light leading-relaxed mb-10">
             Inscription confidentielle en moins de 10 minutes.<br />
