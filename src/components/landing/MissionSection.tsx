@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { Shield, Eye, Zap, Brain, Users, Target } from 'lucide-react';
+import { Shield, Eye, Brain, Handshake, Building2, UserCheck } from 'lucide-react';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 28 },
@@ -11,30 +11,6 @@ const stagger = {
   visible: { transition: { staggerChildren: 0.15 } },
 };
 
-const pillars = [
-  {
-    icon: Eye,
-    title: 'Visibilité continue',
-    desc: 'Le marché devient permanent, lisible et activable à tout moment.',
-  },
-  {
-    icon: Shield,
-    title: 'Confidentialité absolue',
-    desc: 'Cabinets et candidats interagissent sans jamais exposer leur identité.',
-  },
-  {
-    icon: Brain,
-    title: 'IA + Humain',
-    desc: "L'IA optimise la détection et le matching. L'humain garantit la justesse.",
-  },
-];
-
-const results = [
-  { icon: Target, text: 'Un accès permanent à un vivier hautement qualifié' },
-  { icon: Zap, text: 'Une lecture en temps réel du marché' },
-  { icon: Users, text: "Une capacité unique à capter les opportunités avant qu'elles n'existent" },
-];
-
 const MissionSection = () => (
   <section className="relative bg-[hsl(0,0%,4%)] overflow-hidden">
     {/* Subtle gradient accents */}
@@ -44,7 +20,8 @@ const MissionSection = () => (
     </div>
 
     <div className="relative z-10 max-w-5xl mx-auto px-6 sm:px-8 lg:px-10 py-24 md:py-36">
-      {/* Header */}
+
+      {/* ── Header ── */}
       <motion.div
         variants={stagger}
         initial="hidden"
@@ -63,7 +40,7 @@ const MissionSection = () => (
         </motion.p>
       </motion.div>
 
-      {/* Core statement */}
+      {/* ── Manifesto ── */}
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -73,12 +50,12 @@ const MissionSection = () => (
       >
         <div className="border-l-2 border-white/10 pl-8 md:pl-12 max-w-3xl">
           <p className="font-sans text-[1.05rem] md:text-lg leading-[1.8] text-white/60">
-            Nous connectons, en toute discrétion, les acteurs les plus prestigieux du marché des avocats — cabinets d'élite et talents rares — sans jamais exposer leur identité.
+            Logan structure un écosystème discret et exigeant, réunissant les acteurs les plus prestigieux du marché des avocats d'affaires. Un environnement fermé, fondé sur la sélection, où cabinets et talents accèdent en continu à un réseau hautement qualifié et à des profils rares, rigoureusement identifiés.
           </p>
         </div>
       </motion.div>
 
-      {/* How it works — two sides */}
+      {/* ── Two sides — Cabinets / Candidats ── */}
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -91,37 +68,38 @@ const MissionSection = () => (
         </p>
         <div className="grid md:grid-cols-2 gap-6 md:gap-10">
           <div className="bg-white/[0.03] border border-white/[0.06] rounded-sm p-8 md:p-10">
+            <Building2 className="w-5 h-5 text-white/25 mb-5" strokeWidth={1.5} />
             <p className="font-sans text-xs font-medium tracking-[0.2em] uppercase text-white/30 mb-4">Cabinets</p>
             <p className="font-sans text-base leading-[1.7] text-white/55">
-              Attirent les meilleurs profils sans se dévoiler.
+              Un accès permanent au marché, permettant d'anticiper les recrutements dans une logique proactive, via un modèle par abonnement complété d'un success fee maîtrisé.
             </p>
           </div>
           <div className="bg-white/[0.03] border border-white/[0.06] rounded-sm p-8 md:p-10">
+            <UserCheck className="w-5 h-5 text-white/25 mb-5" strokeWidth={1.5} />
             <p className="font-sans text-xs font-medium tracking-[0.2em] uppercase text-white/30 mb-4">Candidats</p>
             <p className="font-sans text-base leading-[1.7] text-white/55">
-              Suscitent de l'intérêt sans se rendre visibles.
+              Un cadre structuré et confidentiel, offrant une visibilité constante auprès des meilleurs cabinets, sans jamais compromettre leur anonymat.
             </p>
           </div>
         </div>
       </motion.div>
 
-      {/* Transformation statement */}
+      {/* ── Market insight ── */}
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-60px' }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className="mb-20 md:mb-28 text-center max-w-3xl mx-auto"
+        className="mb-20 md:mb-28"
       >
-        <p className="font-sans text-[1.05rem] md:text-lg leading-[1.8] text-white/50">
-          Logan transforme le recrutement, en passant d'une logique{' '}
-          <span className="text-white/70 font-medium">ponctuelle et opaque</span> à une approche{' '}
-          <span className="text-white/70 font-medium">proactive, fluide et opportuniste</span>, où les meilleures rencontres ne dépendent plus du timing, mais de la{' '}
-          <span className="text-white/70 font-medium">pertinence</span>.
-        </p>
+        <div className="border-l-2 border-white/10 pl-8 md:pl-12 max-w-3xl">
+          <p className="font-sans text-[1.05rem] md:text-lg leading-[1.8] text-white/60">
+            Le marché des avocats d'affaires ne se limite pas à des besoins ponctuels. Il repose sur des équilibres subtils, des temporalités spécifiques et des opportunités souvent informelles. Logan en donne un accès continu, permettant d'identifier et d'engager, avec discernement, les profils les plus pertinents — y compris les plus difficiles à capter.
+          </p>
+        </div>
       </motion.div>
 
-      {/* Three pillars */}
+      {/* ── Technology + Human ── */}
       <motion.div
         variants={stagger}
         initial="hidden"
@@ -133,7 +111,23 @@ const MissionSection = () => (
           Notre modèle
         </motion.p>
         <div className="grid md:grid-cols-3 gap-px bg-white/[0.06] rounded-sm overflow-hidden">
-          {pillars.map(({ icon: Icon, title, desc }) => (
+          {[
+            {
+              icon: Brain,
+              title: 'Technologie',
+              desc: 'La technologie permet de structurer et de rendre lisible l\'information.',
+            },
+            {
+              icon: Eye,
+              title: 'Expertise humaine',
+              desc: 'L\'intervention humaine en garantit l\'analyse, la justesse et l\'exigence.',
+            },
+            {
+              icon: Shield,
+              title: 'Qualité des rapprochements',
+              desc: 'C\'est de cette combinaison que naît la qualité des rapprochements opérés.',
+            },
+          ].map(({ icon: Icon, title, desc }) => (
             <motion.div
               key={title}
               variants={fadeUp}
@@ -147,32 +141,21 @@ const MissionSection = () => (
         </div>
       </motion.div>
 
-      {/* Results */}
+      {/* ── Orchestration ── */}
       <motion.div
-        variants={stagger}
-        initial="hidden"
-        whileInView="visible"
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-60px' }}
-        className="mb-20 md:mb-28"
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        className="mb-20 md:mb-28 text-center max-w-3xl mx-auto"
       >
-        <motion.p variants={fadeUp} className="font-sans text-sm font-medium tracking-[0.15em] uppercase text-white/25 mb-10">
-          Résultat
-        </motion.p>
-        <div className="space-y-4">
-          {results.map(({ icon: Icon, text }) => (
-            <motion.div
-              key={text}
-              variants={fadeUp}
-              className="flex items-start gap-5 py-5 border-b border-white/[0.06] last:border-0"
-            >
-              <Icon className="w-4 h-4 text-white/20 mt-1 flex-shrink-0" strokeWidth={1.5} />
-              <p className="font-sans text-base leading-[1.6] text-white/55">{text}</p>
-            </motion.div>
-          ))}
-        </div>
+        <Handshake className="w-6 h-6 text-white/20 mx-auto mb-6" strokeWidth={1.5} />
+        <p className="font-sans text-[1.05rem] md:text-lg leading-[1.8] text-white/50">
+          Lorsqu'une rencontre apparaît pertinente, Logan en évalue la cohérence et en orchestre la mise en relation, avant d'accompagner chaque partie avec rigueur tout au long du processus.
+        </p>
       </motion.div>
 
-      {/* Closing statement */}
+      {/* ── Closing statement ── */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -180,9 +163,11 @@ const MissionSection = () => (
         transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
         className="text-center"
       >
-        <p className="font-serif text-xl sm:text-2xl md:text-[1.8rem] leading-[1.4] text-white/35 max-w-2xl mx-auto">
-          Logan réinvente la chasse de tête&nbsp;:<br />
-          <span className="text-white/60">plus confidentielle, plus intelligente, plus continue.</span>
+        <p className="font-serif text-xl sm:text-2xl md:text-[1.8rem] leading-[1.4] text-white/35 max-w-2xl mx-auto mb-6">
+          Logan connecte, en toute discrétion, les cabinets d'affaires et les talents les plus qualifiés du marché, sans jamais exposer leur identité.
+        </p>
+        <p className="font-sans text-sm leading-[1.7] text-white/25 max-w-xl mx-auto">
+          Un environnement unique, où coexistent en continu les acteurs les plus exigeants et des profils qui ne se rendent visibles nulle part ailleurs.
         </p>
       </motion.div>
     </div>
