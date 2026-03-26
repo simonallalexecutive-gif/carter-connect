@@ -48,9 +48,12 @@ const MissionSection = () => (
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         className="mb-20 md:mb-28"
       >
-        <div className="border-l-2 border-white/10 pl-8 md:pl-12 max-w-3xl">
+        <div className="border-l-2 border-white/10 pl-8 md:pl-12 max-w-3xl space-y-6">
           <p className="font-sans text-[1.05rem] md:text-lg leading-[1.8] text-white/60">
-            Logan structure un écosystème discret et exigeant, réunissant les acteurs les plus prestigieux du marché des avocats d'affaires. Un environnement fermé, fondé sur la sélection, où cabinets et talents accèdent en continu à un réseau hautement qualifié et à des profils rares, rigoureusement identifiés.
+            Logan structure un écosystème discret et exigeant, réunissant les acteurs les plus prestigieux du marché des avocats d'affaires, dans une exigence absolue de confidentialité. Vous disposez d'un accès continu à un réseau hautement qualifié, composé de profils rares et rigoureusement sélectionnés.
+          </p>
+          <p className="font-sans text-[1.05rem] md:text-lg leading-[1.8] text-white/60">
+            Logan intervient aux côtés des parties avec discrétion, uniquement lorsque des rapprochements stratégiques s'imposent. En préservant l'anonymat de chaque partie, Logan permet au marché de se révéler sans jamais s'exposer.
           </p>
         </div>
       </motion.div>
@@ -127,19 +130,6 @@ const MissionSection = () => (
         </div>
       </motion.div>
 
-      {/* ── Orchestration ── */}
-      <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-60px' }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className="mb-20 md:mb-28 text-center max-w-3xl mx-auto"
-      >
-        <Handshake className="w-6 h-6 text-white/20 mx-auto mb-6" strokeWidth={1.5} />
-        <p className="font-sans text-[1.05rem] md:text-lg leading-[1.8] text-white/50">
-          Lorsqu'une rencontre apparaît pertinente, Logan en évalue la cohérence et en orchestre la mise en relation, avant d'accompagner chaque partie avec rigueur tout au long du processus.
-        </p>
-      </motion.div>
 
     </div>
   </section>
