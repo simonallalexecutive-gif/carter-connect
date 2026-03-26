@@ -44,7 +44,7 @@ const FounderSection = () => {
               Fondateur
             </p>
             <p className="font-sans text-[0.92rem] text-white/55 font-light leading-[1.75]">
-              Fort d'un réseau reconnu et d'une compréhension aiguë du marché des avocats, Simon a fondé Logan avec une conviction&nbsp;: l'expérience recrutement doit être repensée en proposant une approche plus structurée, plus confidentielle et plus exigeante.
+              Fort d'un réseau solidement établi et d'une connaissance approfondie du marché des avocats d'affaires, Simon Allal a fondé Logan avec une ambition claire&nbsp;: créer les conditions de rencontres décisives et durables entre cabinets et candidats. Logan s'inscrit comme un espace confidentiel, structuré et exigeant, où les attentes des uns, les compétences des autres et la personnalité de chacun sont appréhendées avec précision. Cette mise en relation, fondée sur une analyse fine et un accompagnement attentif, permet de faire émerger des collaborations pleinement réussies.
             </p>
           </div>
         </motion.div>
