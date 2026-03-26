@@ -14,9 +14,9 @@ import SeniorityBadge from '@/components/shared/SeniorityBadge';
 import FileDropzone from '@/components/shared/FileDropzone';
 import ChipSelector from '@/components/shared/ChipSelector';
 import { usePQE } from '@/hooks/usePQE';
-import { CABINETS, DEPARTEMENTS, MOIS, RAISONS_BAISSE_RETRO, ASSOC_ATTENTES, ASSOC_CAB_TYPES, LEGAL500_BY_PRACTICE } from '@/lib/constants';
+import { CABINETS, DEPARTEMENTS, MOIS, RAISONS_BAISSE_RETRO, ASSOC_ATTENTES, ASSOC_CAB_TYPES } from '@/lib/constants';
 import { formatNumberWithDots, formatPhoneWithDots } from '@/lib/formatters';
-import { LEGAL500_DB, NAT_LABELS as L500_NAT_LABELS, formatTier, getAllFirmNames } from '@/lib/legal500Rankings';
+import { getAllFirmNames } from '@/lib/legal500Rankings';
 import { Camera, X, ArrowLeft, ArrowRight, Linkedin, Eye, EyeOff, Check, AlertCircle, Loader2 } from 'lucide-react';
 import { useRef, useState, useMemo, useCallback, useEffect } from 'react';
 import { cn } from '@/lib/utils';
@@ -24,21 +24,6 @@ import { cn } from '@/lib/utils';
 const currentYear = new Date().getFullYear();
 const YEARS = Array.from({ length: currentYear - 1980 + 1 }, (_, i) => currentYear - i);
 
-const DEPT_TO_L500: Record<string, string> = {
-  "Arbitrage / Contentieux": "contentieux",
-  "Financement LBO": "banque",
-  "Financement de projets": "finproj",
-  "Concurrence": "regulatory",
-  "Droit Public": "public",
-  "Droit Social": "social",
-  "Fiscal": "fiscal",
-  "Immobilier": "immo",
-  "IP / Tech": "vc",
-  "M&A (dominante)": "ma",
-  "Private Equity (dominante)": "pe",
-  "Marchés de Capitaux": "finproj",
-  "Restructuring": "restructuring",
-};
 
 const Step2Identity = () => {
   const store = useRegistrationStore();
@@ -95,44 +80,13 @@ const Step2Identity = () => {
     return missing;
   }, [store.prenom, store.nom, store.email, store.telephone, isPasswordValid, passwordsMatch, store.sermentMois, store.sermentAnnee, store.departement, store.cabinet, store.retrocession, store.conserverRetrocession, isAdmin]);
 
-  const autoDetectRanking = (cabinetName: string, dept: string) => {
-    const practiceData = LEGAL500_BY_PRACTICE[dept];
-    if (practiceData?.[cabinetName]) {
-      store.setField('cabTier', practiceData[cabinetName].band);
-      store.setField('cabNat', '');
-      return;
-    }
-    let firmEntry = LEGAL500_DB[cabinetName];
-    if (!firmEntry) {
-      const match = Object.keys(LEGAL500_DB).find(k =>
-        k.toLowerCase().startsWith(cabinetName.toLowerCase()) ||
-        cabinetName.toLowerCase().startsWith(k.split(' ').slice(0, 3).join(' ').toLowerCase())
-      );
-      if (match) firmEntry = LEGAL500_DB[match];
-    }
-    if (firmEntry) {
-      store.setField('cabNat', L500_NAT_LABELS[firmEntry.nat] || firmEntry.nat);
-      const deptKey = DEPT_TO_L500[dept];
-      if (deptKey && firmEntry.rankings[deptKey] !== undefined) {
-        store.setField('cabTier', formatTier(firmEntry.rankings[deptKey]));
-      } else {
-        store.setField('cabTier', 'Non répertorié');
-      }
-      return;
-    }
-    store.setField('cabNat', '');
-    store.setField('cabTier', 'Non répertorié');
-  };
-
   const handleCabinetSelect = (v: string | string[]) => {
     const cabinetName = typeof v === 'string' ? v : v[0];
     store.setField('cabinet', cabinetName as string);
-    if (store.departement) autoDetectRanking(cabinetName as string, store.departement);
   };
 
   const handleDepartmentChange = (dept: string) => {
     store.setField('departement', dept);
-    if (store.cabinet) autoDetectRanking(store.cabinet, dept);
   };
 
   // Reset counsel/associé when PQE drops below 6
