@@ -8,6 +8,7 @@ import BenefitsSection from '@/components/landing/BenefitsSection';
 import FounderSection from '@/components/landing/FounderSection';
 import FAQSection from '@/components/landing/FAQSection';
 import MissionSection from '@/components/landing/MissionSection';
+import FonctionnementSection from '@/components/landing/FonctionnementSection';
 import StatsTickerSection from '@/components/landing/StatsTickerSection';
 import { ArrowRight } from 'lucide-react';
 import heroVideoAsset from '@/assets/hero-video-abstract-bw.mp4.asset.json';
