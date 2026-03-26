@@ -258,11 +258,8 @@ const FonctionnementCandidatsSection = () => (
         <p className="font-sans text-xs font-medium tracking-[0.25em] uppercase text-white/25 mb-8">
           Synthèse globale
         </p>
-        <p className="font-serif text-xl sm:text-2xl md:text-[1.8rem] leading-[1.35] text-white/40 max-w-3xl mx-auto mb-3">
-          <em className="not-italic italic text-white/50">Legal recruitment, redefined.</em>
-        </p>
-        <p className="font-sans text-xl sm:text-2xl md:text-[1.8rem] leading-[1.35] text-white/40 max-w-3xl mx-auto mb-8">
-          Logan
+        <p className="font-serif text-xl sm:text-2xl md:text-[1.8rem] leading-[1.35] text-white/40 max-w-3xl mx-auto mb-8">
+          Logan vous permet de rester activement présent sur le marché des cabinets d'affaires, sans jamais vous exposer.
         </p>
         <p className="font-sans text-sm leading-[1.7] text-white/25 max-w-xl mx-auto">
           Vous bénéficiez d'un accès continu aux meilleures opportunités, dans un cadre structuré, confidentiel et rigoureusement sélectionné. Chaque mise en relation est qualifiée, accompagnée et strictement maîtrisée.
