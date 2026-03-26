@@ -2,7 +2,7 @@ import { motion } from 'motion/react';
 import { Building2, Eye, EyeOff, Search, ArrowRight, Shield, Users, Clock, Handshake, CheckCircle2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import fonctionnementBg from '@/assets/fonctionnement-bg.jpeg';
+import candidatsBg from '@/assets/fonctionnement-candidats-bg.jpeg';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 28 },
@@ -24,7 +24,7 @@ const FonctionnementSection = () => (
   <section className="relative overflow-hidden">
     {/* Background image */}
     <div className="absolute inset-0">
-      <img src={fonctionnementBg} alt="" className="w-full h-full object-cover" />
+      <img src={candidatsBg} alt="" className="w-full h-full object-cover" />
       <div className="absolute inset-0 bg-black/75" />
     </div>
 

@@ -183,9 +183,9 @@ const LandingPage = () => (
     <StatsTickerSection />
 
     {/* Subtle divider between Stats and Benefits */}
-    <div className="bg-foreground">
+    <div style={{ background: 'hsl(40 30% 96%)' }}>
       <div className="max-w-5xl mx-auto">
-        <div className="h-px bg-white/[0.08]" />
+        <div className="h-px bg-black/[0.06]" />
       </div>
     </div>
 
