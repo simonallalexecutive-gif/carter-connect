@@ -55,7 +55,7 @@ const NotreOffrePage = () => (
 
     {/* Hero */}
     <section className="pt-32 pb-20 md:pt-40 md:pb-28 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-black via-black/95 to-black" />
+      <div className="absolute inset-0" style={{ background: 'hsl(0 0% 6%)' }} />
       <div className="relative z-10 max-w-5xl mx-auto px-6 sm:px-8 lg:px-10">
         <motion.div
           variants={stagger}
