@@ -67,279 +67,107 @@ export interface ActivityItem {
 export const ACTIVITES_BY_PRACTICE: Record<string, { sections: { title: string; items: ActivityItem[] }[] }> = {
   "M&A (dominante)": {
     sections: [
-      {
-        title: "Nature des opérations",
-        items: [
-          { key: "acq", label: "Acquisitions" },
-          { key: "cess", label: "Cessions" },
-          { key: "lbo", label: "LBO / Leveraged Buy-Out" },
-          { key: "jv", label: "Joint-ventures" },
-          { key: "reorg", label: "Réorganisations" },
-        ],
-      },
-      {
-        title: "Positionnement",
-        items: [
-          { key: "sell", label: "Côté vendeur" },
-          { key: "buy", label: "Côté acquéreur" },
-          { key: "fonds", label: "Côté fonds" },
-          { key: "mgt", label: "Côté management" },
-        ],
-      },
-      {
-        title: "Taille des opérations",
-        items: [
-          { key: "sm", label: "Small cap (< 50M€)" },
-          { key: "mid", label: "Mid cap (50-500M€)" },
-          { key: "lg", label: "Large cap (> 500M€)" },
-        ],
-      },
+      { title: "Nature des opérations", items: [
+        { key: "acq", label: "Acquisitions" }, { key: "cess", label: "Cessions" },
+        { key: "lbo", label: "LBO / Leveraged Buy-Out" }, { key: "jv", label: "Joint-ventures" },
+        { key: "reorg", label: "Réorganisations" },
+      ]},
+      { title: "Positionnement", items: [
+        { key: "sell", label: "Côté vendeur" }, { key: "buy", label: "Côté acquéreur" },
+        { key: "fonds", label: "Côté fonds" }, { key: "mgt", label: "Côté management" },
+      ]},
+      { title: "Taille des opérations", items: [
+        { key: "sm", label: "Small cap (< 50M€)" }, { key: "mid", label: "Mid cap (50-500M€)" },
+        { key: "lg", label: "Large cap (> 500M€)" },
+      ]},
     ],
   },
   "Private Equity (dominante)": {
     sections: [
-      {
-        title: "Nature des opérations",
-        items: [
-          { key: "pe_fonds", label: "Investissements de fonds" },
-          { key: "pe_lbo", label: "LBO / Leveraged Buy-Out" },
-          { key: "pe_vc", label: "Venture Capital" },
-          { key: "pe_cotes", label: "Public-to-Private" },
-          { key: "pe_exit", label: "Exits / Cessions" },
-        ],
-      },
-      {
-        title: "Positionnement",
-        items: [
-          { key: "pe_sell", label: "Côté vendeur" },
-          { key: "pe_buy", label: "Côté acquéreur" },
-          { key: "pe_gp", label: "Côté GP / Management Company" },
-          { key: "pe_mgt", label: "Côté management" },
-        ],
-      },
-      {
-        title: "Taille des opérations",
-        items: [
-          { key: "pe_sm", label: "Small cap (< 50M€)" },
-          { key: "pe_mid", label: "Mid cap (50-500M€)" },
-          { key: "pe_lg", label: "Large cap (> 500M€)" },
-        ],
-      },
+      { title: "Nature des opérations", items: [
+        { key: "pe_fonds", label: "Investissements de fonds" }, { key: "pe_lbo", label: "LBO / Leveraged Buy-Out" },
+        { key: "pe_vc", label: "Venture Capital" }, { key: "pe_cotes", label: "Public-to-Private" },
+        { key: "pe_exit", label: "Exits / Cessions" },
+      ]},
+      { title: "Positionnement", items: [
+        { key: "pe_sell", label: "Côté vendeur" }, { key: "pe_buy", label: "Côté acquéreur" },
+        { key: "pe_gp", label: "Côté GP / Management Company" }, { key: "pe_mgt", label: "Côté management" },
+      ]},
+      { title: "Taille des opérations", items: [
+        { key: "pe_sm", label: "Small cap (< 50M€)" }, { key: "pe_mid", label: "Mid cap (50-500M€)" },
+        { key: "pe_lg", label: "Large cap (> 500M€)" },
+      ]},
+    ],
+  },
+  "Corporate": {
+    sections: [
+      { title: "Nature du travail", items: [
+        { key: "corp_gouv", label: "Gouvernance" }, { key: "corp_reorg", label: "Réorganisations" },
+        { key: "corp_jv", label: "Joint-ventures" }, { key: "corp_pact", label: "Pactes d'actionnaires" },
+        { key: "corp_gen", label: "Droit des sociétés général" },
+      ]},
+    ],
+  },
+  "Venture Capital": {
+    sections: [
+      { title: "Stade d'intervention", items: [
+        { key: "vc_seed", label: "Seed / Amorçage" }, { key: "vc_seriesa", label: "Série A / B" },
+        { key: "vc_late", label: "Late stage / Growth" },
+      ]},
+      { title: "Spécialités", items: [
+        { key: "vc_bsa", label: "BSA / BSPCE" }, { key: "vc_sha", label: "Pactes d'associés" },
+        { key: "vc_cross", label: "Cross-border" },
+      ]},
     ],
   },
   "Financement LBO": {
     sections: [
-      {
-        title: "Type de financement",
-        items: [
-          { key: "fin_obligataire", label: "Financement obligataire" },
-          { key: "fin_acq", label: "Financement d'acquisition" },
-          { key: "fin_lbo", label: "Financement LBO" },
-          { key: "fin_immo", label: "Financement immobilier" },
-          { key: "fin_actifs", label: "Financement d'actifs" },
-          { key: "fin_titrisation", label: "Titrisation" },
-        ],
-      },
+      { title: "Type de financement", items: [
+        { key: "fin_obligataire", label: "Financement obligataire" }, { key: "fin_acq", label: "Financement d'acquisition" },
+        { key: "fin_lbo", label: "Financement LBO" }, { key: "fin_immo", label: "Financement immobilier" },
+        { key: "fin_actifs", label: "Financement d'actifs" }, { key: "fin_titrisation", label: "Titrisation" },
+      ]},
     ],
   },
   "Financement de projets": {
     sections: [
-      {
-        title: "Type de financement",
-        items: [
-          { key: "finp_infra", label: "Infrastructures" },
-          { key: "finp_energie", label: "Énergie & ENR" },
-          { key: "finp_ppp", label: "PPP / Concessions" },
-          { key: "finp_export", label: "Crédit export" },
-          { key: "finp_immo", label: "Financement immobilier" },
-          { key: "finp_structuré", label: "Financements structurés" },
-        ],
-      },
+      { title: "Type de financement", items: [
+        { key: "finp_infra", label: "Infrastructures" }, { key: "finp_energie", label: "Énergie & ENR" },
+        { key: "finp_ppp", label: "PPP / Concessions" }, { key: "finp_export", label: "Crédit export" },
+        { key: "finp_immo", label: "Financement immobilier" }, { key: "finp_structuré", label: "Financements structurés" },
+      ]},
     ],
   },
   "Droit Social": {
     sections: [
-      {
-        title: "Nature de l'activité",
-        items: [
-          { key: "conseil", label: "Conseil quotidien" },
-          { key: "cont", label: "Contentieux prud'homal" },
-          { key: "coll", label: "Relations collectives" },
-          { key: "restr", label: "Restructurations sociales" },
-        ],
-      },
-      {
-        title: "Spécialités",
-        items: [
-          { key: "remun", label: "Rémunération & avantages" },
-          { key: "mob", label: "Mobilité internationale" },
-          { key: "disc", label: "Discrimination & harcèlement" },
-          { key: "pse", label: "PSE / Plans sociaux" },
-        ],
-      },
-    ],
-  },
-  "Fiscal": {
-    sections: [
-      {
-        title: "Nature de l'activité",
-        items: [
-          { key: "direct", label: "Fiscalité directe" },
-          { key: "indirect", label: "Fiscalité indirecte (TVA)" },
-          { key: "inter", label: "Fiscalité internationale" },
-          { key: "transac", label: "Fiscalité transactionnelle" },
-        ],
-      },
-      {
-        title: "Spécialités",
-        items: [
-          { key: "patrimoine", label: "Gestion de patrimoine" },
-          { key: "prixtr", label: "Prix de transfert" },
-          { key: "contentieux", label: "Contentieux fiscal" },
-          { key: "restructfiscal", label: "Restructurations fiscales" },
-        ],
-      },
+      { title: "Nature de l'activité", items: [
+        { key: "conseil", label: "Conseil quotidien" }, { key: "cont", label: "Contentieux prud'homal" },
+        { key: "coll", label: "Relations collectives" }, { key: "restr", label: "Restructurations sociales" },
+      ]},
+      { title: "Spécialités", items: [
+        { key: "remun", label: "Rémunération & avantages" }, { key: "mob", label: "Mobilité internationale" },
+        { key: "disc", label: "Discrimination & harcèlement" }, { key: "pse", label: "PSE / Plans sociaux" },
+      ]},
     ],
   },
   "Immobilier": {
     sections: [
-      {
-        title: "Nature des opérations",
-        items: [
-          { key: "acqimmo", label: "Acquisitions immobilières" },
-          { key: "bail", label: "Baux commerciaux" },
-          { key: "promo", label: "Promotion immobilière" },
-          { key: "vefa", label: "VEFA" },
-          { key: "urba", label: "Urbanisme" },
-        ],
-      },
-      {
-        title: "Type d'actifs",
-        items: [
-          { key: "bureau", label: "Bureaux" },
-          { key: "retail", label: "Retail / Commerce" },
-          { key: "logi", label: "Logistique" },
-          { key: "resid", label: "Résidentiel" },
-        ],
-      },
+      { title: "Nature des opérations", items: [
+        { key: "acqimmo", label: "Acquisitions immobilières" }, { key: "bail", label: "Baux commerciaux" },
+        { key: "promo", label: "Promotion immobilière" }, { key: "vefa", label: "VEFA" },
+        { key: "urba", label: "Urbanisme" },
+      ]},
+      { title: "Type d'actifs", items: [
+        { key: "bureau", label: "Bureaux" }, { key: "retail", label: "Retail / Commerce" },
+        { key: "logi", label: "Logistique" }, { key: "resid", label: "Résidentiel" },
+      ]},
     ],
   },
   "Restructuring": {
     sections: [
-      {
-        title: "Répartition de l'activité",
-        items: [
-          { key: "restr_restructuring", label: "Restructuring" },
-          { key: "restr_contentieux", label: "Contentieux" },
-        ],
-      },
-    ],
-  },
-  "Marchés de Capitaux": {
-    sections: [
-      {
-        title: "Type d'opérations",
-        items: [
-          { key: "ipo", label: "Introductions en bourse (IPO)" },
-          { key: "aug", label: "Augmentations de capital" },
-          { key: "oblig", label: "Émissions obligataires" },
-          { key: "derive", label: "Produits dérivés" },
-        ],
-      },
-      {
-        title: "Réglementaire",
-        items: [
-          { key: "regamf", label: "Réglementation AMF" },
-          { key: "opa", label: "OPA / Offres publiques" },
-          { key: "compliance", label: "Compliance boursière" },
-        ],
-      },
-    ],
-  },
-  "Arbitrage / Contentieux": {
-    sections: [
-      {
-        title: "Type de contentieux",
-        items: [
-          { key: "arb", label: "Arbitrage international" },
-          { key: "arbdom", label: "Arbitrage domestique" },
-          { key: "contcom", label: "Contentieux commercial" },
-          { key: "penal", label: "Pénal des affaires" },
-        ],
-      },
-      {
-        title: "Spécialités",
-        items: [
-          { key: "invest", label: "Investissements internationaux" },
-          { key: "construc", label: "Construction" },
-          { key: "energie", label: "Énergie" },
-          { key: "postma", label: "Contentieux post-M&A" },
-        ],
-      },
-    ],
-  },
-  "Droit Public": {
-    sections: [
-      {
-        title: "Domaines",
-        items: [
-          { key: "marches", label: "Marchés publics" },
-          { key: "dsp", label: "DSP / Concessions" },
-          { key: "enviro", label: "Environnement" },
-          { key: "regpub", label: "Régulation" },
-        ],
-      },
-      {
-        title: "Contentieux",
-        items: [
-          { key: "contadm", label: "Contentieux administratif" },
-          { key: "constit", label: "Droit constitutionnel" },
-          { key: "europub", label: "Droit européen public" },
-        ],
-      },
-    ],
-  },
-  "Concurrence": {
-    sections: [
-      {
-        title: "Domaines",
-        items: [
-          { key: "fusion", label: "Contrôle des concentrations" },
-          { key: "antitrust", label: "Pratiques anticoncurrentielles" },
-          { key: "abus", label: "Abus de position dominante" },
-          { key: "aidesetat", label: "Aides d'État" },
-        ],
-      },
-      {
-        title: "Contentieux",
-        items: [
-          { key: "contconc", label: "Contentieux concurrence" },
-          { key: "dawn", label: "Dawn raids / Perquisitions" },
-          { key: "distrib", label: "Distribution" },
-        ],
-      },
-    ],
-  },
-  "IP / Tech": {
-    sections: [
-      {
-        title: "Domaines",
-        items: [
-          { key: "brevets", label: "Brevets" },
-          { key: "marques", label: "Marques" },
-          { key: "da", label: "Droit d'auteur" },
-          { key: "data", label: "Protection des données (RGPD)" },
-        ],
-      },
-      {
-        title: "Tech & Digital",
-        items: [
-          { key: "contrats", label: "Contrats IT" },
-          { key: "ecom", label: "E-commerce" },
-          { key: "ia", label: "Intelligence artificielle" },
-          { key: "fintech", label: "Fintech / Blockchain" },
-        ],
-      },
+      { title: "Répartition de l'activité", items: [
+        { key: "restr_restructuring", label: "Restructuring" }, { key: "restr_contentieux", label: "Contentieux" },
+      ]},
     ],
   },
 };
