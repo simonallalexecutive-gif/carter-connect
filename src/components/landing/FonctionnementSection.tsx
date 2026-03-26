@@ -1,5 +1,6 @@
 import { motion } from 'motion/react';
 import { Building2, Eye, EyeOff, Search, ArrowRight, Shield, Users, Clock, Handshake, CheckCircle2 } from 'lucide-react';
+import fonctionnementBg from '@/assets/fonctionnement-bg.jpeg';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 28 },
