@@ -16,6 +16,7 @@ import CandidateDashboard from "./pages/CandidateDashboard";
 import NotFound from "./pages/NotFound";
 import AccessRequestPage from "./pages/AccessRequestPage";
 import ConnexionPage from "./pages/ConnexionPage";
+import NotreOffrePage from "./pages/NotreOffrePage";
 
 
 const queryClient = new QueryClient();
@@ -33,6 +34,7 @@ const App = () => (
           <Route path="/demo" element={<DemoPage />} />
           <Route path="/rendez-vous" element={<BookingPage />} />
           <Route path="/demander-acces" element={<AccessRequestPage />} />
+          <Route path="/notre-offre" element={<NotreOffrePage />} />
           <Route path="/connexion" element={<ConnexionPage />} />
           
           <Route path="/auth" element={<AuthPage />} />

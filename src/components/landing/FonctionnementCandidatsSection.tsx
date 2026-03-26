@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { UserCheck, Shield, Eye, Handshake, MessageCircle, CheckCircle2, Lock, ArrowRight } from 'lucide-react';
+import { UserCheck, Shield, Eye, EyeOff, Handshake, MessageCircle, CheckCircle2, Lock, ArrowRight } from 'lucide-react';
 import candidatsBg from '@/assets/fonctionnement-candidats-bg.jpeg';
 
 const fadeUp = {
@@ -11,6 +11,12 @@ const stagger = {
   hidden: {},
   visible: { transition: { staggerChildren: 0.12 } },
 };
+
+const flowSteps = [
+  { label: 'Profil validé', icon: UserCheck },
+  { label: 'Consultation anonyme', icon: Eye },
+  { label: 'Mise en relation qualifiée', icon: Handshake },
+];
 
 const FonctionnementCandidatsSection = () => (
   <section className="relative overflow-hidden">
@@ -33,21 +39,23 @@ const FonctionnementCandidatsSection = () => (
         viewport={{ once: true, margin: '-80px' }}
         className="mb-20 md:mb-28"
       >
-        <motion.div variants={fadeUp} className="flex items-center gap-3 mb-6">
+        <motion.p variants={fadeUp} className="text-[11px] font-sans font-medium tracking-[0.25em] uppercase text-white/30 mb-6">
+          Notre fonctionnement
+        </motion.p>
+        <motion.h2 variants={fadeUp} className="font-serif text-3xl sm:text-4xl md:text-[3.2rem] leading-[1.15] text-white/90 mb-6 max-w-3xl">
+          Perspective candidats
+        </motion.h2>
+        <motion.div variants={fadeUp} className="flex items-center gap-3">
           <UserCheck className="w-4 h-4 text-white/30" strokeWidth={1.5} />
           <p className="font-sans text-sm font-medium tracking-[0.15em] uppercase text-white/35">
-            Perspective candidats
+            Un accès structuré et confidentiel au marché
           </p>
         </motion.div>
-        <motion.h2 variants={fadeUp} className="font-serif text-3xl sm:text-4xl md:text-[3.2rem] leading-[1.15] text-white/90 mb-8 max-w-3xl">
-          Un accès structuré et confidentiel au marché
-        </motion.h2>
-        <motion.p variants={fadeUp} className="font-sans text-[1.05rem] md:text-lg leading-[1.8] text-white/50 max-w-3xl">
-          Une fois votre profil validé par Logan, vous intégrez un espace sélectif, structuré et en constante évolution. Cet environnement vous permet de rester en permanence connecté au marché des cabinets d'affaires, tout en conservant une confidentialité totale de votre démarche.
-        </motion.p>
       </motion.div>
 
-      {/* ── Anonymat ── */}
+      {/* ═══════════════════════════════════════════
+          1. CONFIDENTIALITÉ
+         ═══════════════════════════════════════════ */}
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -55,6 +63,17 @@ const FonctionnementCandidatsSection = () => (
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         className="mb-20 md:mb-28"
       >
+        <div className="flex items-center gap-3 mb-10">
+          <span className="flex items-center justify-center w-8 h-8 rounded-full border border-white/15 text-xs font-sans font-semibold text-white/60">1</span>
+          <h3 className="font-serif text-2xl md:text-[1.8rem] text-white/85">Intégrer un espace sélectif</h3>
+        </div>
+
+        <div className="border-l-2 border-white/10 pl-8 md:pl-12 max-w-3xl mb-10">
+          <p className="font-sans text-[1rem] leading-[1.8] text-white/55">
+            Une fois votre profil validé par Logan, vous intégrez un espace sélectif, structuré et en constante évolution. Cet environnement vous permet de rester en permanence connecté au marché des cabinets d'affaires, tout en conservant une confidentialité totale de votre démarche.
+          </p>
+        </div>
+
         <div className="bg-white/[0.04] backdrop-blur-sm border border-white/[0.08] rounded-sm p-8 md:p-10">
           <Lock className="w-5 h-5 text-white/25 mb-5" strokeWidth={1.5} />
           <p className="font-sans text-xs font-medium tracking-[0.2em] uppercase text-white/30 mb-4">Confidentialité absolue</p>
@@ -64,7 +83,9 @@ const FonctionnementCandidatsSection = () => (
         </div>
       </motion.div>
 
-      {/* ── Marché actif ── */}
+      {/* ═══════════════════════════════════════════
+          2. MARCHÉ ACTIF
+         ═══════════════════════════════════════════ */}
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -73,7 +94,7 @@ const FonctionnementCandidatsSection = () => (
         className="mb-20 md:mb-28"
       >
         <div className="flex items-center gap-3 mb-10">
-          <Eye className="w-5 h-5 text-white/25" strokeWidth={1.5} />
+          <span className="flex items-center justify-center w-8 h-8 rounded-full border border-white/15 text-xs font-sans font-semibold text-white/60">2</span>
           <h3 className="font-serif text-2xl md:text-[1.8rem] text-white/85">Un marché actif, sans exposition</h3>
         </div>
 
@@ -85,13 +106,19 @@ const FonctionnementCandidatsSection = () => (
 
         <div className="grid md:grid-cols-2 gap-6 md:gap-10 mb-10">
           <div className="bg-white/[0.04] backdrop-blur-sm border border-white/[0.08] rounded-sm p-8 md:p-10">
-            <p className="font-sans text-xs font-semibold tracking-[0.2em] uppercase text-white/30 mb-4">Mandat actif</p>
+            <div className="flex items-center gap-3 mb-4">
+              <EyeOff className="w-5 h-5 text-white/30" strokeWidth={1.5} />
+              <p className="font-sans text-xs font-semibold tracking-[0.2em] uppercase text-white/45">Mandat actif</p>
+            </div>
             <p className="font-sans text-sm leading-[1.7] text-white/50">
               Dans le cadre d'une recherche structurée menée par un cabinet partenaire.
             </p>
           </div>
           <div className="bg-white/[0.04] backdrop-blur-sm border border-white/[0.08] rounded-sm p-8 md:p-10">
-            <p className="font-sans text-xs font-semibold tracking-[0.2em] uppercase text-white/30 mb-4">Logique opportuniste</p>
+            <div className="flex items-center gap-3 mb-4">
+              <Eye className="w-5 h-5 text-white/30" strokeWidth={1.5} />
+              <p className="font-sans text-xs font-semibold tracking-[0.2em] uppercase text-white/45">Logique opportuniste</p>
+            </div>
             <p className="font-sans text-sm leading-[1.7] text-white/50">
               En dehors de tout besoin exprimé, lorsqu'un cabinet identifie un profil pertinent pour son développement.
             </p>
@@ -105,7 +132,9 @@ const FonctionnementCandidatsSection = () => (
         </div>
       </motion.div>
 
-      {/* ── Accompagnement dédié ── */}
+      {/* ═══════════════════════════════════════════
+          3. ACCOMPAGNEMENT DÉDIÉ (mirrors step 2 of cabinets)
+         ═══════════════════════════════════════════ */}
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -114,7 +143,7 @@ const FonctionnementCandidatsSection = () => (
         className="mb-20 md:mb-28"
       >
         <div className="flex items-center gap-3 mb-10">
-          <MessageCircle className="w-5 h-5 text-white/25" strokeWidth={1.5} />
+          <span className="flex items-center justify-center w-8 h-8 rounded-full border border-white/15 text-xs font-sans font-semibold text-white/60">3</span>
           <h3 className="font-serif text-2xl md:text-[1.8rem] text-white/85">Un accompagnement dédié</h3>
         </div>
 
@@ -171,6 +200,31 @@ const FonctionnementCandidatsSection = () => (
               </div>
             ))}
           </div>
+        </div>
+      </motion.div>
+
+      {/* ── Visual flow — mirrors cabinets section ── */}
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-60px' }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        className="mb-20 md:mb-28"
+      >
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-0">
+          {flowSteps.map(({ label, icon: Icon }, i) => (
+            <div key={label} className="flex items-center gap-4">
+              <div className="flex flex-col items-center gap-3">
+                <div className="w-14 h-14 rounded-full border border-white/10 bg-white/[0.04] backdrop-blur-sm flex items-center justify-center">
+                  <Icon className="w-5 h-5 text-white/40" strokeWidth={1.5} />
+                </div>
+                <span className="font-sans text-xs font-medium text-white/40 text-center max-w-[120px]">{label}</span>
+              </div>
+              {i < flowSteps.length - 1 && (
+                <ArrowRight className="w-4 h-4 text-white/15 hidden sm:block ml-4" strokeWidth={1.5} />
+              )}
+            </div>
+          ))}
         </div>
       </motion.div>
 

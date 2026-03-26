@@ -1,5 +1,7 @@
 import { motion } from 'motion/react';
 import { Building2, Eye, EyeOff, Search, ArrowRight, Shield, Users, Clock, Handshake, CheckCircle2 } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
 import fonctionnementBg from '@/assets/fonctionnement-bg.jpeg';
 
 const fadeUp = {
@@ -40,12 +42,12 @@ const FonctionnementSection = () => (
           Notre fonctionnement
         </motion.p>
         <motion.h2 variants={fadeUp} className="font-serif text-3xl sm:text-4xl md:text-[3.2rem] leading-[1.15] text-white/90 mb-6 max-w-3xl">
-          Comment les cabinets utilisent Logan
+          Perspective cabinets
         </motion.h2>
         <motion.div variants={fadeUp} className="flex items-center gap-3">
           <Building2 className="w-4 h-4 text-white/30" strokeWidth={1.5} />
           <p className="font-sans text-sm font-medium tracking-[0.15em] uppercase text-white/35">
-            Perspective cabinets
+            Comment les cabinets utilisent Logan
           </p>
         </motion.div>
       </motion.div>
@@ -299,9 +301,19 @@ const FonctionnementSection = () => (
         <p className="font-serif text-xl sm:text-2xl md:text-[1.8rem] leading-[1.35] text-white/40 max-w-3xl mx-auto mb-8">
           Logan permet aux cabinets de publier des mandats en toute confidentialité, d'accéder en continu à un réseau hautement qualifié et d'initier des rapprochements ciblés, au bon moment.
         </p>
-        <p className="font-sans text-sm leading-[1.7] text-white/25 max-w-xl mx-auto">
+        <p className="font-sans text-sm leading-[1.7] text-white/25 max-w-xl mx-auto mb-12">
           Le tout dans un environnement structuré, sécurisé et strictement confidentiel, où chaque mise en relation est qualifiée, pertinente et accompagnée.
         </p>
+
+        {/* Notre offre button */}
+        <Link to="/notre-offre">
+          <Button
+            size="lg"
+            className="bg-white text-black hover:bg-white/90 font-sans text-sm font-medium px-8 py-5 rounded-sm tracking-wide"
+          >
+            Notre offre
+          </Button>
+        </Link>
       </motion.div>
     </div>
   </section>

@@ -176,7 +176,6 @@ const Step6Review = () => {
             <div className="grid grid-cols-2 gap-4">
               <DataRow label="Département" value={store.departement} />
               <DataRow label="Cabinet" value={store.cabinet} />
-              {store.cabTier && <DataRow label="Tier Legal 500" value={store.cabTier} />}
               {store.isAssocieOrCounsel && store.chiffreAffairesPortable && <DataRow label="CA portable" value={`${store.chiffreAffairesPortable} €`} />}
             </div>
           </SectionCard>
@@ -277,7 +276,6 @@ const Step6Review = () => {
 
             <div className="grid grid-cols-2 gap-4 mb-8">
               <DataRow label="Pratique" value={store.departement} />
-              <DataRow label="Classement Legal 500" value={store.cabTier || '—'} />
               {store.retrocession && <DataRow label="Rétrocession" value={`${store.retrocession} €`} />}
               {store.anglais && <DataRow label="Anglais" value={store.anglais} />}
               {store.conserverRetrocession !== null && <DataRow label="Flexibilité rétrocession" value={store.conserverRetrocession ? 'Souhaite maintenir' : 'Ouvert à discussion'} />}
@@ -398,7 +396,6 @@ const Step6Review = () => {
             <div className="grid grid-cols-2 gap-4 mb-8">
               <DataRow label="Cabinet" value={store.cabinet} />
               <DataRow label="Pratique" value={store.departement} />
-              {store.cabTier && <DataRow label="Tier" value={store.cabTier} />}
               {store.tailleOperations.length > 0 && <DataRow label="Taille opérations" value={store.tailleOperations.join(', ')} />}
               {store.anglais && <DataRow label="Anglais" value={store.anglais} />}
               {store.isAssocieOrCounsel && store.chiffreAffairesPortable && <DataRow label="CA portable" value={`${store.chiffreAffairesPortable} €`} />}

@@ -78,13 +78,11 @@ export const EXPERTISES = [
   'M&A Industriel',
   'Private Equity / LBO',
   'Venture Capital',
-  'Droit boursier',
+  'Corporate',
   'Financement',
   'Restructuring',
   'Immobilier transactionnel',
   'Droit Social',
-  'Contentieux',
-  'Fiscal',
 ];
 
 export const CABINET_EXPERTISE_DETAIL: Record<string, { sections: { title: string; items: { key: string; label: string }[] }[] }> = {
@@ -152,15 +150,16 @@ export const CABINET_EXPERTISE_DETAIL: Record<string, { sections: { title: strin
       },
     ],
   },
-  'Droit boursier': {
+  'Corporate': {
     sections: [
       {
-        title: 'Domaines',
+        title: 'Nature des opérations',
         items: [
-          { key: 'brs_ipo', label: 'IPO / Introduction en bourse' },
-          { key: 'brs_opa', label: 'OPA / Offres publiques' },
-          { key: 'brs_reg', label: 'Réglementation AMF' },
-          { key: 'brs_list', label: 'Sociétés cotées / Gouvernance' },
+          { key: 'corp_gouv', label: 'Gouvernance' },
+          { key: 'corp_reorg', label: 'Réorganisations' },
+          { key: 'corp_jv', label: 'Joint-ventures' },
+          { key: 'corp_pact', label: 'Pactes d\'actionnaires' },
+          { key: 'corp_gen', label: 'Droit des sociétés général' },
         ],
       },
     ],
@@ -249,41 +248,6 @@ export const CABINET_EXPERTISE_DETAIL: Record<string, { sections: { title: strin
       },
     ],
   },
-  'Contentieux': {
-    sections: [
-      {
-        title: 'Type de contentieux',
-        items: [
-          { key: 'ctx_com', label: 'Contentieux commercial' },
-          { key: 'ctx_arb', label: 'Arbitrage' },
-          { key: 'ctx_penal', label: 'Pénal des affaires' },
-          { key: 'ctx_resp', label: 'Responsabilité civile' },
-          { key: 'ctx_conc', label: 'Concurrence' },
-        ],
-      },
-    ],
-  },
-  'Fiscal': {
-    sections: [
-      {
-        title: 'Nature de l\'activité',
-        items: [
-          { key: 'fisc_direct', label: 'Fiscalité directe' },
-          { key: 'fisc_indirect', label: 'Fiscalité indirecte (TVA)' },
-          { key: 'fisc_inter', label: 'Fiscalité internationale' },
-          { key: 'fisc_transac', label: 'Fiscalité transactionnelle' },
-        ],
-      },
-      {
-        title: 'Spécialités',
-        items: [
-          { key: 'fisc_prix', label: 'Prix de transfert' },
-          { key: 'fisc_cont', label: 'Contentieux fiscal' },
-          { key: 'fisc_patri', label: 'Gestion de patrimoine' },
-        ],
-      },
-    ],
-  },
 };
 
 export const SENIORITY_OPTIONS = [
@@ -311,7 +275,7 @@ export const CONF_OPTIONS = [
     key: 'semi',
     title: 'Semi-confidentielle',
     badge: '',
-    desc: 'Le candidat voit la nationalité de votre cabinet et son ranking Legal 500, sans connaître son nom. Il peut manifester son intérêt.',
+    desc: 'Le candidat voit la nationalité de votre cabinet et son positionnement, sans connaître son nom. Il peut manifester son intérêt.',
   },
 ];
 
@@ -570,17 +534,7 @@ export const SPLIT_COLORS = [
   '#374151',
 ];
 
-export const L500_URLS: Record<string, string> = {
-  'Banque & Finance — Transactions': 'https://www.legal500.fr/c/paris/banque-et-finance/banque-et-finance-transactions',
-  'Corporate / M&A': 'https://www.legal500.fr/c/paris/fusions-acquisitions',
-  'Private Equity': 'https://www.legal500.com/c/france/private-equity-lbo',
-  'Financement de projets': 'https://www.legal500.fr/c/paris/financement-de-projets',
-  'Droit Social': 'https://www.legal500.fr/c/paris/employment/employment',
-  'Immobilier': 'https://www.legal500.fr/c/paris/real-estate/real-estate',
-  'Restructuring / Insolvabilité': 'https://www.legal500.fr/c/paris/dispute-resolution/restructuring-and-insolvency',
-  'Fiscal': 'https://www.legal500.fr/c/paris/tax/tax',
-  'Contentieux commercial': 'https://www.legal500.fr/c/paris/dispute-resolution/commercial-litigation',
-};
+// L500_URLS removed — Legal 500 functionality has been discontinued
 
 export function getFirmTier(firm: { p: Record<string, string> }, depts: string[]): string {
   const deptKeys = depts.map((d) => DEPT_KEY_MAP[d]).filter(Boolean);
