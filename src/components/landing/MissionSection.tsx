@@ -84,20 +84,6 @@ const MissionSection = () => (
         </div>
       </motion.div>
 
-      {/* ── Market insight ── */}
-      <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-60px' }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className="mb-20 md:mb-28"
-      >
-        <div className="border-l-2 border-white/10 pl-8 md:pl-12 max-w-3xl">
-          <p className="font-sans text-[1.05rem] md:text-lg leading-[1.8] text-white/60">
-            Le marché des avocats d'affaires ne se limite pas à des besoins ponctuels. Il repose sur des équilibres subtils, des temporalités spécifiques et des opportunités souvent informelles. Logan en donne un accès continu, permettant d'identifier et d'engager, avec discernement, les profils les plus pertinents — y compris les plus difficiles à capter.
-          </p>
-        </div>
-      </motion.div>
 
       {/* ── Technology + Human ── */}
       <motion.div
@@ -124,8 +110,8 @@ const MissionSection = () => (
             },
             {
               icon: Shield,
-              title: 'Qualité des rapprochements',
-              desc: 'C\'est de cette combinaison que naît la qualité des rapprochements opérés.',
+              title: 'Accompagnement sur-mesure',
+              desc: 'Lorsqu\'un rapprochement apparaît pertinent, Logan accompagne chaque partie avec rigueur tout au long du processus.',
             },
           ].map(({ icon: Icon, title, desc }) => (
             <motion.div
@@ -155,21 +141,6 @@ const MissionSection = () => (
         </p>
       </motion.div>
 
-      {/* ── Closing statement ── */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-60px' }}
-        transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-        className="text-center"
-      >
-        <p className="font-serif text-xl sm:text-2xl md:text-[1.8rem] leading-[1.4] text-white/35 max-w-2xl mx-auto mb-6">
-          Logan connecte, en toute discrétion, les cabinets d'affaires et les talents les plus qualifiés du marché, sans jamais exposer leur identité.
-        </p>
-        <p className="font-sans text-sm leading-[1.7] text-white/25 max-w-xl mx-auto">
-          Un environnement unique, où coexistent en continu les acteurs les plus exigeants et des profils qui ne se rendent visibles nulle part ailleurs.
-        </p>
-      </motion.div>
     </div>
   </section>
 );

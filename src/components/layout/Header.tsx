@@ -120,7 +120,7 @@ const Header = () => {
               <button
                 key={section}
                 onClick={() => scrollToSection(section)}
-                className={`flex items-center gap-1 px-2.5 py-1.5 text-[12.3px] font-sans font-normal transition-colors duration-200 tracking-wide ${textClass}`}
+className={`flex items-center gap-1 px-2.5 py-1.5 text-[12.3px] font-sans font-semibold transition-colors duration-200 tracking-wide text-white hover:text-white/80`}
               >
                 {label}
                 <ChevronDown className="w-2.5 h-2.5 opacity-60" />
@@ -128,7 +128,7 @@ const Header = () => {
             ))}
             <Link
               to="/rendez-vous"
-              className={`flex items-center gap-1 px-2.5 py-1.5 text-[12.3px] font-sans font-normal transition-colors duration-200 tracking-wide ${textClass}`}
+className={`flex items-center gap-1 px-2.5 py-1.5 text-[12.3px] font-sans font-semibold transition-colors duration-200 tracking-wide text-white hover:text-white/80`}
             >
               Prendre RDV
             </Link>
@@ -138,7 +138,7 @@ const Header = () => {
         <div className="hidden md:flex items-center">
           <Link
             to="/connexion"
-            className={`text-[12.3px] font-sans font-normal px-2.5 py-1.5 transition-colors duration-200 tracking-wide ${textClass}`}
+            className={`text-[12.3px] font-sans font-semibold px-2.5 py-1.5 transition-colors duration-200 tracking-wide text-white hover:text-white/80`}
           >
             Connexion
           </Link>
