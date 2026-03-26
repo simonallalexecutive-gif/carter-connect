@@ -1,6 +1,6 @@
 import { motion } from 'motion/react';
 import { UserCheck, Shield, Eye, Handshake, MessageCircle, CheckCircle2, Lock, ArrowRight } from 'lucide-react';
-import fonctionnementBg from '@/assets/fonctionnement-bg.jpeg';
+import candidatsBg from '@/assets/fonctionnement-candidats-bg.jpeg';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 28 },
