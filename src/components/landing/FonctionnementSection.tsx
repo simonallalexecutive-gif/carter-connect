@@ -18,11 +18,11 @@ const flowSteps = [
 ];
 
 const FonctionnementSection = () => (
-  <section className="relative bg-[hsl(0,0%,4%)] overflow-hidden">
+  <section className="relative bg-[hsl(0,0%,96%)] overflow-hidden">
     {/* Subtle gradient accents */}
     <div className="absolute inset-0 pointer-events-none">
-      <div className="absolute top-0 right-0 w-[600px] h-[400px] bg-gradient-radial from-white/[0.015] to-transparent rounded-full blur-3xl" />
-      <div className="absolute bottom-1/3 left-0 w-[500px] h-[300px] bg-gradient-radial from-white/[0.01] to-transparent rounded-full blur-3xl" />
+      <div className="absolute top-0 right-0 w-[600px] h-[400px] bg-gradient-radial from-black/[0.015] to-transparent rounded-full blur-3xl" />
+      <div className="absolute bottom-1/3 left-0 w-[500px] h-[300px] bg-gradient-radial from-black/[0.01] to-transparent rounded-full blur-3xl" />
     </div>
 
     <div className="relative z-10 max-w-5xl mx-auto px-6 sm:px-8 lg:px-10 py-24 md:py-36">
