@@ -78,13 +78,11 @@ export const EXPERTISES = [
   'M&A Industriel',
   'Private Equity / LBO',
   'Venture Capital',
-  'Droit boursier',
+  'Corporate',
   'Financement',
   'Restructuring',
   'Immobilier transactionnel',
   'Droit Social',
-  'Contentieux',
-  'Fiscal',
 ];
 
 export const CABINET_EXPERTISE_DETAIL: Record<string, { sections: { title: string; items: { key: string; label: string }[] }[] }> = {
@@ -311,7 +309,7 @@ export const CONF_OPTIONS = [
     key: 'semi',
     title: 'Semi-confidentielle',
     badge: '',
-    desc: 'Le candidat voit la nationalité de votre cabinet et son ranking Legal 500, sans connaître son nom. Il peut manifester son intérêt.',
+    desc: 'Le candidat voit la nationalité de votre cabinet et son positionnement, sans connaître son nom. Il peut manifester son intérêt.',
   },
 ];
 
@@ -570,17 +568,7 @@ export const SPLIT_COLORS = [
   '#374151',
 ];
 
-export const L500_URLS: Record<string, string> = {
-  'Banque & Finance — Transactions': 'https://www.legal500.fr/c/paris/banque-et-finance/banque-et-finance-transactions',
-  'Corporate / M&A': 'https://www.legal500.fr/c/paris/fusions-acquisitions',
-  'Private Equity': 'https://www.legal500.com/c/france/private-equity-lbo',
-  'Financement de projets': 'https://www.legal500.fr/c/paris/financement-de-projets',
-  'Droit Social': 'https://www.legal500.fr/c/paris/employment/employment',
-  'Immobilier': 'https://www.legal500.fr/c/paris/real-estate/real-estate',
-  'Restructuring / Insolvabilité': 'https://www.legal500.fr/c/paris/dispute-resolution/restructuring-and-insolvency',
-  'Fiscal': 'https://www.legal500.fr/c/paris/tax/tax',
-  'Contentieux commercial': 'https://www.legal500.fr/c/paris/dispute-resolution/commercial-litigation',
-};
+// L500_URLS removed — Legal 500 functionality has been discontinued
 
 export function getFirmTier(firm: { p: Record<string, string> }, depts: string[]): string {
   const deptKeys = depts.map((d) => DEPT_KEY_MAP[d]).filter(Boolean);
