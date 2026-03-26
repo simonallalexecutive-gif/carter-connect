@@ -108,7 +108,7 @@ const LandingPage = () => (
               Curating <em className="italic">top-tier</em> Lawyers
             </motion.h1>
           </div>
-          <motion.p variants={fadeUp} className="text-[0.92rem] sm:text-[1rem] md:text-[1.02rem] text-white/50 font-sans font-[480] leading-[1.65] max-w-none">
+          <motion.p variants={fadeUp} className="text-[1.1rem] sm:text-[1.2rem] md:text-[1.22rem] text-white/50 font-sans font-[480] leading-[1.65] max-w-none">
             <span className="block md:whitespace-nowrap">Un réseau de premier plan, une approche strictement confidentielle et un accompagnement sur mesure,</span>
             <span className="block md:whitespace-nowrap">dédiés aux cabinets d'affaires et aux candidats les plus exigeants du marché.</span>
           </motion.p>
