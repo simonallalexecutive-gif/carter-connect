@@ -522,22 +522,8 @@ const Step2Identity = () => {
           />
         </div>
 
-        {/* Auto-detected Legal 500 ranking */}
-        {store.cabinet && store.departement && (
-          <div className="carter-card p-5">
-            <p className="carter-label mb-3">Classement Legal 500</p>
-            <div className="flex items-center gap-3 flex-wrap">
-              <span className={cn(
-                "text-xs font-sans font-medium px-3 py-1.5 rounded-sm border",
-                store.cabTier && !store.cabTier.includes('Non')
-                  ? "bg-foreground text-background border-foreground"
-                  : "bg-secondary text-muted-foreground border-border"
-              )}>
-                {store.cabTier || 'Non répertorié'} · {store.departement}
-              </span>
-            </div>
-          </div>
-        )}
+
+
 
         {/* Rémunération */}
         <div className="rounded-sm p-8 space-y-6 bg-foreground text-background">
