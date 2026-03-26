@@ -16,7 +16,7 @@ const FonctionnementCandidatsSection = () => (
   <section className="relative overflow-hidden">
     {/* Background image */}
     <div className="absolute inset-0">
-      <img src={fonctionnementBg} alt="" className="w-full h-full object-cover rotate-180" />
+      <img src={candidatsBg} alt="" className="w-full h-full object-cover" />
       <div className="absolute inset-0 bg-black/75" />
     </div>
 
