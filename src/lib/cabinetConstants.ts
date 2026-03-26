@@ -150,15 +150,16 @@ export const CABINET_EXPERTISE_DETAIL: Record<string, { sections: { title: strin
       },
     ],
   },
-  'Droit boursier': {
+  'Corporate': {
     sections: [
       {
-        title: 'Domaines',
+        title: 'Nature des opérations',
         items: [
-          { key: 'brs_ipo', label: 'IPO / Introduction en bourse' },
-          { key: 'brs_opa', label: 'OPA / Offres publiques' },
-          { key: 'brs_reg', label: 'Réglementation AMF' },
-          { key: 'brs_list', label: 'Sociétés cotées / Gouvernance' },
+          { key: 'corp_gouv', label: 'Gouvernance' },
+          { key: 'corp_reorg', label: 'Réorganisations' },
+          { key: 'corp_jv', label: 'Joint-ventures' },
+          { key: 'corp_pact', label: 'Pactes d\'actionnaires' },
+          { key: 'corp_gen', label: 'Droit des sociétés général' },
         ],
       },
     ],
@@ -243,41 +244,6 @@ export const CABINET_EXPERTISE_DETAIL: Record<string, { sections: { title: strin
           { key: 'soc_remun', label: 'Rémunération & avantages' },
           { key: 'soc_mob', label: 'Mobilité internationale' },
           { key: 'soc_pse', label: 'PSE / Plans sociaux' },
-        ],
-      },
-    ],
-  },
-  'Contentieux': {
-    sections: [
-      {
-        title: 'Type de contentieux',
-        items: [
-          { key: 'ctx_com', label: 'Contentieux commercial' },
-          { key: 'ctx_arb', label: 'Arbitrage' },
-          { key: 'ctx_penal', label: 'Pénal des affaires' },
-          { key: 'ctx_resp', label: 'Responsabilité civile' },
-          { key: 'ctx_conc', label: 'Concurrence' },
-        ],
-      },
-    ],
-  },
-  'Fiscal': {
-    sections: [
-      {
-        title: 'Nature de l\'activité',
-        items: [
-          { key: 'fisc_direct', label: 'Fiscalité directe' },
-          { key: 'fisc_indirect', label: 'Fiscalité indirecte (TVA)' },
-          { key: 'fisc_inter', label: 'Fiscalité internationale' },
-          { key: 'fisc_transac', label: 'Fiscalité transactionnelle' },
-        ],
-      },
-      {
-        title: 'Spécialités',
-        items: [
-          { key: 'fisc_prix', label: 'Prix de transfert' },
-          { key: 'fisc_cont', label: 'Contentieux fiscal' },
-          { key: 'fisc_patri', label: 'Gestion de patrimoine' },
         ],
       },
     ],
