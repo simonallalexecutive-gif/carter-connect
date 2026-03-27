@@ -48,12 +48,23 @@ const MissionSection = () => (
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         className="mb-20 md:mb-28"
       >
-        <div className="border-l-2 border-white/10 pl-8 md:pl-12 max-w-3xl space-y-6">
-          <p className="font-sans text-[1.05rem] md:text-lg leading-[1.8] text-white/60">
-            Logan structure un écosystème discret et exigeant, réunissant les acteurs les plus prestigieux du marché des avocats d'affaires, dans une exigence absolue de confidentialité. Vous disposez d'un accès continu à un réseau hautement qualifié, composé de profils rares et rigoureusement sélectionnés.
-          </p>
-          <p className="font-sans text-[1.05rem] md:text-lg leading-[1.8] text-white/60">
-            Logan intervient aux côtés des parties avec discrétion, uniquement lorsque des rapprochements stratégiques s'imposent. En préservant l'anonymat de chaque partie, Logan permet au marché de se révéler sans jamais s'exposer.
+        <div className="border-l-2 border-white/10 pl-8 md:pl-12 max-w-3xl space-y-8">
+          <ul className="space-y-6 list-none">
+            <li className="font-sans text-[1.05rem] md:text-lg leading-[1.8] text-white/60 flex gap-3">
+              <span className="text-white/25 mt-1 flex-shrink-0">—</span>
+              <span>Logan structure un écosystème discret et exigeant, réunissant les acteurs les plus prestigieux du marché des avocats d'affaires, dans une exigence absolue de confidentialité.</span>
+            </li>
+            <li className="font-sans text-[1.05rem] md:text-lg leading-[1.8] text-white/60 flex gap-3">
+              <span className="text-white/25 mt-1 flex-shrink-0">—</span>
+              <span>Vous disposez d'un accès continu à un réseau hautement qualifié, composé de profils rares et rigoureusement sélectionnés.</span>
+            </li>
+            <li className="font-sans text-[1.05rem] md:text-lg leading-[1.8] text-white/60 flex gap-3">
+              <span className="text-white/25 mt-1 flex-shrink-0">—</span>
+              <span>Logan intervient aux côtés des parties avec discrétion, uniquement lorsque des rapprochements stratégiques s'imposent.</span>
+            </li>
+          </ul>
+          <p className="font-serif text-[1.1rem] md:text-xl leading-[1.7] text-white/40 italic">
+            En préservant l'anonymat de chaque partie, Logan permet au marché de se révéler sans jamais s'exposer.
           </p>
         </div>
       </motion.div>
