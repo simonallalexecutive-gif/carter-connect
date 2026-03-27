@@ -38,7 +38,7 @@ const CabinetNotificationAlerts = ({ onClose }: CabinetNotificationAlertsProps) 
   const [originFirms, setOriginFirms] = useState<string[]>([]);
   const [currentFirm, setCurrentFirm] = useState('');
 
-  const allFirms = [...new Set([...CABINETS, ...getAllFirmNames()])].sort();
+  const allFirms = [...new Set([...CABINETS, ...getAllChambersFirmNames()])].sort();
 
   const toggleSeniority = (s: string) => {
     setSeniorities(prev => prev.includes(s) ? prev.filter(x => x !== s) : [...prev, s]);

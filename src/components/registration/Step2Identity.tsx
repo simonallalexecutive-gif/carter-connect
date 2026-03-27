@@ -52,7 +52,7 @@ const Step2Identity = () => {
   const passwordsMatch = store.password === store.passwordConfirm && store.passwordConfirm.length > 0;
 
   const allCabinets = useMemo(() => {
-    const set = new Set([...CABINETS, ...getAllFirmNames()]);
+    const set = new Set([...CABINETS, ...getAllChambersFirmNames()]);
     return [...set].sort((a, b) => a.localeCompare(b));
   }, []);
 
