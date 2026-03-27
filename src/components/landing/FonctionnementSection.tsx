@@ -60,82 +60,55 @@ const FonctionnementSection = () => (
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-60px' }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className="mb-20 md:mb-28"
+        className="mb-14 md:mb-20"
       >
-        <div className="flex items-center gap-3 mb-10">
+        <div className="flex items-center gap-3 mb-8">
           <span className="flex items-center justify-center w-8 h-8 rounded-full border border-white/15 text-xs font-sans font-semibold text-white/60">1</span>
           <h3 className="font-serif text-2xl md:text-[1.8rem] text-white/85">Déposer une recherche</h3>
         </div>
 
-        {/* A. Mode confidentiel + B. Mode non confidentiel */}
-        <div className="grid md:grid-cols-2 gap-6 md:gap-10 mb-12">
-          <div className="bg-white/[0.04] backdrop-blur-sm border border-white/[0.08] rounded-sm p-8 md:p-10">
-            <div className="flex items-center gap-3 mb-6">
-              <EyeOff className="w-5 h-5 text-white/30" strokeWidth={1.5} />
-              <p className="font-sans text-xs font-semibold tracking-[0.2em] uppercase text-white/45">A. Mode confidentiel</p>
-              <span className="ml-auto text-[10px] font-sans font-medium tracking-wider uppercase px-3 py-1 border border-white/15 rounded-sm text-white/40">
-                Recommandé
-              </span>
-            </div>
-            <p className="font-sans text-[0.95rem] leading-[1.75] text-white/55 mb-6">
-              Le cabinet publie une opportunité de manière anonymisée. Les candidats accèdent à une description précise de l'offre, sans que l'identité du cabinet ne soit révélée.
-            </p>
-            <p className="font-sans text-xs font-medium tracking-[0.15em] uppercase text-white/30 mb-4">
-              Informations visibles par les candidats
-            </p>
-            <div className="grid grid-cols-2 gap-x-4 gap-y-2 mb-6">
-              {[
-                'Positionnement du cabinet',
-                'Domaine de pratique',
-                'Niveau de séniorité',
-                'Structure de l\'équipe',
-                'Fourchette de rétrocession',
-                'Objectifs éventuels',
-              ].map((item) => (
-                <div key={item} className="flex items-start gap-2">
-                  <div className="w-1 h-1 rounded-full bg-white/25 mt-2 flex-shrink-0" />
-                  <span className="font-sans text-sm text-white/45">{item}</span>
-                </div>
-              ))}
-            </div>
-            <p className="font-sans text-sm leading-[1.7] text-white/40">
-              Ce n'est qu'en cas d'intérêt réel et qualifié qu'un candidat peut être mis en relation. L'identité du cabinet n'est alors révélée qu'à ce stade.
-            </p>
-            <p className="font-sans text-sm leading-[1.7] text-white/40 mt-3">
-              En parallèle, Logan mène un travail continu de sourcing et peut proposer activement des profils pertinents dans le cadre du mandat.
-            </p>
+        {/* Mode confidentiel — single card */}
+        <div className="bg-white/[0.04] backdrop-blur-sm border border-white/[0.08] rounded-sm p-8 md:p-10 mb-8">
+          <div className="flex items-center gap-3 mb-6">
+            <EyeOff className="w-5 h-5 text-white/30" strokeWidth={1.5} />
+            <p className="font-sans text-xs font-semibold tracking-[0.2em] uppercase text-white/45">Mode confidentiel</p>
+            <span className="ml-auto text-[10px] font-sans font-medium tracking-wider uppercase px-3 py-1 border border-white/15 rounded-sm text-white/40">
+              Par défaut
+            </span>
           </div>
-
-          <div className="bg-white/[0.04] backdrop-blur-sm border border-white/[0.08] rounded-sm p-8 md:p-10">
-            <div className="flex items-center gap-3 mb-6">
-              <Eye className="w-5 h-5 text-white/30" strokeWidth={1.5} />
-              <p className="font-sans text-xs font-semibold tracking-[0.2em] uppercase text-white/45">B. Mode non confidentiel</p>
-            </div>
-            <p className="font-sans text-[0.95rem] leading-[1.75] text-white/55 mb-6">
-              Le cabinet peut choisir de publier son offre de manière visible. L'opportunité est alors accessible à un pool restreint de candidats qualifiés et rigoureusement sélectionnés.
-            </p>
-            <p className="font-sans text-sm leading-[1.7] text-white/40">
-              Logan accompagne le cabinet tout au long du processus, de la qualification des profils à la mise en relation.
-            </p>
-
-            <div className="mt-8 pt-6 border-t border-white/[0.08]">
-              <p className="font-sans text-xs font-medium tracking-[0.15em] uppercase text-white/30 mb-4">Bénéfices</p>
-              <div className="space-y-2">
-                {['Visibilité maîtrisée', 'Accès direct à des candidats préqualifiés', 'Gain de temps dans le processus', 'Accompagnement sur mesure'].map((b) => (
-                  <div key={b} className="flex items-center gap-2">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-white/20" strokeWidth={1.5} />
-                    <span className="font-sans text-sm text-white/45">{b}</span>
-                  </div>
-                ))}
+          <p className="font-sans text-[0.95rem] leading-[1.75] text-white/55 mb-6">
+            Le cabinet publie une opportunité de manière anonymisée. Les candidats accèdent à une description précise de l'offre, sans que l'identité du cabinet ne soit révélée.
+          </p>
+          <p className="font-sans text-xs font-medium tracking-[0.15em] uppercase text-white/30 mb-4">
+            Informations visibles par les candidats
+          </p>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-x-4 gap-y-2 mb-6">
+            {[
+              'Positionnement du cabinet',
+              'Domaine de pratique',
+              'Niveau de séniorité',
+              'Structure de l\'équipe',
+              'Fourchette de rétrocession',
+              'Objectifs éventuels',
+            ].map((item) => (
+              <div key={item} className="flex items-start gap-2">
+                <div className="w-1 h-1 rounded-full bg-white/25 mt-2 flex-shrink-0" />
+                <span className="font-sans text-sm text-white/45">{item}</span>
               </div>
-            </div>
+            ))}
           </div>
+          <p className="font-sans text-sm leading-[1.7] text-white/40">
+            Ce n'est qu'en cas d'intérêt réel et qualifié qu'un candidat peut être mis en relation. L'identité du cabinet n'est alors révélée qu'à ce stade.
+          </p>
+          <p className="font-sans text-sm leading-[1.7] text-white/40 mt-3">
+            En parallèle, Logan mène un travail continu de sourcing et peut proposer activement des profils pertinents dans le cadre du mandat.
+          </p>
         </div>
 
-        {/* Benefits block for confidential mode */}
-        <div className="bg-white/[0.04] backdrop-blur-sm border border-white/[0.08] rounded-sm p-8 md:p-10 mb-12">
+        {/* Benefits block */}
+        <div className="bg-white/[0.04] backdrop-blur-sm border border-white/[0.08] rounded-sm p-8 md:p-10 mb-8">
           <p className="font-sans text-xs font-medium tracking-[0.15em] uppercase text-white/30 mb-5">
-            Bénéfices du mode confidentiel
+            Bénéfices
           </p>
           <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-6">
             {[
@@ -153,7 +126,7 @@ const FonctionnementSection = () => (
         </div>
 
         {/* Visual flow — 3 steps */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-0 mb-12">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-0 mb-8">
           {flowSteps.map(({ label, icon: Icon }, i) => (
             <div key={label} className="flex items-center gap-4">
               <div className="flex flex-col items-center gap-3">
@@ -169,18 +142,15 @@ const FonctionnementSection = () => (
           ))}
         </div>
 
-        {/* Synthesis block */}
+        {/* Synthesis inline */}
         <div className="border-l-2 border-white/10 pl-8 md:pl-12 max-w-3xl">
-          <p className="font-sans text-xs font-medium tracking-[0.15em] uppercase text-white/30 mb-4">
-            Synthèse
-          </p>
-          <p className="font-sans text-[1rem] leading-[1.8] text-white/55 mb-4">
+          <p className="font-sans text-sm leading-[1.8] text-white/50 mb-3">
             Publier une recherche avec Logan, c'est :
           </p>
           <div className="space-y-2">
             {[
               'Diffuser simplement un mandat',
-              'Préserver sa confidentialité si souhaité',
+              'Préserver sa confidentialité',
               'Attirer des profils hautement qualifiés',
               'Bénéficier d\'un accompagnement actif et continu',
             ].map((item) => (
@@ -201,7 +171,7 @@ const FonctionnementSection = () => (
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-60px' }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className="mb-20 md:mb-28"
+        className="mb-14 md:mb-20"
       >
         <div className="flex items-center gap-3 mb-10">
           <span className="flex items-center justify-center w-8 h-8 rounded-full border border-white/15 text-xs font-sans font-semibold text-white/60">2</span>
@@ -255,16 +225,6 @@ const FonctionnementSection = () => (
           </div>
         </div>
 
-        {/* Concrete example */}
-        <div className="bg-white/[0.03] border border-dashed border-white/[0.1] rounded-sm p-8 md:p-10 mb-10">
-          <p className="font-sans text-xs font-medium tracking-[0.15em] uppercase text-white/25 mb-4">
-            Exemple concret
-          </p>
-          <p className="font-serif text-base md:text-lg italic leading-[1.7] text-white/45">
-            Identifier un collaborateur 6<sup>e</sup> année en financement LBO, actuellement en cabinet international, et initier une approche opportuniste, indépendamment de tout besoin immédiat.
-          </p>
-        </div>
-
         {/* Benefits */}
         <div className="bg-white/[0.04] backdrop-blur-sm border border-white/[0.08] rounded-sm p-8 md:p-10">
           <p className="font-sans text-xs font-medium tracking-[0.15em] uppercase text-white/30 mb-5">Bénéfices</p>
@@ -295,13 +255,10 @@ const FonctionnementSection = () => (
         transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
         className="text-center"
       >
-        <p className="font-sans text-xs font-medium tracking-[0.25em] uppercase text-white/25 mb-8">
-          Synthèse globale
-        </p>
-        <p className="font-serif text-xl sm:text-2xl md:text-[1.8rem] leading-[1.35] text-white/40 max-w-3xl mx-auto mb-8">
+        <p className="font-serif text-lg sm:text-xl md:text-[1.5rem] leading-[1.4] text-white/40 max-w-3xl mx-auto mb-4">
           Logan permet aux cabinets de publier des mandats en toute confidentialité, d'accéder en continu à un réseau hautement qualifié et d'initier des rapprochements ciblés, au bon moment.
         </p>
-        <p className="font-sans text-sm leading-[1.7] text-white/25 max-w-xl mx-auto mb-12">
+        <p className="font-sans text-sm leading-[1.7] text-white/25 max-w-xl mx-auto mb-10">
           Le tout dans un environnement structuré, sécurisé et strictement confidentiel, où chaque mise en relation est qualifiée, pertinente et accompagnée.
         </p>
 
