@@ -221,6 +221,48 @@ export function formatChambersBand(band: number): string {
 }
 
 /**
+ * Mapping from Chambers department keys to French practice labels used in registration
+ */
+export const CHAMBERS_KEY_TO_PRACTICE: Record<string, string> = {
+  ma: 'M&A (dominante)',
+  pe: 'Private Equity (dominante)',
+  banque: 'Financement LBO',
+  restructuring: 'Restructuring',
+  social: 'Droit Social',
+  immo: 'Immobilier',
+  concurrence: 'Concurrence',
+  public: 'Droit Public',
+  arbitrage: 'Arbitrage International',
+  projets: 'Projets & Énergie',
+};
+
+/**
+ * Get the practices (French labels) available for a given firm based on Chambers rankings
+ * Returns an array of { label, chambersKey, band }
+ */
+export function getFirmPractices(firmName: string): { label: string; chambersKey: string; band: number }[] {
+  const firm = CHAMBERS_DB[firmName];
+  if (!firm) return [];
+  return Object.entries(firm.rankings)
+    .filter(([key]) => CHAMBERS_KEY_TO_PRACTICE[key])
+    .map(([key, band]) => ({
+      label: CHAMBERS_KEY_TO_PRACTICE[key],
+      chambersKey: key,
+      band,
+    }))
+    .sort((a, b) => a.band - b.band);
+}
+
+/**
+ * Get the Chambers band for a firm given a French practice label
+ */
+export function getChambersRankingByPractice(firmName: string, practiceLabel: string): number | null {
+  const key = Object.entries(CHAMBERS_KEY_TO_PRACTICE).find(([, label]) => label === practiceLabel)?.[0];
+  if (!key) return null;
+  return getChambersRanking(firmName, key);
+}
+
+/**
  * Get all firm names in the Chambers database
  */
 export function getAllChambersFirmNames(): string[] {
