@@ -83,7 +83,26 @@ const Step2Identity = () => {
   const handleCabinetSelect = (v: string | string[]) => {
     const cabinetName = typeof v === 'string' ? v : v[0];
     store.setField('cabinet', cabinetName as string);
+    // Reset practice if new cabinet doesn't have the current one
+    if (store.departement) {
+      const practices = getFirmPractices(cabinetName as string);
+      if (!practices.some(p => p.label === store.departement)) {
+        store.setField('departement', '');
+      }
+    }
   };
+
+  // Compute available practices based on selected cabinet's Chambers rankings
+  const availablePractices = useMemo(() => {
+    if (!store.cabinet) return [];
+    return getFirmPractices(store.cabinet);
+  }, [store.cabinet]);
+
+  // Get current Chambers band for selected practice
+  const currentChambersBand = useMemo(() => {
+    if (!store.cabinet || !store.departement) return null;
+    return getChambersRankingByPractice(store.cabinet, store.departement);
+  }, [store.cabinet, store.departement]);
 
   const handleDepartmentChange = (dept: string) => {
     store.setField('departement', dept);
