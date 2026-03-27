@@ -80,6 +80,7 @@ const CabinetStep2Identity = () => {
               {filtered.map((name) => {
                 const firm = CHAMBERS_DB[name];
                 const nat = firm?.nat ?? null;
+                return (
                   <div
                     key={name}
                     className="px-4 py-3 cursor-pointer hover:bg-secondary flex items-center justify-between border-b border-border last:border-b-0"
