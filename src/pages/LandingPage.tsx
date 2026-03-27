@@ -111,7 +111,7 @@ const LandingPage = () => (
             </motion.h1>
           </div>
           <motion.p variants={fadeUp} className="text-[1.1rem] sm:text-[1.2rem] md:text-[1.22rem] text-white font-sans font-[480] leading-[1.65] max-w-[72rem]">
-            Un réseau confidentiel, piloté par des chasseurs spécialisés, conçu pour les candidats et cabinets les plus prestigieux du marché.
+            Un réseau confidentiel, piloté par des chasseurs spécialisés, conçu pour les candidats<br />et cabinets les plus prestigieux du marché.
           </motion.p>
           <motion.div variants={fadeUp} className="mt-14 sm:mt-20">
             <Link to="/demander-acces">
