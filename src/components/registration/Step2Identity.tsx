@@ -16,7 +16,7 @@ import ChipSelector from '@/components/shared/ChipSelector';
 import { usePQE } from '@/hooks/usePQE';
 import { CABINETS, MOIS, RAISONS_BAISSE_RETRO, ASSOC_ATTENTES, ASSOC_CAB_TYPES } from '@/lib/constants';
 import { formatNumberWithDots, formatPhoneWithDots } from '@/lib/formatters';
-import { getAllChambersFirmNames, getFirmPractices, getChambersRankingByPractice, formatChambersBand } from '@/lib/chambersRankings';
+import { getAllChambersFirmNames, getFirmPractices, getChambersRankingByPractice, formatChambersBand, CHAMBERS_DEPARTMENTS, CHAMBERS_KEY_TO_PRACTICE } from '@/lib/chambersRankings';
 import { Camera, X, ArrowLeft, ArrowRight, Linkedin, Eye, EyeOff, Check, AlertCircle, Loader2 } from 'lucide-react';
 import { useRef, useState, useMemo, useCallback, useEffect } from 'react';
 import { cn } from '@/lib/utils';
@@ -83,24 +83,19 @@ const Step2Identity = () => {
   const handleCabinetSelect = (v: string | string[]) => {
     const cabinetName = typeof v === 'string' ? v : v[0];
     store.setField('cabinet', cabinetName as string);
-    // Reset practice if new cabinet doesn't have the current one
-    if (store.departement) {
-      const practices = getFirmPractices(cabinetName as string);
-      if (!practices.some(p => p.label === store.departement)) {
-        store.setField('departement', '');
-      }
-    }
   };
 
-  // Compute available practices based on selected cabinet's Chambers rankings
-  const availablePractices = useMemo(() => {
-    if (!store.cabinet) return [];
-    return getFirmPractices(store.cabinet);
-  }, [store.cabinet]);
+  // All Chambers practices available for selection
+  const allPractices = useMemo(() => {
+    return CHAMBERS_DEPARTMENTS.map(d => ({
+      key: d.key,
+      label: CHAMBERS_KEY_TO_PRACTICE[d.key] || d.label,
+    }));
+  }, []);
 
-  // Get current Chambers band for selected practice
+  // Get current Chambers band for selected practice (null = not ranked)
   const currentChambersBand = useMemo(() => {
-    if (!store.cabinet || !store.departement) return null;
+    if (!store.cabinet || !store.departement) return undefined;
     return getChambersRankingByPractice(store.cabinet, store.departement);
   }, [store.cabinet, store.departement]);
 
@@ -530,36 +525,40 @@ const Step2Identity = () => {
           />
         </div>
 
-        {/* Pratique — filtered by Chambers rankings of selected cabinet */}
+        {/* Pratique — all Chambers departments */}
         <div>
           <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Votre pratique *</Label>
-          {store.cabinet && availablePractices.length > 0 ? (
+          {store.cabinet ? (
             <>
               <Select value={store.departement} onValueChange={handleDepartmentChange}>
                 <SelectTrigger className="mt-2"><SelectValue placeholder="Sélectionner votre pratique" /></SelectTrigger>
                 <SelectContent>
-                  {availablePractices.map(p => (
-                    <SelectItem key={p.chambersKey} value={p.label}>
+                  {allPractices.map(p => (
+                    <SelectItem key={p.key} value={p.label}>
                       {p.label}
                     </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
-              {currentChambersBand && (
+              {store.departement && currentChambersBand !== undefined && (
                 <div className="mt-3 flex items-center gap-2">
-                  <span className="inline-flex items-center px-3 py-1 rounded-sm bg-foreground text-background text-xs font-sans font-medium">
-                    Chambers {formatChambersBand(currentChambersBand)}
-                  </span>
-                  <span className="text-xs text-muted-foreground font-sans font-light">
-                    {store.cabinet} · {store.departement}
-                  </span>
+                  {currentChambersBand !== null ? (
+                    <>
+                      <span className="inline-flex items-center px-3 py-1 rounded-sm bg-foreground text-background text-xs font-sans font-medium">
+                        Chambers {formatChambersBand(currentChambersBand)}
+                      </span>
+                      <span className="text-xs text-muted-foreground font-sans font-light">
+                        {store.cabinet} · {store.departement}
+                      </span>
+                    </>
+                  ) : (
+                    <span className="text-xs text-muted-foreground font-sans font-light italic">
+                      {store.cabinet} n'est pas classé dans Chambers pour la pratique {store.departement}
+                    </span>
+                  )}
                 </div>
               )}
             </>
-          ) : store.cabinet ? (
-            <p className="mt-2 text-sm text-muted-foreground font-sans font-light">
-              Ce cabinet n'a pas de classement Chambers répertorié.
-            </p>
           ) : (
             <p className="mt-2 text-sm text-muted-foreground font-sans font-light">
               Veuillez d'abord renseigner votre cabinet.
