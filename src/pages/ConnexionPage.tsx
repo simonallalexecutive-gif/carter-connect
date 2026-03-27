@@ -101,12 +101,6 @@ const ConnexionPage = () => {
             </Button>
           </form>
 
-          <p className="text-center text-sm text-muted-foreground mt-6 font-sans">
-            Pas encore de compte ?{' '}
-            <a href="/demander-acces" className="text-foreground underline hover:no-underline">
-              Demander un accès
-            </a>
-          </p>
         </motion.div>
       </main>
       <Footer />

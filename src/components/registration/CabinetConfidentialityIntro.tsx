@@ -1,40 +1,40 @@
 import { motion } from 'motion/react';
-import { Shield, Eye, EyeOff, Handshake, ArrowRight, Lock, UserCheck, MessageSquare } from 'lucide-react';
+import { Shield, EyeOff, Search, Zap, Users, Handshake, ArrowRight, Lock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-interface ConfidentialityIntroProps {
+interface CabinetConfidentialityIntroProps {
   onContinue: () => void;
 }
 
 const steps = [
   {
     icon: EyeOff,
-    title: 'Profil anonyme',
-    description: 'Aucun cabinet n\'a accès à votre identité (nom, prénom) ni au nom de votre cabinet actuel.',
+    title: 'Identité du cabinet préservée',
+    description: 'Votre identité reste strictement anonyme aux yeux des candidats. Aucun avocat ne peut savoir quel cabinet consulte son profil ou manifeste un intérêt.',
   },
   {
-    icon: Eye,
-    title: 'Visibilité limitée',
-    description: 'Seules votre séniorité et votre expertise sont visibles.',
+    icon: Search,
+    title: 'Recherche visible, identité masquée',
+    description: 'Vos recherches sont visibles sur la plateforme sans que l\'identité de votre cabinet ne soit révélée. Les candidats voient une opportunité, jamais un nom.',
   },
   {
-    icon: MessageSquare,
-    title: 'Logan vous contacte',
-    description: 'Si un cabinet manifeste un intérêt pour votre profil, Logan se rapproche de vous, spontanément (en dehors de toute recherche "officielle" du cabinet) ou à votre demande (en présence d\'un mandat), pour vous présenter l\'opportunité plus en détails.',
+    icon: Zap,
+    title: 'Accès en temps réel',
+    description: 'Logan vous propose un accès en temps réel aux candidats pertinents et en recherche active, avec possibilité d\'activer l\'intervention de Logan pour opérer un rapprochement.',
   },
   {
-    icon: UserCheck,
-    title: 'Vous décidez',
-    description: 'Si l\'opportunité vous intéresse, vous autorisez Logan à faire la mise en relation : ce n\'est qu\'à ce moment précis que votre identité complète est transmise au cabinet.',
+    icon: Users,
+    title: 'Logan, force de proposition',
+    description: 'En parallèle de vos recherches, Logan peut être force de propositions en identifiant proactivement des profils correspondant à vos critères.',
   },
   {
     icon: Handshake,
-    title: 'Accompagnement intégral',
-    description: 'Le processus de recrutement est intégralement pris en main par Logan.',
+    title: 'Accompagnement de A à Z',
+    description: 'Logan vous accompagne à chaque étape du processus de recrutement, de la recherche initiale jusqu\'à l\'intégration du candidat.',
   },
 ];
 
-const ConfidentialityIntro = ({ onContinue }: ConfidentialityIntroProps) => {
+const CabinetConfidentialityIntro = ({ onContinue }: CabinetConfidentialityIntroProps) => {
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -60,17 +60,15 @@ const ConfidentialityIntro = ({ onContinue }: ConfidentialityIntroProps) => {
           </div>
         </motion.div>
 
-        <div className="w-10 h-px bg-white/20 mb-6" />
-
         <div className="w-10 h-px bg-white/20 mx-auto mb-6" />
 
         <h1 className="text-2xl md:text-3xl font-serif font-normal text-white text-center mb-3 tracking-[-0.02em]">
-          Vos informations restent<br />
-          <em className="text-white/50 font-normal">strictement confidentielles</em>
+          Votre recherche reste<br />
+          <em className="text-white/50 font-normal">strictement confidentielle</em>
         </h1>
 
         <p className="text-xs text-white/40 font-sans font-light text-center mb-12 max-w-md mx-auto leading-relaxed">
-          Voici comment fonctionne la confidentialité sur Logan, à chaque étape du processus.
+          Voici comment Logan garantit la confidentialité de votre cabinet à chaque étape.
         </p>
 
         {/* Steps */}
@@ -125,4 +123,4 @@ const ConfidentialityIntro = ({ onContinue }: ConfidentialityIntroProps) => {
   );
 };
 
-export default ConfidentialityIntro;
+export default CabinetConfidentialityIntro;

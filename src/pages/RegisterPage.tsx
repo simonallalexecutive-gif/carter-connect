@@ -2,6 +2,7 @@ import { useRegistrationStore } from '@/stores/registrationStore';
 import StepProgress from '@/components/registration/StepProgress';
 import Step1Hero from '@/components/registration/Step1Hero';
 import ConfidentialityIntro from '@/components/registration/ConfidentialityIntro';
+import CabinetConfidentialityIntro from '@/components/registration/CabinetConfidentialityIntro';
 import Step2Identity from '@/components/registration/Step2Identity';
 import Step3Activity from '@/components/registration/Step3Activity';
 import Step4Project from '@/components/registration/Step4Project';
@@ -17,10 +18,13 @@ const RegisterPage = () => {
   const goToStep = useRegistrationStore(s => s.goToStep);
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+  const espaceParam = searchParams.get('espace');
   const isDarkStep = currentStep === 7;
 
-  // Show the confidentiality intro between Step 1 "Je m'inscris" and Step 2
-  const [showConfIntro, setShowConfIntro] = useState(false);
+  // For candidat: show confidentiality intro first (skip Step1Hero)
+  const [showConfIntro, setShowConfIntro] = useState(espaceParam === 'candidat');
+  // For cabinet: show cabinet confidentiality intro
+  const [showCabinetIntro, setShowCabinetIntro] = useState(espaceParam === 'cabinet');
 
   useEffect(() => {
     const startStep = searchParams.get('start');
@@ -31,31 +35,32 @@ const RegisterPage = () => {
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, [currentStep, showConfIntro]);
+  }, [currentStep, showConfIntro, showCabinetIntro]);
 
   // Apply theme-light to <body> so Radix portals (Select, Popover, etc.) inherit light tokens
   useEffect(() => {
-    if (!isDarkStep) {
+    if (!isDarkStep && !showConfIntro && !showCabinetIntro) {
       document.body.classList.add('theme-light');
     } else {
       document.body.classList.remove('theme-light');
     }
     return () => document.body.classList.remove('theme-light');
-  }, [isDarkStep, showConfIntro]);
-
-  // Intercept nextStep from Step1Hero to show confidentiality intro
-  useEffect(() => {
-    if (currentStep === 2 && showConfIntro) {
-      // Stay on intro
-    }
-  }, [currentStep, showConfIntro]);
+  }, [isDarkStep, showConfIntro, showCabinetIntro]);
 
   const handleConfIntroComplete = () => {
     setShowConfIntro(false);
     goToStep(2);
   };
 
+  const handleCabinetIntroComplete = () => {
+    setShowCabinetIntro(false);
+    navigate('/cabinet?start=2');
+  };
+
   const renderStep = () => {
+    if (showCabinetIntro) {
+      return <CabinetConfidentialityIntro onContinue={handleCabinetIntroComplete} />;
+    }
     if (showConfIntro) {
       return <ConfidentialityIntro onContinue={handleConfIntroComplete} />;
     }
@@ -71,10 +76,10 @@ const RegisterPage = () => {
     }
   };
 
-  const showProgress = !showConfIntro && currentStep >= 2 && currentStep <= 6;
+  const showProgress = !showConfIntro && !showCabinetIntro && currentStep >= 2 && currentStep <= 6;
 
   return (
-    <div className={(isDarkStep || showConfIntro) ? '' : 'theme-light bg-background min-h-screen'}>
+    <div className={(isDarkStep || showConfIntro || showCabinetIntro) ? '' : 'theme-light bg-background min-h-screen'}>
       {showProgress && (
         <>
           <LogoBanner subtitle="Espace Candidat" />
