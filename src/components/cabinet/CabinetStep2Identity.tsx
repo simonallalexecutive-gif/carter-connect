@@ -2,7 +2,8 @@ import { useState, useMemo } from 'react';
 import { useCabinetStore } from '@/stores/cabinetStore';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { LEGAL500_DB, getFirmRankings, getFirmNationality, NAT_FLAGS, NAT_LABELS, formatTier } from '@/lib/legal500Rankings';
+import { CHAMBERS_DB, getFirmChambersRankings, formatChambersBand, CHAMBERS_DEPARTMENTS } from '@/lib/chambersRankings';
+import { NAT_FLAGS, NAT_LABELS } from '@/lib/legal500Rankings';
 import { cn } from '@/lib/utils';
 import { formatPhoneWithDots } from '@/lib/formatters';
 import { Plus, Minus, Shield, Building2, Eye, EyeOff } from 'lucide-react';
@@ -22,7 +23,7 @@ const CabinetStep2Identity = () => {
   };
   const passwordValid = Object.values(passwordChecks).every(Boolean);
 
-  const firmNames = Object.keys(LEGAL500_DB);
+  const firmNames = Object.keys(CHAMBERS_DB);
   const filtered = useMemo(() => {
     if (!acQuery || acQuery.length < 2) return [];
     const q = acQuery.toLowerCase();
@@ -32,10 +33,10 @@ const CabinetStep2Identity = () => {
   const selectFirm = (name: string) => {
     s.setField('cabinetName', name);
     s.setField('selectedFirm', name);
-    const nat = getFirmNationality(name);
-    if (nat) s.setField('detectedNat', nat);
-    const rankings = getFirmRankings(name);
-    s.setField('detectedRankings', rankings);
+    const firm = CHAMBERS_DB[name];
+    if (firm) s.setField('detectedNat', firm.nat);
+    const rankings = getFirmChambersRankings(name);
+    s.setField('detectedRankings', rankings.map(r => ({ key: r.key, label: r.label, tier: r.band })));
     setAcQuery(name);
     setAcOpen(false);
   };
@@ -77,7 +78,8 @@ const CabinetStep2Identity = () => {
           {acOpen && filtered.length > 0 && (
             <div className="absolute top-full left-0 right-0 bg-background border border-foreground border-t-0 rounded-b z-50 max-h-64 overflow-y-auto shadow-lg">
               {filtered.map((name) => {
-                const nat = getFirmNationality(name);
+                const firm = CHAMBERS_DB[name];
+                const nat = firm?.nat ?? null;
                 return (
                   <div
                     key={name}
@@ -112,7 +114,7 @@ const CabinetStep2Identity = () => {
 
           {s.detectedRankings.length > 0 && (
             <div>
-              <div className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2">Classements Legal 500</div>
+              <div className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2">Classements Chambers</div>
               <div className="grid grid-cols-2 gap-2">
                 {s.detectedRankings.map((r) => (
                   <div key={r.key} className="flex items-center justify-between p-2.5 rounded border border-border bg-background">
@@ -121,7 +123,7 @@ const CabinetStep2Identity = () => {
                       'text-[10px] font-bold px-2 py-0.5 rounded-sm',
                       r.tier <= 2 ? 'bg-foreground text-background' : 'bg-secondary text-foreground'
                     )}>
-                      {formatTier(r.tier)}
+                      {formatChambersBand(r.tier)}
                     </span>
                   </div>
                 ))}

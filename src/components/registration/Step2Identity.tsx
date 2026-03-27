@@ -16,7 +16,7 @@ import ChipSelector from '@/components/shared/ChipSelector';
 import { usePQE } from '@/hooks/usePQE';
 import { CABINETS, DEPARTEMENTS, MOIS, RAISONS_BAISSE_RETRO, ASSOC_ATTENTES, ASSOC_CAB_TYPES } from '@/lib/constants';
 import { formatNumberWithDots, formatPhoneWithDots } from '@/lib/formatters';
-import { getAllFirmNames } from '@/lib/legal500Rankings';
+import { getAllChambersFirmNames } from '@/lib/chambersRankings';
 import { Camera, X, ArrowLeft, ArrowRight, Linkedin, Eye, EyeOff, Check, AlertCircle, Loader2 } from 'lucide-react';
 import { useRef, useState, useMemo, useCallback, useEffect } from 'react';
 import { cn } from '@/lib/utils';
@@ -52,7 +52,7 @@ const Step2Identity = () => {
   const passwordsMatch = store.password === store.passwordConfirm && store.passwordConfirm.length > 0;
 
   const allCabinets = useMemo(() => {
-    const set = new Set([...CABINETS, ...getAllFirmNames()]);
+    const set = new Set([...CABINETS, ...getAllChambersFirmNames()]);
     return [...set].sort((a, b) => a.localeCompare(b));
   }, []);
 
