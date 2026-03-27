@@ -1,7 +1,8 @@
 import { useState, useMemo } from 'react';
 import { useCabinetStore } from '@/stores/cabinetStore';
 import { PROFILES, DEPT_KEY_MAP, type CabinetProfile } from '@/lib/cabinetConstants';
-import { NAT_FLAGS, NAT_LABELS, formatTier, LEGAL500_DEPARTMENTS, getFirmTierForDept } from '@/lib/legal500Rankings';
+import { CHAMBERS_DEPARTMENTS, getChambersRanking, formatChambersBand } from '@/lib/chambersRankings';
+import { NAT_FLAGS, NAT_LABELS } from '@/lib/legal500Rankings';
 import { cn } from '@/lib/utils';
 import { X, Search, Eye, Plus, FileText, Users } from 'lucide-react';
 import ActivityPieChart from '@/components/shared/ActivityPieChart';
@@ -125,12 +126,12 @@ const DeptSelection = () => {
   const selectDept = (key: string, label: string) => {
     s.setField('currentSearchDept', key);
     s.setField('currentSearchDeptLabel', label);
-    // Auto-detect ranking for this dept
-    const tier = s.selectedFirm ? getFirmTierForDept(s.selectedFirm, key) : null;
-    if (tier !== null) {
-      s.setField('ranking', formatTier(tier));
+    // Auto-detect Chambers ranking for this dept
+    const band = s.selectedFirm ? getChambersRanking(s.selectedFirm, key) : null;
+    if (band !== null) {
+      s.setField('ranking', formatChambersBand(band));
     } else {
-      s.setField('ranking', 'Non répertorié dans le Legal 500');
+      s.setField('ranking', 'Non classé Chambers');
     }
     s.setField('currentSearchStep', 1);
   };
@@ -146,13 +147,13 @@ const DeptSelection = () => {
 
       <h2 className="font-sans text-3xl font-normal text-foreground leading-tight mb-2.5">Nouvelle recherche</h2>
       <p className="text-sm text-muted-foreground font-light leading-relaxed mb-8 max-w-xl">
-        Sélectionnez le département concerné par votre recherche. LOGAN identifiera automatiquement votre classement Legal 500 pour ce département.
+        Sélectionnez le département concerné par votre recherche. LOGAN identifiera automatiquement votre classement Chambers pour ce département.
       </p>
 
       <div className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-3">Département concerné par la recherche</div>
       <div className="grid grid-cols-2 gap-3">
-        {LEGAL500_DEPARTMENTS.map((dept) => {
-          const tier = s.selectedFirm ? getFirmTierForDept(s.selectedFirm, dept.key) : null;
+        {CHAMBERS_DEPARTMENTS.map((dept) => {
+          const band = s.selectedFirm ? getChambersRanking(s.selectedFirm, dept.key) : null;
           return (
             <button
               key={dept.key}
@@ -161,15 +162,15 @@ const DeptSelection = () => {
             >
               <div className="text-sm font-semibold text-foreground mb-1">{dept.label}</div>
               <div className="text-[10px] text-muted-foreground">
-                {tier !== null ? (
+                {band !== null ? (
                   <span className={cn(
                     'font-bold px-2 py-0.5 rounded-sm inline-block',
-                    tier <= 2 ? 'bg-foreground text-background' : 'bg-secondary text-foreground'
+                    band <= 2 ? 'bg-foreground text-background' : 'bg-secondary text-foreground'
                   )}>
-                    {formatTier(tier)}
+                    {formatChambersBand(band)}
                   </span>
                 ) : (
-                  <span className="italic">Non répertorié</span>
+                  <span className="italic">Non classé</span>
                 )}
               </div>
             </button>
