@@ -518,18 +518,7 @@ const Step2Identity = () => {
           </div>
         )}
 
-        {/* Département */}
-        <div>
-          <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Votre pratique *</Label>
-          <Select value={store.departement} onValueChange={handleDepartmentChange}>
-            <SelectTrigger className="mt-2"><SelectValue placeholder="Sélectionner" /></SelectTrigger>
-            <SelectContent>
-              {DEPARTEMENTS.map(d => <SelectItem key={d} value={d}>{d}</SelectItem>)}
-            </SelectContent>
-          </Select>
-        </div>
-
-        {/* Cabinet */}
+        {/* Cabinet — FIRST */}
         <div>
           <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Cabinet actuel *</Label>
           <AutocompleteInput
@@ -539,6 +528,43 @@ const Step2Identity = () => {
             placeholder="Rechercher un cabinet..."
             className="mt-2"
           />
+        </div>
+
+        {/* Pratique — filtered by Chambers rankings of selected cabinet */}
+        <div>
+          <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Votre pratique *</Label>
+          {store.cabinet && availablePractices.length > 0 ? (
+            <>
+              <Select value={store.departement} onValueChange={handleDepartmentChange}>
+                <SelectTrigger className="mt-2"><SelectValue placeholder="Sélectionner votre pratique" /></SelectTrigger>
+                <SelectContent>
+                  {availablePractices.map(p => (
+                    <SelectItem key={p.chambersKey} value={p.label}>
+                      {p.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              {currentChambersBand && (
+                <div className="mt-3 flex items-center gap-2">
+                  <span className="inline-flex items-center px-3 py-1 rounded-sm bg-foreground text-background text-xs font-sans font-medium">
+                    Chambers {formatChambersBand(currentChambersBand)}
+                  </span>
+                  <span className="text-xs text-muted-foreground font-sans font-light">
+                    {store.cabinet} · {store.departement}
+                  </span>
+                </div>
+              )}
+            </>
+          ) : store.cabinet ? (
+            <p className="mt-2 text-sm text-muted-foreground font-sans font-light">
+              Ce cabinet n'a pas de classement Chambers répertorié.
+            </p>
+          ) : (
+            <p className="mt-2 text-sm text-muted-foreground font-sans font-light">
+              Veuillez d'abord renseigner votre cabinet.
+            </p>
+          )}
         </div>
 
 
