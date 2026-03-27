@@ -36,7 +36,7 @@ const FonctionnementSection = () => (
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: '-80px' }}
-        className="mb-20 md:mb-28"
+        className="mb-14 md:mb-20"
       >
         <motion.p variants={fadeUp} className="text-[11px] font-sans font-medium tracking-[0.25em] uppercase text-white/30 mb-6">
           Notre fonctionnement
