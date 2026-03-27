@@ -16,11 +16,13 @@ import heroVideoAsset from '@/assets/hero-video-abstract-bw.mp4.asset.json';
 import heroBoardroom from '@/assets/hero-boardroom.jpeg';
 
 const firmNames = [
-  'Bredin Prat', 'Darrois Villey', 'Gide', 'Cleary Gottlieb', 'De Pardieu Brocas',
-  'Freshfields', 'Linklaters', 'Clifford Chance', 'Allen & Overy', 'Sullivan & Cromwell',
-  'Weil Gotshal', 'Skadden', 'Latham & Watkins', 'Davis Polk', 'Hogan Lovells',
-  'White & Case', 'Willkie Farr', 'Dechert', 'Goodwin Procter', 'Orrick',
-  'August Debouzy', 'BDGS', 'Racine', 'Fidal', 'Jeantet',
+  'Linklaters', 'Kirkland & Ellis', 'Ropes & Gray', 'Darrois Villey', 'Bredin Prat',
+  'Gibson Dunn', 'Cleary Gottlieb', 'BDGS', 'Sullivan & Cromwell', 'Weil Gotshal',
+  'Willkie Farr', 'Latham & Watkins', 'A&O Shearman', 'Goodwin Procter', 'Mayer Brown',
+  'Orrick', 'DLA Piper', 'De Pardieu Brocas', 'Baker McKenzie', 'Freshfields',
+  'Gide', 'Clifford Chance', 'Jones Day', 'Hogan Lovells', 'Paul Hastings',
+  'McDermott', 'Skadden', 'Ashurst', 'Herbert Smith', 'Proskauer Rose',
+  'Moncey Avocats', 'King & Spalding', 'White & Case',
 ];
 
 const stagger = {
