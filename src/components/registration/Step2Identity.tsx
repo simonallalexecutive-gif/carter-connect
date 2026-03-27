@@ -573,7 +573,7 @@ const Step2Identity = () => {
 
 
         {/* Rémunération */}
-        <div className="rounded-sm p-8 space-y-6 bg-muted">
+        <div className="rounded-sm p-8 space-y-6 bg-muted relative z-0">
           <div>
             <p className="text-[10px] font-sans font-medium tracking-[0.15em] uppercase text-muted-foreground mb-2">Confidentiel</p>
             <h3 className="font-serif text-xl text-foreground font-normal">Rémunération</h3>
