@@ -590,12 +590,13 @@ const Step2Identity = () => {
           </div>
 
           {/* Objectif facturable */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 relative z-10">
             <Switch
               checked={store.hasObjectifFacturable === true}
               onCheckedChange={v => store.setField('hasObjectifFacturable', v)}
+              className="relative z-10"
             />
-            <Label className="font-sans text-sm font-light text-foreground">Objectif d'heures facturables</Label>
+            <Label className="font-sans text-sm font-light text-foreground cursor-pointer" htmlFor="objectif-facturable">Objectif d'heures facturables</Label>
           </div>
           {store.hasObjectifFacturable && (
             <div className="grid grid-cols-2 gap-4">
