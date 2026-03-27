@@ -6,7 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Switch } from '@/components/ui/switch';
 import AutocompleteInput from '@/components/shared/AutocompleteInput';
 import { CABINETS } from '@/lib/constants';
-import { getAllFirmNames } from '@/lib/legal500Rankings';
+import { getAllChambersFirmNames } from '@/lib/chambersRankings';
 import { Bell, Plus, Trash2, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
