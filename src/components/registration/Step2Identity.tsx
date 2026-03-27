@@ -573,7 +573,7 @@ const Step2Identity = () => {
 
 
         {/* Rémunération */}
-        <div className="rounded-sm p-8 space-y-6 bg-muted">
+        <div className="rounded-sm p-8 space-y-6 bg-muted relative z-0">
           <div>
             <p className="text-[10px] font-sans font-medium tracking-[0.15em] uppercase text-muted-foreground mb-2">Confidentiel</p>
             <h3 className="font-serif text-xl text-foreground font-normal">Rémunération</h3>
@@ -590,12 +590,13 @@ const Step2Identity = () => {
           </div>
 
           {/* Objectif facturable */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 relative z-10">
             <Switch
               checked={store.hasObjectifFacturable === true}
               onCheckedChange={v => store.setField('hasObjectifFacturable', v)}
+              className="relative z-10"
             />
-            <Label className="font-sans text-sm font-light text-foreground">Objectif d'heures facturables</Label>
+            <Label className="font-sans text-sm font-light text-foreground cursor-pointer" htmlFor="objectif-facturable">Objectif d'heures facturables</Label>
           </div>
           {store.hasObjectifFacturable && (
             <div className="grid grid-cols-2 gap-4">
@@ -615,15 +616,15 @@ const Step2Identity = () => {
             <Label className="font-sans text-sm font-medium block text-foreground">
               Souhaitez-vous conserver a minima votre rétrocession actuelle ?
             </Label>
-            <div className="flex gap-4 flex-wrap">
+            <div className="flex gap-4 flex-wrap relative z-10">
               <button
                 type="button"
                 onClick={() => store.setField('conserverRetrocession', true)}
                 className={cn(
-                  "px-4 py-2.5 rounded-sm text-sm font-sans font-light border transition-all duration-200",
+                  "px-4 py-2.5 rounded-sm text-sm font-sans font-light border transition-all duration-200 relative z-10 cursor-pointer",
                   store.conserverRetrocession === true
                     ? "bg-foreground text-background border-foreground font-medium"
-                    : "bg-transparent text-foreground/70 border-border hover:border-foreground/60"
+                    : "bg-background text-foreground/70 border-border hover:border-foreground/60"
                 )}
               >
                 Oui, c'est indispensable
@@ -632,10 +633,10 @@ const Step2Identity = () => {
                 type="button"
                 onClick={() => store.setField('conserverRetrocession', false)}
                 className={cn(
-                  "px-4 py-2.5 rounded-sm text-sm font-sans font-light border transition-all duration-200",
+                  "px-4 py-2.5 rounded-sm text-sm font-sans font-light border transition-all duration-200 relative z-10 cursor-pointer",
                   store.conserverRetrocession === false
                     ? "bg-foreground text-background border-foreground font-medium"
-                    : "bg-transparent text-foreground/70 border-border hover:border-foreground/60"
+                    : "bg-background text-foreground/70 border-border hover:border-foreground/60"
                 )}
               >
                 Envisageable selon le projet
