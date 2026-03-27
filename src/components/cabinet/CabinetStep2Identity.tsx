@@ -78,8 +78,8 @@ const CabinetStep2Identity = () => {
           {acOpen && filtered.length > 0 && (
             <div className="absolute top-full left-0 right-0 bg-background border border-foreground border-t-0 rounded-b z-50 max-h-64 overflow-y-auto shadow-lg">
               {filtered.map((name) => {
-                const nat = getFirmNationality(name);
-                return (
+                const firm = CHAMBERS_DB[name];
+                const nat = firm?.nat ?? null;
                   <div
                     key={name}
                     className="px-4 py-3 cursor-pointer hover:bg-secondary flex items-center justify-between border-b border-border last:border-b-0"
@@ -113,7 +113,7 @@ const CabinetStep2Identity = () => {
 
           {s.detectedRankings.length > 0 && (
             <div>
-              <div className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2">Classements Legal 500</div>
+              <div className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2">Classements Chambers</div>
               <div className="grid grid-cols-2 gap-2">
                 {s.detectedRankings.map((r) => (
                   <div key={r.key} className="flex items-center justify-between p-2.5 rounded border border-border bg-background">
@@ -122,7 +122,7 @@ const CabinetStep2Identity = () => {
                       'text-[10px] font-bold px-2 py-0.5 rounded-sm',
                       r.tier <= 2 ? 'bg-foreground text-background' : 'bg-secondary text-foreground'
                     )}>
-                      {formatTier(r.tier)}
+                      {formatChambersBand(r.tier)}
                     </span>
                   </div>
                 ))}
