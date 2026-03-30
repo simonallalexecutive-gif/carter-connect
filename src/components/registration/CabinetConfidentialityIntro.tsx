@@ -41,33 +41,27 @@ const CabinetConfidentialityIntro = ({ onContinue }: CabinetConfidentialityIntro
       animate={{ opacity: 1 }}
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-      className="min-h-screen bg-black flex items-center justify-center px-6 sm:px-12 lg:px-20 relative overflow-hidden"
+      className="min-h-screen bg-white flex items-center justify-center px-6 sm:px-12 lg:px-20 relative overflow-hidden"
     >
-      {/* Ambient */}
-      <div className="absolute -top-32 -right-32 w-[500px] h-[500px] rounded-full border border-white/[0.04] pointer-events-none" />
-      <div className="absolute -bottom-24 -left-24 w-[350px] h-[350px] rounded-full border border-white/[0.03] pointer-events-none" />
-
       <div className="max-w-xl w-full relative z-10 py-20">
         {/* Shield icon */}
         <motion.div
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ delay: 0.2, duration: 0.5 }}
-          className="flex justify-center mb-8"
+          className="flex justify-center mb-10"
         >
-          <div className="w-16 h-16 rounded-full border border-white/10 flex items-center justify-center bg-white/[0.03]">
-            <Shield className="w-7 h-7 text-white/60" />
+          <div className="w-14 h-14 rounded-full border border-border flex items-center justify-center bg-secondary/50">
+            <Shield className="w-6 h-6 text-foreground/40" />
           </div>
         </motion.div>
 
-        <div className="w-10 h-px bg-white/20 mx-auto mb-6" />
-
-        <h1 className="text-2xl md:text-3xl font-serif font-normal text-white text-center mb-3 tracking-[-0.02em]">
+        <h1 className="text-2xl md:text-3xl font-serif font-normal text-foreground text-center mb-3 tracking-[-0.02em]">
           Votre recherche reste<br />
-          <em className="text-white/50 font-normal">strictement confidentielle</em>
+          <em className="text-muted-foreground font-normal">strictement confidentielle</em>
         </h1>
 
-        <p className="text-xs text-white/40 font-sans font-light text-center mb-12 max-w-md mx-auto leading-relaxed">
+        <p className="text-xs text-muted-foreground font-sans font-light text-center mb-14 max-w-md mx-auto leading-relaxed">
           Voici comment Logan garantit la confidentialité de votre cabinet à chaque étape.
         </p>
 
@@ -81,18 +75,17 @@ const CabinetConfidentialityIntro = ({ onContinue }: CabinetConfidentialityIntro
               transition={{ delay: 0.3 + i * 0.1, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
               className="flex gap-4 relative"
             >
-              {/* Vertical line */}
               <div className="flex flex-col items-center flex-shrink-0">
-                <div className="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center bg-white/[0.03]">
-                  <step.icon className="w-4 h-4 text-white/50" />
+                <div className="w-9 h-9 rounded-full border border-border flex items-center justify-center bg-secondary/30">
+                  <step.icon className="w-4 h-4 text-foreground/50" />
                 </div>
                 {i < steps.length - 1 && (
-                  <div className="w-px flex-1 bg-white/10 my-1" />
+                  <div className="w-px flex-1 bg-border my-1" />
                 )}
               </div>
-              <div className="pb-6">
-                <p className="text-sm font-sans font-medium text-white mb-1">{step.title}</p>
-                <p className="text-xs font-sans font-light text-white/50 leading-relaxed">{step.description}</p>
+              <div className="pb-7">
+                <p className="text-sm font-sans font-medium text-foreground mb-1">{step.title}</p>
+                <p className="text-xs font-sans font-light text-muted-foreground leading-relaxed">{step.description}</p>
               </div>
             </motion.div>
           ))}
@@ -103,17 +96,17 @@ const CabinetConfidentialityIntro = ({ onContinue }: CabinetConfidentialityIntro
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.9, duration: 0.5 }}
-          className="mt-10 text-center"
+          className="mt-12 text-center"
         >
           <Button
             onClick={onContinue}
             size="lg"
-            className="bg-white text-black hover:bg-white/90 font-sans text-sm font-medium rounded-sm py-5 px-10 group"
+            className="bg-foreground text-background hover:bg-foreground/90 font-sans text-sm font-medium rounded-sm py-5 px-10 group"
           >
             J'ai compris, commencer l'inscription
             <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
           </Button>
-          <p className="mt-6 text-[10px] text-white/25 font-sans font-light tracking-wide flex items-center justify-center gap-1.5">
+          <p className="mt-6 text-[10px] text-muted-foreground/40 font-sans font-light tracking-wide flex items-center justify-center gap-1.5">
             <Lock className="w-3 h-3" />
             Données chiffrées · Accès restreint · RGPD
           </p>

@@ -165,16 +165,16 @@ const Step6Review = () => {
   }, [store.cabinet, store.departement]);
 
   const SectionCard = ({ title, children, className: cls }: { title: string; children: React.ReactNode; className?: string }) => (
-    <div className={cn("rounded-sm border border-border bg-card p-6", cls)}>
-      <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-light mb-4">{title}</p>
+    <div className={cn("rounded-sm border border-border bg-card p-5", cls)}>
+      <p className="text-[9px] uppercase tracking-[0.15em] text-muted-foreground font-sans font-light mb-3">{title}</p>
       {children}
     </div>
   );
 
   const DataRow = ({ label, value }: { label: string; value: string }) => (
     <div>
-      <span className="text-[10px] text-muted-foreground font-sans font-light">{label}</span>
-      <p className="text-sm font-sans font-medium mt-0.5">{value || '—'}</p>
+      <span className="text-[9px] text-muted-foreground font-sans font-light">{label}</span>
+      <p className="text-[13px] font-sans font-normal mt-0.5 text-foreground">{value || '—'}</p>
     </div>
   );
 
@@ -183,7 +183,7 @@ const Step6Review = () => {
 
     return (
       <div className="space-y-5">
-        <p className="text-lg font-serif text-foreground tracking-tight">Synthèse de votre activité</p>
+        <p className="text-sm font-sans font-medium text-foreground tracking-tight">Synthèse de votre activité</p>
 
         <div className="flex flex-col md:flex-row gap-6 items-start">
           <div className="w-44 h-44 flex-shrink-0 self-center">
@@ -340,8 +340,8 @@ const Step6Review = () => {
       className="max-w-3xl mx-auto px-6 py-10"
     >
       <div className="carter-divider mb-6" />
-      <h2 className="text-3xl font-serif text-foreground mb-2 font-normal tracking-[-0.02em]">Récapitulatif</h2>
-      <p className="text-muted-foreground font-sans text-sm font-light mb-8">Vérifiez vos informations avant de soumettre votre profil.</p>
+      <h2 className="text-2xl font-serif text-foreground mb-2 font-normal tracking-[-0.02em]">Récapitulatif</h2>
+      <p className="text-muted-foreground font-sans text-xs font-light mb-8">Vérifiez vos informations avant de soumettre votre profil.</p>
 
       {/* Tabs */}
       <div className="flex gap-px mb-10 bg-border rounded-sm overflow-hidden">
@@ -386,7 +386,7 @@ const Step6Review = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {pqe && <div><span className="text-[10px] text-muted-foreground font-sans font-light">Séniorité</span><div className="mt-1"><SeniorityBadge info={pqe} /></div></div>}
               <DataRow label="Cabinet" value={store.cabinet} />
-              <DataRow label="Chambers" value={chambersInfo?.chambersValue || 'Cabinet non intégré au classement Chambers'} />
+      <DataRow label="Répertorié Chambers" value={chambersInfo?.isIntegrated ? 'Oui' : 'Non'} />
               <DataRow label="Pratique" value={store.departement} />
             </div>
           </SectionCard>
@@ -492,7 +492,7 @@ const Step6Review = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               <DataRow label="Pratique" value={store.departement} />
               {chambersInfo && <DataRow label="Cabinet d'origine" value={chambersInfo.cabinetValue} />}
-              <DataRow label="Chambers" value={chambersInfo?.chambersValue || 'Cabinet non intégré au classement Chambers'} />
+              <DataRow label="Répertorié Chambers" value={chambersInfo?.isIntegrated ? 'Oui' : 'Non'} />
               {store.anglais && <DataRow label="Anglais" value={store.anglais} />}
             </div>
           </SectionCard>

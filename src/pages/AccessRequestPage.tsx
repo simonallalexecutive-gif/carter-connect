@@ -15,11 +15,13 @@ const AccessRequestPage = () => {
           transition={{ duration: 0.6 }}
           className="w-full max-w-md text-center"
         >
-          <span className="font-serif text-[32px] tracking-[0.04em] text-foreground block mb-12">Logan</span>
-
-          <h1 className="font-serif text-2xl md:text-3xl text-foreground mb-4 tracking-[-0.02em]">
-            Demander un accès
+          <h1 className="font-sans text-xl md:text-2xl font-light text-foreground mb-3 tracking-[-0.01em]">
+            Créer mon profil
           </h1>
+          <p className="text-muted-foreground font-sans text-xs font-light mb-14">
+            3 à 5 minutes
+          </p>
+
           <p className="text-[0.88rem] font-sans font-light text-muted-foreground leading-relaxed mb-14 max-w-sm mx-auto">
             Un cercle privé d'excellence, structuré et piloté par des chasseurs spécialisés, dédié aux profils et cabinets d'affaires les plus exigeants du marché.
           </p>
