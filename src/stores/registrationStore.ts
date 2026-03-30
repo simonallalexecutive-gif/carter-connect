@@ -102,7 +102,13 @@ const initialState = {
   dpubSecteurs: [] as string[],
   anglais: '',
   typesClients: [] as string[],
-  // Step 4
+  // Step 4 - Next move
+  moveRemuneration: [] as string[],
+  moveEvolution: [] as string[],
+  moveManagement: [] as string[],
+  moveExposition: [] as string[],
+  moveCulture: [] as string[],
+  movePriorities: [] as string[],
   qualitesAppreciees: [] as string[],
   axesAmelioration: [] as string[],
   motivation: '',
