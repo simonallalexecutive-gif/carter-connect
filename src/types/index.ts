@@ -55,7 +55,9 @@ export interface RegistrationState {
   positionnementPreteur: number;
   clienteleFrancaise: number;
   positionnementRestr: string[];
+  positionnementRestrPct: Record<string, number>;
   clienteleRestr: string[];
+  clienteleRestrPct: Record<string, number>;
   restrFinancier: number;
   // Droit Social
   socialConseil: number;

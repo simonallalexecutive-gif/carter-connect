@@ -51,7 +51,9 @@ const initialState = {
   positionnementPreteur: 50,
   clienteleFrancaise: 50,
   positionnementRestr: [] as string[],
+  positionnementRestrPct: {} as Record<string, number>,
   clienteleRestr: [] as string[],
+  clienteleRestrPct: {} as Record<string, number>,
   restrFinancier: 0,
   // Droit Social
   socialConseil: 50,
