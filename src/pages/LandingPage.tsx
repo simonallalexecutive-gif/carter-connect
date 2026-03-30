@@ -170,14 +170,14 @@ const LandingPage = () => (
     {/* Notre fonctionnement — Candidats */}
     <FonctionnementCandidatsSection />
 
+    {/* Notre approche */}
+    <div id="notre-approche">
+      <DiscoverSection />
+    </div>
+
     {/* Notre vision */}
     <div id="notre-vision">
       <FounderSection />
-    </div>
-
-    {/* Découvrir Logan — candidat / cabinet slides */}
-    <div id="notre-approche">
-      <DiscoverSection />
     </div>
 
     {/* Stats ticker */}
