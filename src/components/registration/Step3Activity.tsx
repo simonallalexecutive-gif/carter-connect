@@ -26,7 +26,7 @@ const CHART_COLORS = [
   'hsl(225, 45%, 18%)',
 ];
 
-const SPECIALIZED_DEPTS = ['Financement LBO', 'Financement de projets', 'Restructuring', 'Droit Social', 'M&A (dominante)', 'Private Equity (dominante)'];
+const SPECIALIZED_DEPTS = ['Financement LBO', 'Financement de projets', 'Restructuring', 'Restructuring/Insolvency', 'Droit Social', 'M&A (dominante)', 'Private Equity (dominante)'];
 
 const Step3Activity = () => {
   const store = useRegistrationStore();
@@ -91,7 +91,7 @@ const Step3Activity = () => {
           </div>
         ))}
 
-        {store.departement === 'Restructuring' && (
+        {(store.departement === 'Restructuring' || store.departement === 'Restructuring/Insolvency') && (
           <RestructuringActivityPanel />
         )}
 
