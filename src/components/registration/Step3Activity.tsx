@@ -14,6 +14,7 @@ import FinanceActivityPanel from './FinanceActivityPanel';
 import RestructuringActivityPanel from './RestructuringActivityPanel';
 import SocialActivityPanel from './SocialActivityPanel';
 import MaActivityPanel from './MaActivityPanel';
+import RealEstateActivityPanel from './RealEstateActivityPanel';
 
 const CHART_COLORS = [
   'hsl(215, 60%, 30%)',
@@ -26,7 +27,7 @@ const CHART_COLORS = [
   'hsl(225, 45%, 18%)',
 ];
 
-const SPECIALIZED_DEPTS = ['Financement LBO', 'Financement de projets', 'Restructuring', 'Restructuring/Insolvency', 'Droit Social', 'M&A (dominante)', 'Private Equity (dominante)'];
+const SPECIALIZED_DEPTS = ['Financement LBO', 'Financement de projets', 'Restructuring', 'Restructuring/Insolvency', 'Droit Social', 'M&A (dominante)', 'Private Equity (dominante)', 'Immobilier'];
 
 const Step3Activity = () => {
   const store = useRegistrationStore();
@@ -106,6 +107,13 @@ const Step3Activity = () => {
           <div>
             <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-3 block">Nature des opérations</Label>
             <MaActivityPanel />
+          </div>
+        )}
+
+        {store.departement === 'Immobilier' && (
+          <div>
+            <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-3 block">Cartographie de votre pratique immobilière</Label>
+            <RealEstateActivityPanel />
           </div>
         )}
 

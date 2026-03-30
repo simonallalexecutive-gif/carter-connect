@@ -100,6 +100,18 @@ const initialState = {
   dpubClientele: [] as string[],
   dpubDimensionProjets: [] as string[],
   dpubSecteurs: [] as string[],
+  // Real Estate / Immobilier
+  reConseil: 50,
+  reTransac: 34,
+  reFinImmo: 33,
+  reTransacAcq: 50,
+  reTransacAsset: 50,
+  reAssetTypes: [] as string[],
+  reBauxPct: 0,
+  reBauxSide: '',
+  reFinCredit: 34,
+  reFinLeveraged: 33,
+  reClientele: [] as string[],
   anglais: '',
   typesClients: [] as string[],
   // Step 4 - Next move
