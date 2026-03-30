@@ -104,6 +104,18 @@ export interface RegistrationState {
   dpubClientele: string[];
   dpubDimensionProjets: string[];
   dpubSecteurs: string[];
+  // Real Estate / Immobilier
+  reConseil: number;
+  reTransac: number;
+  reFinImmo: number;
+  reTransacAcq: number;
+  reTransacAsset: number;
+  reAssetTypes: string[];
+  reBauxPct: number;
+  reBauxSide: string;
+  reFinCredit: number;
+  reFinLeveraged: number;
+  reClientele: string[];
   anglais: string;
   typesClients: string[];
   // Step 4 - Project (next move)
