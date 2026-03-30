@@ -183,7 +183,7 @@ const Step6Review = () => {
 
     return (
       <div className="space-y-5">
-        <p className="text-lg font-serif text-foreground tracking-tight">Synthèse de votre activité</p>
+        <p className="text-sm font-sans font-medium text-foreground tracking-tight">Synthèse de votre activité</p>
 
         <div className="flex flex-col md:flex-row gap-6 items-start">
           <div className="w-44 h-44 flex-shrink-0 self-center">
