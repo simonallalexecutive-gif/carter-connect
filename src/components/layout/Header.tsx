@@ -112,8 +112,8 @@ const Header = () => {
 
           <nav className="hidden md:flex items-center gap-1">
             {[
-              { label: 'Vision', section: 'notre-vision' },
               { label: 'Approche', section: 'notre-approche' },
+              { label: 'Vision', section: 'notre-vision' },
               { label: 'Engagements', section: 'nos-engagements' },
               { label: 'FAQ', section: 'faq' },
             ].map(({ label, section }) => (
