@@ -287,19 +287,21 @@ const Step3Activity = () => {
           </AnimatePresence>
         )}
 
-        {/* Anglais */}
-        <div>
-          <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Niveau d'anglais *</Label>
-          <Select value={store.anglais} onValueChange={v => store.setField('anglais', v)}>
-            <SelectTrigger className="mt-2"><SelectValue placeholder="Sélectionner" /></SelectTrigger>
-            <SelectContent>
-              {ANGLAIS_OPTIONS.map(a => <SelectItem key={a} value={a}>{a}</SelectItem>)}
-            </SelectContent>
-          </Select>
-        </div>
+        {/* Anglais – hidden for Restructuring */}
+        {store.departement !== 'Restructuring' && store.departement !== 'Restructuring/Insolvency' && (
+          <div>
+            <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Niveau d'anglais *</Label>
+            <Select value={store.anglais} onValueChange={v => store.setField('anglais', v)}>
+              <SelectTrigger className="mt-2"><SelectValue placeholder="Sélectionner" /></SelectTrigger>
+              <SelectContent>
+                {ANGLAIS_OPTIONS.map(a => <SelectItem key={a} value={a}>{a}</SelectItem>)}
+              </SelectContent>
+            </Select>
+          </div>
+        )}
 
-        {/* Types clients – hidden for Financement */}
-        {store.departement !== 'Financement LBO' && store.departement !== 'Financement de projets' && (
+        {/* Types clients – hidden for Financement & Restructuring */}
+        {store.departement !== 'Financement LBO' && store.departement !== 'Financement de projets' && store.departement !== 'Restructuring' && store.departement !== 'Restructuring/Insolvency' && (
           <div>
             <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-3 block">Types de clients</Label>
             <ChipSelector

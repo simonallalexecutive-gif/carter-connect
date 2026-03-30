@@ -1,12 +1,12 @@
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useRegistrationStore } from '@/stores/registrationStore';
-import { Slider } from '@/components/ui/slider';
 import { cn } from '@/lib/utils';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import { Check, Briefcase, Building2, Eye } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogClose } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
+import SegmentedBar from '@/components/shared/SegmentedBar';
 
 /* ── Palette ── */
 const COL_AMIABLE = 'hsl(215, 50%, 35%)';
@@ -53,10 +53,8 @@ const RestructuringActivityPanel = () => {
   const distressedVal = store.pourcentages['restr_distressed'] ?? 10;
   const contentieuxVal = store.pourcentages['restr_contentieux_affaires'] ?? 10;
 
-  // Main restructuring weight = 100 - distressed - contentieux (clamped)
   const restructuringMainPct = Math.max(0, 100 - distressedVal - contentieuxVal);
 
-  // Sub-segments of the main restructuring slice
   const financierPart = Math.round(restructuringMainPct * (restrFinancier / 100));
   const amiableRatio = amiableVal / 100;
   const remaining = restructuringMainPct - financierPart;
@@ -119,57 +117,62 @@ const RestructuringActivityPanel = () => {
           {/* Amiable / Judiciaire split */}
           <div className="space-y-3 pl-3 border-l-2 border-border">
             <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">Amiable vs Judiciaire</p>
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-sans text-foreground">Amiable <span className="text-muted-foreground">(mandat ad hoc, conciliation)</span></span>
-              <span className="text-xs font-sans font-bold text-foreground tabular-nums">{amiableVal}%</span>
-            </div>
-            <Slider value={[amiableVal]} onValueChange={([v]) => handleAmiableChange(v)} min={0} max={100} step={5} />
+            <SegmentedBar
+              value={amiableVal}
+              onChange={handleAmiableChange}
+              min={0}
+              max={100}
+              step={5}
+              activeColor={COL_AMIABLE}
+              label="Amiable (mandat ad hoc, conciliation)"
+            />
             <div className="flex items-center justify-between">
               <span className="text-xs font-sans text-foreground">Judiciaire <span className="text-muted-foreground">(sauvegarde, RJ, LJ + contentieux liés)</span></span>
               <span className="text-xs font-sans font-bold text-foreground tabular-nums">{judiciaireVal}%</span>
-            </div>
-            {/* Visual bar */}
-            <div className="h-3 rounded-sm overflow-hidden flex">
-              <div className="h-full transition-all duration-300" style={{ width: `${amiableVal}%`, backgroundColor: COL_AMIABLE }} />
-              <div className="h-full transition-all duration-300" style={{ width: `${judiciaireVal}%`, backgroundColor: COL_JUDICIAIRE }} />
             </div>
           </div>
 
           {/* Restructuring financier */}
           <div className="space-y-3 pl-3 border-l-2 border-border">
             <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">Part de restructuring financier (sur l'amiable)</p>
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-sans text-foreground">Restructuring financier</span>
-              <span className="text-xs font-sans font-bold text-foreground tabular-nums">{restrFinancier}%</span>
-            </div>
-            <Slider value={[restrFinancier]} onValueChange={([v]) => store.setField('restrFinancier', v)} min={0} max={100} step={5} />
+            <SegmentedBar
+              value={restrFinancier}
+              onChange={(v) => store.setField('restrFinancier', v)}
+              min={0}
+              max={100}
+              step={5}
+              activeColor={COL_FINANCIER}
+              label="Restructuring financier"
+            />
           </div>
         </div>
 
         {/* 2. Distressed M&A */}
         <div className="carter-card p-6 space-y-3">
           <p className="text-sm font-sans font-medium text-foreground">2. Distressed M&A / Reprises</p>
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-sans text-muted-foreground">Part dans l'activité globale</span>
-            <span className="text-xs font-sans font-bold text-foreground tabular-nums">{distressedVal}%</span>
-          </div>
-          <Slider value={[distressedVal]} onValueChange={([v]) => handleDistressedChange(v)} min={0} max={80} step={5} />
-          <div className="h-2.5 rounded-sm overflow-hidden bg-secondary">
-            <div className="h-full transition-all duration-300 rounded-sm" style={{ width: `${distressedVal}%`, backgroundColor: COL_DISTRESSED }} />
-          </div>
+          <SegmentedBar
+            value={distressedVal}
+            onChange={handleDistressedChange}
+            min={0}
+            max={80}
+            step={5}
+            activeColor={COL_DISTRESSED}
+            label="Part dans l'activité globale"
+          />
         </div>
 
         {/* 3. Contentieux des affaires */}
         <div className="carter-card p-6 space-y-3">
           <p className="text-sm font-sans font-medium text-foreground">3. Contentieux des affaires</p>
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-sans text-muted-foreground">Part dans l'activité globale</span>
-            <span className="text-xs font-sans font-bold text-foreground tabular-nums">{contentieuxVal}%</span>
-          </div>
-          <Slider value={[contentieuxVal]} onValueChange={([v]) => handleContentieuxChange(v)} min={0} max={80} step={5} />
-          <div className="h-2.5 rounded-sm overflow-hidden bg-secondary">
-            <div className="h-full transition-all duration-300 rounded-sm" style={{ width: `${contentieuxVal}%`, backgroundColor: COL_CONTENTIEUX }} />
-          </div>
+          <SegmentedBar
+            value={contentieuxVal}
+            onChange={handleContentieuxChange}
+            min={0}
+            max={80}
+            step={5}
+            activeColor={COL_CONTENTIEUX}
+            label="Part dans l'activité globale"
+          />
         </div>
 
         {/* ── Recap Pie Chart ── */}
@@ -266,7 +269,6 @@ const RestructuringActivityPanel = () => {
           </DialogHeader>
 
           <div className="flex flex-col md:flex-row gap-8 items-start py-4">
-            {/* Left: Pie chart */}
             <div className="md:w-[50%] space-y-4">
               <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">Répartition de l'activité</p>
               <div className="mx-auto" style={{ width: 220, height: 220 }}>
@@ -279,7 +281,6 @@ const RestructuringActivityPanel = () => {
                   </PieChart>
                 </ResponsiveContainer>
               </div>
-              {/* Legend */}
               <div className="space-y-1.5">
                 {chartData.map(seg => (
                   <div key={seg.name} className="flex items-center gap-2.5">
@@ -291,9 +292,7 @@ const RestructuringActivityPanel = () => {
               </div>
             </div>
 
-            {/* Right: Positionnement + Clientèle */}
             <div className="md:w-[50%] space-y-6">
-              {/* Positionnement */}
               <div className="space-y-3">
                 <div className="flex items-center gap-2">
                   <Briefcase className="w-3.5 h-3.5 text-muted-foreground" />
@@ -308,7 +307,6 @@ const RestructuringActivityPanel = () => {
                 </div>
               </div>
 
-              {/* Clientèle */}
               <div className="space-y-3 pt-4 border-t border-border">
                 <div className="flex items-center gap-2">
                   <Building2 className="w-3.5 h-3.5 text-muted-foreground" />
