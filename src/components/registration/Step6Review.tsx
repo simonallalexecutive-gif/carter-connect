@@ -4,8 +4,9 @@ import { useRegistrationStore } from '@/stores/registrationStore';
 import { Button } from '@/components/ui/button';
 import { usePQE } from '@/hooks/usePQE';
 import SeniorityBadge from '@/components/shared/SeniorityBadge';
-import { ACTIVITES_BY_PRACTICE, ACTIVITES_DEFAULT } from '@/lib/constants';
-import { Eye, Lock, ArrowLeft, Check } from 'lucide-react';
+import { ACTIVITES_BY_PRACTICE, ACTIVITES_DEFAULT, CABINET_META } from '@/lib/constants';
+import { CHAMBERS_DB, CHAMBERS_DEPARTMENTS } from '@/lib/chambersRankings';
+import { Eye, ArrowLeft, Check, User } from 'lucide-react';
 import { useState, useMemo } from 'react';
 import { cn } from '@/lib/utils';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
@@ -20,7 +21,25 @@ const CHART_COLORS = [
   'hsl(222, 50%, 28%)',
 ];
 
-type PreviewMode = 'recap' | 'cabinet' | 'carter';
+type PreviewMode = 'recap' | 'cabinet';
+
+// Map departement labels → chambers keys
+const DEPT_TO_CHAMBERS: Record<string, string> = {
+  'Corporate': 'ma',
+  'M&A (dominante)': 'ma',
+  'Private Equity (dominante)': 'pe',
+  'Venture Capital': 'pe',
+  'Financement LBO': 'banque',
+  'Financement de projets': 'projets',
+  'Restructuring': 'restructuring',
+  'Droit Social': 'social',
+  'Immobilier': 'immo',
+};
+
+const getNatLabel = (nat: string) => {
+  const map: Record<string, string> = { FR: 'français', US: 'américain', UK: 'anglais' };
+  return map[nat] || nat;
+};
 
 const Step6Review = () => {
   const store = useRegistrationStore();
@@ -44,31 +63,89 @@ const Step6Review = () => {
 
   const totalPercent = chartData.reduce((sum, d) => sum + d.value, 0);
 
-  const SectionCard = ({ title, children }: { title: string; children: React.ReactNode }) => (
-    <div className="carter-card p-8">
-      <p className="carter-label mb-4">{title}</p>
+  // Chambers info for cabinet view
+  const chambersInfo = useMemo(() => {
+    if (!store.cabinet || !store.departement) return null;
+    const firm = CHAMBERS_DB[store.cabinet];
+    if (!firm) return null;
+    const chambersKey = DEPT_TO_CHAMBERS[store.departement];
+    const band = chambersKey ? firm.rankings[chambersKey] : undefined;
+    const deptLabel = chambersKey
+      ? CHAMBERS_DEPARTMENTS.find(d => d.key === chambersKey)?.label || store.departement
+      : store.departement;
+    return {
+      nat: getNatLabel(firm.nat),
+      band,
+      deptLabel,
+    };
+  }, [store.cabinet, store.departement]);
+
+  const SectionCard = ({ title, children, className: cls }: { title: string; children: React.ReactNode; className?: string }) => (
+    <div className={cn("rounded-sm border border-border bg-card p-6", cls)}>
+      <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-light mb-4">{title}</p>
       {children}
     </div>
   );
 
   const DataRow = ({ label, value }: { label: string; value: string }) => (
     <div>
-      <span className="text-xs text-muted-foreground font-sans font-light">{label}</span>
-      <p className="text-sm font-sans font-medium mt-0.5">{value}</p>
+      <span className="text-[10px] text-muted-foreground font-sans font-light">{label}</span>
+      <p className="text-sm font-sans font-medium mt-0.5">{value || '—'}</p>
     </div>
   );
+
+  const ActivityChart = () => {
+    if (chartData.length === 0) return null;
+    return (
+      <div className="flex items-start gap-6">
+        <div className="w-28 h-28 flex-shrink-0">
+          <ResponsiveContainer width="100%" height="100%">
+            <PieChart>
+              <Pie data={chartData} cx="50%" cy="50%" innerRadius={24} outerRadius={50} dataKey="value" paddingAngle={2}>
+                {chartData.map((_, i) => (
+                  <Cell key={i} fill={CHART_COLORS[i % CHART_COLORS.length]} />
+                ))}
+              </Pie>
+              <Tooltip formatter={(value: number) => [`${Math.round((value / totalPercent) * 100)}%`, '']} contentStyle={{ fontSize: '11px', borderRadius: '4px' }} />
+            </PieChart>
+          </ResponsiveContainer>
+        </div>
+        <div className="flex-1 space-y-1.5">
+          {chartData.map((item, i) => (
+            <div key={item.name} className="flex items-center gap-2 text-xs font-sans font-light">
+              <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: CHART_COLORS[i % CHART_COLORS.length] }} />
+              <span className="text-foreground">{item.name}</span>
+              <span className="text-muted-foreground ml-auto">{Math.round((item.value / totalPercent) * 100)}%</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  };
+
+  const TagList = ({ items, label }: { items: string[]; label?: string }) => {
+    if (items.length === 0) return null;
+    return (
+      <div>
+        {label && <p className="text-[9px] uppercase tracking-wider text-muted-foreground mb-1.5">{label}</p>}
+        <div className="flex flex-wrap gap-1.5">
+          {items.map(t => (
+            <span key={t} className="text-[10px] px-2 py-0.5 rounded-sm bg-secondary text-foreground border border-border">{t}</span>
+          ))}
+        </div>
+      </div>
+    );
+  };
 
   const handleSubmit = async () => {
     if (submitting) return;
 
-    // In admin mode, just advance to step 7 — AdminRegistration intercepts
     if (isAdmin) {
       store.nextStep();
       return;
     }
 
     setSubmitting(true);
-
     try {
       const { data: signUpData, error } = await (supabase.auth as any).signUp({
         email: store.email,
@@ -84,14 +161,12 @@ const Step6Review = () => {
 
       if (error) throw error;
 
-      // Save RDV booking if one was selected
       if (store.souhaitePrendreRdv && store.creneauPrefere) {
         try {
           const timeMatch = store.creneauPrefere.match(/à (\d{2}:\d{2})$/);
           const bookingTime = timeMatch?.[1] || '';
           const today = new Date();
           const bookingDate = today.toISOString().split('T')[0];
-          
           await supabase.from('logan_bookings').insert({
             candidate_name: `${store.prenom} ${store.nom}`.trim(),
             candidate_email: store.email,
@@ -121,18 +196,17 @@ const Step6Review = () => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-      className="max-w-2xl mx-auto px-6 py-10"
+      className="max-w-3xl mx-auto px-6 py-10"
     >
       <div className="carter-divider mb-6" />
       <h2 className="text-3xl font-serif text-foreground mb-2 font-normal tracking-[-0.02em]">Récapitulatif</h2>
       <p className="text-muted-foreground font-sans text-sm font-light mb-8">Vérifiez vos informations avant de soumettre votre profil.</p>
 
-      {/* Preview mode tabs */}
+      {/* Tabs */}
       <div className="flex gap-px mb-10 bg-border rounded-sm overflow-hidden">
         {[
-          { key: 'recap' as const, label: 'Récapitulatif', icon: Check },
-          { key: 'cabinet' as const, label: 'Vue cabinet', icon: Eye },
-          { key: 'carter' as const, label: 'Vue Logan', icon: Lock },
+          { key: 'recap' as const, label: 'Mon profil complet', icon: User },
+          { key: 'cabinet' as const, label: 'Ce que voient les cabinets', icon: Eye },
         ].map(tab => (
           <button
             key={tab.key}
@@ -148,15 +222,16 @@ const Step6Review = () => {
         ))}
       </div>
 
-      {/* RECAP VIEW */}
+      {/* ═══ RECAP COMPLET ═══ */}
       {previewMode === 'recap' && (
-        <div className="space-y-6">
+        <div className="space-y-5">
+          {/* Identity */}
           <SectionCard title="Identité">
-            <div className="flex items-start gap-5 mb-4">
+            <div className="flex items-start gap-5 mb-5">
               {store.photoPreviewUrl ? (
-                <img src={store.photoPreviewUrl} alt="" className="w-16 h-16 rounded-full object-cover border border-border flex-shrink-0" />
+                <img src={store.photoPreviewUrl} alt="" className="w-14 h-14 rounded-full object-cover border border-border flex-shrink-0" />
               ) : (
-                <div className="w-16 h-16 rounded-full bg-secondary flex items-center justify-center font-serif text-xl text-foreground flex-shrink-0">
+                <div className="w-14 h-14 rounded-full bg-secondary flex items-center justify-center font-serif text-lg text-foreground flex-shrink-0">
                   {store.prenom?.[0]}{store.nom?.[0]}
                 </div>
               )}
@@ -164,107 +239,105 @@ const Step6Review = () => {
                 <p className="font-serif text-lg text-foreground">{store.prenom} {store.nom}</p>
                 <p className="text-sm font-sans font-light text-muted-foreground">{store.email}</p>
                 {store.telephone && <p className="text-xs font-sans font-light text-muted-foreground mt-0.5">{store.telephone}</p>}
+                {store.linkedinUrl && <p className="text-xs font-sans font-light text-muted-foreground mt-0.5 truncate max-w-xs">{store.linkedinUrl}</p>}
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-4">
-              {pqe && <div><span className="text-xs text-muted-foreground font-sans font-light">Séniorité</span><div className="mt-1"><SeniorityBadge info={pqe} /></div></div>}
-              {store.linkedinUrl && <DataRow label="LinkedIn" value={store.linkedinUrl} />}
-            </div>
-          </SectionCard>
-
-          <SectionCard title="Cabinet & Pratique">
-            <div className="grid grid-cols-2 gap-4">
-              <DataRow label="Département" value={store.departement} />
+            <div className="grid grid-cols-3 gap-4">
+              {pqe && <div><span className="text-[10px] text-muted-foreground font-sans font-light">Séniorité</span><div className="mt-1"><SeniorityBadge info={pqe} /></div></div>}
               <DataRow label="Cabinet" value={store.cabinet} />
-              {store.isAssocieOrCounsel && store.chiffreAffairesPortable && <DataRow label="CA portable" value={`${store.chiffreAffairesPortable} €`} />}
+              <DataRow label="Pratique" value={store.departement} />
             </div>
           </SectionCard>
 
+          {/* Rémunération */}
+          {(store.retrocession || store.bonus) && (
+            <SectionCard title="Rémunération">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                {store.retrocession && <DataRow label="Rétrocession" value={`${store.retrocession} €`} />}
+                {store.bonus && <DataRow label="Bonus" value={`${store.bonus} €`} />}
+                {store.hasObjectifFacturable && store.objectifFacturable && <DataRow label="Objectif heures" value={`${store.objectifFacturable}h`} />}
+                {store.hasObjectifFacturable && store.objectifFacturableReel && <DataRow label="Réalisé" value={`${store.objectifFacturableReel}h`} />}
+              </div>
+              {store.conserverRetrocession !== null && (
+                <p className="mt-4 pt-3 border-t border-border text-xs font-sans text-muted-foreground font-light">
+                  {store.conserverRetrocession ? 'Souhaite conserver sa rétrocession' : 'Ouvert à une baisse de rétrocession'}
+                  {!store.conserverRetrocession && store.raisonsBaisseRetro.length > 0 && ` — ${store.raisonsBaisseRetro.join(', ')}`}
+                </p>
+              )}
+            </SectionCard>
+          )}
+
+          {/* Activité */}
           <SectionCard title="Activité">
-            {chartData.length > 0 && (
-              <div className="flex items-start gap-6 mb-4">
-                <div className="w-32 h-32 flex-shrink-0">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <PieChart>
-                      <Pie data={chartData} cx="50%" cy="50%" innerRadius={28} outerRadius={55} dataKey="value" paddingAngle={2}>
-                        {chartData.map((_, i) => (
-                          <Cell key={i} fill={CHART_COLORS[i % CHART_COLORS.length]} />
-                        ))}
-                      </Pie>
-                      <Tooltip formatter={(value: number) => [`${Math.round((value / totalPercent) * 100)}%`, '']} contentStyle={{ fontSize: '11px', borderRadius: '4px' }} />
-                    </PieChart>
-                  </ResponsiveContainer>
-                </div>
-                <div className="flex-1 space-y-3">
-                  <div className="space-y-1.5">
-                    {chartData.map((item, i) => (
-                      <div key={item.name} className="flex items-center gap-2 text-xs font-sans font-light">
-                        <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: CHART_COLORS[i % CHART_COLORS.length] }} />
-                        <span className="text-foreground">{item.name}</span>
-                        <span className="text-muted-foreground ml-auto">{Math.round((item.value / totalPercent) * 100)}%</span>
-                      </div>
+            <ActivityChart />
+            <div className="mt-4 grid grid-cols-2 gap-3">
+              <TagList items={store.tailleOperations} label="Taille opérations" />
+              <TagList items={store.typesClients} label="Clientèle" />
+            </div>
+            {store.anglais && <p className="text-xs font-sans font-light mt-3"><span className="text-muted-foreground">Anglais : </span>{store.anglais}</p>}
+          </SectionCard>
+
+          {/* Associé / Counsel */}
+          {store.isAssocieOrCounsel && (
+            <SectionCard title={store.statutAssoc === 'associe' ? 'Associé' : 'Counsel'}>
+              <div className="grid grid-cols-2 gap-4">
+                {store.chiffreAffairesPortable && <DataRow label="CA portable" value={`${store.chiffreAffairesPortable} €`} />}
+                {store.assocExpertiseSummary && <DataRow label="Expertise" value={store.assocExpertiseSummary} />}
+              </div>
+              <TagList items={store.assocAttentes} label="Attentes" />
+              <TagList items={store.assocCabTypes} label="Types de cabinets visés" />
+            </SectionCard>
+          )}
+
+          {/* Projet */}
+          <SectionCard title="Projet">
+            <div className="space-y-3">
+              {store.movePriorities.length > 0 && (
+                <div>
+                  <p className="text-[9px] uppercase tracking-wider text-muted-foreground mb-1.5">Priorités</p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {store.movePriorities.map(p => (
+                      <span key={p} className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-foreground text-background text-[10px] font-sans font-light">
+                        <Check className="w-2.5 h-2.5" />{p}
+                      </span>
                     ))}
                   </div>
-                  {store.tailleOperations.length > 0 && (
-                    <div className="flex flex-wrap gap-1.5">
-                      {store.tailleOperations.map(t => (
-                        <span key={t} className="text-[10px] px-2 py-0.5 rounded-sm bg-secondary text-foreground border border-border">{t}</span>
-                      ))}
-                    </div>
-                  )}
-                  {store.typesClients.length > 0 && (
-                    <div className="flex flex-wrap gap-1.5">
-                      {store.typesClients.map(c => (
-                        <span key={c} className="text-[10px] px-2 py-0.5 rounded-sm bg-secondary text-foreground border border-border">{c}</span>
-                      ))}
-                    </div>
-                  )}
                 </div>
+              )}
+              {store.motivation && <div><p className="text-[9px] uppercase tracking-wider text-muted-foreground mb-1">Motivation</p><p className="text-sm font-sans font-light">{store.motivation}</p></div>}
+              <div className="grid grid-cols-2 gap-3">
+                <TagList items={store.cabinetsCibles} label="Cabinets cibles" />
+                <TagList items={store.noGoCabinets} label="Cabinets exclus" />
               </div>
-            )}
-            {chartData.length === 0 && (
-              <div className="flex flex-wrap gap-2 mb-4">
-                {activeActivites.map(a => (
-                  <span key={a.key} className="px-3 py-1 rounded-sm bg-foreground text-background text-xs font-sans font-light">
-                    {a.label} {store.pourcentages[a.key] ? `${store.pourcentages[a.key]}%` : ''}
-                  </span>
-                ))}
-              </div>
-            )}
-            {store.anglais && <p className="text-sm font-sans font-light"><span className="text-muted-foreground">Anglais : </span>{store.anglais}</p>}
-          </SectionCard>
-
-          <SectionCard title="Projet">
-            <div className="space-y-3 text-sm font-sans font-light">
-              {store.motivation && <div><span className="text-muted-foreground text-xs">Motivation</span><p className="mt-1">{store.motivation}</p></div>}
-              {store.qualitesAppreciees.length > 0 && <p><span className="text-muted-foreground text-xs">Qualités : </span>{store.qualitesAppreciees.join(', ')}</p>}
-              {store.cabinetsCibles.length > 0 && <p><span className="text-muted-foreground text-xs">Cibles : </span>{store.cabinetsCibles.join(', ')}</p>}
-              {store.noGoCabinets.length > 0 && <p><span className="text-muted-foreground text-xs">Cabinets exclus : </span>{store.noGoCabinets.join(', ')}</p>}
-              {store.souhaitePrendreRdv && store.creneauPrefere && <p><span className="text-muted-foreground text-xs">RDV souhaité : </span>{store.creneauPrefere}</p>}
+              {store.processusCours && <DataRow label="Processus en cours" value={store.processusCours} />}
+              {store.souhaitePrendreRdv && store.creneauPrefere && <DataRow label="RDV souhaité" value={store.creneauPrefere} />}
             </div>
           </SectionCard>
 
+          {/* Statut */}
           <SectionCard title="Statut">
             <div className="grid grid-cols-2 gap-4">
-              <DataRow label="Écoute" value={store.statutEcoute} />
-              <DataRow label="Visibilité" value={store.visibilite} />
+              <DataRow label="Écoute" value={store.statutEcoute === 'actif' ? 'Actif' : store.statutEcoute === 'passif' ? 'Passif' : store.statutEcoute === 'inactif' ? 'Inactif' : '—'} />
+              <DataRow label="Visibilité" value={store.visibilite === 'confidentiel' ? 'Confidentiel – fermé' : store.visibilite === 'semi-confidentiel' ? 'Confidentiel – ouvert' : '—'} />
+              {store.disponibilite && <DataRow label="Disponibilité" value={store.disponibilite} />}
             </div>
           </SectionCard>
         </div>
       )}
 
-      {/* CABINET VIEW */}
+      {/* ═══ VUE CABINET (anonymisée) ═══ */}
       {previewMode === 'cabinet' && (
-        <div className="space-y-6">
-          <div className="rounded-sm p-4 bg-white border border-border">
-            <p className="text-sm font-sans font-light text-black flex items-center gap-2">
-              <Eye className="w-4 h-4 text-black/60" />
+        <div className="space-y-5">
+          <div className="rounded-sm p-4 bg-secondary/50 border border-border">
+            <p className="text-xs font-sans font-light text-muted-foreground flex items-center gap-2">
+              <Eye className="w-3.5 h-3.5" />
               Voici ce que les cabinets partenaires verront. Votre identité est totalement protégée.
             </p>
           </div>
 
-          <div className="carter-card p-8">
-            <div className="flex items-center gap-4 mb-8">
+          {/* Anonymized header */}
+          <SectionCard title="Profil anonymisé">
+            <div className="flex items-center gap-4 mb-5">
               <div className="w-14 h-14 rounded-full bg-secondary flex items-center justify-center text-muted-foreground font-serif text-xl">
                 ?
               </div>
@@ -274,180 +347,92 @@ const Step6Review = () => {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4 mb-8">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
               <DataRow label="Pratique" value={store.departement} />
-              {store.retrocession && <DataRow label="Rétrocession" value={`${store.retrocession} €`} />}
+              {chambersInfo && (
+                <DataRow
+                  label="Cabinet d'origine"
+                  value={`Cabinet ${chambersInfo.nat}${chambersInfo.band ? `, classé Band ${chambersInfo.band} (Chambers)` : ''}`}
+                />
+              )}
+              {!chambersInfo && store.cabinet && CABINET_META[store.cabinet] && (
+                <DataRow
+                  label="Cabinet d'origine"
+                  value={`Cabinet ${CABINET_META[store.cabinet].nat.toLowerCase()}`}
+                />
+              )}
               {store.anglais && <DataRow label="Anglais" value={store.anglais} />}
-              {store.conserverRetrocession !== null && <DataRow label="Flexibilité rétrocession" value={store.conserverRetrocession ? 'Souhaite maintenir' : 'Ouvert à discussion'} />}
             </div>
+          </SectionCard>
 
-            {/* Activity pie chart + side info */}
-            {chartData.length > 0 && (
-              <div className="mb-8">
-                <p className="carter-label mb-4">Répartition de l'activité</p>
-                <div className="flex items-start gap-8">
-                  <div className="w-36 h-36 flex-shrink-0">
-                    <ResponsiveContainer width="100%" height="100%">
-                      <PieChart>
-                        <Pie data={chartData} cx="50%" cy="50%" innerRadius={30} outerRadius={60} dataKey="value" paddingAngle={2}>
-                          {chartData.map((_, i) => (
-                            <Cell key={i} fill={CHART_COLORS[i % CHART_COLORS.length]} />
-                          ))}
-                        </Pie>
-                        <Tooltip
-                          formatter={(value: number) => [`${Math.round((value / totalPercent) * 100)}%`, '']}
-                          contentStyle={{ fontSize: '11px', borderRadius: '4px' }}
-                        />
-                      </PieChart>
-                    </ResponsiveContainer>
-                  </div>
-                  <div className="flex-1 space-y-3">
-                    {/* Legend */}
-                    <div className="space-y-1.5">
-                      {chartData.map((item, i) => (
-                        <div key={item.name} className="flex items-center gap-2 text-xs font-sans font-light">
-                          <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: CHART_COLORS[i % CHART_COLORS.length] }} />
-                          <span className="text-foreground">{item.name}</span>
-                          <span className="text-muted-foreground ml-auto">{Math.round((item.value / totalPercent) * 100)}%</span>
-                        </div>
-                      ))}
-                    </div>
-                    {/* Positioning tags beside pie chart */}
-                    {store.tailleOperations.length > 0 && (
-                      <div className="pt-2 border-t border-border">
-                        <p className="text-[9px] uppercase tracking-wider text-muted-foreground mb-1.5">Taille opérations</p>
-                        <div className="flex flex-wrap gap-1.5">
-                          {store.tailleOperations.map(t => (
-                            <span key={t} className="text-[10px] px-2 py-0.5 rounded-sm bg-secondary text-foreground border border-border">{t}</span>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                    {store.typesClients.length > 0 && (
-                      <div>
-                        <p className="text-[9px] uppercase tracking-wider text-muted-foreground mb-1.5">Clientèle</p>
-                        <div className="flex flex-wrap gap-1.5">
-                          {store.typesClients.map(c => (
-                            <span key={c} className="text-[10px] px-2 py-0.5 rounded-sm bg-secondary text-foreground border border-border">{c}</span>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                </div>
+          {/* Rémunération (anonymized — same data, no identity) */}
+          {(store.retrocession || store.bonus) && (
+            <SectionCard title="Rémunération">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                {store.retrocession && <DataRow label="Rétrocession" value={`${store.retrocession} €`} />}
+                {store.bonus && <DataRow label="Bonus" value={`${store.bonus} €`} />}
+                {store.hasObjectifFacturable && store.objectifFacturable && <DataRow label="Objectif heures" value={`${store.objectifFacturable}h`} />}
               </div>
-            )}
+              {store.conserverRetrocession !== null && (
+                <p className="mt-4 pt-3 border-t border-border text-xs font-sans text-muted-foreground font-light">
+                  {store.conserverRetrocession ? 'Souhaite conserver sa rétrocession' : 'Ouvert à une baisse de rétrocession'}
+                </p>
+              )}
+            </SectionCard>
+          )}
 
-            {/* Axes d'amélioration */}
-            {store.axesAmelioration.length > 0 && (
-              <div className="mb-8">
-                <p className="carter-label mb-3">Axes d'amélioration recherchés</p>
-                <div className="flex flex-wrap gap-2">
-                  {store.axesAmelioration.map(a => (
-                    <span key={a} className="px-3 py-1.5 rounded-sm bg-accent/10 text-accent text-xs font-sans font-medium border border-accent/20">{a}</span>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {store.motivation && (
-              <div className="mb-6">
-                <p className="carter-label mb-2">Projet</p>
-                <p className="text-sm font-sans font-light text-foreground">{store.motivation}</p>
-              </div>
-            )}
-
-            <div className="border-t border-border pt-4">
-              <p className="text-xs font-sans font-light text-muted-foreground">
-                Non visible : nom, prénom, email, téléphone, nom du cabinet actuel.
-              </p>
+          {/* Activité */}
+          <SectionCard title="Activité">
+            <ActivityChart />
+            <div className="mt-4 grid grid-cols-2 gap-3">
+              <TagList items={store.tailleOperations} label="Taille opérations" />
+              <TagList items={store.typesClients} label="Clientèle" />
             </div>
-          </div>
-        </div>
-      )}
+            {store.anglais && <p className="text-xs font-sans font-light mt-3"><span className="text-muted-foreground">Anglais : </span>{store.anglais}</p>}
+          </SectionCard>
 
-      {/* CARTER VIEW */}
-      {previewMode === 'carter' && (
-        <div className="space-y-6">
-          <div className="border border-accent/20 rounded-sm p-4 bg-accent/5">
-            <p className="text-sm font-sans font-light text-foreground flex items-center gap-2">
-              <Lock className="w-4 h-4 text-accent" />
-              Vue interne Logan — toutes les informations sont visibles par notre équipe uniquement.
-            </p>
-          </div>
+          {/* Associé / Counsel */}
+          {store.isAssocieOrCounsel && (
+            <SectionCard title={store.statutAssoc === 'associe' ? 'Associé' : 'Counsel'}>
+              <div className="grid grid-cols-2 gap-4">
+                {store.chiffreAffairesPortable && <DataRow label="CA portable" value={`${store.chiffreAffairesPortable} €`} />}
+              </div>
+              <TagList items={store.assocAttentes} label="Attentes" />
+            </SectionCard>
+          )}
 
-          <div className="bg-card rounded-sm p-8 border border-border">
-            <div className="flex items-center gap-4 mb-6">
-              {store.photoPreviewUrl ? (
-                <img src={store.photoPreviewUrl} alt="" className="w-16 h-16 rounded-full object-cover border border-border" />
-              ) : (
-                <div className="w-16 h-16 rounded-full bg-secondary flex items-center justify-center font-serif text-xl text-foreground">
-                  {store.prenom?.[0]}{store.nom?.[0]}
+          {/* Projet (sans identité, sans cabinets exclus qui pourraient révéler l'identité) */}
+          <SectionCard title="Projet">
+            <div className="space-y-3">
+              {store.movePriorities.length > 0 && (
+                <div>
+                  <p className="text-[9px] uppercase tracking-wider text-muted-foreground mb-1.5">Priorités</p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {store.movePriorities.map(p => (
+                      <span key={p} className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-foreground text-background text-[10px] font-sans font-light">
+                        <Check className="w-2.5 h-2.5" />{p}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               )}
-              <div>
-                <p className="font-serif text-xl text-foreground">{store.prenom} {store.nom}</p>
-                <p className="text-sm font-sans font-light text-muted-foreground">{store.email}</p>
-                {store.telephone && <p className="text-xs font-sans font-light text-muted-foreground">{store.telephone}</p>}
-              </div>
+              {store.motivation && <div><p className="text-[9px] uppercase tracking-wider text-muted-foreground mb-1">Motivation</p><p className="text-sm font-sans font-light">{store.motivation}</p></div>}
             </div>
-            <div className="mb-6">{pqe && <SeniorityBadge info={pqe} />}</div>
+          </SectionCard>
 
-            <div className="grid grid-cols-2 gap-4 mb-8">
-              <DataRow label="Cabinet" value={store.cabinet} />
-              <DataRow label="Pratique" value={store.departement} />
-              {store.tailleOperations.length > 0 && <DataRow label="Taille opérations" value={store.tailleOperations.join(', ')} />}
-              {store.anglais && <DataRow label="Anglais" value={store.anglais} />}
-              {store.isAssocieOrCounsel && store.chiffreAffairesPortable && <DataRow label="CA portable" value={`${store.chiffreAffairesPortable} €`} />}
+          {/* Statut */}
+          <SectionCard title="Statut">
+            <div className="grid grid-cols-2 gap-4">
+              <DataRow label="Écoute" value={store.statutEcoute === 'actif' ? 'Actif' : store.statutEcoute === 'passif' ? 'Passif' : '—'} />
+              {store.disponibilite && <DataRow label="Disponibilité" value={store.disponibilite} />}
             </div>
+          </SectionCard>
 
-            {(store.retrocession || store.bonus) && (
-              <div className="bg-secondary rounded-sm p-6 mb-8 border border-border">
-                <p className="carter-label mb-4">Rémunération</p>
-                <div className="grid grid-cols-2 gap-4 text-sm font-sans">
-                  {store.retrocession && <DataRow label="Rétrocession" value={`${store.retrocession} €`} />}
-                  {store.bonus && <DataRow label="Bonus" value={`${store.bonus} €`} />}
-                  {store.hasObjectifFacturable && store.objectifFacturable && <DataRow label="Objectif heures" value={`${store.objectifFacturable}h`} />}
-                  {store.hasObjectifFacturable && store.objectifFacturableReel && <DataRow label="Réalisé" value={`${store.objectifFacturableReel}h`} />}
-                </div>
-                {store.conserverRetrocession !== null && (
-                  <p className="mt-4 pt-3 border-t border-border text-sm font-sans text-muted-foreground font-light">
-                    {store.conserverRetrocession ? 'Souhaite conserver sa rétrocession' : 'Ouvert à une baisse de rétrocession'}
-                    {!store.conserverRetrocession && store.raisonsBaisseRetro.length > 0 && ` (${store.raisonsBaisseRetro.join(', ')})`}
-                  </p>
-                )}
-              </div>
-            )}
-
-            {store.typesClients.length > 0 && (
-              <div className="mb-6">
-                <p className="carter-label mb-3">Clientèle</p>
-                <div className="flex flex-wrap gap-2">
-                  {store.typesClients.map(c => (
-                    <span key={c} className="px-3 py-1 rounded-sm bg-secondary text-foreground text-xs font-sans font-light">{c}</span>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {activeActivites.length > 0 && (
-              <div className="mb-6">
-                <div className="flex flex-wrap gap-2">
-                  {activeActivites.map(a => (
-                    <span key={a.key} className="px-3 py-1 rounded-sm bg-foreground text-background text-xs font-sans font-light">
-                      {a.label} {store.pourcentages[a.key] ? `${store.pourcentages[a.key]}%` : ''}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {store.motivation && (
-              <div>
-                <p className="carter-label mb-2">Motivation</p>
-                <p className="text-sm font-sans font-light">{store.motivation}</p>
-              </div>
-            )}
+          {/* Footer */}
+          <div className="border-t border-border pt-4">
+            <p className="text-[10px] font-sans font-light text-muted-foreground">
+              Non visible par les cabinets : nom, prénom, email, téléphone, nom du cabinet actuel, cabinets exclus.
+            </p>
           </div>
         </div>
       )}
