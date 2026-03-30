@@ -4,15 +4,21 @@ import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Checkbox } from '@/components/ui/checkbox';
-import FileDropzone from '@/components/shared/FileDropzone';
-import { ArrowLeft, ArrowRight, Zap } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Plus, FileText, X, ShieldCheck } from 'lucide-react';
+import { useRef } from 'react';
 
 const Step5Status = () => {
   const store = useRegistrationStore();
   const isAdmin = store.isAdminMode;
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const canProceed = store.statutEcoute !== '' && store.visibilite !== '' &&
     (isAdmin || (store.consentement && store.consentementExactitude && store.consentementMiseEnRelation));
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0] || null;
+    store.setField('cvFile', file);
+  };
 
   return (
     <motion.div
@@ -35,17 +41,14 @@ const Step5Status = () => {
             className="space-y-3"
           >
             {[
-              { value: 'actif', label: 'Actif', desc: 'Je recherche activement une nouvelle opportunité', icon: true },
+              { value: 'actif', label: 'Actif', desc: 'Je recherche activement une nouvelle opportunité' },
               { value: 'passif', label: 'Passif', desc: 'Ouvert aux opportunités mais pas en recherche active' },
               { value: 'inactif', label: 'Inactif', desc: 'Je ne souhaite pas être contacté pour le moment' },
             ].map(opt => (
               <label key={opt.value} className="flex items-start gap-3 p-5 rounded-sm border border-border hover:border-accent/30 transition-colors duration-300 cursor-pointer bg-card">
                 <RadioGroupItem value={opt.value} className="mt-0.5" />
                 <div>
-                  <div className="flex items-center gap-2">
-                    {opt.icon && <Zap className="w-3.5 h-3.5 text-foreground" />}
-                    <span className="font-sans font-medium text-sm">{opt.label}</span>
-                  </div>
+                  <span className="font-sans font-medium text-sm">{opt.label}</span>
                   <p className="text-xs text-muted-foreground font-sans font-light mt-1">{opt.desc}</p>
                 </div>
               </label>
@@ -72,19 +75,69 @@ const Step5Status = () => {
               <RadioGroupItem value="semi-confidentiel" className="mt-0.5" />
               <div>
                 <span className="font-sans font-medium text-sm">Confidentiel – ouvert</span>
-                <p className="text-xs text-muted-foreground font-sans font-light mt-1">Profil anonymisé visible par les cabinets partenaires. Ni votre nom, ni votre cabinet ne seront communiqués.</p>
+                <p className="text-xs text-muted-foreground font-sans font-light mt-1.5 leading-relaxed">
+                  Votre profil est visible par les cabinets dans sa version strictement anonymisée.
+                </p>
+                <p className="text-xs text-muted-foreground font-sans font-light mt-1.5 leading-relaxed">
+                  Votre identité (nom, prénom) ainsi que votre cabinet actuel ne sont jamais communiqués sans votre accord explicite, et uniquement dans le cadre d'un intérêt concret d'un cabinet.
+                </p>
+                <p className="text-xs text-muted-foreground font-sans font-light mt-1.5 leading-relaxed">
+                  Logan vous permet ainsi de rester attractif et opportuniste à chaque instant.
+                </p>
+                <p className="text-xs text-muted-foreground font-sans font-light mt-1.5 leading-relaxed">
+                  Lorsqu'un cabinet manifeste un intérêt, Logan vous en informe et vous accompagne dans l'échange afin d'évaluer l'opportunité. Ce n'est qu'avec votre accord, et sous réserve de la pertinence à vos yeux d'un rapprochement, que votre identité peut être dévoilée au cabinet concerné.
+                </p>
+                <p className="text-xs text-muted-foreground font-sans font-light mt-1.5 leading-relaxed">
+                  Logan demeure votre interlocuteur unique et exclusif tout au long du processus.
+                </p>
               </div>
             </label>
           </RadioGroup>
         </div>
 
-        {/* CV */}
+        {/* CV — discreet inline */}
         <div>
-          <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-4 block">CV (optionnel)</Label>
-          <FileDropzone file={store.cvFile} onFileChange={f => store.setField('cvFile', f)} />
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">CV</Label>
+              <span className="text-[10px] text-muted-foreground/60 font-sans font-light">optionnel</span>
+            </div>
+            {!store.cvFile && (
+              <button
+                type="button"
+                onClick={() => fileInputRef.current?.click()}
+                className="flex items-center gap-1.5 text-xs font-sans font-light text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <Plus className="w-3.5 h-3.5" />
+                Ajouter
+              </button>
+            )}
+          </div>
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept=".pdf,.doc,.docx"
+            onChange={handleFileChange}
+            className="hidden"
+          />
+          {store.cvFile && (
+            <div className="flex items-center gap-2 mt-2 px-3 py-2 rounded-sm border border-border bg-card">
+              <FileText className="w-3.5 h-3.5 text-muted-foreground" />
+              <span className="text-xs font-sans font-light text-foreground truncate flex-1">{store.cvFile.name}</span>
+              <button type="button" onClick={() => store.setField('cvFile', null)} className="text-muted-foreground hover:text-foreground">
+                <X className="w-3.5 h-3.5" />
+              </button>
+            </div>
+          )}
+          <div className="flex items-start gap-1.5 mt-2">
+            <ShieldCheck className="w-3 h-3 text-muted-foreground/50 mt-0.5 shrink-0" />
+            <p className="text-[10px] text-muted-foreground/60 font-sans font-light leading-relaxed">
+              Logan s'engage à ne jamais transmettre votre CV sans votre accord explicite.
+            </p>
+          </div>
         </div>
 
-        {/* Consentements — hidden in admin mode (candidate will consent via invite link) */}
+        {/* Consentements — hidden in admin mode */}
         {!isAdmin && (
         <div className="carter-card p-8 space-y-5">
           <div>
