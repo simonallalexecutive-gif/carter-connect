@@ -40,7 +40,7 @@ const Step4Project = () => {
       <div className="carter-divider mb-6" />
 
       <h2 className="text-3xl font-serif text-foreground mb-2 font-normal tracking-[-0.02em]">
-        Vos priorités pour votre prochain move
+        Vos priorités pour un prochain move
       </h2>
       <p className="text-muted-foreground font-sans text-sm font-light mb-8">
         Sélectionnez jusqu'à {MAX_SELECT} critères qui comptent le plus pour vous.
