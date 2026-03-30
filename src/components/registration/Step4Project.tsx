@@ -1,19 +1,19 @@
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { useRegistrationStore } from '@/stores/registrationStore';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, ArrowRight, Check } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Check, Sparkles } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const PRIORITIES = [
   'Rémunération',
-  'Flexibilité et organisation du travail',
-  'Équilibre entre vie professionnelle et personnelle',
-  'Perspectives d\'évolution',
-  'Développement des compétences et autonomie',
+  'Flexibilité et organisation',
+  'Équilibre pro/perso',
+  'Perspectives',
+  'Responsabilité et autonomie',
   'Qualité du management',
-  'Nature de la pratique',
+  'Pratique et dossiers',
   'Ambiance et esprit d\'équipe',
-  'Qualité des dossiers',
+  'Formation et encadrement',
 ];
 
 const MAX_SELECT = 3;
@@ -35,7 +35,7 @@ const Step4Project = () => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-      className="max-w-xl mx-auto px-6 py-10"
+      className="max-w-2xl mx-auto px-6 py-10"
     >
       <div className="carter-divider mb-6" />
 
@@ -46,7 +46,7 @@ const Step4Project = () => {
         Sélectionnez jusqu'à {MAX_SELECT} critères qui comptent le plus pour vous.
       </p>
 
-      <div className="flex flex-wrap gap-3 justify-center">
+      <div className="grid grid-cols-3 gap-3">
         {PRIORITIES.map((item, i) => {
           const isSelected = selected.includes(item);
           const isDisabled = !isSelected && selected.length >= MAX_SELECT;
@@ -55,22 +55,22 @@ const Step4Project = () => {
             <motion.button
               key={item}
               type="button"
-              initial={{ opacity: 0, scale: 0.9 }}
+              initial={{ opacity: 0, scale: 0.92 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.3, delay: i * 0.04 }}
+              transition={{ duration: 0.3, delay: i * 0.035 }}
               onClick={() => !isDisabled && toggle(item)}
               disabled={isDisabled}
               className={cn(
-                "relative px-5 py-3 rounded-full text-sm font-sans font-light border transition-all duration-200 select-none",
+                "relative px-4 py-4 rounded-xl text-sm font-sans font-light border transition-all duration-200 select-none text-center leading-snug",
                 isSelected
-                  ? "bg-foreground text-background border-foreground shadow-md"
+                  ? "bg-foreground text-background border-foreground shadow-md scale-[1.02]"
                   : isDisabled
                     ? "border-border/40 text-muted-foreground/40 cursor-not-allowed"
                     : "border-border hover:border-foreground/40 text-foreground cursor-pointer hover:shadow-sm"
               )}
             >
-              <span className="flex items-center gap-2">
-                {isSelected && <Check className="w-3.5 h-3.5" />}
+              <span className="flex items-center justify-center gap-1.5">
+                {isSelected && <Check className="w-3.5 h-3.5 shrink-0" />}
                 {item}
               </span>
             </motion.button>
@@ -78,11 +78,51 @@ const Step4Project = () => {
         })}
       </div>
 
-      <div className="text-center mt-6">
+      <div className="text-center mt-4">
         <span className="text-xs font-sans font-light text-muted-foreground">
           {selected.length}/{MAX_SELECT} sélectionnés
         </span>
       </div>
+
+      {/* Récapitulatif */}
+      <AnimatePresence>
+        {selected.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+            className="overflow-hidden"
+          >
+            <div className="mt-6 rounded-xl border border-border bg-muted/30 p-5">
+              <div className="flex items-center gap-2 mb-3">
+                <Sparkles className="w-4 h-4 text-foreground" />
+                <span className="text-sm font-sans font-medium text-foreground">
+                  Vos priorités
+                </span>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {selected.map((item, i) => (
+                  <motion.span
+                    key={item}
+                    initial={{ opacity: 0, scale: 0.85 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.85 }}
+                    transition={{ duration: 0.2, delay: i * 0.05 }}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-foreground text-background text-xs font-sans font-light"
+                  >
+                    <Check className="w-3 h-3" />
+                    {item}
+                  </motion.span>
+                ))}
+              </div>
+              <p className="text-xs font-sans font-light text-muted-foreground mt-3">
+                Nous utiliserons ces critères pour vous proposer les meilleures opportunités.
+              </p>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Navigation */}
       <div className="flex justify-between items-center pt-10">
