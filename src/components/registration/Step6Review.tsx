@@ -11,6 +11,7 @@ import { useState, useMemo } from 'react';
 import { cn } from '@/lib/utils';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import { toast } from 'sonner';
+import { buildQuantizedChartData } from '@/lib/percentages';
 
 const CHART_COLORS = [
   'hsl(215, 60%, 30%)',
@@ -20,6 +21,17 @@ const CHART_COLORS = [
   'hsl(218, 40%, 36%)',
   'hsl(222, 50%, 28%)',
 ];
+
+const RESTRUCTURING_COLORS = {
+  amiable: 'hsl(215, 50%, 35%)',
+  financier: 'hsl(210, 25%, 50%)',
+  judiciaire: 'hsl(215, 55%, 22%)',
+  distressed: 'hsl(200, 12%, 45%)',
+  contentieux: 'hsl(220, 15%, 62%)',
+};
+
+const RESTRUCTURING_POSITIONING_COLORS = ['hsl(215, 50%, 35%)', 'hsl(200, 15%, 50%)', 'hsl(220, 20%, 30%)'];
+const RESTRUCTURING_CLIENTELE_COLORS = ['hsl(215, 55%, 22%)', 'hsl(210, 20%, 42%)', 'hsl(200, 12%, 55%)', 'hsl(220, 15%, 35%)', 'hsl(215, 50%, 35%)', 'hsl(210, 10%, 62%)'];
 
 type PreviewMode = 'recap' | 'cabinet';
 
@@ -54,29 +66,101 @@ const Step6Review = () => {
   const allActivites = practiceActivities.sections.flatMap(s => s.items);
   const activeActivites = allActivites.filter(a => store.activites[a.key]);
 
-  const chartData = useMemo(() => {
-    return activeActivites.map(item => ({
-      name: item.label,
-      value: store.pourcentages[item.key] || 10,
-    }));
-  }, [activeActivites, store.pourcentages]);
+  const activitySummary = useMemo(() => {
+    if (store.departement === 'Restructuring' || store.departement === 'Restructuring/Insolvency') {
+      const restrSubs = store.sousActivites['restr_restructuring'] || {};
+      const amiableVal = restrSubs['amiable'] ?? 50;
+      const distressedVal = store.pourcentages['restr_distressed'] ?? 10;
+      const contentieuxVal = store.pourcentages['restr_contentieux_affaires'] ?? 10;
+      const restructuringMainPct = Math.max(0, 100 - distressedVal - contentieuxVal);
+      const totalAmiablePct = Math.round(restructuringMainPct * (amiableVal / 100));
+      const judiciairePct = restructuringMainPct - totalAmiablePct;
+      const financierPct = Math.round(totalAmiablePct * ((store.restrFinancier ?? 0) / 100));
+      const amiableHorsFinancierPct = totalAmiablePct - financierPct;
 
-  const totalPercent = chartData.reduce((sum, d) => sum + d.value, 0);
+      return {
+        chartData: [
+          amiableHorsFinancierPct > 0 ? { name: 'Amiable (hors financier)', value: amiableHorsFinancierPct, color: RESTRUCTURING_COLORS.amiable } : null,
+          financierPct > 0 ? { name: 'Restructuring financier', value: financierPct, color: RESTRUCTURING_COLORS.financier } : null,
+          judiciairePct > 0 ? { name: 'Judiciaire', value: judiciairePct, color: RESTRUCTURING_COLORS.judiciaire } : null,
+          distressedVal > 0 ? { name: 'Distressed M&A', value: distressedVal, color: RESTRUCTURING_COLORS.distressed } : null,
+          contentieuxVal > 0 ? { name: 'Contentieux', value: contentieuxVal, color: RESTRUCTURING_COLORS.contentieux } : null,
+        ].filter(Boolean) as { name: string; value: number; color: string }[],
+        positionnement: buildQuantizedChartData(
+          store.positionnementRestr.map((opt, i) => ({
+            key: opt,
+            name: opt,
+            raw: store.positionnementRestrPct[opt] || 10,
+            color: RESTRUCTURING_POSITIONING_COLORS[i % RESTRUCTURING_POSITIONING_COLORS.length],
+          })),
+        ),
+        clientele: buildQuantizedChartData(
+          store.clienteleRestr.map((opt, i) => ({
+            key: opt,
+            name: opt,
+            raw: store.clienteleRestrPct[opt] || 10,
+            color: RESTRUCTURING_CLIENTELE_COLORS[i % RESTRUCTURING_CLIENTELE_COLORS.length],
+          })),
+        ),
+      };
+    }
 
-  // Chambers info for cabinet view
+    return {
+      chartData: buildQuantizedChartData(
+        activeActivites.map((item, index) => ({
+          key: item.key,
+          name: item.label,
+          raw: store.pourcentages[item.key] || 10,
+          color: CHART_COLORS[index % CHART_COLORS.length],
+        })),
+      ),
+      positionnement: [],
+      clientele: [],
+    };
+  }, [
+    activeActivites,
+    store.clienteleRestr,
+    store.clienteleRestrPct,
+    store.departement,
+    store.positionnementRestr,
+    store.positionnementRestrPct,
+    store.pourcentages,
+    store.restrFinancier,
+    store.sousActivites,
+  ]);
+
+  const totalPercent = activitySummary.chartData.reduce((sum, d) => sum + d.value, 0);
+
   const chambersInfo = useMemo(() => {
     if (!store.cabinet || !store.departement) return null;
     const firm = CHAMBERS_DB[store.cabinet];
-    if (!firm) return null;
     const chambersKey = DEPT_TO_CHAMBERS[store.departement];
-    const band = chambersKey ? firm.rankings[chambersKey] : undefined;
     const deptLabel = chambersKey
       ? CHAMBERS_DEPARTMENTS.find(d => d.key === chambersKey)?.label || store.departement
       : store.departement;
+
+    if (!firm) {
+      const fallbackNat = CABINET_META[store.cabinet]?.nat;
+      return {
+        isIntegrated: false,
+        nat: fallbackNat ? fallbackNat.toLowerCase() : null,
+        band: null,
+        deptLabel,
+        cabinetValue: fallbackNat ? `Cabinet ${fallbackNat.toLowerCase()}` : 'Cabinet non renseigné',
+        chambersValue: 'Cabinet non intégré au classement Chambers',
+      };
+    }
+
+    const band = chambersKey ? firm.rankings[chambersKey] : undefined;
     return {
+      isIntegrated: true,
       nat: getNatLabel(firm.nat),
-      band,
+      band: band ?? null,
       deptLabel,
+      cabinetValue: `Cabinet ${getNatLabel(firm.nat)}`,
+      chambersValue: band
+        ? `Cabinet intégré au classement Chambers — Band ${band} en ${deptLabel}`
+        : `Cabinet intégré au classement Chambers — non classé en ${deptLabel}`,
     };
   }, [store.cabinet, store.departement]);
 
@@ -94,30 +178,87 @@ const Step6Review = () => {
     </div>
   );
 
-  const ActivityChart = () => {
-    if (chartData.length === 0) return null;
+  const ActivitySummaryCard = () => {
+    if (activitySummary.chartData.length === 0) return null;
+
     return (
-      <div className="flex items-start gap-6">
-        <div className="w-28 h-28 flex-shrink-0">
-          <ResponsiveContainer width="100%" height="100%">
-            <PieChart>
-              <Pie data={chartData} cx="50%" cy="50%" innerRadius={24} outerRadius={50} dataKey="value" paddingAngle={2}>
-                {chartData.map((_, i) => (
-                  <Cell key={i} fill={CHART_COLORS[i % CHART_COLORS.length]} />
-                ))}
-              </Pie>
-              <Tooltip formatter={(value: number) => [`${Math.round((value / totalPercent) * 100)}%`, '']} contentStyle={{ fontSize: '11px', borderRadius: '4px' }} />
-            </PieChart>
-          </ResponsiveContainer>
-        </div>
-        <div className="flex-1 space-y-1.5">
-          {chartData.map((item, i) => (
-            <div key={item.name} className="flex items-center gap-2 text-xs font-sans font-light">
-              <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: CHART_COLORS[i % CHART_COLORS.length] }} />
-              <span className="text-foreground">{item.name}</span>
-              <span className="text-muted-foreground ml-auto">{Math.round((item.value / totalPercent) * 100)}%</span>
+      <div className="space-y-5">
+        <p className="text-lg font-serif text-foreground tracking-tight">Synthèse de votre activité</p>
+
+        <div className="flex flex-col md:flex-row gap-6 items-start">
+          <div className="w-44 h-44 flex-shrink-0 self-center">
+            <ResponsiveContainer width="100%" height="100%">
+              <PieChart>
+                <Pie
+                  data={activitySummary.chartData}
+                  cx="50%"
+                  cy="50%"
+                  innerRadius={40}
+                  outerRadius={72}
+                  dataKey="value"
+                  paddingAngle={2}
+                  stroke="hsl(var(--background))"
+                  strokeWidth={2}
+                  label={({ cx, cy, midAngle, innerRadius: ir, outerRadius: or, value }) => {
+                    const RADIAN = Math.PI / 180;
+                    const radius = ir + (or - ir) * 0.5;
+                    const x = cx + radius * Math.cos(-midAngle * RADIAN);
+                    const y = cy + radius * Math.sin(-midAngle * RADIAN);
+                    if (value < 10) return null;
+                    return (
+                      <text x={x} y={y} fill="hsl(var(--background))" textAnchor="middle" dominantBaseline="central" fontSize={11} fontWeight={700}>
+                        {value}%
+                      </text>
+                    );
+                  }}
+                  labelLine={false}
+                >
+                  {activitySummary.chartData.map((item) => (
+                    <Cell key={item.name} fill={item.color} />
+                  ))}
+                </Pie>
+                <Tooltip formatter={(value: number) => [`${value}%`, '']} contentStyle={{ fontSize: '11px', borderRadius: '4px' }} />
+              </PieChart>
+            </ResponsiveContainer>
+          </div>
+
+          <div className="flex-1 space-y-4 w-full">
+            <div className="space-y-1.5">
+              {activitySummary.chartData.map((item) => (
+                <div key={item.name} className="flex items-center gap-2 text-xs font-sans font-light">
+                  <div className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ backgroundColor: item.color }} />
+                  <span className="text-foreground">{item.name}</span>
+                  <span className="text-muted-foreground ml-auto">{totalPercent > 0 ? Math.round((item.value / totalPercent) * 100) : item.value}%</span>
+                </div>
+              ))}
             </div>
-          ))}
+
+            {activitySummary.positionnement.length > 0 && (
+              <div className="border-t border-border pt-3 space-y-1.5">
+                <p className="text-[9px] uppercase tracking-wider text-muted-foreground">Positionnement</p>
+                {activitySummary.positionnement.map((item) => (
+                  <div key={item.name} className="flex items-center gap-2 text-xs font-sans font-light">
+                    <div className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ backgroundColor: item.color }} />
+                    <span className="text-foreground">{item.name}</span>
+                    <span className="text-muted-foreground ml-auto">{item.value}%</span>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {activitySummary.clientele.length > 0 && (
+              <div className="border-t border-border pt-3 space-y-1.5">
+                <p className="text-[9px] uppercase tracking-wider text-muted-foreground">Clientèle</p>
+                {activitySummary.clientele.map((item) => (
+                  <div key={item.name} className="flex items-center gap-2 text-xs font-sans font-light">
+                    <div className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ backgroundColor: item.color }} />
+                    <span className="text-foreground">{item.name}</span>
+                    <span className="text-muted-foreground ml-auto">{item.value}%</span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
       </div>
     );
@@ -242,9 +383,10 @@ const Step6Review = () => {
                 {store.linkedinUrl && <p className="text-xs font-sans font-light text-muted-foreground mt-0.5 truncate max-w-xs">{store.linkedinUrl}</p>}
               </div>
             </div>
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {pqe && <div><span className="text-[10px] text-muted-foreground font-sans font-light">Séniorité</span><div className="mt-1"><SeniorityBadge info={pqe} /></div></div>}
               <DataRow label="Cabinet" value={store.cabinet} />
+              <DataRow label="Chambers" value={chambersInfo?.chambersValue || 'Cabinet non intégré au classement Chambers'} />
               <DataRow label="Pratique" value={store.departement} />
             </div>
           </SectionCard>
@@ -269,7 +411,7 @@ const Step6Review = () => {
 
           {/* Activité */}
           <SectionCard title="Activité">
-            <ActivityChart />
+            <ActivitySummaryCard />
             <div className="mt-4 grid grid-cols-2 gap-3">
               <TagList items={store.tailleOperations} label="Taille opérations" />
               <TagList items={store.typesClients} label="Clientèle" />
@@ -347,20 +489,10 @@ const Step6Review = () => {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               <DataRow label="Pratique" value={store.departement} />
-              {chambersInfo && (
-                <DataRow
-                  label="Cabinet d'origine"
-                  value={`Cabinet ${chambersInfo.nat}${chambersInfo.band ? `, classé Band ${chambersInfo.band} (Chambers)` : ''}`}
-                />
-              )}
-              {!chambersInfo && store.cabinet && CABINET_META[store.cabinet] && (
-                <DataRow
-                  label="Cabinet d'origine"
-                  value={`Cabinet ${CABINET_META[store.cabinet].nat.toLowerCase()}`}
-                />
-              )}
+              {chambersInfo && <DataRow label="Cabinet d'origine" value={chambersInfo.cabinetValue} />}
+              <DataRow label="Chambers" value={chambersInfo?.chambersValue || 'Cabinet non intégré au classement Chambers'} />
               {store.anglais && <DataRow label="Anglais" value={store.anglais} />}
             </div>
           </SectionCard>
@@ -383,7 +515,7 @@ const Step6Review = () => {
 
           {/* Activité */}
           <SectionCard title="Activité">
-            <ActivityChart />
+            <ActivitySummaryCard />
             <div className="mt-4 grid grid-cols-2 gap-3">
               <TagList items={store.tailleOperations} label="Taille opérations" />
               <TagList items={store.typesClients} label="Clientèle" />

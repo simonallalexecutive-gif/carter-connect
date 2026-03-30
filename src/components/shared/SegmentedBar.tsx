@@ -42,7 +42,7 @@ const SegmentedBar = ({
             <button
               key={segVal}
               type="button"
-              onClick={() => onChange(segVal === value && segVal > min + step ? segVal - step : segVal)}
+              onClick={() => onChange(segVal === value && segVal > min ? Math.max(min, segVal - step) : segVal)}
               className={cn(
                 "flex-1 transition-all duration-200 hover:opacity-80",
                 i === 0 && "rounded-l-full",
