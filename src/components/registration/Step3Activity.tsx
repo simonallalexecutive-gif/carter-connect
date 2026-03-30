@@ -313,15 +313,20 @@ const Step3Activity = () => {
         )}
 
         {/* Navigation */}
-        <div className="flex justify-between pt-6">
+        <div className="flex justify-between items-center pt-6">
           <Button variant="outline" onClick={store.prevStep} className="font-sans font-light rounded-sm gap-2">
             <ArrowLeft className="w-4 h-4" />
             Retour
           </Button>
-          <Button onClick={store.nextStep} disabled={!hasActivites} className="bg-foreground text-background hover:bg-foreground/90 font-sans font-medium rounded-sm gap-2">
-            Continuer
-            <ArrowRight className="w-4 h-4" />
-          </Button>
+          <div className="flex items-center gap-3">
+            <Button variant="ghost" onClick={store.nextStep} className="font-sans font-light text-muted-foreground text-xs rounded-sm">
+              Passer cette étape
+            </Button>
+            <Button onClick={store.nextStep} disabled={!hasActivites} className="bg-foreground text-background hover:bg-foreground/90 font-sans font-medium rounded-sm gap-2">
+              Continuer
+              <ArrowRight className="w-4 h-4" />
+            </Button>
+          </div>
         </div>
       </div>
     </motion.div>

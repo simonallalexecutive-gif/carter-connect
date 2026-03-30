@@ -22,13 +22,10 @@ const SegmentedBar = ({
   showValue = true,
 }: SegmentedBarProps) => {
   const segments: number[] = [];
-  for (let i = min; i <= max; i += step) {
+  for (let i = min + step; i <= max; i += step) {
     segments.push(i);
   }
-
-  const filledCount = segments.filter(s => s <= value).length;
   const totalSegments = segments.length;
-  const ratio = totalSegments > 0 ? filledCount / totalSegments : 0;
 
   return (
     <div className="space-y-1.5">
@@ -38,35 +35,27 @@ const SegmentedBar = ({
           {showValue && <span className="text-xs font-sans font-bold text-foreground tabular-nums">{value}%</span>}
         </div>
       )}
-      <div className="relative h-2 rounded-full bg-secondary overflow-hidden">
-        {/* Filled track */}
-        <div
-          className="absolute inset-y-0 left-0 rounded-full transition-all duration-300 ease-out"
-          style={{
-            width: `${ratio * 100}%`,
-            background: `linear-gradient(90deg, ${activeColor}, ${activeColor}dd)`,
-          }}
-        />
-        {/* Clickable segments overlay */}
-        <div className="absolute inset-0 flex">
-          {segments.map((segVal, i) => (
+      <div className="flex gap-[1.5px] h-[10px]">
+        {segments.map((segVal, i) => {
+          const isActive = segVal <= value;
+          return (
             <button
               key={segVal}
               type="button"
-              onClick={() => onChange(segVal === value && segVal > min ? segVal - step : segVal)}
-              className="flex-1 h-full cursor-pointer hover:bg-foreground/5 transition-colors"
+              onClick={() => onChange(segVal === value && segVal > min + step ? segVal - step : segVal)}
+              className={cn(
+                "flex-1 transition-all duration-200 hover:opacity-80",
+                i === 0 && "rounded-l-full",
+                i === totalSegments - 1 && "rounded-r-full",
+              )}
+              style={{
+                backgroundColor: isActive ? activeColor : 'hsl(var(--secondary))',
+                opacity: isActive ? 0.55 + 0.45 * (segVal / max) : undefined,
+              }}
               title={`${segVal}%`}
             />
-          ))}
-        </div>
-        {/* Tick marks */}
-        <div className="absolute inset-0 flex pointer-events-none">
-          {segments.map((segVal, i) => (
-            i > 0 && i < totalSegments ? (
-              <div key={segVal} className="flex-1 border-l border-background/30 h-full" />
-            ) : <div key={segVal} className="flex-1" />
-          ))}
-        </div>
+          );
+        })}
       </div>
     </div>
   );
