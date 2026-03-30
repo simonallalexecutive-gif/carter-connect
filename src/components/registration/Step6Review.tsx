@@ -492,7 +492,7 @@ const Step6Review = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               <DataRow label="Pratique" value={store.departement} />
               {chambersInfo && <DataRow label="Cabinet d'origine" value={chambersInfo.cabinetValue} />}
-              <DataRow label="Chambers" value={chambersInfo?.chambersValue || 'Cabinet non intégré au classement Chambers'} />
+              <DataRow label="Répertorié Chambers" value={chambersInfo?.isIntegrated ? 'Oui' : 'Non'} />
               {store.anglais && <DataRow label="Anglais" value={store.anglais} />}
             </div>
           </SectionCard>
