@@ -92,10 +92,7 @@ const Step3Activity = () => {
         ))}
 
         {store.departement === 'Restructuring' && (
-          <div>
-            <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-3 block">Répartition de l'activité</Label>
-            <RestructuringActivityPanel />
-          </div>
+          <RestructuringActivityPanel />
         )}
 
         {store.departement === 'Droit Social' && (
