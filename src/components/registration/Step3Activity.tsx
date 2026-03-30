@@ -47,8 +47,8 @@ const Step3Activity = () => {
   };
 
   const handlePercentChange = (key: string, delta: number) => {
-    const current = store.pourcentages[key] || 10;
-    const next = Math.max(10, Math.min(100, current + delta));
+    const current = store.pourcentages[key] ?? 10;
+    const next = Math.max(0, Math.min(100, current + delta));
     store.setField('pourcentages', { ...store.pourcentages, [key]: next });
   };
 
