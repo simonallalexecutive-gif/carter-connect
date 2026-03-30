@@ -155,8 +155,8 @@ className={`flex items-center gap-1 px-2.5 py-1.5 text-[12.3px] font-sans font-s
 
       {menuOpen && (
         <div className="md:hidden bg-black min-h-[calc(100dvh-4rem)] flex flex-col px-6 pt-8 pb-12 gap-5 animate-in fade-in slide-in-from-top-2 duration-200">
-          <button onClick={() => scrollToSection('notre-vision')} className="font-sans text-base font-normal text-white/70 hover:text-white transition-colors tracking-wide text-left">Notre vision</button>
           <button onClick={() => scrollToSection('notre-approche')} className="font-sans text-base font-normal text-white/70 hover:text-white transition-colors tracking-wide text-left">Notre approche</button>
+          <button onClick={() => scrollToSection('notre-vision')} className="font-sans text-base font-normal text-white/70 hover:text-white transition-colors tracking-wide text-left">Notre vision</button>
           <button onClick={() => scrollToSection('nos-engagements')} className="font-sans text-base font-normal text-white/70 hover:text-white transition-colors tracking-wide text-left">Nos engagements</button>
           <button onClick={() => scrollToSection('faq')} className="font-sans text-base font-normal text-white/70 hover:text-white transition-colors tracking-wide text-left">FAQ</button>
           <div className="h-px bg-white/10 my-2" />
