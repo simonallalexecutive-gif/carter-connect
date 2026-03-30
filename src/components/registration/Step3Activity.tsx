@@ -110,6 +110,13 @@ const Step3Activity = () => {
           </div>
         )}
 
+        {store.departement === 'Immobilier' && (
+          <div>
+            <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-3 block">Cartographie de votre pratique immobilière</Label>
+            <RealEstateActivityPanel />
+          </div>
+        )}
+
 
 
 
