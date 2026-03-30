@@ -6,17 +6,17 @@ import { cn } from '@/lib/utils';
 
 const PRIORITIES = [
   'Rémunération',
-  'Flexibilité',
-  'Équilibre de vie',
-  'Évolution',
-  'Compétences & autonomie',
-  'Management',
-  'Pratique',
-  'Équipe',
-  'Dossiers',
+  'Flexibilité et organisation du travail',
+  'Équilibre entre vie professionnelle et personnelle',
+  'Perspectives d\'évolution',
+  'Développement des compétences et autonomie',
+  'Qualité du management',
+  'Nature de la pratique',
+  'Ambiance et esprit d\'équipe',
+  'Qualité des dossiers',
 ];
 
-const MAX_SELECT = 5;
+const MAX_SELECT = 3;
 
 const Step4Project = () => {
   const store = useRegistrationStore();
@@ -40,7 +40,7 @@ const Step4Project = () => {
       <div className="carter-divider mb-6" />
 
       <h2 className="text-3xl font-serif text-foreground mb-2 font-normal tracking-[-0.02em]">
-        Vos priorités pour votre prochain move
+        Vos priorités pour un prochain move
       </h2>
       <p className="text-muted-foreground font-sans text-sm font-light mb-8">
         Sélectionnez jusqu'à {MAX_SELECT} critères qui comptent le plus pour vous.
