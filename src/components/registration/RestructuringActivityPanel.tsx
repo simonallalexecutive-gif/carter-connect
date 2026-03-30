@@ -186,8 +186,8 @@ const RestructuringActivityPanel = () => {
           </div>
 
           <div className="space-y-3 pl-3 border-l-2 border-border">
-            <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">Part de restructuring financier</p>
-            <SegmentedBar value={restrFinancier} onChange={(v) => store.setField('restrFinancier', v)} activeColor={COL_FINANCIER} label="Restructuring financier" />
+            <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">Dont restructuring financier <span className="normal-case">(au sein de l'amiable)</span></p>
+            <SegmentedBar value={restrFinancier} onChange={(v) => store.setField('restrFinancier', v)} activeColor={COL_FINANCIER} label={`Restructuring financier : ${financierPct}% de l'activité totale`} />
           </div>
         </div>
 
