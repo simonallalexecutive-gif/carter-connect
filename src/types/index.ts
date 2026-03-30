@@ -57,6 +57,10 @@ export interface RegistrationState {
   positionnementRestr: string[];
   clienteleRestr: string[];
   restrFinancier: number;
+  restrDebiteurCreancier: '' | 'debiteurs' | 'creanciers' | 'mixte';
+  restrDebiteurPct: number;
+  restrClientelePcts: Record<string, number>;
+  restrRepriseSide: '' | 'repreneurs' | 'cedants' | 'les_deux';
   // Droit Social
   socialConseil: number;
   socialRelationType: '' | 'individuelles' | 'collectives' | 'les_deux';
