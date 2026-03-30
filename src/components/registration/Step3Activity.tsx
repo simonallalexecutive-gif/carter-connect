@@ -68,6 +68,9 @@ const Step3Activity = () => {
 
   const isSpecialized = SPECIALIZED_DEPTS.includes(store.departement);
 
+  // Validation: specialized panels are always valid (they have their own controls), generic needs at least one activity selected
+  const canProceedStep3 = isSpecialized || hasActivites;
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
