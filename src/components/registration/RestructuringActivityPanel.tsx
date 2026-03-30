@@ -72,21 +72,24 @@ const RestructuringActivityPanel = () => {
 
   const restructuringMainPct = Math.max(0, 100 - distressedVal - contentieuxVal);
 
-  const financierPart = Math.round(restructuringMainPct * (restrFinancier / 100));
+  // Amiable / Judiciaire split within restructuring
   const amiableRatio = amiableVal / 100;
-  const remaining = restructuringMainPct - financierPart;
-  const amiablePct = Math.round(remaining * amiableRatio);
-  const judiciairePct = remaining - amiablePct;
+  const totalAmiablePct = Math.round(restructuringMainPct * amiableRatio);
+  const judiciairePct = restructuringMainPct - totalAmiablePct;
+
+  // Restructuring financier is a SUB-PART of amiable (not a separate activity)
+  const financierPct = Math.round(totalAmiablePct * (restrFinancier / 100));
+  const amiableHorsFinancierPct = totalAmiablePct - financierPct;
 
   const chartData = useMemo(() => {
     const segments: { name: string; value: number; color: string }[] = [];
-    if (amiablePct > 0) segments.push({ name: 'Amiable', value: amiablePct, color: COL_AMIABLE });
+    if (amiableHorsFinancierPct > 0) segments.push({ name: 'Amiable (hors financier)', value: amiableHorsFinancierPct, color: COL_AMIABLE });
+    if (financierPct > 0) segments.push({ name: 'Restructuring financier (amiable)', value: financierPct, color: COL_FINANCIER });
     if (judiciairePct > 0) segments.push({ name: 'Judiciaire', value: judiciairePct, color: COL_JUDICIAIRE });
-    if (financierPart > 0) segments.push({ name: 'Restructuring financier', value: financierPart, color: COL_FINANCIER });
     if (distressedVal > 0) segments.push({ name: 'Distressed M&A', value: distressedVal, color: COL_DISTRESSED });
     if (contentieuxVal > 0) segments.push({ name: 'Contentieux', value: contentieuxVal, color: COL_CONTENTIEUX });
     return segments;
-  }, [amiablePct, judiciairePct, financierPart, distressedVal, contentieuxVal]);
+  }, [amiableHorsFinancierPct, financierPct, judiciairePct, distressedVal, contentieuxVal]);
 
   // Positionnement with percentages
   const posChartData = useMemo(() => {
@@ -183,8 +186,8 @@ const RestructuringActivityPanel = () => {
           </div>
 
           <div className="space-y-3 pl-3 border-l-2 border-border">
-            <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">Part de restructuring financier</p>
-            <SegmentedBar value={restrFinancier} onChange={(v) => store.setField('restrFinancier', v)} activeColor={COL_FINANCIER} label="Restructuring financier" />
+            <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">Dont restructuring financier <span className="normal-case">(au sein de l'amiable)</span></p>
+            <SegmentedBar value={restrFinancier} onChange={(v) => store.setField('restrFinancier', v)} activeColor={COL_FINANCIER} label={`Restructuring financier : ${financierPct}% de l'activité totale`} />
           </div>
         </div>
 
