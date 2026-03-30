@@ -91,7 +91,7 @@ const Step3Activity = () => {
           </div>
         ))}
 
-        {store.departement === 'Restructuring' && (
+        {(store.departement === 'Restructuring' || store.departement === 'Restructuring/Insolvency') && (
           <RestructuringActivityPanel />
         )}
 
