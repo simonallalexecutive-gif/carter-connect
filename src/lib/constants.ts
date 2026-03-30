@@ -184,6 +184,19 @@ export const ACTIVITES_BY_PRACTICE: Record<string, { sections: { title: string; 
       ]},
     ],
   },
+  "Real Estate": {
+    sections: [
+      { title: "Nature des opérations", items: [
+        { key: "acqimmo", label: "Acquisitions immobilières" }, { key: "bail", label: "Baux commerciaux" },
+        { key: "promo", label: "Promotion immobilière" }, { key: "vefa", label: "VEFA" },
+        { key: "urba", label: "Urbanisme" },
+      ]},
+      { title: "Type d'actifs", items: [
+        { key: "bureau", label: "Bureaux" }, { key: "retail", label: "Retail / Commerce" },
+        { key: "logi", label: "Logistique" }, { key: "resid", label: "Résidentiel" },
+      ]},
+    ],
+  },
   "Restructuring": {
     sections: [
       { title: "Répartition de l'activité", items: [
