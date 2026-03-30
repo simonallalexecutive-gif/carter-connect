@@ -6,17 +6,17 @@ import { cn } from '@/lib/utils';
 
 const PRIORITIES = [
   'Rémunération',
-  'Flexibilité',
-  'Équilibre de vie',
-  'Évolution',
-  'Compétences & autonomie',
-  'Management',
-  'Pratique',
-  'Équipe',
-  'Dossiers',
+  'Flexibilité et organisation du travail',
+  'Équilibre entre vie professionnelle et personnelle',
+  'Perspectives d\'évolution',
+  'Développement des compétences et autonomie',
+  'Qualité du management',
+  'Nature de la pratique',
+  'Ambiance et esprit d\'équipe',
+  'Qualité des dossiers',
 ];
 
-const MAX_SELECT = 5;
+const MAX_SELECT = 3;
 
 const Step4Project = () => {
   const store = useRegistrationStore();
