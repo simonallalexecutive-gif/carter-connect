@@ -106,7 +106,14 @@ export interface RegistrationState {
   dpubSecteurs: string[];
   anglais: string;
   typesClients: string[];
-  // Step 4 - Project
+  // Step 4 - Project (next move)
+  moveRemuneration: string[];
+  moveEvolution: string[];
+  moveManagement: string[];
+  moveExposition: string[];
+  moveCulture: string[];
+  movePriorities: string[];
+  // Legacy kept for compat
   qualitesAppreciees: string[];
   axesAmelioration: string[];
   motivation: string;
