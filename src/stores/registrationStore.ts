@@ -112,6 +112,7 @@ const initialState = {
   reFinCredit: 34,
   reFinLeveraged: 33,
   reClientele: [] as string[],
+  reClientelePct: {} as Record<string, number>,
   anglais: '',
   typesClients: [] as string[],
   // Step 4 - Next move

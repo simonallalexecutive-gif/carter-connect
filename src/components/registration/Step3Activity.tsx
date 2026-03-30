@@ -27,7 +27,7 @@ const CHART_COLORS = [
   'hsl(225, 45%, 18%)',
 ];
 
-const SPECIALIZED_DEPTS = ['Financement LBO', 'Financement de projets', 'Restructuring', 'Restructuring/Insolvency', 'Droit Social', 'M&A (dominante)', 'Private Equity (dominante)', 'Immobilier'];
+const SPECIALIZED_DEPTS = ['Financement LBO', 'Financement de projets', 'Restructuring', 'Restructuring/Insolvency', 'Droit Social', 'M&A (dominante)', 'Private Equity (dominante)', 'Immobilier', 'Real Estate', 'Banking & Finance', 'Employment', 'Corporate/M&A', 'Private Equity', 'Competition/European Law'];
 
 const Step3Activity = () => {
   const store = useRegistrationStore();
@@ -88,7 +88,7 @@ const Step3Activity = () => {
 
       <div className="space-y-8">
         {/* Specialized panels */}
-        {(store.departement === 'Financement LBO' || store.departement === 'Financement de projets') && practiceActivities.sections.filter(s => s.title === 'Type de financement').map(section => (
+        {(store.departement === 'Financement LBO' || store.departement === 'Financement de projets' || store.departement === 'Banking & Finance') && practiceActivities.sections.filter(s => s.title === 'Type de financement').map(section => (
           <div key={section.title}>
             <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-3 block">{section.title}</Label>
             <FinanceActivityPanel items={section.items} />
@@ -99,21 +99,21 @@ const Step3Activity = () => {
           <RestructuringActivityPanel />
         )}
 
-        {store.departement === 'Droit Social' && (
+        {(store.departement === 'Droit Social' || store.departement === 'Employment') && (
           <div>
             <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-3 block">Nature de l'activité</Label>
             <SocialActivityPanel />
           </div>
         )}
 
-        {(store.departement === 'M&A (dominante)' || store.departement === 'Private Equity (dominante)') && (
+        {(store.departement === 'M&A (dominante)' || store.departement === 'Private Equity (dominante)' || store.departement === 'Corporate/M&A' || store.departement === 'Private Equity') && (
           <div>
             <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-3 block">Nature des opérations</Label>
             <MaActivityPanel />
           </div>
         )}
 
-        {store.departement === 'Immobilier' && (
+        {(store.departement === 'Immobilier' || store.departement === 'Real Estate') && (
           <div>
             <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-3 block">Cartographie de votre pratique immobilière</Label>
             <RealEstateActivityPanel />
