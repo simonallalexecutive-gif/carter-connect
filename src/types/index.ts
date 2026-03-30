@@ -116,7 +116,6 @@ export interface RegistrationState {
   reFinCredit: number;
   reFinLeveraged: number;
   reClientele: string[];
-  reClientelePct: Record<string, number>;
   anglais: string;
   typesClients: string[];
   // Step 4 - Project (next move)
