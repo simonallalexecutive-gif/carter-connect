@@ -4,30 +4,25 @@ import { Slider } from '@/components/ui/slider';
 import { cn } from '@/lib/utils';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import { useMemo } from 'react';
-import { Check, Building2, Briefcase, ShieldQuestion, ArrowRightLeft, Globe, TrendingUp } from 'lucide-react';
+import { Check, Building2, Users, Briefcase, TrendingUp, Globe } from 'lucide-react';
 
-/* ── Palette sobres (bleu marine, taupe, ardoise) ── */
-const COL_RESTR     = 'hsl(215, 55%, 28%)';
-const COL_CONT_AFF  = 'hsl(35, 28%, 48%)';
-const COL_REPRISES  = 'hsl(200, 30%, 42%)';
-const COL_AUTRES    = 'hsl(0, 0%, 62%)';
-const COL_AMIABLE   = 'hsl(200, 45%, 45%)';
-const COL_JUDICIAIRE = 'hsl(215, 50%, 32%)';
-const COL_PC_PURES  = 'hsl(220, 45%, 38%)';
-const COL_CONT_LIES = 'hsl(210, 35%, 52%)';
+/* ── Palette ── */
+const COL_RESTR = 'hsl(215, 55%, 28%)';
+const COL_CONT = 'hsl(35, 30%, 50%)';
+const COL_AUTRES = 'hsl(200, 15%, 60%)';
+const COL_AMIABLE = 'hsl(200, 50%, 45%)';
+const COL_JUDICIAIRE = 'hsl(215, 45%, 38%)';
+const COL_RESTR_FIN = 'hsl(45, 50%, 50%)';
+const COL_CONT_PC = 'hsl(30, 35%, 45%)';
+const COL_CONT_COMM = 'hsl(40, 25%, 60%)';
+
+const POSITIONNEMENT_OPTIONS = ['Débiteurs', 'Créanciers', 'Actionnaires', 'Repreneurs / investisseurs'];
+const CLIENTELE_OPTIONS = ['Startups', 'PME', 'ETI', 'Grands groupes industriels', 'Sociétés cotées'];
 
 const MAIN_CATEGORIES = [
   { key: 'restr_restructuring', label: 'Restructuring', color: COL_RESTR },
-  { key: 'restr_contentieux', label: 'Contentieux des affaires (hors PC)', color: COL_CONT_AFF },
-  { key: 'restr_reprises', label: 'Reprises / M&A distressed', color: COL_REPRISES },
-  { key: 'restr_autres', label: 'Autres', color: COL_AUTRES },
-];
-
-const CLIENTELE_OPTIONS = [
-  'PME', 'ETI', 'Grands groupes',
-  'Banques / fonds / créanciers financiers',
-  'Administrateurs judiciaires (AJ)',
-  'Mandataires judiciaires (MJ)',
+  { key: 'restr_contentieux', label: 'Contentieux', color: COL_CONT },
+  { key: 'restr_autres', label: 'Autres activités', color: COL_AUTRES },
 ];
 
 const renderLabel = ({ cx, cy, midAngle, innerRadius: ir, outerRadius: or, value }: any) => {
@@ -52,7 +47,6 @@ const tooltipStyle = {
 const RestructuringActivityPanel = () => {
   const store = useRegistrationStore();
 
-  /* ── Handlers ── */
   const handleToggle = (key: string) => {
     const next = { ...store.activites, [key]: !store.activites[key] };
     store.setField('activites', next);
@@ -75,109 +69,86 @@ const RestructuringActivityPanel = () => {
     store.setField(field, cur.includes(value) ? cur.filter(v => v !== value) : [...cur, value]);
   };
 
-  const handleClientelePct = (key: string, value: number) => {
-    store.setField('restrClientelePcts', { ...store.restrClientelePcts, [key]: value });
-  };
-
-  /* ── Derived values ── */
+  /* ── Derived ── */
   const selected = MAIN_CATEGORIES.filter(c => store.activites[c.key]);
   const hasAny = selected.length > 0;
   const totalRaw = useMemo(() => selected.reduce((s, c) => s + (store.pourcentages[c.key] || 10), 0), [selected, store.pourcentages]);
 
   const hasRestr = store.activites['restr_restructuring'];
-  const hasReprises = store.activites['restr_reprises'];
+  const hasCont = store.activites['restr_contentieux'];
 
-  // Q2 sub-values
   const restrSubs = store.sousActivites['restr_restructuring'] || {};
   const amiableVal = restrSubs['amiable'] ?? 50;
   const judiciaireVal = restrSubs['judiciaire'] ?? 50;
   const restrSubTotal = amiableVal + judiciaireVal;
 
-  // Q3 sub-values
-  const judSubs = store.sousActivites['restr_judiciaire'] || {};
-  const pcPuresVal = judSubs['pc_pures'] ?? 50;
-  const contLiesVal = judSubs['cont_lies'] ?? 50;
-  const judSubTotal = pcPuresVal + contLiesVal;
-  const hasJudiciaire = hasRestr && judiciaireVal > 0;
+  const contSubs = store.sousActivites['restr_contentieux'] || {};
+  const contPCVal = contSubs['cont_pc'] ?? 50;
+  const contCommVal = contSubs['cont_comm'] ?? 50;
+  const contSubTotal = contPCVal + contCommVal;
 
-  // Q4 debiteur/creancier
-  const debiteurCreancier = store.restrDebiteurCreancier;
-  const debiteurPct = store.restrDebiteurPct;
+  const restrFinancier = store.restrFinancier ?? 0;
 
-  // Q5 clientele
-  const clienteleSelected = store.clienteleRestr;
-  const clientelePcts = store.restrClientelePcts;
-  const clientelePctTotal = useMemo(() =>
-    clienteleSelected.reduce((s, k) => s + (clientelePcts[k] || 0), 0),
-    [clienteleSelected, clientelePcts]
-  );
-  const showClientelePcts = clienteleSelected.length > 1;
-
-  /* ── PIE CHART DATA ── */
+  /* ── CHART DATA: main pie with sub-segments ── */
   const mainChartData = useMemo(() => {
     if (!hasAny) return [];
     const segments: { name: string; value: number; color: string }[] = [];
 
     selected.forEach(c => {
       const pct = totalRaw > 0 ? Math.round(((store.pourcentages[c.key] || 10) / totalRaw) * 100) : 0;
-      if (pct <= 0) return;
 
-      if (c.key === 'restr_restructuring') {
-        // Split into amiable / judiciaire, then judiciaire into PC pures / contentieux liés
-        const amiablePct = restrSubTotal > 0 ? Math.round(pct * (amiableVal / restrSubTotal)) : Math.round(pct / 2);
-        const judiciairePctTotal = pct - amiablePct;
+      if (c.key === 'restr_restructuring' && pct > 0) {
+        // Split into sub-segments
+        const finPart = Math.round(pct * (restrFinancier / 100));
+        const remaining = pct - finPart;
+        const amiablePct = restrSubTotal > 0 ? Math.round(remaining * (amiableVal / restrSubTotal)) : Math.round(remaining / 2);
+        const judiciairePct = remaining - amiablePct;
 
-        if (amiablePct > 0) segments.push({ name: 'Amiable', value: amiablePct, color: COL_AMIABLE });
-
-        if (judiciairePctTotal > 0 && hasJudiciaire) {
-          const pcPct = judSubTotal > 0 ? Math.round(judiciairePctTotal * (pcPuresVal / judSubTotal)) : Math.round(judiciairePctTotal / 2);
-          const clPct = judiciairePctTotal - pcPct;
-          if (pcPct > 0) segments.push({ name: 'Judiciaire – PC pures', value: pcPct, color: COL_PC_PURES });
-          if (clPct > 0) segments.push({ name: 'Judiciaire – Cont. liés', value: clPct, color: COL_CONT_LIES });
-        } else if (judiciairePctTotal > 0) {
-          segments.push({ name: 'Judiciaire', value: judiciairePctTotal, color: COL_JUDICIAIRE });
-        }
+        if (amiablePct > 0) segments.push({ name: 'Amiable (restr.)', value: amiablePct, color: COL_AMIABLE });
+        if (judiciairePct > 0) segments.push({ name: 'Judiciaire (restr.)', value: judiciairePct, color: COL_JUDICIAIRE });
+        if (finPart > 0) segments.push({ name: 'Restr. financier', value: finPart, color: COL_RESTR_FIN });
+      } else if (c.key === 'restr_contentieux' && pct > 0) {
+        const pcPct = contSubTotal > 0 ? Math.round(pct * (contPCVal / contSubTotal)) : Math.round(pct / 2);
+        const commPct = pct - pcPct;
+        if (pcPct > 0) segments.push({ name: 'Cont. proc. collectives', value: pcPct, color: COL_CONT_PC });
+        if (commPct > 0) segments.push({ name: 'Cont. commercial', value: commPct, color: COL_CONT_COMM });
       } else {
         segments.push({ name: c.label, value: pct, color: c.color });
       }
     });
 
     return segments;
-  }, [selected, store.pourcentages, totalRaw, restrSubTotal, amiableVal, judiciaireVal, judSubTotal, pcPuresVal, contLiesVal, hasJudiciaire, hasAny]);
+  }, [selected, store.pourcentages, totalRaw, restrSubTotal, amiableVal, judiciaireVal, contSubTotal, contPCVal, contCommVal, restrFinancier, hasAny]);
 
   return (
     <div className="space-y-6">
-      {/* ── Q1: Toggle chips ── */}
-      <div>
-        <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium mb-3">
-          Q1 – Comment se répartit votre activité globale ?
-        </p>
-        <div className="flex flex-wrap gap-2">
-          {MAIN_CATEGORIES.map(c => {
-            const active = store.activites[c.key];
-            return (
-              <button key={c.key} type="button" onClick={() => handleToggle(c.key)}
-                className={cn(
-                  "inline-flex items-center gap-1.5 px-4 py-2 rounded-sm text-sm font-sans font-light transition-all duration-200 border",
-                  active ? "bg-foreground text-background border-foreground" : "bg-transparent text-foreground border-border hover:border-foreground/40"
-                )}>
-                {active && <Check className="w-3 h-3" />}
-                {c.label}
-              </button>
-            );
-          })}
-        </div>
+      {/* ── Toggle chips ── */}
+      <div className="flex flex-wrap gap-2">
+        {MAIN_CATEGORIES.map(c => {
+          const active = store.activites[c.key];
+          return (
+            <button key={c.key} type="button" onClick={() => handleToggle(c.key)}
+              className={cn(
+                "inline-flex items-center gap-1.5 px-4 py-2 rounded-sm text-sm font-sans font-light transition-all duration-200 border",
+                active ? "bg-foreground text-background border-foreground" : "bg-transparent text-foreground border-border hover:border-foreground/40"
+              )}>
+              {active && <Check className="w-3 h-3" />}
+              {c.label}
+            </button>
+          );
+        })}
       </div>
 
       {hasAny && (
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="carter-card p-6 space-y-6">
+
+          {/* ══════ TWO-COLUMN LAYOUT ══════ */}
           <div className="flex gap-8 items-start flex-col lg:flex-row">
 
-            {/* ── LEFT: Pie + sliders + Q2/Q3 ── */}
+            {/* ── LEFT COLUMN: Camembert principal ── */}
             <div className="lg:w-[45%] space-y-5">
               <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">Répartition de l'activité</p>
 
-              {/* Pie Chart */}
               <div className="flex-shrink-0 mx-auto" style={{ width: 240 }}>
                 <ResponsiveContainer width={240} height={240}>
                   <PieChart>
@@ -218,14 +189,14 @@ const RestructuringActivityPanel = () => {
                 })}
               </div>
 
-              {/* ── Q2: Zoom restructuring ── */}
+              {/* Q1: Restructuring sub-breakdown */}
               {hasRestr && (
                 <div className="space-y-3 pt-3 border-t border-border">
-                  <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">Q2 – Zoom restructuring</p>
-                  <p className="text-[9px] text-muted-foreground font-sans italic">Répartition amiable vs judiciaire</p>
+                  <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">Détail restructuring</p>
+                  <p className="text-[10px] text-muted-foreground font-sans italic">Procédures amiables vs. judiciaires</p>
                   {[
-                    { key: 'amiable', label: 'Amiable', sub: '(mandat ad hoc, conciliation)', val: amiableVal, color: COL_AMIABLE },
-                    { key: 'judiciaire', label: 'Judiciaire', sub: '(sauvegarde, RJ, LJ + contentieux liés)', val: judiciaireVal, color: COL_JUDICIAIRE },
+                    { key: 'amiable', label: 'Procédures amiables', sub: '(mandat ad hoc, conciliation)', val: amiableVal, color: COL_AMIABLE },
+                    { key: 'judiciaire', label: 'Procédures judiciaires', sub: '(sauvegarde, RJ, LJ)', val: judiciaireVal, color: COL_JUDICIAIRE },
                   ].map(sub => (
                     <div key={sub.key} className="space-y-1">
                       <div className="flex items-center justify-between">
@@ -242,14 +213,13 @@ const RestructuringActivityPanel = () => {
                 </div>
               )}
 
-              {/* ── Q3: Détail judiciaire ── */}
-              {hasJudiciaire && (
-                <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} className="space-y-3 pt-3 border-t border-border">
-                  <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">Q3 – Détail judiciaire</p>
-                  <p className="text-[9px] text-muted-foreground font-sans italic">Nature de l'activité judiciaire</p>
+              {/* Q2: Contentieux sub-breakdown */}
+              {hasCont && (
+                <div className="space-y-3 pt-3 border-t border-border">
+                  <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">Détail contentieux</p>
                   {[
-                    { key: 'pc_pures', label: 'Procédures collectives "pures"', sub: '(accompagnement des procédures)', val: pcPuresVal, color: COL_PC_PURES },
-                    { key: 'cont_lies', label: 'Contentieux liés aux PC', sub: '(contentieux liés aux procédures collectives)', val: contLiesVal, color: COL_CONT_LIES },
+                    { key: 'cont_pc', label: 'Cont. procédures collectives', val: contPCVal, color: COL_CONT_PC },
+                    { key: 'cont_comm', label: 'Cont. commercial général', val: contCommVal, color: COL_CONT_COMM },
                   ].map(sub => (
                     <div key={sub.key} className="space-y-1">
                       <div className="flex items-center justify-between">
@@ -257,73 +227,77 @@ const RestructuringActivityPanel = () => {
                           <div className="w-2 h-2 rounded-sm" style={{ backgroundColor: sub.color }} />
                           <span className="text-xs font-sans text-foreground">{sub.label}</span>
                         </div>
-                        <span className="text-xs font-sans font-bold text-foreground">{judSubTotal > 0 ? Math.round((sub.val / judSubTotal) * 100) : 0}%</span>
+                        <span className="text-xs font-sans font-bold text-foreground">{contSubTotal > 0 ? Math.round((sub.val / contSubTotal) * 100) : 0}%</span>
                       </div>
-                      <p className="text-[9px] text-muted-foreground font-sans ml-4">{sub.sub}</p>
-                      <Slider value={[sub.val]} onValueChange={([v]) => handleSubChange('restr_judiciaire', sub.key, v)} min={0} max={100} step={10} className="w-full" />
+                      <Slider value={[sub.val]} onValueChange={([v]) => handleSubChange('restr_contentieux', sub.key, v)} min={0} max={100} step={10} className="w-full" />
                     </div>
                   ))}
-                </motion.div>
+                </div>
+              )}
+
+              {/* Q3: Restructuring financier */}
+              {hasRestr && (
+                <div className="space-y-2 pt-3 border-t border-border">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 rounded-sm" style={{ backgroundColor: COL_RESTR_FIN }} />
+                      <span className="text-xs font-sans text-foreground">Restructuring financier</span>
+                    </div>
+                    <span className="text-xs font-sans font-bold text-foreground">{restrFinancier}%</span>
+                  </div>
+                  <Slider value={[restrFinancier]} onValueChange={([v]) => store.setField('restrFinancier', v)} min={0} max={100} step={10} className="w-full" />
+                  <p className="text-[9px] text-muted-foreground font-sans">Part de votre activité totale en restructuring financier</p>
+                </div>
               )}
             </div>
 
-            {/* ── RIGHT: Q4, Q5, Q6 ── */}
+            {/* ── RIGHT COLUMN: Indicateurs complémentaires ── */}
             <div className="lg:w-[55%] space-y-5">
 
-              {/* ── Q4: Positionnement client ── */}
+              {/* Q4: Positionnement */}
               <div className="space-y-3">
                 <div className="flex items-center gap-2">
                   <Briefcase className="w-3.5 h-3.5 text-muted-foreground" />
-                  <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">Q4 – Positionnement client</p>
+                  <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">Positionnement dans les dossiers</p>
                 </div>
                 <p className="text-[10px] text-muted-foreground font-sans">Vous intervenez principalement pour :</p>
                 <div className="flex flex-wrap gap-2">
-                  {(['debiteurs', 'creanciers', 'mixte'] as const).map(opt => {
-                    const labels: Record<string, string> = { debiteurs: 'Débiteurs', creanciers: 'Créanciers', mixte: 'Mixte' };
-                    const active = debiteurCreancier === opt;
+                  {POSITIONNEMENT_OPTIONS.map(opt => {
+                    const active = store.positionnementRestr.includes(opt);
                     return (
-                      <button key={opt} type="button" onClick={() => store.setField('restrDebiteurCreancier', active ? '' : opt)}
+                      <button key={opt} type="button" onClick={() => toggleList('positionnementRestr', opt)}
                         className={cn(
-                          "inline-flex items-center gap-1.5 px-4 py-2 rounded-sm text-sm font-sans font-light transition-all duration-200 border",
+                          "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-sm text-xs font-sans font-light transition-all duration-200 border",
                           active ? "bg-foreground text-background border-foreground" : "bg-transparent text-foreground border-border hover:border-foreground/40"
                         )}>
                         {active && <Check className="w-3 h-3" />}
-                        {labels[opt]}
+                        {opt}
                       </button>
                     );
                   })}
                 </div>
-
-                {/* Q4bis: slider if mixte */}
-                {debiteurCreancier === 'mixte' && (
-                  <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} className="space-y-2 pt-2">
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs font-sans text-foreground">Débiteurs</span>
-                      <span className="text-xs font-sans font-bold text-foreground">{debiteurPct}%</span>
-                    </div>
-                    <Slider value={[debiteurPct]} onValueChange={([v]) => store.setField('restrDebiteurPct', v)} min={0} max={100} step={10} className="w-full" />
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs font-sans text-foreground">Créanciers</span>
-                      <span className="text-xs font-sans font-bold text-foreground">{100 - debiteurPct}%</span>
-                    </div>
-                    <div className="h-2.5 rounded-full overflow-hidden flex border border-border">
-                      <div className="h-full transition-all duration-300" style={{ width: `${debiteurPct}%`, backgroundColor: COL_RESTR }} />
-                      <div className="h-full transition-all duration-300" style={{ width: `${100 - debiteurPct}%`, backgroundColor: COL_CONT_AFF }} />
-                    </div>
+                {/* Visual bar */}
+                {store.positionnementRestr.length > 0 && (
+                  <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex gap-1 h-6 rounded-sm overflow-hidden">
+                    {store.positionnementRestr.map((opt, i) => (
+                      <div key={opt} className="flex-1 flex items-center justify-center text-[9px] font-sans font-medium text-background"
+                        style={{ backgroundColor: `hsl(215, ${50 - i * 8}%, ${30 + i * 8}%)` }}>
+                        {opt.split(' ')[0]}
+                      </div>
+                    ))}
                   </motion.div>
                 )}
               </div>
 
-              {/* ── Q5: Typologie de clientèle ── */}
+              {/* Q5: Typologie clientèle */}
               <div className="space-y-3 pt-4 border-t border-border">
                 <div className="flex items-center gap-2">
                   <Building2 className="w-3.5 h-3.5 text-muted-foreground" />
-                  <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">Q5 – Typologie de clientèle</p>
+                  <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">Typologie de clientèle</p>
                 </div>
-                <p className="text-[10px] text-muted-foreground font-sans">Sélectionnez les typologies pertinentes :</p>
                 <div className="flex flex-wrap gap-2">
                   {CLIENTELE_OPTIONS.map(opt => {
-                    const active = clienteleSelected.includes(opt);
+                    const active = store.clienteleRestr.includes(opt);
                     return (
                       <button key={opt} type="button" onClick={() => toggleList('clienteleRestr', opt)}
                         className={cn(
@@ -336,60 +310,19 @@ const RestructuringActivityPanel = () => {
                     );
                   })}
                 </div>
-
-                {/* Q5bis: optional pondération */}
-                {showClientelePcts && (
-                  <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} className="space-y-3 pt-2">
-                    <p className="text-[9px] text-muted-foreground font-sans italic">Répartition approximative (facultatif, total = 100%)</p>
-                    {clienteleSelected.map(opt => {
-                      const val = clientelePcts[opt] || 0;
-                      return (
-                        <div key={opt} className="space-y-1">
-                          <div className="flex items-center justify-between">
-                            <span className="text-xs font-sans text-foreground truncate">{opt}</span>
-                            <span className="text-xs font-sans font-bold text-foreground">{val}%</span>
-                          </div>
-                          <Slider value={[val]} onValueChange={([v]) => handleClientelePct(opt, v)} min={0} max={100} step={10} className="w-full" />
-                        </div>
-                      );
-                    })}
-                    {clientelePctTotal > 0 && clientelePctTotal !== 100 && (
-                      <p className={cn("text-[9px] font-sans", clientelePctTotal > 100 ? "text-destructive" : "text-muted-foreground")}>
-                        Total : {clientelePctTotal}% {clientelePctTotal !== 100 && '(ajustez pour atteindre 100%)'}
-                      </p>
-                    )}
+                {/* Visual pills */}
+                {store.clienteleRestr.length > 0 && (
+                  <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex flex-wrap gap-1.5">
+                    {store.clienteleRestr.map(opt => (
+                      <span key={opt} className="px-2.5 py-1 rounded-sm bg-muted text-[10px] font-sans font-medium text-foreground">
+                        {opt}
+                      </span>
+                    ))}
                   </motion.div>
                 )}
               </div>
 
-              {/* ── Q6: Focus reprises / situations spéciales ── */}
-              {hasReprises && (
-                <div className="space-y-3 pt-4 border-t border-border">
-                  <div className="flex items-center gap-2">
-                    <ArrowRightLeft className="w-3.5 h-3.5 text-muted-foreground" />
-                    <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">Q6 – Focus reprises / distressed M&A</p>
-                  </div>
-                  <p className="text-[10px] text-muted-foreground font-sans">Dans les opérations de reprise, vous intervenez principalement :</p>
-                  <div className="flex flex-wrap gap-2">
-                    {(['repreneurs', 'cedants', 'les_deux'] as const).map(opt => {
-                      const labels: Record<string, string> = { repreneurs: 'Côté repreneurs / investisseurs', cedants: 'Côté cédants / débiteurs', les_deux: 'Les deux' };
-                      const active = store.restrRepriseSide === opt;
-                      return (
-                        <button key={opt} type="button" onClick={() => store.setField('restrRepriseSide', active ? '' : opt)}
-                          className={cn(
-                            "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-sm text-xs font-sans font-light transition-all duration-200 border",
-                            active ? "bg-foreground text-background border-foreground" : "bg-transparent text-foreground border-border hover:border-foreground/40"
-                          )}>
-                          {active && <Check className="w-3 h-3" />}
-                          {labels[opt]}
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-              )}
-
-              {/* Origine clientèle */}
+              {/* Q6: Origine clientèle */}
               <div className="space-y-3 pt-4 border-t border-border">
                 <div className="flex items-center gap-2">
                   <Globe className="w-3.5 h-3.5 text-muted-foreground" />
@@ -401,6 +334,7 @@ const RestructuringActivityPanel = () => {
                     <span className="text-xs font-sans font-bold text-foreground">{store.clienteleFrancaise}%</span>
                   </div>
                   <Slider value={[store.clienteleFrancaise]} onValueChange={([v]) => store.setField('clienteleFrancaise', v)} min={0} max={100} step={10} className="w-full" />
+                  {/* Gauge */}
                   <div className="h-3 rounded-full overflow-hidden flex border border-border">
                     <div className="bg-foreground/70 h-full transition-all duration-300" style={{ width: `${store.clienteleFrancaise}%` }} />
                     <div className="bg-foreground/15 h-full transition-all duration-300" style={{ width: `${100 - store.clienteleFrancaise}%` }} />
