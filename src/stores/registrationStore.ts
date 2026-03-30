@@ -53,6 +53,10 @@ const initialState = {
   positionnementRestr: [] as string[],
   clienteleRestr: [] as string[],
   restrFinancier: 0,
+  restrDebiteurCreancier: '' as '' | 'debiteurs' | 'creanciers' | 'mixte',
+  restrDebiteurPct: 50,
+  restrClientelePcts: {} as Record<string, number>,
+  restrRepriseSide: '' as '' | 'repreneurs' | 'cedants' | 'les_deux',
   // Droit Social
   socialConseil: 50,
   socialRelationType: '' as '' | 'individuelles' | 'collectives' | 'les_deux',
