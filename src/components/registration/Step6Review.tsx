@@ -165,16 +165,16 @@ const Step6Review = () => {
   }, [store.cabinet, store.departement]);
 
   const SectionCard = ({ title, children, className: cls }: { title: string; children: React.ReactNode; className?: string }) => (
-    <div className={cn("rounded-sm border border-border bg-card p-6", cls)}>
-      <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-light mb-4">{title}</p>
+    <div className={cn("rounded-sm border border-border bg-card p-5", cls)}>
+      <p className="text-[9px] uppercase tracking-[0.15em] text-muted-foreground font-sans font-light mb-3">{title}</p>
       {children}
     </div>
   );
 
   const DataRow = ({ label, value }: { label: string; value: string }) => (
     <div>
-      <span className="text-[10px] text-muted-foreground font-sans font-light">{label}</span>
-      <p className="text-sm font-sans font-medium mt-0.5">{value || '—'}</p>
+      <span className="text-[9px] text-muted-foreground font-sans font-light">{label}</span>
+      <p className="text-[13px] font-sans font-normal mt-0.5 text-foreground">{value || '—'}</p>
     </div>
   );
 
