@@ -660,15 +660,10 @@ const Step2Identity = () => {
               <ArrowLeft className="w-4 h-4" />
               Retour
             </Button>
-            <div className="flex items-center gap-3">
-              <Button variant="ghost" onClick={store.nextStep} className="font-sans font-light text-muted-foreground text-xs rounded-sm">
-                Passer cette étape
-              </Button>
-              <Button onClick={store.nextStep} disabled={!canProceed} className="bg-foreground text-background hover:bg-foreground/90 font-sans font-medium rounded-sm gap-2">
-                Continuer
-                <ArrowRight className="w-4 h-4" />
-              </Button>
-            </div>
+            <Button onClick={store.nextStep} disabled={!canProceed} className="bg-foreground text-background hover:bg-foreground/90 font-sans font-medium rounded-sm gap-2">
+              Continuer
+              <ArrowRight className="w-4 h-4" />
+            </Button>
           </div>
         </div>
       </div>
