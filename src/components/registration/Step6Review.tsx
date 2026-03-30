@@ -340,8 +340,8 @@ const Step6Review = () => {
       className="max-w-3xl mx-auto px-6 py-10"
     >
       <div className="carter-divider mb-6" />
-      <h2 className="text-3xl font-serif text-foreground mb-2 font-normal tracking-[-0.02em]">Récapitulatif</h2>
-      <p className="text-muted-foreground font-sans text-sm font-light mb-8">Vérifiez vos informations avant de soumettre votre profil.</p>
+      <h2 className="text-2xl font-serif text-foreground mb-2 font-normal tracking-[-0.02em]">Récapitulatif</h2>
+      <p className="text-muted-foreground font-sans text-xs font-light mb-8">Vérifiez vos informations avant de soumettre votre profil.</p>
 
       {/* Tabs */}
       <div className="flex gap-px mb-10 bg-border rounded-sm overflow-hidden">
