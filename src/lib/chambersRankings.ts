@@ -63,7 +63,7 @@ export const CHAMBERS_DB: Record<string, ChambersFirmEntry> = {
   // ── Darrois Villey Maillot Brochier ──
   'Darrois Villey Maillot Brochier': {
     nat: 'FR',
-    rankings: { ma: 1, restructuring: 4, public: 2, arbitrage: 4, concurrence: 2 },
+    rankings: { ma: 1, restructuring: 4, public: 2, arbitrage: 4, concurrence: 2, tax: 2 },
   },
   // ── De Pardieu Brocas Maffei ──
   'De Pardieu Brocas Maffei': {
