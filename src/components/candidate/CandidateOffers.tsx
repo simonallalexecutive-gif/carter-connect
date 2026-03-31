@@ -20,9 +20,9 @@ const PRACTICE_FILTERS = [
 
 const NAT_FILTERS = [
   { key: 'all', label: 'Toutes', flag: '' },
-  { key: 'FR', label: 'Français', flag: '🇫🇷' },
-  { key: 'US', label: 'US', flag: '🇺🇸' },
-  { key: 'UK', label: 'UK', flag: '🇬🇧' },
+  { key: 'FR', label: 'FR', flag: 'FR' },
+  { key: 'US', label: 'US', flag: 'US' },
+  { key: 'UK', label: 'UK', flag: 'UK' },
 ];
 
 const SENIORITY_FILTERS = [
