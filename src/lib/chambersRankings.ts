@@ -138,7 +138,7 @@ export const CHAMBERS_DB: Record<string, ChambersFirmEntry> = {
   // ── McDermott Will & Emery ──
   'McDermott Will & Emery': {
     nat: 'US',
-    rankings: { pe: 3, banque: 5, restructuring: 4, public: 4 },
+    rankings: { pe: 3, banque: 5, restructuring: 4, public: 4, tax: 4 },
   },
   // ── Moncey Avocats ──
   'Moncey Avocats': {
