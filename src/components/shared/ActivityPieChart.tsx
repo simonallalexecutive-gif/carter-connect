@@ -78,7 +78,7 @@ const ActivityPieChart = ({
             <div key={item.name} className="flex items-center gap-1.5">
               <span
                 className="w-2.5 h-2.5 rounded-sm flex-shrink-0"
-                style={{ background: BLUE_PALETTE[i % BLUE_PALETTE.length] }}
+                style={{ background: palette[i % palette.length] }}
               />
               <span className={`text-[10px] ${darkMode ? 'text-white/60' : 'text-muted-foreground'}`}>
                 {item.name} ({item.value}%)
