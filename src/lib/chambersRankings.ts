@@ -235,6 +235,7 @@ export const CHAMBERS_KEY_TO_PRACTICE: Record<string, string> = {
   public: 'Public Law',
   arbitrage: 'International Arbitration',
   projets: 'Projects & Energy',
+  tax: 'Tax',
 };
 
 /**
