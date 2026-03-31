@@ -208,6 +208,43 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
             ) : null;
           })()}
 
+          {/* Department — using Chambers nomenclature */}
+          <div className="mb-6">
+            <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2 block">
+              Département concerné par la recherche
+            </label>
+            <div className="flex gap-2 flex-wrap">
+              {[
+                { key: 'ma', label: 'Corporate/M&A' },
+                { key: 'pe', label: 'Private Equity' },
+                { key: 'banque', label: 'Banking & Finance' },
+                { key: 'restructuring', label: 'Restructuring/Insolvency' },
+                { key: 'public', label: 'Public Law' },
+                { key: 'arbitrage', label: 'International Arbitration' },
+                { key: 'social', label: 'Employment' },
+                { key: 'concurrence', label: 'Competition/European Law' },
+                { key: 'immo', label: 'Real Estate' },
+                { key: 'projets', label: 'Projects & Energy' },
+                { key: 'tax', label: 'Tax' },
+              ].map((dept) => (
+                <button
+                  key={dept.key}
+                  onClick={() => {
+                    s.setField('currentSearchDeptLabel', dept.label);
+                    s.setField('currentSearchDept', dept.key);
+                  }}
+                  className={cn(
+                    'px-4 py-2 rounded-sm border text-[11px] transition-all',
+                    s.currentSearchDeptLabel === dept.label ? 'bg-foreground text-background border-foreground' : 'bg-background text-muted-foreground border-border hover:border-foreground hover:text-foreground'
+                  )}
+                >
+                  {dept.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Expertise — using Chambers nomenclature */}
           <div className="mb-6">
             <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2 block">
               Expertise recherchée <span className="font-normal normal-case tracking-normal text-[10px] text-border">plusieurs choix possibles</span>
