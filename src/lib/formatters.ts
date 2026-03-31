@@ -25,8 +25,13 @@ export function unformatNumber(value: string): string {
 export function formatPhoneWithDots(value: string): string {
   // Keep digits and leading +
   const hasPlus = value.startsWith('+');
-  const digits = value.replace(/\D/g, '');
+  let digits = value.replace(/\D/g, '');
   if (!digits) return hasPlus ? '+' : '';
+
+  // Limit to 10 digits for local numbers
+  if (!hasPlus) {
+    digits = digits.slice(0, 10);
+  }
 
   if (hasPlus) {
     // International format: +33 6 50 10 20 30 → +33.6.50.10.20.30
