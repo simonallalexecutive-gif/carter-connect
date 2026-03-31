@@ -515,7 +515,9 @@ const Step2Identity = () => {
 
         {/* Cabinet — FIRST */}
         <div>
-          <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Cabinet actuel *</Label>
+          <div className="flex items-center gap-2">
+            <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Cabinet actuel *</Label>
+          </div>
           <AutocompleteInput
             data={allCabinets}
             value={store.cabinet}

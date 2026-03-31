@@ -9,15 +9,9 @@ import { ArrowLeft, ArrowRight } from 'lucide-react';
 const Step5Status = () => {
   const store = useRegistrationStore();
   const isAdmin = store.isAdminMode;
-  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const canProceed = store.statutEcoute !== '' && store.visibilite !== '' &&
     (isAdmin || (store.consentement && store.consentementExactitude && store.consentementMiseEnRelation));
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0] || null;
-    store.setField('cvFile', file);
-  };
 
   return (
     <motion.div
