@@ -133,7 +133,7 @@ export const CHAMBERS_DB: Record<string, ChambersFirmEntry> = {
   // ── Mayer Brown ──
   'Mayer Brown': {
     nat: 'US',
-    rankings: { pe: 2, banque: 4, arbitrage: 3, concurrence: 4, projets: 4 },
+    rankings: { pe: 2, banque: 4, arbitrage: 3, concurrence: 4, projets: 4, tax: 2 },
   },
   // ── McDermott Will & Emery ──
   'McDermott Will & Emery': {
