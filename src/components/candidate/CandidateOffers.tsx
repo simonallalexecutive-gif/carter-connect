@@ -77,7 +77,8 @@ const CandidateOffers = () => {
       'Concurrence': ['Concurrence', 'Competition/EU'],
       'Droit Public': ['Droit Public', 'Public Law'],
     };
-    if (departement) {
+    // Only filter by practice if candidate has a departement set
+    if (departement && departement.length > 0) {
       const relatedDepts = RELATED_DEPTS[departement] || [departement];
       offers = offers.filter(o => {
         if (relatedDepts.some(d => o.dept === d || o.dept.includes(d))) return true;
