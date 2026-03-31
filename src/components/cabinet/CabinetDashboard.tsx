@@ -562,7 +562,9 @@ const ProfileDrawer = ({ profile: p, onClose }: { profile: CabinetProfile; onClo
       <div className="fixed inset-0 bg-foreground/30 z-[399]" onClick={onClose} />
       <div className="fixed top-0 right-0 bottom-0 w-[500px] bg-background shadow-2xl z-[400] overflow-y-auto border-l border-border">
         <div className="sticky top-0 bg-background border-b border-border p-4 flex items-center justify-between z-10">
-          <span className="text-[12px] font-bold tracking-[0.06em] uppercase text-foreground font-sans">Profil anonymisé du candidat</span>
+          <span className="text-[12px] font-bold tracking-[0.06em] uppercase text-foreground font-sans">
+            {status}{senDetail ? ` — ${senDetail}` : ''}{p.pqe ? ` · ${p.pqe} d'exercice` : ''}
+          </span>
           <button onClick={onClose} className="bg-secondary rounded-full w-7 h-7 flex items-center justify-center hover:bg-border">
             <X className="w-4 h-4" />
           </button>
