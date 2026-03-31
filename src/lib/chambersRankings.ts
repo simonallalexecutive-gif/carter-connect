@@ -88,7 +88,7 @@ export const CHAMBERS_DB: Record<string, ChambersFirmEntry> = {
   // ── Gide Loyrette Nouel ──
   'Gide Loyrette Nouel': {
     nat: 'FR',
-    rankings: { ma: 2, banque: 1, public: 1, arbitrage: 3, social: 2, concurrence: 2, immo: 1, projets: 1 },
+    rankings: { ma: 2, banque: 1, public: 1, arbitrage: 3, social: 2, concurrence: 2, immo: 1, projets: 1, tax: 3 },
   },
   // ── Goodwin Procter ──
   'Goodwin Procter': {
