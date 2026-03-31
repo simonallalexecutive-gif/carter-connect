@@ -14,6 +14,7 @@ const CabinetStep2Identity = () => {
   const [acQuery, setAcQuery] = useState('');
   const [acOpen, setAcOpen] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [cabinetLogoUrl, setCabinetLogoUrl] = useState<string | null>(null);
 
   const passwordChecks = {
     length: s.password.length >= 8,
