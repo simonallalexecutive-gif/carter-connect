@@ -560,8 +560,7 @@ const Step6Review = () => {
             </div>
           </SectionCard>
 
-          {/* Footer */}
-          <div className="border-t border-border pt-4">
+          <div className="p-4">
             <p className="text-[10px] font-sans font-light text-muted-foreground">
               Non visible par les cabinets : nom, prénom, email, téléphone, nom du cabinet actuel, cabinets exclus.
             </p>
