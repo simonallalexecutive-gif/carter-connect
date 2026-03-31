@@ -576,7 +576,9 @@ const ProfileDrawer = ({ profile: p, onClose }: { profile: CabinetProfile; onClo
               <User className="w-7 h-7 text-white/60" />
             </div>
             <div>
-              <p className="font-sans text-lg font-semibold text-foreground">Profil anonymisé du candidat</p>
+              <p className="font-sans text-lg font-semibold text-foreground">
+                {status}{senDetail ? ` — ${senDetail}` : ''}{p.pqe ? ` · ${p.pqe} d'exercice` : ''}
+              </p>
               <p className="text-[11px] text-muted-foreground font-sans mt-0.5">{p.id} · {p.deptLabel}</p>
             </div>
           </div>
