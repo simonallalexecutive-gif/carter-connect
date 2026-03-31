@@ -164,8 +164,8 @@ const Step6Review = () => {
     };
   }, [store.cabinet, store.departement]);
 
-  const SectionCard = ({ title, children, className: cls }: { title: string; children: React.ReactNode; className?: string }) => (
-    <div className={cn("rounded-sm border border-border bg-card p-5", cls)}>
+  const SectionCard = ({ title, children, className: cls, noBorder }: { title: string; children: React.ReactNode; className?: string; noBorder?: boolean }) => (
+    <div className={cn(noBorder ? "bg-card p-5" : "rounded-sm border border-border bg-card p-5", cls)}>
       <p className="text-[9px] uppercase tracking-[0.15em] text-muted-foreground font-sans font-light mb-3">{title}</p>
       {children}
     </div>
@@ -459,7 +459,7 @@ const Step6Review = () => {
           {/* Statut */}
           <SectionCard title="Statut">
             <div className="grid grid-cols-2 gap-4">
-              <DataRow label="Écoute" value={store.statutEcoute === 'actif' ? 'Actif' : store.statutEcoute === 'passif' ? 'Passif' : store.statutEcoute === 'inactif' ? 'Inactif' : '—'} />
+              <DataRow label="Écoute" value={store.statutEcoute === 'actif' ? 'En recherche active' : store.statutEcoute === 'passif' ? 'À l\'écoute' : '—'} />
               <DataRow label="Visibilité" value={store.visibilite === 'confidentiel' ? 'Confidentiel – fermé' : store.visibilite === 'semi-confidentiel' ? 'Confidentiel – ouvert' : '—'} />
               {store.disponibilite && <DataRow label="Disponibilité" value={store.disponibilite} />}
             </div>
@@ -469,8 +469,8 @@ const Step6Review = () => {
 
       {/* ═══ VUE CABINET (anonymisée) ═══ */}
       {previewMode === 'cabinet' && (
-        <div className="space-y-5">
-          <div className="rounded-sm p-4 bg-secondary/50 border border-border">
+        <div className="space-y-0 border border-border rounded-sm overflow-hidden divide-y divide-border">
+          <div className="p-4 bg-secondary/50">
             <p className="text-xs font-sans font-light text-muted-foreground flex items-center gap-2">
               <Eye className="w-3.5 h-3.5" />
               Voici ce que les cabinets partenaires verront. Votre identité est totalement protégée.
@@ -478,10 +478,10 @@ const Step6Review = () => {
           </div>
 
           {/* Anonymized header */}
-          <SectionCard title="Profil anonymisé">
+          <SectionCard title="Profil anonymisé" noBorder>
             <div className="flex items-center gap-4 mb-5">
-              <div className="w-14 h-14 rounded-full bg-secondary flex items-center justify-center text-muted-foreground font-serif text-xl">
-                ?
+              <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[hsl(215,20%,30%)] to-[hsl(215,15%,20%)] flex items-center justify-center shadow-inner">
+                <User className="w-6 h-6 text-white/40" />
               </div>
               <div>
                 <p className="font-serif text-lg text-foreground">Profil anonyme</p>
@@ -499,7 +499,7 @@ const Step6Review = () => {
 
           {/* Rémunération (anonymized — same data, no identity) */}
           {(store.retrocession || store.bonus) && (
-            <SectionCard title="Rémunération">
+            <SectionCard title="Rémunération" noBorder>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                 {store.retrocession && <DataRow label="Rétrocession" value={`${store.retrocession} €`} />}
                 {store.bonus && <DataRow label="Bonus" value={`${store.bonus} €`} />}
@@ -514,7 +514,7 @@ const Step6Review = () => {
           )}
 
           {/* Activité */}
-          <SectionCard title="Activité">
+          <SectionCard title="Activité" noBorder>
             <ActivitySummaryCard />
             <div className="mt-4 grid grid-cols-2 gap-3">
               <TagList items={store.tailleOperations} label="Taille opérations" />
@@ -525,7 +525,7 @@ const Step6Review = () => {
 
           {/* Associé / Counsel */}
           {store.isAssocieOrCounsel && (
-            <SectionCard title={store.statutAssoc === 'associe' ? 'Associé' : 'Counsel'}>
+            <SectionCard title={store.statutAssoc === 'associe' ? 'Associé' : 'Counsel'} noBorder>
               <div className="grid grid-cols-2 gap-4">
                 {store.chiffreAffairesPortable && <DataRow label="CA portable" value={`${store.chiffreAffairesPortable} €`} />}
               </div>
@@ -534,7 +534,7 @@ const Step6Review = () => {
           )}
 
           {/* Projet (sans identité, sans cabinets exclus qui pourraient révéler l'identité) */}
-          <SectionCard title="Projet">
+          <SectionCard title="Projet" noBorder>
             <div className="space-y-3">
               {store.movePriorities.length > 0 && (
                 <div>
@@ -553,15 +553,14 @@ const Step6Review = () => {
           </SectionCard>
 
           {/* Statut */}
-          <SectionCard title="Statut">
+          <SectionCard title="Statut" noBorder>
             <div className="grid grid-cols-2 gap-4">
-              <DataRow label="Écoute" value={store.statutEcoute === 'actif' ? 'Actif' : store.statutEcoute === 'passif' ? 'Passif' : '—'} />
+              <DataRow label="Écoute" value={store.statutEcoute === 'actif' ? 'En recherche active' : store.statutEcoute === 'passif' ? 'À l\'écoute' : '—'} />
               {store.disponibilite && <DataRow label="Disponibilité" value={store.disponibilite} />}
             </div>
           </SectionCard>
 
-          {/* Footer */}
-          <div className="border-t border-border pt-4">
+          <div className="p-4">
             <p className="text-[10px] font-sans font-light text-muted-foreground">
               Non visible par les cabinets : nom, prénom, email, téléphone, nom du cabinet actuel, cabinets exclus.
             </p>
