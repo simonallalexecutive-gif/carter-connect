@@ -208,6 +208,43 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
             ) : null;
           })()}
 
+          {/* Department — using Chambers nomenclature */}
+          <div className="mb-6">
+            <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2 block">
+              Département concerné par la recherche
+            </label>
+            <div className="flex gap-2 flex-wrap">
+              {[
+                { key: 'ma', label: 'Corporate/M&A' },
+                { key: 'pe', label: 'Private Equity' },
+                { key: 'banque', label: 'Banking & Finance' },
+                { key: 'restructuring', label: 'Restructuring/Insolvency' },
+                { key: 'public', label: 'Public Law' },
+                { key: 'arbitrage', label: 'International Arbitration' },
+                { key: 'social', label: 'Employment' },
+                { key: 'concurrence', label: 'Competition/European Law' },
+                { key: 'immo', label: 'Real Estate' },
+                { key: 'projets', label: 'Projects & Energy' },
+                { key: 'tax', label: 'Tax' },
+              ].map((dept) => (
+                <button
+                  key={dept.key}
+                  onClick={() => {
+                    s.setField('currentSearchDeptLabel', dept.label);
+                    s.setField('currentSearchDept', dept.key);
+                  }}
+                  className={cn(
+                    'px-4 py-2 rounded-sm border text-[11px] transition-all',
+                    s.currentSearchDeptLabel === dept.label ? 'bg-foreground text-background border-foreground' : 'bg-background text-muted-foreground border-border hover:border-foreground hover:text-foreground'
+                  )}
+                >
+                  {dept.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Expertise — using Chambers nomenclature */}
           <div className="mb-6">
             <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2 block">
               Expertise recherchée <span className="font-normal normal-case tracking-normal text-[10px] text-border">plusieurs choix possibles</span>
@@ -355,7 +392,7 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
           <div className="mb-6">
             <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2 block">Pratique de l'anglais</label>
             <div className="flex gap-2 flex-wrap">
-              {['Courant / Bilingue', 'Professionnel', 'Non requis'].map((e) => (
+              {['Bilingue', 'Professionnel', 'Non requise'].map((e) => (
                 <button
                   key={e}
                   onClick={() => s.setField('english', e)}
@@ -365,31 +402,6 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
                   )}
                 >
                   {e}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Department */}
-          <div className="mb-6">
-            <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2 block">
-              Département concerné par la recherche
-            </label>
-            <div className="flex gap-2 flex-wrap">
-              {['M&A', 'Private Equity', 'Banque & Finance', 'Droit Social', 'Fiscal', 'Concurrence', 'Restructuring', 'Droit Public'].map((dept) => (
-                <button
-                  key={dept}
-                  onClick={() => {
-                    s.setField('currentSearchDeptLabel', dept);
-                    const keyMap: Record<string, string> = { 'M&A': 'ma', 'Private Equity': 'pe', 'Banque & Finance': 'banque', 'Droit Social': 'social', 'Fiscal': 'fiscal', 'Concurrence': 'concurrence', 'Restructuring': 'restructuring', 'Droit Public': 'droit-public' };
-                    s.setField('currentSearchDept', keyMap[dept] || dept.toLowerCase());
-                  }}
-                  className={cn(
-                    'px-4 py-2 rounded-sm border text-[11px] transition-all',
-                    s.currentSearchDeptLabel === dept ? 'bg-foreground text-background border-foreground' : 'bg-background text-muted-foreground border-border hover:border-foreground hover:text-foreground'
-                  )}
-                >
-                  {dept}
                 </button>
               ))}
             </div>
@@ -460,7 +472,7 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
 
           <div className="mb-6">
             <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2 block">
-              Y a-t-il un objectif annuel d'heures facturables ?
+              Objectif d'heures facturables / an
             </label>
             <div className="flex gap-2 mb-3">
               {['Oui', 'Non'].map((v) => (
@@ -469,7 +481,7 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
                   onClick={() => s.setField('hasHeures', v === 'Oui')}
                   className={cn(
                     'px-4 py-2 rounded-sm border text-[11px] transition-all',
-                    (v === 'Oui' && s.hasHeures) || (v === 'Non' && !s.hasHeures && s.heures === '' && s.bonusDesc === '' ? false : v === 'Non' && !s.hasHeures)
+                    (v === 'Oui' && s.hasHeures) || (v === 'Non' && !s.hasHeures)
                       ? 'bg-foreground text-background border-foreground'
                       : 'bg-background text-muted-foreground border-border hover:border-foreground'
                   )}
@@ -480,7 +492,7 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
             </div>
 
             {s.hasHeures && (
-              <div className="animate-fade-in space-y-4">
+              <div className="animate-fade-in space-y-4 p-4 rounded border border-border bg-secondary/20">
                 <div>
                   <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-1.5 block">
                     Objectif d'heures
@@ -490,6 +502,55 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
                     <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[11px] text-muted-foreground">h/an</span>
                   </div>
                 </div>
+
+                <div>
+                  <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2 block">
+                    Système de bonus si objectif atteint
+                  </label>
+                  <div className="flex gap-2 flex-wrap mb-3">
+                    {['Bonus discrétionnaire', 'Bonus performance', 'Les deux'].map((bt) => (
+                      <button
+                        key={bt}
+                        onClick={() => {
+                          s.setField('bonusEnabled', true);
+                          s.setField('bonusTypes', [bt]);
+                        }}
+                        className={cn(
+                          'px-4 py-2 rounded-sm border text-[11px] transition-all',
+                          s.bonusTypes.includes(bt)
+                            ? 'bg-foreground text-background border-foreground'
+                            : 'bg-background text-muted-foreground border-border hover:border-foreground'
+                        )}
+                      >
+                        {bt}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {s.bonusTypes.length > 0 && (
+                  <div>
+                    <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-1.5 block">
+                      Fourchette du bonus si objectif atteint
+                    </label>
+                    <div className="grid grid-cols-2 gap-3 max-w-md">
+                      <div className="relative">
+                        <Input value={s.bonusDesc?.split('-')[0]?.trim() || ''} onChange={(e) => {
+                          const max = s.bonusDesc?.split('-')[1]?.trim() || '';
+                          s.setField('bonusDesc', `${formatNumberWithDots(e.target.value)}${max ? ` - ${max}` : ''}`);
+                        }} placeholder="Min — Ex : 5.000" className="bg-background pr-8" />
+                        <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[11px] text-muted-foreground">€</span>
+                      </div>
+                      <div className="relative">
+                        <Input value={s.bonusDesc?.split('-')[1]?.trim() || ''} onChange={(e) => {
+                          const min = s.bonusDesc?.split('-')[0]?.trim() || '';
+                          s.setField('bonusDesc', `${min} - ${formatNumberWithDots(e.target.value)}`);
+                        }} placeholder="Max — Ex : 20.000" className="bg-background pr-8" />
+                        <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[11px] text-muted-foreground">€</span>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             )}
           </div>

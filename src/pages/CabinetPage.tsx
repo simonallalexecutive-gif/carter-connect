@@ -8,13 +8,14 @@ import CabinetStep4Subscription from '@/components/cabinet/CabinetStep4Subscript
 import CabinetStep5Validation from '@/components/cabinet/CabinetStep5Validation';
 import CabinetStep6Confirm from '@/components/cabinet/CabinetStep6Confirm';
 import CabinetDashboard from '@/components/cabinet/CabinetDashboard';
+import CabinetAccount from '@/components/cabinet/CabinetAccount';
 import { useEffect, useState } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
 import { NAT_FLAGS, NAT_LABELS } from '@/lib/legal500Rankings';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { Building2, Eye, FileText, LogOut, Home, Bell } from 'lucide-react';
+import { Building2, Eye, FileText, LogOut, Home, Bell, Settings } from 'lucide-react';
 import CabinetNotificationAlerts from '@/components/cabinet/CabinetNotificationAlerts';
 import {
   SidebarProvider,
@@ -29,12 +30,13 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar';
 
-type CabinetTabKey = 'dashboard' | 'explore' | 'newSearch';
+type CabinetTabKey = 'dashboard' | 'explore' | 'newSearch' | 'account';
 
 const CABINET_TABS: { key: CabinetTabKey; label: string; icon: typeof Building2 }[] = [
   { key: 'dashboard', label: 'Tableau de bord', icon: Building2 },
   { key: 'explore', label: 'Explorer le marché', icon: Eye },
   { key: 'newSearch', label: 'Nouvelle recherche', icon: FileText },
+  { key: 'account', label: 'Mon compte', icon: Settings },
 ];
 
 const CabinetSidebar = ({
@@ -52,8 +54,8 @@ const CabinetSidebar = ({
   const s = useCabinetStore();
 
   return (
-    <Sidebar collapsible="icon" className="border-r border-border bg-black">
-      <SidebarContent className="bg-black text-white py-6 flex flex-col justify-between h-full">
+    <Sidebar collapsible="icon" className="border-r border-white/[0.06]" style={{ background: 'hsl(0, 0%, 7%)' }}>
+      <SidebarContent className="text-white py-6 flex flex-col justify-between h-full" style={{ background: 'hsl(0, 0%, 7%)' }}>
         <div>
           {/* Logo */}
           <div className={`px-4 mb-8 ${collapsed ? 'text-center' : ''}`}>
@@ -142,15 +144,21 @@ const CabinetDashboardLayout = () => {
   const s = useCabinetStore();
   const { user } = useAuth();
   const [showAlerts, setShowAlerts] = useState(false);
+  const [showAccount, setShowAccount] = useState(false);
 
   const getActiveTab = (): CabinetTabKey => {
+    if (showAccount) return 'account';
     if (s.dashboardView === 'explore') return 'explore';
     if (s.dashboardView === 'newSearch') return 'newSearch';
     return 'dashboard';
   };
 
   const setActiveTab = (tab: CabinetTabKey) => {
-    if (tab === 'explore') {
+    setShowAccount(false);
+    if (tab === 'account') {
+      setShowAccount(true);
+      s.setField('dashboardView', 'home');
+    } else if (tab === 'explore') {
       s.setField('dashboardView', 'explore');
     } else if (tab === 'newSearch') {
       s.resetSearch();
@@ -197,7 +205,7 @@ const CabinetDashboardLayout = () => {
 
           {/* Content */}
           <main className="flex-1 py-10 px-6 sm:px-8 lg:px-10 max-w-5xl mx-auto w-full">
-            <CabinetDashboard />
+            {showAccount ? <CabinetAccount /> : <CabinetDashboard />}
           </main>
 
           {/* Footer info */}

@@ -16,7 +16,7 @@ const PALIER_MAP: Record<string, string> = {
   enterprise: 'Enterprise · Sur devis',
 };
 
-// Aligned with CHAMBERS_DEPARTMENTS from candidate registration (chambersRankings.ts)
+// Aligned with CHAMBERS_DEPARTMENTS (now includes Tax)
 const FILTERS = [
   { key: 'all', label: 'Tous' },
   { key: 'ma', label: 'Corporate/M&A' },
@@ -29,6 +29,7 @@ const FILTERS = [
   { key: 'concurrence', label: 'Competition/European Law' },
   { key: 'immo', label: 'Real Estate' },
   { key: 'projets', label: 'Projects & Energy' },
+  { key: 'tax', label: 'Tax' },
   { key: 'new', label: '🔔 Nouveaux' },
 ];
 
@@ -399,7 +400,7 @@ const ExploreView = ({
     <div>
       <button
         onClick={() => s.setField('dashboardView', 'home')}
-        className="text-xs text-muted-foreground hover:text-foreground mb-6 flex items-center gap-1"
+        className="text-xs text-white/50 hover:text-white mb-6 flex items-center gap-1"
       >
         ← Retour au tableau de bord
       </button>
@@ -467,7 +468,7 @@ const ExploreView = ({
         </div>
       </div>
 
-      {/* Grid */}
+      {/* Grid — dark matte cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {filtered.map((p) => {
           const status = getStatusLabel(p);
@@ -479,39 +480,40 @@ const ExploreView = ({
             <div
               key={p.id}
               onClick={() => setDrawerProfile(p)}
-              className="rounded-lg p-5 cursor-pointer transition-all hover:shadow-lg hover:-translate-y-0.5 relative border border-border bg-secondary"
+              className="rounded-lg p-5 cursor-pointer transition-all hover:shadow-lg hover:-translate-y-0.5 relative"
+              style={{ background: 'hsl(0, 0%, 8%)' }}
             >
               {p.isNew && (
-                <span className="absolute top-3 right-3 text-[7px] font-bold tracking-[0.12em] uppercase bg-foreground text-background px-2 py-0.5 rounded-sm">NOUVEAU</span>
+                <span className="absolute top-3 right-3 text-[7px] font-bold tracking-[0.12em] uppercase bg-white text-black px-2 py-0.5 rounded-sm">NOUVEAU</span>
               )}
-              <div className="text-[9px] text-muted-foreground tracking-[0.08em] mb-2 font-sans">{p.id}</div>
-              <div className="font-sans text-sm font-semibold text-foreground mb-1 leading-tight">
-                {status}{senDetail ? ` — ${senDetail}` : ''}{p.pqe ? ` · ${p.pqe} d'exercice` : ''}
+              <div className="text-[9px] text-white/35 tracking-[0.08em] mb-2 font-sans">{p.id}</div>
+              <div className="font-sans text-sm font-semibold text-white mb-1 leading-tight">
+                {status}{senDetail ? ` — ${senDetail}` : ''}{p.pqe ? ` · ${p.pqe}` : ''}
               </div>
-              <div className="font-sans text-[13px] text-foreground mb-2">{p.deptLabel}</div>
+              <div className="font-sans text-[13px] text-white/70 mb-2">{p.deptLabel}</div>
 
               {/* Expertises from activity split */}
               {Object.keys(p.split).length > 0 && (
                 <div className="flex flex-wrap gap-1.5 mb-3">
                   {Object.keys(p.split).map((expertise) => (
-                    <span key={expertise} className="text-[9px] font-medium px-2 py-0.5 rounded-sm bg-secondary text-foreground border border-border">{expertise}</span>
+                    <span key={expertise} className="text-[9px] font-medium px-2 py-0.5 rounded-sm bg-white/[0.08] text-white/70 border border-white/[0.12]">{expertise}</span>
                   ))}
                 </div>
               )}
 
               {/* Key info */}
-              <div className="space-y-1.5 text-[11px] font-sans border-t border-border pt-3">
+              <div className="space-y-1.5 text-[11px] font-sans border-t border-white/[0.1] pt-3">
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">Nationalité du cabinet</span>
-                  <span className="font-medium text-foreground">{natLabel}</span>
+                  <span className="text-white/40">Nationalité du cabinet</span>
+                  <span className="font-medium text-white/80">{natLabel}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">Reconnu Chambers</span>
-                  <span className={cn('font-medium', chambers ? 'text-foreground' : 'text-muted-foreground')}>{chambers ? 'Oui' : 'Non'}</span>
+                  <span className="text-white/40">Reconnu Chambers</span>
+                  <span className={cn('font-medium', chambers ? 'text-white/80' : 'text-white/40')}>{chambers ? 'Oui' : 'Non'}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">Recherche active</span>
-                  <span className="font-medium text-foreground">{p.disponibilite === 'Immédiate' ? 'Oui' : 'Non'}</span>
+                  <span className="text-white/40">Recherche active</span>
+                  <span className="font-medium text-white/80">{p.disponibilite === 'Immédiate' ? 'Oui' : 'Non'}</span>
                 </div>
               </div>
             </div>
@@ -563,7 +565,7 @@ const ProfileDrawer = ({ profile: p, onClose }: { profile: CabinetProfile; onClo
       <div className="fixed top-0 right-0 bottom-0 w-[500px] bg-background shadow-2xl z-[400] overflow-y-auto border-l border-border">
         <div className="sticky top-0 bg-background border-b border-border p-4 flex items-center justify-between z-10">
           <span className="text-[12px] font-bold tracking-[0.06em] uppercase text-foreground font-sans">
-            {status}{senDetail ? ` — ${senDetail}` : ''}{p.pqe ? ` · ${p.pqe} d'exercice` : ''}
+            {status}{senDetail ? ` — ${senDetail}` : ''}{p.pqe ? ` · ${p.pqe}` : ''}
           </span>
           <button onClick={onClose} className="bg-secondary rounded-full w-7 h-7 flex items-center justify-center hover:bg-border">
             <X className="w-4 h-4" />
@@ -577,7 +579,7 @@ const ProfileDrawer = ({ profile: p, onClose }: { profile: CabinetProfile; onClo
             </div>
             <div>
               <p className="font-sans text-lg font-semibold text-foreground">
-                {status}{senDetail ? ` — ${senDetail}` : ''}{p.pqe ? ` · ${p.pqe} d'exercice` : ''}
+                Profil anonymisé du candidat
               </p>
               <p className="text-[11px] text-muted-foreground font-sans mt-0.5">{p.id} · {p.deptLabel}</p>
             </div>
@@ -591,7 +593,7 @@ const ProfileDrawer = ({ profile: p, onClose }: { profile: CabinetProfile; onClo
             </div>
             <div>
               <span className="text-[9px] uppercase tracking-[0.1em] text-muted-foreground font-sans">Ancienneté</span>
-              <p className="text-sm font-sans font-semibold mt-0.5">{p.pqe} d'exercice</p>
+              <p className="text-sm font-sans font-semibold mt-0.5">{p.pqe}</p>
             </div>
             <div>
               <span className="text-[9px] uppercase tracking-[0.1em] text-muted-foreground font-sans">Nationalité du cabinet</span>

@@ -21,13 +21,14 @@ export const CHAMBERS_DEPARTMENTS: { key: string; label: string }[] = [
   { key: 'concurrence', label: 'Competition/European Law' },
   { key: 'immo', label: 'Real Estate' },
   { key: 'projets', label: 'Projects & Energy' },
+  { key: 'tax', label: 'Tax' },
 ];
 
 export const CHAMBERS_DB: Record<string, ChambersFirmEntry> = {
   // ── A&O Shearman ──
   'A&O Shearman': {
     nat: 'UK',
-    rankings: { ma: 2, pe: 4, banque: 1, restructuring: 5, public: 1, arbitrage: 4, social: 2, concurrence: 4, immo: 2, projets: 4 },
+    rankings: { ma: 2, pe: 4, banque: 1, restructuring: 5, public: 1, arbitrage: 4, social: 2, concurrence: 4, immo: 2, projets: 4, tax: 3 },
   },
   // ── Ashurst ──
   'Ashurst': {
@@ -37,7 +38,7 @@ export const CHAMBERS_DB: Record<string, ChambersFirmEntry> = {
   // ── Baker McKenzie ──
   'Baker McKenzie': {
     nat: 'US',
-    rankings: { ma: 4, banque: 5, public: 2, social: 3, concurrence: 3, immo: 3 },
+    rankings: { ma: 4, banque: 5, public: 2, social: 3, concurrence: 3, immo: 3, tax: 2 },
   },
   // ── BDGS Associés ──
   'BDGS Associés': {
@@ -47,37 +48,37 @@ export const CHAMBERS_DB: Record<string, ChambersFirmEntry> = {
   // ── Bredin Prat ──
   'Bredin Prat': {
     nat: 'FR',
-    rankings: { ma: 1, pe: 3, banque: 2, restructuring: 2, public: 3, arbitrage: 2, social: 1, concurrence: 1 },
+    rankings: { ma: 1, pe: 3, banque: 2, restructuring: 2, public: 3, arbitrage: 2, social: 1, concurrence: 1, tax: 1 },
   },
   // ── Cleary Gottlieb Steen & Hamilton ──
   'Cleary Gottlieb Steen & Hamilton': {
     nat: 'US',
-    rankings: { ma: 1, arbitrage: 3, concurrence: 2, projets: 3 },
+    rankings: { ma: 1, arbitrage: 3, concurrence: 2, projets: 3, tax: 2 },
   },
   // ── Clifford Chance ──
   'Clifford Chance': {
     nat: 'UK',
-    rankings: { ma: 2, pe: 3, banque: 2, restructuring: 3, public: 1, arbitrage: 2, social: 2, concurrence: 2, immo: 2, projets: 1 },
+    rankings: { ma: 2, pe: 3, banque: 2, restructuring: 3, public: 1, arbitrage: 2, social: 2, concurrence: 2, immo: 2, projets: 1, tax: 2 },
   },
   // ── Darrois Villey Maillot Brochier ──
   'Darrois Villey Maillot Brochier': {
     nat: 'FR',
-    rankings: { ma: 1, restructuring: 4, public: 2, arbitrage: 4, concurrence: 2 },
+    rankings: { ma: 1, restructuring: 4, public: 2, arbitrage: 4, concurrence: 2, tax: 2 },
   },
   // ── De Pardieu Brocas Maffei ──
   'De Pardieu Brocas Maffei': {
     nat: 'FR',
-    rankings: { ma: 4, pe: 3, banque: 3, restructuring: 1, immo: 1, social: 4, concurrence: 2 },
+    rankings: { ma: 4, pe: 3, banque: 3, restructuring: 1, immo: 1, social: 4, concurrence: 2, tax: 3 },
   },
   // ── DLA Piper ──
   'DLA Piper': {
     nat: 'UK',
-    rankings: { banque: 5, social: 3, arbitrage: 4, immo: 3 },
+    rankings: { banque: 5, social: 3, arbitrage: 4, immo: 3, tax: 4 },
   },
   // ── Freshfields Bruckhaus Deringer ──
   'Freshfields Bruckhaus Deringer': {
     nat: 'UK',
-    rankings: { ma: 2, pe: 2, banque: 2, restructuring: 3, public: 4, arbitrage: 2, social: 2, concurrence: 2 },
+    rankings: { ma: 2, pe: 2, banque: 2, restructuring: 3, public: 4, arbitrage: 2, social: 2, concurrence: 2, tax: 3 },
   },
   // ── Gibson Dunn & Crutcher ──
   'Gibson Dunn & Crutcher': {
@@ -87,12 +88,12 @@ export const CHAMBERS_DB: Record<string, ChambersFirmEntry> = {
   // ── Gide Loyrette Nouel ──
   'Gide Loyrette Nouel': {
     nat: 'FR',
-    rankings: { ma: 2, banque: 1, public: 1, arbitrage: 3, social: 2, concurrence: 2, immo: 1, projets: 1 },
+    rankings: { ma: 2, banque: 1, public: 1, arbitrage: 3, social: 2, concurrence: 2, immo: 1, projets: 1, tax: 3 },
   },
   // ── Goodwin Procter ──
   'Goodwin Procter': {
     nat: 'US',
-    rankings: { pe: 2, banque: 4 },
+    rankings: { pe: 2, banque: 4, tax: 4 },
   },
   // ── Herbert Smith Freehills ──
   'Herbert Smith Freehills': {
@@ -102,12 +103,12 @@ export const CHAMBERS_DB: Record<string, ChambersFirmEntry> = {
   // ── Hogan Lovells ──
   'Hogan Lovells': {
     nat: 'US',
-    rankings: { ma: 4, pe: 3, banque: 2, restructuring: 2, arbitrage: 4, social: 4, concurrence: 4, projets: 2 },
+    rankings: { ma: 4, pe: 3, banque: 2, restructuring: 2, arbitrage: 4, social: 4, concurrence: 4, projets: 2, tax: 5 },
   },
   // ── Jones Day ──
   'Jones Day': {
     nat: 'US',
-    rankings: { ma: 4, banque: 4, restructuring: 5, public: 1, arbitrage: 3, social: 5, concurrence: 4, immo: 4, projets: 4 },
+    rankings: { ma: 4, banque: 4, restructuring: 5, public: 1, arbitrage: 3, social: 5, concurrence: 4, immo: 4, projets: 4, tax: 5 },
   },
   // ── King & Spalding ──
   'King & Spalding': {
@@ -117,27 +118,27 @@ export const CHAMBERS_DB: Record<string, ChambersFirmEntry> = {
   // ── Kirkland & Ellis ──
   'Kirkland & Ellis': {
     nat: 'US',
-    rankings: { pe: 2 },
+    rankings: { pe: 2, tax: 4 },
   },
   // ── Latham & Watkins ──
   'Latham & Watkins': {
     nat: 'US',
-    rankings: { ma: 3, pe: 1, banque: 1, restructuring: 2, social: 5, concurrence: 1 },
+    rankings: { ma: 3, pe: 1, banque: 1, restructuring: 2, social: 5, concurrence: 1, tax: 2 },
   },
   // ── Linklaters ──
   'Linklaters': {
     nat: 'UK',
-    rankings: { ma: 3, pe: 3, banque: 2, restructuring: 2, public: 4, arbitrage: 4, concurrence: 1, immo: 3, projets: 1 },
+    rankings: { ma: 3, pe: 3, banque: 2, restructuring: 2, public: 4, arbitrage: 4, concurrence: 1, immo: 3, projets: 1, tax: 3 },
   },
   // ── Mayer Brown ──
   'Mayer Brown': {
     nat: 'US',
-    rankings: { pe: 2, banque: 4, arbitrage: 3, concurrence: 4, projets: 4 },
+    rankings: { pe: 2, banque: 4, arbitrage: 3, concurrence: 4, projets: 4, tax: 2 },
   },
   // ── McDermott Will & Emery ──
   'McDermott Will & Emery': {
     nat: 'US',
-    rankings: { pe: 3, banque: 5, restructuring: 4, public: 4 },
+    rankings: { pe: 3, banque: 5, restructuring: 4, public: 4, tax: 4 },
   },
   // ── Moncey Avocats ──
   'Moncey Avocats': {
@@ -147,12 +148,12 @@ export const CHAMBERS_DB: Record<string, ChambersFirmEntry> = {
   // ── Orrick Herrington & Sutcliffe ──
   'Orrick Herrington & Sutcliffe': {
     nat: 'US',
-    rankings: { ma: 4, restructuring: 4, public: 3, social: 3, concurrence: 5, projets: 2 },
+    rankings: { ma: 4, restructuring: 4, public: 3, social: 3, concurrence: 5, projets: 2, tax: 5 },
   },
   // ── Paul Hastings ──
   'Paul Hastings': {
     nat: 'US',
-    rankings: { pe: 2, banque: 3 },
+    rankings: { pe: 2, banque: 3, tax: 4 },
   },
   // ── Proskauer Rose ──
   'Proskauer Rose': {
@@ -172,17 +173,17 @@ export const CHAMBERS_DB: Record<string, ChambersFirmEntry> = {
   // ── Sullivan & Cromwell ──
   'Sullivan & Cromwell': {
     nat: 'US',
-    rankings: { ma: 3 },
+    rankings: { ma: 3, tax: 2 },
   },
   // ── Weil Gotshal & Manges ──
   'Weil Gotshal & Manges': {
     nat: 'US',
-    rankings: { ma: 2, pe: 1, banque: 2, restructuring: 1, public: 2, concurrence: 5 },
+    rankings: { ma: 2, pe: 1, banque: 2, restructuring: 1, public: 2, concurrence: 5, tax: 3 },
   },
   // ── White & Case ──
   'White & Case': {
     nat: 'US',
-    rankings: { ma: 3, banque: 1, restructuring: 1, public: 2, arbitrage: 1, concurrence: 3, immo: 4, projets: 4 },
+    rankings: { ma: 3, banque: 1, restructuring: 1, public: 2, arbitrage: 1, concurrence: 3, immo: 4, projets: 4, tax: 4 },
   },
   // ── Willkie Farr & Gallagher ──
   'Willkie Farr & Gallagher': {
@@ -234,6 +235,7 @@ export const CHAMBERS_KEY_TO_PRACTICE: Record<string, string> = {
   public: 'Public Law',
   arbitrage: 'International Arbitration',
   projets: 'Projects & Energy',
+  tax: 'Tax',
 };
 
 /**
