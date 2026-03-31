@@ -93,7 +93,7 @@ export const CHAMBERS_DB: Record<string, ChambersFirmEntry> = {
   // ── Goodwin Procter ──
   'Goodwin Procter': {
     nat: 'US',
-    rankings: { pe: 2, banque: 4 },
+    rankings: { pe: 2, banque: 4, tax: 4 },
   },
   // ── Herbert Smith Freehills ──
   'Herbert Smith Freehills': {
