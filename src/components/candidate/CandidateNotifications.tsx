@@ -78,7 +78,7 @@ const CandidateNotifications = () => {
                       {notif.type === 'interest' && offer && offer.ranking && (
                         <div className="flex items-center gap-2 mb-2">
                           <span className="inline-flex items-center gap-2 text-[12px] font-sans text-foreground bg-secondary border border-border rounded-full px-3 py-1">
-                            <span className="text-xs font-bold leading-none">{offer.natFlag}</span>
+                            <span className="text-xs font-bold leading-none">{getOfferNatFlag(offer)}</span>
                             <span className="font-semibold">{offer.ranking}</span>
                           </span>
                         </div>
