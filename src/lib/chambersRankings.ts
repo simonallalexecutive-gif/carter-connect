@@ -178,7 +178,7 @@ export const CHAMBERS_DB: Record<string, ChambersFirmEntry> = {
   // ── Weil Gotshal & Manges ──
   'Weil Gotshal & Manges': {
     nat: 'US',
-    rankings: { ma: 2, pe: 1, banque: 2, restructuring: 1, public: 2, concurrence: 5 },
+    rankings: { ma: 2, pe: 1, banque: 2, restructuring: 1, public: 2, concurrence: 5, tax: 3 },
   },
   // ── White & Case ──
   'White & Case': {
