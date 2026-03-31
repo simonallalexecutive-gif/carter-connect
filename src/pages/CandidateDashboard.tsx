@@ -26,10 +26,12 @@ import CandidateProcesses from '@/components/candidate/CandidateProcesses';
 import CandidateRequests from '@/components/candidate/CandidateRequests';
 import CandidateNotifications from '@/components/candidate/CandidateNotifications';
 import CandidateBooking from '@/components/candidate/CandidateBooking';
+import CandidateDashboardOverview from '@/components/candidate/CandidateDashboardOverview';
 
-type TabKey = 'offres' | 'profil' | 'demandes' | 'processus' | 'notifications' | 'booking';
+type TabKey = 'dashboard' | 'offres' | 'profil' | 'demandes' | 'processus' | 'notifications' | 'booking';
 
 const TABS: { key: TabKey; label: string; icon: typeof Briefcase }[] = [
+  { key: 'dashboard', label: 'Tableau de bord', icon: Home },
   { key: 'offres', label: 'Opportunités', icon: Briefcase },
   { key: 'demandes', label: 'Demandes', icon: Send },
   { key: 'processus', label: 'Processus', icon: Clock },
