@@ -4,8 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Checkbox } from '@/components/ui/checkbox';
-import { ArrowLeft, ArrowRight, Plus, FileText, X, ShieldCheck } from 'lucide-react';
-import { useRef } from 'react';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
 
 const Step5Status = () => {
   const store = useRegistrationStore();
