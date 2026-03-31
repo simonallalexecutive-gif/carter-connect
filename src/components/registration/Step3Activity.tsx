@@ -163,7 +163,7 @@ const Step3Activity = () => {
                 className="overflow-hidden"
               >
                 <div className="border border-border rounded-sm p-6 md:p-8">
-                  <h3 className="font-sans text-sm font-medium text-foreground tracking-tight mb-6">Répartition des dossiers</h3>
+                  <h3 className="font-serif text-lg text-foreground tracking-[-0.01em] mb-6">Répartition des dossiers</h3>
 
                   <div className="flex flex-col md:flex-row gap-8 items-center md:items-start">
                     {/* Pie chart */}
@@ -241,7 +241,7 @@ const Step3Activity = () => {
                 {/* Clientèle + Taille */}
                 <div className="border border-border rounded-sm p-6 md:p-8 mt-4 space-y-6">
                   <div>
-                    <h3 className="font-sans text-sm font-medium text-foreground tracking-tight mb-4">Clientèle</h3>
+                    <h3 className="font-serif text-lg text-foreground tracking-[-0.01em] mb-4">Clientèle</h3>
                     <div className="flex items-center justify-between mb-3">
                       <span className="text-sm font-sans text-foreground">Clientèle française</span>
                       <span className="text-sm font-sans font-bold text-foreground tabular-nums">{store.clienteleFrancaise}%</span>
@@ -266,7 +266,7 @@ const Step3Activity = () => {
                   </div>
 
                   <div className="border-t border-border pt-5">
-                    <h3 className="font-sans text-sm font-medium text-foreground tracking-tight mb-3">Taille des opérations</h3>
+                    <h3 className="font-serif text-lg text-foreground tracking-[-0.01em] mb-3">Taille des opérations</h3>
                     <div className="flex flex-wrap gap-2">
                       {['Small cap', 'Mid cap', 'Large cap'].map(t => {
                         const active = (store.tailleOperations || []).includes(t);

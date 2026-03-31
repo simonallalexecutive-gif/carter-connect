@@ -365,9 +365,9 @@ const Step6Review = () => {
 
       {/* ═══ RECAP COMPLET ═══ */}
       {previewMode === 'recap' && (
-        <div className="space-y-5">
+        <div className="border border-border rounded-sm overflow-hidden">
           {/* Identity */}
-          <SectionCard title="Identité">
+          <SectionCard title="Identité" noBorder>
             <div className="flex items-start gap-5 mb-5">
               {store.photoPreviewUrl ? (
                 <img src={store.photoPreviewUrl} alt="" className="w-14 h-14 rounded-full object-cover border border-border flex-shrink-0" />
@@ -393,7 +393,7 @@ const Step6Review = () => {
 
           {/* Rémunération */}
           {(store.retrocession || store.bonus) && (
-            <SectionCard title="Rémunération">
+            <SectionCard title="Rémunération" noBorder>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                 {store.retrocession && <DataRow label="Rétrocession" value={`${store.retrocession} €`} />}
                 {store.bonus && <DataRow label="Bonus" value={`${store.bonus} €`} />}
@@ -410,7 +410,7 @@ const Step6Review = () => {
           )}
 
           {/* Activité */}
-          <SectionCard title="Activité">
+          <SectionCard title="Activité" noBorder>
             <ActivitySummaryCard />
             <div className="mt-4 grid grid-cols-2 gap-3">
               <TagList items={store.tailleOperations} label="Taille opérations" />
@@ -421,7 +421,7 @@ const Step6Review = () => {
 
           {/* Associé / Counsel */}
           {store.isAssocieOrCounsel && (
-            <SectionCard title={store.statutAssoc === 'associe' ? 'Associé' : 'Counsel'}>
+            <SectionCard title={store.statutAssoc === 'associe' ? 'Associé' : 'Counsel'} noBorder>
               <div className="grid grid-cols-2 gap-4">
                 {store.chiffreAffairesPortable && <DataRow label="CA portable" value={`${store.chiffreAffairesPortable} €`} />}
                 {store.assocExpertiseSummary && <DataRow label="Expertise" value={store.assocExpertiseSummary} />}
@@ -432,7 +432,7 @@ const Step6Review = () => {
           )}
 
           {/* Projet */}
-          <SectionCard title="Projet">
+          <SectionCard title="Projet" noBorder>
             <div className="space-y-3">
               {store.movePriorities.length > 0 && (
                 <div>
@@ -457,7 +457,7 @@ const Step6Review = () => {
           </SectionCard>
 
           {/* Statut */}
-          <SectionCard title="Statut">
+          <SectionCard title="Statut" noBorder>
             <div className="grid grid-cols-2 gap-4">
               <DataRow label="Écoute" value={store.statutEcoute === 'actif' ? 'En recherche active' : store.statutEcoute === 'passif' ? 'À l\'écoute' : '—'} />
               <DataRow label="Visibilité" value={store.visibilite === 'confidentiel' ? 'Confidentiel – fermé' : store.visibilite === 'semi-confidentiel' ? 'Confidentiel – ouvert' : '—'} />
@@ -469,7 +469,7 @@ const Step6Review = () => {
 
       {/* ═══ VUE CABINET (anonymisée) ═══ */}
       {previewMode === 'cabinet' && (
-        <div className="space-y-0 border border-border rounded-sm overflow-hidden divide-y divide-border">
+        <div className="border border-border rounded-sm overflow-hidden">
           <div className="p-4 bg-secondary/50">
             <p className="text-xs font-sans font-light text-muted-foreground flex items-center gap-2">
               <Eye className="w-3.5 h-3.5" />

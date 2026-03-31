@@ -161,12 +161,12 @@ const CandidateDashboardContent = () => {
 
       <div className="flex-1 flex flex-col min-h-screen">
         {/* Top bar - blue/grey background */}
-        <header className="flex items-center border-b border-border bg-[hsl(215,20%,92%)] px-6 py-5 gap-5">
+        <header className="flex items-center border-b border-border bg-[hsl(215,22%,78%)] px-8 py-6 gap-5">
           <SidebarTrigger className="text-foreground/60 hover:text-foreground" />
           <div className="flex items-center gap-5 flex-1 min-w-0">
-            <Avatar className="w-11 h-11 border border-[hsl(215,15%,80%)] shrink-0">
+            <Avatar className="w-12 h-12 border-2 border-white/40 shrink-0">
               {photoPreviewUrl ? <AvatarImage src={photoPreviewUrl} alt="Photo" /> : null}
-              <AvatarFallback className="bg-[hsl(215,15%,85%)] text-foreground text-[11px] font-sans">
+              <AvatarFallback className="bg-white/20 text-foreground text-[12px] font-sans">
                 {prenom && nom ? `${prenom[0]}${nom[0]}` : <User className="w-4 h-4" />}
               </AvatarFallback>
             </Avatar>
@@ -174,30 +174,30 @@ const CandidateDashboardContent = () => {
               <h1 className="text-lg md:text-xl font-sans font-normal text-foreground leading-tight tracking-[-0.01em]">
                 Bienvenue{prenom ? `, ${prenom}` : user.user_metadata?.full_name ? `, ${user.user_metadata.full_name}` : ''}
               </h1>
-              <div className="flex flex-wrap items-center gap-2 mt-1.5">
+              <div className="flex flex-wrap items-center gap-2 mt-2">
                 {departement && (
-                  <span className="inline-flex items-center gap-1 text-[9px] text-[hsl(215,20%,35%)] bg-[hsl(215,18%,85%)] border border-[hsl(215,15%,78%)] rounded-sm px-2 py-0.5 font-sans font-medium">
-                    <Star className="w-2.5 h-2.5" />{departement}
+                  <span className="inline-flex items-center gap-1.5 text-[10px] text-foreground bg-white border border-white/80 rounded-sm px-2.5 py-1 font-sans font-medium shadow-sm">
+                    <Star className="w-3 h-3" />{departement}
                   </span>
                 )}
                 {cabinet && (
-                  <span className="inline-flex items-center gap-1 text-[9px] text-[hsl(215,20%,35%)] bg-[hsl(215,18%,85%)] border border-[hsl(215,15%,78%)] rounded-sm px-2 py-0.5 font-sans font-medium">
-                    <Building2 className="w-2.5 h-2.5" />{cabinet}
+                  <span className="inline-flex items-center gap-1.5 text-[10px] text-foreground bg-white border border-white/80 rounded-sm px-2.5 py-1 font-sans font-medium shadow-sm">
+                    <Building2 className="w-3 h-3" />{cabinet}
                   </span>
                 )}
                 {seniorityInfo && (
-                  <span className="text-[9px] text-[hsl(215,20%,35%)] bg-[hsl(215,18%,85%)] border border-[hsl(215,15%,78%)] rounded-sm px-2 py-0.5 font-sans font-medium">
+                  <span className="text-[10px] text-foreground bg-white border border-white/80 rounded-sm px-2.5 py-1 font-sans font-medium shadow-sm">
                     {seniorityInfo.label} · {seniorityInfo.years} ans
                   </span>
                 )}
                 {statutLabel && (
-                  <span className="text-[9px] text-[hsl(215,20%,35%)] bg-[hsl(215,18%,85%)] border border-[hsl(215,15%,78%)] rounded-sm px-2 py-0.5 font-sans font-medium">
+                  <span className="text-[10px] text-foreground bg-white border border-white/80 rounded-sm px-2.5 py-1 font-sans font-medium shadow-sm">
                     {statutLabel}
                   </span>
                 )}
                 {visibiliteLabel && (
-                  <span className="inline-flex items-center gap-1 text-[9px] text-[hsl(215,20%,35%)] bg-[hsl(215,18%,85%)] border border-[hsl(215,15%,78%)] rounded-sm px-2 py-0.5 font-sans font-medium">
-                    <Eye className="w-2.5 h-2.5" />{visibiliteLabel}
+                  <span className="inline-flex items-center gap-1.5 text-[10px] text-foreground bg-white border border-white/80 rounded-sm px-2.5 py-1 font-sans font-medium shadow-sm">
+                    <Eye className="w-3 h-3" />{visibiliteLabel}
                   </span>
                 )}
               </div>
