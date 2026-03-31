@@ -576,7 +576,7 @@ const Step6Review = () => {
           )}
 
           {/* Projet (sans identité, sans cabinets exclus qui pourraient révéler l'identité) */}
-          <SectionCard title="Projet" noBorder>
+          <SectionCard title="Projet">
             <div className="space-y-3">
               {store.movePriorities.length > 0 && (
                 <div>
