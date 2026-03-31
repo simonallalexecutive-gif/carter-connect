@@ -463,7 +463,7 @@ const Step6Review = () => {
 
           {/* Associé / Counsel */}
           {store.isAssocieOrCounsel && (
-            <SectionCard title={store.statutAssoc === 'associe' ? 'Associé' : 'Counsel'} noBorder>
+            <SectionCard title={store.statutAssoc === 'associe' ? 'Associé' : 'Counsel'}>
               <div className="grid grid-cols-2 gap-4">
                 {store.chiffreAffairesPortable && <DataRow label="CA portable" value={`${store.chiffreAffairesPortable} €`} />}
                 {store.assocExpertiseSummary && <DataRow label="Expertise" value={store.assocExpertiseSummary} />}
