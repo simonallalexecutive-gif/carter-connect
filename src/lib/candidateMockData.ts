@@ -21,11 +21,11 @@ export interface CandidateOffer {
   chambersBand?: number;
   /** Chambers department key matching CHAMBERS_DEPARTMENTS */
   chambersDeptKey?: string;
-  /** Flag emoji for display */
+  /** Nationality label for display */
   natFlag?: string;
 }
 
-const NAT_TO_FLAG: Record<string, string> = { FR: '🇫🇷', US: '🇺🇸', UK: '🇬🇧' };
+const NAT_TO_FLAG: Record<string, string> = { FR: 'FR', US: 'US', UK: 'UK' };
 
 /** Helper to get natFlag from nat */
 export function getOfferNatFlag(offer: CandidateOffer): string {
