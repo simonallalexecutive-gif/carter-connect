@@ -68,7 +68,7 @@ export const CHAMBERS_DB: Record<string, ChambersFirmEntry> = {
   // ── De Pardieu Brocas Maffei ──
   'De Pardieu Brocas Maffei': {
     nat: 'FR',
-    rankings: { ma: 4, pe: 3, banque: 3, restructuring: 1, immo: 1, social: 4, concurrence: 2 },
+    rankings: { ma: 4, pe: 3, banque: 3, restructuring: 1, immo: 1, social: 4, concurrence: 2, tax: 3 },
   },
   // ── DLA Piper ──
   'DLA Piper': {
