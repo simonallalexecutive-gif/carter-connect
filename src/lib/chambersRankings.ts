@@ -73,7 +73,7 @@ export const CHAMBERS_DB: Record<string, ChambersFirmEntry> = {
   // ── DLA Piper ──
   'DLA Piper': {
     nat: 'UK',
-    rankings: { banque: 5, social: 3, arbitrage: 4, immo: 3 },
+    rankings: { banque: 5, social: 3, arbitrage: 4, immo: 3, tax: 4 },
   },
   // ── Freshfields Bruckhaus Deringer ──
   'Freshfields Bruckhaus Deringer': {
