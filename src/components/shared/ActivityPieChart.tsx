@@ -57,7 +57,7 @@ const ActivityPieChart = ({
             strokeWidth={2}
           >
             {chartData.map((_, i) => (
-              <Cell key={i} fill={BLUE_PALETTE[i % BLUE_PALETTE.length]} />
+              <Cell key={i} fill={palette[i % palette.length]} />
             ))}
           </Pie>
           <Tooltip
