@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { useRegistrationStore } from '@/stores/registrationStore';
 import { usePQE } from '@/hooks/usePQE';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
-import { User, Building2, Star, Briefcase, FileText, Clock, Bell, Send, LogOut, Home, Phone } from 'lucide-react';
+import { User, Building2, Star, Briefcase, FileText, Clock, Bell, Send, LogOut, Home, Phone, Plus, X, ShieldCheck, Eye } from 'lucide-react';
 import {
   SidebarProvider,
   Sidebar,
@@ -25,17 +25,12 @@ import CandidateRequests from '@/components/candidate/CandidateRequests';
 import CandidateNotifications from '@/components/candidate/CandidateNotifications';
 import CandidateBooking from '@/components/candidate/CandidateBooking';
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] as const } },
-};
-
-type TabKey = 'offres' | 'profil' | 'processus' | 'demandes' | 'notifications' | 'booking';
+type TabKey = 'offres' | 'profil' | 'demandes' | 'processus' | 'notifications' | 'booking';
 
 const TABS: { key: TabKey; label: string; icon: typeof Briefcase }[] = [
-  { key: 'offres', label: 'Offres', icon: Briefcase },
-  { key: 'processus', label: 'Processus', icon: Clock },
+  { key: 'offres', label: 'Opportunités', icon: Briefcase },
   { key: 'demandes', label: 'Demandes', icon: Send },
+  { key: 'processus', label: 'Processus', icon: Clock },
   { key: 'notifications', label: 'Notifications', icon: Bell },
   { key: 'booking', label: 'Fixer un call', icon: Phone },
   { key: 'profil', label: 'Profil', icon: FileText },
@@ -56,8 +51,8 @@ const CandidateSidebar = ({
   const { photoPreviewUrl, prenom, nom } = useRegistrationStore();
 
   return (
-    <Sidebar collapsible="icon" className="border-r border-border bg-black">
-      <SidebarContent className="bg-black text-white py-6 flex flex-col justify-between h-full">
+    <Sidebar collapsible="icon" className="border-r border-border bg-[hsl(0,0%,7%)]">
+      <SidebarContent className="bg-[hsl(0,0%,7%)] text-white py-6 flex flex-col justify-between h-full">
         <div>
           {/* Logo */}
           <div className={`px-4 mb-8 ${collapsed ? 'text-center' : ''}`}>
@@ -146,7 +141,7 @@ const CandidateDashboardContent = () => {
   const { user, loading, signOut } = useAuth();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<TabKey>('offres');
-  const { photoPreviewUrl, prenom, nom, departement, cabinet, sermentMois, sermentAnnee } = useRegistrationStore();
+  const { photoPreviewUrl, prenom, nom, departement, cabinet, sermentMois, sermentAnnee, statutEcoute, visibilite } = useRegistrationStore();
   const seniorityInfo = usePQE(sermentMois, sermentAnnee);
 
   useEffect(() => {
@@ -157,18 +152,21 @@ const CandidateDashboardContent = () => {
 
   const notifCount = 2;
 
+  const visibiliteLabel = visibilite === 'confidentiel' ? 'Fermé' : visibilite === 'semi-confidentiel' ? 'Ouvert' : '';
+  const statutLabel = statutEcoute === 'actif' ? 'Recherche active' : statutEcoute === 'passif' ? 'À l\'écoute' : '';
+
   return (
     <>
       <CandidateSidebar activeTab={activeTab} setActiveTab={setActiveTab} notifCount={notifCount} />
 
       <div className="flex-1 flex flex-col min-h-screen">
-        {/* Top bar with sidebar trigger + welcome */}
-        <header className="flex items-center border-b border-border bg-[hsl(0_0%_96%)] px-6 py-7 gap-5">
+        {/* Top bar - blue/grey background */}
+        <header className="flex items-center border-b border-border bg-[hsl(215,20%,92%)] px-6 py-5 gap-5">
           <SidebarTrigger className="text-foreground/60 hover:text-foreground" />
           <div className="flex items-center gap-5 flex-1 min-w-0">
-            <Avatar className="w-11 h-11 border border-border shrink-0">
+            <Avatar className="w-11 h-11 border border-[hsl(215,15%,80%)] shrink-0">
               {photoPreviewUrl ? <AvatarImage src={photoPreviewUrl} alt="Photo" /> : null}
-              <AvatarFallback className="bg-secondary text-foreground text-[11px] font-sans">
+              <AvatarFallback className="bg-[hsl(215,15%,85%)] text-foreground text-[11px] font-sans">
                 {prenom && nom ? `${prenom[0]}${nom[0]}` : <User className="w-4 h-4" />}
               </AvatarFallback>
             </Avatar>
@@ -176,15 +174,30 @@ const CandidateDashboardContent = () => {
               <h1 className="text-lg md:text-xl font-sans font-normal text-foreground leading-tight tracking-[-0.01em]">
                 Bienvenue{prenom ? `, ${prenom}` : user.user_metadata?.full_name ? `, ${user.user_metadata.full_name}` : ''}
               </h1>
-              <div className="flex flex-wrap items-center gap-2 mt-2">
+              <div className="flex flex-wrap items-center gap-2 mt-1.5">
                 {departement && (
-                  <span className="inline-flex items-center gap-1 text-[9px] text-foreground/60 bg-secondary border border-border rounded-sm px-2 py-0.5">
+                  <span className="inline-flex items-center gap-1 text-[9px] text-[hsl(215,20%,35%)] bg-[hsl(215,18%,85%)] border border-[hsl(215,15%,78%)] rounded-sm px-2 py-0.5 font-sans font-medium">
                     <Star className="w-2.5 h-2.5" />{departement}
                   </span>
                 )}
                 {cabinet && (
-                  <span className="inline-flex items-center gap-1 text-[9px] text-foreground/60 bg-secondary border border-border rounded-sm px-2 py-0.5">
+                  <span className="inline-flex items-center gap-1 text-[9px] text-[hsl(215,20%,35%)] bg-[hsl(215,18%,85%)] border border-[hsl(215,15%,78%)] rounded-sm px-2 py-0.5 font-sans font-medium">
                     <Building2 className="w-2.5 h-2.5" />{cabinet}
+                  </span>
+                )}
+                {seniorityInfo && (
+                  <span className="text-[9px] text-[hsl(215,20%,35%)] bg-[hsl(215,18%,85%)] border border-[hsl(215,15%,78%)] rounded-sm px-2 py-0.5 font-sans font-medium">
+                    {seniorityInfo.label} · {seniorityInfo.years} ans
+                  </span>
+                )}
+                {statutLabel && (
+                  <span className="text-[9px] text-[hsl(215,20%,35%)] bg-[hsl(215,18%,85%)] border border-[hsl(215,15%,78%)] rounded-sm px-2 py-0.5 font-sans font-medium">
+                    {statutLabel}
+                  </span>
+                )}
+                {visibiliteLabel && (
+                  <span className="inline-flex items-center gap-1 text-[9px] text-[hsl(215,20%,35%)] bg-[hsl(215,18%,85%)] border border-[hsl(215,15%,78%)] rounded-sm px-2 py-0.5 font-sans font-medium">
+                    <Eye className="w-2.5 h-2.5" />{visibiliteLabel}
                   </span>
                 )}
               </div>
