@@ -523,7 +523,7 @@ const Step2Identity = () => {
             value={store.cabinet}
             onChange={handleCabinetSelect}
             placeholder="Rechercher un cabinet..."
-            className="mt-2 bg-transparent"
+            className="mt-2"
           />
         </div>
 

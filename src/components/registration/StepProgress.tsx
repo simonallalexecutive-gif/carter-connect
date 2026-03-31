@@ -20,44 +20,46 @@ const StepProgress = ({ currentStep }: StepProgressProps) => {
   if (currentStep <= 1 || currentStep >= 7) return null;
 
   return (
-    <div className="w-full max-w-2xl mx-auto py-8 px-4">
-      <div className="flex items-center justify-between relative">
-        {/* Background line */}
-        <div className="absolute top-3 left-0 right-0 h-px bg-border" />
-        {/* Active line */}
-        <div
-          className="absolute top-3 left-0 h-px bg-accent transition-all duration-500"
-          style={{ width: `${((adjustedCurrent - 1) / (STEPS.length - 1)) * 100}%` }}
-        />
+    <div className="w-full bg-[hsl(215,30%,22%)] py-8 px-4">
+      <div className="max-w-2xl mx-auto">
+        <div className="flex items-center justify-between relative">
+          {/* Background line */}
+          <div className="absolute top-3 left-0 right-0 h-px bg-white/20" />
+          {/* Active line */}
+          <div
+            className="absolute top-3 left-0 h-px bg-white/70 transition-all duration-500"
+            style={{ width: `${((adjustedCurrent - 1) / (STEPS.length - 1)) * 100}%` }}
+          />
 
-        {STEPS.map((step, i) => {
-          const stepNum = i + 1;
-          const isCompleted = adjustedCurrent > stepNum;
-          const isActive = adjustedCurrent === stepNum;
+          {STEPS.map((step, i) => {
+            const stepNum = i + 1;
+            const isCompleted = adjustedCurrent > stepNum;
+            const isActive = adjustedCurrent === stepNum;
 
-          return (
-            <div key={i} className="flex flex-col items-center relative z-10">
-              <div
-                className={cn(
-                  "w-6 h-6 rounded-full flex items-center justify-center text-xs font-sans transition-all duration-400",
-                  isCompleted && "bg-accent text-accent-foreground",
-                  isActive && "bg-foreground text-background ring-4 ring-foreground/10",
-                  !isCompleted && !isActive && "bg-secondary text-muted-foreground border border-border"
-                )}
-              >
-                {isCompleted ? <Check className="w-3 h-3" /> : <span className="text-[10px]">{stepNum}</span>}
+            return (
+              <div key={i} className="flex flex-col items-center relative z-10">
+                <div
+                  className={cn(
+                    "w-6 h-6 rounded-full flex items-center justify-center text-xs font-sans transition-all duration-400",
+                    isCompleted && "bg-white text-[hsl(215,30%,22%)]",
+                    isActive && "bg-white text-[hsl(215,30%,22%)] ring-4 ring-white/20",
+                    !isCompleted && !isActive && "bg-white/10 text-white/50 border border-white/20"
+                  )}
+                >
+                  {isCompleted ? <Check className="w-3 h-3" /> : <span className="text-[10px]">{stepNum}</span>}
+                </div>
+                <span
+                  className={cn(
+                    "mt-3 text-[11px] font-sans tracking-wide",
+                    isActive ? "text-white font-medium" : "text-white/50 font-light"
+                  )}
+                >
+                  {step.label}
+                </span>
               </div>
-              <span
-                className={cn(
-                  "mt-3 text-[11px] font-sans tracking-wide",
-                  isActive ? "text-foreground font-medium" : "text-muted-foreground font-light"
-                )}
-              >
-                {step.label}
-              </span>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
     </div>
   );
