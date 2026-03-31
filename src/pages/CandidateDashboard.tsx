@@ -212,6 +212,7 @@ const CandidateDashboardContent = () => {
 
         {/* Content */}
         <main className="flex-1 py-10 px-6 sm:px-8 lg:px-10 max-w-5xl mx-auto w-full">
+          {activeTab === 'dashboard' && <CandidateDashboardOverview onNavigate={(t) => setActiveTab(t as TabKey)} notifCount={notifCount} />}
           {activeTab === 'offres' && <CandidateOffers />}
           {activeTab === 'profil' && <CandidateProfile />}
           {activeTab === 'processus' && <CandidateProcesses />}
