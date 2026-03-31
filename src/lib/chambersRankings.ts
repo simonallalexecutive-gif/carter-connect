@@ -53,7 +53,7 @@ export const CHAMBERS_DB: Record<string, ChambersFirmEntry> = {
   // ── Cleary Gottlieb Steen & Hamilton ──
   'Cleary Gottlieb Steen & Hamilton': {
     nat: 'US',
-    rankings: { ma: 1, arbitrage: 3, concurrence: 2, projets: 3 },
+    rankings: { ma: 1, arbitrage: 3, concurrence: 2, projets: 3, tax: 2 },
   },
   // ── Clifford Chance ──
   'Clifford Chance': {
