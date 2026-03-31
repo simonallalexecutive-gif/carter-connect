@@ -531,7 +531,7 @@ const Step2Identity = () => {
         <div>
           <div className="flex items-center gap-2">
             <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Votre pratique *</Label>
-            <img src="https://chambers.com/favicon.ico" alt="Chambers" className="w-4 h-4 opacity-40" />
+            <img src="https://chambers.com/favicon.ico" alt="Chambers" className="w-5 h-5 opacity-60 drop-shadow-sm" style={{ imageRendering: 'auto', filter: 'contrast(1.2) brightness(0.9)' }} />
           </div>
           {store.cabinet ? (
             <>
@@ -575,7 +575,7 @@ const Step2Identity = () => {
 
 
         {/* Rémunération */}
-        <div className="rounded-sm p-8 space-y-6 bg-secondary/30 border border-border relative z-0">
+        <div className="rounded-sm p-8 space-y-6 border border-border relative z-0" style={{ background: 'linear-gradient(135deg, hsl(215, 25%, 95%) 0%, hsl(220, 20%, 92%) 100%)' }}>
           <div>
             <p className="text-[10px] font-sans font-medium tracking-[0.15em] uppercase text-muted-foreground mb-2">Confidentiel</p>
             <h3 className="font-serif text-xl text-foreground font-normal">Rémunération</h3>

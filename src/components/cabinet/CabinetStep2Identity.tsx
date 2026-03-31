@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useCabinetStore } from '@/stores/cabinetStore';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -7,12 +7,14 @@ import { NAT_FLAGS, NAT_LABELS } from '@/lib/legal500Rankings';
 import { cn } from '@/lib/utils';
 import { formatPhoneWithDots } from '@/lib/formatters';
 import { Plus, Minus, Shield, Building2, Eye, EyeOff } from 'lucide-react';
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 
 const CabinetStep2Identity = () => {
   const s = useCabinetStore();
   const [acQuery, setAcQuery] = useState('');
   const [acOpen, setAcOpen] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [cabinetLogoUrl, setCabinetLogoUrl] = useState<string | null>(null);
 
   const passwordChecks = {
     length: s.password.length >= 8,
@@ -39,6 +41,37 @@ const CabinetStep2Identity = () => {
     s.setField('detectedRankings', rankings.map(r => ({ key: r.key, label: r.label, tier: r.band })));
     setAcQuery(name);
     setAcOpen(false);
+    // Try to load cabinet logo
+    tryLoadLogo(name);
+  };
+
+  const tryLoadLogo = (name: string) => {
+    // Map known firm names to domains
+    const FIRM_DOMAINS: Record<string, string> = {
+      'Bredin Prat': 'bredinprat.com', 'Darrois Villey': 'darroismaillot.com', 'Gide': 'gide.com',
+      'De Pardieu Brocas Maffei': 'depardieu.com', 'Cleary Gottlieb': 'clearygottlieb.com',
+      'Sullivan & Cromwell': 'sullcrom.com', 'Skadden': 'skadden.com', 'Weil Gotshal': 'weil.com',
+      'Linklaters': 'linklaters.com', 'Freshfields': 'freshfields.com', 'Clifford Chance': 'cliffordchance.com',
+      'Allen & Overy': 'allenovery.com', 'Latham & Watkins': 'lw.com', 'Davis Polk': 'davispolk.com',
+      'Cravath': 'cravath.com', 'White & Case': 'whitecase.com', 'Willkie Farr': 'willkie.com',
+      'Fried Frank': 'friedfrank.com', 'Herbert Smith': 'herbertsmithfreehills.com',
+      'Hogan Lovells': 'hoganlovells.com', 'Norton Rose': 'nortonrosefulbright.com',
+      'DLA Piper': 'dlapiper.com', 'Baker McKenzie': 'bakermckenzie.com',
+      'CMS Francis Lefebvre': 'cms.law', 'August & Debouzy': 'august-debouzy.com',
+      'Racine': 'racine.eu', 'Mayer Brown': 'mayerbrown.com', 'Jones Day': 'jonesday.com',
+      'Goodwin': 'goodwinlaw.com', 'Gibson Dunn': 'gibsondunn.com', 'Shearman': 'shearman.com',
+      'Paul Weiss': 'paulweiss.com', 'Orrick': 'orrick.com', 'Dechert': 'dechert.com',
+    };
+    const domain = Object.entries(FIRM_DOMAINS).find(([k]) => name.includes(k))?.[1];
+    if (domain) {
+      const logoUrl = `https://logo.clearbit.com/${domain}`;
+      const img = new Image();
+      img.onload = () => setCabinetLogoUrl(logoUrl);
+      img.onerror = () => setCabinetLogoUrl(null);
+      img.src = logoUrl;
+    } else {
+      setCabinetLogoUrl(null);
+    }
   };
 
   const handleNameChange = (value: string) => {
@@ -105,7 +138,11 @@ const CabinetStep2Identity = () => {
           </div>
           
           <div className="flex items-center gap-3 mb-4">
-            <span className="text-sm font-bold">{NAT_FLAGS[s.detectedNat]}</span>
+            {cabinetLogoUrl ? (
+              <img src={cabinetLogoUrl} alt={s.cabinetName} className="w-8 h-8 rounded object-contain bg-white p-0.5 border border-border" />
+            ) : (
+              <span className="text-sm font-bold">{NAT_FLAGS[s.detectedNat]}</span>
+            )}
             <div>
               <div className="text-sm font-semibold text-foreground">{s.cabinetName}</div>
               <div className="text-xs text-muted-foreground">{NAT_LABELS[s.detectedNat]}</div>
