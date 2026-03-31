@@ -478,7 +478,7 @@ const Step6Review = () => {
           </div>
 
           {/* Anonymized header */}
-          <SectionCard title="Profil anonymisé">
+          <SectionCard title="Profil anonymisé" noBorder>
             <div className="flex items-center gap-4 mb-5">
               <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[hsl(215,20%,30%)] to-[hsl(215,15%,20%)] flex items-center justify-center shadow-inner">
                 <User className="w-6 h-6 text-white/40" />
