@@ -108,7 +108,7 @@ export const CHAMBERS_DB: Record<string, ChambersFirmEntry> = {
   // ── Jones Day ──
   'Jones Day': {
     nat: 'US',
-    rankings: { ma: 4, banque: 4, restructuring: 5, public: 1, arbitrage: 3, social: 5, concurrence: 4, immo: 4, projets: 4 },
+    rankings: { ma: 4, banque: 4, restructuring: 5, public: 1, arbitrage: 3, social: 5, concurrence: 4, immo: 4, projets: 4, tax: 5 },
   },
   // ── King & Spalding ──
   'King & Spalding': {
