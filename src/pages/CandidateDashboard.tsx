@@ -144,7 +144,7 @@ const CandidateSidebar = ({
 const CandidateDashboardContent = () => {
   const { user, loading, signOut } = useAuth();
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState<TabKey>('offres');
+  const [activeTab, setActiveTab] = useState<TabKey>('dashboard');
   const { photoPreviewUrl, prenom, nom, departement, cabinet, sermentMois, sermentAnnee, statutEcoute, visibilite } = useRegistrationStore();
   const { loaded: profileLoaded } = useLoadCandidateProfile(user);
   const seniorityInfo = usePQE(sermentMois, sermentAnnee);
