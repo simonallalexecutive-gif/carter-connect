@@ -162,91 +162,89 @@ const Step3Activity = () => {
                 transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                 className="overflow-hidden"
               >
-                <div className="border border-border rounded-sm p-6 md:p-8 space-y-8">
+                <div className="border border-border rounded-sm p-6 md:p-8 space-y-0">
                   {/* Répartition des dossiers */}
-                  <div>
-                    <p className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-5">Répartition des dossiers</p>
+                  <p className="font-sans text-[11px] font-medium text-muted-foreground uppercase tracking-[0.15em] mb-5">Répartition des dossiers</p>
 
-                    <div className="flex flex-col md:flex-row gap-8 items-center md:items-start">
-                      {/* Pie chart */}
-                      <div className="flex-shrink-0" style={{ width: 200, height: 200 }}>
-                        <ResponsiveContainer width="100%" height="100%">
-                          <PieChart>
-                            <Pie
-                              data={chartData}
-                              cx="50%"
-                              cy="50%"
-                              innerRadius={50}
-                              outerRadius={90}
-                              dataKey="value"
-                              paddingAngle={2}
-                              stroke="hsl(var(--background))"
-                              strokeWidth={2}
-                              label={({ cx, cy, midAngle, innerRadius: ir, outerRadius: or, index }) => {
-                                const RADIAN = Math.PI / 180;
-                                const radius = ir + (or - ir) * 0.5;
-                                const x = cx + radius * Math.cos(-midAngle * RADIAN);
-                                const y = cy + radius * Math.sin(-midAngle * RADIAN);
-                                const pct = chartData[index]?.value ?? 0;
-                                if (pct < 15) return null;
-                                return (
-                                  <text x={x} y={y} fill="white" textAnchor="middle" dominantBaseline="central" fontSize={12} fontWeight={700} fontFamily="Inter, sans-serif">
-                                    {pct}%
-                                  </text>
-                                );
-                              }}
-                              labelLine={false}
-                            >
-                              {chartData.map((_, index) => (
-                                <Cell key={index} fill={CHART_COLORS[index % CHART_COLORS.length]} />
-                              ))}
-                            </Pie>
-                          </PieChart>
-                        </ResponsiveContainer>
-                      </div>
+                  <div className="flex flex-col md:flex-row gap-8 items-center md:items-start">
+                    {/* Pie chart */}
+                    <div className="flex-shrink-0" style={{ width: 200, height: 200 }}>
+                      <ResponsiveContainer width="100%" height="100%">
+                        <PieChart>
+                          <Pie
+                            data={chartData}
+                            cx="50%"
+                            cy="50%"
+                            innerRadius={50}
+                            outerRadius={90}
+                            dataKey="value"
+                            paddingAngle={2}
+                            stroke="hsl(var(--background))"
+                            strokeWidth={2}
+                            label={({ cx, cy, midAngle, innerRadius: ir, outerRadius: or, index }) => {
+                              const RADIAN = Math.PI / 180;
+                              const radius = ir + (or - ir) * 0.5;
+                              const x = cx + radius * Math.cos(-midAngle * RADIAN);
+                              const y = cy + radius * Math.sin(-midAngle * RADIAN);
+                              const pct = chartData[index]?.value ?? 0;
+                              if (pct < 15) return null;
+                              return (
+                                <text x={x} y={y} fill="white" textAnchor="middle" dominantBaseline="central" fontSize={12} fontWeight={700} fontFamily="Inter, sans-serif">
+                                  {pct}%
+                                </text>
+                              );
+                            }}
+                            labelLine={false}
+                          >
+                            {chartData.map((_, index) => (
+                              <Cell key={index} fill={CHART_COLORS[index % CHART_COLORS.length]} />
+                            ))}
+                          </Pie>
+                        </PieChart>
+                      </ResponsiveContainer>
+                    </div>
 
-                      {/* Controls */}
-                      <div className="flex-1 w-full space-y-3">
-                        {selectedItems.map((item, i) => {
-                          const displayPercent = chartData.find(d => d.name === item.label)?.value ?? 0;
-                          return (
-                            <div key={item.key} className="flex items-center gap-3 py-2 border-b border-border last:border-b-0">
-                              <div className="w-3 h-3 rounded-sm flex-shrink-0" style={{ backgroundColor: CHART_COLORS[i % CHART_COLORS.length] }} />
-                              <span className="text-sm font-sans text-foreground flex-1 min-w-0 truncate">{item.label}</span>
-                              <div className="flex items-center gap-1.5">
-                                <button
-                                  type="button"
-                                  onClick={() => handlePercentChange(item.key, -10)}
-                                  className="w-7 h-7 rounded-sm border border-border flex items-center justify-center hover:bg-secondary transition-colors"
-                                >
-                                  <Minus className="w-3 h-3 text-foreground" />
-                                </button>
-                                <span className="text-sm font-sans font-bold text-foreground w-12 text-center tabular-nums">
-                                  {displayPercent}%
-                                </span>
-                                <button
-                                  type="button"
-                                  onClick={() => handlePercentChange(item.key, 10)}
-                                  className="w-7 h-7 rounded-sm border border-border flex items-center justify-center hover:bg-secondary transition-colors"
-                                >
-                                  <Plus className="w-3 h-3 text-foreground" />
-                                </button>
-                              </div>
+                    {/* Controls */}
+                    <div className="flex-1 w-full space-y-3">
+                      {selectedItems.map((item, i) => {
+                        const displayPercent = chartData.find(d => d.name === item.label)?.value ?? 0;
+                        return (
+                          <div key={item.key} className="flex items-center gap-3 py-2 border-b border-border last:border-b-0">
+                            <div className="w-3 h-3 rounded-sm flex-shrink-0" style={{ backgroundColor: CHART_COLORS[i % CHART_COLORS.length] }} />
+                            <span className="text-[13px] font-sans text-foreground flex-1 min-w-0 truncate">{item.label}</span>
+                            <div className="flex items-center gap-1.5">
+                              <button
+                                type="button"
+                                onClick={() => handlePercentChange(item.key, -10)}
+                                className="w-7 h-7 rounded-sm border border-border flex items-center justify-center hover:bg-secondary transition-colors"
+                              >
+                                <Minus className="w-3 h-3 text-foreground" />
+                              </button>
+                              <span className="text-[13px] font-sans font-bold text-foreground w-12 text-center tabular-nums">
+                                {displayPercent}%
+                              </span>
+                              <button
+                                type="button"
+                                onClick={() => handlePercentChange(item.key, 10)}
+                                className="w-7 h-7 rounded-sm border border-border flex items-center justify-center hover:bg-secondary transition-colors"
+                              >
+                                <Plus className="w-3 h-3 text-foreground" />
+                              </button>
                             </div>
-                          );
-                        })}
-                        <p className="text-[10px] text-muted-foreground font-sans pt-1">Ajustez le poids relatif de chaque activité par paliers de 10 points.</p>
-                      </div>
+                          </div>
+                        );
+                      })}
+                      <p className="text-[10px] text-muted-foreground font-sans pt-1">Ajustez le poids relatif de chaque activité par paliers de 10 points.</p>
                     </div>
                   </div>
 
-                  {/* Positionnement */}
-                  <div>
-                    <p className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-4">Positionnement</p>
+                  {/* Positionnement — seamless continuation */}
+                  <div className="pt-8">
+                    <p className="font-sans text-[11px] font-medium text-muted-foreground uppercase tracking-[0.15em] mb-4">Positionnement</p>
                     <div className="space-y-3">
                       <div className="flex items-center justify-between">
-                        <span className="text-sm font-sans text-foreground">Côté prêteur</span>
-                        <span className="text-sm font-sans font-bold text-foreground tabular-nums">{store.positionnementPreteur ?? 50}%</span>
+                        <span className="text-[13px] font-sans text-foreground">Côté prêteur</span>
+                        <span className="text-[13px] font-sans font-bold text-foreground tabular-nums">{store.positionnementPreteur ?? 50}%</span>
                       </div>
                       <div className="flex gap-1.5 flex-wrap">
                         {[0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100].map(v => (
@@ -266,18 +264,18 @@ const Step3Activity = () => {
                         ))}
                       </div>
                       <div className="flex items-center justify-between">
-                        <span className="text-sm font-sans text-foreground">Côté sponsor</span>
-                        <span className="text-sm font-sans font-bold text-foreground tabular-nums">{100 - (store.positionnementPreteur ?? 50)}%</span>
+                        <span className="text-[13px] font-sans text-foreground">Côté sponsor</span>
+                        <span className="text-[13px] font-sans font-bold text-foreground tabular-nums">{100 - (store.positionnementPreteur ?? 50)}%</span>
                       </div>
                     </div>
                   </div>
 
-                  {/* Clientèle */}
-                  <div>
-                    <p className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-4">Clientèle</p>
+                  {/* Clientèle — seamless continuation */}
+                  <div className="pt-8">
+                    <p className="font-sans text-[11px] font-medium text-muted-foreground uppercase tracking-[0.15em] mb-4">Clientèle</p>
                     <div className="flex items-center justify-between mb-3">
-                      <span className="text-sm font-sans text-foreground">Clientèle française</span>
-                      <span className="text-sm font-sans font-bold text-foreground tabular-nums">{store.clienteleFrancaise}%</span>
+                      <span className="text-[13px] font-sans text-foreground">Clientèle française</span>
+                      <span className="text-[13px] font-sans font-bold text-foreground tabular-nums">{store.clienteleFrancaise}%</span>
                     </div>
                     <div className="flex gap-1.5 flex-wrap">
                       {[0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100].map(v => (
@@ -297,14 +295,14 @@ const Step3Activity = () => {
                       ))}
                     </div>
                     <div className="flex items-center justify-between mt-3">
-                      <span className="text-sm font-sans text-foreground">Clientèle étrangère</span>
-                      <span className="text-sm font-sans font-bold text-foreground tabular-nums">{100 - store.clienteleFrancaise}%</span>
+                      <span className="text-[13px] font-sans text-foreground">Clientèle étrangère</span>
+                      <span className="text-[13px] font-sans font-bold text-foreground tabular-nums">{100 - store.clienteleFrancaise}%</span>
                     </div>
                   </div>
 
-                  {/* Taille des opérations */}
-                  <div>
-                    <p className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-3">Taille des opérations</p>
+                  {/* Taille des opérations — seamless continuation */}
+                  <div className="pt-8">
+                    <p className="font-sans text-[11px] font-medium text-muted-foreground uppercase tracking-[0.15em] mb-3">Taille des opérations</p>
                     <div className="flex flex-wrap gap-2">
                       {['Small cap', 'Mid cap', 'Large cap'].map(t => {
                         const active = (store.tailleOperations || []).includes(t);
@@ -317,7 +315,7 @@ const Step3Activity = () => {
                               store.setField('tailleOperations', active ? current.filter(v => v !== t) : [...current, t]);
                             }}
                             className={cn(
-                              "inline-flex items-center gap-1.5 px-4 py-2 rounded-sm text-sm font-sans font-light transition-all duration-200 border",
+                              "inline-flex items-center gap-1.5 px-4 py-2 rounded-sm text-[13px] font-sans font-light transition-all duration-200 border",
                               active
                                 ? "bg-foreground text-background border-foreground"
                                 : "bg-transparent text-foreground border-border hover:border-foreground/40"
