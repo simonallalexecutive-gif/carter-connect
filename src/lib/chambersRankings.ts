@@ -48,7 +48,7 @@ export const CHAMBERS_DB: Record<string, ChambersFirmEntry> = {
   // ── Bredin Prat ──
   'Bredin Prat': {
     nat: 'FR',
-    rankings: { ma: 1, pe: 3, banque: 2, restructuring: 2, public: 3, arbitrage: 2, social: 1, concurrence: 1 },
+    rankings: { ma: 1, pe: 3, banque: 2, restructuring: 2, public: 3, arbitrage: 2, social: 1, concurrence: 1, tax: 1 },
   },
   // ── Cleary Gottlieb Steen & Hamilton ──
   'Cleary Gottlieb Steen & Hamilton': {
