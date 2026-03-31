@@ -541,7 +541,7 @@ const Step6Review = () => {
 
           {/* Rémunération (anonymized — same data, no identity) */}
           {(store.retrocession || store.bonus) && (
-            <SectionCard title="Rémunération" noBorder>
+            <SectionCard title="Rémunération">
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                 {store.retrocession && <DataRow label="Rétrocession" value={`${store.retrocession} €`} />}
                 {store.bonus && <DataRow label="Bonus" value={`${store.bonus} €`} />}
