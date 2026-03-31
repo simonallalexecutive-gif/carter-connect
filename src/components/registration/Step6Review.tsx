@@ -407,7 +407,7 @@ const Step6Review = () => {
 
       {/* ═══ RECAP COMPLET ═══ */}
       {previewMode === 'recap' && (
-        <div className="border border-border rounded-sm overflow-hidden">
+        <div className="space-y-4">
           {/* Identity */}
           <SectionCard title="Identité" noBorder>
             <div className="flex items-start gap-5 mb-5">
