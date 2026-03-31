@@ -239,9 +239,9 @@ const Step3Activity = () => {
                 </div>
 
                 {/* Clientèle + Taille */}
-                <div className="carter-card p-6 md:p-8 mt-4 space-y-6">
+                <div className="border border-border rounded-sm p-6 md:p-8 mt-4 space-y-6">
                   <div>
-                    <p className="carter-label mb-4">Clientèle</p>
+                    <h3 className="font-sans text-sm font-medium text-foreground tracking-tight mb-4">Clientèle</h3>
                     <div className="flex items-center justify-between mb-3">
                       <span className="text-sm font-sans text-foreground">Clientèle française</span>
                       <span className="text-sm font-sans font-bold text-foreground tabular-nums">{store.clienteleFrancaise}%</span>
