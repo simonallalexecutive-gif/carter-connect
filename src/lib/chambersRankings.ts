@@ -28,7 +28,7 @@ export const CHAMBERS_DB: Record<string, ChambersFirmEntry> = {
   // ── A&O Shearman ──
   'A&O Shearman': {
     nat: 'UK',
-    rankings: { ma: 2, pe: 4, banque: 1, restructuring: 5, public: 1, arbitrage: 4, social: 2, concurrence: 4, immo: 2, projets: 4 },
+    rankings: { ma: 2, pe: 4, banque: 1, restructuring: 5, public: 1, arbitrage: 4, social: 2, concurrence: 4, immo: 2, projets: 4, tax: 3 },
   },
   // ── Ashurst ──
   'Ashurst': {
