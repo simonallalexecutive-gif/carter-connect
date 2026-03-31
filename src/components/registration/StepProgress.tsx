@@ -35,9 +35,9 @@ const StepProgress = ({ currentStep }: StepProgressProps) => {
                   <div
                     className={cn(
                       "w-6 h-6 rounded-full flex items-center justify-center text-xs font-sans transition-all duration-400",
-                      isCompleted && "bg-white text-[hsl(215,30%,22%)]",
-                      isActive && "bg-white text-[hsl(215,30%,22%)] ring-4 ring-white/20",
-                      !isCompleted && !isActive && "bg-white/10 text-white/50 border border-white/20"
+                      isCompleted && "bg-foreground text-background",
+                      isActive && "bg-foreground text-background ring-4 ring-foreground/15",
+                      !isCompleted && !isActive && "bg-muted text-muted-foreground border border-border"
                     )}
                   >
                     {isCompleted ? <Check className="w-3 h-3" /> : <span className="text-[10px]">{stepNum}</span>}
