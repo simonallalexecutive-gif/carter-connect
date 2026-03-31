@@ -45,7 +45,7 @@ const StepProgress = ({ currentStep }: StepProgressProps) => {
                   <span
                     className={cn(
                       "mt-3 text-[11px] font-sans tracking-wide",
-                      isActive ? "text-white font-medium" : "text-white/50 font-light"
+                      isActive ? "text-foreground font-medium" : "text-muted-foreground font-light"
                     )}
                   >
                     {step.label}
