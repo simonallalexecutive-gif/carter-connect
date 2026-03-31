@@ -164,8 +164,8 @@ const Step6Review = () => {
     };
   }, [store.cabinet, store.departement]);
 
-  const SectionCard = ({ title, children, className: cls }: { title: string; children: React.ReactNode; className?: string }) => (
-    <div className={cn("rounded-sm border border-border bg-card p-5", cls)}>
+  const SectionCard = ({ title, children, className: cls, noBorder }: { title: string; children: React.ReactNode; className?: string; noBorder?: boolean }) => (
+    <div className={cn(noBorder ? "bg-card p-5" : "rounded-sm border border-border bg-card p-5", cls)}>
       <p className="text-[9px] uppercase tracking-[0.15em] text-muted-foreground font-sans font-light mb-3">{title}</p>
       {children}
     </div>
