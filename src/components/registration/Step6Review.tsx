@@ -409,7 +409,7 @@ const Step6Review = () => {
       {previewMode === 'recap' && (
         <div className="space-y-4">
           {/* Identity */}
-          <SectionCard title="Identité" noBorder>
+          <SectionCard title="Identité">
             <div className="flex items-start gap-5 mb-5">
               {store.photoPreviewUrl ? (
                 <img src={store.photoPreviewUrl} alt="" className="w-14 h-14 rounded-full object-cover border border-border flex-shrink-0" />
