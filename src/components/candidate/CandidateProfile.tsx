@@ -278,14 +278,15 @@ const CandidateProfile = () => {
         </div>
       </div>
 
-      <div className="text-center">
+      <div className="text-center space-y-3">
         <button
-          onClick={() => navigate('/inscription')}
-          className="inline-flex items-center gap-2 bg-foreground text-background px-6 py-3 rounded-lg text-sm font-bold hover:bg-foreground/90 transition-colors"
+          onClick={() => navigate('/demander-acces')}
+          className="inline-flex items-center gap-2 bg-foreground text-background px-6 py-3 rounded-sm text-sm font-sans font-medium hover:bg-foreground/90 transition-colors"
         >
           <Pencil className="w-4 h-4" />
           Modifier mon profil
         </button>
+        <p className="text-[10px] text-muted-foreground font-sans font-light">Vous serez redirigé vers le formulaire pré-rempli avec vos informations actuelles.</p>
       </div>
     </div>
   );
