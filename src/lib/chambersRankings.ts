@@ -123,7 +123,7 @@ export const CHAMBERS_DB: Record<string, ChambersFirmEntry> = {
   // ── Latham & Watkins ──
   'Latham & Watkins': {
     nat: 'US',
-    rankings: { ma: 3, pe: 1, banque: 1, restructuring: 2, social: 5, concurrence: 1 },
+    rankings: { ma: 3, pe: 1, banque: 1, restructuring: 2, social: 5, concurrence: 1, tax: 2 },
   },
   // ── Linklaters ──
   'Linklaters': {
