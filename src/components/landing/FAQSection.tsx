@@ -51,6 +51,11 @@ const candidatFAQ: FAQItem[] = [
     answer:
       'Oui. Vous pouvez supprimer votre compte et l\'ensemble de vos données à tout moment depuis votre espace personnel. La suppression est définitive et immédiate : votre profil est retiré du réseau et aucune information n\'est conservée.',
   },
+  {
+    question: 'Intégrer Logan, c\'est envoyer un signal au marché que je suis en recherche active ?',
+    answer:
+      'Absolument pas. Logan est là pour renforcer votre attractivité tout en vous conférant la discrétion la plus totale. Ainsi, vous restez connecté à votre marché et maître de décider quand l\'activer, tout en bénéficiant, en temps utiles, d\'un accompagnement sur-mesure et d\'une visibilité inégalée.',
+  },
 ];
 
 const cabinetFAQ: FAQItem[] = [
