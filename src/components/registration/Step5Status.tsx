@@ -75,19 +75,7 @@ const Step5Status = () => {
               <div>
                 <span className="font-sans font-medium text-sm">Confidentiel – ouvert</span>
                 <p className="text-xs text-muted-foreground font-sans font-light mt-1.5 leading-relaxed">
-                  Votre profil est visible par les cabinets dans sa version strictement anonymisée.
-                </p>
-                <p className="text-xs text-muted-foreground font-sans font-light mt-1.5 leading-relaxed">
-                  Votre identité (nom, prénom) ainsi que votre cabinet actuel ne sont jamais communiqués sans votre accord explicite, et uniquement dans le cadre d'un intérêt concret d'un cabinet.
-                </p>
-                <p className="text-xs text-muted-foreground font-sans font-light mt-1.5 leading-relaxed">
-                  Logan vous permet ainsi de rester attractif et opportuniste à chaque instant.
-                </p>
-                <p className="text-xs text-muted-foreground font-sans font-light mt-1.5 leading-relaxed">
-                  Lorsqu'un cabinet manifeste un intérêt, Logan vous en informe et vous accompagne dans l'échange afin d'évaluer l'opportunité. Ce n'est qu'avec votre accord, et sous réserve de la pertinence à vos yeux d'un rapprochement, que votre identité peut être dévoilée au cabinet concerné.
-                </p>
-                <p className="text-xs text-muted-foreground font-sans font-light mt-1.5 leading-relaxed">
-                  Logan demeure votre interlocuteur unique et exclusif tout au long du processus.
+                  Profil strictement anonymisé accessible aux cabinets. Votre identité est protégée et n'est jamais communiquée sans votre accord. Logan reste votre unique interlocuteur.
                 </p>
               </div>
             </label>
