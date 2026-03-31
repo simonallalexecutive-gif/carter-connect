@@ -82,47 +82,6 @@ const Step5Status = () => {
           </RadioGroup>
         </div>
 
-        {/* CV — discreet inline */}
-        <div>
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">CV</Label>
-              <span className="text-[10px] text-muted-foreground/60 font-sans font-light">optionnel</span>
-            </div>
-            {!store.cvFile && (
-              <button
-                type="button"
-                onClick={() => fileInputRef.current?.click()}
-                className="flex items-center gap-1.5 text-xs font-sans font-light text-muted-foreground hover:text-foreground transition-colors"
-              >
-                <Plus className="w-3.5 h-3.5" />
-                Ajouter
-              </button>
-            )}
-          </div>
-          <input
-            ref={fileInputRef}
-            type="file"
-            accept=".pdf,.doc,.docx"
-            onChange={handleFileChange}
-            className="hidden"
-          />
-          {store.cvFile && (
-            <div className="flex items-center gap-2 mt-2 px-3 py-2 rounded-sm border border-border bg-card">
-              <FileText className="w-3.5 h-3.5 text-muted-foreground" />
-              <span className="text-xs font-sans font-light text-foreground truncate flex-1">{store.cvFile.name}</span>
-              <button type="button" onClick={() => store.setField('cvFile', null)} className="text-muted-foreground hover:text-foreground">
-                <X className="w-3.5 h-3.5" />
-              </button>
-            </div>
-          )}
-          <div className="flex items-start gap-1.5 mt-2">
-            <ShieldCheck className="w-3 h-3 text-muted-foreground/50 mt-0.5 shrink-0" />
-            <p className="text-[10px] text-muted-foreground/60 font-sans font-light leading-relaxed">
-              Logan s'engage à ne jamais transmettre votre CV sans votre accord explicite.
-            </p>
-          </div>
-        </div>
 
         {/* Consentements — hidden in admin mode */}
         {!isAdmin && (
