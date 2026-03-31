@@ -163,7 +163,7 @@ const Step3Activity = () => {
                 className="overflow-hidden"
               >
                 <div className="border border-border rounded-sm p-6 md:p-8">
-                  <h3 className="font-sans text-sm font-medium text-foreground tracking-tight mb-6">Répartition des dossiers</h3>
+                  <h3 className="font-serif text-lg text-foreground tracking-[-0.01em] mb-6">Répartition des dossiers</h3>
 
                   <div className="flex flex-col md:flex-row gap-8 items-center md:items-start">
                     {/* Pie chart */}
