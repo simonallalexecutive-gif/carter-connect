@@ -143,13 +143,14 @@ const CandidateDashboardContent = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<TabKey>('offres');
   const { photoPreviewUrl, prenom, nom, departement, cabinet, sermentMois, sermentAnnee, statutEcoute, visibilite } = useRegistrationStore();
+  const { loaded: profileLoaded } = useLoadCandidateProfile(user);
   const seniorityInfo = usePQE(sermentMois, sermentAnnee);
 
   useEffect(() => {
     if (!loading && !user) navigate('/auth');
   }, [user, loading, navigate]);
 
-  if (loading || !user) return null;
+  if (loading || !user || !profileLoaded) return null;
 
   const notifCount = 2;
 

@@ -302,6 +302,48 @@ const Step6Review = () => {
 
       if (error) throw error;
 
+      // Save registration data to database
+      const userId = signUpData?.user?.id;
+      if (userId) {
+        const submissionData = {
+          prenom: store.prenom, nom: store.nom, email: store.email, telephone: store.telephone,
+          photoPreviewUrl: store.photoPreviewUrl, linkedinUrl: store.linkedinUrl,
+          sermentMois: store.sermentMois, sermentAnnee: store.sermentAnnee,
+          cabinet: store.cabinet, departement: store.departement,
+          retrocession: store.retrocession, bonus: store.bonus,
+          hasObjectifFacturable: store.hasObjectifFacturable,
+          objectifFacturable: store.objectifFacturable, objectifFacturableReel: store.objectifFacturableReel,
+          conserverRetrocession: store.conserverRetrocession, raisonsBaisseRetro: store.raisonsBaisseRetro,
+          activites: store.activites, pourcentages: store.pourcentages, sousActivites: store.sousActivites,
+          anglais: store.anglais, typesClients: store.typesClients, tailleOperations: store.tailleOperations,
+          clienteleFrancaise: store.clienteleFrancaise,
+          movePriorities: store.movePriorities, qualitesAppreciees: store.qualitesAppreciees,
+          axesAmelioration: store.axesAmelioration, motivation: store.motivation,
+          cabinetsCibles: store.cabinetsCibles, noGoCabinets: store.noGoCabinets,
+          statutEcoute: store.statutEcoute, visibilite: store.visibilite, disponibilite: store.disponibilite,
+          isAssocieOrCounsel: store.isAssocieOrCounsel, statutAssoc: store.statutAssoc,
+          chiffreAffairesPortable: store.chiffreAffairesPortable, assocExpertiseSummary: store.assocExpertiseSummary,
+          assocAttentes: store.assocAttentes, assocCabTypes: store.assocCabTypes,
+          processusCours: store.processusCours,
+          positionnementRestr: store.positionnementRestr, positionnementRestrPct: store.positionnementRestrPct,
+          clienteleRestr: store.clienteleRestr, clienteleRestrPct: store.clienteleRestrPct,
+          restrFinancier: store.restrFinancier,
+          socialConseil: store.socialConseil, socialRelationType: store.socialRelationType,
+          socialClientele: store.socialClientele, socialExpertises: store.socialExpertises,
+          maPeFonds: store.maPeFonds, maIndusSecteurs: store.maIndusSecteurs,
+        };
+        try {
+          await supabase.from('candidate_registrations').insert({
+            user_id: userId,
+            submission_data: submissionData as any,
+            visibility: store.visibilite || 'confidentiel',
+            no_go_cabinets: store.noGoCabinets || [],
+          } as any);
+        } catch (regError) {
+          console.error('Failed to save registration:', regError);
+        }
+      }
+
       if (store.souhaitePrendreRdv && store.creneauPrefere) {
         try {
           const timeMatch = store.creneauPrefere.match(/à (\d{2}:\d{2})$/);
