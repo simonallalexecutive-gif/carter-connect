@@ -183,7 +183,7 @@ export const CHAMBERS_DB: Record<string, ChambersFirmEntry> = {
   // ── White & Case ──
   'White & Case': {
     nat: 'US',
-    rankings: { ma: 3, banque: 1, restructuring: 1, public: 2, arbitrage: 1, concurrence: 3, immo: 4, projets: 4 },
+    rankings: { ma: 3, banque: 1, restructuring: 1, public: 2, arbitrage: 1, concurrence: 3, immo: 4, projets: 4, tax: 4 },
   },
   // ── Willkie Farr & Gallagher ──
   'Willkie Farr & Gallagher': {
