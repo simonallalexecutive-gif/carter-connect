@@ -485,19 +485,19 @@ const ExploreView = ({
                 <span className="absolute top-3 right-3 text-[7px] font-bold tracking-[0.12em] uppercase bg-foreground text-background px-2 py-0.5 rounded-sm">NOUVEAU</span>
               )}
               <div className="text-[9px] text-muted-foreground tracking-[0.08em] mb-2 font-sans">{p.id}</div>
-              <div className="font-sans text-sm font-semibold text-foreground mb-1 leading-tight">Profil anonymisé</div>
+              <div className="font-sans text-sm font-semibold text-foreground mb-1 leading-tight">
+                {status}{senDetail ? ` — ${senDetail}` : ''}{p.pqe ? ` · ${p.pqe} d'exercice` : ''}
+              </div>
               <div className="font-sans text-[13px] text-foreground mb-2">{p.deptLabel}</div>
 
-              {/* Status + Seniority */}
-              <div className="flex flex-wrap gap-1.5 mb-3">
-                <span className="text-[9px] font-semibold px-2 py-0.5 rounded-sm bg-foreground text-background">{status}</span>
-                {senDetail && (
-                  <span className="text-[9px] font-medium px-2 py-0.5 rounded-sm bg-secondary text-foreground border border-border">{senDetail} · {p.pqe} d'exercice</span>
-                )}
-                {!senDetail && status === 'Counsel' && (
-                  <span className="text-[9px] font-medium px-2 py-0.5 rounded-sm bg-secondary text-foreground border border-border">{p.pqe} d'exercice</span>
-                )}
-              </div>
+              {/* Expertises from activity split */}
+              {Object.keys(p.split).length > 0 && (
+                <div className="flex flex-wrap gap-1.5 mb-3">
+                  {Object.keys(p.split).map((expertise) => (
+                    <span key={expertise} className="text-[9px] font-medium px-2 py-0.5 rounded-sm bg-secondary text-foreground border border-border">{expertise}</span>
+                  ))}
+                </div>
+              )}
 
               {/* Key info */}
               <div className="space-y-1.5 text-[11px] font-sans border-t border-border pt-3">
