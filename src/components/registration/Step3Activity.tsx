@@ -266,7 +266,7 @@ const Step3Activity = () => {
                   </div>
 
                   <div className="border-t border-border pt-5">
-                    <p className="carter-label mb-3">Taille des opérations</p>
+                    <h3 className="font-sans text-sm font-medium text-foreground tracking-tight mb-3">Taille des opérations</h3>
                     <div className="flex flex-wrap gap-2">
                       {['Small cap', 'Mid cap', 'Large cap'].map(t => {
                         const active = (store.tailleOperations || []).includes(t);
