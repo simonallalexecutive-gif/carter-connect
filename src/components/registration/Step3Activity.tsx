@@ -79,7 +79,7 @@ const Step3Activity = () => {
       className="max-w-2xl mx-auto px-6 py-10"
     >
       <div className="carter-divider mb-6" />
-      <h2 className="text-3xl font-serif text-foreground mb-2 font-normal tracking-[-0.02em]">Votre activité</h2>
+      <h2 className="text-2xl font-sans text-foreground mb-2 font-medium tracking-[-0.02em]">Votre activité</h2>
       <p className="text-muted-foreground font-sans text-sm font-light mb-10">
         {store.departement
           ? `Sélectionnez vos domaines d'intervention en ${store.departement} et ajustez la répartition.`
