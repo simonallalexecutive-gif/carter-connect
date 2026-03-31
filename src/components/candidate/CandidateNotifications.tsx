@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Bell, Star, ArrowRight, MessageCircle, CheckCircle2, Calendar } from 'lucide-react';
-import { CANDIDATE_OFFERS } from '@/lib/candidateMockData';
+import { CANDIDATE_OFFERS, getOfferNatFlag } from '@/lib/candidateMockData';
 import { shortSeniority, formatOfferDate } from './CandidateOffers';
 import { toast } from 'sonner';
 
