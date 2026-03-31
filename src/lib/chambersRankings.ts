@@ -58,7 +58,7 @@ export const CHAMBERS_DB: Record<string, ChambersFirmEntry> = {
   // ── Clifford Chance ──
   'Clifford Chance': {
     nat: 'UK',
-    rankings: { ma: 2, pe: 3, banque: 2, restructuring: 3, public: 1, arbitrage: 2, social: 2, concurrence: 2, immo: 2, projets: 1 },
+    rankings: { ma: 2, pe: 3, banque: 2, restructuring: 3, public: 1, arbitrage: 2, social: 2, concurrence: 2, immo: 2, projets: 1, tax: 2 },
   },
   // ── Darrois Villey Maillot Brochier ──
   'Darrois Villey Maillot Brochier': {
