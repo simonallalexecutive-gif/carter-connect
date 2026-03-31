@@ -1,5 +1,6 @@
 import { cn } from '@/lib/utils';
 import { Check } from 'lucide-react';
+import navBg from '@/assets/nav-bg-dark.jpg';
 
 interface StepProgressProps {
   currentStep: number;
