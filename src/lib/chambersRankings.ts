@@ -148,7 +148,7 @@ export const CHAMBERS_DB: Record<string, ChambersFirmEntry> = {
   // ── Orrick Herrington & Sutcliffe ──
   'Orrick Herrington & Sutcliffe': {
     nat: 'US',
-    rankings: { ma: 4, restructuring: 4, public: 3, social: 3, concurrence: 5, projets: 2 },
+    rankings: { ma: 4, restructuring: 4, public: 3, social: 3, concurrence: 5, projets: 2, tax: 5 },
   },
   // ── Paul Hastings ──
   'Paul Hastings': {
