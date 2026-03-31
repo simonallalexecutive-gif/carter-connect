@@ -106,8 +106,8 @@ const LandingPage = () => (
       <div className="px-6 sm:px-8 lg:px-10 max-w-6xl relative z-10 pt-24 flex-1 flex items-center pb-4">
         <motion.div variants={stagger} initial="hidden" animate="visible" className="max-w-[min(95vw,72rem)]">
           <div className="inline-block">
-          <motion.h1 variants={fadeUp} className="text-[1.5rem] sm:text-[2.8rem] md:text-[3.75rem] lg:text-[4.875rem] font-serif font-[500] text-white leading-[1.1] md:leading-[1.02] mb-3 md:mb-5 tracking-[-0.03em] whitespace-nowrap">
-              Access without <em className="italic">exposure</em>
+          <motion.h1 variants={fadeUp} className="text-[1.8rem] sm:text-[3.36rem] md:text-[4.5rem] lg:text-[5.85rem] font-serif font-[500] text-white leading-[1.1] md:leading-[1.02] mb-3 md:mb-5 tracking-[-0.03em] whitespace-nowrap">
+              Access <em className="italic">without</em> exposure
             </motion.h1>
           </div>
           <motion.p variants={fadeUp} className="text-[1.1rem] sm:text-[1.2rem] md:text-[1.22rem] text-white font-sans font-[480] leading-[1.65] max-w-[72rem]">
