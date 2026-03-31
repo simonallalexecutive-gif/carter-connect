@@ -51,8 +51,30 @@ const CandidateOffers = () => {
   const [seniorityFilter, setSeniorityFilter] = useState('all');
   const [chambersFilter, setChambersFilter] = useState('all');
 
+  // Get candidate's active practices for relevance filtering
+  const candidatePractices = useMemo(() => {
+    const active = Object.entries(activites).filter(([, v]) => v).map(([k]) => k);
+    return active;
+  }, [activites]);
+
+  const { departement } = useRegistrationStore();
+
   const filteredOffers = useMemo(() => {
     let offers = [...CANDIDATE_OFFERS];
+
+    // Filter by candidate's practice (relevance) - only show offers matching candidate's department
+    if (departement) {
+      offers = offers.filter(o => {
+        // Match by department name
+        if (o.dept === departement) return true;
+        // Match by activity split keys
+        if (o.activitySplit && Object.keys(o.activitySplit).some(k => k === departement)) return true;
+        // Match by chambers dept key
+        const chambersDept = CHAMBERS_DEPARTMENTS.find(d => d.label === departement);
+        if (chambersDept && o.chambersDeptKey === chambersDept.key) return true;
+        return false;
+      });
+    }
 
     // Practice filter
     if (practiceFilter !== 'all') {
@@ -94,7 +116,7 @@ const CandidateOffers = () => {
     }
 
     return offers;
-  }, [practiceFilter, natFilter, seniorityFilter, chambersFilter]);
+  }, [practiceFilter, natFilter, seniorityFilter, chambersFilter, departement, activites]);
 
   const handleInterest = (offer: CandidateOffer) => {
     if (interestedOffers.has(offer.id)) return;
