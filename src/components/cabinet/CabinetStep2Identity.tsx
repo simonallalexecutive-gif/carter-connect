@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useCabinetStore } from '@/stores/cabinetStore';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -7,6 +7,7 @@ import { NAT_FLAGS, NAT_LABELS } from '@/lib/legal500Rankings';
 import { cn } from '@/lib/utils';
 import { formatPhoneWithDots } from '@/lib/formatters';
 import { Plus, Minus, Shield, Building2, Eye, EyeOff } from 'lucide-react';
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 
 const CabinetStep2Identity = () => {
   const s = useCabinetStore();
