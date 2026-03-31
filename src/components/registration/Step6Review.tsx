@@ -469,7 +469,7 @@ const Step6Review = () => {
 
       {/* ═══ VUE CABINET (anonymisée) ═══ */}
       {previewMode === 'cabinet' && (
-        <div className="space-y-0 border border-border rounded-sm overflow-hidden divide-y divide-border">
+        <div className="border border-border rounded-sm overflow-hidden">
           <div className="p-4 bg-secondary/50">
             <p className="text-xs font-sans font-light text-muted-foreground flex items-center gap-2">
               <Eye className="w-3.5 h-3.5" />

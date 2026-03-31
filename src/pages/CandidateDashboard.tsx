@@ -174,30 +174,30 @@ const CandidateDashboardContent = () => {
               <h1 className="text-lg md:text-xl font-sans font-normal text-foreground leading-tight tracking-[-0.01em]">
                 Bienvenue{prenom ? `, ${prenom}` : user.user_metadata?.full_name ? `, ${user.user_metadata.full_name}` : ''}
               </h1>
-              <div className="flex flex-wrap items-center gap-2 mt-1.5">
+              <div className="flex flex-wrap items-center gap-2 mt-2">
                 {departement && (
-                  <span className="inline-flex items-center gap-1 text-[9px] text-[hsl(215,20%,35%)] bg-[hsl(215,18%,85%)] border border-[hsl(215,15%,78%)] rounded-sm px-2 py-0.5 font-sans font-medium">
-                    <Star className="w-2.5 h-2.5" />{departement}
+                  <span className="inline-flex items-center gap-1.5 text-[10px] text-foreground bg-white border border-white/80 rounded-sm px-2.5 py-1 font-sans font-medium shadow-sm">
+                    <Star className="w-3 h-3" />{departement}
                   </span>
                 )}
                 {cabinet && (
-                  <span className="inline-flex items-center gap-1 text-[9px] text-[hsl(215,20%,35%)] bg-[hsl(215,18%,85%)] border border-[hsl(215,15%,78%)] rounded-sm px-2 py-0.5 font-sans font-medium">
-                    <Building2 className="w-2.5 h-2.5" />{cabinet}
+                  <span className="inline-flex items-center gap-1.5 text-[10px] text-foreground bg-white border border-white/80 rounded-sm px-2.5 py-1 font-sans font-medium shadow-sm">
+                    <Building2 className="w-3 h-3" />{cabinet}
                   </span>
                 )}
                 {seniorityInfo && (
-                  <span className="text-[9px] text-[hsl(215,20%,35%)] bg-[hsl(215,18%,85%)] border border-[hsl(215,15%,78%)] rounded-sm px-2 py-0.5 font-sans font-medium">
+                  <span className="text-[10px] text-foreground bg-white border border-white/80 rounded-sm px-2.5 py-1 font-sans font-medium shadow-sm">
                     {seniorityInfo.label} · {seniorityInfo.years} ans
                   </span>
                 )}
                 {statutLabel && (
-                  <span className="text-[9px] text-[hsl(215,20%,35%)] bg-[hsl(215,18%,85%)] border border-[hsl(215,15%,78%)] rounded-sm px-2 py-0.5 font-sans font-medium">
+                  <span className="text-[10px] text-foreground bg-white border border-white/80 rounded-sm px-2.5 py-1 font-sans font-medium shadow-sm">
                     {statutLabel}
                   </span>
                 )}
                 {visibiliteLabel && (
-                  <span className="inline-flex items-center gap-1 text-[9px] text-[hsl(215,20%,35%)] bg-[hsl(215,18%,85%)] border border-[hsl(215,15%,78%)] rounded-sm px-2 py-0.5 font-sans font-medium">
-                    <Eye className="w-2.5 h-2.5" />{visibiliteLabel}
+                  <span className="inline-flex items-center gap-1.5 text-[10px] text-foreground bg-white border border-white/80 rounded-sm px-2.5 py-1 font-sans font-medium shadow-sm">
+                    <Eye className="w-3 h-3" />{visibiliteLabel}
                   </span>
                 )}
               </div>

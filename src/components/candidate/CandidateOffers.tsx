@@ -62,14 +62,26 @@ const CandidateOffers = () => {
   const filteredOffers = useMemo(() => {
     let offers = [...CANDIDATE_OFFERS];
 
-    // Filter by candidate's practice (relevance) - only show offers matching candidate's department
+    // Filter by candidate's practice (relevance) - show related practices
+    const RELATED_DEPTS: Record<string, string[]> = {
+      'M&A (dominante)': ['Corporate/M&A', 'Private Equity', 'Venture Capital', 'M&A'],
+      'Private Equity (dominante)': ['Private Equity', 'Corporate/M&A', 'Venture Capital', 'M&A'],
+      'Corporate': ['Corporate/M&A', 'Private Equity', 'M&A'],
+      'Financement LBO': ['Banking & Finance', 'Financement LBO', 'Financement de projets'],
+      'Financement de projets': ['Banking & Finance', 'Financement LBO', 'Financement de projets'],
+      'Restructuring': ['Restructuring', 'Restructuring/Insolvency'],
+      'Restructuring/Insolvency': ['Restructuring', 'Restructuring/Insolvency'],
+      'Droit Social': ['Employment', 'Droit Social'],
+      'Immobilier': ['Real Estate', 'Immobilier'],
+      'Tax': ['Tax'],
+      'Concurrence': ['Concurrence', 'Competition/EU'],
+      'Droit Public': ['Droit Public', 'Public Law'],
+    };
     if (departement) {
+      const relatedDepts = RELATED_DEPTS[departement] || [departement];
       offers = offers.filter(o => {
-        // Match by department name
-        if (o.dept === departement) return true;
-        // Match by activity split keys
-        if (o.activitySplit && Object.keys(o.activitySplit).some(k => k === departement)) return true;
-        // Match by chambers dept key
+        if (relatedDepts.some(d => o.dept === d || o.dept.includes(d))) return true;
+        if (o.activitySplit && Object.keys(o.activitySplit).some(k => relatedDepts.some(d => k === d || k.includes(d)))) return true;
         const chambersDept = CHAMBERS_DEPARTMENTS.find(d => d.label === departement);
         if (chambersDept && o.chambersDeptKey === chambersDept.key) return true;
         return false;
