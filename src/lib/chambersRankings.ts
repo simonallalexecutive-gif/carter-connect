@@ -21,6 +21,7 @@ export const CHAMBERS_DEPARTMENTS: { key: string; label: string }[] = [
   { key: 'concurrence', label: 'Competition/European Law' },
   { key: 'immo', label: 'Real Estate' },
   { key: 'projets', label: 'Projects & Energy' },
+  { key: 'tax', label: 'Tax' },
 ];
 
 export const CHAMBERS_DB: Record<string, ChambersFirmEntry> = {
