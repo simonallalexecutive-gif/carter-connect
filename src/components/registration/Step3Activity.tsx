@@ -162,8 +162,8 @@ const Step3Activity = () => {
                 transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                 className="overflow-hidden"
               >
-                <div className="carter-card p-6 md:p-8">
-                  <p className="carter-label mb-6">Répartition de votre activité</p>
+                <div className="border border-border rounded-sm p-6 md:p-8">
+                  <h3 className="font-sans text-sm font-medium text-foreground tracking-tight mb-6">Répartition des dossiers</h3>
 
                   <div className="flex flex-col md:flex-row gap-8 items-center md:items-start">
                     {/* Pie chart */}
