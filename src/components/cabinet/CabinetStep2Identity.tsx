@@ -138,7 +138,11 @@ const CabinetStep2Identity = () => {
           </div>
           
           <div className="flex items-center gap-3 mb-4">
-            <span className="text-sm font-bold">{NAT_FLAGS[s.detectedNat]}</span>
+            {cabinetLogoUrl ? (
+              <img src={cabinetLogoUrl} alt={s.cabinetName} className="w-8 h-8 rounded object-contain bg-white p-0.5 border border-border" />
+            ) : (
+              <span className="text-sm font-bold">{NAT_FLAGS[s.detectedNat]}</span>
+            )}
             <div>
               <div className="text-sm font-semibold text-foreground">{s.cabinetName}</div>
               <div className="text-xs text-muted-foreground">{NAT_LABELS[s.detectedNat]}</div>
