@@ -128,7 +128,7 @@ export const CHAMBERS_DB: Record<string, ChambersFirmEntry> = {
   // ── Linklaters ──
   'Linklaters': {
     nat: 'UK',
-    rankings: { ma: 3, pe: 3, banque: 2, restructuring: 2, public: 4, arbitrage: 4, concurrence: 1, immo: 3, projets: 1 },
+    rankings: { ma: 3, pe: 3, banque: 2, restructuring: 2, public: 4, arbitrage: 4, concurrence: 1, immo: 3, projets: 1, tax: 3 },
   },
   // ── Mayer Brown ──
   'Mayer Brown': {
