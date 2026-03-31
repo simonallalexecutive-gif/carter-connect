@@ -16,16 +16,19 @@ const PALIER_MAP: Record<string, string> = {
   enterprise: 'Enterprise · Sur devis',
 };
 
-// Aligned with Chambers practice names used in candidate registration
+// Aligned with CHAMBERS_DEPARTMENTS from candidate registration (chambersRankings.ts)
 const FILTERS = [
   { key: 'all', label: 'Tous' },
   { key: 'ma', label: 'Corporate/M&A' },
   { key: 'pe', label: 'Private Equity' },
   { key: 'banque', label: 'Banking & Finance' },
   { key: 'restructuring', label: 'Restructuring/Insolvency' },
+  { key: 'public', label: 'Public Law' },
+  { key: 'arbitrage', label: 'International Arbitration' },
   { key: 'social', label: 'Employment' },
+  { key: 'concurrence', label: 'Competition/European Law' },
   { key: 'immo', label: 'Real Estate' },
-  { key: 'fiscal', label: 'Fiscal' },
+  { key: 'projets', label: 'Projects & Energy' },
   { key: 'new', label: '🔔 Nouveaux' },
 ];
 
