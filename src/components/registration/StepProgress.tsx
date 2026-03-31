@@ -1,5 +1,6 @@
 import { cn } from '@/lib/utils';
 import { Check } from 'lucide-react';
+import navBg from '@/assets/nav-bg-dark.jpg';
 
 interface StepProgressProps {
   currentStep: number;
@@ -20,7 +21,7 @@ const StepProgress = ({ currentStep }: StepProgressProps) => {
   if (currentStep <= 1 || currentStep >= 7) return null;
 
   return (
-    <div className="w-full bg-[hsl(215,30%,22%)] py-8 px-4">
+    <div className="w-full py-8 px-4 bg-cover bg-center" style={{ backgroundImage: `url(${navBg})` }}>
       <div className="max-w-2xl mx-auto">
         <div className="flex items-center justify-between relative">
           {/* Background line */}
