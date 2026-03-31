@@ -553,7 +553,7 @@ const Step6Review = () => {
           </SectionCard>
 
           {/* Statut */}
-          <SectionCard title="Statut">
+          <SectionCard title="Statut" noBorder>
             <div className="grid grid-cols-2 gap-4">
               <DataRow label="Écoute" value={store.statutEcoute === 'actif' ? 'En recherche active' : store.statutEcoute === 'passif' ? 'À l\'écoute' : '—'} />
               {store.disponibilite && <DataRow label="Disponibilité" value={store.disponibilite} />}
