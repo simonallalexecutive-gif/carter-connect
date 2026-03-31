@@ -20,6 +20,7 @@ interface ActivityPieChartProps {
   showLegend?: boolean;
   darkMode?: boolean;
   className?: string;
+  customColors?: string[];
 }
 
 const ActivityPieChart = ({
@@ -30,7 +31,9 @@ const ActivityPieChart = ({
   showLegend = true,
   darkMode = false,
   className = '',
+  customColors,
 }: ActivityPieChartProps) => {
+  const palette = customColors || BLUE_PALETTE;
   const chartData = useMemo(() => {
     return Object.entries(data)
       .filter(([, v]) => v > 0)
@@ -54,7 +57,7 @@ const ActivityPieChart = ({
             strokeWidth={2}
           >
             {chartData.map((_, i) => (
-              <Cell key={i} fill={BLUE_PALETTE[i % BLUE_PALETTE.length]} />
+              <Cell key={i} fill={palette[i % palette.length]} />
             ))}
           </Pie>
           <Tooltip
@@ -75,7 +78,7 @@ const ActivityPieChart = ({
             <div key={item.name} className="flex items-center gap-1.5">
               <span
                 className="w-2.5 h-2.5 rounded-sm flex-shrink-0"
-                style={{ background: BLUE_PALETTE[i % BLUE_PALETTE.length] }}
+                style={{ background: palette[i % palette.length] }}
               />
               <span className={`text-[10px] ${darkMode ? 'text-white/60' : 'text-muted-foreground'}`}>
                 {item.name} ({item.value}%)

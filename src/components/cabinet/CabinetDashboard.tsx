@@ -4,7 +4,7 @@ import { PROFILES, DEPT_KEY_MAP, type CabinetProfile } from '@/lib/cabinetConsta
 import { CHAMBERS_DEPARTMENTS, getChambersRanking, formatChambersBand } from '@/lib/chambersRankings';
 import { NAT_FLAGS, NAT_LABELS } from '@/lib/legal500Rankings';
 import { cn } from '@/lib/utils';
-import { X, Search, Eye, Plus, FileText, Users } from 'lucide-react';
+import { X, Search, Eye, Plus, FileText, Users, User } from 'lucide-react';
 import ActivityPieChart from '@/components/shared/ActivityPieChart';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
@@ -16,14 +16,29 @@ const PALIER_MAP: Record<string, string> = {
   enterprise: 'Enterprise · Sur devis',
 };
 
+// Aligned with Chambers practice names used in candidate registration
 const FILTERS = [
   { key: 'all', label: 'Tous' },
-  { key: 'ma', label: 'M&A' },
+  { key: 'ma', label: 'Corporate/M&A' },
   { key: 'pe', label: 'Private Equity' },
-  { key: 'banque', label: 'Banque & Finance' },
-  { key: 'social', label: 'Droit Social' },
+  { key: 'banque', label: 'Banking & Finance' },
+  { key: 'restructuring', label: 'Restructuring/Insolvency' },
+  { key: 'social', label: 'Employment' },
+  { key: 'immo', label: 'Real Estate' },
   { key: 'fiscal', label: 'Fiscal' },
   { key: 'new', label: '🔔 Nouveaux' },
+];
+
+// Pie chart palette: bleu nuit, bleu pétrole, gris clair, gris foncé, noir
+const EXPLORE_PIE_PALETTE = [
+  'hsl(220, 40%, 18%)',   // bleu nuit
+  'hsl(195, 45%, 28%)',   // bleu pétrole
+  'hsl(210, 15%, 55%)',   // gris clair
+  'hsl(210, 10%, 35%)',   // gris foncé
+  'hsl(0, 0%, 10%)',      // noir
+  'hsl(200, 30%, 40%)',   // bleu pétrole clair
+  'hsl(215, 20%, 45%)',   // bleu gris
+  'hsl(0, 0%, 65%)',      // gris moyen
 ];
 
 const CabinetDashboard = () => {
@@ -119,68 +134,6 @@ const CabinetDashboard = () => {
   );
 };
 
-// ── DEPARTMENT SELECTION ──
-const DeptSelection = () => {
-  const s = useCabinetStore();
-
-  const selectDept = (key: string, label: string) => {
-    s.setField('currentSearchDept', key);
-    s.setField('currentSearchDeptLabel', label);
-    // Auto-detect Chambers ranking for this dept
-    const band = s.selectedFirm ? getChambersRanking(s.selectedFirm, key) : null;
-    if (band !== null) {
-      s.setField('ranking', formatChambersBand(band));
-    } else {
-      s.setField('ranking', 'Non classé Chambers');
-    }
-    s.setField('currentSearchStep', 1);
-  };
-
-  return (
-    <div className="max-w-[780px] mx-auto">
-      <button
-        onClick={() => s.setField('dashboardView', 'home')}
-        className="text-xs text-muted-foreground hover:text-foreground mb-6 flex items-center gap-1"
-      >
-        ← Retour au tableau de bord
-      </button>
-
-      <h2 className="font-sans text-3xl font-normal text-foreground leading-tight mb-2.5">Nouvelle recherche</h2>
-      <p className="text-sm text-muted-foreground font-light leading-relaxed mb-8 max-w-xl">
-        Sélectionnez le département concerné par votre recherche. LOGAN identifiera automatiquement votre classement Chambers pour ce département.
-      </p>
-
-      <div className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-3">Département concerné par la recherche</div>
-      <div className="grid grid-cols-2 gap-3">
-        {CHAMBERS_DEPARTMENTS.map((dept) => {
-          const band = s.selectedFirm ? getChambersRanking(s.selectedFirm, dept.key) : null;
-          return (
-            <button
-              key={dept.key}
-              onClick={() => selectDept(dept.key, dept.label)}
-              className="text-left p-4 rounded-md border border-border bg-background hover:border-foreground hover:shadow-sm transition-all"
-            >
-              <div className="text-sm font-semibold text-foreground mb-1">{dept.label}</div>
-              <div className="text-[10px] text-muted-foreground">
-                {band !== null ? (
-                  <span className={cn(
-                    'font-bold px-2 py-0.5 rounded-sm inline-block',
-                    band <= 2 ? 'bg-foreground text-background' : 'bg-secondary text-foreground'
-                  )}>
-                    {formatChambersBand(band)}
-                  </span>
-                ) : (
-                  <span className="italic">Non classé</span>
-                )}
-              </div>
-            </button>
-          );
-        })}
-      </div>
-    </div>
-  );
-};
-
 // ── SEARCH FORM WRAPPER ──
 const SearchFormWrapper = () => {
   const s = useCabinetStore();
@@ -230,10 +183,9 @@ const SearchValidation = () => {
         Voici l'aperçu de votre recherche telle qu'elle apparaîtra aux yeux des candidats.
       </p>
 
-      {/* Preview card — dark premium style like DiscoverSection */}
+      {/* Preview card — dark premium style */}
       <div className="mb-6">
         <div className="bg-foreground rounded-lg overflow-hidden shadow-[0_25px_60px_-12px_rgba(0,0,0,0.5)] backdrop-blur-sm">
-          {/* Header */}
           <div className="p-6 md:p-8 border-b border-white/[0.08]">
             <div className="text-[8px] tracking-[0.16em] uppercase text-white/35 font-sans mb-3">Opportunité · Présentée par LOGAN</div>
             <div className="font-sans text-lg md:text-xl font-bold text-white mb-1.5 leading-tight">
@@ -254,7 +206,6 @@ const SearchValidation = () => {
             </div>
           </div>
 
-          {/* Activity breakdown */}
           {s.expertise.length > 0 && Object.keys(s.activitySplit).length > 0 && (
             <div className="p-6 md:p-8 border-b border-white/[0.08]">
               <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-white/35 font-sans mb-4">Répartition de l'activité</div>
@@ -282,7 +233,6 @@ const SearchValidation = () => {
             </div>
           )}
 
-          {/* Context & team */}
           {(s.contexte || s.eqAssocies || s.eqCounsels || s.eqCollab) && (
             <div className="p-6 md:p-8 border-b border-white/[0.08]">
               <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-white/35 font-sans mb-4">Contexte & équipe</div>
@@ -305,7 +255,6 @@ const SearchValidation = () => {
             </div>
           )}
 
-          {/* Rémunération & conditions */}
           <div className="p-6 md:p-8 border-b border-white/[0.08]">
             <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-white/35 font-sans mb-4">Rémunération & conditions</div>
             <div className="grid grid-cols-3 gap-4">
@@ -326,7 +275,6 @@ const SearchValidation = () => {
             </div>
           </div>
 
-          {/* CTA preview */}
           <div className="p-6 md:p-8 text-center">
             <p className="text-[10px] text-white/30 font-sans mb-3 leading-relaxed">
               LOGAN qualifie l'opportunité des deux côtés avant toute mise en relation.
@@ -384,6 +332,31 @@ const SearchValidation = () => {
   );
 };
 
+// ── Helper: derive status label from profile ──
+function getStatusLabel(p: CabinetProfile): string {
+  if (p.seniority === 'Associé') return 'Associé';
+  if (p.seniority === 'Counsel') return 'Counsel';
+  return 'Collaborateur';
+}
+
+function getSeniorityDetail(p: CabinetProfile): string | null {
+  const status = getStatusLabel(p);
+  if (status !== 'Collaborateur') return null;
+  if (p.seniority === 'Junior' || p.seniority.includes('Junior')) return 'Junior';
+  if (p.seniority === 'Mid Level' || p.seniority.includes('Mid')) return 'Mid-level';
+  if (p.seniority === 'Sénior' || p.seniority.includes('Sénior') || p.seniority.includes('Senior')) return 'Sénior';
+  return null;
+}
+
+function getNatLabel(nat: string): string {
+  const map: Record<string, string> = { FR: 'Français', US: 'Américain', UK: 'Anglais' };
+  return map[nat] || nat;
+}
+
+function isChambersRanked(p: CabinetProfile): boolean {
+  return !!(p.originTier && p.originTier.startsWith('Tier'));
+}
+
 // ── EXPLORE VIEW ──
 const ExploreView = ({
   filter, setFilter, sort, setSort, drawerProfile, setDrawerProfile
@@ -396,14 +369,14 @@ const ExploreView = ({
   setDrawerProfile: (p: CabinetProfile | null) => void;
 }) => {
   const s = useCabinetStore();
-  const [legal500Only, setLegal500Only] = useState(false);
+  const [chambersOnly, setChambersOnly] = useState(false);
   const [seniorityFilter, setSeniorityFilter] = useState<string>('all');
 
   const SENIORITY_FILTERS = [
     { key: 'all', label: 'Toutes' },
     { key: 'Junior', label: 'Junior' },
-    { key: 'Mid Level', label: 'Mid' },
-    { key: 'Senior', label: 'Senior' },
+    { key: 'Mid Level', label: 'Mid-level' },
+    { key: 'Senior', label: 'Sénior' },
     { key: 'Counsel', label: 'Counsel' },
     { key: 'Associé', label: 'Associé' },
   ];
@@ -412,12 +385,12 @@ const ExploreView = ({
     let profiles = [...PROFILES];
     if (filter === 'new') profiles = profiles.filter((p) => p.isNew);
     else if (filter !== 'all') profiles = profiles.filter((p) => p.dept === filter);
-    if (legal500Only) profiles = profiles.filter((p) => p.originTier && p.originTier.startsWith('Tier'));
-    if (seniorityFilter !== 'all') profiles = profiles.filter((p) => p.seniority === seniorityFilter);
+    if (chambersOnly) profiles = profiles.filter((p) => isChambersRanked(p));
+    if (seniorityFilter !== 'all') profiles = profiles.filter((p) => p.seniority === seniorityFilter || p.seniority.includes(seniorityFilter));
     if (sort === 'pqe') profiles.sort((a, b) => parseInt(b.pqe) - parseInt(a.pqe));
     else if (sort === 'match') profiles.sort((a, b) => b.match - a.match);
     return profiles;
-  }, [filter, sort, legal500Only, seniorityFilter]);
+  }, [filter, sort, chambersOnly, seniorityFilter]);
 
   return (
     <div>
@@ -430,18 +403,18 @@ const ExploreView = ({
 
       <h2 className="font-sans text-2xl font-normal text-foreground leading-tight mb-1">Explorer le marché</h2>
       <p className="text-xs text-muted-foreground mb-6">
-        Parcourez tous les profils enregistrés. Cliquez sur « Ce candidat m'intéresse » pour que LOGAN puisse se rapprocher du candidat en dehors de tout mandat.
+        Parcourez tous les profils enregistrés. Cliquez sur un profil pour consulter le détail anonymisé.
       </p>
 
       {/* Filters */}
-      <div className="flex items-center gap-2.5 mb-5 flex-wrap">
-        <span className="text-[11px] font-semibold text-foreground mr-1">Filtrer :</span>
+      <div className="flex items-center gap-2 mb-4 flex-wrap">
+        <span className="text-[11px] font-semibold text-foreground mr-1">Pratique :</span>
         {FILTERS.map((f) => (
           <button
             key={f.key}
             onClick={() => setFilter(f.key)}
             className={cn(
-              'text-[10px] font-semibold px-3 py-1.5 border rounded-full transition-all',
+              'text-[10px] font-medium px-3 py-1.5 border rounded-full transition-all',
               filter === f.key
                 ? 'bg-foreground text-background border-foreground'
                 : 'bg-background text-muted-foreground border-border hover:border-foreground'
@@ -450,31 +423,20 @@ const ExploreView = ({
             {f.label}
           </button>
         ))}
-        <div className="ml-auto flex items-center gap-2">
-          <select
-            value={sort}
-            onChange={(e) => setSort(e.target.value)}
-            className="text-[11px] border border-border rounded px-2 py-1 bg-background text-foreground cursor-pointer"
-          >
-            <option value="date">Plus récents</option>
-            <option value="pqe">Expérience</option>
-            <option value="match">Matching</option>
-          </select>
-        </div>
       </div>
 
-      {/* Legal 500 checkbox + seniority filter */}
+      {/* Chambers checkbox + seniority + sort */}
       <div className="flex items-center gap-4 mb-5 flex-wrap">
         <div className="flex items-center gap-2">
           <input
             type="checkbox"
-            id="legal500filter"
-            checked={legal500Only}
-            onChange={e => setLegal500Only(e.target.checked)}
+            id="chambersFilter"
+            checked={chambersOnly}
+            onChange={e => setChambersOnly(e.target.checked)}
             className="w-3.5 h-3.5 rounded border-border accent-foreground cursor-pointer"
           />
-          <label htmlFor="legal500filter" className="text-[11px] text-foreground font-medium cursor-pointer select-none">
-            Candidats issus du Legal 500 uniquement
+          <label htmlFor="chambersFilter" className="text-[11px] text-foreground font-medium cursor-pointer select-none">
+            Le candidat doit exercer dans un cabinet dont la pratique est reconnue par Chambers
           </label>
         </div>
         <div className="flex items-center gap-2">
@@ -489,164 +451,251 @@ const ExploreView = ({
             ))}
           </select>
         </div>
+        <div className="ml-auto flex items-center gap-2">
+          <select
+            value={sort}
+            onChange={(e) => setSort(e.target.value)}
+            className="text-[11px] border border-border rounded px-2 py-1 bg-background text-foreground cursor-pointer"
+          >
+            <option value="date">Plus récents</option>
+            <option value="pqe">Expérience</option>
+            <option value="match">Matching</option>
+          </select>
+        </div>
       </div>
 
       {/* Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {filtered.map((p) => (
-          <div
-            key={p.id}
-            onClick={() => setDrawerProfile(p)}
-            className="rounded-lg p-5 cursor-pointer transition-all hover:shadow-lg hover:-translate-y-0.5 relative border border-border"
-            style={{ background: 'hsl(0 0% 96%)' }}
-          >
-            {p.isNew && (
-              <span className="absolute top-3 right-3 text-[7px] font-bold tracking-[0.12em] uppercase bg-foreground text-background px-2 py-0.5 rounded-sm">NOUVEAU</span>
-            )}
-            <div className="text-[9px] text-foreground/40 tracking-[0.08em] mb-3 font-sans">{p.id}</div>
-            <div className="font-sans text-base font-bold text-foreground mb-1.5 leading-tight">{p.title}</div>
-            <div className="text-[11px] text-muted-foreground mb-3 font-sans">{p.origin} · {p.natFlag}</div>
-            <div className="flex flex-wrap gap-1 mb-3">
-              <span className="text-[9px] font-semibold px-2 py-0.5 rounded-sm bg-foreground text-background">{p.deptLabel}</span>
-              <span className="text-[9px] font-semibold px-2 py-0.5 rounded-sm bg-secondary text-foreground/70 border border-border">{p.seniority}</span>
+        {filtered.map((p) => {
+          const status = getStatusLabel(p);
+          const senDetail = getSeniorityDetail(p);
+          const natLabel = getNatLabel(p.nat);
+          const chambers = isChambersRanked(p);
+
+          return (
+            <div
+              key={p.id}
+              onClick={() => setDrawerProfile(p)}
+              className="rounded-lg p-5 cursor-pointer transition-all hover:shadow-lg hover:-translate-y-0.5 relative border border-border bg-secondary"
+            >
+              {p.isNew && (
+                <span className="absolute top-3 right-3 text-[7px] font-bold tracking-[0.12em] uppercase bg-foreground text-background px-2 py-0.5 rounded-sm">NOUVEAU</span>
+              )}
+              <div className="text-[9px] text-muted-foreground tracking-[0.08em] mb-2 font-sans">{p.id}</div>
+              <div className="font-sans text-sm font-semibold text-foreground mb-1 leading-tight">Profil anonymisé</div>
+              <div className="font-sans text-[13px] text-foreground mb-2">{p.deptLabel}</div>
+
+              {/* Status + Seniority */}
+              <div className="flex flex-wrap gap-1.5 mb-3">
+                <span className="text-[9px] font-semibold px-2 py-0.5 rounded-sm bg-foreground text-background">{status}</span>
+                {senDetail && (
+                  <span className="text-[9px] font-medium px-2 py-0.5 rounded-sm bg-secondary text-foreground border border-border">{senDetail} · {p.pqe} d'exercice</span>
+                )}
+                {!senDetail && status === 'Counsel' && (
+                  <span className="text-[9px] font-medium px-2 py-0.5 rounded-sm bg-secondary text-foreground border border-border">{p.pqe} d'exercice</span>
+                )}
+              </div>
+
+              {/* Key info */}
+              <div className="space-y-1.5 text-[11px] font-sans border-t border-border pt-3">
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Nationalité du cabinet</span>
+                  <span className="font-medium text-foreground">{natLabel}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Reconnu Chambers</span>
+                  <span className={cn('font-medium', chambers ? 'text-foreground' : 'text-muted-foreground')}>{chambers ? 'Oui' : 'Non'}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Recherche active</span>
+                  <span className="font-medium text-foreground">{p.disponibilite === 'Immédiate' ? 'Oui' : 'Non'}</span>
+                </div>
+              </div>
             </div>
-            <div className="grid grid-cols-2 gap-2 border-t border-border pt-3">
-              <div><div className="text-[8px] text-muted-foreground uppercase tracking-[0.08em]">Anglais</div><div className="text-[11px] font-semibold text-foreground">{p.english}</div></div>
-              <div><div className="text-[8px] text-muted-foreground uppercase tracking-[0.08em]">Séniorité</div><div className="text-[11px] font-semibold text-foreground">{p.seniority}</div></div>
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       {/* Drawer */}
       {drawerProfile && (
-        <>
-          <div className="fixed inset-0 bg-foreground/30 z-[399]" onClick={() => setDrawerProfile(null)} />
-          <div className="fixed top-0 right-0 bottom-0 w-[480px] bg-background shadow-2xl z-[400] overflow-y-auto border-l border-border">
-            <div className="sticky top-0 bg-background border-b border-border p-4 flex items-center justify-between z-10">
-              <span className="text-[11px] font-bold tracking-[0.08em] uppercase text-foreground">Fiche candidat anonymisée</span>
-              <button onClick={() => setDrawerProfile(null)} className="bg-secondary rounded-full w-7 h-7 flex items-center justify-center hover:bg-border">
-                <X className="w-4 h-4" />
-              </button>
-            </div>
-            <div className="p-5">
-              {/* Anonymous header */}
-              <div className="flex items-center gap-4 mb-6">
-                <div className="w-14 h-14 rounded-full bg-secondary flex items-center justify-center text-muted-foreground font-sans text-xl">
-                  ?
-                </div>
-                <div>
-                  <p className="font-sans text-lg text-foreground">{drawerProfile.title}</p>
-                  <span className="text-xs font-sans font-medium px-2.5 py-1 rounded-sm bg-foreground text-background mt-1 inline-block">
-                    {drawerProfile.seniority}
-                  </span>
-                </div>
-              </div>
-
-              {/* Info grid */}
-              <div className="grid grid-cols-2 gap-4 mb-6 pb-6 border-b border-border">
-                <div><span className="text-xs text-muted-foreground font-sans font-light">Pratique</span><p className="text-sm font-sans font-medium mt-0.5">{drawerProfile.deptLabel}</p></div>
-                <div><span className="text-xs text-muted-foreground font-sans font-light">Nationalité cabinet</span><p className="text-sm font-sans font-medium mt-0.5">{drawerProfile.natFlag} {drawerProfile.origin}</p></div>
-                <div><span className="text-xs text-muted-foreground font-sans font-light">Classement Legal 500</span><p className="text-sm font-sans font-medium mt-0.5">{drawerProfile.originTier}</p></div>
-                <div><span className="text-xs text-muted-foreground font-sans font-light">Anglais</span><p className="text-sm font-sans font-medium mt-0.5">{drawerProfile.english}</p></div>
-              </div>
-
-              {/* Activity pie chart */}
-              {Object.keys(drawerProfile.split).length > 0 && (
-                <div className="mb-6 pb-6 border-b border-border">
-                  <p className="text-[9px] font-bold tracking-[0.14em] uppercase text-muted-foreground mb-4">Répartition de l'activité</p>
-                  <div className="flex items-start gap-6">
-                    <ActivityPieChart data={drawerProfile.split} size={120} innerRadius={28} outerRadius={52} showLegend={false} />
-                    <div className="flex-1 space-y-2">
-                      {Object.entries(drawerProfile.split).map(([name, value]) => (
-                        <div key={name} className="flex items-center justify-between">
-                          <span className="text-xs font-sans text-foreground">{name}</span>
-                          <span className="text-xs font-sans font-bold text-foreground">{value}%</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {/* Expertise tags */}
-              {drawerProfile.expertise.length > 0 && (
-                <div className="mb-6 pb-6 border-b border-border">
-                  <p className="text-[9px] font-bold tracking-[0.14em] uppercase text-muted-foreground mb-3">Expertises</p>
-                  <div className="flex flex-wrap gap-2">
-                    {drawerProfile.expertise.map(e => (
-                      <span key={e} className="px-3 py-1 rounded-sm bg-secondary text-foreground text-xs font-sans font-light border border-border">{e}</span>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Clientele */}
-              {drawerProfile.retro_actuel && (
-                <div className="mb-6 pb-6 border-b border-border">
-                  <p className="text-[9px] font-bold tracking-[0.14em] uppercase text-muted-foreground mb-3">Conditions</p>
-                  <div className="grid grid-cols-2 gap-3">
-                    <div><span className="text-xs text-muted-foreground font-sans font-light">Rétrocession</span><p className="text-sm font-sans font-medium mt-0.5">{drawerProfile.retro_actuel}</p></div>
-                  </div>
-                </div>
-              )}
-
-              {/* Motivation */}
-              {drawerProfile.motivation && (
-                <div className="mb-6 pb-6 border-b border-border">
-                  <p className="text-[9px] font-bold tracking-[0.14em] uppercase text-muted-foreground mb-2">Projet</p>
-                  <p className="text-sm font-sans font-light text-foreground">{drawerProfile.motivation}</p>
-                </div>
-              )}
-
-              {/* Footer */}
-              <div className="mb-4">
-                <p className="text-xs font-sans font-light text-muted-foreground">
-                  Non visible : nom, prénom, email, téléphone, nom du cabinet actuel.
-                </p>
-              </div>
-
-              {/* CTA */}
-              <div className="bg-foreground rounded-md p-4 text-center">
-                <div className="text-sm font-bold text-white mb-1.5">Ce candidat vous intéresse ?</div>
-                <p className="text-[11px] text-white/45 mb-3 leading-relaxed">LOGAN se rapprochera du candidat en dehors de tout mandat pour explorer son intérêt.</p>
-                <button
-                  onClick={() => {
-                    setDrawerProfile(null);
-                    toast.success(`Intérêt transmis à LOGAN pour le profil ${drawerProfile.id}`);
-                  }}
-                  className="w-full py-2.5 bg-white text-foreground font-bold text-xs rounded hover:bg-white/90 transition-colors"
-                >
-                  Ce candidat m'intéresse →
-                </button>
-              </div>
-            </div>
-          </div>
-        </>
+        <ProfileDrawer profile={drawerProfile} onClose={() => setDrawerProfile(null)} />
       )}
     </div>
   );
 };
 
-const Section = ({ title, children }: { title: string; children: React.ReactNode }) => (
-  <div className="mb-5 pb-5 border-b border-secondary last:border-b-0">
-    <div className="text-[9px] font-bold tracking-[0.14em] uppercase text-muted-foreground mb-3">{title}</div>
-    {children}
-  </div>
-);
+// ── PROFILE DRAWER ──
+const ProfileDrawer = ({ profile: p, onClose }: { profile: CabinetProfile; onClose: () => void }) => {
+  const status = getStatusLabel(p);
+  const senDetail = getSeniorityDetail(p);
+  const natLabel = getNatLabel(p.nat);
+  const chambers = isChambersRanked(p);
 
-const KV = ({ k, v }: { k: string; v: string }) => (
-  <div className="flex justify-between items-baseline mb-1.5">
-    <span className="text-[11px] text-muted-foreground">{k}</span>
-    <span className="text-xs font-semibold text-foreground text-right max-w-[60%]">{v}</span>
-  </div>
-);
+  // Mock priorities for demo (from Step4Project PRIORITIES list)
+  const mockPriorities = p.motivation?.includes('autonomie')
+    ? ['Responsabilité et autonomie', 'Qualité du management', 'Pratique et dossiers']
+    : p.motivation?.includes('rémunération') || p.motivation?.includes('Rémunération')
+    ? ['Rémunération', 'Perspectives', 'Équilibre pro/perso']
+    : ['Rémunération', 'Responsabilité et autonomie', 'Flexibilité et organisation'];
 
-const Row = ({ label, value }: { label: string; value: string }) => (
-  <div className="flex justify-between items-baseline py-1.5 border-b border-black/10 last:border-b-0">
-    <span className="text-[11px] text-black/50">{label}</span>
-    <span className="text-xs font-medium text-black text-right max-w-[65%]">{value}</span>
-  </div>
-);
+  // Mock positioning/clientele from expertise
+  const positioning = p.split && Object.keys(p.split).length > 0
+    ? Object.entries(p.split).map(([k]) => {
+        if (k.includes('M&A')) return 'Côté acquéreur / vendeur';
+        if (k.includes('Private Equity')) return 'Côté fonds';
+        if (k.includes('Financement')) return 'Côté prêteur / emprunteur';
+        if (k.includes('Restructuring')) return 'Côté débiteur / créancier';
+        if (k.includes('Social')) return 'Côté employeur';
+        return '';
+      }).filter(Boolean)
+    : [];
+
+  const clientele = p.pqe && parseInt(p.pqe) >= 6
+    ? 'CAC 40 / ETI / Fonds d\'investissement'
+    : 'ETI / PME / Start-ups';
+
+  return (
+    <>
+      <div className="fixed inset-0 bg-foreground/30 z-[399]" onClick={onClose} />
+      <div className="fixed top-0 right-0 bottom-0 w-[500px] bg-background shadow-2xl z-[400] overflow-y-auto border-l border-border">
+        <div className="sticky top-0 bg-background border-b border-border p-4 flex items-center justify-between z-10">
+          <span className="text-[12px] font-bold tracking-[0.06em] uppercase text-foreground font-sans">Profil anonymisé du candidat</span>
+          <button onClick={onClose} className="bg-secondary rounded-full w-7 h-7 flex items-center justify-center hover:bg-border">
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+        <div className="p-6">
+          {/* Anonymous header with silhouette */}
+          <div className="flex items-center gap-4 mb-6">
+            <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[hsl(220,40%,18%)] to-[hsl(195,45%,28%)] flex items-center justify-center">
+              <User className="w-7 h-7 text-white/60" />
+            </div>
+            <div>
+              <p className="font-sans text-lg font-semibold text-foreground">Profil anonymisé du candidat</p>
+              <p className="text-[11px] text-muted-foreground font-sans mt-0.5">{p.id} · {p.deptLabel}</p>
+            </div>
+          </div>
+
+          {/* Main info */}
+          <div className="grid grid-cols-2 gap-x-6 gap-y-3 mb-6 pb-6 border-b border-border">
+            <div>
+              <span className="text-[9px] uppercase tracking-[0.1em] text-muted-foreground font-sans">Statut</span>
+              <p className="text-sm font-sans font-semibold mt-0.5">{status}{senDetail ? ` — ${senDetail}` : ''}</p>
+            </div>
+            <div>
+              <span className="text-[9px] uppercase tracking-[0.1em] text-muted-foreground font-sans">Ancienneté</span>
+              <p className="text-sm font-sans font-semibold mt-0.5">{p.pqe} d'exercice</p>
+            </div>
+            <div>
+              <span className="text-[9px] uppercase tracking-[0.1em] text-muted-foreground font-sans">Nationalité du cabinet</span>
+              <p className="text-sm font-sans font-semibold mt-0.5">{natLabel}</p>
+            </div>
+            <div>
+              <span className="text-[9px] uppercase tracking-[0.1em] text-muted-foreground font-sans">Reconnu Chambers</span>
+              <p className="text-sm font-sans font-semibold mt-0.5">{chambers ? 'Oui' : 'Non'}</p>
+            </div>
+            <div>
+              <span className="text-[9px] uppercase tracking-[0.1em] text-muted-foreground font-sans">Anglais</span>
+              <p className="text-sm font-sans font-semibold mt-0.5">{p.english}</p>
+            </div>
+            <div>
+              <span className="text-[9px] uppercase tracking-[0.1em] text-muted-foreground font-sans">Recherche active</span>
+              <p className="text-sm font-sans font-semibold mt-0.5">{p.disponibilite === 'Immédiate' ? 'Oui' : 'Non'}</p>
+            </div>
+          </div>
+
+          {/* Activity pie chart + positioning/clientele */}
+          {Object.keys(p.split).length > 0 && (
+            <div className="mb-6 pb-6 border-b border-border">
+              <p className="text-[9px] font-bold tracking-[0.14em] uppercase text-muted-foreground mb-4">Répartition de l'activité</p>
+              <div className="flex items-start gap-5">
+                <div className="flex-shrink-0">
+                  <ActivityPieChart
+                    data={p.split}
+                    size={130}
+                    innerRadius={30}
+                    outerRadius={56}
+                    showLegend={false}
+                    customColors={EXPLORE_PIE_PALETTE}
+                  />
+                </div>
+                <div className="flex-1 space-y-2">
+                  {Object.entries(p.split).map(([name, value], i) => (
+                    <div key={name} className="flex items-center gap-2">
+                      <span className="w-2.5 h-2.5 rounded-sm flex-shrink-0" style={{ background: EXPLORE_PIE_PALETTE[i % EXPLORE_PIE_PALETTE.length] }} />
+                      <span className="text-[11px] font-sans text-foreground flex-1">{name}</span>
+                      <span className="text-[11px] font-sans font-bold text-foreground">{value}%</span>
+                    </div>
+                  ))}
+                  {/* Positioning & Clientele, discreetly beside the chart */}
+                  {positioning.length > 0 && (
+                    <div className="pt-2 mt-2 border-t border-border">
+                      <span className="text-[9px] text-muted-foreground font-sans">Positionnement : </span>
+                      <span className="text-[10px] text-foreground font-sans">{positioning.join(' / ')}</span>
+                    </div>
+                  )}
+                  <div>
+                    <span className="text-[9px] text-muted-foreground font-sans">Clientèle : </span>
+                    <span className="text-[10px] text-foreground font-sans">{clientele}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Retrocession */}
+          {p.retro_actuel && (
+            <div className="mb-6 pb-6 border-b border-border">
+              <p className="text-[9px] font-bold tracking-[0.14em] uppercase text-muted-foreground mb-3">Rétrocession</p>
+              <p className="text-sm font-sans font-semibold text-foreground">{p.retro_actuel}</p>
+            </div>
+          )}
+
+          {/* Candidate priorities */}
+          <div className="mb-6 pb-6 border-b border-border">
+            <p className="text-[9px] font-bold tracking-[0.14em] uppercase text-muted-foreground mb-3">Axes d'amélioration souhaités</p>
+            <div className="flex flex-wrap gap-2">
+              {mockPriorities.map((priority) => (
+                <span key={priority} className="text-[10px] font-sans font-medium px-3 py-1.5 rounded-full bg-secondary text-foreground border border-border">
+                  {priority}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* Motivation */}
+          {p.motivation && (
+            <div className="mb-6 pb-6 border-b border-border">
+              <p className="text-[9px] font-bold tracking-[0.14em] uppercase text-muted-foreground mb-2">Projet professionnel</p>
+              <p className="text-[12px] font-sans font-light text-foreground leading-relaxed">{p.motivation}</p>
+            </div>
+          )}
+
+          {/* Footer */}
+          <div className="mb-4">
+            <p className="text-[10px] font-sans font-light text-muted-foreground">
+              Non visible : nom, prénom, email, téléphone, nom du cabinet actuel.
+            </p>
+          </div>
+
+          {/* CTA */}
+          <div className="bg-foreground rounded-md p-4 text-center">
+            <div className="text-sm font-bold text-white mb-1.5">Ce candidat vous intéresse ?</div>
+            <p className="text-[11px] text-white/45 mb-3 leading-relaxed">LOGAN se rapprochera du candidat en dehors de tout mandat pour explorer son intérêt.</p>
+            <button
+              onClick={() => {
+                onClose();
+                toast.success(`Intérêt transmis à LOGAN pour le profil ${p.id}`);
+              }}
+              className="w-full py-2.5 bg-white text-foreground font-bold text-xs rounded hover:bg-white/90 transition-colors"
+            >
+              Ce candidat m'intéresse →
+            </button>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
 
 export default CabinetDashboard;
