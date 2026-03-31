@@ -1,6 +1,7 @@
-import { useState } from 'react';
-import { CANDIDATE_OFFERS, type CandidateOffer } from '@/lib/candidateMockData';
-import { Calendar, CheckCircle2, ChevronDown, Star } from 'lucide-react';
+import { useState, useMemo } from 'react';
+import { CANDIDATE_OFFERS, type CandidateOffer, getOfferNatFlag } from '@/lib/candidateMockData';
+import { CHAMBERS_DEPARTMENTS } from '@/lib/chambersRankings';
+import { Calendar, CheckCircle2, ChevronDown, Filter, Star } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { toast } from 'sonner';
 import ActivityPieChart from '@/components/shared/ActivityPieChart';
@@ -10,42 +11,90 @@ import { usePQE } from '@/hooks/usePQE';
 export const formatOfferDate = (dateStr: string) =>
   new Date(dateStr).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
 
-/** Extracts a short seniority label like "Collaborateur Senior" from full seniority string */
 export const shortSeniority = (s: string) => s.replace(/\s*\(.*\)/, '');
+
+const PRACTICE_FILTERS = [
+  { key: 'all', label: 'Toutes' },
+  ...CHAMBERS_DEPARTMENTS.map(d => ({ key: d.key, label: d.label })),
+];
+
+const NAT_FILTERS = [
+  { key: 'all', label: 'Toutes', flag: '' },
+  { key: 'FR', label: 'Français', flag: '🇫🇷' },
+  { key: 'US', label: 'US', flag: '🇺🇸' },
+  { key: 'UK', label: 'UK', flag: '🇬🇧' },
+];
+
+const SENIORITY_FILTERS = [
+  { key: 'all', label: 'Toutes' },
+  { key: 'collaborateur', label: 'Collaborateur' },
+  { key: 'counsel', label: 'Counsel' },
+  { key: 'associe', label: 'Associé' },
+];
+
+const CHAMBERS_FILTERS = [
+  { key: 'all', label: 'Tous' },
+  { key: 'ranked', label: 'Classé Chambers' },
+  { key: 'band1', label: 'Band 1' },
+  { key: 'band2', label: 'Band 2' },
+  { key: 'band3', label: 'Band 3+' },
+];
 
 const CandidateOffers = () => {
   const [interestedOffers, setInterestedOffers] = useState<Set<string>>(new Set());
   const [expandedOffer, setExpandedOffer] = useState<string | null>(null);
   const { activites, sermentMois, sermentAnnee } = useRegistrationStore();
   const seniorityInfo = usePQE(sermentMois, sermentAnnee);
+  const [showFilters, setShowFilters] = useState(false);
+  const [practiceFilter, setPracticeFilter] = useState('all');
+  const [natFilter, setNatFilter] = useState('all');
+  const [seniorityFilter, setSeniorityFilter] = useState('all');
+  const [chambersFilter, setChambersFilter] = useState('all');
 
-  const parseSeniorityRange = (seniority: string): [number, number] | null => {
-    const match = seniority.match(/\((\d+)-(\d+)\s*(?:PQE|ans)\)/);
-    if (match) return [parseInt(match[1]), parseInt(match[2])];
-    return null;
-  };
+  const filteredOffers = useMemo(() => {
+    let offers = [...CANDIDATE_OFFERS];
 
-  const filteredOffers = (() => {
-    const candidateExpertises = Object.entries(activites)
-      .filter(([, active]) => active)
-      .map(([name]) => name.toLowerCase());
-    const hasProfile = seniorityInfo || candidateExpertises.length > 0;
-    if (!hasProfile) return CANDIDATE_OFFERS;
-    const matched = CANDIDATE_OFFERS.filter((offer) => {
-      if (seniorityInfo) {
-        const range = parseSeniorityRange(offer.seniority);
-        if (range && (seniorityInfo.years < range[0] - 2 || seniorityInfo.years > range[1] + 2)) return false;
-      }
-      if (candidateExpertises.length > 0) {
-        const offerExpertises = new Set<string>();
-        offerExpertises.add(offer.dept.toLowerCase());
-        if (offer.activitySplit) Object.keys(offer.activitySplit).forEach((k) => offerExpertises.add(k.toLowerCase()));
-        if (!candidateExpertises.some((e) => offerExpertises.has(e))) return false;
-      }
-      return true;
-    });
-    return matched.length > 0 ? matched : CANDIDATE_OFFERS;
-  })();
+    // Practice filter
+    if (practiceFilter !== 'all') {
+      offers = offers.filter(o => {
+        if (o.chambersDeptKey === practiceFilter) return true;
+        const label = CHAMBERS_DEPARTMENTS.find(d => d.key === practiceFilter)?.label;
+        if (label && o.dept === label) return true;
+        if (label && o.activitySplit && Object.keys(o.activitySplit).some(k => k === label)) return true;
+        return false;
+      });
+    }
+
+    // Nationality filter
+    if (natFilter !== 'all') {
+      offers = offers.filter(o => o.nat === natFilter);
+    }
+
+    // Seniority filter
+    if (seniorityFilter !== 'all') {
+      offers = offers.filter(o => {
+        const s = o.seniority.toLowerCase();
+        if (seniorityFilter === 'collaborateur') return s.includes('collaborateur');
+        if (seniorityFilter === 'counsel') return s.includes('counsel');
+        if (seniorityFilter === 'associe') return s.includes('associé');
+        return true;
+      });
+    }
+
+    // Chambers filter
+    if (chambersFilter !== 'all') {
+      offers = offers.filter(o => {
+        if (!o.chambersBand) return chambersFilter === 'all';
+        if (chambersFilter === 'ranked') return true;
+        if (chambersFilter === 'band1') return o.chambersBand === 1;
+        if (chambersFilter === 'band2') return o.chambersBand === 2;
+        if (chambersFilter === 'band3') return o.chambersBand >= 3;
+        return true;
+      });
+    }
+
+    return offers;
+  }, [practiceFilter, natFilter, seniorityFilter, chambersFilter]);
 
   const handleInterest = (offer: CandidateOffer) => {
     if (interestedOffers.has(offer.id)) return;
@@ -53,15 +102,114 @@ const CandidateOffers = () => {
     toast.success(`Votre intérêt pour l'opportunité ${offer.reference} a été transmis à Logan.`, { duration: 5000 });
   };
 
+  const activeFilterCount = [practiceFilter, natFilter, seniorityFilter, chambersFilter].filter(f => f !== 'all').length;
+
   return (
     <div>
-      <div className="mb-10 flex items-end justify-between">
+      <div className="mb-6 flex items-end justify-between">
         <div>
           <p className="text-[10px] font-sans font-medium tracking-[0.2em] uppercase text-muted-foreground mb-2">Opportunités disponibles</p>
           <div className="w-8 h-px bg-foreground" />
         </div>
-        <span className="text-xs text-muted-foreground font-sans">{filteredOffers.length} offre{filteredOffers.length > 1 ? 's' : ''}</span>
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => setShowFilters(!showFilters)}
+            className={`inline-flex items-center gap-1.5 text-[11px] font-sans px-3 py-1.5 rounded-md border transition-colors ${showFilters ? 'bg-foreground text-background border-foreground' : 'border-border text-muted-foreground hover:text-foreground hover:border-foreground/30'}`}
+          >
+            <Filter className="w-3 h-3" />
+            Filtres{activeFilterCount > 0 && ` (${activeFilterCount})`}
+          </button>
+          <span className="text-xs text-muted-foreground font-sans">{filteredOffers.length} offre{filteredOffers.length > 1 ? 's' : ''}</span>
+        </div>
       </div>
+
+      {/* Filters panel */}
+      <AnimatePresence>
+        {showFilters && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className="overflow-hidden mb-6"
+          >
+            <div className="p-5 rounded-lg border border-border bg-secondary/50 space-y-4">
+              {/* Practice */}
+              <div>
+                <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-muted-foreground mb-2">Pratique</div>
+                <div className="flex flex-wrap gap-1.5">
+                  {PRACTICE_FILTERS.map(f => (
+                    <button
+                      key={f.key}
+                      onClick={() => setPracticeFilter(f.key)}
+                      className={`text-[10px] font-sans px-2.5 py-1 rounded-full border transition-colors ${practiceFilter === f.key ? 'bg-foreground text-background border-foreground' : 'border-border text-foreground/60 hover:border-foreground/30'}`}
+                    >
+                      {f.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Nationality */}
+              <div>
+                <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-muted-foreground mb-2">Nationalité du cabinet</div>
+                <div className="flex flex-wrap gap-1.5">
+                  {NAT_FILTERS.map(f => (
+                    <button
+                      key={f.key}
+                      onClick={() => setNatFilter(f.key)}
+                      className={`text-[10px] font-sans px-2.5 py-1 rounded-full border transition-colors ${natFilter === f.key ? 'bg-foreground text-background border-foreground' : 'border-border text-foreground/60 hover:border-foreground/30'}`}
+                    >
+                      {f.flag ? `${f.flag} ${f.label}` : f.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Seniority */}
+              <div>
+                <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-muted-foreground mb-2">Séniorité recherchée</div>
+                <div className="flex flex-wrap gap-1.5">
+                  {SENIORITY_FILTERS.map(f => (
+                    <button
+                      key={f.key}
+                      onClick={() => setSeniorityFilter(f.key)}
+                      className={`text-[10px] font-sans px-2.5 py-1 rounded-full border transition-colors ${seniorityFilter === f.key ? 'bg-foreground text-background border-foreground' : 'border-border text-foreground/60 hover:border-foreground/30'}`}
+                    >
+                      {f.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Chambers */}
+              <div>
+                <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-muted-foreground mb-2">Classement Chambers</div>
+                <div className="flex flex-wrap gap-1.5">
+                  {CHAMBERS_FILTERS.map(f => (
+                    <button
+                      key={f.key}
+                      onClick={() => setChambersFilter(f.key)}
+                      className={`text-[10px] font-sans px-2.5 py-1 rounded-full border transition-colors ${chambersFilter === f.key ? 'bg-foreground text-background border-foreground' : 'border-border text-foreground/60 hover:border-foreground/30'}`}
+                    >
+                      {f.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {activeFilterCount > 0 && (
+                <button
+                  onClick={() => { setPracticeFilter('all'); setNatFilter('all'); setSeniorityFilter('all'); setChambersFilter('all'); }}
+                  className="text-[10px] text-muted-foreground hover:text-foreground font-sans underline underline-offset-2"
+                >
+                  Réinitialiser les filtres
+                </button>
+              )}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <div className="space-y-5">
         <AnimatePresence mode="popLayout">
@@ -71,6 +219,7 @@ const CandidateOffers = () => {
             const hasMultipleExpertises = offer.activitySplit && Object.keys(offer.activitySplit).length >= 2;
             const isHidden = expandedOffer !== null && !isExpanded;
             if (isHidden) return null;
+            const flag = getOfferNatFlag(offer);
 
             return (
               <motion.div
@@ -90,6 +239,12 @@ const CandidateOffers = () => {
                           <span className="text-[16px] font-sans tracking-[-0.01em] text-foreground leading-none">{shortSeniority(offer.seniority)}</span>
                           <span className="mx-2.5 w-px h-5 bg-foreground/20 inline-block" />
                           <span className="text-[16px] font-sans tracking-[-0.01em] text-foreground leading-none">{offer.dept}</span>
+                          {flag && (
+                            <>
+                              <span className="mx-2.5 w-px h-5 bg-foreground/20 inline-block" />
+                              <span className="text-[14px] leading-none">{flag}</span>
+                            </>
+                          )}
                           {offer.ranking && (
                             <>
                               <span className="mx-2.5 w-px h-5 bg-foreground/20 inline-block" />
@@ -131,7 +286,6 @@ const CandidateOffers = () => {
                   {isExpanded && (
                     <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }} className="overflow-hidden">
                       <div className="border-t border-foreground/10">
-                        {/* Content body — directly show content, no black banner */}
                         <div className="p-6 md:p-8 bg-white text-foreground">
 
                           {hasMultipleExpertises && offer.activitySplit && (
