@@ -1,5 +1,5 @@
 import { Clock, Hourglass, Calendar } from 'lucide-react';
-import { CANDIDATE_OFFERS } from '@/lib/candidateMockData';
+import { CANDIDATE_OFFERS, getOfferNatFlag } from '@/lib/candidateMockData';
 import { shortSeniority, formatOfferDate } from './CandidateOffers';
 
 const MOCK_REQUESTS = [
