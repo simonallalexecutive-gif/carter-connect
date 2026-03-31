@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { useRegistrationStore } from '@/stores/registrationStore';
+import { useLoadCandidateProfile } from '@/hooks/useLoadCandidateProfile';
 import { usePQE } from '@/hooks/usePQE';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { User, Building2, Star, Briefcase, FileText, Clock, Bell, Send, LogOut, Home, Phone, Plus, X, ShieldCheck, Eye } from 'lucide-react';
@@ -142,13 +143,14 @@ const CandidateDashboardContent = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<TabKey>('offres');
   const { photoPreviewUrl, prenom, nom, departement, cabinet, sermentMois, sermentAnnee, statutEcoute, visibilite } = useRegistrationStore();
+  const { loaded: profileLoaded } = useLoadCandidateProfile(user);
   const seniorityInfo = usePQE(sermentMois, sermentAnnee);
 
   useEffect(() => {
     if (!loading && !user) navigate('/auth');
   }, [user, loading, navigate]);
 
-  if (loading || !user) return null;
+  if (loading || !user || !profileLoaded) return null;
 
   const notifCount = 2;
 
