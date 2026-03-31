@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Bell, Star, ArrowRight, MessageCircle, CheckCircle2, Calendar } from 'lucide-react';
-import { CANDIDATE_OFFERS } from '@/lib/candidateMockData';
+import { CANDIDATE_OFFERS, getOfferNatFlag } from '@/lib/candidateMockData';
 import { shortSeniority, formatOfferDate } from './CandidateOffers';
 import { toast } from 'sonner';
 
@@ -78,7 +78,7 @@ const CandidateNotifications = () => {
                       {notif.type === 'interest' && offer && offer.ranking && (
                         <div className="flex items-center gap-2 mb-2">
                           <span className="inline-flex items-center gap-2 text-[12px] font-sans text-foreground bg-secondary border border-border rounded-full px-3 py-1">
-                            <span className="text-xs font-bold leading-none">{offer.natFlag}</span>
+                            <span className="text-xs font-bold leading-none">{getOfferNatFlag(offer)}</span>
                             <span className="font-semibold">{offer.ranking}</span>
                           </span>
                         </div>
@@ -112,7 +112,7 @@ const CandidateNotifications = () => {
                           <>
                             <span className="mx-2.5 w-px h-5 bg-border inline-block" />
                             <span className="inline-flex items-center gap-2 text-[14px] font-sans text-foreground">
-                              <span className="text-xs font-bold leading-none">{offer.natFlag}</span>
+                              <span className="text-xs font-bold leading-none">{getOfferNatFlag(offer)}</span>
                               <span className="font-semibold">{offer.ranking}</span>
                             </span>
                           </>
