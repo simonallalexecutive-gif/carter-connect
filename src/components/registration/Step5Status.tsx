@@ -41,9 +41,8 @@ const Step5Status = () => {
             className="space-y-3"
           >
             {[
-              { value: 'actif', label: 'Actif', desc: 'Je recherche activement une nouvelle opportunité' },
-              { value: 'passif', label: 'Passif', desc: 'Ouvert aux opportunités mais pas en recherche active' },
-              { value: 'inactif', label: 'Inactif', desc: 'Je ne souhaite pas être contacté pour le moment' },
+              { value: 'actif', label: 'Je suis en recherche active', desc: 'Je recherche activement une nouvelle opportunité' },
+              { value: 'passif', label: 'Je reste à l\'écoute', desc: 'Ouvert aux opportunités mais pas en recherche active' },
             ].map(opt => (
               <label key={opt.value} className="flex items-start gap-3 p-5 rounded-sm border border-border hover:border-accent/30 transition-colors duration-300 cursor-pointer bg-card">
                 <RadioGroupItem value={opt.value} className="mt-0.5" />
