@@ -20,6 +20,7 @@ interface ActivityPieChartProps {
   showLegend?: boolean;
   darkMode?: boolean;
   className?: string;
+  customColors?: string[];
 }
 
 const ActivityPieChart = ({
@@ -30,7 +31,9 @@ const ActivityPieChart = ({
   showLegend = true,
   darkMode = false,
   className = '',
+  customColors,
 }: ActivityPieChartProps) => {
+  const palette = customColors || BLUE_PALETTE;
   const chartData = useMemo(() => {
     return Object.entries(data)
       .filter(([, v]) => v > 0)
