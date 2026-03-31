@@ -103,7 +103,7 @@ export const CHAMBERS_DB: Record<string, ChambersFirmEntry> = {
   // ── Hogan Lovells ──
   'Hogan Lovells': {
     nat: 'US',
-    rankings: { ma: 4, pe: 3, banque: 2, restructuring: 2, arbitrage: 4, social: 4, concurrence: 4, projets: 2 },
+    rankings: { ma: 4, pe: 3, banque: 2, restructuring: 2, arbitrage: 4, social: 4, concurrence: 4, projets: 2, tax: 5 },
   },
   // ── Jones Day ──
   'Jones Day': {
