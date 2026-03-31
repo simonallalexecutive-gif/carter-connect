@@ -16,16 +16,19 @@ const PALIER_MAP: Record<string, string> = {
   enterprise: 'Enterprise · Sur devis',
 };
 
-// Aligned with Chambers practice names used in candidate registration
+// Aligned with CHAMBERS_DEPARTMENTS from candidate registration (chambersRankings.ts)
 const FILTERS = [
   { key: 'all', label: 'Tous' },
   { key: 'ma', label: 'Corporate/M&A' },
   { key: 'pe', label: 'Private Equity' },
   { key: 'banque', label: 'Banking & Finance' },
   { key: 'restructuring', label: 'Restructuring/Insolvency' },
+  { key: 'public', label: 'Public Law' },
+  { key: 'arbitrage', label: 'International Arbitration' },
   { key: 'social', label: 'Employment' },
+  { key: 'concurrence', label: 'Competition/European Law' },
   { key: 'immo', label: 'Real Estate' },
-  { key: 'fiscal', label: 'Fiscal' },
+  { key: 'projets', label: 'Projects & Energy' },
   { key: 'new', label: '🔔 Nouveaux' },
 ];
 
@@ -482,19 +485,19 @@ const ExploreView = ({
                 <span className="absolute top-3 right-3 text-[7px] font-bold tracking-[0.12em] uppercase bg-foreground text-background px-2 py-0.5 rounded-sm">NOUVEAU</span>
               )}
               <div className="text-[9px] text-muted-foreground tracking-[0.08em] mb-2 font-sans">{p.id}</div>
-              <div className="font-sans text-sm font-semibold text-foreground mb-1 leading-tight">Profil anonymisé</div>
+              <div className="font-sans text-sm font-semibold text-foreground mb-1 leading-tight">
+                {status}{senDetail ? ` — ${senDetail}` : ''}{p.pqe ? ` · ${p.pqe} d'exercice` : ''}
+              </div>
               <div className="font-sans text-[13px] text-foreground mb-2">{p.deptLabel}</div>
 
-              {/* Status + Seniority */}
-              <div className="flex flex-wrap gap-1.5 mb-3">
-                <span className="text-[9px] font-semibold px-2 py-0.5 rounded-sm bg-foreground text-background">{status}</span>
-                {senDetail && (
-                  <span className="text-[9px] font-medium px-2 py-0.5 rounded-sm bg-secondary text-foreground border border-border">{senDetail} · {p.pqe} d'exercice</span>
-                )}
-                {!senDetail && status === 'Counsel' && (
-                  <span className="text-[9px] font-medium px-2 py-0.5 rounded-sm bg-secondary text-foreground border border-border">{p.pqe} d'exercice</span>
-                )}
-              </div>
+              {/* Expertises from activity split */}
+              {Object.keys(p.split).length > 0 && (
+                <div className="flex flex-wrap gap-1.5 mb-3">
+                  {Object.keys(p.split).map((expertise) => (
+                    <span key={expertise} className="text-[9px] font-medium px-2 py-0.5 rounded-sm bg-secondary text-foreground border border-border">{expertise}</span>
+                  ))}
+                </div>
+              )}
 
               {/* Key info */}
               <div className="space-y-1.5 text-[11px] font-sans border-t border-border pt-3">
@@ -559,7 +562,9 @@ const ProfileDrawer = ({ profile: p, onClose }: { profile: CabinetProfile; onClo
       <div className="fixed inset-0 bg-foreground/30 z-[399]" onClick={onClose} />
       <div className="fixed top-0 right-0 bottom-0 w-[500px] bg-background shadow-2xl z-[400] overflow-y-auto border-l border-border">
         <div className="sticky top-0 bg-background border-b border-border p-4 flex items-center justify-between z-10">
-          <span className="text-[12px] font-bold tracking-[0.06em] uppercase text-foreground font-sans">Profil anonymisé du candidat</span>
+          <span className="text-[12px] font-bold tracking-[0.06em] uppercase text-foreground font-sans">
+            {status}{senDetail ? ` — ${senDetail}` : ''}{p.pqe ? ` · ${p.pqe} d'exercice` : ''}
+          </span>
           <button onClick={onClose} className="bg-secondary rounded-full w-7 h-7 flex items-center justify-center hover:bg-border">
             <X className="w-4 h-4" />
           </button>
@@ -571,7 +576,9 @@ const ProfileDrawer = ({ profile: p, onClose }: { profile: CabinetProfile; onClo
               <User className="w-7 h-7 text-white/60" />
             </div>
             <div>
-              <p className="font-sans text-lg font-semibold text-foreground">Profil anonymisé du candidat</p>
+              <p className="font-sans text-lg font-semibold text-foreground">
+                {status}{senDetail ? ` — ${senDetail}` : ''}{p.pqe ? ` · ${p.pqe} d'exercice` : ''}
+              </p>
               <p className="text-[11px] text-muted-foreground font-sans mt-0.5">{p.id} · {p.deptLabel}</p>
             </div>
           </div>
