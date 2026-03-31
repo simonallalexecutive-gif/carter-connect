@@ -556,7 +556,7 @@ const Step6Review = () => {
           )}
 
           {/* Activité */}
-          <SectionCard title="Activité" noBorder>
+          <SectionCard title="Activité">
             <ActivitySummaryCard />
             <div className="mt-4 grid grid-cols-2 gap-3">
               <TagList items={store.tailleOperations} label="Taille opérations" />
