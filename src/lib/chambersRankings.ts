@@ -38,7 +38,7 @@ export const CHAMBERS_DB: Record<string, ChambersFirmEntry> = {
   // ── Baker McKenzie ──
   'Baker McKenzie': {
     nat: 'US',
-    rankings: { ma: 4, banque: 5, public: 2, social: 3, concurrence: 3, immo: 3 },
+    rankings: { ma: 4, banque: 5, public: 2, social: 3, concurrence: 3, immo: 3, tax: 2 },
   },
   // ── BDGS Associés ──
   'BDGS Associés': {
