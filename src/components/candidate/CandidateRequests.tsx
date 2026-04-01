@@ -43,16 +43,18 @@ const CandidateRequests = () => (
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex-1">
                     {offer && (
-                      <div className="flex items-center gap-0 mb-1 flex-wrap">
-                        <span className="text-[14px] font-sans text-white/70 leading-none">{shortSeniority(offer.seniority)}</span>
-                        <span className="mx-2.5 w-px h-5 bg-white/20 inline-block" />
-                        <span className="text-[14px] font-sans text-white/70 leading-none">{offer.dept}</span>
-                      </div>
-                      <div className="flex items-center gap-0 mb-3 flex-wrap">
-                        {offer.nat && <span className="text-[11px] font-sans text-white/40 leading-none">Cabinet {offer.nat}</span>}
-                        {offer.nat && <span className="mx-2 text-[11px] text-white/20">·</span>}
-                        <span className="text-[11px] font-sans text-white/40 leading-none">Chambers : {offer.chambersBand ? 'Oui' : 'Non'}</span>
-                      </div>
+                      <>
+                        <div className="flex items-center gap-0 mb-1 flex-wrap">
+                          <span className="text-[14px] font-sans text-white/70 leading-none">{shortSeniority(offer.seniority)}</span>
+                          <span className="mx-2.5 w-px h-5 bg-white/20 inline-block" />
+                          <span className="text-[14px] font-sans text-white/70 leading-none">{offer.dept}</span>
+                        </div>
+                        <div className="flex items-center gap-0 mb-3 flex-wrap">
+                          {offer.nat && <span className="text-[11px] font-sans text-white/40 leading-none">Cabinet {offer.nat}</span>}
+                          {offer.nat && <span className="mx-2 text-[11px] text-white/20">·</span>}
+                          <span className="text-[11px] font-sans text-white/40 leading-none">Chambers : {offer.chambersBand ? 'Oui' : 'Non'}</span>
+                        </div>
+                      </>
                     )}
                     <p className="text-[11px] font-sans text-white/40">Soumise le {new Date(req.submittedAt).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
                   </div>
