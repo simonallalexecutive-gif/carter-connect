@@ -48,20 +48,25 @@ const CandidateProcesses = () => (
               <div className="p-6">
                 {offer && (
                   <div className="mb-4 pb-4 border-b border-white/10">
-                    <div className="flex items-center gap-0 mb-1.5 flex-wrap">
-                      <span className="text-[16px] font-sans tracking-[-0.01em] text-white leading-none">{shortSeniority(offer.seniority)}</span>
+                    <div className="flex items-center gap-0 mb-1 flex-wrap">
+                      <span className="text-[14px] font-sans text-white/70 leading-none">{shortSeniority(offer.seniority)}</span>
                       <span className="mx-2.5 w-px h-5 bg-white/20 inline-block" />
-                      <span className="text-[16px] font-sans tracking-[-0.01em] text-white leading-none">{offer.dept}</span>
-                      {offer.ranking && (
-                        <>
-                          <span className="mx-2.5 w-px h-5 bg-white/20 inline-block" />
-                          <span className="inline-flex items-center gap-2 text-[14px] font-sans text-white/70">
-                            <span className="text-xs font-bold leading-none">{getOfferNatFlag(offer)}</span>
-                            <span className="font-semibold">{offer.ranking}</span>
-                          </span>
-                        </>
-                      )}
+                      <span className="text-[14px] font-sans text-white/70 leading-none">{offer.dept}</span>
                     </div>
+                    {offer.ranking && (
+                      <div className="flex items-center gap-0 mb-3 flex-wrap">
+                        <span className="text-[11px] font-sans text-white/40 leading-none">Cabinet {offer.nat || ''}</span>
+                        <span className="mx-2 text-[11px] text-white/20">·</span>
+                        <span className="text-[11px] font-sans text-white/40 leading-none">Chambers : Oui</span>
+                      </div>
+                    )}
+                    {!offer.ranking && (
+                      <div className="flex items-center gap-0 mb-3 flex-wrap">
+                        {offer.nat && <span className="text-[11px] font-sans text-white/40 leading-none">Cabinet {offer.nat}</span>}
+                        {offer.nat && <span className="mx-2 text-[11px] text-white/20">·</span>}
+                        <span className="text-[11px] font-sans text-white/40 leading-none">Chambers : Non</span>
+                      </div>
+                    )}
                     <div className="flex items-center justify-between mt-3">
                       <div className="flex items-center gap-1.5 text-[11px] text-white/40 font-sans">
                         <Calendar className="w-3 h-3" />
