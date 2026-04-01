@@ -6,15 +6,21 @@ import { cn } from '@/lib/utils';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 
 const PREVIEW_PALETTE = [
-  'hsl(210, 60%, 22%)',   // navy
-  'hsl(210, 50%, 35%)',   // medium navy
-  'hsl(0, 0%, 72%)',      // light grey
-  'hsl(155, 35%, 28%)',   // dark green
-  'hsl(210, 40%, 48%)',   // steel blue
-  'hsl(0, 0%, 82%)',      // lighter grey
-  'hsl(155, 25%, 40%)',   // muted green
-  'hsl(210, 30%, 55%)',   // soft blue
+  'hsl(210, 60%, 22%)',
+  'hsl(210, 50%, 35%)',
+  'hsl(0, 0%, 72%)',
+  'hsl(155, 35%, 28%)',
+  'hsl(210, 40%, 48%)',
+  'hsl(0, 0%, 82%)',
+  'hsl(155, 25%, 40%)',
+  'hsl(210, 30%, 55%)',
 ];
+
+const SENIORITY_YEARS: Record<string, string> = {
+  junior: '0/3 ans',
+  mid: '3/6 ans',
+  senior: '+6 ans',
+};
 
 const CabinetStep5Validation = () => {
   const s = useCabinetStore();
@@ -29,7 +35,7 @@ const CabinetStep5Validation = () => {
   const allChecked = checks.every(Boolean);
   const profileTypes = (s as any).profileTypes as string[] || [];
   const profileLabel = profileTypes.includes('associe') ? 'Associé' : profileTypes.includes('counsel') ? 'Counsel' : 'Collaborateur';
-  const senStr = s.seniorities.length ? s.seniorities.map((k) => SENIORITY_MAP[k] || k).join(', ') : '';
+  const senYears = s.seniorities.length ? s.seniorities.map((k) => SENIORITY_YEARS[k] || '').filter(Boolean).join(', ') : '';
   const retroStr = s.retroMin && s.retroMax ? `${s.retroMin}€ — ${s.retroMax}€` : s.retroMin ? `À partir de ${s.retroMin}€` : s.retroMax ? `Jusqu'à ${s.retroMax}€` : '';
 
   const activeActivities = Object.entries(s.cabinetActivites)
@@ -53,17 +59,10 @@ const CabinetStep5Validation = () => {
       .map(([name, value]) => ({ name, value }));
   }, [s.activitySplit]);
 
-  // Build title
-  const titleExpertise = s.expertise.length ? s.expertise.join(' / ') : '';
-  const titleSeniority = senStr ? `Profil ${senStr}` : '';
-  const searchTitle = `${profileLabel}${titleExpertise ? ` ${titleExpertise}` : ''}${titleSeniority ? ` — ${titleSeniority}` : ''}`;
-
-  // Rankings display
-  const rankings = s.detectedRankings && s.detectedRankings.length > 0
-    ? s.detectedRankings.map(r => `${r.label} : Tier ${r.tier}`).join(' · ')
-    : '';
-
   const natLabel = s.detectedNat ? (NAT_LABELS[s.detectedNat] || s.detectedNat) : '';
+
+  // Check if any expertise has a Chambers ranking
+  const hasChambersRanking = s.detectedRankings && s.detectedRankings.length > 0;
 
   return (
     <div className="max-w-[780px] mx-auto">
@@ -76,34 +75,39 @@ const CabinetStep5Validation = () => {
         Voici comment votre recherche apparaîtra aux candidats. Vérifiez puis confirmez.
       </p>
 
-      {/* ── APERÇU COMPACT (white bg, 50% reduced) ── */}
+      {/* ── APERÇU ── */}
       <div className="mb-8">
         <div className="flex items-center gap-2 mb-3">
           <div className="w-1.5 h-1.5 rounded-full bg-foreground" />
           <span className="text-[9px] font-bold tracking-[0.14em] uppercase text-muted-foreground">Aperçu — visible par les candidats</span>
         </div>
 
-        <div className="bg-white border border-border rounded-lg overflow-hidden shadow-sm" style={{ fontSize: '0.85em' }}>
-          {/* Header */}
+        <div className="bg-white border border-border rounded-lg overflow-hidden shadow-sm">
+
+          {/* ─── 1. EN-TÊTE ─── */}
           <div className="px-5 py-4 border-b border-border">
-            <div className="text-[8px] tracking-[0.16em] uppercase text-muted-foreground/60 mb-1.5">Recherche en cours</div>
-            <h3 className="font-sans text-base font-bold text-foreground leading-snug">{searchTitle}</h3>
-            {(natLabel || rankings) && (
-              <div className="flex flex-wrap items-center gap-2 mt-2">
-                {natLabel && (
-                  <span className="text-[10px] px-2 py-0.5 rounded bg-muted text-muted-foreground font-medium">{natLabel}</span>
-                )}
-                {rankings && (
-                  <span className="text-[10px] text-muted-foreground">{rankings}</span>
-                )}
-              </div>
-            )}
+            <div className="flex items-center gap-2 flex-wrap text-[13px] font-semibold text-foreground">
+              <span>{profileLabel}</span>
+              <span className="text-muted-foreground/40">|</span>
+              <span>{s.currentSearchDeptLabel || s.expertise.join(' / ')}</span>
+              {senYears && (
+                <>
+                  <span className="text-muted-foreground/40">|</span>
+                  <span>{senYears}</span>
+                </>
+              )}
+            </div>
+            <div className="flex items-center gap-3 mt-1.5 text-[10px] text-muted-foreground">
+              {natLabel && <span>{natLabel}</span>}
+              {natLabel && <span>·</span>}
+              <span>Pratique reconnue Chambers : {hasChambersRanking ? 'Oui' : 'Non'}</span>
+            </div>
           </div>
 
-          {/* Activity split + side info */}
-          {(chartData.length > 0 || s.english || activeActivities.length > 0) && (
+          {/* ─── 2. SCOPE D'INTERVENTION (chips + pie chart) ─── */}
+          {(activeActivities.length > 0 || chartData.length > 0) && (
             <div className="px-5 py-4 border-b border-border">
-              <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-muted-foreground/50 mb-3">Répartition de l'activité</div>
+              <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-muted-foreground/50 mb-3">Scope d'intervention</div>
               <div className="flex items-start gap-5">
                 {/* Pie chart */}
                 {chartData.length > 0 && (
@@ -141,63 +145,81 @@ const CabinetStep5Validation = () => {
                   </div>
                 )}
 
-                {/* Side details */}
-                <div className="flex-1 space-y-2.5 min-w-0">
-                  {activeActivities.length > 0 && (
-                    <div>
-                      <div className="text-[8px] uppercase tracking-[0.1em] text-muted-foreground/50 mb-1.5">Positionnement</div>
-                      <div className="flex flex-wrap gap-1">
-                        {activeActivities.map((a) => (
-                          <span key={a} className="text-[9px] bg-muted border border-border rounded px-2 py-0.5 text-muted-foreground">{a}</span>
-                        ))}
-                      </div>
+                {/* Expertise chips */}
+                {activeActivities.length > 0 && (
+                  <div className="flex-1 min-w-0">
+                    <div className="flex flex-wrap gap-1.5">
+                      {activeActivities.map((a) => (
+                        <span key={a} className="text-[10px] bg-muted border border-border rounded px-2.5 py-1 text-foreground/80 font-medium">{a}</span>
+                      ))}
                     </div>
-                  )}
-                  {s.english && (
-                    <div>
-                      <div className="text-[8px] uppercase tracking-[0.1em] text-muted-foreground/50 mb-1">Anglais</div>
-                      <span className="text-[10px] font-medium text-foreground">{s.english}</span>
-                    </div>
-                  )}
-                  {s.contexte && (
-                    <div>
-                      <div className="text-[8px] uppercase tracking-[0.1em] text-muted-foreground/50 mb-1">Contexte</div>
-                      <span className="text-[10px] text-foreground">{s.contexte}</span>
-                    </div>
-                  )}
-                  {(s.eqAssocies || s.eqCounsels || s.eqCollab) && (
-                    <div>
-                      <div className="text-[8px] uppercase tracking-[0.1em] text-muted-foreground/50 mb-1">Équipe</div>
-                      <div className="flex gap-3">
-                        {s.eqAssocies && <span className="text-[10px] text-foreground">{s.eqAssocies} associé(s)</span>}
-                        {s.eqCounsels && <span className="text-[10px] text-foreground">{s.eqCounsels} counsel(s)</span>}
-                        {s.eqCollab && <span className="text-[10px] text-foreground">{s.eqCollab} collab(s)</span>}
-                      </div>
-                    </div>
-                  )}
-                </div>
+                  </div>
+                )}
               </div>
             </div>
           )}
 
-          {/* Rémunération compact */}
-          <div className="px-5 py-3 flex items-center gap-6 text-[10px]">
-            <div>
-              <span className="text-muted-foreground/50 uppercase tracking-wider text-[8px]">Rétrocession</span>
-              <div className="font-semibold text-foreground mt-0.5">{retroStr || 'Confidentiel'}</div>
+          {/* ─── 3. CONTEXTE & ÉQUIPE ─── */}
+          {(s.contexte || s.eqAssocies || s.eqCounsels || s.eqCollab) && (
+            <div className="px-5 py-4 border-b border-border">
+              <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-muted-foreground/50 mb-3">Contexte & équipe</div>
+              <div className="space-y-2.5">
+                {s.contexte && (
+                  <div className="flex items-center gap-2">
+                    <span className="text-[10px] text-muted-foreground">Contexte :</span>
+                    <span className="text-[11px] font-medium text-foreground">{s.contexte}</span>
+                  </div>
+                )}
+                {(s.eqAssocies || s.eqCounsels || s.eqCollab) && (
+                  <div className="flex items-center gap-2">
+                    <span className="text-[10px] text-muted-foreground">Équipe actuelle :</span>
+                    <div className="flex gap-3">
+                      {s.eqAssocies && <span className="text-[11px] text-foreground">{s.eqAssocies} associé(s)</span>}
+                      {s.eqCounsels && <span className="text-[11px] text-foreground">{s.eqCounsels} counsel(s)</span>}
+                      {s.eqCollab && <span className="text-[11px] text-foreground">{s.eqCollab} collab(s)</span>}
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
-            {s.heures && (
+          )}
+
+          {/* ─── 4. RÉTROCESSION & CONDITIONS ─── */}
+          <div className="px-5 py-4">
+            <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-muted-foreground/50 mb-3">Rétrocession & conditions</div>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               <div>
-                <span className="text-muted-foreground/50 uppercase tracking-wider text-[8px]">Heures / an</span>
-                <div className="font-semibold text-foreground mt-0.5">{s.heures}h</div>
+                <div className="text-[9px] text-muted-foreground mb-0.5">Rétrocession</div>
+                <div className="text-[11px] font-semibold text-foreground">{retroStr || 'Confidentiel'}</div>
               </div>
-            )}
-            {s.tt && (
-              <div>
-                <span className="text-muted-foreground/50 uppercase tracking-wider text-[8px]">Télétravail</span>
-                <div className="font-semibold text-foreground mt-0.5">{s.tt}</div>
-              </div>
-            )}
+              {s.hasHeures && s.heures && (
+                <div>
+                  <div className="text-[9px] text-muted-foreground mb-0.5">Objectif heures</div>
+                  <div className="text-[11px] font-semibold text-foreground">{s.heures}h/an</div>
+                </div>
+              )}
+              {s.bonusEnabled && s.bonusTypes.length > 0 && (
+                <div>
+                  <div className="text-[9px] text-muted-foreground mb-0.5">Bonus</div>
+                  <div className="text-[11px] font-semibold text-foreground">
+                    {s.bonusTypes.join(', ')}
+                    {s.bonusDesc && ` (${s.bonusDesc}€)`}
+                  </div>
+                </div>
+              )}
+              {s.tt && (
+                <div>
+                  <div className="text-[9px] text-muted-foreground mb-0.5">Télétravail</div>
+                  <div className="text-[11px] font-semibold text-foreground">{s.tt}</div>
+                </div>
+              )}
+              {s.english && (
+                <div>
+                  <div className="text-[9px] text-muted-foreground mb-0.5">Anglais</div>
+                  <div className="text-[11px] font-semibold text-foreground">{s.english}</div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
