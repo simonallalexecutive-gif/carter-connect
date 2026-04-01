@@ -122,30 +122,31 @@ const CabinetStep7Espace = () => {
             <div
               key={p.id}
               onClick={() => setDrawerProfile(p)}
-              className="bg-background rounded-lg border border-border p-5 cursor-pointer transition-all hover:border-foreground hover:shadow-lg hover:-translate-y-0.5 relative overflow-hidden"
+              className="rounded-lg border border-white/[0.08] p-5 cursor-pointer transition-all hover:border-white/25 hover:shadow-lg hover:-translate-y-0.5 relative overflow-hidden"
+              style={{ background: '#111111' }}
             >
               {p.isNew && (
-                <span className="absolute top-3 right-3 text-[7px] font-bold tracking-[0.12em] uppercase bg-foreground text-background px-2 py-0.5 rounded-sm">
+                <span className="absolute top-3 right-3 text-[7px] font-bold tracking-[0.12em] uppercase bg-white text-black px-2 py-0.5 rounded-sm">
                   NOUVEAU
                 </span>
               )}
-              <div className="text-[9px] text-muted-foreground tracking-[0.08em] mb-3 font-sans">ID LOGAN · {p.id}</div>
-              <div className="font-sans text-base font-bold text-foreground mb-1.5 leading-tight">{p.title}</div>
-              <div className="text-[11px] text-muted-foreground mb-3.5">{p.origin} · {p.natFlag} · Droit applicable : Paris</div>
+              <div className="text-[9px] text-white/40 tracking-[0.08em] mb-3 font-sans">ID LOGAN · {p.id}</div>
+              <div className="font-sans text-base font-bold text-white mb-1.5 leading-tight">{p.title}</div>
+              <div className="text-[11px] text-white/50 mb-3.5">{p.origin} · {p.natFlag} · Droit applicable : Paris</div>
               <div className="flex flex-wrap gap-1 mb-3.5">
-                <span className="text-[9px] font-semibold tracking-[0.05em] uppercase px-2 py-0.5 rounded-sm bg-foreground text-background">{p.deptLabel}</span>
-                <span className="text-[9px] font-semibold tracking-[0.05em] uppercase px-2 py-0.5 rounded-sm bg-secondary text-foreground">{p.pqe} PQE</span>
-                <span className="text-[9px] font-semibold tracking-[0.05em] uppercase px-2 py-0.5 rounded-sm bg-secondary text-foreground">{p.natFlag} {p.nat}</span>
+                <span className="text-[9px] font-semibold tracking-[0.05em] uppercase px-2 py-0.5 rounded-sm bg-white text-black">{p.deptLabel}</span>
+                <span className="text-[9px] font-semibold tracking-[0.05em] uppercase px-2 py-0.5 rounded-sm border border-white/20 text-white/80">{p.pqe} PQE</span>
+                <span className="text-[9px] font-semibold tracking-[0.05em] uppercase px-2 py-0.5 rounded-sm border border-white/20 text-white/80">{p.natFlag} {p.nat}</span>
               </div>
-              <div className="grid grid-cols-2 gap-2 border-t border-secondary pt-3 mt-0.5">
-                <div><div className="text-[8px] text-muted-foreground uppercase tracking-[0.08em]">Anglais</div><div className="text-[11px] font-semibold text-foreground">{p.english}</div></div>
-                <div><div className="text-[8px] text-muted-foreground uppercase tracking-[0.08em]">Disponibilité</div><div className="text-[11px] font-semibold text-foreground">{p.disponibilite}</div></div>
-                <div><div className="text-[8px] text-muted-foreground uppercase tracking-[0.08em]">Mobilité</div><div className="text-[11px] font-semibold text-foreground">{p.mobilite}</div></div>
-                <div><div className="text-[8px] text-muted-foreground uppercase tracking-[0.08em]">Matching</div><div className="text-[11px] font-semibold text-foreground">{match}%</div></div>
+              <div className="grid grid-cols-2 gap-2 border-t border-white/[0.1] pt-3 mt-0.5">
+                <div><div className="text-[8px] text-white/35 uppercase tracking-[0.08em]">Anglais</div><div className="text-[11px] font-semibold text-white/90">{p.english}</div></div>
+                <div><div className="text-[8px] text-white/35 uppercase tracking-[0.08em]">Disponibilité</div><div className="text-[11px] font-semibold text-white/90">{p.disponibilite}</div></div>
+                <div><div className="text-[8px] text-white/35 uppercase tracking-[0.08em]">Mobilité</div><div className="text-[11px] font-semibold text-white/90">{p.mobilite}</div></div>
+                <div><div className="text-[8px] text-white/35 uppercase tracking-[0.08em]">Matching</div><div className="text-[11px] font-semibold text-white/90">{match}%</div></div>
               </div>
               {/* Match bar */}
-              <div className="h-[3px] bg-secondary mt-3.5 rounded-full overflow-hidden">
-                <div className="h-full bg-foreground rounded-full transition-all" style={{ width: `${match}%` }} />
+              <div className="h-[3px] bg-white/[0.1] mt-3.5 rounded-full overflow-hidden">
+                <div className="h-full bg-white rounded-full transition-all" style={{ width: `${match}%` }} />
               </div>
             </div>
           );
