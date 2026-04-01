@@ -20,8 +20,7 @@ const PALIER_MAP: Record<string, string> = {
 // Aligned with CHAMBERS_DEPARTMENTS (now includes Tax)
 const FILTERS = [
   { key: 'all', label: 'Tous' },
-  { key: 'ma', label: 'Corporate/M&A' },
-  { key: 'pe', label: 'Private Equity' },
+  { key: 'ma', label: 'Corporate/M&A/PE' },
   { key: 'banque', label: 'Banking & Finance' },
   { key: 'restructuring', label: 'Restructuring/Insolvency' },
   { key: 'public', label: 'Public Law' },
