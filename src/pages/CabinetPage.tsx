@@ -15,7 +15,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
 import { NAT_FLAGS, NAT_LABELS } from '@/lib/legal500Rankings';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { Building2, Eye, FileText, LogOut, Home, Bell, Settings } from 'lucide-react';
+import { Building2, Eye, FileText, LogOut, Home, Bell, Settings, Search } from 'lucide-react';
 import CabinetNotificationAlerts from '@/components/cabinet/CabinetNotificationAlerts';
 import {
   SidebarProvider,
