@@ -61,8 +61,21 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
   const tabComplete = [isTab0Complete(), isTab1Complete(), isTab2Complete(), isTab3Complete()];
   const allComplete = tabComplete[0] && tabComplete[1] && tabComplete[2] && tabComplete[3];
 
+  // Scope percentages per item: { [itemKey]: number }
+  const [scopePercentages, setScopePercentages] = useState<Record<string, number>>({});
+
   const toggleActivity = (key: string) => {
-    s.setField('cabinetActivites', { ...s.cabinetActivites, [key]: !s.cabinetActivites[key] });
+    const newActivites = { ...s.cabinetActivites, [key]: !s.cabinetActivites[key] };
+    s.setField('cabinetActivites', newActivites);
+    if (!s.cabinetActivites[key]) {
+      setScopePercentages(prev => ({ ...prev, [key]: 10 }));
+    }
+  };
+
+  const handleScopePercentChange = (key: string, delta: number) => {
+    const current = scopePercentages[key] ?? 10;
+    const next = Math.max(0, Math.min(100, current + delta));
+    setScopePercentages(prev => ({ ...prev, [key]: next }));
   };
 
   const chartData = useMemo(() => {
