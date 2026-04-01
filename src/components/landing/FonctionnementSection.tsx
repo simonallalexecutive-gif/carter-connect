@@ -98,7 +98,7 @@ const FonctionnementSection = () => (
               { icon: Search, label: 'Pool qualifié' },
               { icon: Eye, label: 'Vision marché' },
             ].map(({ icon: Icon, label }) => (
-              <span key={label} className="inline-flex items-center gap-2 text-xs font-sans text-black/35 border border-black/[0.06] rounded-sm px-3 py-1.5">
+              <span key={label} className="inline-flex items-center gap-2 text-xs font-sans text-white/35 border border-white/[0.08] rounded-sm px-3 py-1.5">
                 <Icon className="w-3.5 h-3.5" strokeWidth={1.5} />
                 {label}
               </span>
