@@ -13,14 +13,14 @@ import ActivityPieChart from '@/components/shared/ActivityPieChart';
 const TABS = ['Profil recherché', 'Contexte & équipe', 'Rémunération & conditions', 'Confidentialité'];
 
 const PIE_COLORS = [
-  'hsl(210, 60%, 45%)',
-  'hsl(210, 45%, 60%)',
-  'hsl(210, 35%, 72%)',
-  'hsl(0, 0%, 55%)',
-  'hsl(0, 0%, 68%)',
-  'hsl(210, 50%, 52%)',
-  'hsl(0, 0%, 42%)',
-  'hsl(210, 40%, 78%)',
+  'hsl(220, 40%, 18%)',   // bleu nuit
+  'hsl(185, 40%, 25%)',   // vert pétrole
+  'hsl(210, 15%, 65%)',   // gris clair
+  'hsl(200, 35%, 30%)',   // bleu pétrole foncé
+  'hsl(155, 30%, 22%)',   // vert foncé
+  'hsl(215, 25%, 40%)',   // bleu gris
+  'hsl(0, 0%, 50%)',      // gris moyen
+  'hsl(220, 30%, 28%)',   // bleu nuit clair
 ];
 
 interface CabinetStep3SearchProps {
