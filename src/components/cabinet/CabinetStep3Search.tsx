@@ -266,12 +266,23 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
               ))}
             </div>
 
-            {/* Sub-categories */}
+            {/* Sub-categories with pie chart */}
             {s.expertise.length > 0 && (
               <div className="mt-5 space-y-5">
                 {s.expertise.map((exp) => {
                   const detail = CABINET_EXPERTISE_DETAIL[exp];
                   if (!detail) return null;
+                  const selectedItems = detail.sections.flatMap(sec =>
+                    sec.items.filter(item => s.cabinetActivites[item.key])
+                  );
+                  // Group selected items by section for the pie chart
+                  const sectionCounts = detail.sections
+                    .map(sec => ({
+                      name: sec.title,
+                      value: sec.items.filter(item => s.cabinetActivites[item.key]).length,
+                    }))
+                    .filter(d => d.value > 0);
+
                   return (
                     <div key={exp} className="p-4 rounded border border-border bg-secondary/30">
                       <p className="text-[10px] font-bold tracking-[0.1em] uppercase text-muted-foreground mb-3">{exp} — scope d'intervention</p>
@@ -296,22 +307,59 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
                           </div>
                         </div>
                       ))}
-                      {(() => {
-                        const selectedItems = detail.sections.flatMap(sec =>
-                          sec.items.filter(item => s.cabinetActivites[item.key])
-                        );
-                        if (selectedItems.length === 0) return null;
-                        return (
-                          <div className="mt-3 pt-3 border-t border-border">
-                            <p className="text-[9px] uppercase tracking-[0.12em] text-muted-foreground mb-1.5">Positionnement sélectionné</p>
-                            <div className="flex flex-wrap gap-1.5">
-                              {selectedItems.map(item => (
-                                <span key={item.key} className="text-[10px] bg-foreground/5 border border-border rounded px-2 py-0.5 text-foreground/70">{item.label}</span>
-                              ))}
+
+                      {/* Pie chart + selected chips when items are selected */}
+                      {selectedItems.length > 0 && (
+                        <div className="mt-4 pt-4 border-t border-border">
+                          <div className="flex items-start gap-5">
+                            {/* Mini pie chart by section type */}
+                            {sectionCounts.length > 0 && (
+                              <div className="flex flex-col items-center flex-shrink-0">
+                                <ResponsiveContainer width={110} height={110}>
+                                  <PieChart>
+                                    <Pie
+                                      data={sectionCounts}
+                                      cx="50%"
+                                      cy="50%"
+                                      innerRadius={28}
+                                      outerRadius={50}
+                                      dataKey="value"
+                                      stroke="hsl(var(--background))"
+                                      strokeWidth={2}
+                                    >
+                                      {sectionCounts.map((_, i) => (
+                                        <Cell key={i} fill={PIE_COLORS[i % PIE_COLORS.length]} />
+                                      ))}
+                                    </Pie>
+                                    <Tooltip
+                                      formatter={(value: number, name: string) => [`${value} sélection(s)`, name]}
+                                      contentStyle={{ fontSize: '10px', borderRadius: '4px' }}
+                                    />
+                                  </PieChart>
+                                </ResponsiveContainer>
+                                <div className="flex flex-col gap-1 mt-1.5">
+                                  {sectionCounts.map((sc, i) => (
+                                    <div key={sc.name} className="flex items-center gap-1.5">
+                                      <span className="w-2 h-2 rounded-sm flex-shrink-0" style={{ background: PIE_COLORS[i % PIE_COLORS.length] }} />
+                                      <span className="text-[9px] text-muted-foreground">{sc.name} ({sc.value})</span>
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
+
+                            {/* Selected chips */}
+                            <div className="flex-1 min-w-0">
+                              <p className="text-[9px] uppercase tracking-[0.12em] text-muted-foreground mb-2">Sélection</p>
+                              <div className="flex flex-wrap gap-1.5">
+                                {selectedItems.map(item => (
+                                  <span key={item.key} className="text-[10px] bg-foreground/5 border border-border rounded px-2 py-0.5 text-foreground/70">{item.label}</span>
+                                ))}
+                              </div>
                             </div>
                           </div>
-                        );
-                      })()}
+                        </div>
+                      )}
                     </div>
                   );
                 })}
