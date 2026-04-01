@@ -16,8 +16,13 @@ const stagger = {
 const cabinetPoints = [
   {
     num: '01',
-    title: 'Recherche confidentielle',
-    text: "Publiez un mandat sans révéler votre identité. Seules votre nationalité et votre position Chambers sont diffusées auprès d'un pool de candidats rigoureusement qualifiés.",
+    title: 'Attirez les meilleurs en toute confidentialité',
+    text: "Déposez votre recherche, préservez l'identité de votre cabinet, adressez-vous à un pool de candidats ultra qualifiés.",
+    bullets: [
+      'Nationalité du cabinet',
+      'Présence dans Chambers',
+      'Contexte du recrutement, séniorité et expertise recherchée',
+    ],
   },
   {
     num: '02',
@@ -81,13 +86,23 @@ const FonctionnementSection = () => (
           </motion.div>
 
           <div className="space-y-8">
-            {cabinetPoints.map(({ num, title, text }) => (
-              <motion.div key={num} variants={fadeUp}>
+            {cabinetPoints.map((point) => (
+              <motion.div key={point.num} variants={fadeUp}>
                 <div className="flex items-baseline gap-3 mb-2">
-                  <span className="font-serif text-2xl text-white/[0.12] font-medium select-none">{num}</span>
-                  <h4 className="font-sans text-[0.95rem] font-semibold text-white tracking-[-0.01em]">{title}</h4>
+                  <span className="font-serif text-2xl text-white/[0.12] font-medium select-none">{point.num}</span>
+                  <h4 className="font-sans text-[0.95rem] font-semibold text-white tracking-[-0.01em]">{point.title}</h4>
                 </div>
-                <p className="font-sans text-[0.92rem] leading-[1.8] text-white/50 pl-9">{text}</p>
+                <p className="font-sans text-[0.92rem] leading-[1.8] text-white/50 pl-9">{point.text}</p>
+                {point.bullets && (
+                  <ul className="mt-3 pl-9 space-y-1.5">
+                    {point.bullets.map((b) => (
+                      <li key={b} className="flex items-start gap-2 text-[0.88rem] text-white/40 font-sans">
+                        <ArrowRight className="w-3 h-3 mt-1 shrink-0 text-white/25" strokeWidth={1.5} />
+                        {b}
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </motion.div>
             ))}
           </div>
