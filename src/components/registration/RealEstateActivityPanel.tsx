@@ -75,35 +75,38 @@ const SliderRow = ({ label, value, color, onChange, disabled }: {
 );
 
 /* ── Helpers ── */
-const clampThreeWay = (
-  store: ReturnType<typeof useRegistrationStore>,
-  key: 'reConseilBaux' | 'reConseilTransac' | 'reConseilConstruction',
-  val: number,
-) => {
-  const keys: ('reConseilBaux' | 'reConseilTransac' | 'reConseilConstruction')[] = ['reConseilBaux', 'reConseilTransac', 'reConseilConstruction'];
-  const others = keys.filter(k => k !== key);
-  const remaining = 100 - val;
-  if (remaining < 0) return;
+type REKey = 'reConseilBaux' | 'reConseilTransac' | 'reConseilConstruction';
+const RE_KEYS: REKey[] = ['reConseilBaux', 'reConseilTransac', 'reConseilConstruction'];
 
-  const otherSum = others.reduce((s, k) => s + (store[k] as number), 0);
-  store.setField(key, val);
+const useClampThreeWay = () => {
+  const setField = useRegistrationStore(s => s.setField);
+  const vals = useRegistrationStore(s => ({
+    reConseilBaux: s.reConseilBaux,
+    reConseilTransac: s.reConseilTransac,
+    reConseilConstruction: s.reConseilConstruction,
+  }));
 
-  if (otherSum === 0) {
-    // distribute equally
-    store.setField(others[0], Math.round(remaining / 2));
-    store.setField(others[1], remaining - Math.round(remaining / 2));
-  } else {
-    // proportional
-    for (const k of others) {
-      const ratio = (store[k] as number) / otherSum;
-      store.setField(k, Math.round(remaining * ratio));
+  return (key: REKey, val: number) => {
+    const others = RE_KEYS.filter(k => k !== key);
+    const remaining = 100 - val;
+    if (remaining < 0) return;
+
+    const otherSum = others.reduce((s, k) => s + vals[k], 0);
+    setField(key, val);
+
+    if (otherSum === 0) {
+      setField(others[0], Math.round(remaining / 2));
+      setField(others[1], remaining - Math.round(remaining / 2));
+    } else {
+      for (const k of others) {
+        setField(k, Math.round(remaining * (vals[k] / otherSum)));
+      }
+      const newSum = others.reduce((s, k) => s + Math.round(remaining * (vals[k] / otherSum)), 0);
+      if (newSum !== remaining) {
+        setField(others[0], Math.round(remaining * (vals[others[0]] / otherSum)) + (remaining - newSum));
+      }
     }
-    // Fix rounding
-    const newSum = others.reduce((s, k) => s + (store[k] as number), 0);
-    if (newSum !== remaining) {
-      store.setField(others[0], (store[others[0]] as number) + (remaining - newSum));
-    }
-  }
+  };
 };
 
 /* ══════════════════════════════════════════════
