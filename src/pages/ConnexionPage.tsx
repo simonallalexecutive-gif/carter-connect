@@ -15,14 +15,15 @@ const ConnexionPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [submitting, setSubmitting] = useState(false);
+  const [showChoice, setShowChoice] = useState(false);
   const navigate = useNavigate();
   const { user, loading } = useAuth();
 
   useEffect(() => {
     if (!loading && user?.email_confirmed_at) {
-      navigate('/espace-candidat');
+      setShowChoice(true);
     }
-  }, [user, loading, navigate]);
+  }, [user, loading]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -36,7 +37,7 @@ const ConnexionPage = () => {
         return;
       }
       toast.success('Connexion réussie');
-      navigate('/espace-candidat');
+      setShowChoice(true);
     } catch (error: any) {
       toast.error(error.message);
     } finally {
@@ -57,49 +58,78 @@ const ConnexionPage = () => {
           className="w-full max-w-md text-center"
         >
           <div className="w-12 h-px bg-foreground/20 mx-auto mb-8" />
-          <h1 className="font-serif text-3xl md:text-4xl text-foreground mb-4">
-            Connexion
-          </h1>
-          <p className="text-sm text-muted-foreground font-sans leading-relaxed mb-10">
-            Accédez à votre espace Logan
-          </p>
 
-          <form onSubmit={handleLogin} className="space-y-4 max-w-sm mx-auto text-left">
-            <div>
-              <Label htmlFor="email" className="font-sans text-xs text-muted-foreground uppercase tracking-wider">
-                Email
-              </Label>
-              <Input
-                id="email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                className="mt-1"
-              />
-            </div>
-            <div>
-              <Label htmlFor="password" className="font-sans text-xs text-muted-foreground uppercase tracking-wider">
-                Mot de passe
-              </Label>
-              <Input
-                id="password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                minLength={6}
-                className="mt-1"
-              />
-            </div>
-            <Button
-              type="submit"
-              className="w-full py-6 font-sans text-sm"
-              disabled={submitting}
-            >
-              {submitting ? 'Chargement...' : 'Se connecter'}
-            </Button>
-          </form>
+          {showChoice ? (
+            <>
+              <h1 className="font-sans text-3xl md:text-4xl text-foreground mb-4">
+                Bienvenue
+              </h1>
+              <p className="text-sm text-muted-foreground font-sans leading-relaxed mb-10">
+                Choisissez votre espace
+              </p>
+              <div className="flex flex-col gap-4 max-w-sm mx-auto">
+                <Button
+                  onClick={() => navigate('/espace-candidat')}
+                  className="w-full py-6 font-sans text-sm"
+                >
+                  Espace Candidat
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={() => navigate('/cabinet')}
+                  className="w-full py-6 font-sans text-sm"
+                >
+                  Espace Cabinet
+                </Button>
+              </div>
+            </>
+          ) : (
+            <>
+              <h1 className="font-serif text-3xl md:text-4xl text-foreground mb-4">
+                Connexion
+              </h1>
+              <p className="text-sm text-muted-foreground font-sans leading-relaxed mb-10">
+                Accédez à votre espace Logan
+              </p>
+
+              <form onSubmit={handleLogin} className="space-y-4 max-w-sm mx-auto text-left">
+                <div>
+                  <Label htmlFor="email" className="font-sans text-xs text-muted-foreground uppercase tracking-wider">
+                    Email
+                  </Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    className="mt-1"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="password" className="font-sans text-xs text-muted-foreground uppercase tracking-wider">
+                    Mot de passe
+                  </Label>
+                  <Input
+                    id="password"
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    minLength={6}
+                    className="mt-1"
+                  />
+                </div>
+                <Button
+                  type="submit"
+                  className="w-full py-6 font-sans text-sm"
+                  disabled={submitting}
+                >
+                  {submitting ? 'Chargement...' : 'Se connecter'}
+                </Button>
+              </form>
+            </>
+          )}
 
         </motion.div>
       </main>

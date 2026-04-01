@@ -295,13 +295,13 @@ const CandidateOffers = () => {
                           const hasChambers = !!offer.chambersBand;
                           return (
                             <div className="flex items-center gap-0 mb-3 flex-wrap">
-                              <span className="text-[16px] font-sans tracking-[-0.01em] text-white leading-none font-semibold">{parsed.title}</span>
+                              <span className="text-[14px] font-sans text-white/70 leading-none">{parsed.title}</span>
                               <span className="mx-2.5 w-px h-5 bg-white/20 inline-block" />
-                              <span className="text-[16px] font-sans tracking-[-0.01em] text-white leading-none">{offer.dept}</span>
+                              <span className="text-[14px] font-sans text-white/70 leading-none">{offer.dept}</span>
                               {parsed.seniorityRange && (
                                 <>
                                   <span className="mx-2.5 w-px h-5 bg-white/20 inline-block" />
-                                  <span className="text-[16px] font-sans tracking-[-0.01em] text-white leading-none">{parsed.seniorityRange}</span>
+                                  <span className="text-[14px] font-sans text-white/70 leading-none">{parsed.seniorityRange}</span>
                                 </>
                               )}
                               {natLabel && (
