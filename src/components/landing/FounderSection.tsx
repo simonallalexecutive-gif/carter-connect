@@ -25,17 +25,6 @@ const FounderSection = () => {
           transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
           className="flex flex-col sm:flex-row items-start gap-10 sm:gap-16 mb-16 md:mb-20"
         >
-          {/* Left — photo */}
-          <div className="w-40 h-40 sm:w-48 sm:h-48 rounded-full overflow-hidden border-2 border-white/10 shadow-lg flex-shrink-0 mt-2">
-            <img
-              src={founderImg}
-              alt="Simon Allal, Fondateur de Logan"
-              className="w-full h-full object-cover"
-              style={{ objectPosition: '50% 30%' }}
-            />
-          </div>
-
-          {/* Right — bio with line breaks between sentences */}
           <div className="text-left flex-1">
             <h3 className="font-serif text-2xl text-white font-normal mb-0.5 tracking-[-0.01em]">
               Simon Allal
