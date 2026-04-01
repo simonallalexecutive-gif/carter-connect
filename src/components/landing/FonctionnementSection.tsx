@@ -93,6 +93,16 @@ const FonctionnementSection = () => (
                   <h4 className="font-sans text-[0.95rem] font-semibold text-white tracking-[-0.01em]">{title}</h4>
                 </div>
                 <p className="font-sans text-[0.92rem] leading-[1.8] text-white/50 pl-9">{text}</p>
+                {'bullets' in item && item.bullets && (
+                  <ul className="mt-3 pl-9 space-y-1.5">
+                    {(item as any).bullets.map((b: string) => (
+                      <li key={b} className="flex items-start gap-2 text-[0.88rem] text-white/40 font-sans">
+                        <ArrowRight className="w-3 h-3 mt-1 shrink-0 text-white/25" strokeWidth={1.5} />
+                        {b}
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </motion.div>
             ))}
           </div>
