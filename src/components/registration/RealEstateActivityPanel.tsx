@@ -196,7 +196,7 @@ const RealEstateActivityPanel = () => {
                       label="Immobilier transactionnel"
                       value={cTransac}
                       color={CONSEIL_COLORS[1]}
-                      onChange={v => clampThreeWay(store, 'reConseilTransac', v)}
+                      onChange={v => clampThreeWay('reConseilTransac', v)}
                     />
                     <SliderRow
                       label="Construction (contrats & développement)"
