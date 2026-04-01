@@ -71,7 +71,7 @@ const FonctionnementSection = () => (
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-60px' }}
-          className="md:border-r border-black/[0.06] md:pr-12 lg:pr-16 pb-16 md:pb-0"
+          className="md:border-r border-white/[0.08] md:pr-12 lg:pr-16 pb-16 md:pb-0"
         >
           <motion.div variants={fadeUp} className="flex items-center gap-3 mb-10">
             <div className="w-9 h-9 rounded-full bg-black/[0.04] flex items-center justify-center">
