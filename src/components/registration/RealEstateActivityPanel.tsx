@@ -202,7 +202,7 @@ const RealEstateActivityPanel = () => {
                       label="Construction (contrats & développement)"
                       value={cConstruction}
                       color={CONSEIL_COLORS[2]}
-                      onChange={v => clampThreeWay(store, 'reConseilConstruction', v)}
+                      onChange={v => clampThreeWay('reConseilConstruction', v)}
                     />
                     <SliderRow
                       label="Financement immobilier"
