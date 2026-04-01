@@ -9,6 +9,7 @@ import FounderSection from '@/components/landing/FounderSection';
 import FAQSection from '@/components/landing/FAQSection';
 import MissionSection from '@/components/landing/MissionSection';
 import FonctionnementSection from '@/components/landing/FonctionnementSection';
+import DemoSection from '@/components/landing/DemoSection';
 
 import StatsTickerSection from '@/components/landing/StatsTickerSection';
 import { ArrowRight } from 'lucide-react';
