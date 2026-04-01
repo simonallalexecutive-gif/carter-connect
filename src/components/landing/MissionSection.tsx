@@ -70,7 +70,7 @@ const MissionSection = () => (
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       >
         <p className="font-sans text-sm font-medium tracking-[0.15em] uppercase text-black/25 mb-10">
-          Un marché continu, visible et activable
+          Un réseau d'exception, une dynamique transparente, une confidentialité assurée
         </p>
         <div className="grid md:grid-cols-2 gap-6 md:gap-10">
           {/* Cabinets */}
