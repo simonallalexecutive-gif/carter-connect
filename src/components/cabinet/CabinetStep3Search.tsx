@@ -600,6 +600,60 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
                 )}
               </div>
             )}
+
+            {/* Bonus section when NO billable hours */}
+            {!s.hasHeures && (
+              <div className="animate-fade-in space-y-4 p-4 rounded border border-border bg-secondary/20 mt-3">
+                <div>
+                  <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2 block">
+                    Système de bonus
+                  </label>
+                  <div className="flex gap-2 flex-wrap mb-3">
+                    {['Bonus discrétionnaire', 'Bonus performance', 'Les deux'].map((bt) => (
+                      <button
+                        key={bt}
+                        onClick={() => {
+                          s.setField('bonusEnabled', true);
+                          s.setField('bonusTypes', [bt]);
+                        }}
+                        className={cn(
+                          'px-4 py-2 rounded-sm border text-[11px] transition-all',
+                          s.bonusTypes.includes(bt)
+                            ? 'bg-foreground text-background border-foreground'
+                            : 'bg-background text-muted-foreground border-border hover:border-foreground'
+                        )}
+                      >
+                        {bt}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {s.bonusTypes.length > 0 && (
+                  <div>
+                    <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-1.5 block">
+                      Fourchette du bonus
+                    </label>
+                    <div className="grid grid-cols-2 gap-3 max-w-md">
+                      <div className="relative">
+                        <Input value={s.bonusDesc?.split('-')[0]?.trim() || ''} onChange={(e) => {
+                          const max = s.bonusDesc?.split('-')[1]?.trim() || '';
+                          s.setField('bonusDesc', `${formatNumberWithDots(e.target.value)}${max ? ` - ${max}` : ''}`);
+                        }} placeholder="Min — Ex : 5.000" className="bg-background pr-8" />
+                        <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[11px] text-muted-foreground">€</span>
+                      </div>
+                      <div className="relative">
+                        <Input value={s.bonusDesc?.split('-')[1]?.trim() || ''} onChange={(e) => {
+                          const min = s.bonusDesc?.split('-')[0]?.trim() || '';
+                          s.setField('bonusDesc', `${min} - ${formatNumberWithDots(e.target.value)}`);
+                        }} placeholder="Max — Ex : 20.000" className="bg-background pr-8" />
+                        <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[11px] text-muted-foreground">€</span>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
 
           <div className="mb-6">

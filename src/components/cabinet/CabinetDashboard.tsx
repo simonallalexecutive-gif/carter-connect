@@ -265,56 +265,111 @@ const SearchValidation = () => {
             <div className="text-[10px] text-white/25 mt-2 font-sans">Identité protégée · Mise en relation via LOGAN uniquement</div>
           </div>
 
-          {/* ─── 2. SCOPE D'INTERVENTION (chips + pie chart) ─── */}
-          {(activeActivities.length > 0 || sectionCounts.length > 0) && (
+          {/* ─── 2. EXPERTISE RECHERCHÉE ─── */}
+          {s.expertise.length > 0 && (
             <div className="p-6 md:p-8 border-b border-white/[0.08]">
-              <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-white/35 font-sans mb-4">Scope d'intervention</div>
-              <div className="flex items-start gap-6">
-                {/* Pie chart by section type */}
-                {sectionCounts.length > 0 && (
-                  <div className="flex flex-col items-center flex-shrink-0">
-                    <ResponsiveContainer width={110} height={110}>
+              <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-white/35 font-sans mb-4">Expertise recherchée</div>
+              
+              {/* Expertise chips */}
+              <div className="flex flex-wrap gap-1.5 mb-5">
+                {s.expertise.map((exp) => (
+                  <span key={exp} className="text-[11px] bg-white/[0.1] border border-white/[0.15] rounded px-3 py-1.5 text-white/80 font-sans font-medium">{exp}</span>
+                ))}
+              </div>
+
+              {/* Scope detail chips + pie chart */}
+              {(activeActivities.length > 0 || sectionCounts.length > 0) && (
+                <div className="flex items-start gap-6 mt-4 pt-4 border-t border-white/[0.06]">
+                  {/* Pie chart by section type */}
+                  {sectionCounts.length > 0 && (
+                    <div className="flex flex-col items-center flex-shrink-0">
+                      <ResponsiveContainer width={120} height={120}>
+                        <PieChart>
+                          <Pie
+                            data={sectionCounts}
+                            cx="50%"
+                            cy="50%"
+                            innerRadius={28}
+                            outerRadius={52}
+                            dataKey="value"
+                            stroke="hsl(0, 0%, 10%)"
+                            strokeWidth={2}
+                          >
+                            {sectionCounts.map((_, i) => (
+                              <Cell key={i} fill={VALIDATION_PIE_PALETTE[i % VALIDATION_PIE_PALETTE.length]} />
+                            ))}
+                          </Pie>
+                          <Tooltip
+                            formatter={(value: number, name: string) => [`${value} sélection(s)`, name]}
+                            contentStyle={{ fontSize: '10px', borderRadius: '4px', background: 'hsl(0,0%,15%)', color: 'white', border: '1px solid rgba(255,255,255,0.1)' }}
+                          />
+                        </PieChart>
+                      </ResponsiveContainer>
+                      <div className="flex flex-col gap-1 mt-2">
+                        {sectionCounts.map((sc, i) => (
+                          <div key={sc.name} className="flex items-center gap-1.5">
+                            <span className="w-2 h-2 rounded-sm flex-shrink-0" style={{ background: VALIDATION_PIE_PALETTE[i % VALIDATION_PIE_PALETTE.length] }} />
+                            <span className="text-[9px] text-white/50 font-sans">{sc.name} ({sc.value})</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Scope chips */}
+                  <div className="flex-1 min-w-0">
+                    <p className="text-[8px] uppercase tracking-[0.1em] text-white/35 font-sans mb-2">Scope d'intervention</p>
+                    <div className="flex flex-wrap gap-1.5">
+                      {activeActivities.map((a) => (
+                        <span key={a.label} className="text-[10px] bg-white/[0.07] border border-white/[0.12] rounded px-2.5 py-1 text-white/70 font-sans">{a.label}</span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Activity split pie chart when multiple expertises */}
+              {s.expertise.length >= 2 && Object.keys(s.activitySplit).length > 0 && (
+                <div className="mt-5 pt-4 border-t border-white/[0.06]">
+                  <p className="text-[8px] uppercase tracking-[0.1em] text-white/35 font-sans mb-3">Répartition de l'activité</p>
+                  <div className="flex items-start gap-5">
+                    <ResponsiveContainer width={100} height={100}>
                       <PieChart>
                         <Pie
-                          data={sectionCounts}
+                          data={s.expertise.map((k) => ({ name: k, value: s.activitySplit[k] || 0 })).filter(d => d.value > 0)}
                           cx="50%"
                           cy="50%"
-                          innerRadius={26}
-                          outerRadius={48}
+                          innerRadius={24}
+                          outerRadius={44}
                           dataKey="value"
                           stroke="hsl(0, 0%, 10%)"
                           strokeWidth={2}
                         >
-                          {sectionCounts.map((_, i) => (
+                          {s.expertise.map((_, i) => (
                             <Cell key={i} fill={VALIDATION_PIE_PALETTE[i % VALIDATION_PIE_PALETTE.length]} />
                           ))}
                         </Pie>
                         <Tooltip
-                          formatter={(value: number, name: string) => [`${value} sélection(s)`, name]}
-                          contentStyle={{ fontSize: '10px', borderRadius: '4px' }}
+                          formatter={(value: number, name: string) => [`${value}%`, name]}
+                          contentStyle={{ fontSize: '10px', borderRadius: '4px', background: 'hsl(0,0%,15%)', color: 'white', border: '1px solid rgba(255,255,255,0.1)' }}
                         />
                       </PieChart>
                     </ResponsiveContainer>
-                    <div className="flex flex-col gap-1 mt-2">
-                      {sectionCounts.map((sc, i) => (
-                        <div key={sc.name} className="flex items-center gap-1.5">
-                          <span className="w-2 h-2 rounded-sm flex-shrink-0" style={{ background: VALIDATION_PIE_PALETTE[i % VALIDATION_PIE_PALETTE.length] }} />
-                          <span className="text-[9px] text-white/50 font-sans">{sc.name} ({sc.value})</span>
-                        </div>
-                      ))}
+                    <div className="flex flex-col gap-1.5">
+                      {s.expertise.map((k, i) => {
+                        const pct = s.activitySplit[k] || 0;
+                        if (pct === 0) return null;
+                        return (
+                          <div key={k} className="flex items-center gap-2">
+                            <span className="w-2 h-2 rounded-sm flex-shrink-0" style={{ background: VALIDATION_PIE_PALETTE[i % VALIDATION_PIE_PALETTE.length] }} />
+                            <span className="text-[10px] text-white/60 font-sans">{k} — {pct}%</span>
+                          </div>
+                        );
+                      })}
                     </div>
                   </div>
-                )}
-
-                {/* Expertise chips */}
-                <div className="flex-1 min-w-0">
-                  <div className="flex flex-wrap gap-1.5">
-                    {activeActivities.map((a) => (
-                      <span key={a.label} className="text-[10px] bg-white/[0.07] border border-white/[0.12] rounded px-2.5 py-1 text-white/70 font-sans">{a.label}</span>
-                    ))}
-                  </div>
                 </div>
-              </div>
+              )}
             </div>
           )}
 

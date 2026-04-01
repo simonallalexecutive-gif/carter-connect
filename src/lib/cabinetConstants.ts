@@ -85,7 +85,7 @@ export const EXPERTISES = [
 ];
 
 export const CABINET_EXPERTISE_DETAIL: Record<string, { sections: { title: string; items: { key: string; label: string }[] }[] }> = {
-  'M&A Industriel': {
+  'M&A': {
     sections: [
       {
         title: 'Nature des opérations',
@@ -107,7 +107,7 @@ export const CABINET_EXPERTISE_DETAIL: Record<string, { sections: { title: strin
       },
     ],
   },
-  'Private Equity / LBO': {
+  'Private Equity': {
     sections: [
       {
         title: 'Type d\'opérations',
