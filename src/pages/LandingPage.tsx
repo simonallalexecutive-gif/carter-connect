@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
-import DiscoverSection from '@/components/landing/DiscoverSection';
+
 
 import FounderSection from '@/components/landing/FounderSection';
 import FAQSection from '@/components/landing/FAQSection';
@@ -166,11 +166,6 @@ const LandingPage = () => (
 
     {/* Notre fonctionnement */}
     <FonctionnementSection />
-
-    {/* Notre approche */}
-    <div id="notre-approche">
-      <DiscoverSection />
-    </div>
 
     {/* Notre vision */}
     <div id="notre-vision">
