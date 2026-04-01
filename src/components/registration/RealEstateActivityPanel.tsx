@@ -114,6 +114,7 @@ const useClampThreeWay = () => {
    ══════════════════════════════════════════════ */
 const RealEstateActivityPanel = () => {
   const store = useRegistrationStore();
+  const clampThreeWay = useClampThreeWay();
 
   /* Global split */
   const conseilPct = store.reConseil ?? 50;
