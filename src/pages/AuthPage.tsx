@@ -24,7 +24,13 @@ const AuthPage = () => {
 
   useEffect(() => {
     if (!loading && user?.email_confirmed_at) {
-      navigate(redirectTo);
+      // Redirect based on user type
+      const userType = user.user_metadata?.user_type;
+      if (userType === 'cabinet') {
+        navigate('/cabinet');
+      } else {
+        navigate(redirectTo);
+      }
     }
   }, [user, loading, navigate]);
 
