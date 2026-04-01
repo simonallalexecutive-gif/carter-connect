@@ -21,7 +21,7 @@ const MissionSection = () => (
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: '-80px' }}
-        className="mb-16 md:mb-24"
+        className="mb-10 md:mb-16"
       >
         <motion.p variants={fadeUp} className="text-[11px] font-sans font-medium tracking-[0.25em] uppercase text-black/30 mb-6">
           Notre approche
