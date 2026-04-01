@@ -215,8 +215,7 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
             </label>
             <div className="flex gap-2 flex-wrap">
               {[
-                { key: 'ma', label: 'Corporate/M&A' },
-                { key: 'pe', label: 'Private Equity' },
+                { key: 'ma', label: 'Corporate/M&A/PE' },
                 { key: 'banque', label: 'Banking & Finance' },
                 { key: 'restructuring', label: 'Restructuring/Insolvency' },
                 { key: 'public', label: 'Public Law' },
