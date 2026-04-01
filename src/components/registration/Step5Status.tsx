@@ -10,8 +10,8 @@ const Step5Status = () => {
   const store = useRegistrationStore();
   const isAdmin = store.isAdminMode;
 
-  const canProceed = store.statutEcoute !== '' && store.visibilite !== '' &&
-    (isAdmin || (store.consentement && store.consentementExactitude && store.consentementMiseEnRelation));
+  const canProceed = isAdmin || (store.statutEcoute !== '' && store.visibilite !== '' &&
+    store.consentement && store.consentementExactitude && store.consentementMiseEnRelation);
 
   return (
     <motion.div

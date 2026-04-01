@@ -56,13 +56,13 @@ const Step2Identity = () => {
     return [...set].sort((a, b) => a.localeCompare(b));
   }, []);
 
-  const canProceed = store.prenom.length >= 2 && store.nom.length >= 2 &&
-    (isAdmin || store.email.includes('@')) && store.telephone.length >= 10 &&
+  const canProceed = isAdmin || (store.prenom.length >= 2 && store.nom.length >= 2 &&
+    store.email.includes('@') && store.telephone.length >= 10 &&
     store.sermentMois && store.sermentAnnee &&
     store.departement.length >= 2 && store.cabinet.length >= 2 &&
-    (isAdmin || (isPasswordValid && passwordsMatch)) &&
+    isPasswordValid && passwordsMatch &&
     store.retrocession.length >= 1 &&
-    store.conserverRetrocession !== null;
+    store.conserverRetrocession !== null);
 
   const missingFields = useMemo(() => {
     const missing: string[] = [];
