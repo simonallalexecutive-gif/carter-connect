@@ -17,7 +17,7 @@ const cabinetPoints = [
   {
     num: '01',
     title: 'Recherche confidentielle',
-    text: 'Publiez un mandat sans révéler votre identité. Seules votre nationalité et votre position Chambers sont diffusées auprès d'un pool de candidats rigoureusement qualifiés.',
+    text: "Publiez un mandat sans révéler votre identité. Seules votre nationalité et votre position Chambers sont diffusées auprès d'un pool de candidats rigoureusement qualifiés.",
   },
   {
     num: '02',
