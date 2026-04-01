@@ -33,8 +33,8 @@ interface CabinetStep3SearchProps {
 const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchProps = {}) => {
   const s = useCabinetStore();
   const [activeTab, setActiveTab] = useState(0);
-  // Track percentage split per expertise's sections: { [expertise]: { [sectionTitle]: number } }
-  const [scopeSplits, setScopeSplits] = useState<Record<string, Record<string, number>>>({});
+
+
 
   const splitTotal = s.expertise.reduce((sum, k) => sum + (s.activitySplit[k] || 0), 0);
 
