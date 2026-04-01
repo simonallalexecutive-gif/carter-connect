@@ -74,8 +74,8 @@ export const CABINET_TYPES = [
 ];
 
 export const EXPERTISES = [
-  'M&A Industriel',
-  'Private Equity / LBO',
+  'M&A',
+  'Private Equity',
   'Venture Capital',
   'Corporate',
   'Financement',
