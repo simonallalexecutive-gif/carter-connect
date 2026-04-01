@@ -40,16 +40,26 @@ const MissionSection = () => (
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-60px' }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className="mb-20 md:mb-28"
+        className="mb-14 md:mb-20"
       >
         <div className="border-l-2 border-black/10 pl-8 md:pl-12 max-w-3xl">
           <p className="font-sans text-[1.05rem] md:text-lg leading-[1.85] text-black/60">
             Logan structure un écosystème discret et exigeant, réunissant les acteurs les plus prestigieux du marché des avocats d'affaires, dans une exigence absolue de confidentialité. Vous disposez d'un accès continu à un réseau hautement qualifié, composé de profils rares et rigoureusement sélectionnés.
           </p>
-          <p className="font-serif text-[1.1rem] md:text-xl leading-[1.7] text-black/40 italic mt-8">
-            Logan préserve l'anonymat de chaque partie et intervient à leurs côtés pour les accompagner lorsque des rapprochements stratégiques s'imposent.
-          </p>
         </div>
+      </motion.div>
+
+      {/* ── Centered bold statement ── */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-60px' }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        className="mb-14 md:mb-20"
+      >
+        <p className="font-sans text-[1.05rem] md:text-lg leading-[1.7] text-black/70 font-bold text-center max-w-3xl mx-auto">
+          Logan préserve l'anonymat de chaque partie et intervient à leurs côtés pour les accompagner lorsque des rapprochements stratégiques s'imposent.
+        </p>
       </motion.div>
 
       {/* ── Two sides — Cabinets / Candidats ── */}
