@@ -166,7 +166,7 @@ const CandidateDashboardContent = () => {
 
       <div className="flex-1 flex flex-col min-h-screen">
         {/* Top bar - blue/grey background */}
-        <header className="flex items-center px-8 py-8 gap-5" style={{ background: 'hsl(215, 16%, 35%)' }}>
+        <header className="flex items-center px-8 py-8 gap-5" style={{ background: 'hsl(130, 8%, 38%)' }}>
           <SidebarTrigger className="text-white/60 hover:text-white" />
           <div className="flex items-center gap-5 flex-1 min-w-0">
             <Avatar className="w-12 h-12 border-2 border-white/20 shrink-0">
