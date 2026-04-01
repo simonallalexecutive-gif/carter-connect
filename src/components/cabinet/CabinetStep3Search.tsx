@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback, useEffect } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import { useCabinetStore } from '@/stores/cabinetStore';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -7,9 +7,9 @@ import { EXPERTISES, SENIORITY_OPTIONS, CONF_OPTIONS, SPLIT_COLORS, CABINET_EXPE
 import { cn } from '@/lib/utils';
 import { formatNumberWithDots } from '@/lib/formatters';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
-import { Check } from 'lucide-react';
+import { Check, Minus, Plus } from 'lucide-react';
 import ActivityPieChart from '@/components/shared/ActivityPieChart';
-import SegmentedBar from '@/components/shared/SegmentedBar';
+import { buildQuantizedChartData } from '@/lib/percentages';
 
 const TABS = ['Profil recherché', 'Contexte & équipe', 'Rémunération & conditions', 'Confidentialité'];
 
@@ -33,8 +33,8 @@ interface CabinetStep3SearchProps {
 const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchProps = {}) => {
   const s = useCabinetStore();
   const [activeTab, setActiveTab] = useState(0);
-  // Track percentage split per expertise's sections: { [expertise]: { [sectionTitle]: number } }
-  const [scopeSplits, setScopeSplits] = useState<Record<string, Record<string, number>>>({});
+
+
 
   const splitTotal = s.expertise.reduce((sum, k) => sum + (s.activitySplit[k] || 0), 0);
 
@@ -61,8 +61,21 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
   const tabComplete = [isTab0Complete(), isTab1Complete(), isTab2Complete(), isTab3Complete()];
   const allComplete = tabComplete[0] && tabComplete[1] && tabComplete[2] && tabComplete[3];
 
+  // Scope percentages per item: { [itemKey]: number }
+  const [scopePercentages, setScopePercentages] = useState<Record<string, number>>({});
+
   const toggleActivity = (key: string) => {
-    s.setField('cabinetActivites', { ...s.cabinetActivites, [key]: !s.cabinetActivites[key] });
+    const newActivites = { ...s.cabinetActivites, [key]: !s.cabinetActivites[key] };
+    s.setField('cabinetActivites', newActivites);
+    if (!s.cabinetActivites[key]) {
+      setScopePercentages(prev => ({ ...prev, [key]: 10 }));
+    }
+  };
+
+  const handleScopePercentChange = (key: string, delta: number) => {
+    const current = scopePercentages[key] ?? 10;
+    const next = Math.max(0, Math.min(100, current + delta));
+    setScopePercentages(prev => ({ ...prev, [key]: next }));
   };
 
   const chartData = useMemo(() => {
@@ -277,13 +290,6 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
                   const selectedItems = detail.sections.flatMap(sec =>
                     sec.items.filter(item => s.cabinetActivites[item.key])
                   );
-                  // Group selected items by section for the pie chart
-                  const sectionCounts = detail.sections
-                    .map(sec => ({
-                      name: sec.title,
-                      value: sec.items.filter(item => s.cabinetActivites[item.key]).length,
-                    }))
-                    .filter(d => d.value > 0);
 
                   return (
                     <div key={exp} className="p-4 rounded border border-border bg-secondary/30">
@@ -310,100 +316,94 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
                         </div>
                       ))}
 
-                      {/* Pie chart + gauges + selected chips when items are selected */}
-                      {selectedItems.length > 0 && (
-                        <div className="mt-4 pt-4 border-t border-border">
-                          <div className="flex items-start gap-5">
-                            {/* Mini pie chart by section — now percentage-based */}
-                            {sectionCounts.length > 0 && (() => {
-                              // Auto-init scope splits for this expertise
-                              const currentSplit = scopeSplits[exp] || {};
-                              const activeSections = sectionCounts.map(sc => sc.name);
-                              const needsInit = activeSections.some(name => currentSplit[name] === undefined);
-                              if (needsInit) {
-                                const equal = Math.floor(100 / activeSections.length);
-                                const rem = 100 - equal * activeSections.length;
-                                const init: Record<string, number> = {};
-                                activeSections.forEach((name, i) => { init[name] = equal + (i === 0 ? rem : 0); });
-                                // Schedule state update
-                                setTimeout(() => setScopeSplits(prev => ({ ...prev, [exp]: { ...prev[exp], ...init } })), 0);
-                              }
-                              const pieData = activeSections.map(name => ({
-                                name,
-                                value: currentSplit[name] ?? Math.floor(100 / activeSections.length),
-                              })).filter(d => d.value > 0);
+                      {/* Pie chart + controls (like candidate Step3Activity) */}
+                      {selectedItems.length > 0 && (() => {
+                        const scopeChartData = buildQuantizedChartData(
+                          selectedItems.map((item, index) => ({
+                            key: item.key,
+                            name: item.label,
+                            raw: scopePercentages[item.key] || 10,
+                            color: PIE_COLORS[index % PIE_COLORS.length],
+                          })),
+                        );
 
-                              return (
-                                <div className="flex flex-col items-center flex-shrink-0">
-                                  <ResponsiveContainer width={110} height={110}>
-                                    <PieChart>
-                                      <Pie
-                                        data={pieData}
-                                        cx="50%"
-                                        cy="50%"
-                                        innerRadius={28}
-                                        outerRadius={50}
-                                        dataKey="value"
-                                        stroke="hsl(var(--background))"
-                                        strokeWidth={2}
-                                      >
-                                        {pieData.map((_, i) => (
-                                          <Cell key={i} fill={PIE_COLORS[i % PIE_COLORS.length]} />
-                                        ))}
-                                      </Pie>
-                                      <Tooltip
-                                        formatter={(value: number, name: string) => [`${value}%`, name]}
-                                        contentStyle={{ fontSize: '10px', borderRadius: '4px' }}
-                                      />
-                                    </PieChart>
-                                  </ResponsiveContainer>
-                                  <div className="flex flex-col gap-1 mt-1.5">
-                                    {pieData.map((sc, i) => (
-                                      <div key={sc.name} className="flex items-center gap-1.5">
-                                        <span className="w-2 h-2 rounded-sm flex-shrink-0" style={{ background: PIE_COLORS[i % PIE_COLORS.length] }} />
-                                        <span className="text-[9px] text-muted-foreground">{sc.name} ({sc.value}%)</span>
-                                      </div>
-                                    ))}
-                                  </div>
-                                </div>
-                              );
-                            })()}
-
-                            {/* Gauges + selected chips */}
-                            <div className="flex-1 min-w-0">
-                              <p className="text-[9px] uppercase tracking-[0.12em] text-muted-foreground mb-3">Répartition du scope</p>
-                              <div className="space-y-2.5 mb-4">
-                                {sectionCounts.map((sc, i) => {
-                                  const currentSplit = scopeSplits[exp] || {};
-                                  const pct = currentSplit[sc.name] ?? Math.floor(100 / sectionCounts.length);
-                                  return (
-                                    <SegmentedBar
-                                      key={sc.name}
-                                      value={pct}
-                                      onChange={(val) => {
-                                        setScopeSplits(prev => ({
-                                          ...prev,
-                                          [exp]: { ...prev[exp], [sc.name]: val },
-                                        }));
+                        return (
+                          <div className="mt-4 pt-4 border-t border-border">
+                            <p className="font-sans text-[11px] font-medium text-muted-foreground uppercase tracking-[0.15em] mb-5">Répartition des dossiers</p>
+                            <div className="flex flex-col md:flex-row gap-6 items-center md:items-start">
+                              {/* Pie chart */}
+                              <div className="flex-shrink-0" style={{ width: 160, height: 160 }}>
+                                <ResponsiveContainer width="100%" height="100%">
+                                  <PieChart>
+                                    <Pie
+                                      data={scopeChartData}
+                                      cx="50%"
+                                      cy="50%"
+                                      innerRadius={38}
+                                      outerRadius={72}
+                                      dataKey="value"
+                                      paddingAngle={2}
+                                      stroke="hsl(var(--background))"
+                                      strokeWidth={2}
+                                      label={({ cx, cy, midAngle, innerRadius: ir, outerRadius: or, index }) => {
+                                        const RADIAN = Math.PI / 180;
+                                        const radius = ir + (or - ir) * 0.5;
+                                        const x = cx + radius * Math.cos(-midAngle * RADIAN);
+                                        const y = cy + radius * Math.sin(-midAngle * RADIAN);
+                                        const pct = scopeChartData[index]?.value ?? 0;
+                                        if (pct < 15) return null;
+                                        return (
+                                          <text x={x} y={y} fill="white" textAnchor="middle" dominantBaseline="central" fontSize={11} fontWeight={700} fontFamily="Inter, sans-serif">
+                                            {pct}%
+                                          </text>
+                                        );
                                       }}
-                                      step={5}
-                                      activeColor={PIE_COLORS[i % PIE_COLORS.length]}
-                                      label={sc.name}
-                                      showValue
-                                    />
+                                      labelLine={false}
+                                    >
+                                      {scopeChartData.map((_, index) => (
+                                        <Cell key={index} fill={PIE_COLORS[index % PIE_COLORS.length]} />
+                                      ))}
+                                    </Pie>
+                                  </PieChart>
+                                </ResponsiveContainer>
+                              </div>
+
+                              {/* +/- Controls */}
+                              <div className="flex-1 w-full space-y-2">
+                                {selectedItems.map((item, i) => {
+                                  const displayPercent = scopeChartData.find(d => d.name === item.label)?.value ?? 0;
+                                  return (
+                                    <div key={item.key} className="flex items-center gap-3 py-2 border-b border-border last:border-b-0">
+                                      <div className="w-3 h-3 rounded-sm flex-shrink-0" style={{ backgroundColor: PIE_COLORS[i % PIE_COLORS.length] }} />
+                                      <span className="text-[12px] font-sans text-foreground flex-1 min-w-0 truncate">{item.label}</span>
+                                      <div className="flex items-center gap-1.5">
+                                        <button
+                                          type="button"
+                                          onClick={() => handleScopePercentChange(item.key, -10)}
+                                          className="w-7 h-7 rounded-sm border border-border flex items-center justify-center hover:bg-secondary transition-colors"
+                                        >
+                                          <Minus className="w-3 h-3 text-foreground" />
+                                        </button>
+                                        <span className="text-[12px] font-sans font-bold text-foreground w-10 text-center tabular-nums">
+                                          {displayPercent}%
+                                        </span>
+                                        <button
+                                          type="button"
+                                          onClick={() => handleScopePercentChange(item.key, 10)}
+                                          className="w-7 h-7 rounded-sm border border-border flex items-center justify-center hover:bg-secondary transition-colors"
+                                        >
+                                          <Plus className="w-3 h-3 text-foreground" />
+                                        </button>
+                                      </div>
+                                    </div>
                                   );
                                 })}
-                              </div>
-                              <p className="text-[9px] uppercase tracking-[0.12em] text-muted-foreground mb-2">Sélection</p>
-                              <div className="flex flex-wrap gap-1.5">
-                                {selectedItems.map(item => (
-                                  <span key={item.key} className="text-[10px] bg-foreground/5 border border-border rounded px-2 py-0.5 text-foreground/70">{item.label}</span>
-                                ))}
+                                <p className="text-[10px] text-muted-foreground font-sans pt-1">Ajustez le poids relatif de chaque activité par paliers de 10 points.</p>
                               </div>
                             </div>
                           </div>
-                        </div>
-                      )}
+                        );
+                      })()}
                     </div>
                   );
                 })}
