@@ -36,8 +36,8 @@ const CandidateRequests = () => (
           return (
             <div
               key={req.id}
-              className="rounded-lg overflow-hidden border border-white/5"
-              style={{ background: 'hsl(0, 0%, 22%)' }}
+              className="rounded-lg overflow-hidden border border-black/[0.06]"
+              style={{ background: 'hsl(220, 6%, 68%)' }}
             >
               <div className="p-6">
                 <div className="flex items-start justify-between gap-4">
@@ -45,26 +45,26 @@ const CandidateRequests = () => (
                     {offer && (
                       <>
                         <div className="flex items-center gap-0 mb-1 flex-wrap">
-                          <span className="text-[14px] font-sans text-white/70 leading-none">{shortSeniority(offer.seniority)}</span>
-                          <span className="mx-2.5 w-px h-5 bg-white/20 inline-block" />
-                          <span className="text-[14px] font-sans text-white/70 leading-none">{offer.dept}</span>
+                          <span className="text-[14px] font-sans text-black/80 leading-none">{shortSeniority(offer.seniority)}</span>
+                          <span className="mx-2.5 w-px h-5 bg-black/15 inline-block" />
+                          <span className="text-[14px] font-sans text-black/80 leading-none">{offer.dept}</span>
                         </div>
                         <div className="flex items-center gap-0 mb-3 flex-wrap">
-                          {offer.nat && <span className="text-[11px] font-sans text-white/40 leading-none">Cabinet {offer.nat}</span>}
-                          {offer.nat && <span className="mx-2 text-[11px] text-white/20">·</span>}
-                          <span className="text-[11px] font-sans text-white/40 leading-none">Chambers : {offer.chambersBand ? 'Oui' : 'Non'}</span>
+                          {offer.nat && <span className="text-[11px] font-sans text-black/45 leading-none">Cabinet {offer.nat}</span>}
+                          {offer.nat && <span className="mx-2 text-[11px] text-black/25">·</span>}
+                          <span className="text-[11px] font-sans text-black/45 leading-none">Chambers : {offer.chambersBand ? 'Oui' : 'Non'}</span>
                         </div>
                       </>
                     )}
-                    <p className="text-[11px] font-sans text-white/40">Soumise le {new Date(req.submittedAt).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
+                    <p className="text-[11px] font-sans text-black/45">Soumise le {new Date(req.submittedAt).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
                   </div>
-                  <div className="flex items-center gap-2 shrink-0 bg-white/10 rounded-full px-3 py-1.5">
-                    <Clock className="w-3.5 h-3.5 text-white/60" />
-                    <span className="text-[11px] font-sans font-medium text-white">{req.status}</span>
+                  <div className="flex items-center gap-2 shrink-0 bg-black/10 rounded-full px-3 py-1.5">
+                    <Clock className="w-3.5 h-3.5 text-black/50" />
+                    <span className="text-[11px] font-sans font-medium text-black/80">{req.status}</span>
                   </div>
                 </div>
                 {offer && (
-                  <div className="text-[9px] tracking-[0.15em] uppercase text-white/20 font-sans text-right mt-3">{offer.reference}</div>
+                  <div className="text-[9px] tracking-[0.15em] uppercase text-black/25 font-sans text-right mt-3">{offer.reference}</div>
                 )}
               </div>
             </div>
