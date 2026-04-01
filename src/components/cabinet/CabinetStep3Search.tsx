@@ -97,13 +97,13 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
       </p>
 
       {/* Tabs */}
-      <div className="flex gap-0 border-b-2 border-border mb-6 overflow-x-auto">
+      <div className="flex w-full border-b-2 border-border mb-6">
         {TABS.map((tab, i) => (
           <button
             key={tab}
             onClick={() => setActiveTab(i)}
             className={cn(
-              'px-5 py-2.5 text-[11px] font-medium whitespace-nowrap border-b-2 -mb-[2px] transition-all flex items-center gap-1.5',
+              'flex-1 py-3 text-[11px] font-medium whitespace-nowrap border-b-2 -mb-[2px] transition-all flex items-center justify-center gap-1.5',
               activeTab === i ? 'text-foreground border-foreground font-semibold' : 'text-muted-foreground border-transparent hover:text-foreground'
             )}
           >
