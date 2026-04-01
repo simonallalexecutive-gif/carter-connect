@@ -289,30 +289,38 @@ const CandidateOffers = () => {
                   <button type="button" className="w-full text-left p-6 md:p-8" onClick={() => setExpandedOffer(isExpanded ? null : offer.id)}>
                     <div className="flex items-start justify-between gap-4">
                       <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-0 mb-3 flex-wrap">
-                          <span className="text-[16px] font-sans tracking-[-0.01em] text-white leading-none">{shortSeniority(offer.seniority)}</span>
-                          <span className="mx-2.5 w-px h-5 bg-white/20 inline-block" />
-                          <span className="text-[16px] font-sans tracking-[-0.01em] text-white leading-none">{offer.dept}</span>
-                          {flag && (
-                            <>
+                        {(() => {
+                          const parsed = parseOfferSeniority(offer.seniority);
+                          const natLabel = offer.nat ? `Cabinet ${offer.nat}` : '';
+                          const hasChambers = !!offer.chambersBand;
+                          return (
+                            <div className="flex items-center gap-0 mb-3 flex-wrap">
+                              <span className="text-[16px] font-sans tracking-[-0.01em] text-white leading-none font-semibold">{parsed.title}</span>
                               <span className="mx-2.5 w-px h-5 bg-white/20 inline-block" />
-                              <span className="text-[14px] text-white/70 leading-none">{flag}</span>
-                            </>
-                          )}
-                          {offer.ranking && (
-                            <>
+                              <span className="text-[16px] font-sans tracking-[-0.01em] text-white leading-none">{offer.dept}</span>
+                              {parsed.seniorityRange && (
+                                <>
+                                  <span className="mx-2.5 w-px h-5 bg-white/20 inline-block" />
+                                  <span className="text-[16px] font-sans tracking-[-0.01em] text-white leading-none">{parsed.seniorityRange}</span>
+                                </>
+                              )}
+                              {natLabel && (
+                                <>
+                                  <span className="mx-2.5 w-px h-5 bg-white/20 inline-block" />
+                                  <span className="text-[14px] font-sans text-white/70 leading-none">{natLabel}</span>
+                                </>
+                              )}
                               <span className="mx-2.5 w-px h-5 bg-white/20 inline-block" />
-                              <span className="inline-flex items-center gap-2 text-[14px] font-sans text-white/70">
-                                <span className="font-semibold">{offer.ranking}</span>
-                              </span>
-                            </>
-                          )}
-                          {isInterested && (
-                            <span className="ml-3 inline-flex items-center gap-1 text-[10px] text-white/40 font-sans">
-                              <CheckCircle2 className="w-3.5 h-3.5" />Intérêt transmis
-                            </span>
-                          )}
-                        </div>
+                              <span className="text-[14px] font-sans text-white/70 leading-none">Chambers : {hasChambers ? 'Oui' : 'Non'}</span>
+                              {isInterested && (
+                                <span className="ml-3 inline-flex items-center gap-1 text-[10px] text-white/40 font-sans">
+                                  <CheckCircle2 className="w-3.5 h-3.5" />Intérêt transmis
+                                </span>
+                              )}
+                            </div>
+                          );
+                        })()}
+                        
 
                         {!isExpanded && offer.tags.length > 0 && (
                           <div className="flex flex-wrap gap-1.5 mt-1">
