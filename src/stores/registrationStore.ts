@@ -100,28 +100,17 @@ const initialState = {
   dpubClientele: [] as string[],
   dpubDimensionProjets: [] as string[],
   dpubSecteurs: [] as string[],
-  // Real Estate / Immobilier
-  reConseil: 50,
-  reConseilBaux: 25,
-  reConseilTransac: 25,
-  reConseilConstruction: 25,
-  reContentieuxBaux: 50,
-  reBauxSideConseil: '',
-  reBauxSideContentieux: '',
-  reTransacStructure: '',
-  reTransacCorporate: null as boolean | null,
-  reFinSide: '',
+  // Real Estate / Immobilier — Conseil
+  reBauxAM: 20,
+  reShareDeal: 20,
+  reAssetDealPct: 20,
+  reConstructionPct: 20,
+  // reFinancementPct computed as remainder
   reAssetTypes: [] as string[],
-  // Legacy compat
-  reTransac: 34,
-  reFinImmo: 33,
-  reTransacAcq: 50,
-  reTransacAsset: 50,
-  reBauxPct: 0,
-  reBauxSide: '',
-  reFinCredit: 34,
-  reFinLeveraged: 33,
-  reClientele: [] as string[],
+  // Contentieux
+  reHasContentieux: null as boolean | null,
+  reContentieuxPct: 20,
+  reContentieuxDomaines: [] as string[],
   anglais: '',
   typesClients: [] as string[],
   // Step 4 - Next move
