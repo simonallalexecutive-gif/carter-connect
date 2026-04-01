@@ -161,6 +161,23 @@ const SearchFormWrapper = () => {
 };
 
 // ── SEARCH VALIDATION ──
+const SENIORITY_YEARS_MAP: Record<string, string> = {
+  junior: '0/3 ans',
+  mid: '3/6 ans',
+  senior: '+6 ans',
+};
+
+const VALIDATION_PIE_PALETTE = [
+  'hsl(210, 60%, 22%)',
+  'hsl(210, 50%, 35%)',
+  'hsl(0, 0%, 72%)',
+  'hsl(155, 35%, 28%)',
+  'hsl(210, 40%, 48%)',
+  'hsl(0, 0%, 82%)',
+  'hsl(155, 25%, 40%)',
+  'hsl(210, 30%, 55%)',
+];
+
 const SearchValidation = () => {
   const s = useCabinetStore();
   const [checks, setChecks] = useState([false, false]);
@@ -172,6 +189,41 @@ const SearchValidation = () => {
   };
 
   const allChecked = checks.every(Boolean);
+
+  const profileTypes = s.profileTypes || [];
+  const profileLabel = profileTypes.includes('associe') ? 'Associé' : profileTypes.includes('counsel') ? 'Counsel' : 'Collaborateur';
+  const senYears = s.seniorities.length ? s.seniorities.map((k) => SENIORITY_YEARS_MAP[k] || '').filter(Boolean).join(', ') : '';
+  const natLabel = s.detectedNat ? (NAT_LABELS[s.detectedNat] || s.detectedNat) : '';
+  const hasChambersRanking = s.detectedRankings && s.detectedRankings.length > 0;
+
+  // Get selected scope items
+  const activeActivities = useMemo(() => {
+    return Object.entries(s.cabinetActivites)
+      .filter(([, v]) => v)
+      .map(([k]) => {
+        for (const exp of s.expertise) {
+          const detail = CABINET_EXPERTISE_DETAIL[exp];
+          if (detail) {
+            for (const sec of detail.sections) {
+              const item = sec.items.find((it) => it.key === k);
+              if (item) return { label: item.label, section: sec.title };
+            }
+          }
+        }
+        return { label: k, section: 'Autre' };
+      });
+  }, [s.cabinetActivites, s.expertise]);
+
+  // Section counts for pie chart
+  const sectionCounts = useMemo(() => {
+    const counts: Record<string, number> = {};
+    activeActivities.forEach((a) => {
+      counts[a.section] = (counts[a.section] || 0) + 1;
+    });
+    return Object.entries(counts).map(([name, value]) => ({ name, value }));
+  }, [activeActivities]);
+
+  const retroStr = s.retroMin && s.retroMax ? `${s.retroMin}€ — ${s.retroMax}€` : s.retroMin ? `À partir de ${s.retroMin}€` : s.retroMax ? `Jusqu'à ${s.retroMax}€` : '';
 
   return (
     <div className="max-w-[780px] mx-auto">
@@ -190,53 +242,83 @@ const SearchValidation = () => {
       {/* Preview card — dark premium style */}
       <div className="mb-6">
         <div className="bg-foreground rounded-lg overflow-hidden shadow-[0_25px_60px_-12px_rgba(0,0,0,0.5)] backdrop-blur-sm">
+
+          {/* ─── 1. EN-TÊTE : Statut | Département | Années ─── */}
           <div className="p-6 md:p-8 border-b border-white/[0.08]">
             <div className="text-[8px] tracking-[0.16em] uppercase text-white/35 font-sans mb-3">Opportunité · Présentée par LOGAN</div>
-            <div className="font-sans text-lg md:text-xl font-bold text-white mb-1.5 leading-tight">
-              {s.currentSearchDeptLabel || 'Département'} · {s.seniorities.join(' / ') || '—'}
+            <div className="flex items-center gap-2 flex-wrap text-[15px] font-semibold text-white font-sans">
+              <span>{profileLabel}</span>
+              <span className="text-white/25">|</span>
+              <span>{s.currentSearchDeptLabel || s.expertise.join(' / ') || 'Département'}</span>
+              {senYears && (
+                <>
+                  <span className="text-white/25">|</span>
+                  <span>{senYears}</span>
+                </>
+              )}
             </div>
-            {s.expertise.length > 0 && (
-              <div className="font-sans text-[13px] text-white/60 mb-1">{s.expertise.join(', ')}</div>
-            )}
-            <div className="text-[10px] text-white/30 mt-1">Cabinet anonyme · Identité protégée · Mise en relation via LOGAN uniquement</div>
-            <div className="flex flex-wrap gap-1.5 mt-4 pt-4 border-t border-white/[0.08]">
-              {s.seniorities.map((se) => (
-                <span key={se} className="text-[10px] px-2.5 py-1 rounded-full border border-white/15 text-white/65 font-sans">{se}</span>
-              ))}
-              {s.expertise.map((e) => (
-                <span key={e} className="text-[10px] px-2.5 py-1 rounded-full border border-white/15 text-white/65 font-sans">{e}</span>
-              ))}
-              {s.english && <span className="text-[10px] px-2.5 py-1 rounded-full border border-white/15 text-white/65 font-sans">Anglais : {s.english}</span>}
+            <div className="flex items-center gap-3 mt-2 text-[10px] text-white/40 font-sans">
+              {natLabel && <span>Cabinet {natLabel}</span>}
+              {natLabel && <span className="text-white/15">·</span>}
+              <span>Pratique reconnue Chambers : {hasChambersRanking ? 'Oui' : 'Non'}</span>
             </div>
+            <div className="text-[10px] text-white/25 mt-2 font-sans">Cabinet anonyme · Identité protégée · Mise en relation via LOGAN uniquement</div>
           </div>
 
-          {s.expertise.length > 0 && Object.keys(s.activitySplit).length > 0 && (
+          {/* ─── 2. SCOPE D'INTERVENTION (chips + pie chart) ─── */}
+          {(activeActivities.length > 0 || sectionCounts.length > 0) && (
             <div className="p-6 md:p-8 border-b border-white/[0.08]">
-              <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-white/35 font-sans mb-4">Répartition de l'activité</div>
-              {s.expertise.length >= 2 ? (
-                <div className="flex items-start gap-6">
-                  <ActivityPieChart data={s.activitySplit} size={120} innerRadius={28} outerRadius={52} showLegend={false} darkMode />
-                  <div className="flex-1 space-y-2.5">
-                    {s.expertise.map((exp) => (
-                      <div key={exp}>
-                        <div className="flex justify-between items-center mb-0.5">
-                          <span className="text-[11px] font-medium text-white font-sans">{exp}</span>
-                          <span className="text-[11px] font-bold text-white font-sans">{s.activitySplit[exp] || 0}%</span>
+              <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-white/35 font-sans mb-4">Scope d'intervention</div>
+              <div className="flex items-start gap-6">
+                {/* Pie chart by section type */}
+                {sectionCounts.length > 0 && (
+                  <div className="flex flex-col items-center flex-shrink-0">
+                    <ResponsiveContainer width={110} height={110}>
+                      <PieChart>
+                        <Pie
+                          data={sectionCounts}
+                          cx="50%"
+                          cy="50%"
+                          innerRadius={26}
+                          outerRadius={48}
+                          dataKey="value"
+                          stroke="hsl(0, 0%, 10%)"
+                          strokeWidth={2}
+                        >
+                          {sectionCounts.map((_, i) => (
+                            <Cell key={i} fill={VALIDATION_PIE_PALETTE[i % VALIDATION_PIE_PALETTE.length]} />
+                          ))}
+                        </Pie>
+                        <Tooltip
+                          formatter={(value: number, name: string) => [`${value} sélection(s)`, name]}
+                          contentStyle={{ fontSize: '10px', borderRadius: '4px' }}
+                        />
+                      </PieChart>
+                    </ResponsiveContainer>
+                    <div className="flex flex-col gap-1 mt-2">
+                      {sectionCounts.map((sc, i) => (
+                        <div key={sc.name} className="flex items-center gap-1.5">
+                          <span className="w-2 h-2 rounded-sm flex-shrink-0" style={{ background: VALIDATION_PIE_PALETTE[i % VALIDATION_PIE_PALETTE.length] }} />
+                          <span className="text-[9px] text-white/50 font-sans">{sc.name} ({sc.value})</span>
                         </div>
-                      </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Expertise chips */}
+                <div className="flex-1 min-w-0">
+                  <div className="flex flex-wrap gap-1.5">
+                    {activeActivities.map((a) => (
+                      <span key={a.label} className="text-[10px] bg-white/[0.07] border border-white/[0.12] rounded px-2.5 py-1 text-white/70 font-sans">{a.label}</span>
                     ))}
                   </div>
                 </div>
-              ) : (
-                <div className="flex flex-wrap gap-1.5">
-                  {s.expertise.map((e) => (
-                    <span key={e} className="text-[10px] bg-white/[0.07] border border-white/[0.12] rounded px-2.5 py-1 text-white/65 font-sans">{e}</span>
-                  ))}
-                </div>
-              )}
+              </div>
             </div>
           )}
 
+          {/* ─── 3. CONTEXTE & ÉQUIPE ─── */}
           {(s.contexte || s.eqAssocies || s.eqCounsels || s.eqCollab) && (
             <div className="p-6 md:p-8 border-b border-white/[0.08]">
               <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-white/35 font-sans mb-4">Contexte & équipe</div>
@@ -249,7 +331,7 @@ const SearchValidation = () => {
                 )}
                 {(s.eqAssocies || s.eqCounsels || s.eqCollab) && (
                   <div>
-                    <div className="text-[8px] uppercase tracking-[0.1em] text-white/35 font-sans mb-1">Équipe</div>
+                    <div className="text-[8px] uppercase tracking-[0.1em] text-white/35 font-sans mb-1">Composition actuelle</div>
                     <div className="text-[13px] font-semibold text-white font-sans">
                       {[s.eqAssocies ? `${s.eqAssocies} associé(s)` : '', s.eqCounsels ? `${s.eqCounsels} counsel(s)` : '', s.eqCollab ? `${s.eqCollab} collaborateur(s)` : ''].filter(Boolean).join(', ')}
                     </div>
@@ -259,23 +341,41 @@ const SearchValidation = () => {
             </div>
           )}
 
+          {/* ─── 4. RÉTROCESSION & CONDITIONS ─── */}
           <div className="p-6 md:p-8 border-b border-white/[0.08]">
-            <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-white/35 font-sans mb-4">Rémunération & conditions</div>
-            <div className="grid grid-cols-3 gap-4">
+            <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-white/35 font-sans mb-4">Rétrocession & conditions</div>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               <div className="bg-white/[0.05] rounded-lg p-3">
                 <div className="text-[8px] uppercase tracking-[0.1em] text-white/35 font-sans mb-1.5">Rétrocession</div>
-                <div className="font-sans text-[13px] font-bold text-white">
-                  {s.retroMin || s.retroMax ? `${s.retroMin || '?'}€ – ${s.retroMax || '?'}€` : 'Confidentiel'}
+                <div className="font-sans text-[13px] font-bold text-white">{retroStr || 'Confidentiel'}</div>
+              </div>
+              {s.hasHeures && s.heures && (
+                <div className="bg-white/[0.05] rounded-lg p-3">
+                  <div className="text-[8px] uppercase tracking-[0.1em] text-white/35 font-sans mb-1.5">Objectif heures</div>
+                  <div className="font-sans text-[13px] font-bold text-white">{s.heures}h/an</div>
                 </div>
-              </div>
-              <div className="bg-white/[0.05] rounded-lg p-3">
-                <div className="text-[8px] uppercase tracking-[0.1em] text-white/35 font-sans mb-1.5">Heures / an</div>
-                <div className="font-sans text-[13px] font-bold text-white">{s.heures ? `${s.heures}h` : 'Non communiqué'}</div>
-              </div>
-              <div className="bg-white/[0.05] rounded-lg p-3">
-                <div className="text-[8px] uppercase tracking-[0.1em] text-white/35 font-sans mb-1.5">Télétravail</div>
-                <div className="font-sans text-[13px] font-bold text-white">{s.tt || '—'}</div>
-              </div>
+              )}
+              {s.bonusEnabled && s.bonusTypes.length > 0 && (
+                <div className="bg-white/[0.05] rounded-lg p-3">
+                  <div className="text-[8px] uppercase tracking-[0.1em] text-white/35 font-sans mb-1.5">Bonus</div>
+                  <div className="font-sans text-[13px] font-bold text-white">
+                    {s.bonusTypes.join(', ')}
+                    {s.bonusDesc && ` (${s.bonusDesc}€)`}
+                  </div>
+                </div>
+              )}
+              {s.tt && (
+                <div className="bg-white/[0.05] rounded-lg p-3">
+                  <div className="text-[8px] uppercase tracking-[0.1em] text-white/35 font-sans mb-1.5">Télétravail</div>
+                  <div className="font-sans text-[13px] font-bold text-white">{s.tt}</div>
+                </div>
+              )}
+              {s.english && (
+                <div className="bg-white/[0.05] rounded-lg p-3">
+                  <div className="text-[8px] uppercase tracking-[0.1em] text-white/35 font-sans mb-1.5">Anglais</div>
+                  <div className="font-sans text-[13px] font-bold text-white">{s.english}</div>
+                </div>
+              )}
             </div>
           </div>
 
