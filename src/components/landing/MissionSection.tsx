@@ -21,7 +21,7 @@ const MissionSection = () => (
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: '-80px' }}
-        className="mb-16 md:mb-24"
+        className="mb-10 md:mb-16"
       >
         <motion.p variants={fadeUp} className="text-[11px] font-sans font-medium tracking-[0.25em] uppercase text-black/30 mb-6">
           Notre approche
@@ -40,16 +40,26 @@ const MissionSection = () => (
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-60px' }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className="mb-20 md:mb-28"
+        className="mb-14 md:mb-20"
       >
         <div className="border-l-2 border-black/10 pl-8 md:pl-12 max-w-3xl">
           <p className="font-sans text-[1.05rem] md:text-lg leading-[1.85] text-black/60">
             Logan structure un écosystème discret et exigeant, réunissant les acteurs les plus prestigieux du marché des avocats d'affaires, dans une exigence absolue de confidentialité. Vous disposez d'un accès continu à un réseau hautement qualifié, composé de profils rares et rigoureusement sélectionnés.
           </p>
-          <p className="font-serif text-[1.1rem] md:text-xl leading-[1.7] text-black/40 italic mt-8">
-            Logan préserve l'anonymat de chaque partie et intervient à leurs côtés pour les accompagner lorsque des rapprochements stratégiques s'imposent.
-          </p>
         </div>
+      </motion.div>
+
+      {/* ── Centered bold statement ── */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-60px' }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        className="mb-14 md:mb-20"
+      >
+        <p className="font-sans text-[1.05rem] md:text-lg leading-[1.7] text-black/70 font-bold text-center max-w-3xl mx-auto">
+          Logan préserve l'anonymat de chaque partie et intervient à leurs côtés pour les accompagner lorsque des rapprochements stratégiques s'imposent.
+        </p>
       </motion.div>
 
       {/* ── Two sides — Cabinets / Candidats ── */}
@@ -60,14 +70,14 @@ const MissionSection = () => (
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       >
         <p className="font-sans text-sm font-medium tracking-[0.15em] uppercase text-black/25 mb-10">
-          Un marché continu, visible et activable
+          Un réseau d'exception, une dynamique transparente, une confidentialité assurée
         </p>
         <div className="grid md:grid-cols-2 gap-6 md:gap-10">
           {/* Cabinets */}
           <div className="border border-black/[0.08] rounded-sm p-8 md:p-10">
             <Building2 className="w-5 h-5 text-black/25 mb-5" strokeWidth={1.5} />
             <p className="font-sans text-xs font-medium tracking-[0.2em] uppercase text-black/30 mb-2">Cabinets</p>
-            <p className="font-serif text-base md:text-lg font-medium text-black/80 mb-4">
+            <p className="font-serif text-lg md:text-xl font-medium text-black/80 mb-4">
               Vivez votre marché, ne le subissez plus.
             </p>
             <p className="font-sans text-[0.95rem] leading-[1.75] text-black/50">
@@ -78,7 +88,7 @@ const MissionSection = () => (
           <div className="border border-black/[0.08] rounded-sm p-8 md:p-10">
             <UserCheck className="w-5 h-5 text-black/25 mb-5" strokeWidth={1.5} />
             <p className="font-sans text-xs font-medium tracking-[0.2em] uppercase text-black/30 mb-2">Candidats</p>
-            <p className="font-serif text-base md:text-lg font-medium text-black/80 mb-4">
+            <p className="font-serif text-lg md:text-xl font-medium text-black/80 mb-4">
               Restez attractif, dans la discrétion la plus totale.
             </p>
             <p className="font-sans text-[0.95rem] leading-[1.75] text-black/50">
