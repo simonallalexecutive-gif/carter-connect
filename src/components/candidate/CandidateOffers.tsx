@@ -283,8 +283,8 @@ const CandidateOffers = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -12, transition: { duration: 0.25 } }}
                 transition={{ delay: expandedOffer ? 0 : index * 0.08, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                className="rounded-lg overflow-hidden transition-shadow duration-500 hover:shadow-xl border border-black/[0.06]"
-                style={{ background: 'hsl(220, 6%, 68%)' }}
+                className="rounded-lg overflow-hidden transition-shadow duration-500 hover:shadow-xl border border-black/[0.08]"
+                style={{ background: 'hsl(40, 20%, 95%)' }}
               >
                   <button type="button" className="w-full text-left p-6 md:p-8" onClick={() => setExpandedOffer(isExpanded ? null : offer.id)}>
                     <div className="flex items-start justify-between gap-4">
@@ -295,28 +295,27 @@ const CandidateOffers = () => {
                           const hasChambers = !!offer.chambersBand;
                           return (
                             <>
-                              <div className="flex items-center gap-0 mb-1 flex-wrap">
-                                <span className="text-[14px] font-sans text-black/80 leading-none">{parsed.title}</span>
-                                <span className="mx-2.5 w-px h-5 bg-black/15 inline-block" />
-                                <span className="text-[14px] font-sans text-black/80 leading-none">{offer.dept}</span>
+                              <div className="flex items-center gap-0 mb-2 flex-wrap">
+                                <span className="text-[14px] font-sans font-semibold text-black/90 leading-none">{parsed.title}</span>
+                                <span className="mx-2.5 w-px h-5 bg-black/20 inline-block" />
+                                <span className="text-[14px] font-sans font-semibold text-black/90 leading-none">{offer.dept}</span>
                                 {parsed.seniorityRange && (
                                   <>
-                                    <span className="mx-2.5 w-px h-5 bg-black/15 inline-block" />
-                                    <span className="text-[14px] font-sans text-black/80 leading-none">{parsed.seniorityRange}</span>
+                                    <span className="mx-2.5 w-px h-5 bg-black/20 inline-block" />
+                                    <span className="text-[14px] font-sans font-semibold text-black/90 leading-none">{parsed.seniorityRange}</span>
                                   </>
                                 )}
                                 {isInterested && (
-                                  <span className="ml-3 inline-flex items-center gap-1 text-[10px] text-black/40 font-sans">
+                                  <span className="ml-3 inline-flex items-center gap-1 text-[10px] text-black/50 font-sans">
                                     <CheckCircle2 className="w-3.5 h-3.5" />Intérêt transmis
                                   </span>
                                 )}
                               </div>
-                              <div className="flex items-center gap-0 mb-3 flex-wrap">
+                              <div className="flex items-center gap-2 mb-3 flex-wrap">
                                 {natLabel && (
-                                  <span className="text-[11px] font-sans text-black/45 leading-none">{natLabel}</span>
+                                  <span className="text-[10px] font-sans font-bold text-black/70 leading-none border border-black/20 rounded px-2 py-1">{natLabel}</span>
                                 )}
-                                {natLabel && <span className="mx-2 text-[11px] text-black/25">·</span>}
-                                <span className="text-[11px] font-sans text-black/45 leading-none">Chambers : {hasChambers ? 'Oui' : 'Non'}</span>
+                                <span className="text-[10px] font-sans font-bold text-black/70 leading-none border border-black/20 rounded px-2 py-1">Chambers : {hasChambers ? 'Oui' : 'Non'}</span>
                               </div>
                             </>
                           );
@@ -326,21 +325,21 @@ const CandidateOffers = () => {
                         {!isExpanded && offer.tags.length > 0 && (
                           <div className="flex flex-wrap gap-1.5 mt-1">
                             {offer.tags.slice(0, 4).map((tag) => (
-                              <span key={tag} className="text-[10px] px-2.5 py-1 rounded-full border border-black/10 text-black/50 font-sans">{tag}</span>
+                              <span key={tag} className="text-[10px] px-2.5 py-1 rounded-full border border-black/15 text-black/60 font-sans">{tag}</span>
                             ))}
                           </div>
                         )}
 
                         <div className="flex items-center justify-between mt-4">
-                          <div className="flex items-center gap-1.5 text-[11px] text-black/45 font-sans">
+                          <div className="flex items-center gap-1.5 text-[11px] text-black/55 font-sans">
                             <Calendar className="w-3 h-3" />
                             <span>Date de publication : {formatOfferDate(offer.postedAt)}</span>
                           </div>
-                          <div className="text-[9px] tracking-[0.15em] uppercase text-black/25 font-sans">{offer.reference}</div>
+                          <div className="text-[9px] tracking-[0.15em] uppercase text-black/30 font-sans">{offer.reference}</div>
                         </div>
                       </div>
-                      <div className="w-10 h-10 rounded-full flex items-center justify-center bg-black/10 shrink-0 mt-1">
-                        <ChevronDown className={`w-5 h-5 text-black/50 transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`} />
+                      <div className="w-10 h-10 rounded-full flex items-center justify-center bg-black/[0.06] shrink-0 mt-1">
+                        <ChevronDown className={`w-5 h-5 text-black/60 transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`} />
                       </div>
                     </div>
                   </button>
