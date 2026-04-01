@@ -30,7 +30,7 @@ const candidatPoints = [
   {
     num: '01',
     title: 'Visibilité sans exposition',
-    text: 'Restez présent sur le marché en toute discrétion. Votre identité n'est jamais communiquée sans votre accord — seuls votre séniorité, expertise et positionnement Chambers sont visibles.',
+    text: "Restez présent sur le marché en toute discrétion. Votre identité n'est jamais communiquée sans votre accord — seuls votre séniorité, expertise et positionnement Chambers sont visibles.",
   },
   {
     num: '02',
