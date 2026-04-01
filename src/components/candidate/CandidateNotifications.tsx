@@ -57,7 +57,7 @@ const CandidateNotifications = () => {
               <div
                 key={notif.id}
                 className="rounded-lg overflow-hidden border border-white/5"
-                style={{ background: 'hsl(0, 0%, 22%)' }}
+                style={{ background: 'hsl(220, 6%, 68%)' }}
               >
                 <div className="p-5">
                   <div className="flex items-start gap-4">
