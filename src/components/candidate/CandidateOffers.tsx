@@ -294,29 +294,31 @@ const CandidateOffers = () => {
                           const natLabel = offer.nat ? `Cabinet ${offer.nat}` : '';
                           const hasChambers = !!offer.chambersBand;
                           return (
-                            <div className="flex items-center gap-0 mb-1 flex-wrap">
-                              <span className="text-[14px] font-sans text-white/70 leading-none">{parsed.title}</span>
-                              <span className="mx-2.5 w-px h-5 bg-white/20 inline-block" />
-                              <span className="text-[14px] font-sans text-white/70 leading-none">{offer.dept}</span>
-                              {parsed.seniorityRange && (
-                                <>
-                                  <span className="mx-2.5 w-px h-5 bg-white/20 inline-block" />
-                                  <span className="text-[14px] font-sans text-white/70 leading-none">{parsed.seniorityRange}</span>
-                                </>
-                              )}
-                              {isInterested && (
-                                <span className="ml-3 inline-flex items-center gap-1 text-[10px] text-white/40 font-sans">
-                                  <CheckCircle2 className="w-3.5 h-3.5" />Intérêt transmis
-                                </span>
-                              )}
-                            </div>
-                            <div className="flex items-center gap-0 mb-3 flex-wrap">
-                              {natLabel && (
-                                <span className="text-[11px] font-sans text-white/40 leading-none">{natLabel}</span>
-                              )}
-                              {natLabel && <span className="mx-2 text-[11px] text-white/20">·</span>}
-                              <span className="text-[11px] font-sans text-white/40 leading-none">Chambers : {hasChambers ? 'Oui' : 'Non'}</span>
-                            </div>
+                            <>
+                              <div className="flex items-center gap-0 mb-1 flex-wrap">
+                                <span className="text-[14px] font-sans text-white/70 leading-none">{parsed.title}</span>
+                                <span className="mx-2.5 w-px h-5 bg-white/20 inline-block" />
+                                <span className="text-[14px] font-sans text-white/70 leading-none">{offer.dept}</span>
+                                {parsed.seniorityRange && (
+                                  <>
+                                    <span className="mx-2.5 w-px h-5 bg-white/20 inline-block" />
+                                    <span className="text-[14px] font-sans text-white/70 leading-none">{parsed.seniorityRange}</span>
+                                  </>
+                                )}
+                                {isInterested && (
+                                  <span className="ml-3 inline-flex items-center gap-1 text-[10px] text-white/40 font-sans">
+                                    <CheckCircle2 className="w-3.5 h-3.5" />Intérêt transmis
+                                  </span>
+                                )}
+                              </div>
+                              <div className="flex items-center gap-0 mb-3 flex-wrap">
+                                {natLabel && (
+                                  <span className="text-[11px] font-sans text-white/40 leading-none">{natLabel}</span>
+                                )}
+                                {natLabel && <span className="mx-2 text-[11px] text-white/20">·</span>}
+                                <span className="text-[11px] font-sans text-white/40 leading-none">Chambers : {hasChambers ? 'Oui' : 'Non'}</span>
+                              </div>
+                            </>
                           );
                         })()}
                         
