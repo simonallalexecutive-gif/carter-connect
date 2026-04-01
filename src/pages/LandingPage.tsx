@@ -167,11 +167,6 @@ const LandingPage = () => (
     {/* Notre fonctionnement */}
     <FonctionnementSection />
 
-    {/* Notre approche */}
-    <div id="notre-approche">
-      <DiscoverSection />
-    </div>
-
     {/* Notre vision */}
     <div id="notre-vision">
       <FounderSection />

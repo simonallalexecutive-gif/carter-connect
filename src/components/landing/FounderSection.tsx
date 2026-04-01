@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import founderImg from '@/assets/founder-simon.jpeg';
+
 
 const FounderSection = () => {
   return (
