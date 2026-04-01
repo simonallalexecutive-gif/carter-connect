@@ -17,7 +17,7 @@ const cabinetPoints = [
   {
     num: '01',
     title: 'Attirez les meilleurs en toute confidentialité',
-    text: 'Déposez votre recherche, préservez l'identité de votre cabinet, adressez-vous à un pool de candidats ultra qualifiés.',
+    text: "Déposez votre recherche, préservez l'identité de votre cabinet, adressez-vous à un pool de candidats ultra qualifiés.",
     bullets: [
       'Nationalité du cabinet',
       'Présence dans Chambers',
