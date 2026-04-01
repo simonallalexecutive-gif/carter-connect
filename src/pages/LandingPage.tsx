@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import DiscoverSection from '@/components/landing/DiscoverSection';
-import BenefitsSection from '@/components/landing/BenefitsSection';
+
 import FounderSection from '@/components/landing/FounderSection';
 import FAQSection from '@/components/landing/FAQSection';
 import MissionSection from '@/components/landing/MissionSection';
@@ -183,17 +183,6 @@ const LandingPage = () => (
     {/* Stats ticker */}
     <StatsTickerSection />
 
-    {/* Subtle divider between Stats and Benefits */}
-    <div style={{ background: 'hsl(40 30% 96%)' }}>
-      <div className="max-w-5xl mx-auto">
-        <div className="h-px bg-black/[0.06]" />
-      </div>
-    </div>
-
-    {/* Nos engagements */}
-    <div id="nos-engagements">
-      <BenefitsSection />
-    </div>
 
     {/* FAQ */}
     <div id="faq">
