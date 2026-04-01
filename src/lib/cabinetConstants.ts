@@ -459,7 +459,7 @@ export const PROFILES: CabinetProfile[] = [
     match: 83,
   },
   {
-    id: 'C-2024-079', dept: 'pe', deptLabel: 'Private Equity',
+    id: 'C-2024-079', dept: 'ma', deptLabel: 'Private Equity',
     title: 'Collaborateur PE — 5 ans PQE',
     pqe: '5 ans', nat: 'FR', natFlag: 'FR',
     origin: 'Cabinet US Tier 2', originTier: 'Tier 2',
