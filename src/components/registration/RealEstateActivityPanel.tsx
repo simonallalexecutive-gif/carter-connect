@@ -80,13 +80,12 @@ const RE_KEYS: REKey[] = ['reConseilBaux', 'reConseilTransac', 'reConseilConstru
 
 const useClampThreeWay = () => {
   const setField = useRegistrationStore(s => s.setField);
-  const vals = useRegistrationStore(s => ({
-    reConseilBaux: s.reConseilBaux,
-    reConseilTransac: s.reConseilTransac,
-    reConseilConstruction: s.reConseilConstruction,
-  }));
+  const reConseilBaux = useRegistrationStore(s => s.reConseilBaux);
+  const reConseilTransac = useRegistrationStore(s => s.reConseilTransac);
+  const reConseilConstruction = useRegistrationStore(s => s.reConseilConstruction);
 
   return (key: REKey, val: number) => {
+    const vals: Record<REKey, number> = { reConseilBaux, reConseilTransac, reConseilConstruction };
     const others = RE_KEYS.filter(k => k !== key);
     const remaining = 100 - val;
     if (remaining < 0) return;
@@ -98,13 +97,12 @@ const useClampThreeWay = () => {
       setField(others[0], Math.round(remaining / 2));
       setField(others[1], remaining - Math.round(remaining / 2));
     } else {
-      for (const k of others) {
-        setField(k, Math.round(remaining * (vals[k] / otherSum)));
-      }
-      const newSum = others.reduce((s, k) => s + Math.round(remaining * (vals[k] / otherSum)), 0);
+      const newVals = others.map(k => Math.round(remaining * (vals[k] / otherSum)));
+      const newSum = newVals.reduce((a, b) => a + b, 0);
       if (newSum !== remaining) {
-        setField(others[0], Math.round(remaining * (vals[others[0]] / otherSum)) + (remaining - newSum));
+        newVals[0] += remaining - newSum;
       }
+      others.forEach((k, i) => setField(k, newVals[i]));
     }
   };
 };
