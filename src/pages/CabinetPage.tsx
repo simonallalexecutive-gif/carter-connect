@@ -236,6 +236,12 @@ const CabinetPage = () => {
         const name = session.user.user_metadata?.full_name || '';
         if (name) setField('cabinetName', name);
         setStep(6);
+      } else {
+        // Only apply ?start=2 if user is NOT logged in
+        const startStep = searchParams.get('start');
+        if (startStep === '2' && step === 1) {
+          setStep(2);
+        }
       }
     };
     if (step === 1) checkSession();
@@ -251,13 +257,6 @@ const CabinetPage = () => {
     });
     return () => subscription.unsubscribe();
   }, []);
-
-  useEffect(() => {
-    const startStep = searchParams.get('start');
-    if (startStep === '2' && step === 1) {
-      setStep(2);
-    }
-  }, [searchParams, setStep, step]);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
