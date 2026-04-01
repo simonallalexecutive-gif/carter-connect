@@ -175,7 +175,7 @@ const CabinetDashboardLayout = () => {
 
         <div className="flex-1 flex flex-col min-h-screen">
           {/* Top bar — dark green */}
-          <header className="flex items-center border-b border-white/10 px-6 py-7 gap-5" style={{ background: 'hsl(155, 35%, 20%)' }}>
+          <header className="flex items-center border-b border-white/10 px-6 py-8 gap-5" style={{ background: 'hsl(155, 35%, 20%)' }}>
             <SidebarTrigger className="text-white/60 hover:text-white" />
             <div className="flex items-center gap-5 flex-1 min-w-0">
               <Avatar className="w-11 h-11 border border-white/20 shrink-0">
@@ -184,7 +184,7 @@ const CabinetDashboardLayout = () => {
                 </AvatarFallback>
               </Avatar>
               <div className="min-w-0">
-                <h1 className="text-lg md:text-xl font-sans font-normal text-white leading-tight tracking-[-0.01em]">
+                <h1 className="text-xl md:text-2xl font-sans font-normal text-white leading-tight tracking-[-0.01em]">
                   Bienvenue, {s.cabinetName || 'Cabinet'}
                 </h1>
                 <div className="flex flex-wrap items-center gap-2 mt-2">
