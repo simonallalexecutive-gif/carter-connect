@@ -26,8 +26,13 @@ const cabinetPoints = [
   },
   {
     num: '02',
-    title: 'Vision marché en continu',
-    text: 'Accédez en permanence à une cartographie des meilleurs profils par pratique et séniorité. Manifestez un intérêt — Logan opère le rapprochement.',
+    title: 'Analysez en temps réel la dynamique du marché',
+    text: "Accédez en continu à une lecture consolidée et structurée des candidats les plus convoités pour tous vos départements et conservez un temps d'avance sur vos concurrents en actionnant l'intermédiation de Logan pour opérer un rapprochement.",
+    bullets: [
+      'Expertise',
+      'Séniorité',
+      'Projet',
+    ],
   },
 ];
 
