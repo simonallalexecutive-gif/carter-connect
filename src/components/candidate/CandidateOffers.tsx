@@ -13,6 +13,25 @@ export const formatOfferDate = (dateStr: string) =>
 
 export const shortSeniority = (s: string) => s.replace(/\s*\(.*\)/, '');
 
+/** Extract structured info from seniority string */
+const parseOfferSeniority = (s: string) => {
+  const lower = s.toLowerCase();
+  let title = 'Collaborateur';
+  if (lower.includes('counsel')) title = 'Counsel';
+  else if (lower.includes('associé')) title = 'Associé';
+
+  // For collaborateurs, determine the bracket
+  let seniorityRange: string | null = null;
+  if (title === 'Collaborateur') {
+    const match = s.match(/\((\d+)/);
+    const startYears = match ? parseInt(match[1], 10) : 0;
+    if (startYears < 3) seniorityRange = '0/3 ans';
+    else if (startYears < 6) seniorityRange = '3/6 ans';
+    else seniorityRange = '6 ans+';
+  }
+  return { title, seniorityRange };
+};
+
 const PRACTICE_FILTERS = [
   { key: 'all', label: 'Toutes' },
   ...CHAMBERS_DEPARTMENTS.map(d => ({ key: d.key, label: d.label })),
