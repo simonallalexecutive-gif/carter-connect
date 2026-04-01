@@ -258,11 +258,11 @@ const SearchValidation = () => {
               )}
             </div>
             <div className="flex items-center gap-3 mt-2 text-[10px] text-white/40 font-sans">
-              {natLabel && <span>Cabinet {natLabel}</span>}
+              {natLabel && <span>{natLabel}</span>}
               {natLabel && <span className="text-white/15">·</span>}
               <span>Pratique reconnue Chambers : {hasChambersRanking ? 'Oui' : 'Non'}</span>
             </div>
-            <div className="text-[10px] text-white/25 mt-2 font-sans">Cabinet anonyme · Identité protégée · Mise en relation via LOGAN uniquement</div>
+            <div className="text-[10px] text-white/25 mt-2 font-sans">Identité protégée · Mise en relation via LOGAN uniquement</div>
           </div>
 
           {/* ─── 2. SCOPE D'INTERVENTION (chips + pie chart) ─── */}
