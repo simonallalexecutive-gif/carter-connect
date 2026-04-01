@@ -168,14 +168,14 @@ const SENIORITY_YEARS_MAP: Record<string, string> = {
 };
 
 const VALIDATION_PIE_PALETTE = [
-  'hsl(210, 60%, 22%)',
-  'hsl(210, 50%, 35%)',
-  'hsl(0, 0%, 72%)',
-  'hsl(155, 35%, 28%)',
-  'hsl(210, 40%, 48%)',
-  'hsl(0, 0%, 82%)',
-  'hsl(155, 25%, 40%)',
-  'hsl(210, 30%, 55%)',
+  'hsl(220, 40%, 18%)',   // bleu nuit
+  'hsl(185, 40%, 25%)',   // vert pétrole
+  'hsl(210, 15%, 65%)',   // gris clair
+  'hsl(200, 35%, 30%)',   // bleu pétrole foncé
+  'hsl(155, 30%, 22%)',   // vert foncé
+  'hsl(215, 25%, 40%)',   // bleu gris
+  'hsl(0, 0%, 50%)',      // gris moyen
+  'hsl(220, 30%, 28%)',   // bleu nuit clair
 ];
 
 const SearchValidation = () => {
