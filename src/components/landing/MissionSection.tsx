@@ -77,7 +77,7 @@ const MissionSection = () => (
           <div className="border border-black/[0.08] rounded-sm p-8 md:p-10">
             <Building2 className="w-5 h-5 text-black/25 mb-5" strokeWidth={1.5} />
             <p className="font-sans text-xs font-medium tracking-[0.2em] uppercase text-black/30 mb-2">Cabinets</p>
-            <p className="font-serif text-base md:text-lg font-medium text-black/80 mb-4">
+            <p className="font-serif text-lg md:text-xl font-medium text-black/80 mb-4">
               Vivez votre marché, ne le subissez plus.
             </p>
             <p className="font-sans text-[0.95rem] leading-[1.75] text-black/50">
