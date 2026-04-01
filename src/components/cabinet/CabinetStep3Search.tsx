@@ -310,48 +310,90 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
                         </div>
                       ))}
 
-                      {/* Pie chart + selected chips when items are selected */}
+                      {/* Pie chart + gauges + selected chips when items are selected */}
                       {selectedItems.length > 0 && (
                         <div className="mt-4 pt-4 border-t border-border">
                           <div className="flex items-start gap-5">
-                            {/* Mini pie chart by section type */}
-                            {sectionCounts.length > 0 && (
-                              <div className="flex flex-col items-center flex-shrink-0">
-                                <ResponsiveContainer width={110} height={110}>
-                                  <PieChart>
-                                    <Pie
-                                      data={sectionCounts}
-                                      cx="50%"
-                                      cy="50%"
-                                      innerRadius={28}
-                                      outerRadius={50}
-                                      dataKey="value"
-                                      stroke="hsl(var(--background))"
-                                      strokeWidth={2}
-                                    >
-                                      {sectionCounts.map((_, i) => (
-                                        <Cell key={i} fill={PIE_COLORS[i % PIE_COLORS.length]} />
-                                      ))}
-                                    </Pie>
-                                    <Tooltip
-                                      formatter={(value: number, name: string) => [`${value} sélection(s)`, name]}
-                                      contentStyle={{ fontSize: '10px', borderRadius: '4px' }}
-                                    />
-                                  </PieChart>
-                                </ResponsiveContainer>
-                                <div className="flex flex-col gap-1 mt-1.5">
-                                  {sectionCounts.map((sc, i) => (
-                                    <div key={sc.name} className="flex items-center gap-1.5">
-                                      <span className="w-2 h-2 rounded-sm flex-shrink-0" style={{ background: PIE_COLORS[i % PIE_COLORS.length] }} />
-                                      <span className="text-[9px] text-muted-foreground">{sc.name} ({sc.value})</span>
-                                    </div>
-                                  ))}
-                                </div>
-                              </div>
-                            )}
+                            {/* Mini pie chart by section — now percentage-based */}
+                            {sectionCounts.length > 0 && (() => {
+                              // Auto-init scope splits for this expertise
+                              const currentSplit = scopeSplits[exp] || {};
+                              const activeSections = sectionCounts.map(sc => sc.name);
+                              const needsInit = activeSections.some(name => currentSplit[name] === undefined);
+                              if (needsInit) {
+                                const equal = Math.floor(100 / activeSections.length);
+                                const rem = 100 - equal * activeSections.length;
+                                const init: Record<string, number> = {};
+                                activeSections.forEach((name, i) => { init[name] = equal + (i === 0 ? rem : 0); });
+                                // Schedule state update
+                                setTimeout(() => setScopeSplits(prev => ({ ...prev, [exp]: { ...prev[exp], ...init } })), 0);
+                              }
+                              const pieData = activeSections.map(name => ({
+                                name,
+                                value: currentSplit[name] ?? Math.floor(100 / activeSections.length),
+                              })).filter(d => d.value > 0);
 
-                            {/* Selected chips */}
+                              return (
+                                <div className="flex flex-col items-center flex-shrink-0">
+                                  <ResponsiveContainer width={110} height={110}>
+                                    <PieChart>
+                                      <Pie
+                                        data={pieData}
+                                        cx="50%"
+                                        cy="50%"
+                                        innerRadius={28}
+                                        outerRadius={50}
+                                        dataKey="value"
+                                        stroke="hsl(var(--background))"
+                                        strokeWidth={2}
+                                      >
+                                        {pieData.map((_, i) => (
+                                          <Cell key={i} fill={PIE_COLORS[i % PIE_COLORS.length]} />
+                                        ))}
+                                      </Pie>
+                                      <Tooltip
+                                        formatter={(value: number, name: string) => [`${value}%`, name]}
+                                        contentStyle={{ fontSize: '10px', borderRadius: '4px' }}
+                                      />
+                                    </PieChart>
+                                  </ResponsiveContainer>
+                                  <div className="flex flex-col gap-1 mt-1.5">
+                                    {pieData.map((sc, i) => (
+                                      <div key={sc.name} className="flex items-center gap-1.5">
+                                        <span className="w-2 h-2 rounded-sm flex-shrink-0" style={{ background: PIE_COLORS[i % PIE_COLORS.length] }} />
+                                        <span className="text-[9px] text-muted-foreground">{sc.name} ({sc.value}%)</span>
+                                      </div>
+                                    ))}
+                                  </div>
+                                </div>
+                              );
+                            })()}
+
+                            {/* Gauges + selected chips */}
                             <div className="flex-1 min-w-0">
+                              <p className="text-[9px] uppercase tracking-[0.12em] text-muted-foreground mb-3">Répartition du scope</p>
+                              <div className="space-y-2.5 mb-4">
+                                {sectionCounts.map((sc, i) => {
+                                  const currentSplit = scopeSplits[exp] || {};
+                                  const pct = currentSplit[sc.name] ?? Math.floor(100 / sectionCounts.length);
+                                  return (
+                                    <SegmentedBar
+                                      key={sc.name}
+                                      value={pct}
+                                      onChange={(val) => {
+                                        setScopeSplits(prev => ({
+                                          ...prev,
+                                          [exp]: { ...prev[exp], [sc.name]: val },
+                                        }));
+                                      }}
+                                      step={5}
+                                      activeColor={PIE_COLORS[i % PIE_COLORS.length]}
+                                      label={sc.name}
+                                      showValue
+                                    />
+                                  );
+                                })}
+                              </div>
                               <p className="text-[9px] uppercase tracking-[0.12em] text-muted-foreground mb-2">Sélection</p>
                               <div className="flex flex-wrap gap-1.5">
                                 {selectedItems.map(item => (
