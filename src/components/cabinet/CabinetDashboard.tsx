@@ -81,16 +81,16 @@ const CabinetDashboard = () => {
           </div>
         ) : (
           <div className="space-y-4">
-            {s.searches.map((search, i) => (
-              <div key={i} className="rounded-lg border border-border p-5 bg-background">
+            {s.searches.map((search) => (
+              <div key={search.id} className="rounded-lg border border-border p-5 bg-background">
                 <div className="flex items-center justify-between mb-2">
-                  <h3 className="font-sans text-sm font-bold text-foreground">{search.deptLabel || search.dept}</h3>
+                  <h3 className="font-sans text-sm font-bold text-foreground">{search.deptLabel || search.deptKey}</h3>
                   <span className="text-[10px] font-sans text-muted-foreground px-2 py-0.5 rounded-full bg-muted">
-                    {search.seniority || 'Non spécifié'}
+                    {search.seniorities?.join(', ') || 'Non spécifié'}
                   </span>
                 </div>
-                {search.expertise && (
-                  <p className="text-xs text-muted-foreground font-sans">{search.expertise}</p>
+                {search.expertise.length > 0 && (
+                  <p className="text-xs text-muted-foreground font-sans">{search.expertise.join(', ')}</p>
                 )}
               </div>
             ))}
