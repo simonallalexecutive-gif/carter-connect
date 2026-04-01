@@ -6,16 +6,12 @@ import ActivityPieChart from '@/components/shared/ActivityPieChart';
 import SegmentedBar from '@/components/shared/SegmentedBar';
 
 /* ── Palette ── */
-const CONSEIL_COLORS = [
-  'hsl(215, 55%, 28%)',   // Baux
-  'hsl(200, 50%, 40%)',   // Transactionnel
+const PIE_COLORS = [
+  'hsl(215, 55%, 28%)',   // Baux / AM
+  'hsl(200, 50%, 40%)',   // Share Deal
+  'hsl(190, 40%, 50%)',   // Asset Deal
   'hsl(45, 40%, 42%)',    // Construction
   'hsl(160, 35%, 38%)',   // Financement
-];
-
-const CONTENTIEUX_COLORS = [
-  'hsl(0, 0%, 30%)',      // Baux
-  'hsl(0, 0%, 50%)',      // Construction
 ];
 
 const ASSET_TYPES = [
@@ -28,17 +24,11 @@ const ASSET_TYPES = [
   'Restauration',
 ] as const;
 
-const SIDE_OPTIONS = ['Côté bailleur', 'Côté preneur / utilisateur', 'Les deux'] as const;
-const TRANSAC_OPTIONS = ['Share deal', 'Asset deal', 'Les deux'] as const;
-const FIN_SIDE_OPTIONS = ['Côté prêteur', 'Côté emprunteur', 'Les deux'] as const;
+const CONTENTIEUX_DOMAINES = ['Baux commerciaux', 'Construction'] as const;
 
 /* ── Shared UI ── */
 const SectionTitle = ({ children }: { children: React.ReactNode }) => (
   <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium mb-3">{children}</p>
-);
-
-const SubLabel = ({ children }: { children: React.ReactNode }) => (
-  <p className="text-[10px] uppercase tracking-wider text-muted-foreground/70 font-sans font-medium mt-4 mb-2">{children}</p>
 );
 
 const ChipButton = ({ label, active, onClick }: { label: string; active: boolean; onClick: () => void }) => (
@@ -74,19 +64,20 @@ const SliderRow = ({ label, value, color, onChange, disabled }: {
   </div>
 );
 
-/* ── Helpers ── */
-type REKey = 'reConseilBaux' | 'reConseilTransac' | 'reConseilConstruction';
-const RE_KEYS: REKey[] = ['reConseilBaux', 'reConseilTransac', 'reConseilConstruction'];
+/* ── Clamping logic for 4 adjustable + 1 computed ── */
+type AdjKey = 'reBauxAM' | 'reShareDeal' | 'reAssetDealPct' | 'reConstructionPct';
+const ADJ_KEYS: AdjKey[] = ['reBauxAM', 'reShareDeal', 'reAssetDealPct', 'reConstructionPct'];
 
-const useClampThreeWay = () => {
+const useClampFourWay = () => {
   const setField = useRegistrationStore(s => s.setField);
-  const reConseilBaux = useRegistrationStore(s => s.reConseilBaux);
-  const reConseilTransac = useRegistrationStore(s => s.reConseilTransac);
-  const reConseilConstruction = useRegistrationStore(s => s.reConseilConstruction);
+  const reBauxAM = useRegistrationStore(s => s.reBauxAM);
+  const reShareDeal = useRegistrationStore(s => s.reShareDeal);
+  const reAssetDealPct = useRegistrationStore(s => s.reAssetDealPct);
+  const reConstructionPct = useRegistrationStore(s => s.reConstructionPct);
 
-  return (key: REKey, val: number) => {
-    const vals: Record<REKey, number> = { reConseilBaux, reConseilTransac, reConseilConstruction };
-    const others = RE_KEYS.filter(k => k !== key);
+  return (key: AdjKey, val: number) => {
+    const vals: Record<AdjKey, number> = { reBauxAM, reShareDeal, reAssetDealPct, reConstructionPct };
+    const others = ADJ_KEYS.filter(k => k !== key);
     const remaining = 100 - val;
     if (remaining < 0) return;
 
@@ -94,15 +85,15 @@ const useClampThreeWay = () => {
     setField(key, val);
 
     if (otherSum === 0) {
-      setField(others[0], Math.round(remaining / 2));
-      setField(others[1], remaining - Math.round(remaining / 2));
+      const each = Math.floor(remaining / others.length);
+      others.forEach((k, i) => {
+        setField(k, i === others.length - 1 ? remaining - each * (others.length - 1) : each);
+      });
     } else {
       const newVals = others.map(k => Math.round(remaining * (vals[k] / otherSum)));
       const newSum = newVals.reduce((a, b) => a + b, 0);
-      if (newSum !== remaining) {
-        newVals[0] += remaining - newSum;
-      }
-      others.forEach((k, i) => setField(k, newVals[i]));
+      if (newSum !== remaining) newVals[0] += remaining - newSum;
+      others.forEach((k, i) => setField(k, Math.max(0, newVals[i])));
     }
   };
 };
@@ -112,257 +103,179 @@ const useClampThreeWay = () => {
    ══════════════════════════════════════════════ */
 const RealEstateActivityPanel = () => {
   const store = useRegistrationStore();
-  const clampThreeWay = useClampThreeWay();
+  const clamp = useClampFourWay();
 
-  /* Global split */
-  const conseilPct = store.reConseil ?? 50;
-  const contentieuxPct = 100 - conseilPct;
+  const bauxAM = store.reBauxAM ?? 20;
+  const shareDeal = store.reShareDeal ?? 20;
+  const assetDeal = store.reAssetDealPct ?? 20;
+  const construction = store.reConstructionPct ?? 20;
+  const financement = Math.max(0, 100 - bauxAM - shareDeal - assetDeal - construction);
 
-  /* Conseil breakdown */
-  const cBaux = store.reConseilBaux ?? 25;
-  const cTransac = store.reConseilTransac ?? 25;
-  const cConstruction = store.reConseilConstruction ?? 25;
-  const cFinancement = Math.max(0, 100 - cBaux - cTransac - cConstruction);
-
-  /* Contentieux breakdown */
-  const lBaux = store.reContentieuxBaux ?? 50;
-  const lConstruction = 100 - lBaux;
-
-  /* Asset types */
   const toggleAsset = (val: string) => {
     const cur = store.reAssetTypes || [];
     store.setField('reAssetTypes', cur.includes(val) ? cur.filter(v => v !== val) : [...cur, val]);
+  };
+
+  const toggleContentieuxDomaine = (val: string) => {
+    const cur = store.reContentieuxDomaines || [];
+    store.setField('reContentieuxDomaines', cur.includes(val) ? cur.filter(v => v !== val) : [...cur, val]);
   };
 
   return (
     <div className="space-y-6">
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="carter-card p-6 space-y-8">
 
-        {/* ─────── I. RÉPARTITION GLOBALE ─────── */}
-        <div className="space-y-3">
-          <SectionTitle>Répartition globale conseil / contentieux</SectionTitle>
-          <SegmentedBar value={conseilPct} onChange={v => store.setField('reConseil', v)} />
-          <div className="flex justify-between text-xs font-sans">
-            <span className="text-foreground">Conseil <strong>{conseilPct}%</strong></span>
-            <span className="text-foreground">Contentieux <strong>{contentieuxPct}%</strong></span>
-          </div>
-        </div>
+        {/* ─────── I. ACTIVITÉ CONSEIL (PIE CHART) ─────── */}
+        <div className="space-y-5">
+          <SectionTitle>Répartition de l'activité conseil</SectionTitle>
 
-        {/* ─────── TWO-COLUMN PIE CHARTS ─────── */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="flex flex-col lg:flex-row gap-8 items-start">
+            {/* Pie + Asset types */}
+            <div className="flex-shrink-0 space-y-5">
+              <ActivityPieChart
+                data={{
+                  'Baux / AM': bauxAM,
+                  'Share Deal': shareDeal,
+                  'Asset Deal': assetDeal,
+                  'Construction': construction,
+                  'Financement': financement,
+                }}
+                size={180}
+                innerRadius={45}
+                outerRadius={80}
+                showLegend={false}
+                customColors={PIE_COLORS}
+              />
 
-          {/* ── CONSEIL ── */}
-          <AnimatePresence>
-            {conseilPct > 0 && (
-              <motion.div
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, height: 0 }}
-                className="space-y-5 p-5 rounded-lg border border-border bg-muted/30"
-              >
-                <h3 className="text-sm font-sans font-semibold text-foreground tracking-wide">
-                  Conseil — Répartition
-                </h3>
-
-                <div className="flex flex-col sm:flex-row gap-6 items-start">
-                  {/* Pie */}
-                  <div className="flex-shrink-0">
-                    <ActivityPieChart
-                      data={{
-                        'Baux / AM': cBaux,
-                        'Transactionnel': cTransac,
-                        'Construction': cConstruction,
-                        'Financement': cFinancement,
-                      }}
-                      size={160}
-                      innerRadius={40}
-                      outerRadius={72}
-                      showLegend={false}
-                      customColors={CONSEIL_COLORS}
+              {/* Asset types next to pie */}
+              <div className="space-y-2">
+                <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">Typologie d'actifs</p>
+                <div className="flex flex-wrap gap-1.5">
+                  {ASSET_TYPES.map(a => (
+                    <ChipButton
+                      key={a}
+                      label={a}
+                      active={(store.reAssetTypes || []).includes(a)}
+                      onClick={() => toggleAsset(a)}
                     />
-                  </div>
-
-                  {/* Sliders */}
-                  <div className="flex-1 space-y-3 w-full">
-                    <SliderRow
-                      label="Baux commerciaux / Asset Management"
-                      value={cBaux}
-                      color={CONSEIL_COLORS[0]}
-                      onChange={v => clampThreeWay('reConseilBaux', v)}
-                    />
-                    <SliderRow
-                      label="Immobilier transactionnel"
-                      value={cTransac}
-                      color={CONSEIL_COLORS[1]}
-                      onChange={v => clampThreeWay('reConseilTransac', v)}
-                    />
-                    <SliderRow
-                      label="Construction (contrats & développement)"
-                      value={cConstruction}
-                      color={CONSEIL_COLORS[2]}
-                      onChange={v => clampThreeWay('reConseilConstruction', v)}
-                    />
-                    <SliderRow
-                      label="Financement immobilier"
-                      value={cFinancement}
-                      color={CONSEIL_COLORS[3]}
-                      disabled
-                      onChange={() => {}}
-                    />
-                  </div>
+                  ))}
                 </div>
+              </div>
 
-                {/* Sub-positioning Conseil */}
-                <div className="space-y-4 pt-4 border-t border-border">
-                  {/* Baux side */}
-                  {cBaux > 0 && (
-                    <div>
-                      <SubLabel>Baux — Positionnement</SubLabel>
-                      <div className="flex flex-wrap gap-2">
-                        {SIDE_OPTIONS.map(opt => (
-                          <ChipButton
-                            key={opt}
-                            label={opt}
-                            active={store.reBauxSideConseil === opt}
-                            onClick={() => store.setField('reBauxSideConseil', store.reBauxSideConseil === opt ? '' : opt)}
-                          />
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Transactionnel structure */}
-                  {cTransac > 0 && (
-                    <div>
-                      <SubLabel>Transactionnel — Structure des opérations</SubLabel>
-                      <div className="flex flex-wrap gap-2">
-                        {TRANSAC_OPTIONS.map(opt => (
-                          <ChipButton
-                            key={opt}
-                            label={opt}
-                            active={store.reTransacStructure === opt}
-                            onClick={() => store.setField('reTransacStructure', store.reTransacStructure === opt ? '' : opt)}
-                          />
-                        ))}
-                      </div>
-                      <SubLabel>Support corporate associé ?</SubLabel>
-                      <div className="flex gap-2">
-                        <ChipButton
-                          label="Oui"
-                          active={store.reTransacCorporate === true}
-                          onClick={() => store.setField('reTransacCorporate', store.reTransacCorporate === true ? null : true)}
-                        />
-                        <ChipButton
-                          label="Non"
-                          active={store.reTransacCorporate === false}
-                          onClick={() => store.setField('reTransacCorporate', store.reTransacCorporate === false ? null : false)}
-                        />
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Financement side */}
-                  {cFinancement > 0 && (
-                    <div>
-                      <SubLabel>Financement — Positionnement</SubLabel>
-                      <div className="flex flex-wrap gap-2">
-                        {FIN_SIDE_OPTIONS.map(opt => (
-                          <ChipButton
-                            key={opt}
-                            label={opt}
-                            active={store.reFinSide === opt}
-                            onClick={() => store.setField('reFinSide', store.reFinSide === opt ? '' : opt)}
-                          />
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-
-          {/* ── CONTENTIEUX ── */}
-          <AnimatePresence>
-            {contentieuxPct > 0 && (
-              <motion.div
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, height: 0 }}
-                className="space-y-5 p-5 rounded-lg border border-border bg-muted/30"
-              >
-                <h3 className="text-sm font-sans font-semibold text-foreground tracking-wide">
-                  Contentieux — Répartition
-                </h3>
-
-                <div className="flex flex-col sm:flex-row gap-6 items-start">
-                  {/* Pie */}
-                  <div className="flex-shrink-0">
-                    <ActivityPieChart
-                      data={{
-                        'Baux / AM': lBaux,
-                        'Construction': lConstruction,
-                      }}
-                      size={160}
-                      innerRadius={40}
-                      outerRadius={72}
-                      showLegend={false}
-                      customColors={CONTENTIEUX_COLORS}
-                    />
-                  </div>
-
-                  {/* Sliders */}
-                  <div className="flex-1 space-y-3 w-full">
-                    <SliderRow
-                      label="Baux commerciaux / Asset Management"
-                      value={lBaux}
-                      color={CONTENTIEUX_COLORS[0]}
-                      onChange={v => store.setField('reContentieuxBaux', v)}
-                    />
-                    <SliderRow
-                      label="Construction (contrats & développement)"
-                      value={lConstruction}
-                      color={CONTENTIEUX_COLORS[1]}
-                      disabled
-                      onChange={() => {}}
-                    />
-                  </div>
-                </div>
-
-                {/* Sub-positioning Contentieux */}
-                {lBaux > 0 && (
-                  <div className="pt-4 border-t border-border">
-                    <SubLabel>Baux — Positionnement</SubLabel>
-                    <div className="flex flex-wrap gap-2">
-                      {SIDE_OPTIONS.map(opt => (
-                        <ChipButton
-                          key={opt}
-                          label={opt}
-                          active={store.reBauxSideContentieux === opt}
-                          onClick={() => store.setField('reBauxSideContentieux', store.reBauxSideContentieux === opt ? '' : opt)}
-                        />
+              {/* Contentieux annotation */}
+              <AnimatePresence>
+                {store.reHasContentieux && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    className="space-y-2 pt-3 border-t border-border"
+                  >
+                    <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">Contentieux — {store.reContentieuxPct}% de l'activité totale</p>
+                    <div className="flex flex-wrap gap-1.5">
+                      {(store.reContentieuxDomaines || []).map(d => (
+                        <span key={d} className="inline-flex items-center px-2.5 py-1 rounded-sm text-xs font-sans bg-muted text-muted-foreground border border-border">
+                          {d}
+                        </span>
                       ))}
                     </div>
-                  </div>
+                  </motion.div>
                 )}
+              </AnimatePresence>
+            </div>
+
+            {/* Sliders */}
+            <div className="flex-1 space-y-3 w-full">
+              <SliderRow
+                label="Baux commerciaux / Asset Management"
+                value={bauxAM}
+                color={PIE_COLORS[0]}
+                onChange={v => clamp('reBauxAM', v)}
+              />
+              <SliderRow
+                label="Share Deal"
+                value={shareDeal}
+                color={PIE_COLORS[1]}
+                onChange={v => clamp('reShareDeal', v)}
+              />
+              <SliderRow
+                label="Asset Deal"
+                value={assetDeal}
+                color={PIE_COLORS[2]}
+                onChange={v => clamp('reAssetDealPct', v)}
+              />
+              <SliderRow
+                label="Construction"
+                value={construction}
+                color={PIE_COLORS[3]}
+                onChange={v => clamp('reConstructionPct', v)}
+              />
+              <SliderRow
+                label="Financement immobilier"
+                value={financement}
+                color={PIE_COLORS[4]}
+                disabled
+                onChange={() => {}}
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* ─────── II. CONTENTIEUX ─────── */}
+        <div className="space-y-4 pt-6 border-t border-border">
+          <SectionTitle>Faites-vous aussi du contentieux ?</SectionTitle>
+
+          <div className="flex gap-2">
+            <ChipButton
+              label="Oui"
+              active={store.reHasContentieux === true}
+              onClick={() => store.setField('reHasContentieux', store.reHasContentieux === true ? null : true)}
+            />
+            <ChipButton
+              label="Non"
+              active={store.reHasContentieux === false}
+              onClick={() => store.setField('reHasContentieux', store.reHasContentieux === false ? null : false)}
+            />
+          </div>
+
+          <AnimatePresence>
+            {store.reHasContentieux && (
+              <motion.div
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, height: 0 }}
+                className="space-y-4 pl-1"
+              >
+                <div className="space-y-2">
+                  <p className="text-xs font-sans text-foreground">
+                    Part du contentieux dans votre activité totale
+                  </p>
+                  <SegmentedBar
+                    value={store.reContentieuxPct ?? 20}
+                    onChange={v => store.setField('reContentieuxPct', v)}
+                  />
+                  <div className="flex justify-between text-xs font-sans text-muted-foreground">
+                    <span>Conseil <strong>{100 - (store.reContentieuxPct ?? 20)}%</strong></span>
+                    <span>Contentieux <strong>{store.reContentieuxPct ?? 20}%</strong></span>
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <p className="text-xs font-sans text-foreground">Dans quel(s) domaine(s) ?</p>
+                  <div className="flex flex-wrap gap-2">
+                    {CONTENTIEUX_DOMAINES.map(d => (
+                      <ChipButton
+                        key={d}
+                        label={d}
+                        active={(store.reContentieuxDomaines || []).includes(d)}
+                        onClick={() => toggleContentieuxDomaine(d)}
+                      />
+                    ))}
+                  </div>
+                </div>
               </motion.div>
             )}
           </AnimatePresence>
-        </div>
-
-        {/* ─────── II. TYPOLOGIE D'ACTIFS ─────── */}
-        <div className="space-y-3 pt-4 border-t border-border">
-          <SectionTitle>Typologie d'actifs</SectionTitle>
-          <div className="flex flex-wrap gap-2">
-            {ASSET_TYPES.map(a => (
-              <ChipButton
-                key={a}
-                label={a}
-                active={(store.reAssetTypes || []).includes(a)}
-                onClick={() => toggleAsset(a)}
-              />
-            ))}
-          </div>
         </div>
 
       </motion.div>

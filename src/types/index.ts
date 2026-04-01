@@ -104,31 +104,17 @@ export interface RegistrationState {
   dpubClientele: string[];
   dpubDimensionProjets: string[];
   dpubSecteurs: string[];
-  // Real Estate / Immobilier
-  reConseil: number;
-  // Conseil breakdown (4 segments, last computed)
-  reConseilBaux: number;
-  reConseilTransac: number;
-  reConseilConstruction: number;
-  // Contentieux breakdown (2 segments, last computed)
-  reContentieuxBaux: number;
-  // Sub-positioning
-  reBauxSideConseil: string;
-  reBauxSideContentieux: string;
-  reTransacStructure: string;
-  reTransacCorporate: boolean | null;
-  reFinSide: string;
+  // Real Estate / Immobilier — Conseil (pie chart)
+  reBauxAM: number;
+  reShareDeal: number;
+  reAssetDealPct: number;
+  reConstructionPct: number;
+  // reFinancementPct is computed as remainder (100 - sum of above)
   reAssetTypes: string[];
-  // Legacy compat
-  reTransac: number;
-  reFinImmo: number;
-  reTransacAcq: number;
-  reTransacAsset: number;
-  reBauxPct: number;
-  reBauxSide: string;
-  reFinCredit: number;
-  reFinLeveraged: number;
-  reClientele: string[];
+  // Contentieux (separate from pie chart)
+  reHasContentieux: boolean | null;
+  reContentieuxPct: number;
+  reContentieuxDomaines: string[];
   anglais: string;
   typesClients: string[];
   // Step 4 - Project (next move)
