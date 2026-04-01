@@ -30,12 +30,13 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar';
 
-type CabinetTabKey = 'dashboard' | 'explore' | 'newSearch' | 'account';
+type CabinetTabKey = 'dashboard' | 'explore' | 'newSearch' | 'activeSearches' | 'account';
 
 const CABINET_TABS: { key: CabinetTabKey; label: string; icon: typeof Building2 }[] = [
   { key: 'dashboard', label: 'Tableau de bord', icon: Building2 },
   { key: 'explore', label: 'Explorer le marché', icon: Eye },
   { key: 'newSearch', label: 'Nouvelle recherche', icon: FileText },
+  { key: 'activeSearches', label: 'Mes recherches actives', icon: Search },
   { key: 'account', label: 'Mon compte', icon: Settings },
 ];
 
