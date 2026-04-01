@@ -1,38 +1,55 @@
 import { motion, AnimatePresence } from 'motion/react';
 import { useRegistrationStore } from '@/stores/registrationStore';
-import { Slider } from '@/components/ui/slider';
 import { cn } from '@/lib/utils';
 import { Check } from 'lucide-react';
+import ActivityPieChart from '@/components/shared/ActivityPieChart';
+import SegmentedBar from '@/components/shared/SegmentedBar';
 
-/* ── Colors ── */
-const COL_CONSEIL = 'hsl(215, 55%, 28%)';
-const COL_CONTENTIEUX = 'hsl(35, 30%, 50%)';
-const COL_TRANSAC = 'hsl(200, 50%, 40%)';
-const COL_FINIMMO = 'hsl(160, 35%, 40%)';
-const COL_DEV = 'hsl(45, 45%, 45%)';
+/* ── Palette ── */
+const CONSEIL_COLORS = [
+  'hsl(215, 55%, 28%)',   // Baux
+  'hsl(200, 50%, 40%)',   // Transactionnel
+  'hsl(45, 40%, 42%)',    // Construction
+  'hsl(160, 35%, 38%)',   // Financement
+];
 
-const ASSET_TYPES = ['Bureaux', 'Logistique', 'Résidentiel', 'Retail', 'Hôtellerie'];
+const CONTENTIEUX_COLORS = [
+  'hsl(0, 0%, 30%)',      // Baux
+  'hsl(0, 0%, 50%)',      // Construction
+];
 
-const BAIL_SIDE = ['Côté bailleur', 'Côté preneur', 'Les deux'] as const;
+const ASSET_TYPES = [
+  'Bureaux',
+  'Retail / Commerces',
+  'Logistique / Entrepôts',
+  'Industriel',
+  'Résidentiel',
+  'Hôtellerie',
+  'Restauration',
+] as const;
 
-const CLIENTELE_OPTIONS = ['Fonds immobiliers', 'Investisseurs institutionnels', 'Promoteurs', 'Autres'];
+const SIDE_OPTIONS = ['Côté bailleur', 'Côté preneur / utilisateur', 'Les deux'] as const;
+const TRANSAC_OPTIONS = ['Share deal', 'Asset deal', 'Les deux'] as const;
+const FIN_SIDE_OPTIONS = ['Côté prêteur', 'Côté emprunteur', 'Les deux'] as const;
 
+/* ── Shared UI ── */
 const SectionTitle = ({ children }: { children: React.ReactNode }) => (
   <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium mb-3">{children}</p>
 );
 
-const ChipButton = ({ label, active, onClick, disabled }: { label: string; active: boolean; onClick: () => void; disabled?: boolean }) => (
+const SubLabel = ({ children }: { children: React.ReactNode }) => (
+  <p className="text-[10px] uppercase tracking-wider text-muted-foreground/70 font-sans font-medium mt-4 mb-2">{children}</p>
+);
+
+const ChipButton = ({ label, active, onClick }: { label: string; active: boolean; onClick: () => void }) => (
   <button
     type="button"
     onClick={onClick}
-    disabled={disabled}
     className={cn(
       "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-sm text-xs font-sans font-light transition-all duration-200 border",
       active
         ? "bg-foreground text-background border-foreground"
-        : disabled
-          ? "border-border/40 text-muted-foreground/40 cursor-not-allowed"
-          : "bg-transparent text-foreground border-border hover:border-foreground/40"
+        : "bg-transparent text-foreground border-border hover:border-foreground/40"
     )}
   >
     {active && <Check className="w-3 h-3" />}
@@ -40,200 +57,316 @@ const ChipButton = ({ label, active, onClick, disabled }: { label: string; activ
   </button>
 );
 
-const SliderRow = ({ label, value, color, onChange }: { label: string; value: number; color: string; onChange: (v: number) => void }) => (
+const SliderRow = ({ label, value, color, onChange, disabled }: {
+  label: string; value: number; color: string; onChange: (v: number) => void; disabled?: boolean;
+}) => (
   <div className="space-y-1">
     <div className="flex items-center justify-between">
       <div className="flex items-center gap-2">
-        <div className="w-2 h-2 rounded-sm" style={{ backgroundColor: color }} />
+        <div className="w-2.5 h-2.5 rounded-sm flex-shrink-0" style={{ backgroundColor: color }} />
         <span className="text-xs font-sans text-foreground">{label}</span>
       </div>
       <span className="text-xs font-sans font-bold text-foreground tabular-nums">{value}%</span>
     </div>
-    <Slider value={[value]} onValueChange={([v]) => onChange(v)} min={0} max={100} step={10} className="w-full" />
+    {!disabled && (
+      <SegmentedBar value={value} onChange={onChange} />
+    )}
   </div>
 );
 
-const Gauge = ({ segments }: { segments: { pct: number; color: string }[] }) => (
-  <div className="h-2.5 rounded-full overflow-hidden flex border border-border">
-    {segments.map((s, i) => (
-      <div key={i} className="h-full transition-all duration-300" style={{ width: `${s.pct}%`, backgroundColor: s.color }} />
-    ))}
-  </div>
-);
+/* ── Helpers ── */
+type REKey = 'reConseilBaux' | 'reConseilTransac' | 'reConseilConstruction';
+const RE_KEYS: REKey[] = ['reConseilBaux', 'reConseilTransac', 'reConseilConstruction'];
 
+const useClampThreeWay = () => {
+  const setField = useRegistrationStore(s => s.setField);
+  const vals = useRegistrationStore(s => ({
+    reConseilBaux: s.reConseilBaux,
+    reConseilTransac: s.reConseilTransac,
+    reConseilConstruction: s.reConseilConstruction,
+  }));
+
+  return (key: REKey, val: number) => {
+    const others = RE_KEYS.filter(k => k !== key);
+    const remaining = 100 - val;
+    if (remaining < 0) return;
+
+    const otherSum = others.reduce((s, k) => s + vals[k], 0);
+    setField(key, val);
+
+    if (otherSum === 0) {
+      setField(others[0], Math.round(remaining / 2));
+      setField(others[1], remaining - Math.round(remaining / 2));
+    } else {
+      for (const k of others) {
+        setField(k, Math.round(remaining * (vals[k] / otherSum)));
+      }
+      const newSum = others.reduce((s, k) => s + Math.round(remaining * (vals[k] / otherSum)), 0);
+      if (newSum !== remaining) {
+        setField(others[0], Math.round(remaining * (vals[others[0]] / otherSum)) + (remaining - newSum));
+      }
+    }
+  };
+};
+
+/* ══════════════════════════════════════════════
+   MAIN COMPONENT
+   ══════════════════════════════════════════════ */
 const RealEstateActivityPanel = () => {
   const store = useRegistrationStore();
+  const clampThreeWay = useClampThreeWay();
 
-  // Q1
+  /* Global split */
   const conseilPct = store.reConseil ?? 50;
   const contentieuxPct = 100 - conseilPct;
 
-  // Q2
-  const transacPct = store.reTransac ?? 34;
-  const finImmoPct = store.reFinImmo ?? 33;
-  const devPct = Math.max(0, 100 - transacPct - finImmoPct);
+  /* Conseil breakdown */
+  const cBaux = store.reConseilBaux ?? 25;
+  const cTransac = store.reConseilTransac ?? 25;
+  const cConstruction = store.reConseilConstruction ?? 25;
+  const cFinancement = Math.max(0, 100 - cBaux - cTransac - cConstruction);
 
-  const setConseilSplit = (key: 'reTransac' | 'reFinImmo', val: number) => {
-    const other = key === 'reTransac' ? store.reFinImmo : store.reTransac;
-    const remaining = 100 - val;
-    if (remaining < 0) return;
-    store.setField(key, val);
-    if (key === 'reTransac') {
-      store.setField('reFinImmo', Math.min(other, remaining));
-    } else {
-      store.setField('reTransac', Math.min(other, remaining));
-    }
-  };
+  /* Contentieux breakdown */
+  const lBaux = store.reContentieuxBaux ?? 50;
+  const lConstruction = 100 - lBaux;
 
-  // Q3 transactional
-  const acqPct = store.reTransacAcq ?? 50;
-  const devProjPct = 100 - acqPct;
-  const assetPct = store.reTransacAsset ?? 50;
-  const sharePct = 100 - assetPct;
-
-  // Q4 baux
-  const bauxPct = store.reBauxPct ?? 0;
-
-  // Q5 financement
-  const creditPct = store.reFinCredit ?? 34;
-  const leveragedPct = store.reFinLeveraged ?? 33;
-  const refiPct = Math.max(0, 100 - creditPct - leveragedPct);
-
-  const setFinSplit = (key: 'reFinCredit' | 'reFinLeveraged', val: number) => {
-    const other = key === 'reFinCredit' ? store.reFinLeveraged : store.reFinCredit;
-    const remaining = 100 - val;
-    if (remaining < 0) return;
-    store.setField(key, val);
-    if (key === 'reFinCredit') {
-      store.setField('reFinLeveraged', Math.min(other, remaining));
-    } else {
-      store.setField('reFinCredit', Math.min(other, remaining));
-    }
-  };
-
-  // Q6 typologie
-  const toggleList = (field: 'reAssetTypes' | 'reClientele', value: string) => {
-    const cur = (store[field] as string[]) || [];
-    store.setField(field, cur.includes(value) ? cur.filter(v => v !== value) : [...cur, value]);
+  /* Asset types */
+  const toggleAsset = (val: string) => {
+    const cur = store.reAssetTypes || [];
+    store.setField('reAssetTypes', cur.includes(val) ? cur.filter(v => v !== val) : [...cur, val]);
   };
 
   return (
     <div className="space-y-6">
-      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="carter-card p-6 space-y-6">
+      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="carter-card p-6 space-y-8">
 
-        <div className="flex gap-8 items-start flex-col lg:flex-row">
-
-          {/* ── LEFT ── */}
-          <div className="lg:w-1/2 space-y-5">
-
-            {/* Q1 */}
-            <div className="space-y-3">
-              <SectionTitle>1. Répartition conseil / contentieux</SectionTitle>
-              <SliderRow label="Conseil" value={conseilPct} color={COL_CONSEIL} onChange={v => store.setField('reConseil', v)} />
-              <SliderRow label="Contentieux" value={contentieuxPct} color={COL_CONTENTIEUX} onChange={v => store.setField('reConseil', 100 - v)} />
-              <Gauge segments={[{ pct: conseilPct, color: COL_CONSEIL }, { pct: contentieuxPct, color: COL_CONTENTIEUX }]} />
-            </div>
-
-            {/* Q2 — only if conseil > 0 */}
-            <AnimatePresence>
-              {conseilPct > 0 && (
-                <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden space-y-3 pt-3 border-t border-border">
-                  <SectionTitle>2. Répartition de l'activité conseil</SectionTitle>
-                  <SliderRow label="Transactionnel (Real Estate M&A)" value={transacPct} color={COL_TRANSAC} onChange={v => setConseilSplit('reTransac', v)} />
-                  <SliderRow label="Financement immobilier" value={finImmoPct} color={COL_FINIMMO} onChange={v => setConseilSplit('reFinImmo', v)} />
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 rounded-sm" style={{ backgroundColor: COL_DEV }} />
-                      <span className="text-xs font-sans text-foreground">Développement / Asset management</span>
-                    </div>
-                    <span className="text-xs font-sans font-bold text-foreground tabular-nums">{devPct}%</span>
-                  </div>
-                  <Gauge segments={[
-                    { pct: transacPct, color: COL_TRANSAC },
-                    { pct: finImmoPct, color: COL_FINIMMO },
-                    { pct: devPct, color: COL_DEV },
-                  ]} />
-                </motion.div>
-              )}
-            </AnimatePresence>
-
-            {/* Q4 — Baux commerciaux */}
-            <div className="space-y-3 pt-3 border-t border-border">
-              <SectionTitle>4. Baux commerciaux</SectionTitle>
-              <SliderRow label="Part de votre activité totale" value={bauxPct} color="hsl(270, 30%, 45%)" onChange={v => store.setField('reBauxPct', v)} />
-              <AnimatePresence>
-                {bauxPct > 0 && (
-                  <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden">
-                    <div className="flex flex-wrap gap-2 mt-2">
-                      {BAIL_SIDE.map(opt => (
-                        <ChipButton key={opt} label={opt} active={store.reBauxSide === opt} onClick={() => store.setField('reBauxSide', store.reBauxSide === opt ? '' : opt)} />
-                      ))}
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-          </div>
-
-          {/* ── RIGHT ── */}
-          <div className="lg:w-1/2 space-y-5">
-
-            {/* Q3 — Transactional detail (if transac > 0 & conseil > 0) */}
-            <AnimatePresence>
-              {conseilPct > 0 && transacPct > 0 && (
-                <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden space-y-3">
-                  <SectionTitle>3. Activité transactionnelle</SectionTitle>
-                  <SliderRow label="Acquisitions / cessions d'actifs" value={acqPct} color={COL_TRANSAC} onChange={v => store.setField('reTransacAcq', v)} />
-                  <SliderRow label="Développement de projets" value={devProjPct} color={COL_DEV} onChange={v => store.setField('reTransacAcq', 100 - v)} />
-
-                  <p className="text-[10px] text-muted-foreground font-sans mt-2">Structuration</p>
-                  <SliderRow label="Asset deals" value={assetPct} color="hsl(200, 40%, 50%)" onChange={v => store.setField('reTransacAsset', v)} />
-                  <SliderRow label="Share deals" value={sharePct} color="hsl(220, 40%, 35%)" onChange={v => store.setField('reTransacAsset', 100 - v)} />
-
-                  <p className="text-[10px] text-muted-foreground font-sans mt-2">Types d'actifs</p>
-                  <div className="flex flex-wrap gap-2">
-                    {ASSET_TYPES.map(a => (
-                      <ChipButton key={a} label={a} active={(store.reAssetTypes || []).includes(a)} onClick={() => toggleList('reAssetTypes', a)} />
-                    ))}
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-
-            {/* Q5 — Financement immobilier detail (if finImmo > 0 & conseil > 0) */}
-            <AnimatePresence>
-              {conseilPct > 0 && finImmoPct > 0 && (
-                <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden space-y-3 pt-3 border-t border-border">
-                  <SectionTitle>5. Financement immobilier</SectionTitle>
-                  <SliderRow label="Crédits immobiliers" value={creditPct} color={COL_FINIMMO} onChange={v => setFinSplit('reFinCredit', v)} />
-                  <SliderRow label="Leveraged / structured finance" value={leveragedPct} color="hsl(180, 30%, 42%)" onChange={v => setFinSplit('reFinLeveraged', v)} />
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 rounded-sm" style={{ backgroundColor: 'hsl(140, 25%, 45%)' }} />
-                      <span className="text-xs font-sans text-foreground">Refinancing</span>
-                    </div>
-                    <span className="text-xs font-sans font-bold text-foreground tabular-nums">{refiPct}%</span>
-                  </div>
-                  <Gauge segments={[
-                    { pct: creditPct, color: COL_FINIMMO },
-                    { pct: leveragedPct, color: 'hsl(180, 30%, 42%)' },
-                    { pct: refiPct, color: 'hsl(140, 25%, 45%)' },
-                  ]} />
-                </motion.div>
-              )}
-            </AnimatePresence>
-
-            {/* Q6 — Typologie */}
-            <div className="space-y-3 pt-3 border-t border-border">
-              <SectionTitle>6. Typologie des dossiers</SectionTitle>
-              <div className="flex flex-wrap gap-2">
-                {CLIENTELE_OPTIONS.map(opt => (
-                  <ChipButton key={opt} label={opt} active={(store.reClientele || []).includes(opt)} onClick={() => toggleList('reClientele', opt)} />
-                ))}
-              </div>
-            </div>
+        {/* ─────── I. RÉPARTITION GLOBALE ─────── */}
+        <div className="space-y-3">
+          <SectionTitle>Répartition globale conseil / contentieux</SectionTitle>
+          <SegmentedBar value={conseilPct} onChange={v => store.setField('reConseil', v)} />
+          <div className="flex justify-between text-xs font-sans">
+            <span className="text-foreground">Conseil <strong>{conseilPct}%</strong></span>
+            <span className="text-foreground">Contentieux <strong>{contentieuxPct}%</strong></span>
           </div>
         </div>
+
+        {/* ─────── TWO-COLUMN PIE CHARTS ─────── */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+          {/* ── CONSEIL ── */}
+          <AnimatePresence>
+            {conseilPct > 0 && (
+              <motion.div
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, height: 0 }}
+                className="space-y-5 p-5 rounded-lg border border-border bg-muted/30"
+              >
+                <h3 className="text-sm font-sans font-semibold text-foreground tracking-wide">
+                  Conseil — Répartition
+                </h3>
+
+                <div className="flex flex-col sm:flex-row gap-6 items-start">
+                  {/* Pie */}
+                  <div className="flex-shrink-0">
+                    <ActivityPieChart
+                      data={{
+                        'Baux / AM': cBaux,
+                        'Transactionnel': cTransac,
+                        'Construction': cConstruction,
+                        'Financement': cFinancement,
+                      }}
+                      size={160}
+                      innerRadius={40}
+                      outerRadius={72}
+                      showLegend={false}
+                      customColors={CONSEIL_COLORS}
+                    />
+                  </div>
+
+                  {/* Sliders */}
+                  <div className="flex-1 space-y-3 w-full">
+                    <SliderRow
+                      label="Baux commerciaux / Asset Management"
+                      value={cBaux}
+                      color={CONSEIL_COLORS[0]}
+                      onChange={v => clampThreeWay('reConseilBaux', v)}
+                    />
+                    <SliderRow
+                      label="Immobilier transactionnel"
+                      value={cTransac}
+                      color={CONSEIL_COLORS[1]}
+                      onChange={v => clampThreeWay('reConseilTransac', v)}
+                    />
+                    <SliderRow
+                      label="Construction (contrats & développement)"
+                      value={cConstruction}
+                      color={CONSEIL_COLORS[2]}
+                      onChange={v => clampThreeWay('reConseilConstruction', v)}
+                    />
+                    <SliderRow
+                      label="Financement immobilier"
+                      value={cFinancement}
+                      color={CONSEIL_COLORS[3]}
+                      disabled
+                      onChange={() => {}}
+                    />
+                  </div>
+                </div>
+
+                {/* Sub-positioning Conseil */}
+                <div className="space-y-4 pt-4 border-t border-border">
+                  {/* Baux side */}
+                  {cBaux > 0 && (
+                    <div>
+                      <SubLabel>Baux — Positionnement</SubLabel>
+                      <div className="flex flex-wrap gap-2">
+                        {SIDE_OPTIONS.map(opt => (
+                          <ChipButton
+                            key={opt}
+                            label={opt}
+                            active={store.reBauxSideConseil === opt}
+                            onClick={() => store.setField('reBauxSideConseil', store.reBauxSideConseil === opt ? '' : opt)}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Transactionnel structure */}
+                  {cTransac > 0 && (
+                    <div>
+                      <SubLabel>Transactionnel — Structure des opérations</SubLabel>
+                      <div className="flex flex-wrap gap-2">
+                        {TRANSAC_OPTIONS.map(opt => (
+                          <ChipButton
+                            key={opt}
+                            label={opt}
+                            active={store.reTransacStructure === opt}
+                            onClick={() => store.setField('reTransacStructure', store.reTransacStructure === opt ? '' : opt)}
+                          />
+                        ))}
+                      </div>
+                      <SubLabel>Support corporate associé ?</SubLabel>
+                      <div className="flex gap-2">
+                        <ChipButton
+                          label="Oui"
+                          active={store.reTransacCorporate === true}
+                          onClick={() => store.setField('reTransacCorporate', store.reTransacCorporate === true ? null : true)}
+                        />
+                        <ChipButton
+                          label="Non"
+                          active={store.reTransacCorporate === false}
+                          onClick={() => store.setField('reTransacCorporate', store.reTransacCorporate === false ? null : false)}
+                        />
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Financement side */}
+                  {cFinancement > 0 && (
+                    <div>
+                      <SubLabel>Financement — Positionnement</SubLabel>
+                      <div className="flex flex-wrap gap-2">
+                        {FIN_SIDE_OPTIONS.map(opt => (
+                          <ChipButton
+                            key={opt}
+                            label={opt}
+                            active={store.reFinSide === opt}
+                            onClick={() => store.setField('reFinSide', store.reFinSide === opt ? '' : opt)}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {/* ── CONTENTIEUX ── */}
+          <AnimatePresence>
+            {contentieuxPct > 0 && (
+              <motion.div
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, height: 0 }}
+                className="space-y-5 p-5 rounded-lg border border-border bg-muted/30"
+              >
+                <h3 className="text-sm font-sans font-semibold text-foreground tracking-wide">
+                  Contentieux — Répartition
+                </h3>
+
+                <div className="flex flex-col sm:flex-row gap-6 items-start">
+                  {/* Pie */}
+                  <div className="flex-shrink-0">
+                    <ActivityPieChart
+                      data={{
+                        'Baux / AM': lBaux,
+                        'Construction': lConstruction,
+                      }}
+                      size={160}
+                      innerRadius={40}
+                      outerRadius={72}
+                      showLegend={false}
+                      customColors={CONTENTIEUX_COLORS}
+                    />
+                  </div>
+
+                  {/* Sliders */}
+                  <div className="flex-1 space-y-3 w-full">
+                    <SliderRow
+                      label="Baux commerciaux / Asset Management"
+                      value={lBaux}
+                      color={CONTENTIEUX_COLORS[0]}
+                      onChange={v => store.setField('reContentieuxBaux', v)}
+                    />
+                    <SliderRow
+                      label="Construction (contrats & développement)"
+                      value={lConstruction}
+                      color={CONTENTIEUX_COLORS[1]}
+                      disabled
+                      onChange={() => {}}
+                    />
+                  </div>
+                </div>
+
+                {/* Sub-positioning Contentieux */}
+                {lBaux > 0 && (
+                  <div className="pt-4 border-t border-border">
+                    <SubLabel>Baux — Positionnement</SubLabel>
+                    <div className="flex flex-wrap gap-2">
+                      {SIDE_OPTIONS.map(opt => (
+                        <ChipButton
+                          key={opt}
+                          label={opt}
+                          active={store.reBauxSideContentieux === opt}
+                          onClick={() => store.setField('reBauxSideContentieux', store.reBauxSideContentieux === opt ? '' : opt)}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+
+        {/* ─────── II. TYPOLOGIE D'ACTIFS ─────── */}
+        <div className="space-y-3 pt-4 border-t border-border">
+          <SectionTitle>Typologie d'actifs</SectionTitle>
+          <div className="flex flex-wrap gap-2">
+            {ASSET_TYPES.map(a => (
+              <ChipButton
+                key={a}
+                label={a}
+                active={(store.reAssetTypes || []).includes(a)}
+                onClick={() => toggleAsset(a)}
+              />
+            ))}
+          </div>
+        </div>
+
       </motion.div>
     </div>
   );

@@ -106,11 +106,24 @@ export interface RegistrationState {
   dpubSecteurs: string[];
   // Real Estate / Immobilier
   reConseil: number;
+  // Conseil breakdown (4 segments, last computed)
+  reConseilBaux: number;
+  reConseilTransac: number;
+  reConseilConstruction: number;
+  // Contentieux breakdown (2 segments, last computed)
+  reContentieuxBaux: number;
+  // Sub-positioning
+  reBauxSideConseil: string;
+  reBauxSideContentieux: string;
+  reTransacStructure: string;
+  reTransacCorporate: boolean | null;
+  reFinSide: string;
+  reAssetTypes: string[];
+  // Legacy compat
   reTransac: number;
   reFinImmo: number;
   reTransacAcq: number;
   reTransacAsset: number;
-  reAssetTypes: string[];
   reBauxPct: number;
   reBauxSide: string;
   reFinCredit: number;
