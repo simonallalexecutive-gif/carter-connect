@@ -61,6 +61,45 @@ const CabinetDashboard = () => {
     }
   }
 
+  // Mes recherches actives
+  if (s.dashboardView === 'activeSearches') {
+    return (
+      <div>
+        <h2 className="font-serif text-2xl text-foreground mb-6">Mes recherches actives</h2>
+        {s.searches.length === 0 ? (
+          <div className="text-center py-16">
+            <Search className="w-10 h-10 text-muted-foreground/40 mx-auto mb-4" />
+            <p className="text-sm text-muted-foreground font-sans">Aucune recherche active pour le moment.</p>
+            <Button
+              variant="outline"
+              size="sm"
+              className="mt-4 font-sans text-xs"
+              onClick={() => { s.resetSearch(); s.setField('dashboardView', 'newSearch'); }}
+            >
+              <Plus className="w-3.5 h-3.5 mr-1.5" /> Nouvelle recherche
+            </Button>
+          </div>
+        ) : (
+          <div className="space-y-4">
+            {s.searches.map((search, i) => (
+              <div key={i} className="rounded-lg border border-border p-5 bg-background">
+                <div className="flex items-center justify-between mb-2">
+                  <h3 className="font-sans text-sm font-bold text-foreground">{search.deptLabel || search.dept}</h3>
+                  <span className="text-[10px] font-sans text-muted-foreground px-2 py-0.5 rounded-full bg-muted">
+                    {search.seniority || 'Non spécifié'}
+                  </span>
+                </div>
+                {search.expertise && (
+                  <p className="text-xs text-muted-foreground font-sans">{search.expertise}</p>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    );
+  }
+
   // Explorer le marché
   if (s.dashboardView === 'explore') {
     return (
