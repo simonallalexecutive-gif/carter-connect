@@ -343,7 +343,7 @@ export const PROFILES: CabinetProfile[] = [
     pqe: '5 ans', nat: 'FR', natFlag: 'FR',
     origin: 'Cabinet US Tier 1', originTier: 'Tier 1',
     english: 'Bilingue', seniority: 'Mid Level / Sénior', isNew: true,
-    expertise: ['Financement', 'Private Equity / LBO'],
+    expertise: ['Financement', 'Private Equity'],
     split: { 'Financement': 60, 'Private Equity': 40 },
     formation: 'Paris II Panthéon-Assas — Master 2 Droit bancaire',
     droit_etranger: '—', langue2: '—',
