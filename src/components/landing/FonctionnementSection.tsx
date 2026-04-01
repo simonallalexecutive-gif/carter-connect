@@ -74,20 +74,20 @@ const FonctionnementSection = () => (
           className="md:border-r border-white/[0.08] md:pr-12 lg:pr-16 pb-16 md:pb-0"
         >
           <motion.div variants={fadeUp} className="flex items-center gap-3 mb-10">
-            <div className="w-9 h-9 rounded-full bg-black/[0.04] flex items-center justify-center">
-              <Building2 className="w-4 h-4 text-black/40" strokeWidth={1.5} />
+            <div className="w-9 h-9 rounded-full bg-white/[0.06] flex items-center justify-center">
+              <Building2 className="w-4 h-4 text-white/50" strokeWidth={1.5} />
             </div>
-            <h3 className="font-serif text-2xl md:text-[1.7rem] text-black">Cabinets</h3>
+            <h3 className="font-serif text-2xl md:text-[1.7rem] text-white">Cabinets</h3>
           </motion.div>
 
           <div className="space-y-8">
             {cabinetPoints.map(({ num, title, text }) => (
               <motion.div key={num} variants={fadeUp}>
                 <div className="flex items-baseline gap-3 mb-2">
-                  <span className="font-serif text-2xl text-black/[0.1] font-medium select-none">{num}</span>
-                  <h4 className="font-sans text-[0.95rem] font-semibold text-black tracking-[-0.01em]">{title}</h4>
+                  <span className="font-serif text-2xl text-white/[0.12] font-medium select-none">{num}</span>
+                  <h4 className="font-sans text-[0.95rem] font-semibold text-white tracking-[-0.01em]">{title}</h4>
                 </div>
-                <p className="font-sans text-[0.92rem] leading-[1.8] text-black/50 pl-9">{text}</p>
+                <p className="font-sans text-[0.92rem] leading-[1.8] text-white/50 pl-9">{text}</p>
               </motion.div>
             ))}
           </div>
