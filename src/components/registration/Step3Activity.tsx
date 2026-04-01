@@ -334,8 +334,8 @@ const Step3Activity = () => {
           </AnimatePresence>
         )}
 
-        {/* Anglais – hidden for Restructuring */}
-        {store.departement !== 'Restructuring' && store.departement !== 'Restructuring/Insolvency' && (
+        {/* Anglais – hidden for Restructuring & Immobilier (handled in panel) */}
+        {store.departement !== 'Restructuring' && store.departement !== 'Restructuring/Insolvency' && store.departement !== 'Immobilier' && (
           <div>
             <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Niveau d'anglais *</Label>
             <Select value={store.anglais} onValueChange={v => store.setField('anglais', v)}>
