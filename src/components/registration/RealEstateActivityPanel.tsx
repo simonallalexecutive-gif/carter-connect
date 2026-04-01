@@ -7,13 +7,14 @@ import { Check } from 'lucide-react';
 import SegmentedBar from '@/components/shared/SegmentedBar';
 import { quantizePercentages } from '@/lib/percentages';
 
-/* ── Palette — professional dark tones ── */
+/* ── Palette ── */
 const COL_BAUX = 'hsl(215, 50%, 35%)';
 const COL_SHARE = 'hsl(200, 50%, 40%)';
 const COL_ASSET = 'hsl(210, 25%, 50%)';
 const COL_CONSTRUCTION = 'hsl(215, 55%, 22%)';
 const COL_FINANCEMENT = 'hsl(200, 12%, 45%)';
 const COL_CONTENTIEUX = 'hsl(220, 15%, 62%)';
+const COL_ANGLAIS = 'hsl(215, 40%, 30%)';
 
 const ASSET_TYPES = [
   'Bureaux', 'Retail / Commerces', 'Logistique / Entrepôts',
@@ -60,11 +61,21 @@ const renderLabel = ({ cx, cy, midAngle, innerRadius: ir, outerRadius: or, value
   );
 };
 
+const ChipButton = ({ active, onClick, children }: { active: boolean; onClick: () => void; children: React.ReactNode }) => (
+  <button type="button" onClick={onClick}
+    className={cn(
+      "inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-sm text-xs font-sans font-light transition-all duration-200 border",
+      active ? "bg-foreground text-background border-foreground" : "bg-transparent text-foreground border-border hover:border-foreground/40"
+    )}>
+    {active && <Check className="w-3 h-3" />}
+    {children}
+  </button>
+);
+
 const RealEstateActivityPanel = () => {
   const store = useRegistrationStore();
   const setField = store.setField;
 
-  /* ── Raw values (used as weights for the quantizer) ── */
   const rawVals: Record<AdjKey, number> = {
     reBauxAM: store.reBauxAM ?? 20,
     reShareDeal: store.reShareDeal ?? 20,
@@ -73,7 +84,6 @@ const RealEstateActivityPanel = () => {
   };
   const rawFinancement = Math.max(0, 100 - rawVals.reBauxAM - rawVals.reShareDeal - rawVals.reAssetDealPct - rawVals.reConstructionPct);
 
-  /* ── Quantize all 5 segments to step=5 ── */
   const quantized = useMemo(() => quantizePercentages([
     { key: 'baux', raw: rawVals.reBauxAM },
     { key: 'share', raw: rawVals.reShareDeal },
@@ -88,7 +98,6 @@ const RealEstateActivityPanel = () => {
   const qConstruction = quantized.construction;
   const qFinancement = quantized.financement;
 
-  /* ── Slider handler — proportional redistribution, snapped to 5 ── */
   const handleSliderChange = (key: AdjKey, val: number) => {
     const snapped = Math.round(val / 5) * 5;
     const others = SEGMENTS.filter(s => s.key !== key).map(s => s.key);
@@ -119,25 +128,20 @@ const RealEstateActivityPanel = () => {
     }
   };
 
-  /* ── Contentieux ── */
   const hasContentieux = store.reHasContentieux === true;
   const contentieuxPct = store.reContentieuxPct ?? 20;
-
-  /* ── Anglais percentage ── */
   const anglaisPct = parseInt(store.anglais || '0', 10) || 0;
 
-  /* ── Chart data ── */
   const chartData = useMemo(() => {
     const segments: { name: string; value: number; color: string }[] = [];
     if (qBaux > 0) segments.push({ name: 'Baux / AM', value: qBaux, color: COL_BAUX });
     if (qShare > 0) segments.push({ name: 'Share Deal', value: qShare, color: COL_SHARE });
     if (qAsset > 0) segments.push({ name: 'Asset Deal', value: qAsset, color: COL_ASSET });
     if (qConstruction > 0) segments.push({ name: 'Construction', value: qConstruction, color: COL_CONSTRUCTION });
-    if (qFinancement > 0) segments.push({ name: 'Financement immobilier', value: qFinancement, color: COL_FINANCEMENT });
+    if (qFinancement > 0) segments.push({ name: 'Financement', value: qFinancement, color: COL_FINANCEMENT });
     return segments;
   }, [qBaux, qShare, qAsset, qConstruction, qFinancement]);
 
-  /* ── Toggles ── */
   const toggleChip = (field: 'reAssetTypes' | 'typesClients' | 'reContentieuxDomaines', val: string) => {
     const cur: string[] = (store as any)[field] || [];
     setField(field, cur.includes(val) ? cur.filter((v: string) => v !== val) : [...cur, val]);
@@ -148,18 +152,20 @@ const RealEstateActivityPanel = () => {
   return (
     <div className="space-y-6">
 
-      {/* ═══════ RÉPARTITION CONSEIL ═══════ */}
-      <section className="space-y-4">
-        <p className="text-lg font-sans font-semibold text-foreground tracking-tight">Répartition de l'activité conseil</p>
+      {/* ═══════ SINGLE UNIFIED BLOCK ═══════ */}
+      <div className="border border-border rounded-sm p-6 md:p-8 space-y-0">
 
-        <div className="space-y-3">
+        {/* ── Répartition conseil ── */}
+        <p className="font-sans text-[11px] font-medium text-muted-foreground uppercase tracking-[0.15em] mb-5">Répartition de l'activité conseil</p>
+
+        <div className="space-y-5">
           {SEGMENTS.map(seg => {
             const display = seg.key === 'reBauxAM' ? qBaux : seg.key === 'reShareDeal' ? qShare : seg.key === 'reAssetDealPct' ? qAsset : qConstruction;
             return (
-              <div key={seg.key} className="carter-card p-5 space-y-2.5">
+              <div key={seg.key} className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <p className="text-sm font-sans font-medium text-foreground">{seg.label}</p>
-                  <span className="text-xs font-sans font-bold text-foreground tabular-nums bg-secondary px-2 py-0.5 rounded-sm">{display}%</span>
+                  <span className="text-[13px] font-sans text-foreground">{seg.label}</span>
+                  <span className="text-[13px] font-sans font-bold text-foreground tabular-nums">{display}%</span>
                 </div>
                 <SegmentedBar
                   value={rawVals[seg.key]}
@@ -173,125 +179,92 @@ const RealEstateActivityPanel = () => {
           })}
 
           {/* Financement — computed */}
-          <div className="carter-card p-5">
-            <div className="flex items-center justify-between">
-              <p className="text-sm font-sans font-medium text-foreground">Financement immobilier</p>
-              <span className="text-xs font-sans font-bold text-foreground tabular-nums bg-secondary px-2 py-0.5 rounded-sm">{qFinancement}%</span>
-            </div>
-            <p className="text-[10px] font-sans text-muted-foreground mt-1">Calculé automatiquement comme complément à 100 %</p>
+          <div className="flex items-center justify-between py-2 border-t border-border">
+            <span className="text-[13px] font-sans text-foreground">Financement immobilier <span className="text-muted-foreground text-[11px]">(complément)</span></span>
+            <span className="text-[13px] font-sans font-bold text-foreground tabular-nums">{qFinancement}%</span>
           </div>
         </div>
-      </section>
 
-      {/* ═══════ TYPOLOGIE D'ACTIFS ═══════ */}
-      <section className="space-y-3">
-        <p className="text-lg font-sans font-semibold text-foreground tracking-tight">Typologie d'actifs</p>
-        <div className="flex flex-wrap gap-2">
-          {ASSET_TYPES.map(a => {
-            const active = (store.reAssetTypes || []).includes(a);
-            return (
-              <button key={a} type="button" onClick={() => toggleChip('reAssetTypes', a)}
-                className={cn(
-                  "inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-sm text-xs font-sans font-light transition-all duration-200 border",
-                  active ? "bg-foreground text-background border-foreground" : "bg-transparent text-foreground border-border hover:border-foreground/40"
-                )}>
-                {active && <Check className="w-3 h-3" />}
-                {a}
-              </button>
-            );
-          })}
-        </div>
-      </section>
+        {/* ── Contentieux ── */}
+        <div className="pt-8">
+          <p className="font-sans text-[11px] font-medium text-muted-foreground uppercase tracking-[0.15em] mb-4">Contentieux</p>
+          <p className="text-[12px] font-sans text-muted-foreground mb-3">Faites-vous aussi du contentieux immobilier ?</p>
+          <div className="flex gap-2 mb-3">
+            {(['Oui', 'Non'] as const).map(label => {
+              const val = label === 'Oui';
+              const active = store.reHasContentieux === val;
+              return <ChipButton key={label} active={active} onClick={() => setField('reHasContentieux', active ? null : val)}>{label}</ChipButton>;
+            })}
+          </div>
 
-      {/* ═══════ CONTENTIEUX ═══════ */}
-      <section className="space-y-3">
-        <p className="text-lg font-sans font-semibold text-foreground tracking-tight">Contentieux</p>
-        <p className="text-xs font-sans text-muted-foreground">Faites-vous aussi du contentieux immobilier ?</p>
-        <div className="flex gap-2">
-          {(['Oui', 'Non'] as const).map(label => {
-            const val = label === 'Oui';
-            const active = store.reHasContentieux === val;
-            return (
-              <button key={label} type="button" onClick={() => setField('reHasContentieux', active ? null : val)}
-                className={cn(
-                  "inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-sm text-xs font-sans font-light transition-all duration-200 border",
-                  active ? "bg-foreground text-background border-foreground" : "bg-transparent text-foreground border-border hover:border-foreground/40"
-                )}>
-                {active && <Check className="w-3 h-3" />}
-                {label}
-              </button>
-            );
-          })}
-        </div>
+          <AnimatePresence>
+            {hasContentieux && (
+              <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden">
+                <div className="space-y-4 pl-3 border-l-2 border-border mt-2">
+                  <div className="space-y-2">
+                    <span className="text-[13px] font-sans text-foreground">Part du contentieux dans l'activité totale</span>
+                    <SegmentedBar value={contentieuxPct} onChange={v => setField('reContentieuxPct', Math.round(v / 5) * 5)} step={5} activeColor={COL_CONTENTIEUX} />
+                    <div className="flex justify-between text-[11px] font-sans text-muted-foreground">
+                      <span>Conseil <strong className="text-foreground">{100 - contentieuxPct}%</strong></span>
+                      <span>Contentieux <strong className="text-foreground">{contentieuxPct}%</strong></span>
+                    </div>
+                  </div>
 
-        <AnimatePresence>
-          {hasContentieux && (
-            <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden space-y-4">
-              <div className="carter-card p-5 space-y-2.5">
-                <p className="text-sm font-sans font-medium text-foreground">Part du contentieux dans l'activité totale</p>
-                <SegmentedBar value={contentieuxPct} onChange={v => setField('reContentieuxPct', Math.round(v / 5) * 5)} step={5} activeColor={COL_CONTENTIEUX} />
-                <div className="flex justify-between text-xs font-sans text-muted-foreground">
-                  <span>Conseil <strong className="text-foreground">{100 - contentieuxPct}%</strong></span>
-                  <span>Contentieux <strong className="text-foreground">{contentieuxPct}%</strong></span>
+                  <div className="space-y-2">
+                    <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">Dans quel(s) domaine(s) ?</p>
+                    <div className="flex flex-wrap gap-2">
+                      {CONTENTIEUX_DOMAINES.map(d => {
+                        const active = (store.reContentieuxDomaines || []).includes(d);
+                        return <ChipButton key={d} active={active} onClick={() => toggleChip('reContentieuxDomaines', d)}>{d}</ChipButton>;
+                      })}
+                    </div>
+                  </div>
                 </div>
-              </div>
-
-              <div className="space-y-2">
-                <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">Dans quel(s) domaine(s) ?</p>
-                <div className="flex flex-wrap gap-2">
-                  {CONTENTIEUX_DOMAINES.map(d => {
-                    const active = (store.reContentieuxDomaines || []).includes(d);
-                    return (
-                      <button key={d} type="button" onClick={() => toggleChip('reContentieuxDomaines', d)}
-                        className={cn(
-                          "inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-sm text-xs font-sans font-light transition-all duration-200 border",
-                          active ? "bg-foreground text-background border-foreground" : "bg-transparent text-foreground border-border hover:border-foreground/40"
-                        )}>
-                        {active && <Check className="w-3 h-3" />}
-                        {d}
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </section>
-
-      {/* ═══════ PART DE L'ACTIVITÉ EN ANGLAIS ═══════ */}
-      <section className="space-y-3">
-        <p className="text-lg font-sans font-semibold text-foreground tracking-tight">Part de l'activité en anglais</p>
-        <div className="carter-card p-5 space-y-2.5">
-          <SegmentedBar
-            value={anglaisPct}
-            onChange={v => setField('anglais', String(Math.round(v / 5) * 5))}
-            step={5}
-            activeColor="hsl(215, 50%, 35%)"
-            label=""
-          />
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
-      </section>
 
-      {/* ═══════ CLIENTÈLE ═══════ */}
-      <section className="space-y-3">
-        <p className="text-lg font-sans font-semibold text-foreground tracking-tight">Type de clients</p>
-        <div className="flex flex-wrap gap-2">
-          {CLIENT_TYPES.map(c => {
-            const active = (store.typesClients || []).includes(c);
-            return (
-              <button key={c} type="button" onClick={() => toggleChip('typesClients', c)}
+        {/* ── Typologie d'actifs ── */}
+        <div className="pt-8">
+          <p className="font-sans text-[11px] font-medium text-muted-foreground uppercase tracking-[0.15em] mb-4">Typologie d'actifs</p>
+          <div className="flex flex-wrap gap-2">
+            {ASSET_TYPES.map(a => {
+              const active = (store.reAssetTypes || []).includes(a);
+              return <ChipButton key={a} active={active} onClick={() => toggleChip('reAssetTypes', a)}>{a}</ChipButton>;
+            })}
+          </div>
+        </div>
+
+        {/* ── Part de l'activité en anglais ── */}
+        <div className="pt-8">
+          <p className="font-sans text-[11px] font-medium text-muted-foreground uppercase tracking-[0.15em] mb-4">Part de l'activité en anglais</p>
+          <div className="flex gap-1.5 flex-wrap">
+            {[0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100].map(v => (
+              <button key={v} type="button" onClick={() => setField('anglais', String(v))}
                 className={cn(
-                  "inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-sm text-xs font-sans font-light transition-all duration-200 border",
-                  active ? "bg-foreground text-background border-foreground" : "bg-transparent text-foreground border-border hover:border-foreground/40"
+                  "px-2.5 py-1.5 rounded-sm text-[11px] font-sans border transition-all min-w-[40px]",
+                  anglaisPct === v
+                    ? "bg-foreground text-background border-foreground"
+                    : "bg-transparent text-muted-foreground border-border hover:border-foreground"
                 )}>
-                {active && <Check className="w-3 h-3" />}
-                {c}
+                {v}%
               </button>
-            );
-          })}
+            ))}
+          </div>
         </div>
-      </section>
+
+        {/* ── Type de clients ── */}
+        <div className="pt-8">
+          <p className="font-sans text-[11px] font-medium text-muted-foreground uppercase tracking-[0.15em] mb-4">Type de clients</p>
+          <div className="flex flex-wrap gap-2">
+            {CLIENT_TYPES.map(c => {
+              const active = (store.typesClients || []).includes(c);
+              return <ChipButton key={c} active={active} onClick={() => toggleChip('typesClients', c)}>{c}</ChipButton>;
+            })}
+          </div>
+        </div>
+      </div>
 
       {/* ═══════ SYNTHÈSE ═══════ */}
       <AnimatePresence>
@@ -302,27 +275,15 @@ const RealEstateActivityPanel = () => {
             exit={{ opacity: 0, y: 16 }}
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
           >
-            <div className="carter-card p-6 bg-card">
-              <p className="text-lg font-sans font-semibold text-foreground tracking-tight mb-5">Synthèse de votre activité</p>
+            <div className="border border-border rounded-sm p-6 md:p-8">
+              <p className="font-sans text-[11px] font-medium text-muted-foreground uppercase tracking-[0.15em] mb-5">Synthèse de votre activité</p>
 
               <div className="flex flex-col md:flex-row gap-6 items-start">
                 {/* Pie chart */}
-                <div className="flex-shrink-0 self-center" style={{ width: 200, height: 200 }}>
+                <div className="flex-shrink-0 self-center" style={{ width: 180, height: 180 }}>
                   <ResponsiveContainer width="100%" height="100%">
                     <PieChart>
-                      <Pie
-                        data={chartData}
-                        cx="50%"
-                        cy="50%"
-                        innerRadius={48}
-                        outerRadius={90}
-                        dataKey="value"
-                        paddingAngle={1.5}
-                        stroke="hsl(var(--background))"
-                        strokeWidth={2}
-                        label={renderLabel}
-                        labelLine={false}
-                      >
+                      <Pie data={chartData} cx="50%" cy="50%" innerRadius={44} outerRadius={82} dataKey="value" paddingAngle={1.5} stroke="hsl(var(--background))" strokeWidth={2} label={renderLabel} labelLine={false}>
                         {chartData.map((seg, i) => <Cell key={i} fill={seg.color} />)}
                       </Pie>
                       <Tooltip formatter={(v: number) => [`${v}%`, '']} contentStyle={tooltipStyle} />
@@ -330,9 +291,8 @@ const RealEstateActivityPanel = () => {
                   </ResponsiveContainer>
                 </div>
 
-                {/* Legend + annotations */}
+                {/* Legend */}
                 <div className="flex-1 space-y-4 min-w-0">
-                  {/* Activity legend */}
                   <div className="space-y-1.5">
                     <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium mb-2">Activité conseil</p>
                     {chartData.map(seg => (
@@ -344,21 +304,17 @@ const RealEstateActivityPanel = () => {
                     ))}
                   </div>
 
-                  {/* Asset types */}
                   {(store.reAssetTypes || []).length > 0 && (
                     <div className="border-t border-border pt-3 space-y-1.5">
-                      <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium mb-1">Typologie d'actifs</p>
+                      <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium mb-1">Actifs</p>
                       <div className="flex flex-wrap gap-1.5">
                         {(store.reAssetTypes || []).map(a => (
-                          <span key={a} className="inline-flex items-center px-2.5 py-0.5 rounded-sm text-[11px] font-sans bg-secondary text-foreground/80 border border-border">
-                            {a}
-                          </span>
+                          <span key={a} className="inline-flex items-center px-2.5 py-0.5 rounded-sm text-[11px] font-sans bg-secondary text-foreground/80 border border-border">{a}</span>
                         ))}
                       </div>
                     </div>
                   )}
 
-                  {/* Contentieux annotation */}
                   {hasContentieux && (
                     <div className="border-t border-border pt-3 space-y-1.5">
                       <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium mb-1">Contentieux</p>
@@ -366,35 +322,22 @@ const RealEstateActivityPanel = () => {
                         <span className="w-2.5 h-2.5 rounded-sm flex-shrink-0" style={{ background: COL_CONTENTIEUX }} />
                         <span className="text-[11px] font-sans text-foreground/80 flex-1">{contentieuxPct}% de l'activité totale</span>
                       </div>
-                      {(store.reContentieuxDomaines || []).length > 0 && (
-                        <div className="flex flex-wrap gap-1.5 mt-1">
-                          {(store.reContentieuxDomaines || []).map(d => (
-                            <span key={d} className="inline-flex items-center px-2.5 py-0.5 rounded-sm text-[11px] font-sans bg-secondary text-foreground/80 border border-border">
-                              {d}
-                            </span>
-                          ))}
-                        </div>
-                      )}
                     </div>
                   )}
 
-                  {/* Anglais */}
                   {anglaisPct > 0 && (
                     <div className="border-t border-border pt-3">
-                      <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium mb-1">Activité en anglais</p>
-                      <p className="text-[11px] font-sans font-bold text-foreground">{anglaisPct}%</p>
+                      <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium mb-1">Anglais</p>
+                      <span className="text-[11px] font-sans text-foreground/80">{anglaisPct}% de l'activité</span>
                     </div>
                   )}
 
-                  {/* Clientèle */}
                   {(store.typesClients || []).length > 0 && (
                     <div className="border-t border-border pt-3 space-y-1.5">
-                      <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium mb-1">Type de clients</p>
+                      <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium mb-1">Clients</p>
                       <div className="flex flex-wrap gap-1.5">
                         {(store.typesClients || []).map(c => (
-                          <span key={c} className="inline-flex items-center px-2.5 py-0.5 rounded-sm text-[11px] font-sans bg-secondary text-foreground/80 border border-border">
-                            {c}
-                          </span>
+                          <span key={c} className="inline-flex items-center px-2.5 py-0.5 rounded-sm text-[11px] font-sans bg-secondary text-foreground/80 border border-border">{c}</span>
                         ))}
                       </div>
                     </div>
