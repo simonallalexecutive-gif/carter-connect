@@ -114,7 +114,7 @@ const Header = () => {
             {[
               { label: 'Approche', section: 'notre-approche' },
               { label: 'Vision', section: 'notre-vision' },
-              { label: 'Engagements', section: 'nos-engagements' },
+              
               { label: 'FAQ', section: 'faq' },
             ].map(({ label, section }) => (
               <button
