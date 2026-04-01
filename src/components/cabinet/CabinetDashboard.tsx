@@ -636,7 +636,7 @@ const ExploreView = ({
               key={p.id}
               onClick={() => setDrawerProfile(p)}
               className="rounded-lg p-5 cursor-pointer transition-all hover:shadow-lg hover:-translate-y-0.5 relative"
-              style={{ background: 'hsl(0, 0%, 8%)' }}
+              style={{ background: 'hsl(0, 0%, 22%)' }}
             >
               {p.isNew && (
                 <span className="absolute top-3 right-3 text-[7px] font-bold tracking-[0.12em] uppercase bg-white text-black px-2 py-0.5 rounded-sm">NOUVEAU</span>

@@ -37,7 +37,7 @@ const CandidateRequests = () => (
             <div
               key={req.id}
               className="rounded-lg overflow-hidden border border-white/5"
-              style={{ background: 'hsl(0, 0%, 7%)' }}
+              style={{ background: 'hsl(0, 0%, 22%)' }}
             >
               <div className="p-6">
                 <div className="flex items-start justify-between gap-4">
