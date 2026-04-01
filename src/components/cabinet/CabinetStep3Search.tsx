@@ -290,13 +290,6 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
                   const selectedItems = detail.sections.flatMap(sec =>
                     sec.items.filter(item => s.cabinetActivites[item.key])
                   );
-                  // Group selected items by section for the pie chart
-                  const sectionCounts = detail.sections
-                    .map(sec => ({
-                      name: sec.title,
-                      value: sec.items.filter(item => s.cabinetActivites[item.key]).length,
-                    }))
-                    .filter(d => d.value > 0);
 
                   return (
                     <div key={exp} className="p-4 rounded border border-border bg-secondary/30">
