@@ -183,17 +183,6 @@ const LandingPage = () => (
     {/* Stats ticker */}
     <StatsTickerSection />
 
-    {/* Subtle divider between Stats and Benefits */}
-    <div style={{ background: 'hsl(40 30% 96%)' }}>
-      <div className="max-w-5xl mx-auto">
-        <div className="h-px bg-black/[0.06]" />
-      </div>
-    </div>
-
-    {/* Nos engagements */}
-    <div id="nos-engagements">
-      <BenefitsSection />
-    </div>
 
     {/* FAQ */}
     <div id="faq">
