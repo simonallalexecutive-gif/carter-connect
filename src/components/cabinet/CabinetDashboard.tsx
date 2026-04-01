@@ -639,36 +639,36 @@ const ExploreView = ({
               style={{ background: 'hsl(220, 6%, 68%)' }}
             >
               {p.isNew && (
-                <span className="absolute top-3 right-3 text-[7px] font-bold tracking-[0.12em] uppercase bg-white text-black px-2 py-0.5 rounded-sm">NOUVEAU</span>
+                <span className="absolute top-3 right-3 text-[7px] font-bold tracking-[0.12em] uppercase bg-black/80 text-white px-2 py-0.5 rounded-sm">NOUVEAU</span>
               )}
-              <div className="text-[9px] text-white/35 tracking-[0.08em] mb-2 font-sans">{p.id}</div>
-              <div className="font-sans text-sm font-semibold text-white mb-1 leading-tight">
+              <div className="text-[9px] text-black/35 tracking-[0.08em] mb-2 font-sans">{p.id}</div>
+              <div className="font-sans text-sm font-semibold text-black/90 mb-1 leading-tight">
                 {status}{senDetail ? ` — ${senDetail}` : ''}{p.pqe ? ` · ${p.pqe}` : ''}
               </div>
-              <div className="font-sans text-[13px] text-white/70 mb-2">{p.deptLabel}</div>
+              <div className="font-sans text-[13px] text-black/60 mb-2">{p.deptLabel}</div>
 
               {/* Expertises from activity split */}
               {Object.keys(p.split).length > 0 && (
                 <div className="flex flex-wrap gap-1.5 mb-3">
                   {Object.keys(p.split).map((expertise) => (
-                    <span key={expertise} className="text-[9px] font-medium px-2 py-0.5 rounded-sm bg-white/[0.08] text-white/70 border border-white/[0.12]">{expertise}</span>
+                    <span key={expertise} className="text-[9px] font-medium px-2 py-0.5 rounded-sm bg-black/[0.06] text-black/60 border border-black/10">{expertise}</span>
                   ))}
                 </div>
               )}
 
               {/* Key info */}
-              <div className="space-y-1.5 text-[11px] font-sans border-t border-white/[0.1] pt-3">
+              <div className="space-y-1.5 text-[11px] font-sans border-t border-black/10 pt-3">
                 <div className="flex justify-between">
-                  <span className="text-white/40">Nationalité du cabinet</span>
-                  <span className="font-medium text-white/80">{natLabel}</span>
+                  <span className="text-black/45">Nationalité du cabinet</span>
+                  <span className="font-medium text-black/75">{natLabel}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-white/40">Reconnu Chambers</span>
-                  <span className={cn('font-medium', chambers ? 'text-white/80' : 'text-white/40')}>{chambers ? 'Oui' : 'Non'}</span>
+                  <span className="text-black/45">Reconnu Chambers</span>
+                  <span className={cn('font-medium', chambers ? 'text-black/75' : 'text-black/40')}>{chambers ? 'Oui' : 'Non'}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-white/40">Recherche active</span>
-                  <span className="font-medium text-white/80">{p.disponibilite === 'Immédiate' ? 'Oui' : 'Non'}</span>
+                  <span className="text-black/45">Recherche active</span>
+                  <span className="font-medium text-black/75">{p.disponibilite === 'Immédiate' ? 'Oui' : 'Non'}</span>
                 </div>
               </div>
             </div>
