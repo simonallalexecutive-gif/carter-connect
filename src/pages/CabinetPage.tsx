@@ -151,6 +151,7 @@ const CabinetDashboardLayout = () => {
     if (showAccount) return 'account';
     if (s.dashboardView === 'explore') return 'explore';
     if (s.dashboardView === 'newSearch') return 'newSearch';
+    if (s.dashboardView === 'activeSearches') return 'activeSearches';
     return 'dashboard';
   };
 
@@ -164,6 +165,8 @@ const CabinetDashboardLayout = () => {
     } else if (tab === 'newSearch') {
       s.resetSearch();
       s.setField('dashboardView', 'newSearch');
+    } else if (tab === 'activeSearches') {
+      s.setField('dashboardView', 'activeSearches');
     } else {
       s.setField('dashboardView', 'home');
     }
