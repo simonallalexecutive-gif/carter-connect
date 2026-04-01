@@ -190,7 +190,7 @@ const RealEstateActivityPanel = () => {
                       label="Baux commerciaux / Asset Management"
                       value={cBaux}
                       color={CONSEIL_COLORS[0]}
-                      onChange={v => clampThreeWay(store, 'reConseilBaux', v)}
+                      onChange={v => clampThreeWay('reConseilBaux', v)}
                     />
                     <SliderRow
                       label="Immobilier transactionnel"
