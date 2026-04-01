@@ -71,7 +71,7 @@ export interface CabinetState {
   approveCount: number;
 
   // Dashboard
-  dashboardView: 'home' | 'explore' | 'newSearch';
+  dashboardView: 'home' | 'explore' | 'newSearch' | 'activeSearches';
   searches: CabinetSearch[];
 
   // Current search being created (temporary)
