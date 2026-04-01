@@ -51,13 +51,13 @@ const FonctionnementSection = () => (
         viewport={{ once: true, margin: '-80px' }}
         className="text-center mb-20 md:mb-28"
       >
-        <motion.p variants={fadeUp} className="text-[11px] font-sans font-medium tracking-[0.25em] uppercase text-black/30 mb-5">
+        <motion.p variants={fadeUp} className="text-[11px] font-sans font-medium tracking-[0.25em] uppercase text-white/30 mb-5">
           Notre fonctionnement
         </motion.p>
-        <motion.h2 variants={fadeUp} className="font-serif text-3xl sm:text-4xl md:text-[3rem] leading-[1.15] text-black mb-5">
+        <motion.h2 variants={fadeUp} className="font-serif text-3xl sm:text-4xl md:text-[3rem] leading-[1.15] text-white mb-5">
           Deux perspectives, une même exigence
         </motion.h2>
-        <motion.p variants={fadeUp} className="font-sans text-[1.02rem] md:text-lg leading-[1.7] text-black/45 max-w-2xl mx-auto">
+        <motion.p variants={fadeUp} className="font-sans text-[1.02rem] md:text-lg leading-[1.7] text-white/45 max-w-2xl mx-auto">
           Logan est le seul intermédiaire. Chaque interaction est qualifiée, confidentielle et orchestrée.
         </motion.p>
       </motion.div>
