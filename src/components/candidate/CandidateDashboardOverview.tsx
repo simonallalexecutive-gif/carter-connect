@@ -49,7 +49,7 @@ const CandidateDashboardOverview = ({ onNavigate, notifCount }: Props) => (
           key={card.key}
           onClick={() => onNavigate(card.key)}
           className="group relative text-left rounded-lg p-5 cursor-pointer transition-all hover:shadow-lg hover:-translate-y-0.5 border border-white/5"
-          style={{ background: 'hsl(0, 0%, 7%)' }}
+          style={{ background: 'hsl(0, 0%, 22%)' }}
         >
           <card.icon className="w-5 h-5 text-white/70 mb-3" />
           <div className="font-sans text-[11px] font-medium text-white tracking-wide mb-1">{card.label}</div>
