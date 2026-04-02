@@ -40,7 +40,8 @@ const RegisterPage = () => {
 
   // Apply theme-light to <body> so Radix portals (Select, Popover, etc.) inherit correct tokens
   useEffect(() => {
-    if ((isStepContent || showProgress) && !showConfIntro && !showCabinetIntro) {
+    const shouldBeDark = (isStepContent || (currentStep >= 2 && currentStep <= 6)) && !showConfIntro && !showCabinetIntro;
+    if (shouldBeDark) {
       document.body.classList.add('theme-dark-registration');
       document.body.classList.remove('theme-light');
     } else if (!isDarkStep && !showConfIntro && !showCabinetIntro) {
@@ -54,7 +55,7 @@ const RegisterPage = () => {
       document.body.classList.remove('theme-light');
       document.body.classList.remove('theme-dark-registration');
     };
-  }, [isDarkStep, isStepContent, showConfIntro, showCabinetIntro, showProgress]);
+  }, [isDarkStep, isStepContent, currentStep, showConfIntro, showCabinetIntro]);
 
   const handleConfIntroComplete = () => {
     setShowConfIntro(false);
