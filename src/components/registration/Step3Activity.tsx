@@ -15,6 +15,11 @@ import RestructuringActivityPanel from './RestructuringActivityPanel';
 import SocialActivityPanel from './SocialActivityPanel';
 import MaActivityPanel from './MaActivityPanel';
 import RealEstateActivityPanel from './RealEstateActivityPanel';
+import ConcurrenceActivityPanel from './ConcurrenceActivityPanel';
+import FiscalActivityPanel from './FiscalActivityPanel';
+import DroitPublicActivityPanel from './DroitPublicActivityPanel';
+import ArbitrationActivityPanel from './ArbitrationActivityPanel';
+import ProjectsEnergyActivityPanel from './ProjectsEnergyActivityPanel';
 
 const CHART_COLORS = [
   'hsl(215, 60%, 30%)',
@@ -27,7 +32,15 @@ const CHART_COLORS = [
   'hsl(225, 45%, 18%)',
 ];
 
-const SPECIALIZED_DEPTS = ['Financement LBO', 'Financement de projets', 'Restructuring', 'Restructuring/Insolvency', 'Droit Social', 'M&A (dominante)', 'Private Equity (dominante)', 'Immobilier', 'Real Estate'];
+// All departments that have a specialized panel (not the generic chip+pie fallback)
+const SPECIALIZED_DEPTS = [
+  // Legacy French names
+  'Financement LBO', 'Financement de projets', 'Restructuring', 'Restructuring/Insolvency',
+  'Droit Social', 'M&A (dominante)', 'Private Equity (dominante)', 'Immobilier', 'Real Estate',
+  // Chambers English labels
+  'Banking & Finance', 'Competition/European Law', 'Corporate/M&A', 'Employment',
+  'International Arbitration', 'Private Equity', 'Projects & Energy', 'Public Law', 'Tax',
+];
 
 const Step3Activity = () => {
   const store = useRegistrationStore();
