@@ -38,15 +38,23 @@ const RegisterPage = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [currentStep, showConfIntro, showCabinetIntro]);
 
-  // Apply theme-light to <body> so Radix portals (Select, Popover, etc.) inherit light tokens
+  // Apply theme-light to <body> so Radix portals (Select, Popover, etc.) inherit correct tokens
   useEffect(() => {
-    if (!isDarkStep && !showConfIntro && !showCabinetIntro) {
+    if (isStepContent && !showConfIntro && !showCabinetIntro) {
+      document.body.classList.add('theme-dark-registration');
+      document.body.classList.remove('theme-light');
+    } else if (!isDarkStep && !showConfIntro && !showCabinetIntro) {
       document.body.classList.add('theme-light');
+      document.body.classList.remove('theme-dark-registration');
     } else {
       document.body.classList.remove('theme-light');
+      document.body.classList.remove('theme-dark-registration');
     }
-    return () => document.body.classList.remove('theme-light');
-  }, [isDarkStep, showConfIntro, showCabinetIntro]);
+    return () => {
+      document.body.classList.remove('theme-light');
+      document.body.classList.remove('theme-dark-registration');
+    };
+  }, [isDarkStep, isStepContent, showConfIntro, showCabinetIntro]);
 
   const handleConfIntroComplete = () => {
     setShowConfIntro(false);
