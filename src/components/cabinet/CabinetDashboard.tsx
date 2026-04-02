@@ -312,7 +312,7 @@ const SearchValidation = () => {
               {/* Expertise chips */}
               <div className="flex flex-wrap gap-1.5 mb-5">
                 {s.expertise.map((exp) => (
-                  <span key={exp} className="text-[11px] bg-white/[0.1] border border-white/[0.15] rounded px-3 py-1.5 text-white/80 font-sans font-medium">{exp}</span>
+                  <span key={exp} className="text-[11px] bg-secondary border border-border rounded px-3 py-1.5 text-foreground/80 font-sans font-medium">{exp}</span>
                 ))}
               </div>
 
@@ -594,7 +594,7 @@ const ExploreView = ({
     <div>
       <button
         onClick={() => s.setField('dashboardView', 'home')}
-        className="text-xs text-white/50 hover:text-white mb-6 flex items-center gap-1"
+        className="text-xs text-muted-foreground hover:text-foreground mb-6 flex items-center gap-1"
       >
         ← Retour au tableau de bord
       </button>
@@ -674,40 +674,39 @@ const ExploreView = ({
             <div
               key={p.id}
               onClick={() => setDrawerProfile(p)}
-              className="rounded-lg p-5 cursor-pointer transition-all hover:shadow-lg hover:-translate-y-0.5 relative border border-white/[0.08]"
-              style={{ background: '#111111' }}
+              className="rounded-lg p-5 cursor-pointer transition-all hover:shadow-lg hover:-translate-y-0.5 relative border border-border bg-card"
             >
               {p.isNew && (
-                <span className="absolute top-3 right-3 text-[7px] font-bold tracking-[0.12em] uppercase bg-white/90 text-black px-2 py-0.5 rounded-sm">NOUVEAU</span>
+                <span className="absolute top-3 right-3 text-[7px] font-bold tracking-[0.12em] uppercase bg-foreground/90 text-background px-2 py-0.5 rounded-sm">NOUVEAU</span>
               )}
-              <div className="text-[9px] text-white/30 tracking-[0.08em] mb-2 font-sans">{p.id}</div>
-              <div className="font-sans text-sm font-bold text-white mb-1.5 leading-tight">
+              <div className="text-[9px] text-muted-foreground tracking-[0.08em] mb-2 font-sans">{p.id}</div>
+              <div className="font-sans text-sm font-bold text-foreground mb-1.5 leading-tight">
                 {status}{senDetail ? ` — ${senDetail}` : ''}{p.pqe ? ` · ${p.pqe}` : ''}
               </div>
-              <div className="font-sans text-[13px] font-semibold text-white/60 mb-2">{p.deptLabel}</div>
+              <div className="font-sans text-[13px] font-semibold text-muted-foreground mb-2">{p.deptLabel}</div>
 
               {/* Expertises from activity split */}
               {Object.keys(p.split).length > 0 && (
                 <div className="flex flex-wrap gap-1.5 mb-3">
                   {Object.keys(p.split).map((expertise) => (
-                    <span key={expertise} className="text-[10px] font-bold px-2 py-1 rounded border border-white/15 text-white/70 bg-white/[0.06]">{expertise}</span>
+                    <span key={expertise} className="text-[10px] font-bold px-2 py-1 rounded border border-border text-foreground/70 bg-secondary">{expertise}</span>
                   ))}
                 </div>
               )}
 
               {/* Key info */}
-              <div className="space-y-2 text-[11px] font-sans border-t border-white/[0.08] pt-3">
+              <div className="space-y-2 text-[11px] font-sans border-t border-border pt-3">
                 <div className="flex justify-between">
-                  <span className="text-white/40 font-medium">Nationalité du cabinet</span>
-                  <span className="font-bold text-white/85 border border-white/15 rounded px-2 py-0.5">{natLabel}</span>
+                  <span className="text-muted-foreground font-medium">Nationalité du cabinet</span>
+                  <span className="font-bold text-foreground/85 border border-border rounded px-2 py-0.5">{natLabel}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-white/40 font-medium">Reconnu Chambers</span>
-                  <span className={cn('font-bold border border-white/15 rounded px-2 py-0.5', chambers ? 'text-white/85' : 'text-white/30')}>{chambers ? 'Oui' : 'Non'}</span>
+                  <span className="text-muted-foreground font-medium">Reconnu Chambers</span>
+                  <span className={cn('font-bold border border-border rounded px-2 py-0.5', chambers ? 'text-foreground/85' : 'text-muted-foreground')}>{chambers ? 'Oui' : 'Non'}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-white/40 font-medium">Recherche active</span>
-                  <span className="font-bold text-white/85 border border-white/15 rounded px-2 py-0.5">{p.disponibilite === 'Immédiate' ? 'Oui' : 'Non'}</span>
+                  <span className="text-muted-foreground font-medium">Recherche active</span>
+                  <span className="font-bold text-foreground/85 border border-border rounded px-2 py-0.5">{p.disponibilite === 'Immédiate' ? 'Oui' : 'Non'}</span>
                 </div>
               </div>
             </div>

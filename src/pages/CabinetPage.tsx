@@ -172,59 +172,59 @@ const CabinetDashboardLayout = () => {
     }
   };
 
-  return (
-    <SidebarProvider>
-      <div className="min-h-screen flex w-full">
-        <CabinetSidebar activeTab={getActiveTab()} setActiveTab={setActiveTab} onOpenAlerts={() => setShowAlerts(true)} />
+    return (
+      <SidebarProvider>
+        <div className="min-h-screen flex w-full theme-dark-registration bg-background text-foreground">
+          <CabinetSidebar activeTab={getActiveTab()} setActiveTab={setActiveTab} onOpenAlerts={() => setShowAlerts(true)} />
 
-        <div className="flex-1 flex flex-col min-h-screen">
-          {/* Top bar — dark green */}
-          <header className="flex items-center border-b border-white/10 px-6 py-8 gap-5" style={{ background: 'hsl(155, 35%, 20%)' }}>
-            <SidebarTrigger className="text-white/60 hover:text-white" />
-            <div className="flex items-center gap-5 flex-1 min-w-0">
-              <Avatar className="w-11 h-11 border border-white/20 shrink-0">
-                <AvatarFallback className="bg-white/10 text-white text-[11px] font-sans">
-                  {s.cabinetName ? s.cabinetName[0].toUpperCase() : '?'}
-                </AvatarFallback>
-              </Avatar>
-              <div className="min-w-0">
-                <h1 className="text-xl md:text-2xl font-sans font-normal text-white leading-tight tracking-[-0.01em]">
-                  Bienvenue, {s.cabinetName || 'Cabinet'}
-                </h1>
-                <div className="flex flex-wrap items-center gap-2 mt-2">
-                  {s.palier && (
-                    <span className="inline-flex items-center gap-1 text-[9px] text-white/80 bg-white/10 border border-white/15 rounded-sm px-2 py-0.5 font-sans">
-                      Abonnement actif · {s.palier.charAt(0).toUpperCase() + s.palier.slice(1)}
-                    </span>
-                  )}
-                  {s.detectedNat && (
-                    <span className="inline-flex items-center gap-1 text-[9px] text-white/60 bg-white/10 border border-white/15 rounded-sm px-2 py-0.5">
-                      {NAT_FLAGS[s.detectedNat]} {NAT_LABELS[s.detectedNat]}
-                    </span>
-                  )}
+          <div className="flex-1 flex flex-col min-h-screen">
+            {/* Top bar — dark matte card surface */}
+            <header className="flex items-center border-b border-border px-6 py-8 gap-5 bg-card">
+              <SidebarTrigger className="text-foreground/60 hover:text-foreground" />
+              <div className="flex items-center gap-5 flex-1 min-w-0">
+                <Avatar className="w-11 h-11 border border-border shrink-0">
+                  <AvatarFallback className="bg-secondary text-foreground text-[11px] font-sans">
+                    {s.cabinetName ? s.cabinetName[0].toUpperCase() : '?'}
+                  </AvatarFallback>
+                </Avatar>
+                <div className="min-w-0">
+                  <h1 className="text-xl md:text-2xl font-sans font-normal text-foreground leading-tight tracking-[-0.01em]">
+                    Bienvenue, {s.cabinetName || 'Cabinet'}
+                  </h1>
+                  <div className="flex flex-wrap items-center gap-2 mt-2">
+                    {s.palier && (
+                      <span className="inline-flex items-center gap-1 text-[9px] text-foreground/80 bg-secondary border border-border rounded-sm px-2 py-0.5 font-sans">
+                        Abonnement actif · {s.palier.charAt(0).toUpperCase() + s.palier.slice(1)}
+                      </span>
+                    )}
+                    {s.detectedNat && (
+                      <span className="inline-flex items-center gap-1 text-[9px] text-muted-foreground bg-secondary border border-border rounded-sm px-2 py-0.5">
+                        {NAT_FLAGS[s.detectedNat]} {NAT_LABELS[s.detectedNat]}
+                      </span>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
-          </header>
+            </header>
 
-          {/* Content */}
-          <main className="flex-1 py-10 px-6 sm:px-8 lg:px-10 max-w-5xl mx-auto w-full">
-            {showAccount ? <CabinetAccount /> : <CabinetDashboard />}
-          </main>
+            {/* Content */}
+            <main className="flex-1 py-10 px-6 sm:px-8 lg:px-10 max-w-5xl mx-auto w-full">
+              {showAccount ? <CabinetAccount /> : <CabinetDashboard />}
+            </main>
 
-          {/* Footer info */}
-          <div className="max-w-5xl mx-auto w-full px-6 sm:px-8 lg:px-10 pb-8">
-            <div className="pt-6 border-t border-border flex justify-between items-center">
-              <p className="text-xs text-muted-foreground font-sans">
-                Connecté en tant que {user?.email || s.cabinetName}
-              </p>
+            {/* Footer info */}
+            <div className="max-w-5xl mx-auto w-full px-6 sm:px-8 lg:px-10 pb-8">
+              <div className="pt-6 border-t border-border flex justify-between items-center">
+                <p className="text-xs text-muted-foreground font-sans">
+                  Connecté en tant que {user?.email || s.cabinetName}
+                </p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      {showAlerts && <CabinetNotificationAlerts onClose={() => setShowAlerts(false)} />}
-    </SidebarProvider>
-  );
+        {showAlerts && <CabinetNotificationAlerts onClose={() => setShowAlerts(false)} />}
+      </SidebarProvider>
+    );
 };
 
 const CabinetPage = () => {
@@ -273,8 +273,8 @@ const CabinetPage = () => {
 
   // Registration flow
   return (
-    <div className="min-h-screen bg-background flex flex-col">
-      <LogoBanner subtitle="Espace Cabinet" />
+    <div className="min-h-screen theme-dark-registration bg-background text-foreground flex flex-col">
+      <LogoBanner subtitle="Espace Cabinet" variant="matte" />
       {step >= 2 && step <= 4 && <CabinetStepProgress />}
       <main className={step === 1 ? '' : 'flex-1 py-11 px-6 md:px-12'}>
         {step === 1 && <CabinetStep1Hero />}
