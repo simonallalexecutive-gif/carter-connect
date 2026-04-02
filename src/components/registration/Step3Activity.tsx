@@ -114,10 +114,7 @@ const Step3Activity = () => {
         )}
 
         {(store.departement === 'Immobilier' || store.departement === 'Real Estate') && (
-          <div>
-            <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-3 block">Cartographie de votre pratique immobilière</Label>
-            <RealEstateActivityPanel />
-          </div>
+          <RealEstateActivityPanel />
         )}
 
 
@@ -335,7 +332,7 @@ const Step3Activity = () => {
         )}
 
         {/* Anglais – hidden for Restructuring & Immobilier (handled in panel) */}
-        {store.departement !== 'Restructuring' && store.departement !== 'Restructuring/Insolvency' && store.departement !== 'Immobilier' && (
+        {store.departement !== 'Restructuring' && store.departement !== 'Restructuring/Insolvency' && store.departement !== 'Immobilier' && store.departement !== 'Real Estate' && (
           <div>
             <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Niveau d'anglais *</Label>
             <Select value={store.anglais} onValueChange={v => store.setField('anglais', v)}>
@@ -348,7 +345,7 @@ const Step3Activity = () => {
         )}
 
         {/* Types clients – hidden for Financement, Restructuring & Immobilier */}
-        {store.departement !== 'Financement LBO' && store.departement !== 'Financement de projets' && store.departement !== 'Restructuring' && store.departement !== 'Restructuring/Insolvency' && store.departement !== 'Immobilier' && (
+        {store.departement !== 'Financement LBO' && store.departement !== 'Financement de projets' && store.departement !== 'Restructuring' && store.departement !== 'Restructuring/Insolvency' && store.departement !== 'Immobilier' && store.departement !== 'Real Estate' && (
           <div>
             <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-3 block">Types de clients</Label>
             <ChipSelector

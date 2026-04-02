@@ -109,7 +109,8 @@ export interface RegistrationState {
   reShareDeal: number;
   reAssetDealPct: number;
   reConstructionPct: number;
-  // reFinancementPct is computed as remainder (100 - sum of above)
+  reHasFinancement: boolean | null;
+  reFinancementPct: number;
   reAssetTypes: string[];
   // Contentieux (separate from pie chart)
   reHasContentieux: boolean | null;
