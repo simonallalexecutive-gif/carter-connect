@@ -36,7 +36,7 @@ const StatsTickerSection = () => {
   const inView = useInView(ref, { once: false, margin: '-80px' });
 
   return (
-    <section ref={ref} className="relative py-24 md:py-32 bg-foreground overflow-hidden">
+    <section ref={ref} className="relative py-24 md:py-32 overflow-hidden" style={{ background: 'hsl(0 0% 6%)' }}>
       <div className="max-w-5xl mx-auto px-6 sm:px-8 lg:px-10 relative z-10">
         {/* Header */}
         <motion.div
@@ -55,14 +55,14 @@ const StatsTickerSection = () => {
         </motion.div>
 
         {/* Stats 3x2 grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-px bg-white/10 rounded-sm overflow-hidden">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-px bg-white/10 rounded-sm overflow-hidden" style={{ background: 'hsl(0 0% 10%)' }}>
           {stats.map((stat, i) => (
             <motion.div
               key={stat.label}
               initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               transition={{ delay: 0.1 * i, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              className="bg-foreground p-10 md:p-14 text-center flex flex-col items-center justify-center group hover:bg-white/[0.06] transition-colors duration-500"
+              className="p-10 md:p-14 text-center flex flex-col items-center justify-center group hover:bg-white/[0.06] transition-colors duration-500" style={{ background: 'hsl(0 0% 6%)' }}
             >
               <stat.icon className="w-5 h-5 text-white/30 mb-5 group-hover:text-white/50 transition-colors duration-500" />
               <div className="font-serif text-5xl md:text-6xl font-bold text-white mb-3 tracking-tight">
