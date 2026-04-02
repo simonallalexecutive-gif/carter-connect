@@ -345,7 +345,7 @@ const Step3Activity = () => {
         )}
 
         {/* Types clients – hidden for Financement, Restructuring & Immobilier */}
-        {store.departement !== 'Financement LBO' && store.departement !== 'Financement de projets' && store.departement !== 'Restructuring' && store.departement !== 'Restructuring/Insolvency' && store.departement !== 'Immobilier' && (
+        {store.departement !== 'Financement LBO' && store.departement !== 'Financement de projets' && store.departement !== 'Restructuring' && store.departement !== 'Restructuring/Insolvency' && store.departement !== 'Immobilier' && store.departement !== 'Real Estate' && (
           <div>
             <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-3 block">Types de clients</Label>
             <ChipSelector
