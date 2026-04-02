@@ -1,6 +1,5 @@
 import { cn } from '@/lib/utils';
 import { Check } from 'lucide-react';
-import { useRegistrationStore } from '@/stores/registrationStore';
 
 interface StepProgressProps {
   currentStep: number;
