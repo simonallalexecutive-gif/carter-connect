@@ -76,7 +76,7 @@ const Step3Activity = () => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-      className="max-w-2xl mx-auto px-6 py-10"
+      className={cn("mx-auto px-6 py-10", (store.departement === 'Immobilier' || store.departement === 'Real Estate') ? "max-w-5xl" : "max-w-2xl")}
     >
       <h2 className="text-2xl font-sans text-foreground mb-2 font-medium tracking-[-0.02em]">Votre activité</h2>
       <p className="text-muted-foreground font-sans text-sm font-light mb-10">

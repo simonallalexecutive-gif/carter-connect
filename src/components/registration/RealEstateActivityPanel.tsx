@@ -19,14 +19,19 @@ const ASSET_TYPES = [
   'Industriel', 'Résidentiel', 'Hôtellerie', 'Restauration',
 ] as const;
 
-const CLIENT_TYPES = [
-  'Investisseurs (buy-side / sell-side)',
-  'Promoteurs / développeurs',
-  'Utilisateurs (baux commerciaux)',
-  'Financiers (debt side)',
+const CONTENTIEUX_DOMAINES = ['Baux commerciaux', 'Construction', 'Autre'] as const;
+
+const SHARE_DEAL_MODES = [
+  { key: 'pilotage_direct', label: 'En pilotage direct (y compris sur les aspects corporate)' },
+  { key: 'coordination', label: 'En coordination avec une équipe corporate' },
+  { key: 'support', label: 'En support (audit / aspects immobiliers uniquement)' },
 ] as const;
 
-const CONTENTIEUX_DOMAINES = ['Baux commerciaux', 'Construction', 'Autre'] as const;
+const SHARE_DEAL_MODE_SHORT: Record<string, string> = {
+  pilotage_direct: 'Share Deal (pilotage direct)',
+  coordination: 'Share Deal (coord. corporate)',
+  support: 'Share Deal (support)',
+};
 
 const tooltipStyle = {
   fontSize: '11px',
@@ -66,15 +71,17 @@ const RealEstateActivityPanel = () => {
   const setField = store.setField;
 
   // ── Advisory sub-distribution (Baux / Share / Asset / Construction) ──
-  const bauxVal = store.reBauxAM ?? 25;
-  const shareVal = store.reShareDeal ?? 25;
-  const assetVal = store.reAssetDealPct ?? 25;
-  const constructionVal = Math.max(0, 100 - bauxVal - shareVal - assetVal);
+  type AdvisoryField = 'reBauxAM' | 'reShareDeal' | 'reAssetDealPct' | 'reConstructionPct';
+  const advisoryFields: AdvisoryField[] = ['reBauxAM', 'reShareDeal', 'reAssetDealPct', 'reConstructionPct'];
 
-  const handleSubSlider = (field: 'reBauxAM' | 'reShareDeal' | 'reAssetDealPct', val: number) => {
-    const fields: ('reBauxAM' | 'reShareDeal' | 'reAssetDealPct')[] = ['reBauxAM', 'reShareDeal', 'reAssetDealPct'];
-    const others = fields.filter(f => f !== field);
-    const otherSum = others.reduce((s, k) => s + (store[k] ?? 25), 0);
+  const bauxVal = store.reBauxAM ?? 20;
+  const shareVal = store.reShareDeal ?? 20;
+  const assetVal = store.reAssetDealPct ?? 20;
+  const constructionVal = store.reConstructionPct ?? 20;
+
+  const handleSubSlider = (field: AdvisoryField, val: number) => {
+    const others = advisoryFields.filter(f => f !== field);
+    const otherSum = others.reduce((s, k) => s + (store[k] ?? 20), 0);
     const remaining = Math.max(0, 100 - val);
 
     setField(field, val);
@@ -93,7 +100,7 @@ const RealEstateActivityPanel = () => {
         if (i === others.length - 1) {
           setField(k, Math.max(0, remaining - assigned));
         } else {
-          const v = Math.round((remaining * ((store[k] ?? 25) / otherSum)) / 5) * 5;
+          const v = Math.round((remaining * ((store[k] ?? 20) / otherSum)) / 5) * 5;
           setField(k, Math.max(0, v));
           assigned += Math.max(0, v);
         }
@@ -109,8 +116,8 @@ const RealEstateActivityPanel = () => {
   const hasContentieux = store.reHasContentieux === true;
   const contentieuxPct = store.reContentieuxPct ?? 20;
 
-  // ── Share Deal Corporate ──
-  const shareDealCorporate = store.reShareDealCorporate;
+  // ── Share Deal Mode ──
+  const shareDealMode = store.reShareDealMode || '';
 
   // ── Anglais (free input) ──
   const anglaisPct = parseInt(store.anglais || '0', 10) || 0;
@@ -131,7 +138,7 @@ const RealEstateActivityPanel = () => {
   const effAsset = Math.round(advisoryPct * assetVal / 100);
   const effConstruction = Math.max(0, advisoryPct - effBaux - effShare - effAsset);
 
-  const shareLabel = shareDealCorporate === true ? 'Share Deal (support corporate)' : 'Share Deal';
+  const shareLabel = shareDealMode ? (SHARE_DEAL_MODE_SHORT[shareDealMode] || 'Share Deal') : 'Share Deal';
 
   const chartData = useMemo(() => {
     const segments: { name: string; value: number; color: string }[] = [];
@@ -144,231 +151,205 @@ const RealEstateActivityPanel = () => {
     return segments;
   }, [effBaux, effShare, effAsset, effConstruction, hasFinancement, financementPct, hasContentieux, contentieuxPct, shareLabel]);
 
-  const toggleChip = (field: 'reAssetTypes' | 'typesClients' | 'reContentieuxDomaines', val: string) => {
+  const toggleChip = (field: 'reAssetTypes' | 'reContentieuxDomaines', val: string) => {
     const cur: string[] = (store as any)[field] || [];
     setField(field, cur.includes(val) ? cur.filter((v: string) => v !== val) : [...cur, val]);
   };
 
   const showSynthesis = chartData.length > 0;
 
+  /* ═══════════════════════════════════════════════════════
+     RENDER — Two-column: Synthesis LEFT, Questionnaire RIGHT
+     ═══════════════════════════════════════════════════════ */
   return (
-    <div className="carter-card p-5 md:p-7 space-y-6">
+    <div className="flex flex-col-reverse md:flex-row gap-8 items-start">
 
-      {/* ═══════ RÉPARTITION CONSEIL ═══════ */}
-      <div className="space-y-4">
-        <div className="flex items-center justify-between">
-          <p className="text-sm font-sans font-medium text-foreground">Conseil immobilier</p>
-          <span className="text-xs font-sans font-bold text-foreground tabular-nums bg-secondary px-2 py-0.5 rounded-sm">{advisoryPct}%</span>
-        </div>
+      {/* ══════════ LEFT: SYNTHÈSE ══════════ */}
+      <AnimatePresence>
+        {showSynthesis && (
+          <motion.div
+            initial={{ opacity: 0, x: -16 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -16 }}
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            className="md:sticky md:top-8 md:w-[320px] flex-shrink-0 w-full"
+          >
+            <div className="carter-card p-5 space-y-4">
+              <p className="text-sm font-sans font-medium text-foreground">Synthèse</p>
 
-        <div className="space-y-2.5 pl-3 border-l-2 border-border">
-          <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">Répartition interne</p>
+              {/* Pie chart */}
+              <div className="self-center mx-auto" style={{ width: 200, height: 200 }}>
+                <ResponsiveContainer width="100%" height="100%">
+                  <PieChart>
+                    <Pie data={chartData} cx="50%" cy="50%" innerRadius={48} outerRadius={88} dataKey="value" paddingAngle={1.5} stroke="hsl(var(--background))" strokeWidth={2} label={renderLabel} labelLine={false}>
+                      {chartData.map((seg, i) => <Cell key={i} fill={seg.color} />)}
+                    </Pie>
+                    <Tooltip formatter={(v: number) => [`${v}%`, '']} contentStyle={tooltipStyle} />
+                  </PieChart>
+                </ResponsiveContainer>
+              </div>
 
-          <SquareGauge value={bauxVal} onChange={v => handleSubSlider('reBauxAM', v)} activeColor={COL_BAUX} label="Baux commerciaux / Asset Management" />
+              {/* Legend */}
+              <div className="space-y-1.5">
+                <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium mb-2">Activité</p>
+                {chartData.map(seg => (
+                  <div key={seg.name} className="flex items-center gap-2.5">
+                    <span className="w-2.5 h-2.5 rounded-sm flex-shrink-0" style={{ background: seg.color }} />
+                    <span className="text-[11px] font-sans text-foreground/80 flex-1 min-w-0 truncate">{seg.name}</span>
+                    <span className="text-[11px] font-sans font-bold text-foreground tabular-nums">{seg.value}%</span>
+                  </div>
+                ))}
+              </div>
 
-          <div className="space-y-1">
-            <SquareGauge value={shareVal} onChange={v => handleSubSlider('reShareDeal', v)} activeColor={COL_SHARE} label="Share Deal" />
-            {/* Sub-question: en support corporate */}
-            <div className="flex items-center gap-3 pl-1 pt-1">
-              <span className="text-[11px] font-sans text-foreground/70">En support corporate ?</span>
-              <div className="flex gap-1.5">
-                {(['Oui', 'Non'] as const).map(label => {
-                  const val = label === 'Oui';
-                  const active = shareDealCorporate === val;
+              {(store.reAssetTypes || []).length > 0 && (
+                <div className="border-t border-border pt-3 space-y-1.5">
+                  <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium mb-1">Actifs</p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {(store.reAssetTypes || []).map(a => (
+                      <span key={a} className="inline-flex items-center px-2.5 py-0.5 rounded-sm text-[11px] font-sans bg-secondary text-foreground/80 border border-border">{a}</span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {anglaisPct > 0 && (
+                <div className="border-t border-border pt-3">
+                  <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium mb-1">Anglais</p>
+                  <span className="text-[11px] font-sans text-foreground/80">{anglaisPct}% de l'activité</span>
+                </div>
+              )}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* ══════════ RIGHT: QUESTIONNAIRE ══════════ */}
+      <div className="carter-card p-5 md:p-7 space-y-6 flex-1 min-w-0">
+
+        {/* ═══════ RÉPARTITION CONSEIL ═══════ */}
+        <div className="space-y-4">
+          <div className="flex items-center justify-between">
+            <p className="text-sm font-sans font-medium text-foreground">Conseil immobilier</p>
+            <span className="text-xs font-sans font-bold text-foreground tabular-nums bg-secondary px-2 py-0.5 rounded-sm">{advisoryPct}%</span>
+          </div>
+
+          <div className="space-y-2.5 pl-3 border-l-2 border-border">
+            <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">Répartition interne</p>
+
+            <SquareGauge value={bauxVal} onChange={v => handleSubSlider('reBauxAM', v)} activeColor={COL_BAUX} label="Baux commerciaux / Asset Management" />
+
+            {/* Share Deal + mode selection */}
+            <div className="space-y-2">
+              <SquareGauge value={shareVal} onChange={v => handleSubSlider('reShareDeal', v)} activeColor={COL_SHARE} label="Share Deal" />
+              <div className="pl-1 space-y-1.5">
+                {SHARE_DEAL_MODES.map(mode => {
+                  const active = shareDealMode === mode.key;
                   return (
                     <button
-                      key={label}
+                      key={mode.key}
                       type="button"
-                      onClick={() => setField('reShareDealCorporate', active ? null : val)}
+                      onClick={() => setField('reShareDealMode', active ? '' : mode.key)}
                       className={cn(
-                        "inline-flex items-center gap-1 px-2.5 py-0.5 rounded-sm text-[10px] font-sans transition-all duration-200 border",
-                        active ? "bg-foreground text-background border-foreground" : "bg-transparent text-foreground border-border hover:border-foreground/40"
+                        "flex items-center gap-2 w-full text-left px-2.5 py-1.5 rounded-sm text-[11px] font-sans transition-all duration-200 border",
+                        active ? "bg-foreground text-background border-foreground" : "bg-transparent text-foreground/70 border-border hover:border-foreground/40"
                       )}
                     >
-                      {active && <Check className="w-2.5 h-2.5" />}
-                      {label}
+                      {active && <Check className="w-3 h-3 flex-shrink-0" />}
+                      {mode.label}
                     </button>
                   );
                 })}
               </div>
             </div>
-          </div>
 
-          <SquareGauge value={assetVal} onChange={v => handleSubSlider('reAssetDealPct', v)} activeColor={COL_ASSET} label="Asset Deal" />
+            <SquareGauge value={assetVal} onChange={v => handleSubSlider('reAssetDealPct', v)} activeColor={COL_ASSET} label="Asset Deal" />
 
-          {/* Construction — computed */}
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-sans text-foreground/70">Construction <span className="text-muted-foreground">(complément)</span></span>
-            <span className="text-xs font-sans font-bold text-foreground tabular-nums">{constructionVal}%</span>
+            <SquareGauge value={constructionVal} onChange={v => handleSubSlider('reConstructionPct', v)} activeColor={COL_CONSTRUCTION} label="Construction" />
           </div>
         </div>
-      </div>
 
-      {/* ═══════ FINANCEMENT ═══════ */}
-      <div className="border-t border-border pt-5 space-y-2.5">
-        <p className="text-sm font-sans font-medium text-foreground">Faites-vous aussi du financement immobilier ?</p>
-        <div className="flex gap-2">
-          {(['Oui', 'Non'] as const).map(label => {
-            const val = label === 'Oui';
-            const active = store.reHasFinancement === val;
-            return <ChipButton key={label} active={active} onClick={() => setField('reHasFinancement', active ? null : val)}>{label}</ChipButton>;
-          })}
+        {/* ═══════ FINANCEMENT ═══════ */}
+        <div className="border-t border-border pt-5 space-y-2.5">
+          <p className="text-sm font-sans font-medium text-foreground">Faites-vous aussi du financement immobilier ?</p>
+          <div className="flex gap-2">
+            {(['Oui', 'Non'] as const).map(label => {
+              const val = label === 'Oui';
+              const active = store.reHasFinancement === val;
+              return <ChipButton key={label} active={active} onClick={() => setField('reHasFinancement', active ? null : val)}>{label}</ChipButton>;
+            })}
+          </div>
+
+          <AnimatePresence>
+            {hasFinancement && (
+              <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden">
+                <div className="pl-3 border-l-2 border-border mt-2 space-y-2">
+                  <SquareGauge value={financementPct} onChange={v => setField('reFinancementPct', v)} activeColor={COL_FINANCEMENT} label="Part dans l'activité globale" />
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
 
-        <AnimatePresence>
-          {hasFinancement && (
-            <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden">
-              <div className="pl-3 border-l-2 border-border mt-2 space-y-2">
-                <SquareGauge value={financementPct} onChange={v => setField('reFinancementPct', v)} activeColor={COL_FINANCEMENT} label="Part dans l'activité globale" />
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
+        {/* ═══════ CONTENTIEUX ═══════ */}
+        <div className="border-t border-border pt-5 space-y-2.5">
+          <p className="text-sm font-sans font-medium text-foreground">Faites-vous aussi du contentieux immobilier ?</p>
+          <div className="flex gap-2">
+            {(['Oui', 'Non'] as const).map(label => {
+              const val = label === 'Oui';
+              const active = store.reHasContentieux === val;
+              return <ChipButton key={label} active={active} onClick={() => setField('reHasContentieux', active ? null : val)}>{label}</ChipButton>;
+            })}
+          </div>
 
-      {/* ═══════ CONTENTIEUX ═══════ */}
-      <div className="border-t border-border pt-5 space-y-2.5">
-        <p className="text-sm font-sans font-medium text-foreground">Faites-vous aussi du contentieux immobilier ?</p>
-        <div className="flex gap-2">
-          {(['Oui', 'Non'] as const).map(label => {
-            const val = label === 'Oui';
-            const active = store.reHasContentieux === val;
-            return <ChipButton key={label} active={active} onClick={() => setField('reHasContentieux', active ? null : val)}>{label}</ChipButton>;
-          })}
-        </div>
-
-        <AnimatePresence>
-          {hasContentieux && (
-            <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden">
-              <div className="pl-3 border-l-2 border-border mt-2 space-y-4">
-                <SquareGauge value={contentieuxPct} onChange={v => setField('reContentieuxPct', v)} activeColor={COL_CONTENTIEUX} label="Part dans l'activité globale" />
-                <div className="space-y-2">
-                  <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">Dans quel(s) domaine(s) ?</p>
-                  <div className="flex flex-wrap gap-2">
-                    {CONTENTIEUX_DOMAINES.map(d => {
-                      const active = (store.reContentieuxDomaines || []).includes(d);
-                      return <ChipButton key={d} active={active} onClick={() => toggleChip('reContentieuxDomaines', d)}>{d}</ChipButton>;
-                    })}
+          <AnimatePresence>
+            {hasContentieux && (
+              <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden">
+                <div className="pl-3 border-l-2 border-border mt-2 space-y-4">
+                  <SquareGauge value={contentieuxPct} onChange={v => setField('reContentieuxPct', v)} activeColor={COL_CONTENTIEUX} label="Part dans l'activité globale" />
+                  <div className="space-y-2">
+                    <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">Dans quel(s) domaine(s) ?</p>
+                    <div className="flex flex-wrap gap-2">
+                      {CONTENTIEUX_DOMAINES.map(d => {
+                        const active = (store.reContentieuxDomaines || []).includes(d);
+                        return <ChipButton key={d} active={active} onClick={() => toggleChip('reContentieuxDomaines', d)}>{d}</ChipButton>;
+                      })}
+                    </div>
                   </div>
                 </div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
 
-      {/* ═══════ TYPOLOGIE D'ACTIFS ═══════ */}
-      <div className="border-t border-border pt-5 space-y-3">
-        <p className="text-sm font-sans font-medium text-foreground">Typologie d'actifs</p>
-        <div className="flex flex-wrap gap-2">
-          {ASSET_TYPES.map(a => {
-            const active = (store.reAssetTypes || []).includes(a);
-            return <ChipButton key={a} active={active} onClick={() => toggleChip('reAssetTypes', a)}>{a}</ChipButton>;
-          })}
+        {/* ═══════ TYPOLOGIE D'ACTIFS ═══════ */}
+        <div className="border-t border-border pt-5 space-y-3">
+          <p className="text-sm font-sans font-medium text-foreground">Typologie d'actifs</p>
+          <div className="flex flex-wrap gap-2">
+            {ASSET_TYPES.map(a => {
+              const active = (store.reAssetTypes || []).includes(a);
+              return <ChipButton key={a} active={active} onClick={() => toggleChip('reAssetTypes', a)}>{a}</ChipButton>;
+            })}
+          </div>
+        </div>
+
+        {/* ═══════ ANGLAIS ═══════ */}
+        <div className="border-t border-border pt-5 space-y-2">
+          <p className="text-sm font-sans font-medium text-foreground">Part de l'activité en anglais</p>
+          <div className="flex items-center gap-2">
+            <input
+              type="number"
+              min={0}
+              max={100}
+              value={anglaisInput}
+              onChange={e => setAnglaisInput(e.target.value)}
+              onBlur={handleAnglaisBlur}
+              onKeyDown={e => { if (e.key === 'Enter') handleAnglaisBlur(); }}
+              className="w-14 h-7 rounded-sm border border-border bg-background px-2 text-xs font-sans text-foreground tabular-nums text-center focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-1"
+            />
+            <span className="text-xs font-sans text-muted-foreground">%</span>
+          </div>
         </div>
       </div>
-
-      {/* ═══════ TYPE DE CLIENTS ═══════ */}
-      <div className="border-t border-border pt-5 space-y-3">
-        <p className="text-sm font-sans font-medium text-foreground">Type de clients</p>
-        <div className="flex flex-wrap gap-2">
-          {CLIENT_TYPES.map(c => {
-            const active = (store.typesClients || []).includes(c);
-            return <ChipButton key={c} active={active} onClick={() => toggleChip('typesClients', c)}>{c}</ChipButton>;
-          })}
-        </div>
-      </div>
-
-      {/* ═══════ ANGLAIS ═══════ */}
-      <div className="border-t border-border pt-5 space-y-2">
-        <p className="text-sm font-sans font-medium text-foreground">Part de l'activité en anglais</p>
-        <div className="flex items-center gap-2">
-          <input
-            type="number"
-            min={0}
-            max={100}
-            value={anglaisInput}
-            onChange={e => setAnglaisInput(e.target.value)}
-            onBlur={handleAnglaisBlur}
-            onKeyDown={e => { if (e.key === 'Enter') handleAnglaisBlur(); }}
-            className="w-16 h-7 rounded-sm border border-border bg-background px-2 text-xs font-sans font-bold text-foreground tabular-nums text-center focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-1"
-          />
-          <span className="text-xs font-sans text-muted-foreground">%</span>
-        </div>
-      </div>
-
-      {/* ═══════ SYNTHÈSE ═══════ */}
-      <AnimatePresence>
-        {showSynthesis && (
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 16 }}
-            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <div className="border-t border-border pt-5">
-              <p className="text-sm font-sans font-medium text-foreground mb-4">Synthèse</p>
-
-              <div className="flex flex-col md:flex-row gap-6 items-start">
-                {/* Pie chart */}
-                <div className="flex-shrink-0 self-center" style={{ width: 180, height: 180 }}>
-                  <ResponsiveContainer width="100%" height="100%">
-                    <PieChart>
-                      <Pie data={chartData} cx="50%" cy="50%" innerRadius={44} outerRadius={82} dataKey="value" paddingAngle={1.5} stroke="hsl(var(--background))" strokeWidth={2} label={renderLabel} labelLine={false}>
-                        {chartData.map((seg, i) => <Cell key={i} fill={seg.color} />)}
-                      </Pie>
-                      <Tooltip formatter={(v: number) => [`${v}%`, '']} contentStyle={tooltipStyle} />
-                    </PieChart>
-                  </ResponsiveContainer>
-                </div>
-
-                {/* Legend */}
-                <div className="flex-1 space-y-4 min-w-0">
-                  <div className="space-y-1.5">
-                    <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium mb-2">Activité</p>
-                    {chartData.map(seg => (
-                      <div key={seg.name} className="flex items-center gap-2.5">
-                        <span className="w-2.5 h-2.5 rounded-sm flex-shrink-0" style={{ background: seg.color }} />
-                        <span className="text-[11px] font-sans text-foreground/80 flex-1 min-w-0 truncate">{seg.name}</span>
-                        <span className="text-[11px] font-sans font-bold text-foreground tabular-nums">{seg.value}%</span>
-                      </div>
-                    ))}
-                  </div>
-
-                  {(store.reAssetTypes || []).length > 0 && (
-                    <div className="border-t border-border pt-3 space-y-1.5">
-                      <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium mb-1">Actifs</p>
-                      <div className="flex flex-wrap gap-1.5">
-                        {(store.reAssetTypes || []).map(a => (
-                          <span key={a} className="inline-flex items-center px-2.5 py-0.5 rounded-sm text-[11px] font-sans bg-secondary text-foreground/80 border border-border">{a}</span>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  {(store.typesClients || []).length > 0 && (
-                    <div className="border-t border-border pt-3 space-y-1.5">
-                      <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium mb-1">Clients</p>
-                      <div className="flex flex-wrap gap-1.5">
-                        {(store.typesClients || []).map(c => (
-                          <span key={c} className="inline-flex items-center px-2.5 py-0.5 rounded-sm text-[11px] font-sans bg-secondary text-foreground/80 border border-border">{c}</span>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  {anglaisPct > 0 && (
-                    <div className="border-t border-border pt-3">
-                      <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium mb-1">Anglais</p>
-                      <span className="text-[11px] font-sans text-foreground/80">{anglaisPct}% de l'activité</span>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </div>
   );
 };
