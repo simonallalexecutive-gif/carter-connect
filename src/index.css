@@ -71,48 +71,48 @@
 
   /* Light mode for registration form — warm grey bg, stronger input contrast */
   .theme-light {
-    --background: 0 0% 96%;           /* #F5F5F5 light grey */
-    --foreground: 0 0% 7%;
+    --background: 0 0% 7%;
+    --foreground: 0 0% 92%;
 
-    --card: 0 0% 100%;                /* white cards on grey bg */
-    --card-foreground: 0 0% 7%;
+    --card: 0 0% 11%;
+    --card-foreground: 0 0% 92%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 7%;
+    --popover: 0 0% 11%;
+    --popover-foreground: 0 0% 92%;
 
-    --primary: 0 0% 7%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 0 0% 92%;
+    --primary-foreground: 0 0% 7%;
 
-    --secondary: 0 0% 92%;
-    --secondary-foreground: 0 0% 7%;
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 0 0% 85%;
 
-    --muted: 0 0% 92%;
-    --muted-foreground: 0 0% 42%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 55%;
 
-    --accent: 0 0% 92%;
-    --accent-foreground: 0 0% 7%;
+    --accent: 0 0% 20%;
+    --accent-foreground: 0 0% 92%;
 
     --destructive: 0 55% 50%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 0 0% 78%;               /* stronger borders */
-    --input: 0 0% 78%;
-    --ring: 0 0% 29%;
+    --border: 0 0% 22%;
+    --input: 0 0% 22%;
+    --ring: 0 0% 50%;
 
-    --carter-gold: 0 0% 7%;
-    --carter-gold-muted: 0 0% 42%;
-    --carter-gold-bright: 0 0% 7%;
+    --carter-gold: 0 0% 70%;
+    --carter-gold-muted: 0 0% 50%;
+    --carter-gold-bright: 0 0% 92%;
 
-    --carter-text-primary: 0 0% 7%;
-    --carter-text-secondary: 0 0% 29%;
-    --carter-text-tertiary: 0 0% 42%;
+    --carter-text-primary: 0 0% 92%;
+    --carter-text-secondary: 0 0% 70%;
+    --carter-text-tertiary: 0 0% 50%;
 
-    --carter-border: 0 0% 78%;
-    --carter-border-subtle: 0 0% 86%;
-    --carter-border-accent: 0 0% 60%;
+    --carter-border: 0 0% 22%;
+    --carter-border-subtle: 0 0% 18%;
+    --carter-border-accent: 0 0% 35%;
 
-    --shadow-card: 0 1px 4px 0 hsl(0 0% 0% / 0.06), 0 1px 2px -1px hsl(0 0% 0% / 0.04);
-    --shadow-elevated: 0 4px 16px -2px hsl(0 0% 0% / 0.1);
+    --shadow-card: 0 1px 3px 0 hsl(0 0% 0% / 0.3);
+    --shadow-elevated: 0 4px 16px -2px hsl(0 0% 0% / 0.4);
   }
 
   /* Dark matte theme for registration step content */
