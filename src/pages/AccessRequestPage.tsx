@@ -6,7 +6,7 @@ import Header from '@/components/layout/Header';
 
 const AccessRequestPage = () => {
   return (
-    <div className="min-h-screen bg-white flex flex-col">
+    <div className="min-h-screen bg-background text-foreground flex flex-col">
       <Header />
       <main className="flex-1 flex items-center justify-center pt-20 pb-20 px-6">
         <motion.div
