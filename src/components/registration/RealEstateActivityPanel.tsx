@@ -387,6 +387,9 @@ const RealEstateActivityPanel = () => {
               </motion.div>
             )}
           </AnimatePresence>
+        </div>
+
+        {/* ═══════ TYPOLOGIE D'ACTIFS ═══════ */}
         <div className="border-t border-border pt-5 space-y-3">
           <p className="text-sm font-sans font-medium text-foreground">Typologie d'actifs</p>
           <div className="flex flex-wrap gap-2">
