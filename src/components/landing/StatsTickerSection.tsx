@@ -55,7 +55,7 @@ const StatsTickerSection = () => {
         </motion.div>
 
         {/* Stats 3x2 grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-px bg-white/10 rounded-sm overflow-hidden">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-px bg-white/10 rounded-sm overflow-hidden" style={{ background: 'hsl(0 0% 10%)' }}>
           {stats.map((stat, i) => (
             <motion.div
               key={stat.label}
