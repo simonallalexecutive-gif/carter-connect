@@ -379,7 +379,7 @@ const Step6Review = () => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-      className="max-w-3xl mx-auto px-6 py-10"
+      className="max-w-5xl mx-auto px-6 py-10"
     >
       <div className="carter-divider mb-6" />
       <h2 className="text-2xl font-serif text-foreground mb-2 font-normal tracking-[-0.02em]">Récapitulatif</h2>
