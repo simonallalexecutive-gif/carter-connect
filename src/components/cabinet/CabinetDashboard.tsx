@@ -674,8 +674,7 @@ const ExploreView = ({
             <div
               key={p.id}
               onClick={() => setDrawerProfile(p)}
-              className="rounded-lg p-5 cursor-pointer transition-all hover:shadow-lg hover:-translate-y-0.5 relative border border-white/[0.08]"
-              style={{ background: '#111111' }}
+              className="rounded-lg p-5 cursor-pointer transition-all hover:shadow-lg hover:-translate-y-0.5 relative border border-border bg-card"
             >
               {p.isNew && (
                 <span className="absolute top-3 right-3 text-[7px] font-bold tracking-[0.12em] uppercase bg-white/90 text-black px-2 py-0.5 rounded-sm">NOUVEAU</span>
