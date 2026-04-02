@@ -90,7 +90,7 @@ const Step2Identity = () => {
     return CHAMBERS_DEPARTMENTS.map(d => ({
       key: d.key,
       label: CHAMBERS_KEY_TO_PRACTICE[d.key] || d.label,
-    }));
+    })).sort((a, b) => a.label.localeCompare(b.label, 'fr'));
   }, []);
 
   // Get current Chambers band for selected practice (null = not ranked)
@@ -529,10 +529,7 @@ const Step2Identity = () => {
 
         {/* Pratique — all Chambers departments */}
         <div>
-          <div className="flex items-center gap-2">
-            <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Votre pratique *</Label>
-            <img src="https://chambers.com/favicon.ico" alt="Chambers" className="w-5 h-5 opacity-60 drop-shadow-sm" style={{ imageRendering: 'auto', filter: 'contrast(1.2) brightness(0.9)' }} />
-          </div>
+          <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Votre pratique *</Label>
           {store.cabinet ? (
             <>
               <Select value={store.departement} onValueChange={handleDepartmentChange}>
