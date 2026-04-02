@@ -92,7 +92,7 @@ const RegisterPage = () => {
       {showProgress && (
         <>
           <LogoBanner subtitle="Espace Candidat" />
-          <div className="sticky top-0 z-40 backdrop-blur-sm" style={{ background: 'hsl(40, 20%, 97%)', borderBottom: '1px solid hsl(0, 0%, 84%)' }}>
+          <div className="sticky top-0 z-40 backdrop-blur-sm bg-background" style={{ borderBottom: '1px solid hsl(var(--border))' }}>
             <StepProgress currentStep={currentStep} />
           </div>
         </>
