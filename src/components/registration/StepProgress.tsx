@@ -1,6 +1,5 @@
 import { cn } from '@/lib/utils';
 import { Check } from 'lucide-react';
-import { useRegistrationStore } from '@/stores/registrationStore';
 
 interface StepProgressProps {
   currentStep: number;
@@ -15,19 +14,14 @@ const STEPS = [
   { label: 'Récapitulatif' },
 ];
 
-const WIDE_DEPTS = ['Immobilier', 'Real Estate'];
-
 const StepProgress = ({ currentStep }: StepProgressProps) => {
   const adjustedCurrent = currentStep - 1;
-  const departement = useRegistrationStore((s) => s.departement);
-
-  const isWide = WIDE_DEPTS.includes(departement);
 
   if (currentStep <= 1 || currentStep >= 7) return null;
 
   return (
     <div className="w-full py-8 px-4 border-b border-border" style={{ background: 'hsl(40, 20%, 97%)' }}>
-      <div className={cn("mx-auto transition-all duration-500", isWide ? "max-w-5xl" : "max-w-2xl")}>
+      <div className="max-w-5xl mx-auto">
         <div className="flex items-center justify-between relative">
           {STEPS.map((step, i) => {
             const stepNum = i + 1;
