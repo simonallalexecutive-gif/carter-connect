@@ -244,6 +244,17 @@ const RealEstateActivityPanel = () => {
                 </div>
               )}
 
+              {(store.typesClients || []).length > 0 && (
+                <div className="border-t border-border pt-3 space-y-1.5">
+                  <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium mb-1">Clientèle</p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {(store.typesClients || []).map(c => (
+                      <span key={c} className="inline-flex items-center px-2.5 py-0.5 rounded-sm text-[11px] font-sans bg-secondary text-foreground/80 border border-border">{c}</span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
               {anglaisPct > 0 && (
                 <div className="border-t border-border pt-3">
                   <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium mb-1">Anglais</p>
