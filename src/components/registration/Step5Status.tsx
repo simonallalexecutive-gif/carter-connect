@@ -20,7 +20,7 @@ const Step5Status = () => {
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
       className="max-w-5xl mx-auto px-6 py-10"
     >
-      <div className="carter-divider mb-6" />
+      
       <h2 className="text-3xl font-serif text-foreground mb-2 font-normal tracking-[-0.02em]">Statut & visibilité</h2>
       <p className="text-muted-foreground font-sans text-sm font-light mb-10">Définissez votre disponibilité et le niveau de confidentialité souhaité.</p>
 
