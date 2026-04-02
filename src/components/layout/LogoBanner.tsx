@@ -27,7 +27,7 @@ const LogoBanner = ({ subtitle }: LogoBannerProps) => {
             user ? (
               <button
                 onClick={signOut}
-                className="font-sans text-[13px] font-light text-white/80 hover:text-white border border-white/20 hover:border-white/40 rounded-sm px-4 py-2 transition-colors duration-300"
+                className="font-sans text-[8.5px] font-light text-white/60 hover:text-white tracking-[0.08em] uppercase transition-colors duration-300"
               >
                 Déconnexion
               </button>
