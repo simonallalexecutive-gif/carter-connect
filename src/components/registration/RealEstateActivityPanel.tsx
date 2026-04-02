@@ -364,6 +364,17 @@ const RealEstateActivityPanel = () => {
           </div>
         </div>
 
+        {/* ═══════ CLIENTÈLE ═══════ */}
+        <div className="border-t border-border pt-5 space-y-3">
+          <p className="text-sm font-sans font-medium text-foreground">Type de clients</p>
+          <div className="flex flex-wrap gap-2">
+            {CLIENT_TYPES.map(c => {
+              const active = (store.typesClients || []).includes(c);
+              return <ChipButton key={c} active={active} onClick={() => toggleChip('typesClients', c)}>{c}</ChipButton>;
+            })}
+          </div>
+        </div>
+
         {/* ═══════ ANGLAIS ═══════ */}
         <div className="border-t border-border pt-5 space-y-2">
           <p className="text-sm font-sans font-medium text-foreground">Part de l'activité en anglais</p>
