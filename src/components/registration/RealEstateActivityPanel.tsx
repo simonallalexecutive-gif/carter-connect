@@ -22,16 +22,21 @@ const ASSET_TYPES = [
 const CONTENTIEUX_DOMAINES = ['Baux commerciaux', 'Construction', 'Autre'] as const;
 
 const SHARE_DEAL_MODES = [
-  { key: 'pilotage_direct', label: 'En pilotage direct (y compris sur les aspects corporate)' },
-  { key: 'coordination', label: 'En coordination avec une équipe corporate' },
-  { key: 'support', label: 'En support (audit / aspects immobiliers uniquement)' },
+  { key: 'corporate_real_estate', label: 'Corporate Real Estate' },
+  { key: 'support_corporate', label: 'Support corporate' },
 ] as const;
 
 const SHARE_DEAL_MODE_SHORT: Record<string, string> = {
-  pilotage_direct: 'Share Deal (pilotage direct)',
-  coordination: 'Share Deal (coord. corporate)',
-  support: 'Share Deal (support)',
+  corporate_real_estate: 'Share Deal (Corporate Real Estate)',
+  support_corporate: 'Share Deal (Support corporate)',
 };
+
+const CLIENT_TYPES = [
+  'Investisseurs (buy-side / sell-side)',
+  'Promoteurs / développeurs',
+  'Utilisateurs (baux commerciaux)',
+  'Financiers (debt side)',
+] as const;
 
 const tooltipStyle = {
   fontSize: '11px',
@@ -142,7 +147,7 @@ const RealEstateActivityPanel = () => {
 
   const chartData = useMemo(() => {
     const segments: { name: string; value: number; color: string }[] = [];
-    if (effBaux > 0) segments.push({ name: 'Baux / AM', value: effBaux, color: COL_BAUX });
+    if (effBaux > 0) segments.push({ name: 'Baux commerciaux - Asset Management', value: effBaux, color: COL_BAUX });
     if (effShare > 0) segments.push({ name: shareLabel, value: effShare, color: COL_SHARE });
     if (effAsset > 0) segments.push({ name: 'Asset Deal', value: effAsset, color: COL_ASSET });
     if (effConstruction > 0) segments.push({ name: 'Construction', value: effConstruction, color: COL_CONSTRUCTION });
@@ -151,7 +156,7 @@ const RealEstateActivityPanel = () => {
     return segments;
   }, [effBaux, effShare, effAsset, effConstruction, hasFinancement, financementPct, hasContentieux, contentieuxPct, shareLabel]);
 
-  const toggleChip = (field: 'reAssetTypes' | 'reContentieuxDomaines', val: string) => {
+  const toggleChip = (field: 'reAssetTypes' | 'reContentieuxDomaines' | 'typesClients', val: string) => {
     const cur: string[] = (store as any)[field] || [];
     setField(field, cur.includes(val) ? cur.filter((v: string) => v !== val) : [...cur, val]);
   };
@@ -234,6 +239,17 @@ const RealEstateActivityPanel = () => {
                   <div className="flex flex-wrap gap-1.5">
                     {(store.reAssetTypes || []).map(a => (
                       <span key={a} className="inline-flex items-center px-2.5 py-0.5 rounded-sm text-[11px] font-sans bg-secondary text-foreground/80 border border-border">{a}</span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {(store.typesClients || []).length > 0 && (
+                <div className="border-t border-border pt-3 space-y-1.5">
+                  <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium mb-1">Clientèle</p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {(store.typesClients || []).map(c => (
+                      <span key={c} className="inline-flex items-center px-2.5 py-0.5 rounded-sm text-[11px] font-sans bg-secondary text-foreground/80 border border-border">{c}</span>
                     ))}
                   </div>
                 </div>
@@ -355,6 +371,17 @@ const RealEstateActivityPanel = () => {
             {ASSET_TYPES.map(a => {
               const active = (store.reAssetTypes || []).includes(a);
               return <ChipButton key={a} active={active} onClick={() => toggleChip('reAssetTypes', a)}>{a}</ChipButton>;
+            })}
+          </div>
+        </div>
+
+        {/* ═══════ CLIENTÈLE ═══════ */}
+        <div className="border-t border-border pt-5 space-y-3">
+          <p className="text-sm font-sans font-medium text-foreground">Type de clients</p>
+          <div className="flex flex-wrap gap-2">
+            {CLIENT_TYPES.map(c => {
+              const active = (store.typesClients || []).includes(c);
+              return <ChipButton key={c} active={active} onClick={() => toggleChip('typesClients', c)}>{c}</ChipButton>;
             })}
           </div>
         </div>
