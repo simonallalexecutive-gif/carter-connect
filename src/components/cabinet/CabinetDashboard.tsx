@@ -594,7 +594,7 @@ const ExploreView = ({
     <div>
       <button
         onClick={() => s.setField('dashboardView', 'home')}
-        className="text-xs text-white/50 hover:text-white mb-6 flex items-center gap-1"
+        className="text-xs text-muted-foreground hover:text-foreground mb-6 flex items-center gap-1"
       >
         ← Retour au tableau de bord
       </button>
