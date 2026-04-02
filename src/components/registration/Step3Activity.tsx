@@ -364,8 +364,8 @@ const Step3Activity = () => {
           </AnimatePresence>
         )}
 
-        {/* Anglais – hidden for Restructuring & Immobilier (handled in panel) */}
-        {store.departement !== 'Restructuring' && store.departement !== 'Restructuring/Insolvency' && store.departement !== 'Immobilier' && store.departement !== 'Real Estate' && (
+        {/* Anglais – hidden for all specialized panels (handled in panel) */}
+        {!isSpecialized && (
           <div>
             <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Niveau d'anglais *</Label>
             <Select value={store.anglais} onValueChange={v => store.setField('anglais', v)}>
@@ -377,8 +377,8 @@ const Step3Activity = () => {
           </div>
         )}
 
-        {/* Types clients – hidden for Financement, Restructuring & Immobilier */}
-        {store.departement !== 'Financement LBO' && store.departement !== 'Financement de projets' && store.departement !== 'Restructuring' && store.departement !== 'Restructuring/Insolvency' && store.departement !== 'Immobilier' && store.departement !== 'Real Estate' && (
+        {/* Types clients – hidden for all specialized panels */}
+        {!isSpecialized && (
           <div>
             <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-3 block">Types de clients</Label>
             <ChipSelector
