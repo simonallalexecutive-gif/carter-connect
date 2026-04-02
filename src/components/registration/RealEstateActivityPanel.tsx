@@ -156,7 +156,7 @@ const RealEstateActivityPanel = () => {
     return segments;
   }, [effBaux, effShare, effAsset, effConstruction, hasFinancement, financementPct, hasContentieux, contentieuxPct, shareLabel]);
 
-  const toggleChip = (field: 'reAssetTypes' | 'reContentieuxDomaines', val: string) => {
+  const toggleChip = (field: 'reAssetTypes' | 'reContentieuxDomaines' | 'typesClients', val: string) => {
     const cur: string[] = (store as any)[field] || [];
     setField(field, cur.includes(val) ? cur.filter((v: string) => v !== val) : [...cur, val]);
   };
