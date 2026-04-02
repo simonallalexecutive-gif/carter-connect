@@ -52,9 +52,9 @@ const StepProgress = ({ currentStep }: StepProgressProps) => {
                   </span>
                 </div>
 
-                {/* Connecting line segment (between circles, not the last one) */}
+                {/* Connecting line segment */}
                 {i < STEPS.length - 1 && (
-                  <div className="flex-1 mx-2 relative" style={{ top: '-10px' }}>
+                  <div className="flex-1 mx-2 self-start relative" style={{ top: '12px' }}>
                     <div className="h-px w-full bg-border" />
                     {adjustedCurrent > stepNum && (
                       <div className="absolute top-0 left-0 h-px bg-foreground/60 w-full" />
