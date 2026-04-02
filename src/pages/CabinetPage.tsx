@@ -179,26 +179,26 @@ const CabinetDashboardLayout = () => {
 
           <div className="flex-1 flex flex-col min-h-screen">
             {/* Top bar — dark matte card surface */}
-            <header className="flex items-center border-b border-border px-6 py-8 gap-5 bg-card">
-              <SidebarTrigger className="text-foreground/60 hover:text-foreground" />
+            <header className="flex items-center border-b border-white/[0.08] px-6 py-8 gap-5 bg-[hsl(0,0%,7%)]">
+              <SidebarTrigger className="text-white/50 hover:text-white" />
               <div className="flex items-center gap-5 flex-1 min-w-0">
-                <Avatar className="w-11 h-11 border border-border shrink-0">
-                  <AvatarFallback className="bg-secondary text-foreground text-[11px] font-sans">
+                <Avatar className="w-11 h-11 border border-white/[0.15] shrink-0">
+                  <AvatarFallback className="bg-white/[0.08] text-white text-[11px] font-sans">
                     {s.cabinetName ? s.cabinetName[0].toUpperCase() : '?'}
                   </AvatarFallback>
                 </Avatar>
                 <div className="min-w-0">
-                  <h1 className="text-xl md:text-2xl font-sans font-normal text-foreground leading-tight tracking-[-0.01em]">
+                  <h1 className="text-xl md:text-2xl font-sans font-normal text-white leading-tight tracking-[-0.01em]">
                     Bienvenue, {s.cabinetName || 'Cabinet'}
                   </h1>
                   <div className="flex flex-wrap items-center gap-2 mt-2">
                     {s.palier && (
-                      <span className="inline-flex items-center gap-1 text-[9px] text-foreground/80 bg-secondary border border-border rounded-sm px-2 py-0.5 font-sans">
+                      <span className="inline-flex items-center gap-1 text-[9px] text-white/70 bg-white/[0.06] border border-white/[0.12] rounded-sm px-2 py-0.5 font-sans">
                         Abonnement actif · {s.palier.charAt(0).toUpperCase() + s.palier.slice(1)}
                       </span>
                     )}
                     {s.detectedNat && (
-                      <span className="inline-flex items-center gap-1 text-[9px] text-muted-foreground bg-secondary border border-border rounded-sm px-2 py-0.5">
+                      <span className="inline-flex items-center gap-1 text-[9px] text-white/50 bg-white/[0.06] border border-white/[0.12] rounded-sm px-2 py-0.5">
                         {NAT_FLAGS[s.detectedNat]} {NAT_LABELS[s.detectedNat]}
                       </span>
                     )}
