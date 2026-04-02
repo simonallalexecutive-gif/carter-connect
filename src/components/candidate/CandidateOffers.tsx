@@ -283,8 +283,7 @@ const CandidateOffers = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -12, transition: { duration: 0.25 } }}
                 transition={{ delay: expandedOffer ? 0 : index * 0.08, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                className="rounded-lg overflow-hidden transition-shadow duration-500 hover:shadow-xl border border-black/[0.08]"
-                style={{ background: 'hsl(40, 20%, 95%)' }}
+                className="rounded-lg overflow-hidden transition-shadow duration-500 hover:shadow-lg hover:-translate-y-0.5 border border-border bg-card"
               >
                   <button type="button" className="w-full text-left p-6 md:p-8" onClick={() => setExpandedOffer(isExpanded ? null : offer.id)}>
                     <div className="flex items-start justify-between gap-4">
