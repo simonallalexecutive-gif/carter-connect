@@ -19,7 +19,9 @@ const ASSET_TYPES = [
   'Industriel', 'Résidentiel', 'Hôtellerie', 'Restauration',
 ] as const;
 
-const CONTENTIEUX_DOMAINES = ['Baux commerciaux', 'Construction', 'Autre'] as const;
+const CONTENTIEUX_DOMAINES = ['Baux commerciaux', 'Construction', 'Post-acquisition/cession', 'Autre'] as const;
+
+const COL_URBANISME = 'hsl(160, 30%, 40%)';
 
 const SHARE_DEAL_MODES = [
   { key: 'corporate_real_estate', label: 'Corporate Real Estate' },
