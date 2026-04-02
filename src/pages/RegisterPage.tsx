@@ -88,16 +88,18 @@ const RegisterPage = () => {
   const showProgress = !showConfIntro && !showCabinetIntro && currentStep >= 2 && currentStep <= 6;
 
   return (
-    <div className={(isDarkStep || showConfIntro || showCabinetIntro) ? '' : 'theme-light bg-background min-h-screen'}>
+    <div className={(isDarkStep || showConfIntro || showCabinetIntro) ? '' : 'min-h-screen'}>
       {showProgress && (
         <>
           <LogoBanner subtitle="Espace Candidat" />
-          <div className="sticky top-0 z-40 bg-background/95 backdrop-blur-sm border-b border-border">
+          <div className="sticky top-0 z-40 backdrop-blur-sm" style={{ background: 'hsl(40, 20%, 97%)', borderBottom: '1px solid hsl(0, 0%, 84%)' }}>
             <StepProgress currentStep={currentStep} />
           </div>
         </>
       )}
-      {renderStep()}
+      <div className={isStepContent && !showConfIntro && !showCabinetIntro ? 'theme-dark-registration bg-background min-h-[calc(100vh-140px)]' : ''}>
+        {renderStep()}
+      </div>
     </div>
   );
 };
