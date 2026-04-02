@@ -107,6 +107,7 @@ const initialState = {
   reConstructionPct: 20,
   reHasFinancement: null as boolean | null,
   reFinancementPct: 20,
+  reShareDealCorporate: null as boolean | null,
   reAssetTypes: [] as string[],
   // Contentieux
   reHasContentieux: null as boolean | null,

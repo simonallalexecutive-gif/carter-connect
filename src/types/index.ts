@@ -111,6 +111,7 @@ export interface RegistrationState {
   reConstructionPct: number;
   reHasFinancement: boolean | null;
   reFinancementPct: number;
+  reShareDealCorporate: boolean | null;
   reAssetTypes: string[];
   // Contentieux (separate from pie chart)
   reHasContentieux: boolean | null;
