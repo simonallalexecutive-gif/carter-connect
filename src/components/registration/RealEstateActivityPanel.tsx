@@ -189,10 +189,13 @@ const RealEstateActivityPanel = () => {
                 </ResponsiveContainer>
               </div>
 
-              {/* Legend */}
+              {/* Legend — Conseil */}
               <div className="space-y-1.5">
-                <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium mb-2">Activité</p>
-                {chartData.map(seg => (
+                <div className="flex items-center justify-between mb-2">
+                  <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">Activité en conseil</p>
+                  <span className="text-[10px] font-sans font-bold text-foreground tabular-nums">{hasContentieux ? `${100 - contentieuxPct}%` : '100%'}</span>
+                </div>
+                {chartData.filter(s => s.name !== 'Contentieux').map(seg => (
                   <div key={seg.name} className="flex items-center gap-2.5">
                     <span className="w-2.5 h-2.5 rounded-sm flex-shrink-0" style={{ background: seg.color }} />
                     <span className="text-[11px] font-sans text-foreground/80 flex-1 min-w-0 truncate">{seg.name}</span>
@@ -200,6 +203,30 @@ const RealEstateActivityPanel = () => {
                   </div>
                 ))}
               </div>
+
+              {/* Legend — Contentieux (only if active) */}
+              {hasContentieux && contentieuxPct > 0 && (
+                <div className="border-t border-border pt-3 space-y-1.5">
+                  <div className="flex items-center justify-between mb-2">
+                    <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">Activité en contentieux</p>
+                    <span className="text-[10px] font-sans font-bold text-foreground tabular-nums">{contentieuxPct}%</span>
+                  </div>
+                  {chartData.filter(s => s.name === 'Contentieux').map(seg => (
+                    <div key={seg.name} className="flex items-center gap-2.5">
+                      <span className="w-2.5 h-2.5 rounded-sm flex-shrink-0" style={{ background: seg.color }} />
+                      <span className="text-[11px] font-sans text-foreground/80 flex-1 min-w-0 truncate">{seg.name}</span>
+                      <span className="text-[11px] font-sans font-bold text-foreground tabular-nums">{seg.value}%</span>
+                    </div>
+                  ))}
+                  {(store.reContentieuxDomaines || []).length > 0 && (
+                    <div className="flex flex-wrap gap-1.5 pt-1">
+                      {(store.reContentieuxDomaines || []).map(d => (
+                        <span key={d} className="inline-flex items-center px-2.5 py-0.5 rounded-sm text-[11px] font-sans bg-secondary text-foreground/80 border border-border">{d}</span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
 
               {(store.reAssetTypes || []).length > 0 && (
                 <div className="border-t border-border pt-3 space-y-1.5">
