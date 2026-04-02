@@ -165,43 +165,43 @@ const CandidateDashboardContent = () => {
       <CandidateSidebar activeTab={activeTab} setActiveTab={setActiveTab} notifCount={notifCount} />
 
       <div className="flex-1 flex flex-col min-h-screen">
-        {/* Top bar - blue/grey background */}
-        <header className="flex items-center px-8 py-8 gap-5" style={{ background: 'hsl(0, 0%, 7%)' }}>
-          <SidebarTrigger className="text-white/60 hover:text-white" />
+        {/* Top bar — dark matte card surface */}
+        <header className="flex items-center px-8 py-8 gap-5 bg-card">
+          <SidebarTrigger className="text-foreground/60 hover:text-foreground" />
           <div className="flex items-center gap-5 flex-1 min-w-0">
-            <Avatar className="w-12 h-12 border-2 border-white/20 shrink-0">
+            <Avatar className="w-12 h-12 border-2 border-border shrink-0">
               {photoPreviewUrl ? <AvatarImage src={photoPreviewUrl} alt="Photo" /> : null}
-              <AvatarFallback className="bg-white/15 text-white text-[12px] font-sans">
+              <AvatarFallback className="bg-secondary text-foreground text-[12px] font-sans">
                 {prenom && nom ? `${prenom[0]}${nom[0]}` : <User className="w-4 h-4" />}
               </AvatarFallback>
             </Avatar>
             <div className="min-w-0">
-              <h1 className="text-xl md:text-2xl font-sans font-normal text-white leading-tight tracking-[-0.01em]">
+              <h1 className="text-xl md:text-2xl font-sans font-normal text-foreground leading-tight tracking-[-0.01em]">
                 Bienvenue{prenom ? `, ${prenom}` : user.user_metadata?.full_name ? `, ${user.user_metadata.full_name}` : ''}
               </h1>
               <div className="flex flex-wrap items-center gap-2 mt-2">
                 {departement && (
-                  <span className="inline-flex items-center gap-1.5 text-[10px] text-white bg-white/10 border border-white/15 rounded-sm px-2.5 py-1 font-sans font-medium">
+                  <span className="inline-flex items-center gap-1.5 text-[10px] text-foreground/80 bg-secondary border border-border rounded-sm px-2.5 py-1 font-sans font-medium">
                     <Star className="w-3 h-3" />{departement}
                   </span>
                 )}
                 {cabinet && (
-                  <span className="inline-flex items-center gap-1.5 text-[10px] text-white bg-white/10 border border-white/15 rounded-sm px-2.5 py-1 font-sans font-medium">
+                  <span className="inline-flex items-center gap-1.5 text-[10px] text-foreground/80 bg-secondary border border-border rounded-sm px-2.5 py-1 font-sans font-medium">
                     <Building2 className="w-3 h-3" />{cabinet}
                   </span>
                 )}
                 {seniorityInfo && (
-                  <span className="text-[10px] text-white bg-white/10 border border-white/15 rounded-sm px-2.5 py-1 font-sans font-medium">
+                  <span className="text-[10px] text-foreground/80 bg-secondary border border-border rounded-sm px-2.5 py-1 font-sans font-medium">
                     {seniorityInfo.label} · {seniorityInfo.years} ans
                   </span>
                 )}
                 {statutLabel && (
-                  <span className="text-[10px] text-white bg-white/10 border border-white/15 rounded-sm px-2.5 py-1 font-sans font-medium">
+                  <span className="text-[10px] text-foreground/80 bg-secondary border border-border rounded-sm px-2.5 py-1 font-sans font-medium">
                     {statutLabel}
                   </span>
                 )}
                 {visibiliteLabel && (
-                  <span className="inline-flex items-center gap-1.5 text-[10px] text-white bg-white/10 border border-white/15 rounded-sm px-2.5 py-1 font-sans font-medium">
+                  <span className="inline-flex items-center gap-1.5 text-[10px] text-foreground/80 bg-secondary border border-border rounded-sm px-2.5 py-1 font-sans font-medium">
                     <Eye className="w-3 h-3" />{visibiliteLabel}
                   </span>
                 )}
@@ -235,7 +235,7 @@ const CandidateDashboardContent = () => {
 const CandidateDashboard = () => {
   return (
     <SidebarProvider>
-      <div className="min-h-screen flex w-full">
+      <div className="min-h-screen flex w-full theme-dark-registration bg-background text-foreground">
         <CandidateDashboardContent />
       </div>
     </SidebarProvider>
