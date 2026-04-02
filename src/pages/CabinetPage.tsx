@@ -179,7 +179,7 @@ const CabinetDashboardLayout = () => {
 
           <div className="flex-1 flex flex-col min-h-screen">
             {/* Top bar — dark matte card surface */}
-            <header className="flex items-center border-b border-white/[0.08] px-6 py-8 gap-5 bg-[hsl(0,0%,7%)]">
+            <header className="flex items-center border-b border-white/[0.08] px-6 py-10 gap-5 bg-[hsl(0,0%,7%)]">
               <SidebarTrigger className="text-white/50 hover:text-white" />
               <div className="flex items-center gap-5 flex-1 min-w-0">
                 <Avatar className="w-11 h-11 border border-white/[0.15] shrink-0">

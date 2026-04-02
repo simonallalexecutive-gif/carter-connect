@@ -32,7 +32,7 @@ const CandidateBooking = () => {
           Fixer un call avec Logan
         </p>
         <div className="w-8 h-px bg-foreground mb-6" />
-        <div className="rounded-lg border border-border p-6 mb-2" style={{ background: 'hsl(0 0% 96%)' }}>
+        <div className="rounded-lg border border-white/[0.08] p-6 mb-2 bg-card">
           <p className="text-[15px] font-sans text-foreground leading-relaxed mb-3">
             Votre consultant Logan est à votre disposition pour échanger sur votre carrière, votre projet professionnel et votre positionnement sur le marché.
           </p>
@@ -70,7 +70,7 @@ const CandidateBooking = () => {
             <p className="text-[11px] font-sans font-medium text-muted-foreground mb-4 uppercase tracking-wide">
               Choisir une date
             </p>
-            <div className="rounded-lg border border-border p-4 inline-block" style={{ background: 'hsl(0 0% 96%)' }}>
+            <div className="rounded-lg border border-white/[0.08] p-4 inline-block bg-card">
               <Calendar
                 mode="single"
                 selected={selectedDate}
@@ -98,8 +98,8 @@ const CandidateBooking = () => {
                     className={cn(
                       'w-full text-left px-4 py-3 rounded-md border text-sm font-sans transition-all duration-200',
                       selectedSlot === slot
-                        ? 'bg-foreground text-background border-foreground'
-                        : 'border-border hover:bg-secondary text-foreground'
+                        ? 'bg-white text-black border-white'
+                        : 'border-white/[0.08] hover:bg-white/[0.05] text-foreground'
                     )}
                   >
                     <span className="flex items-center gap-2">
@@ -112,7 +112,7 @@ const CandidateBooking = () => {
                 {selectedSlot && (
                   <Button
                     onClick={handleConfirm}
-                    className="w-full mt-4 font-sans text-sm"
+                    className="w-full mt-4 font-sans text-sm bg-white text-black hover:bg-white/90"
                   >
                     Confirmer — {selectedSlot}
                   </Button>
