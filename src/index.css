@@ -115,6 +115,57 @@
     --shadow-elevated: 0 4px 16px -2px hsl(0 0% 0% / 0.1);
   }
 
+  /* Dark matte theme for registration step content */
+  .theme-dark-registration {
+    --background: 0 0% 7%;              /* #111111 — noir mat */
+    --foreground: 0 0% 92%;             /* near-white text */
+
+    --card: 0 0% 11%;                   /* #1C1C1C slightly lighter cards */
+    --card-foreground: 0 0% 92%;
+
+    --popover: 0 0% 11%;
+    --popover-foreground: 0 0% 92%;
+
+    --primary: 0 0% 92%;
+    --primary-foreground: 0 0% 7%;
+
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 0 0% 85%;
+
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 55%;
+
+    --accent: 0 0% 20%;
+    --accent-foreground: 0 0% 92%;
+
+    --destructive: 0 55% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 22%;
+    --input: 0 0% 22%;
+    --ring: 0 0% 50%;
+
+    --carter-bg-deep: 0 0% 7%;
+    --carter-bg: 0 0% 7%;
+    --carter-bg-elevated: 0 0% 11%;
+    --carter-bg-surface: 0 0% 14%;
+
+    --carter-gold: 0 0% 70%;
+    --carter-gold-muted: 0 0% 50%;
+    --carter-gold-bright: 0 0% 92%;
+
+    --carter-text-primary: 0 0% 92%;
+    --carter-text-secondary: 0 0% 70%;
+    --carter-text-tertiary: 0 0% 50%;
+
+    --carter-border: 0 0% 22%;
+    --carter-border-subtle: 0 0% 18%;
+    --carter-border-accent: 0 0% 35%;
+
+    --shadow-card: 0 1px 3px 0 hsl(0 0% 0% / 0.3);
+    --shadow-elevated: 0 4px 16px -2px hsl(0 0% 0% / 0.4);
+  }
+
   /* Admin theme — same monochrome as candidate/cabinet */
   .theme-admin {
     --background: 0 0% 96%;              /* #F5F5F5 — same as theme-light */

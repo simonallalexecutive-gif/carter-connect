@@ -150,7 +150,7 @@ const initialState = {
   statutEcoute: '' as '' | 'actif' | 'passif' | 'inactif',
   visibilite: '' as '' | 'confidentiel' | 'semi-confidentiel',
   cvFile: null as File | null,
-  isAdminMode: true,
+  isAdminMode: false,
   consentement: false,
   consentementExactitude: false,
   consentementMiseEnRelation: false,

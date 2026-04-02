@@ -20,6 +20,7 @@ const RegisterPage = () => {
   const navigate = useNavigate();
   const espaceParam = searchParams.get('espace');
   const isDarkStep = currentStep === 7;
+  const isStepContent = currentStep >= 2 && currentStep <= 6;
 
   // For candidat: show confidentiality intro first (skip Step1Hero)
   const [showConfIntro, setShowConfIntro] = useState(espaceParam === 'candidat');
@@ -37,15 +38,23 @@ const RegisterPage = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [currentStep, showConfIntro, showCabinetIntro]);
 
-  // Apply theme-light to <body> so Radix portals (Select, Popover, etc.) inherit light tokens
+  // Apply theme-light to <body> so Radix portals (Select, Popover, etc.) inherit correct tokens
   useEffect(() => {
-    if (!isDarkStep && !showConfIntro && !showCabinetIntro) {
+    if (isStepContent && !showConfIntro && !showCabinetIntro) {
+      document.body.classList.add('theme-dark-registration');
+      document.body.classList.remove('theme-light');
+    } else if (!isDarkStep && !showConfIntro && !showCabinetIntro) {
       document.body.classList.add('theme-light');
+      document.body.classList.remove('theme-dark-registration');
     } else {
       document.body.classList.remove('theme-light');
+      document.body.classList.remove('theme-dark-registration');
     }
-    return () => document.body.classList.remove('theme-light');
-  }, [isDarkStep, showConfIntro, showCabinetIntro]);
+    return () => {
+      document.body.classList.remove('theme-light');
+      document.body.classList.remove('theme-dark-registration');
+    };
+  }, [isDarkStep, isStepContent, showConfIntro, showCabinetIntro]);
 
   const handleConfIntroComplete = () => {
     setShowConfIntro(false);
@@ -79,16 +88,18 @@ const RegisterPage = () => {
   const showProgress = !showConfIntro && !showCabinetIntro && currentStep >= 2 && currentStep <= 6;
 
   return (
-    <div className={(isDarkStep || showConfIntro || showCabinetIntro) ? '' : 'theme-light bg-background min-h-screen'}>
+    <div className={(isDarkStep || showConfIntro || showCabinetIntro) ? '' : 'min-h-screen'}>
       {showProgress && (
         <>
           <LogoBanner subtitle="Espace Candidat" />
-          <div className="sticky top-0 z-40 bg-background/95 backdrop-blur-sm border-b border-border">
+          <div className="sticky top-0 z-40 backdrop-blur-sm" style={{ background: 'hsl(40, 20%, 97%)', borderBottom: '1px solid hsl(0, 0%, 84%)' }}>
             <StepProgress currentStep={currentStep} />
           </div>
         </>
       )}
-      {renderStep()}
+      <div className={isStepContent && !showConfIntro && !showCabinetIntro ? 'theme-dark-registration bg-background min-h-[calc(100vh-140px)]' : ''}>
+        {renderStep()}
+      </div>
     </div>
   );
 };
