@@ -40,7 +40,8 @@ const RegisterPage = () => {
 
   // Apply theme-light to <body> so Radix portals (Select, Popover, etc.) inherit correct tokens
   useEffect(() => {
-    if (isStepContent && !showConfIntro && !showCabinetIntro) {
+    const shouldBeDark = (isStepContent || (currentStep >= 2 && currentStep <= 6)) && !showConfIntro && !showCabinetIntro;
+    if (shouldBeDark) {
       document.body.classList.add('theme-dark-registration');
       document.body.classList.remove('theme-light');
     } else if (!isDarkStep && !showConfIntro && !showCabinetIntro) {
@@ -54,7 +55,7 @@ const RegisterPage = () => {
       document.body.classList.remove('theme-light');
       document.body.classList.remove('theme-dark-registration');
     };
-  }, [isDarkStep, isStepContent, showConfIntro, showCabinetIntro]);
+  }, [isDarkStep, isStepContent, currentStep, showConfIntro, showCabinetIntro]);
 
   const handleConfIntroComplete = () => {
     setShowConfIntro(false);
@@ -92,7 +93,7 @@ const RegisterPage = () => {
       {showProgress && (
         <>
           <LogoBanner subtitle="Espace Candidat" />
-          <div className="sticky top-0 z-40 backdrop-blur-sm" style={{ background: 'hsl(40, 20%, 97%)', borderBottom: '1px solid hsl(0, 0%, 84%)' }}>
+          <div className="sticky top-0 z-40 backdrop-blur-sm bg-background" style={{ borderBottom: '1px solid hsl(var(--border))' }}>
             <StepProgress currentStep={currentStep} />
           </div>
         </>
