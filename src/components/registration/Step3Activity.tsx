@@ -15,6 +15,11 @@ import RestructuringActivityPanel from './RestructuringActivityPanel';
 import SocialActivityPanel from './SocialActivityPanel';
 import MaActivityPanel from './MaActivityPanel';
 import RealEstateActivityPanel from './RealEstateActivityPanel';
+import ConcurrenceActivityPanel from './ConcurrenceActivityPanel';
+import FiscalActivityPanel from './FiscalActivityPanel';
+import DroitPublicActivityPanel from './DroitPublicActivityPanel';
+import ArbitrationActivityPanel from './ArbitrationActivityPanel';
+import ProjectsEnergyActivityPanel from './ProjectsEnergyActivityPanel';
 
 const CHART_COLORS = [
   'hsl(215, 60%, 30%)',
@@ -27,7 +32,15 @@ const CHART_COLORS = [
   'hsl(225, 45%, 18%)',
 ];
 
-const SPECIALIZED_DEPTS = ['Financement LBO', 'Financement de projets', 'Restructuring', 'Restructuring/Insolvency', 'Droit Social', 'M&A (dominante)', 'Private Equity (dominante)', 'Immobilier', 'Real Estate'];
+// All departments that have a specialized panel (not the generic chip+pie fallback)
+const SPECIALIZED_DEPTS = [
+  // Legacy French names
+  'Financement LBO', 'Financement de projets', 'Restructuring', 'Restructuring/Insolvency',
+  'Droit Social', 'M&A (dominante)', 'Private Equity (dominante)', 'Immobilier', 'Real Estate',
+  // Chambers English labels
+  'Banking & Finance', 'Competition/European Law', 'Corporate/M&A', 'Employment',
+  'International Arbitration', 'Private Equity', 'Projects & Energy', 'Public Law', 'Tax',
+];
 
 const Step3Activity = () => {
   const store = useRegistrationStore();
@@ -87,33 +100,54 @@ const Step3Activity = () => {
 
       <div className="space-y-8">
         {/* Specialized panels */}
-        {(store.departement === 'Financement LBO' || store.departement === 'Financement de projets') && practiceActivities.sections.filter(s => s.title === 'Type de financement').map(section => (
-          <div key={section.title}>
-            <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-3 block">{section.title}</Label>
-            <FinanceActivityPanel items={section.items} />
-          </div>
-        ))}
+        {(store.departement === 'Financement LBO' || store.departement === 'Financement de projets' || store.departement === 'Banking & Finance') && practiceActivities.sections.filter(s => s.title === 'Type de financement').length > 0 ? (
+          practiceActivities.sections.filter(s => s.title === 'Type de financement').map(section => (
+            <div key={section.title}>
+              <FinanceActivityPanel items={section.items} />
+            </div>
+          ))
+        ) : (store.departement === 'Banking & Finance') ? (
+          <FinanceActivityPanel items={[
+            { key: 'fin_obligataire', label: 'Financement obligataire' }, { key: 'fin_acq', label: "Financement d'acquisition" },
+            { key: 'fin_lbo', label: 'Financement LBO' }, { key: 'fin_immo', label: 'Financement immobilier' },
+            { key: 'fin_actifs', label: "Financement d'actifs" }, { key: 'fin_titrisation', label: 'Titrisation' },
+          ]} />
+        ) : null}
 
         {(store.departement === 'Restructuring' || store.departement === 'Restructuring/Insolvency') && (
           <RestructuringActivityPanel />
         )}
 
-        {store.departement === 'Droit Social' && (
-          <div>
-            <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-3 block">Nature de l'activité</Label>
-            <SocialActivityPanel />
-          </div>
+        {(store.departement === 'Droit Social' || store.departement === 'Employment') && (
+          <SocialActivityPanel />
         )}
 
-        {(store.departement === 'M&A (dominante)' || store.departement === 'Private Equity (dominante)') && (
-          <div>
-            <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-3 block">Nature des opérations</Label>
-            <MaActivityPanel />
-          </div>
+        {(store.departement === 'M&A (dominante)' || store.departement === 'Private Equity (dominante)' || store.departement === 'Corporate/M&A' || store.departement === 'Private Equity') && (
+          <MaActivityPanel />
         )}
 
         {(store.departement === 'Immobilier' || store.departement === 'Real Estate') && (
           <RealEstateActivityPanel />
+        )}
+
+        {(store.departement === 'Competition/European Law') && (
+          <ConcurrenceActivityPanel />
+        )}
+
+        {(store.departement === 'Tax') && (
+          <FiscalActivityPanel />
+        )}
+
+        {(store.departement === 'Public Law') && (
+          <DroitPublicActivityPanel />
+        )}
+
+        {(store.departement === 'International Arbitration') && (
+          <ArbitrationActivityPanel />
+        )}
+
+        {(store.departement === 'Projects & Energy') && (
+          <ProjectsEnergyActivityPanel />
         )}
 
 
@@ -330,8 +364,8 @@ const Step3Activity = () => {
           </AnimatePresence>
         )}
 
-        {/* Anglais – hidden for Restructuring & Immobilier (handled in panel) */}
-        {store.departement !== 'Restructuring' && store.departement !== 'Restructuring/Insolvency' && store.departement !== 'Immobilier' && store.departement !== 'Real Estate' && (
+        {/* Anglais – hidden for all specialized panels (handled in panel) */}
+        {!isSpecialized && (
           <div>
             <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Niveau d'anglais *</Label>
             <Select value={store.anglais} onValueChange={v => store.setField('anglais', v)}>
@@ -343,8 +377,8 @@ const Step3Activity = () => {
           </div>
         )}
 
-        {/* Types clients – hidden for Financement, Restructuring & Immobilier */}
-        {store.departement !== 'Financement LBO' && store.departement !== 'Financement de projets' && store.departement !== 'Restructuring' && store.departement !== 'Restructuring/Insolvency' && store.departement !== 'Immobilier' && store.departement !== 'Real Estate' && (
+        {/* Types clients – hidden for all specialized panels */}
+        {!isSpecialized && (
           <div>
             <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-3 block">Types de clients</Label>
             <ChipSelector

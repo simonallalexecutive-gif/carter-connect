@@ -100,6 +100,17 @@ const initialState = {
   dpubClientele: [] as string[],
   dpubDimensionProjets: [] as string[],
   dpubSecteurs: [] as string[],
+  // Arbitration
+  arbInstitutions: [] as string[],
+  arbSecteurs: [] as string[],
+  arbPositionnements: [] as string[],
+  arbDomestique: 30,
+  // Projects & Energy
+  projSecteursEnergie: [] as string[],
+  projTypesInfra: [] as string[],
+  projPositionnements: [] as string[],
+  projTaille: [] as string[],
+  projDomestique: 40,
   // Real Estate / Immobilier — Conseil
   reBauxAM: 20,
   reShareDeal: 20,
