@@ -92,7 +92,7 @@ const RegisterPage = () => {
     <div className={(isDarkStep || showConfIntro || showCabinetIntro) ? '' : 'min-h-screen'}>
       {showProgress && (
         <>
-          <LogoBanner subtitle="Espace Candidat" />
+          <LogoBanner subtitle="Espace Candidat" variant="matte" />
           <div className="sticky top-0 z-40 backdrop-blur-sm bg-background">
             <StepProgress currentStep={currentStep} />
           </div>

@@ -3,13 +3,14 @@ import { useAuth } from '@/hooks/useAuth';
 
 interface LogoBannerProps {
   subtitle?: string;
+  variant?: 'default' | 'matte';
 }
 
-const LogoBanner = ({ subtitle }: LogoBannerProps) => {
+const LogoBanner = ({ subtitle, variant = 'default' }: LogoBannerProps) => {
   const { user, loading, signOut } = useAuth();
 
   return (
-    <div className="w-full bg-black">
+    <div className={`w-full ${variant === 'matte' ? 'bg-background' : 'bg-black'}`}>
       <div className="px-6 sm:px-8 lg:px-10 flex items-center justify-between h-20">
         <div className="flex items-center">
           <Link to="/" className="flex items-center hover:opacity-80 transition-opacity duration-300">
