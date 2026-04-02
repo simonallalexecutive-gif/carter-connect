@@ -118,6 +118,10 @@ export interface RegistrationState {
   reHasContentieux: boolean | null;
   reContentieuxPct: number;
   reContentieuxDomaines: string[];
+  // Urbanisme / Environnement
+  reHasUrbanisme: boolean | null;
+  reUrbanismeConseilPct: number;
+  reUrbanismeContentieuxPct: number;
   anglais: string;
   typesClients: string[];
   // Step 4 - Project (next move)

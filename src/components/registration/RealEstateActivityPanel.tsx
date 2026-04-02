@@ -19,7 +19,9 @@ const ASSET_TYPES = [
   'Industriel', 'Résidentiel', 'Hôtellerie', 'Restauration',
 ] as const;
 
-const CONTENTIEUX_DOMAINES = ['Baux commerciaux', 'Construction', 'Autre'] as const;
+const CONTENTIEUX_DOMAINES = ['Baux commerciaux', 'Construction', 'Post-acquisition/cession', 'Autre'] as const;
+
+const COL_URBANISME = 'hsl(160, 30%, 40%)';
 
 const SHARE_DEAL_MODES = [
   { key: 'corporate_real_estate', label: 'Corporate Real Estate' },
@@ -358,6 +360,29 @@ const RealEstateActivityPanel = () => {
                       })}
                     </div>
                   </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+
+        {/* ═══════ URBANISME / ENVIRONNEMENT ═══════ */}
+        <div className="border-t border-border pt-5 space-y-2.5">
+          <p className="text-sm font-sans font-medium text-foreground">Avez-vous une expertise en urbanisme et/ou environnement ?</p>
+          <div className="flex gap-2">
+            {(['Oui', 'Non'] as const).map(label => {
+              const val = label === 'Oui';
+              const active = store.reHasUrbanisme === val;
+              return <ChipButton key={label} active={active} onClick={() => setField('reHasUrbanisme', active ? null : val)}>{label}</ChipButton>;
+            })}
+          </div>
+
+          <AnimatePresence>
+            {store.reHasUrbanisme === true && (
+              <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden">
+                <div className="pl-3 border-l-2 border-border mt-2 space-y-2">
+                  <SquareGauge value={store.reUrbanismeConseilPct ?? 50} onChange={v => setField('reUrbanismeConseilPct', v)} activeColor={COL_URBANISME} label="Part en conseil" />
+                  <SquareGauge value={store.reUrbanismeContentieuxPct ?? 50} onChange={v => setField('reUrbanismeContentieuxPct', v)} activeColor={COL_CONTENTIEUX} label="Part en contentieux" />
                 </div>
               </motion.div>
             )}

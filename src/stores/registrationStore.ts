@@ -114,6 +114,10 @@ const initialState = {
   reHasContentieux: null as boolean | null,
   reContentieuxPct: 20,
   reContentieuxDomaines: [] as string[],
+  // Urbanisme / Environnement
+  reHasUrbanisme: null as boolean | null,
+  reUrbanismeConseilPct: 50,
+  reUrbanismeContentieuxPct: 50,
   anglais: '',
   typesClients: [] as string[],
   // Step 4 - Next move
