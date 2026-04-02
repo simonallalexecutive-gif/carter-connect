@@ -529,10 +529,7 @@ const Step2Identity = () => {
 
         {/* Pratique — all Chambers departments */}
         <div>
-          <div className="flex items-center gap-2">
-            <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Votre pratique *</Label>
-            <img src="https://chambers.com/favicon.ico" alt="Chambers" className="w-5 h-5 opacity-60 drop-shadow-sm" style={{ imageRendering: 'auto', filter: 'contrast(1.2) brightness(0.9)' }} />
-          </div>
+          <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Votre pratique *</Label>
           {store.cabinet ? (
             <>
               <Select value={store.departement} onValueChange={handleDepartmentChange}>
