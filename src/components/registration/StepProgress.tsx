@@ -20,7 +20,7 @@ const StepProgress = ({ currentStep }: StepProgressProps) => {
   if (currentStep <= 1 || currentStep >= 7) return null;
 
   return (
-    <div className="w-full py-8 px-4 theme-light" style={{ background: 'hsl(40, 20%, 97%)' }}>
+    <div className="w-full py-8 px-4 bg-background">
       <div className="max-w-5xl mx-auto">
         <div className="flex items-center justify-between relative">
           {STEPS.map((step, i) => {
