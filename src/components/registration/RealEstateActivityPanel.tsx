@@ -147,7 +147,7 @@ const RealEstateActivityPanel = () => {
 
   const chartData = useMemo(() => {
     const segments: { name: string; value: number; color: string }[] = [];
-    if (effBaux > 0) segments.push({ name: 'Baux / AM', value: effBaux, color: COL_BAUX });
+    if (effBaux > 0) segments.push({ name: 'Baux commerciaux - Asset Management', value: effBaux, color: COL_BAUX });
     if (effShare > 0) segments.push({ name: shareLabel, value: effShare, color: COL_SHARE });
     if (effAsset > 0) segments.push({ name: 'Asset Deal', value: effAsset, color: COL_ASSET });
     if (effConstruction > 0) segments.push({ name: 'Construction', value: effConstruction, color: COL_CONSTRUCTION });
