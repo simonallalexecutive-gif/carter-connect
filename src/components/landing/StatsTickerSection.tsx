@@ -62,7 +62,7 @@ const StatsTickerSection = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               transition={{ delay: 0.1 * i, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              className="bg-foreground p-10 md:p-14 text-center flex flex-col items-center justify-center group hover:bg-white/[0.06] transition-colors duration-500"
+              className="p-10 md:p-14 text-center flex flex-col items-center justify-center group hover:bg-white/[0.06] transition-colors duration-500" style={{ background: 'hsl(0 0% 6%)' }}
             >
               <stat.icon className="w-5 h-5 text-white/30 mb-5 group-hover:text-white/50 transition-colors duration-500" />
               <div className="font-serif text-5xl md:text-6xl font-bold text-white mb-3 tracking-tight">
