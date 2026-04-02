@@ -332,7 +332,7 @@ const Step3Activity = () => {
         )}
 
         {/* Anglais – hidden for Restructuring & Immobilier (handled in panel) */}
-        {store.departement !== 'Restructuring' && store.departement !== 'Restructuring/Insolvency' && store.departement !== 'Immobilier' && (
+        {store.departement !== 'Restructuring' && store.departement !== 'Restructuring/Insolvency' && store.departement !== 'Immobilier' && store.departement !== 'Real Estate' && (
           <div>
             <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Niveau d'anglais *</Label>
             <Select value={store.anglais} onValueChange={v => store.setField('anglais', v)}>
