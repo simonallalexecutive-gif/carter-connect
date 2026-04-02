@@ -4,10 +4,10 @@ import { useRegistrationStore } from '@/stores/registrationStore';
 import { cn } from '@/lib/utils';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import { Check, Minus, Plus } from 'lucide-react';
-import SegmentedBar from '@/components/shared/SegmentedBar';
+import SquareGauge from '@/components/shared/SquareGauge';
 import { buildQuantizedChartData } from '@/lib/percentages';
 
-/* ── Palette — professional dark tones, NO yellow ── */
+/* ── Palette ── */
 const COL_AMIABLE = 'hsl(215, 50%, 35%)';
 const COL_JUDICIAIRE = 'hsl(215, 55%, 22%)';
 const COL_FINANCIER = 'hsl(210, 25%, 50%)';
@@ -41,6 +41,17 @@ const renderLabel = ({ cx, cy, midAngle, innerRadius: ir, outerRadius: or, value
     </text>
   );
 };
+
+const ChipButton = ({ active, onClick, children }: { active: boolean; onClick: () => void; children: React.ReactNode }) => (
+  <button type="button" onClick={onClick}
+    className={cn(
+      "inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-sm text-xs font-sans font-light transition-all duration-200 border",
+      active ? "bg-foreground text-background border-foreground" : "bg-transparent text-foreground border-border hover:border-foreground/40"
+    )}>
+    {active && <Check className="w-3 h-3" />}
+    {children}
+  </button>
+);
 
 const RestructuringActivityPanel = () => {
   const store = useRegistrationStore();
@@ -138,218 +149,190 @@ const RestructuringActivityPanel = () => {
     store.setField('clienteleRestrPct', { ...store.clienteleRestrPct, [key]: Math.max(10, Math.min(100, current + delta)) });
   };
 
-  const allFilled = chartData.length > 0 && store.positionnementRestr.length > 0 && store.clienteleRestr.length > 0;
+  const showSynthesis = chartData.length > 0;
 
+  /* ═══════════════════════════════════════════════════════
+     RENDER — Two-column: Synthesis LEFT, Questionnaire RIGHT
+     ═══════════════════════════════════════════════════════ */
   return (
-    <div className="space-y-6">
+    <div className="flex flex-col-reverse md:flex-row gap-8 items-start">
 
-      {/* ═══════ RÉPARTITION DES DOSSIERS ═══════ */}
-      <section className="space-y-4">
-        <p className="text-lg font-serif text-foreground tracking-tight">Répartition des dossiers</p>
-
-        <div className="space-y-4">
-          {/* Restructuring */}
-          <div className="carter-card p-5 space-y-4">
-            <div className="flex items-center justify-between">
-              <p className="text-sm font-sans font-medium text-foreground">Restructuring</p>
-              <span className="text-xs font-sans font-bold text-foreground tabular-nums bg-secondary px-2 py-0.5 rounded-sm">{restructuringMainPct}%</span>
-            </div>
-
-            <div className="space-y-2.5 pl-3 border-l-2 border-border">
-              <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">Amiable vs Judiciaire</p>
-              <SegmentedBar value={amiableVal} onChange={handleAmiableChange} activeColor={COL_AMIABLE} label="Amiable (mandat ad hoc, conciliation)" />
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-sans text-foreground">Judiciaire <span className="text-muted-foreground">(sauvegarde, RJ, LJ)</span></span>
-                <span className="text-xs font-sans font-bold text-foreground tabular-nums">{judiciaireVal}%</span>
-              </div>
-            </div>
-
-            <div className="space-y-2.5 pl-3 border-l-2 border-border">
-              <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">Dont restructuring financier <span className="normal-case">(au sein de l'amiable)</span></p>
-              <SegmentedBar value={restrFinancier} onChange={(v) => store.setField('restrFinancier', v)} activeColor={COL_FINANCIER} label={`Restructuring financier : ${financierPct}% de l'activité totale`} />
-            </div>
-          </div>
-
-          {/* Distressed M&A */}
-          <div className="carter-card p-5 space-y-2.5">
-            <p className="text-sm font-sans font-medium text-foreground">Distressed M&A / Reprises</p>
-            <SegmentedBar value={distressedVal} onChange={handleDistressedChange} max={80} activeColor={COL_DISTRESSED} label="Part dans l'activité globale" />
-          </div>
-
-          {/* Contentieux */}
-          <div className="carter-card p-5 space-y-2.5">
-            <p className="text-sm font-sans font-medium text-foreground">Contentieux des affaires</p>
-            <SegmentedBar value={contentieuxVal} onChange={handleContentieuxChange} max={80} activeColor={COL_CONTENTIEUX} label="Part dans l'activité globale" />
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════ POSITIONNEMENT ═══════ */}
-      <section className="space-y-3">
-        <p className="text-lg font-serif text-foreground tracking-tight">Positionnement</p>
-        <div className="flex flex-wrap gap-2">
-          {POSITIONNEMENT_OPTIONS.map(opt => {
-            const active = store.positionnementRestr.includes(opt);
-            return (
-              <button key={opt} type="button" onClick={() => toggleList('positionnementRestr', 'positionnementRestrPct', opt)}
-                className={cn(
-                  "inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-sm text-xs font-sans font-light transition-all duration-200 border",
-                  active ? "bg-foreground text-background border-foreground" : "bg-transparent text-foreground border-border hover:border-foreground/40"
-                )}>
-                {active && <Check className="w-3 h-3" />}
-                {opt}
-              </button>
-            );
-          })}
-        </div>
-
-        <AnimatePresence>
-          {store.positionnementRestr.length > 1 && (
-            <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden">
-              <div className="carter-card p-4 space-y-2">
-                {store.positionnementRestr.map((opt, i) => {
-                  const displayPct = posChartData.find(d => d.name === opt)?.value ?? 0;
-                  return (
-                    <div key={opt} className="flex items-center gap-2.5 py-1 border-b border-border last:border-b-0">
-                      <span className="w-2.5 h-2.5 rounded-sm flex-shrink-0" style={{ backgroundColor: COL_POS[i % COL_POS.length] }} />
-                      <span className="text-xs font-sans text-foreground flex-1 min-w-0 truncate">{opt}</span>
-                      <div className="flex items-center gap-1">
-                        <button type="button" onClick={() => handlePosPctChange(opt, -10)} className="w-6 h-6 rounded-sm border border-border flex items-center justify-center hover:bg-secondary transition-colors"><Minus className="w-3 h-3" /></button>
-                        <span className="text-xs font-sans font-bold text-foreground w-10 text-center tabular-nums">{displayPct}%</span>
-                        <button type="button" onClick={() => handlePosPctChange(opt, 10)} className="w-6 h-6 rounded-sm border border-border flex items-center justify-center hover:bg-secondary transition-colors"><Plus className="w-3 h-3" /></button>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </section>
-
-      {/* ═══════ CLIENTÈLE ═══════ */}
-      <section className="space-y-3">
-        <p className="text-lg font-serif text-foreground tracking-tight">Clientèle</p>
-        <div className="flex flex-wrap gap-2">
-          {CLIENTELE_OPTIONS.map(opt => {
-            const active = store.clienteleRestr.includes(opt);
-            return (
-              <button key={opt} type="button" onClick={() => toggleList('clienteleRestr', 'clienteleRestrPct', opt)}
-                className={cn(
-                  "inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-sm text-xs font-sans font-light transition-all duration-200 border",
-                  active ? "bg-foreground text-background border-foreground" : "bg-transparent text-foreground border-border hover:border-foreground/40"
-                )}>
-                {active && <Check className="w-3 h-3" />}
-                {opt}
-              </button>
-            );
-          })}
-        </div>
-
-        <AnimatePresence>
-          {store.clienteleRestr.length > 1 && (
-            <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden">
-              <div className="carter-card p-4 space-y-2">
-                {store.clienteleRestr.map((opt, i) => {
-                  const displayPct = cliChartData.find(d => d.name === opt)?.value ?? 0;
-                  return (
-                    <div key={opt} className="flex items-center gap-2.5 py-1 border-b border-border last:border-b-0">
-                      <span className="w-2.5 h-2.5 rounded-sm flex-shrink-0" style={{ backgroundColor: COL_CLI[i % COL_CLI.length] }} />
-                      <span className="text-xs font-sans text-foreground flex-1 min-w-0 truncate">{opt}</span>
-                      <div className="flex items-center gap-1">
-                        <button type="button" onClick={() => handleCliPctChange(opt, -10)} className="w-6 h-6 rounded-sm border border-border flex items-center justify-center hover:bg-secondary transition-colors"><Minus className="w-3 h-3" /></button>
-                        <span className="text-xs font-sans font-bold text-foreground w-10 text-center tabular-nums">{displayPct}%</span>
-                        <button type="button" onClick={() => handleCliPctChange(opt, 10)} className="w-6 h-6 rounded-sm border border-border flex items-center justify-center hover:bg-secondary transition-colors"><Plus className="w-3 h-3" /></button>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </section>
-
-      {/* ═══════ RÉCAPITULATIF INLINE (appears when all fields filled) ═══════ */}
+      {/* ══════════ LEFT: SYNTHÈSE ══════════ */}
       <AnimatePresence>
-        {allFilled && (
+        {showSynthesis && (
           <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 16 }}
+            initial={{ opacity: 0, x: -16 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -16 }}
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            className="md:sticky md:top-8 md:w-[320px] flex-shrink-0 w-full"
           >
-            <div className="carter-card p-6 bg-card">
-              <p className="text-lg font-serif text-foreground tracking-tight mb-5">Synthèse de votre activité</p>
+            <div className="carter-card p-5 space-y-4">
+              <p className="text-sm font-sans font-medium text-foreground">Synthèse</p>
 
-              <div className="flex flex-col md:flex-row gap-6 items-start">
-                {/* Pie chart */}
-                <div className="flex-shrink-0 self-center" style={{ width: 200, height: 200 }}>
-                  <ResponsiveContainer width="100%" height="100%">
-                    <PieChart>
-                      <Pie
-                        data={chartData}
-                        cx="50%"
-                        cy="50%"
-                        innerRadius={48}
-                        outerRadius={90}
-                        dataKey="value"
-                        paddingAngle={1.5}
-                        stroke="hsl(var(--background))"
-                        strokeWidth={2}
-                        label={renderLabel}
-                        labelLine={false}
-                      >
-                        {chartData.map((seg, i) => <Cell key={i} fill={seg.color} />)}
-                      </Pie>
-                      <Tooltip formatter={(v: number) => [`${v}%`, '']} contentStyle={tooltipStyle} />
-                    </PieChart>
-                  </ResponsiveContainer>
-                </div>
-
-                {/* Legend + side info */}
-                <div className="flex-1 space-y-5 min-w-0">
-                  {/* Activity legend */}
-                  <div className="space-y-1.5">
-                    <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium mb-2">Activité</p>
-                    {chartData.map(seg => (
-                      <div key={seg.name} className="flex items-center gap-2.5">
-                        <span className="w-2.5 h-2.5 rounded-sm flex-shrink-0" style={{ background: seg.color }} />
-                        <span className="text-[11px] font-sans text-foreground/80 flex-1 min-w-0 truncate">{seg.name}</span>
-                        <span className="text-[11px] font-sans font-bold text-foreground tabular-nums">{seg.value}%</span>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Positionnement */}
-                  <div className="border-t border-border pt-3 space-y-1.5">
-                    <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium mb-1">Positionnement</p>
-                    {posChartData.map((seg, i) => (
-                      <div key={seg.name} className="flex items-center gap-2.5">
-                        <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: COL_POS[i % COL_POS.length] }} />
-                        <span className="text-[11px] font-sans text-foreground/70 flex-1">{seg.name}</span>
-                        <span className="text-[11px] font-sans font-semibold text-foreground tabular-nums">{seg.value}%</span>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Clientèle */}
-                  <div className="border-t border-border pt-3 space-y-1.5">
-                    <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium mb-1">Clientèle</p>
-                    {cliChartData.map((seg, i) => (
-                      <div key={seg.name} className="flex items-center gap-2.5">
-                        <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: COL_CLI[i % COL_CLI.length] }} />
-                        <span className="text-[11px] font-sans text-foreground/70 flex-1">{seg.name}</span>
-                        <span className="text-[11px] font-sans font-semibold text-foreground tabular-nums">{seg.value}%</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+              {/* Pie chart */}
+              <div className="self-center mx-auto" style={{ width: 200, height: 200 }}>
+                <ResponsiveContainer width="100%" height="100%">
+                  <PieChart>
+                    <Pie data={chartData} cx="50%" cy="50%" innerRadius={48} outerRadius={88} dataKey="value" paddingAngle={1.5} stroke="hsl(var(--background))" strokeWidth={2} label={renderLabel} labelLine={false}>
+                      {chartData.map((seg, i) => <Cell key={i} fill={seg.color} />)}
+                    </Pie>
+                    <Tooltip formatter={(v: number) => [`${v}%`, '']} contentStyle={tooltipStyle} />
+                  </PieChart>
+                </ResponsiveContainer>
               </div>
+
+              {/* Legend — Activité */}
+              <div className="space-y-1.5">
+                <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium mb-2">Activité</p>
+                {chartData.map(seg => (
+                  <div key={seg.name} className="flex items-center gap-2.5">
+                    <span className="w-2.5 h-2.5 rounded-sm flex-shrink-0" style={{ background: seg.color }} />
+                    <span className="text-[11px] font-sans text-foreground/80 flex-1 min-w-0 truncate">{seg.name}</span>
+                    <span className="text-[11px] font-sans font-bold text-foreground tabular-nums">{seg.value}%</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Legend — Positionnement */}
+              {posChartData.length > 0 && (
+                <div className="border-t border-border pt-3 space-y-1.5">
+                  <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium mb-1">Positionnement</p>
+                  {posChartData.map((seg, i) => (
+                    <div key={seg.name} className="flex items-center gap-2.5">
+                      <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: COL_POS[i % COL_POS.length] }} />
+                      <span className="text-[11px] font-sans text-foreground/70 flex-1">{seg.name}</span>
+                      <span className="text-[11px] font-sans font-semibold text-foreground tabular-nums">{seg.value}%</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* Legend — Clientèle */}
+              {cliChartData.length > 0 && (
+                <div className="border-t border-border pt-3 space-y-1.5">
+                  <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium mb-1">Clientèle</p>
+                  {cliChartData.map((seg, i) => (
+                    <div key={seg.name} className="flex items-center gap-2.5">
+                      <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: COL_CLI[i % COL_CLI.length] }} />
+                      <span className="text-[11px] font-sans text-foreground/70 flex-1">{seg.name}</span>
+                      <span className="text-[11px] font-sans font-semibold text-foreground tabular-nums">{seg.value}%</span>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* ══════════ RIGHT: QUESTIONNAIRE ══════════ */}
+      <div className="carter-card p-5 md:p-7 space-y-6 flex-1 min-w-0">
+
+        {/* ═══════ RESTRUCTURING MAIN ═══════ */}
+        <div className="space-y-4">
+          <div className="flex items-center justify-between">
+            <p className="text-sm font-sans font-medium text-foreground">Restructuring</p>
+            <span className="text-xs font-sans font-bold text-foreground tabular-nums bg-secondary px-2 py-0.5 rounded-sm">{restructuringMainPct}%</span>
+          </div>
+
+          <div className="space-y-2.5 pl-3 border-l-2 border-border">
+            <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">Amiable vs Judiciaire</p>
+            <SquareGauge value={amiableVal} onChange={handleAmiableChange} activeColor={COL_AMIABLE} label="Amiable (mandat ad hoc, conciliation)" />
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-sans text-foreground">Judiciaire <span className="text-muted-foreground">(sauvegarde, RJ, LJ)</span></span>
+              <span className="text-xs font-sans font-bold text-foreground tabular-nums">{judiciaireVal}%</span>
+            </div>
+          </div>
+
+          <div className="space-y-2.5 pl-3 border-l-2 border-border">
+            <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">Dont restructuring financier <span className="normal-case">(au sein de l'amiable)</span></p>
+            <SquareGauge value={restrFinancier} onChange={(v) => store.setField('restrFinancier', v)} activeColor={COL_FINANCIER} label={`Restructuring financier : ${financierPct}% de l'activité totale`} />
+          </div>
+        </div>
+
+        {/* ═══════ DISTRESSED M&A ═══════ */}
+        <div className="border-t border-border pt-5 space-y-2.5">
+          <p className="text-sm font-sans font-medium text-foreground">Distressed M&A / Reprises</p>
+          <SquareGauge value={distressedVal} onChange={handleDistressedChange} max={80} activeColor={COL_DISTRESSED} label="Part dans l'activité globale" />
+        </div>
+
+        {/* ═══════ CONTENTIEUX ═══════ */}
+        <div className="border-t border-border pt-5 space-y-2.5">
+          <p className="text-sm font-sans font-medium text-foreground">Contentieux des affaires</p>
+          <SquareGauge value={contentieuxVal} onChange={handleContentieuxChange} max={80} activeColor={COL_CONTENTIEUX} label="Part dans l'activité globale" />
+        </div>
+
+        {/* ═══════ POSITIONNEMENT ═══════ */}
+        <div className="border-t border-border pt-5 space-y-3">
+          <p className="text-sm font-sans font-medium text-foreground">Positionnement</p>
+          <div className="flex flex-wrap gap-2">
+            {POSITIONNEMENT_OPTIONS.map(opt => (
+              <ChipButton key={opt} active={store.positionnementRestr.includes(opt)} onClick={() => toggleList('positionnementRestr', 'positionnementRestrPct', opt)}>
+                {opt}
+              </ChipButton>
+            ))}
+          </div>
+
+          <AnimatePresence>
+            {store.positionnementRestr.length > 1 && (
+              <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden">
+                <div className="pl-3 border-l-2 border-border mt-2 space-y-2">
+                  {store.positionnementRestr.map((opt, i) => {
+                    const displayPct = posChartData.find(d => d.name === opt)?.value ?? 0;
+                    return (
+                      <div key={opt} className="flex items-center gap-2.5 py-1 border-b border-border last:border-b-0">
+                        <span className="w-2.5 h-2.5 rounded-sm flex-shrink-0" style={{ backgroundColor: COL_POS[i % COL_POS.length] }} />
+                        <span className="text-xs font-sans text-foreground flex-1 min-w-0 truncate">{opt}</span>
+                        <div className="flex items-center gap-1">
+                          <button type="button" onClick={() => handlePosPctChange(opt, -10)} className="w-6 h-6 rounded-sm border border-border flex items-center justify-center hover:bg-secondary transition-colors"><Minus className="w-3 h-3" /></button>
+                          <span className="text-xs font-sans font-bold text-foreground w-10 text-center tabular-nums">{displayPct}%</span>
+                          <button type="button" onClick={() => handlePosPctChange(opt, 10)} className="w-6 h-6 rounded-sm border border-border flex items-center justify-center hover:bg-secondary transition-colors"><Plus className="w-3 h-3" /></button>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+
+        {/* ═══════ CLIENTÈLE ═══════ */}
+        <div className="border-t border-border pt-5 space-y-3">
+          <p className="text-sm font-sans font-medium text-foreground">Clientèle</p>
+          <div className="flex flex-wrap gap-2">
+            {CLIENTELE_OPTIONS.map(opt => (
+              <ChipButton key={opt} active={store.clienteleRestr.includes(opt)} onClick={() => toggleList('clienteleRestr', 'clienteleRestrPct', opt)}>
+                {opt}
+              </ChipButton>
+            ))}
+          </div>
+
+          <AnimatePresence>
+            {store.clienteleRestr.length > 1 && (
+              <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden">
+                <div className="pl-3 border-l-2 border-border mt-2 space-y-2">
+                  {store.clienteleRestr.map((opt, i) => {
+                    const displayPct = cliChartData.find(d => d.name === opt)?.value ?? 0;
+                    return (
+                      <div key={opt} className="flex items-center gap-2.5 py-1 border-b border-border last:border-b-0">
+                        <span className="w-2.5 h-2.5 rounded-sm flex-shrink-0" style={{ backgroundColor: COL_CLI[i % COL_CLI.length] }} />
+                        <span className="text-xs font-sans text-foreground flex-1 min-w-0 truncate">{opt}</span>
+                        <div className="flex items-center gap-1">
+                          <button type="button" onClick={() => handleCliPctChange(opt, -10)} className="w-6 h-6 rounded-sm border border-border flex items-center justify-center hover:bg-secondary transition-colors"><Minus className="w-3 h-3" /></button>
+                          <span className="text-xs font-sans font-bold text-foreground w-10 text-center tabular-nums">{displayPct}%</span>
+                          <button type="button" onClick={() => handleCliPctChange(opt, 10)} className="w-6 h-6 rounded-sm border border-border flex items-center justify-center hover:bg-secondary transition-colors"><Plus className="w-3 h-3" /></button>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      </div>
     </div>
   );
 };
