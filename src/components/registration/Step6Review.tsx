@@ -22,12 +22,69 @@ const CHART_COLORS = [
   'hsl(222, 50%, 28%)',
 ];
 
+// ── Specialized department category definitions ──
+const MA_CATEGORIES = [
+  { key: 'ma_pe', label: 'Private Equity', color: 'hsl(215, 55%, 28%)' },
+  { key: 'ma_ma', label: 'M&A', color: 'hsl(35, 35%, 48%)' },
+  { key: 'ma_vc', label: 'Venture Capital', color: 'hsl(160, 35%, 38%)' },
+  { key: 'ma_autres', label: 'Autres', color: 'hsl(200, 15%, 60%)' },
+];
+
+const CONC_CATEGORIES = [
+  { key: 'conc_concentrations', label: 'Contrôle des concentrations', color: 'hsl(215, 55%, 28%)' },
+  { key: 'conc_contentieux', label: 'Contentieux / enquêtes', color: 'hsl(35, 35%, 48%)' },
+  { key: 'conc_conseil', label: 'Conseil / compliance', color: 'hsl(160, 35%, 38%)' },
+];
+
+const FISC_CATEGORIES = [
+  { key: 'fisc_transac', label: 'Fiscalité transactionnelle', color: 'hsl(215, 55%, 28%)' },
+  { key: 'fisc_contentieux', label: 'Fiscalité contentieuse', color: 'hsl(35, 35%, 48%)' },
+  { key: 'fisc_conseil', label: 'Fiscalité conseil / structuration', color: 'hsl(160, 35%, 38%)' },
+];
+
+const DPUB_CATEGORIES = [
+  { key: 'dpub_contrats', label: 'Droit public éco. / contrats publics', color: 'hsl(215, 55%, 28%)' },
+  { key: 'dpub_contentieux', label: 'Contentieux administratif', color: 'hsl(35, 35%, 48%)' },
+  { key: 'dpub_conseil', label: 'Conseil / régulation', color: 'hsl(160, 35%, 38%)' },
+];
+
+const ARB_TYPES = [
+  { key: 'arb_commercial', label: 'Arbitrage commercial', color: 'hsl(215, 50%, 35%)' },
+  { key: 'arb_invest', label: "Arbitrage d'investissement", color: 'hsl(200, 50%, 40%)' },
+  { key: 'arb_construction', label: 'Arbitrage construction', color: 'hsl(210, 25%, 50%)' },
+  { key: 'arb_sport', label: 'Arbitrage sportif', color: 'hsl(215, 55%, 22%)' },
+];
+
+const PROJ_TYPES = [
+  { key: 'proj_infra', label: 'Infrastructures', color: 'hsl(215, 50%, 35%)' },
+  { key: 'proj_enr', label: 'Énergie renouvelable', color: 'hsl(160, 40%, 38%)' },
+  { key: 'proj_concession', label: 'Concessions / PPP', color: 'hsl(210, 25%, 50%)' },
+  { key: 'proj_fin', label: 'Financement de projets', color: 'hsl(200, 12%, 45%)' },
+  { key: 'proj_regl', label: 'Réglementaire / permitting', color: 'hsl(35, 35%, 48%)' },
+];
+
 const RESTRUCTURING_COLORS = {
   amiable: 'hsl(215, 50%, 35%)',
   financier: 'hsl(210, 25%, 50%)',
   judiciaire: 'hsl(215, 55%, 22%)',
   distressed: 'hsl(200, 12%, 45%)',
   contentieux: 'hsl(220, 15%, 62%)',
+};
+
+const RE_COLORS = {
+  baux: 'hsl(215, 50%, 35%)',
+  share: 'hsl(200, 50%, 40%)',
+  asset: 'hsl(210, 25%, 50%)',
+  construction: 'hsl(215, 55%, 22%)',
+  financement: 'hsl(200, 12%, 45%)',
+  contentieux: 'hsl(220, 15%, 62%)',
+};
+
+const SOCIAL_COLORS = {
+  conseilIndiv: 'hsl(215, 55%, 28%)',
+  conseilColl: 'hsl(215, 40%, 42%)',
+  contentieuxIndiv: 'hsl(35, 30%, 50%)',
+  contentieuxColl: 'hsl(40, 25%, 60%)',
 };
 
 const RESTRUCTURING_POSITIONING_COLORS = ['hsl(215, 50%, 35%)', 'hsl(200, 15%, 50%)', 'hsl(220, 20%, 30%)'];
@@ -53,6 +110,19 @@ const getNatLabel = (nat: string) => {
   return map[nat] || nat;
 };
 
+// Helper: build normalized chart from activites+pourcentages with category defs
+const buildCategoryChart = (
+  categories: { key: string; label: string; color: string }[],
+  activites: Record<string, boolean>,
+  pourcentages: Record<string, number>,
+) => {
+  const selected = categories.filter(c => activites[c.key]);
+  if (selected.length === 0) return [];
+  const items = selected.map(c => ({ name: c.label, raw: pourcentages[c.key] || 10, color: c.color }));
+  const total = items.reduce((s, i) => s + i.raw, 0);
+  return items.map(i => ({ name: i.name, value: total > 0 ? Math.round((i.raw / total) * 100) : 0, color: i.color }));
+};
+
 const Step6Review = () => {
   const store = useRegistrationStore();
   const isAdmin = store.isAdminMode;
@@ -67,7 +137,10 @@ const Step6Review = () => {
   const activeActivites = allActivites.filter(a => store.activites[a.key]);
 
   const activitySummary = useMemo(() => {
-    if (store.departement === 'Restructuring' || store.departement === 'Restructuring/Insolvency') {
+    const dept = store.departement;
+
+    // ── Restructuring ──
+    if (dept === 'Restructuring' || dept === 'Restructuring/Insolvency') {
       const restrSubs = store.sousActivites['restr_restructuring'] || {};
       const amiableVal = restrSubs['amiable'] ?? 50;
       const distressedVal = store.pourcentages['restr_distressed'] ?? 10;
@@ -88,16 +161,14 @@ const Step6Review = () => {
         ].filter(Boolean) as { name: string; value: number; color: string }[],
         positionnement: buildQuantizedChartData(
           store.positionnementRestr.map((opt, i) => ({
-            key: opt,
-            name: opt,
+            key: opt, name: opt,
             raw: store.positionnementRestrPct[opt] || 10,
             color: RESTRUCTURING_POSITIONING_COLORS[i % RESTRUCTURING_POSITIONING_COLORS.length],
           })),
         ),
         clientele: buildQuantizedChartData(
           store.clienteleRestr.map((opt, i) => ({
-            key: opt,
-            name: opt,
+            key: opt, name: opt,
             raw: store.clienteleRestrPct[opt] || 10,
             color: RESTRUCTURING_CLIENTELE_COLORS[i % RESTRUCTURING_CLIENTELE_COLORS.length],
           })),
@@ -105,6 +176,104 @@ const Step6Review = () => {
       };
     }
 
+    // ── Social ──
+    if (dept === 'Droit Social' || dept === 'Employment') {
+      const conseilPct = store.socialConseil ?? 50;
+      const contentieuxPct = 100 - conseilPct;
+      const relationType = store.socialRelationType ?? '';
+      const indivPct = store.socialIndividuel ?? 50;
+      const collPct = 100 - indivPct;
+      let indivWeight = 0.5, collWeight = 0.5;
+      if (relationType === 'individuelles') { indivWeight = 1; collWeight = 0; }
+      else if (relationType === 'collectives') { indivWeight = 0; collWeight = 1; }
+      else if (relationType === 'les_deux') { indivWeight = indivPct / 100; collWeight = collPct / 100; }
+
+      const segments: { name: string; value: number; color: string }[] = [];
+      if (conseilPct > 0) {
+        const cIndiv = Math.round(conseilPct * indivWeight);
+        const cColl = conseilPct - cIndiv;
+        if (cIndiv > 0) segments.push({ name: 'Conseil – Individuel', value: cIndiv, color: SOCIAL_COLORS.conseilIndiv });
+        if (cColl > 0) segments.push({ name: 'Conseil – Collectif', value: cColl, color: SOCIAL_COLORS.conseilColl });
+      }
+      if (contentieuxPct > 0) {
+        const xIndiv = Math.round(contentieuxPct * indivWeight);
+        const xColl = contentieuxPct - xIndiv;
+        if (xIndiv > 0) segments.push({ name: 'Contentieux – Individuel', value: xIndiv, color: SOCIAL_COLORS.contentieuxIndiv });
+        if (xColl > 0) segments.push({ name: 'Contentieux – Collectif', value: xColl, color: SOCIAL_COLORS.contentieuxColl });
+      }
+      return { chartData: segments, positionnement: [], clientele: [] };
+    }
+
+    // ── Real Estate ──
+    if (dept === 'Immobilier' || dept === 'Real Estate') {
+      const bauxVal = store.reBauxAM ?? 20;
+      const shareVal = store.reShareDeal ?? 20;
+      const assetVal = store.reAssetDealPct ?? 20;
+      const hasFinancement = store.reHasFinancement === true;
+      const financementPct = store.reFinancementPct ?? 20;
+      const hasContentieux = store.reHasContentieux === true;
+      const contentieuxPct = store.reContentieuxPct ?? 20;
+      const advisoryPct = Math.max(0, 100 - (hasFinancement ? financementPct : 0) - (hasContentieux ? contentieuxPct : 0));
+      const effBaux = Math.round(advisoryPct * bauxVal / 100);
+      const effShare = Math.round(advisoryPct * shareVal / 100);
+      const effAsset = Math.round(advisoryPct * assetVal / 100);
+      const effConstruction = Math.max(0, advisoryPct - effBaux - effShare - effAsset);
+
+      const segments: { name: string; value: number; color: string }[] = [];
+      if (effBaux > 0) segments.push({ name: 'Baux commerciaux', value: effBaux, color: RE_COLORS.baux });
+      if (effShare > 0) segments.push({ name: 'Share Deal', value: effShare, color: RE_COLORS.share });
+      if (effAsset > 0) segments.push({ name: 'Asset Deal', value: effAsset, color: RE_COLORS.asset });
+      if (effConstruction > 0) segments.push({ name: 'Construction', value: effConstruction, color: RE_COLORS.construction });
+      if (hasFinancement && financementPct > 0) segments.push({ name: 'Financement', value: financementPct, color: RE_COLORS.financement });
+      if (hasContentieux && contentieuxPct > 0) segments.push({ name: 'Contentieux', value: contentieuxPct, color: RE_COLORS.contentieux });
+      return { chartData: segments, positionnement: [], clientele: [] };
+    }
+
+    // ── M&A / PE / Corporate ──
+    if (dept === 'M&A (dominante)' || dept === 'Private Equity (dominante)' || dept === 'Corporate/M&A' || dept === 'Private Equity') {
+      return { chartData: buildCategoryChart(MA_CATEGORIES, store.activites, store.pourcentages), positionnement: [], clientele: [] };
+    }
+
+    // ── Finance ──
+    if (dept === 'Financement LBO' || dept === 'Financement de projets' || dept === 'Banking & Finance') {
+      const finKeys = Object.keys(store.activites).filter(k => k.startsWith('fin_') && store.activites[k]);
+      if (finKeys.length > 0) {
+        const items = finKeys.map((k, i) => {
+          const label = allActivites.find(a => a.key === k)?.label || k;
+          return { name: label, raw: store.pourcentages[k] || 10, color: CHART_COLORS[i % CHART_COLORS.length] };
+        });
+        const total = items.reduce((s, i) => s + i.raw, 0);
+        return { chartData: items.map(i => ({ name: i.name, value: total > 0 ? Math.round((i.raw / total) * 100) : 0, color: i.color })), positionnement: [], clientele: [] };
+      }
+      return { chartData: [], positionnement: [], clientele: [] };
+    }
+
+    // ── Concurrence ──
+    if (dept === 'Competition/European Law') {
+      return { chartData: buildCategoryChart(CONC_CATEGORIES, store.activites, store.pourcentages), positionnement: [], clientele: [] };
+    }
+
+    // ── Fiscal ──
+    if (dept === 'Tax') {
+      return { chartData: buildCategoryChart(FISC_CATEGORIES, store.activites, store.pourcentages), positionnement: [], clientele: [] };
+    }
+
+    // ── Droit Public ──
+    if (dept === 'Public Law') {
+      return { chartData: buildCategoryChart(DPUB_CATEGORIES, store.activites, store.pourcentages), positionnement: [], clientele: [] };
+    }
+
+    // ── Arbitration ──
+    if (dept === 'International Arbitration') {
+      return { chartData: buildCategoryChart(ARB_TYPES, store.activites, store.pourcentages), positionnement: [], clientele: [] };
+    }
+
+    // ── Projects & Energy ──
+    if (dept === 'Projects & Energy') {
+      return { chartData: buildCategoryChart(PROJ_TYPES, store.activites, store.pourcentages), positionnement: [], clientele: [] };
+    }
+
+    // ── Generic fallback ──
     return {
       chartData: buildQuantizedChartData(
         activeActivites.map((item, index) => ({
@@ -118,17 +287,14 @@ const Step6Review = () => {
       clientele: [],
     };
   }, [
+    store.departement, store.activites, store.pourcentages, store.sousActivites,
+    store.positionnementRestr, store.positionnementRestrPct,
+    store.clienteleRestr, store.clienteleRestrPct, store.restrFinancier,
+    store.socialConseil, store.socialRelationType, store.socialIndividuel,
+    store.reBauxAM, store.reShareDeal, store.reAssetDealPct, store.reConstructionPct,
+    store.reHasFinancement, store.reFinancementPct, store.reHasContentieux, store.reContentieuxPct,
     activeActivites,
-    store.clienteleRestr,
-    store.clienteleRestrPct,
-    store.departement,
-    store.positionnementRestr,
-    store.positionnementRestrPct,
-    store.pourcentages,
-    store.restrFinancier,
-    store.sousActivites,
   ]);
-
   const totalPercent = activitySummary.chartData.reduce((sum, d) => sum + d.value, 0);
 
   const chambersInfo = useMemo(() => {
