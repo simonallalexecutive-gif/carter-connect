@@ -312,7 +312,7 @@ const SearchValidation = () => {
               {/* Expertise chips */}
               <div className="flex flex-wrap gap-1.5 mb-5">
                 {s.expertise.map((exp) => (
-                  <span key={exp} className="text-[11px] bg-white/[0.1] border border-white/[0.15] rounded px-3 py-1.5 text-white/80 font-sans font-medium">{exp}</span>
+                  <span key={exp} className="text-[11px] bg-secondary border border-border rounded px-3 py-1.5 text-foreground/80 font-sans font-medium">{exp}</span>
                 ))}
               </div>
 
