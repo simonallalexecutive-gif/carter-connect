@@ -346,8 +346,8 @@ const CandidateOffers = () => {
                 <AnimatePresence>
                   {isExpanded && (
                     <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }} className="overflow-hidden">
-                      <div className="border-t border-foreground/10">
-                        <div className="p-6 md:p-8 bg-white text-foreground">
+                      <div className="border-t border-border">
+                        <div className="p-6 md:p-8 bg-background text-foreground">
 
                           {hasMultipleExpertises && offer.activitySplit && (
                             <div className="mb-6 pb-5 border-b border-border">

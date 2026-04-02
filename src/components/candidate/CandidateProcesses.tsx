@@ -42,35 +42,34 @@ const CandidateProcesses = () => (
           return (
             <div
               key={proc.id}
-              className="rounded-lg overflow-hidden border border-black/[0.08]"
-              style={{ background: 'hsl(40, 20%, 95%)' }}
+              className="rounded-lg overflow-hidden border border-border bg-card"
             >
               <div className="p-6">
                 {offer && (
-                  <div className="mb-4 pb-4 border-b border-black/10">
+                  <div className="mb-4 pb-4 border-b border-border">
                     <div className="flex items-center gap-0 mb-2 flex-wrap">
-                      <span className="text-[14px] font-sans font-semibold text-black/90 leading-none">{shortSeniority(offer.seniority)}</span>
-                      <span className="mx-2.5 w-px h-5 bg-black/20 inline-block" />
-                      <span className="text-[14px] font-sans font-semibold text-black/90 leading-none">{offer.dept}</span>
+                      <span className="text-[14px] font-sans font-semibold text-foreground leading-none">{shortSeniority(offer.seniority)}</span>
+                      <span className="mx-2.5 w-px h-5 bg-border inline-block" />
+                      <span className="text-[14px] font-sans font-semibold text-foreground leading-none">{offer.dept}</span>
                     </div>
                     {offer.ranking && (
                       <div className="flex items-center gap-2 mb-3 flex-wrap">
-                        <span className="text-[10px] font-sans font-bold text-black/70 leading-none border border-black/20 rounded px-2 py-1">Cabinet {offer.nat || ''}</span>
-                        <span className="text-[10px] font-sans font-bold text-black/70 leading-none border border-black/20 rounded px-2 py-1">Chambers : Oui</span>
+                        <span className="text-[10px] font-sans font-bold text-foreground/70 leading-none border border-border rounded px-2 py-1">Cabinet {offer.nat || ''}</span>
+                        <span className="text-[10px] font-sans font-bold text-foreground/70 leading-none border border-border rounded px-2 py-1">Chambers : Oui</span>
                       </div>
                     )}
                     {!offer.ranking && (
                       <div className="flex items-center gap-2 mb-3 flex-wrap">
-                        {offer.nat && <span className="text-[10px] font-sans font-bold text-black/70 leading-none border border-black/20 rounded px-2 py-1">Cabinet {offer.nat}</span>}
-                        <span className="text-[10px] font-sans font-bold text-black/70 leading-none border border-black/20 rounded px-2 py-1">Chambers : Non</span>
+                        {offer.nat && <span className="text-[10px] font-sans font-bold text-foreground/70 leading-none border border-border rounded px-2 py-1">Cabinet {offer.nat}</span>}
+                        <span className="text-[10px] font-sans font-bold text-foreground/70 leading-none border border-border rounded px-2 py-1">Chambers : Non</span>
                       </div>
                     )}
                     <div className="flex items-center justify-between mt-3">
-                      <div className="flex items-center gap-1.5 text-[11px] text-black/55 font-sans">
+                      <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground font-sans">
                         <Calendar className="w-3 h-3" />
                         <span>Date de publication : {formatOfferDate(offer.postedAt)}</span>
                       </div>
-                      <div className="text-[9px] tracking-[0.15em] uppercase text-black/30 font-sans">{offer.reference}</div>
+                      <div className="text-[9px] tracking-[0.15em] uppercase text-muted-foreground/50 font-sans">{offer.reference}</div>
                     </div>
                   </div>
                 )}
@@ -78,20 +77,20 @@ const CandidateProcesses = () => (
                 <div className="flex items-center gap-1 mb-4">
                   {STAGES.map((stage, i) => (
                     <div key={stage} className="flex items-center gap-1 flex-1">
-                      <div className={`h-1.5 flex-1 rounded-full transition-colors ${i <= proc.stageIndex ? 'bg-black/80' : 'bg-black/10'}`} />
-                      {i < STAGES.length - 1 && <ArrowRight className="w-3 h-3 text-black/25 shrink-0" />}
+                      <div className={`h-1.5 flex-1 rounded-full transition-colors ${i <= proc.stageIndex ? 'bg-foreground/80' : 'bg-secondary'}`} />
+                      {i < STAGES.length - 1 && <ArrowRight className="w-3 h-3 text-muted-foreground/40 shrink-0" />}
                     </div>
                   ))}
                 </div>
-                <div className="flex justify-between text-[9px] text-black/50 font-sans mb-4">
+                <div className="flex justify-between text-[9px] text-muted-foreground font-sans mb-4">
                   {STAGES.map((stage, i) => (
-                    <span key={stage} className={`${i <= proc.stageIndex ? 'text-black/85 font-bold' : ''}`}>{stage}</span>
+                    <span key={stage} className={`${i <= proc.stageIndex ? 'text-foreground/85 font-bold' : ''}`}>{stage}</span>
                   ))}
                 </div>
 
                 <div className="flex items-center justify-between">
-                  <p className="text-[13px] font-sans text-black/65 leading-relaxed">{proc.note}</p>
-                  <span className="text-[10px] text-black/40 font-sans shrink-0 ml-4">{new Date(proc.lastUpdate).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' })}</span>
+                  <p className="text-[13px] font-sans text-muted-foreground leading-relaxed">{proc.note}</p>
+                  <span className="text-[10px] text-muted-foreground/60 font-sans shrink-0 ml-4">{new Date(proc.lastUpdate).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' })}</span>
                 </div>
               </div>
             </div>
