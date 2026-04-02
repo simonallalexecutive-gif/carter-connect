@@ -4,7 +4,7 @@ import { useRegistrationStore } from '@/stores/registrationStore';
 import { cn } from '@/lib/utils';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import { Check } from 'lucide-react';
-import SegmentedBar from '@/components/shared/SegmentedBar';
+import SquareGauge from '@/components/shared/SquareGauge';
 
 /* ── Palette ── */
 const COL_BAUX = 'hsl(215, 50%, 35%)';
@@ -109,6 +109,9 @@ const RealEstateActivityPanel = () => {
   const hasContentieux = store.reHasContentieux === true;
   const contentieuxPct = store.reContentieuxPct ?? 20;
 
+  // ── Share Deal Corporate ──
+  const shareDealCorporate = store.reShareDealCorporate;
+
   // ── Anglais (free input) ──
   const anglaisPct = parseInt(store.anglais || '0', 10) || 0;
   const [anglaisInput, setAnglaisInput] = useState(String(anglaisPct));
@@ -122,23 +125,24 @@ const RealEstateActivityPanel = () => {
   };
 
   // ── Chart data ──
-  // Compute effective percentages for pie
   const advisoryPct = Math.max(0, 100 - (hasFinancement ? financementPct : 0) - (hasContentieux ? contentieuxPct : 0));
   const effBaux = Math.round(advisoryPct * bauxVal / 100);
   const effShare = Math.round(advisoryPct * shareVal / 100);
   const effAsset = Math.round(advisoryPct * assetVal / 100);
   const effConstruction = Math.max(0, advisoryPct - effBaux - effShare - effAsset);
 
+  const shareLabel = shareDealCorporate === true ? 'Share Deal (support corporate)' : 'Share Deal';
+
   const chartData = useMemo(() => {
     const segments: { name: string; value: number; color: string }[] = [];
     if (effBaux > 0) segments.push({ name: 'Baux / AM', value: effBaux, color: COL_BAUX });
-    if (effShare > 0) segments.push({ name: 'Share Deal', value: effShare, color: COL_SHARE });
+    if (effShare > 0) segments.push({ name: shareLabel, value: effShare, color: COL_SHARE });
     if (effAsset > 0) segments.push({ name: 'Asset Deal', value: effAsset, color: COL_ASSET });
     if (effConstruction > 0) segments.push({ name: 'Construction', value: effConstruction, color: COL_CONSTRUCTION });
     if (hasFinancement && financementPct > 0) segments.push({ name: 'Financement', value: financementPct, color: COL_FINANCEMENT });
     if (hasContentieux && contentieuxPct > 0) segments.push({ name: 'Contentieux', value: contentieuxPct, color: COL_CONTENTIEUX });
     return segments;
-  }, [effBaux, effShare, effAsset, effConstruction, hasFinancement, financementPct, hasContentieux, contentieuxPct]);
+  }, [effBaux, effShare, effAsset, effConstruction, hasFinancement, financementPct, hasContentieux, contentieuxPct, shareLabel]);
 
   const toggleChip = (field: 'reAssetTypes' | 'typesClients' | 'reContentieuxDomaines', val: string) => {
     const cur: string[] = (store as any)[field] || [];
@@ -148,121 +152,137 @@ const RealEstateActivityPanel = () => {
   const showSynthesis = chartData.length > 0;
 
   return (
-    <div className="space-y-6">
+    <div className="carter-card p-5 md:p-7 space-y-6">
 
-      {/* ═══════ RÉPARTITION DE L'ACTIVITÉ CONSEIL ═══════ */}
-      <section className="space-y-4">
-        <p className="text-lg font-serif text-foreground tracking-tight">Répartition de l'activité conseil</p>
+      {/* ═══════ RÉPARTITION CONSEIL ═══════ */}
+      <div className="space-y-4">
+        <div className="flex items-center justify-between">
+          <p className="text-sm font-sans font-medium text-foreground">Conseil immobilier</p>
+          <span className="text-xs font-sans font-bold text-foreground tabular-nums bg-secondary px-2 py-0.5 rounded-sm">{advisoryPct}%</span>
+        </div>
 
-        <div className="carter-card p-5 space-y-4">
-          <div className="flex items-center justify-between">
-            <p className="text-sm font-sans font-medium text-foreground">Conseil immobilier</p>
-            <span className="text-xs font-sans font-bold text-foreground tabular-nums bg-secondary px-2 py-0.5 rounded-sm">{advisoryPct}%</span>
-          </div>
+        <div className="space-y-2.5 pl-3 border-l-2 border-border">
+          <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">Répartition interne</p>
 
-          <div className="space-y-2.5 pl-3 border-l-2 border-border">
-            <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">Répartition interne</p>
+          <SquareGauge value={bauxVal} onChange={v => handleSubSlider('reBauxAM', v)} activeColor={COL_BAUX} label="Baux commerciaux / Asset Management" />
 
-            {/* Baux / AM */}
-            <SegmentedBar value={bauxVal} onChange={v => handleSubSlider('reBauxAM', v)} activeColor={COL_BAUX} label="Baux commerciaux / Asset Management" />
-
-            {/* Share Deal */}
-            <SegmentedBar value={shareVal} onChange={v => handleSubSlider('reShareDeal', v)} activeColor={COL_SHARE} label="Share Deal" />
-
-            {/* Asset Deal */}
-            <SegmentedBar value={assetVal} onChange={v => handleSubSlider('reAssetDealPct', v)} activeColor={COL_ASSET} label="Asset Deal" />
-
-            {/* Construction — computed */}
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-sans text-foreground/70">Construction <span className="text-muted-foreground">(complément)</span></span>
-              <span className="text-xs font-sans font-bold text-foreground tabular-nums">{constructionVal}%</span>
+          <div className="space-y-1">
+            <SquareGauge value={shareVal} onChange={v => handleSubSlider('reShareDeal', v)} activeColor={COL_SHARE} label="Share Deal" />
+            {/* Sub-question: en support corporate */}
+            <div className="flex items-center gap-3 pl-1 pt-1">
+              <span className="text-[11px] font-sans text-foreground/70">En support corporate ?</span>
+              <div className="flex gap-1.5">
+                {(['Oui', 'Non'] as const).map(label => {
+                  const val = label === 'Oui';
+                  const active = shareDealCorporate === val;
+                  return (
+                    <button
+                      key={label}
+                      type="button"
+                      onClick={() => setField('reShareDealCorporate', active ? null : val)}
+                      className={cn(
+                        "inline-flex items-center gap-1 px-2.5 py-0.5 rounded-sm text-[10px] font-sans transition-all duration-200 border",
+                        active ? "bg-foreground text-background border-foreground" : "bg-transparent text-foreground border-border hover:border-foreground/40"
+                      )}
+                    >
+                      {active && <Check className="w-2.5 h-2.5" />}
+                      {label}
+                    </button>
+                  );
+                })}
+              </div>
             </div>
           </div>
+
+          <SquareGauge value={assetVal} onChange={v => handleSubSlider('reAssetDealPct', v)} activeColor={COL_ASSET} label="Asset Deal" />
+
+          {/* Construction — computed */}
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-sans text-foreground/70">Construction <span className="text-muted-foreground">(complément)</span></span>
+            <span className="text-xs font-sans font-bold text-foreground tabular-nums">{constructionVal}%</span>
+          </div>
+        </div>
+      </div>
+
+      {/* ═══════ FINANCEMENT ═══════ */}
+      <div className="border-t border-border pt-5 space-y-2.5">
+        <p className="text-sm font-sans font-medium text-foreground">Faites-vous aussi du financement immobilier ?</p>
+        <div className="flex gap-2">
+          {(['Oui', 'Non'] as const).map(label => {
+            const val = label === 'Oui';
+            const active = store.reHasFinancement === val;
+            return <ChipButton key={label} active={active} onClick={() => setField('reHasFinancement', active ? null : val)}>{label}</ChipButton>;
+          })}
         </div>
 
-        {/* Financement immobilier — separate toggle like contentieux */}
-        <div className="carter-card p-5 space-y-2.5">
-          <p className="text-sm font-sans font-medium text-foreground">Financement immobilier</p>
-          <p className="text-[12px] font-sans text-muted-foreground mb-1">Faites-vous aussi du financement immobilier ?</p>
-          <div className="flex gap-2 mb-2">
-            {(['Oui', 'Non'] as const).map(label => {
-              const val = label === 'Oui';
-              const active = store.reHasFinancement === val;
-              return <ChipButton key={label} active={active} onClick={() => setField('reHasFinancement', active ? null : val)}>{label}</ChipButton>;
-            })}
-          </div>
+        <AnimatePresence>
+          {hasFinancement && (
+            <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden">
+              <div className="pl-3 border-l-2 border-border mt-2 space-y-2">
+                <SquareGauge value={financementPct} onChange={v => setField('reFinancementPct', v)} activeColor={COL_FINANCEMENT} label="Part dans l'activité globale" />
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
 
-          <AnimatePresence>
-            {hasFinancement && (
-              <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden">
-                <div className="pl-3 border-l-2 border-border mt-2 space-y-2">
-                  <SegmentedBar value={financementPct} onChange={v => setField('reFinancementPct', v)} activeColor={COL_FINANCEMENT} label="Part dans l'activité globale" />
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+      {/* ═══════ CONTENTIEUX ═══════ */}
+      <div className="border-t border-border pt-5 space-y-2.5">
+        <p className="text-sm font-sans font-medium text-foreground">Faites-vous aussi du contentieux immobilier ?</p>
+        <div className="flex gap-2">
+          {(['Oui', 'Non'] as const).map(label => {
+            const val = label === 'Oui';
+            const active = store.reHasContentieux === val;
+            return <ChipButton key={label} active={active} onClick={() => setField('reHasContentieux', active ? null : val)}>{label}</ChipButton>;
+          })}
         </div>
 
-        {/* Contentieux immobilier — separate toggle */}
-        <div className="carter-card p-5 space-y-2.5">
-          <p className="text-sm font-sans font-medium text-foreground">Contentieux immobilier</p>
-          <p className="text-[12px] font-sans text-muted-foreground mb-1">Faites-vous aussi du contentieux immobilier ?</p>
-          <div className="flex gap-2 mb-2">
-            {(['Oui', 'Non'] as const).map(label => {
-              const val = label === 'Oui';
-              const active = store.reHasContentieux === val;
-              return <ChipButton key={label} active={active} onClick={() => setField('reHasContentieux', active ? null : val)}>{label}</ChipButton>;
-            })}
-          </div>
-
-          <AnimatePresence>
-            {hasContentieux && (
-              <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden">
-                <div className="pl-3 border-l-2 border-border mt-2 space-y-4">
-                  <SegmentedBar value={contentieuxPct} onChange={v => setField('reContentieuxPct', v)} activeColor={COL_CONTENTIEUX} label="Part dans l'activité globale" />
-
-                  <div className="space-y-2">
-                    <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">Dans quel(s) domaine(s) ?</p>
-                    <div className="flex flex-wrap gap-2">
-                      {CONTENTIEUX_DOMAINES.map(d => {
-                        const active = (store.reContentieuxDomaines || []).includes(d);
-                        return <ChipButton key={d} active={active} onClick={() => toggleChip('reContentieuxDomaines', d)}>{d}</ChipButton>;
-                      })}
-                    </div>
+        <AnimatePresence>
+          {hasContentieux && (
+            <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden">
+              <div className="pl-3 border-l-2 border-border mt-2 space-y-4">
+                <SquareGauge value={contentieuxPct} onChange={v => setField('reContentieuxPct', v)} activeColor={COL_CONTENTIEUX} label="Part dans l'activité globale" />
+                <div className="space-y-2">
+                  <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">Dans quel(s) domaine(s) ?</p>
+                  <div className="flex flex-wrap gap-2">
+                    {CONTENTIEUX_DOMAINES.map(d => {
+                      const active = (store.reContentieuxDomaines || []).includes(d);
+                      return <ChipButton key={d} active={active} onClick={() => toggleChip('reContentieuxDomaines', d)}>{d}</ChipButton>;
+                    })}
                   </div>
                 </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
-      </section>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
 
       {/* ═══════ TYPOLOGIE D'ACTIFS ═══════ */}
-      <section className="space-y-3">
-        <p className="text-lg font-serif text-foreground tracking-tight">Typologie d'actifs</p>
+      <div className="border-t border-border pt-5 space-y-3">
+        <p className="text-sm font-sans font-medium text-foreground">Typologie d'actifs</p>
         <div className="flex flex-wrap gap-2">
           {ASSET_TYPES.map(a => {
             const active = (store.reAssetTypes || []).includes(a);
             return <ChipButton key={a} active={active} onClick={() => toggleChip('reAssetTypes', a)}>{a}</ChipButton>;
           })}
         </div>
-      </section>
+      </div>
 
       {/* ═══════ TYPE DE CLIENTS ═══════ */}
-      <section className="space-y-3">
-        <p className="text-lg font-serif text-foreground tracking-tight">Type de clients</p>
+      <div className="border-t border-border pt-5 space-y-3">
+        <p className="text-sm font-sans font-medium text-foreground">Type de clients</p>
         <div className="flex flex-wrap gap-2">
           {CLIENT_TYPES.map(c => {
             const active = (store.typesClients || []).includes(c);
             return <ChipButton key={c} active={active} onClick={() => toggleChip('typesClients', c)}>{c}</ChipButton>;
           })}
         </div>
-      </section>
+      </div>
 
-      {/* ═══════ PART DE L'ACTIVITÉ EN ANGLAIS ═══════ */}
-      <section className="space-y-3">
-        <p className="text-lg font-serif text-foreground tracking-tight">Part de l'activité en anglais</p>
-        <div className="flex items-center gap-3">
+      {/* ═══════ ANGLAIS ═══════ */}
+      <div className="border-t border-border pt-5 space-y-2">
+        <p className="text-sm font-sans font-medium text-foreground">Part de l'activité en anglais</p>
+        <div className="flex items-center gap-2">
           <input
             type="number"
             min={0}
@@ -271,11 +291,11 @@ const RealEstateActivityPanel = () => {
             onChange={e => setAnglaisInput(e.target.value)}
             onBlur={handleAnglaisBlur}
             onKeyDown={e => { if (e.key === 'Enter') handleAnglaisBlur(); }}
-            className="w-20 h-9 rounded-sm border border-border bg-background px-3 text-sm font-sans font-bold text-foreground tabular-nums text-center focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-1"
+            className="w-16 h-7 rounded-sm border border-border bg-background px-2 text-xs font-sans font-bold text-foreground tabular-nums text-center focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-1"
           />
-          <span className="text-sm font-sans text-muted-foreground">%</span>
+          <span className="text-xs font-sans text-muted-foreground">%</span>
         </div>
-      </section>
+      </div>
 
       {/* ═══════ SYNTHÈSE ═══════ */}
       <AnimatePresence>
@@ -286,15 +306,15 @@ const RealEstateActivityPanel = () => {
             exit={{ opacity: 0, y: 16 }}
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
           >
-            <div className="carter-card p-6 bg-card">
-              <p className="text-lg font-serif text-foreground tracking-tight mb-5">Synthèse de votre activité</p>
+            <div className="border-t border-border pt-5">
+              <p className="text-sm font-sans font-medium text-foreground mb-4">Synthèse</p>
 
               <div className="flex flex-col md:flex-row gap-6 items-start">
                 {/* Pie chart */}
-                <div className="flex-shrink-0 self-center" style={{ width: 200, height: 200 }}>
+                <div className="flex-shrink-0 self-center" style={{ width: 180, height: 180 }}>
                   <ResponsiveContainer width="100%" height="100%">
                     <PieChart>
-                      <Pie data={chartData} cx="50%" cy="50%" innerRadius={48} outerRadius={90} dataKey="value" paddingAngle={1.5} stroke="hsl(var(--background))" strokeWidth={2} label={renderLabel} labelLine={false}>
+                      <Pie data={chartData} cx="50%" cy="50%" innerRadius={44} outerRadius={82} dataKey="value" paddingAngle={1.5} stroke="hsl(var(--background))" strokeWidth={2} label={renderLabel} labelLine={false}>
                         {chartData.map((seg, i) => <Cell key={i} fill={seg.color} />)}
                       </Pie>
                       <Tooltip formatter={(v: number) => [`${v}%`, '']} contentStyle={tooltipStyle} />
