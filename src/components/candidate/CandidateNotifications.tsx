@@ -56,28 +56,27 @@ const CandidateNotifications = () => {
             return (
               <div
                 key={notif.id}
-                className="rounded-lg overflow-hidden border border-black/[0.08]"
-                style={{ background: 'hsl(40, 20%, 95%)' }}
+                className="rounded-lg overflow-hidden border border-white/[0.08] bg-card"
               >
                 <div className="p-5">
                   <div className="flex items-start gap-4">
                     <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 mt-0.5 ${
-                      notif.type === 'interest' ? 'bg-black/[0.08] text-black/70' : 'bg-black/[0.05] text-black/50'
+                      notif.type === 'interest' ? 'bg-white/[0.08] text-white/70' : 'bg-white/[0.05] text-white/50'
                     }`}>
                       {notif.type === 'interest' ? <Star className="w-3.5 h-3.5" /> : <Bell className="w-3.5 h-3.5" />}
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between gap-4 mb-1">
-                        <p className={`text-[16px] font-sans tracking-[-0.01em] ${notif.read ? 'text-black/55 font-normal' : 'text-black/90 font-semibold'}`}>
+                        <p className={`text-[16px] font-sans tracking-[-0.01em] ${notif.read ? 'text-white/55 font-normal' : 'text-white/90 font-semibold'}`}>
                           {notif.message}
                         </p>
-                        {!notif.read && <span className="w-2 h-2 rounded-full bg-black/70 shrink-0" />}
+                        {!notif.read && <span className="w-2 h-2 rounded-full bg-white/70 shrink-0" />}
                       </div>
-                      <p className="text-[11px] font-sans text-black/50 leading-relaxed mb-2">{notif.detail}</p>
+                      <p className="text-[11px] font-sans text-white/50 leading-relaxed mb-2">{notif.detail}</p>
 
                       {notif.type === 'interest' && offer && offer.ranking && (
                         <div className="flex items-center gap-2 mb-2">
-                          <span className="inline-flex items-center gap-2 text-[10px] font-sans font-bold text-black/70 border border-black/20 rounded px-2.5 py-1">
+                          <span className="inline-flex items-center gap-2 text-[10px] font-sans font-bold text-white/70 border border-white/20 rounded px-2.5 py-1">
                             <span className="text-xs font-bold leading-none">{getOfferNatFlag(offer)}</span>
                             <span className="font-bold">{offer.ranking}</span>
                           </span>
@@ -85,11 +84,11 @@ const CandidateNotifications = () => {
                       )}
 
                       <div className="flex items-center gap-3">
-                        <span className="text-[10px] font-sans text-black/40">{new Date(notif.date).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' })}</span>
+                        <span className="text-[10px] font-sans text-white/40">{new Date(notif.date).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' })}</span>
                         {notif.type === 'interest' && offer && (
                           <button
                             onClick={() => setExpandedNotif(isExpanded ? null : notif.id)}
-                            className="inline-flex items-center gap-1 text-[10px] font-sans font-bold text-black/70 hover:text-black/90 transition-colors underline underline-offset-2"
+                            className="inline-flex items-center gap-1 text-[10px] font-sans font-bold text-white/70 hover:text-white/90 transition-colors underline underline-offset-2"
                           >
                             {isExpanded ? 'Masquer l\'offre' : 'Consulter l\'offre'}
                             <ArrowRight className="w-3 h-3" />
@@ -102,48 +101,48 @@ const CandidateNotifications = () => {
 
                 {/* Expanded offer preview */}
                 {isExpanded && offer && (
-                  <div className="border-t border-black/10 p-5">
+                  <div className="border-t border-white/[0.08] p-5">
                     <div className="mb-4">
                       <div className="flex items-center gap-0 mb-2 flex-wrap">
-                        <span className="text-[16px] font-sans tracking-[-0.01em] font-semibold text-black/90 leading-none">{shortSeniority(offer.seniority)}</span>
-                        <span className="mx-2.5 w-px h-5 bg-black/20 inline-block" />
-                        <span className="text-[16px] font-sans tracking-[-0.01em] font-semibold text-black/90 leading-none">{offer.dept}</span>
+                        <span className="text-[16px] font-sans tracking-[-0.01em] font-semibold text-white/90 leading-none">{shortSeniority(offer.seniority)}</span>
+                        <span className="mx-2.5 w-px h-5 bg-white/20 inline-block" />
+                        <span className="text-[16px] font-sans tracking-[-0.01em] font-semibold text-white/90 leading-none">{offer.dept}</span>
                         {offer.ranking && (
                           <>
-                            <span className="mx-2.5 w-px h-5 bg-black/20 inline-block" />
-                            <span className="inline-flex items-center gap-2 text-[14px] font-sans text-black/70">
+                            <span className="mx-2.5 w-px h-5 bg-white/20 inline-block" />
+                            <span className="inline-flex items-center gap-2 text-[14px] font-sans text-white/70">
                               <span className="text-xs font-bold leading-none">{getOfferNatFlag(offer)}</span>
                               <span className="font-bold">{offer.ranking}</span>
                             </span>
                           </>
                         )}
                       </div>
-                      <p className="text-[12px] font-sans text-black/55 leading-relaxed mt-3">{offer.description}</p>
+                      <p className="text-[12px] font-sans text-white/55 leading-relaxed mt-3">{offer.description}</p>
                       {offer.tags.length > 0 && (
                         <div className="flex flex-wrap gap-1.5 mt-3">
                           {offer.tags.map((tag) => (
-                            <span key={tag} className="text-[10px] font-sans px-2.5 py-1 rounded-full border border-black/15 text-black/55">{tag}</span>
+                            <span key={tag} className="text-[10px] font-sans px-2.5 py-1 rounded-full border border-white/15 text-white/55">{tag}</span>
                           ))}
                         </div>
                       )}
                       <div className="flex items-center justify-between mt-4">
-                        <div className="flex items-center gap-1.5 text-[11px] text-black/55 font-sans">
+                        <div className="flex items-center gap-1.5 text-[11px] text-white/55 font-sans">
                           <Calendar className="w-3 h-3" />
                           <span>Date de publication : {formatOfferDate(offer.postedAt)}</span>
                         </div>
-                        <div className="text-[9px] tracking-[0.15em] uppercase text-black/30 font-sans">{offer.reference}</div>
+                        <div className="text-[9px] tracking-[0.15em] uppercase text-white/30 font-sans">{offer.reference}</div>
                       </div>
                     </div>
 
                     {isConfirmed ? (
-                      <div className="flex items-center gap-2 text-[13px] font-sans text-black/65 bg-black/[0.05] rounded-lg px-4 py-3">
+                      <div className="flex items-center gap-2 text-[13px] font-sans text-white/65 bg-white/[0.05] rounded-lg px-4 py-3">
                         <CheckCircle2 className="w-4 h-4" />
                         Demande d'échange transmise à votre consultant Logan.
                       </div>
                     ) : (
                       <button
                         onClick={() => handleConfirmExchange(notif.id)}
-                        className="w-full flex items-center justify-center gap-2 bg-black/85 text-white py-3 rounded-lg text-[13px] font-sans font-bold hover:bg-black/75 transition-colors"
+                        className="w-full flex items-center justify-center gap-2 bg-white/90 text-black py-3 rounded-lg text-[13px] font-sans font-bold hover:bg-white/80 transition-colors"
                       >
                         <MessageCircle className="w-4 h-4" />
                         Échanger avec un consultant sur cette opportunité
