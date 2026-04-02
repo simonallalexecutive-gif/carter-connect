@@ -22,16 +22,21 @@ const ASSET_TYPES = [
 const CONTENTIEUX_DOMAINES = ['Baux commerciaux', 'Construction', 'Autre'] as const;
 
 const SHARE_DEAL_MODES = [
-  { key: 'pilotage_direct', label: 'En pilotage direct (y compris sur les aspects corporate)' },
-  { key: 'coordination', label: 'En coordination avec une équipe corporate' },
-  { key: 'support', label: 'En support (audit / aspects immobiliers uniquement)' },
+  { key: 'corporate_real_estate', label: 'Corporate Real Estate' },
+  { key: 'support_corporate', label: 'Support corporate' },
 ] as const;
 
 const SHARE_DEAL_MODE_SHORT: Record<string, string> = {
-  pilotage_direct: 'Share Deal (pilotage direct)',
-  coordination: 'Share Deal (coord. corporate)',
-  support: 'Share Deal (support)',
+  corporate_real_estate: 'Share Deal (Corporate Real Estate)',
+  support_corporate: 'Share Deal (Support corporate)',
 };
+
+const CLIENT_TYPES = [
+  'Investisseurs (buy-side / sell-side)',
+  'Promoteurs / développeurs',
+  'Utilisateurs (baux commerciaux)',
+  'Financiers (debt side)',
+] as const;
 
 const tooltipStyle = {
   fontSize: '11px',
