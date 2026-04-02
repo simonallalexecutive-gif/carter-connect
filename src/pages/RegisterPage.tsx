@@ -20,6 +20,7 @@ const RegisterPage = () => {
   const navigate = useNavigate();
   const espaceParam = searchParams.get('espace');
   const isDarkStep = currentStep === 7;
+  const isStepContent = currentStep >= 2 && currentStep <= 6;
 
   // For candidat: show confidentiality intro first (skip Step1Hero)
   const [showConfIntro, setShowConfIntro] = useState(espaceParam === 'candidat');
