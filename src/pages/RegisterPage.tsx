@@ -54,7 +54,7 @@ const RegisterPage = () => {
       document.body.classList.remove('theme-light');
       document.body.classList.remove('theme-dark-registration');
     };
-  }, [isDarkStep, isStepContent, showConfIntro, showCabinetIntro]);
+  }, [isDarkStep, isStepContent, showConfIntro, showCabinetIntro, showProgress]);
 
   const handleConfIntroComplete = () => {
     setShowConfIntro(false);
