@@ -104,6 +104,17 @@ export interface RegistrationState {
   dpubClientele: string[];
   dpubDimensionProjets: string[];
   dpubSecteurs: string[];
+  // Arbitration
+  arbInstitutions: string[];
+  arbSecteurs: string[];
+  arbPositionnements: string[];
+  arbDomestique: number;
+  // Projects & Energy
+  projSecteursEnergie: string[];
+  projTypesInfra: string[];
+  projPositionnements: string[];
+  projTaille: string[];
+  projDomestique: number;
   // Real Estate / Immobilier — Conseil (pie chart)
   reBauxAM: number;
   reShareDeal: number;

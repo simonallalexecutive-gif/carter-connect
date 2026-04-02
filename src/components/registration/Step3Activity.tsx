@@ -100,33 +100,54 @@ const Step3Activity = () => {
 
       <div className="space-y-8">
         {/* Specialized panels */}
-        {(store.departement === 'Financement LBO' || store.departement === 'Financement de projets') && practiceActivities.sections.filter(s => s.title === 'Type de financement').map(section => (
-          <div key={section.title}>
-            <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-3 block">{section.title}</Label>
-            <FinanceActivityPanel items={section.items} />
-          </div>
-        ))}
+        {(store.departement === 'Financement LBO' || store.departement === 'Financement de projets' || store.departement === 'Banking & Finance') && practiceActivities.sections.filter(s => s.title === 'Type de financement').length > 0 ? (
+          practiceActivities.sections.filter(s => s.title === 'Type de financement').map(section => (
+            <div key={section.title}>
+              <FinanceActivityPanel items={section.items} />
+            </div>
+          ))
+        ) : (store.departement === 'Banking & Finance') ? (
+          <FinanceActivityPanel items={[
+            { key: 'fin_obligataire', label: 'Financement obligataire' }, { key: 'fin_acq', label: "Financement d'acquisition" },
+            { key: 'fin_lbo', label: 'Financement LBO' }, { key: 'fin_immo', label: 'Financement immobilier' },
+            { key: 'fin_actifs', label: "Financement d'actifs" }, { key: 'fin_titrisation', label: 'Titrisation' },
+          ]} />
+        ) : null}
 
         {(store.departement === 'Restructuring' || store.departement === 'Restructuring/Insolvency') && (
           <RestructuringActivityPanel />
         )}
 
-        {store.departement === 'Droit Social' && (
-          <div>
-            <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-3 block">Nature de l'activité</Label>
-            <SocialActivityPanel />
-          </div>
+        {(store.departement === 'Droit Social' || store.departement === 'Employment') && (
+          <SocialActivityPanel />
         )}
 
-        {(store.departement === 'M&A (dominante)' || store.departement === 'Private Equity (dominante)') && (
-          <div>
-            <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-3 block">Nature des opérations</Label>
-            <MaActivityPanel />
-          </div>
+        {(store.departement === 'M&A (dominante)' || store.departement === 'Private Equity (dominante)' || store.departement === 'Corporate/M&A' || store.departement === 'Private Equity') && (
+          <MaActivityPanel />
         )}
 
         {(store.departement === 'Immobilier' || store.departement === 'Real Estate') && (
           <RealEstateActivityPanel />
+        )}
+
+        {(store.departement === 'Competition/European Law') && (
+          <ConcurrenceActivityPanel />
+        )}
+
+        {(store.departement === 'Tax') && (
+          <FiscalActivityPanel />
+        )}
+
+        {(store.departement === 'Public Law') && (
+          <DroitPublicActivityPanel />
+        )}
+
+        {(store.departement === 'International Arbitration') && (
+          <ArbitrationActivityPanel />
+        )}
+
+        {(store.departement === 'Projects & Energy') && (
+          <ProjectsEnergyActivityPanel />
         )}
 
 
