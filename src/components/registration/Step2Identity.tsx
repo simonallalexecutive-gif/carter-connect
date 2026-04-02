@@ -90,7 +90,7 @@ const Step2Identity = () => {
     return CHAMBERS_DEPARTMENTS.map(d => ({
       key: d.key,
       label: CHAMBERS_KEY_TO_PRACTICE[d.key] || d.label,
-    }));
+    })).sort((a, b) => a.label.localeCompare(b.label, 'fr'));
   }, []);
 
   // Get current Chambers band for selected practice (null = not ranked)
