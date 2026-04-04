@@ -111,7 +111,7 @@ const LandingPage = () => (
             </motion.h1>
           </div>
           <motion.p variants={fadeUp} className="text-[0.956rem] sm:text-[1.043rem] md:text-[1.061rem] text-white font-sans font-[480] leading-[1.65] max-w-[72rem]">
-            Un réseau confidentiel, piloté par des chasseurs spécialisés, conçu pour les candidats<br />et cabinets d'avocats les plus prestigieux du marché.
+            Un écosystème discret et exigeant réunissant les acteurs les plus prestigieux du marché du Droit.<br />Un accès continu à des profils hautement qualifiés dans une exigence de confidentialité.
           </motion.p>
           <motion.div variants={fadeUp} className="mt-14 sm:mt-20">
             <Link to="/demander-acces">
