@@ -106,12 +106,12 @@ const LandingPage = () => (
       <div className="px-6 sm:px-8 lg:px-10 max-w-6xl relative z-10 pt-24 flex-1 flex items-center pb-4">
         <motion.div variants={stagger} initial="hidden" animate="visible" className="max-w-[min(95vw,72rem)]">
           <div className="inline-block">
-          <motion.h1 variants={fadeUp} className="text-[1.496rem] sm:text-[2.795rem] md:text-[3.743rem] lg:text-[4.866rem] font-serif font-[500] text-white leading-[1.1] md:leading-[1.02] mb-3 md:mb-5 tracking-[-0.03em] whitespace-nowrap">
+          <motion.h1 variants={fadeUp} className="text-[1.496rem] sm:text-[2.795rem] md:text-[3.743rem] lg:text-[4.866rem] font-serif font-[500] text-white leading-[1.1] md:leading-[1.02] mb-3 md:mb-5 tracking-[-0.03em] sm:whitespace-nowrap">
               The Circle of Top Tier Lawyers
             </motion.h1>
           </div>
           <motion.p variants={fadeUp} className="text-[0.956rem] sm:text-[1.043rem] md:text-[1.061rem] text-white font-sans font-[480] leading-[1.65] max-w-[72rem]">
-            Un réseau confidentiel, piloté par des chasseurs spécialisés, conçu pour les candidats<br />et cabinets d'avocats les plus prestigieux du marché.
+            Un réseau confidentiel, piloté par des chasseurs spécialisés, conçu pour les candidats<br className="hidden sm:inline" />{' '}et cabinets d'avocats les plus prestigieux du marché.
           </motion.p>
           <motion.div variants={fadeUp} className="mt-14 sm:mt-20">
             <Link to="/demander-acces">
