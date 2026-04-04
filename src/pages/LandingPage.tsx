@@ -107,7 +107,7 @@ const LandingPage = () => (
         <motion.div variants={stagger} initial="hidden" animate="visible" className="max-w-[min(95vw,72rem)]">
           <div className="inline-block">
           <motion.h1 variants={fadeUp} className="text-[1.496rem] sm:text-[2.795rem] md:text-[3.743rem] lg:text-[4.866rem] font-serif font-[500] text-white leading-[1.1] md:leading-[1.02] mb-3 md:mb-5 tracking-[-0.03em] whitespace-nowrap">
-              The Circle of Top Tier Lawyers
+              Connecting Leading Lawyers
             </motion.h1>
           </div>
           <motion.p variants={fadeUp} className="text-[0.956rem] sm:text-[1.043rem] md:text-[1.061rem] text-white font-sans font-[480] leading-[1.65] max-w-[72rem]">
