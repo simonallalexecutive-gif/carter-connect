@@ -10,6 +10,7 @@ import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import { Check, Minus, Plus } from 'lucide-react';
 import ActivityPieChart from '@/components/shared/ActivityPieChart';
 import { buildQuantizedChartData } from '@/lib/percentages';
+import CabinetRestructuringPanel from '@/components/cabinet/CabinetRestructuringPanel';
 
 const TABS = ['Profil recherché', 'Contexte & équipe', 'Rémunération & conditions', 'Confidentialité'];
 
@@ -410,7 +411,13 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
               </div>
             )}
 
-            {/* Activity split with pie chart — blue/grey palette */}
+            {/* Restructuring specialized panel */}
+            {s.expertise.includes('Restructuring') && (
+              <div className="mt-6">
+                <CabinetRestructuringPanel />
+              </div>
+            )}
+
             {s.expertise.length >= 2 && (
               <div className="mt-5">
                 <p className="text-[11px] text-muted-foreground mb-3">Quelle part représente chaque expertise dans l'activité globale du poste ?</p>

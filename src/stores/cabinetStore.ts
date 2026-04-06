@@ -110,6 +110,15 @@ export interface CabinetState {
   assocClienteleDesc: string;
   assocProjetDesc: string;
 
+  // Restructuring panel fields
+  sousActivites: Record<string, Record<string, number>>;
+  restrFinancier: number;
+  pourcentages: Record<string, number>;
+  positionnementRestr: string[];
+  positionnementRestrPct: Record<string, number>;
+  clienteleRestr: string[];
+  clienteleRestrPct: Record<string, number>;
+
   // Legacy (kept for compatibility)
   typeCab: string;
   depts: string[];
@@ -173,6 +182,14 @@ const searchDefaults = {
   assocExpertiseDesc: '',
   assocClienteleDesc: '',
   assocProjetDesc: '',
+  // Restructuring panel defaults
+  sousActivites: {} as Record<string, Record<string, number>>,
+  restrFinancier: 0,
+  pourcentages: {} as Record<string, number>,
+  positionnementRestr: [] as string[],
+  positionnementRestrPct: {} as Record<string, number>,
+  clienteleRestr: [] as string[],
+  clienteleRestrPct: {} as Record<string, number>,
 };
 
 const initialState = {
