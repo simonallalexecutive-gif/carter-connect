@@ -82,6 +82,7 @@ export interface CabinetState {
   expertise: string[];
   activitySplit: Record<string, number>;
   cabinetActivites: Record<string, boolean>;
+  scopePercentages: Record<string, number>;
   english: string;
   l500cand: boolean;
   natOrigin: string;
@@ -155,6 +156,7 @@ const searchDefaults = {
   expertise: [] as string[],
   activitySplit: {} as Record<string, number>,
   cabinetActivites: {} as Record<string, boolean>,
+  scopePercentages: {} as Record<string, number>,
   english: '',
   l500cand: false,
   natOrigin: '',
