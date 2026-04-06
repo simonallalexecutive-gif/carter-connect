@@ -110,7 +110,7 @@ const LandingPage = () => (
               Connecting Top Tier Lawyers
             </motion.h1>
           </div>
-          <motion.p variants={fadeUp} className="text-[0.956rem] sm:text-[1.043rem] md:text-[1.061rem] text-white font-sans font-[480] leading-[1.65] max-w-[72rem]">
+          <motion.p variants={fadeUp} className="text-[1.147rem] sm:text-[1.252rem] md:text-[1.273rem] text-white font-sans font-[480] leading-[1.65] max-w-[72rem]">
             Un réseau confidentiel, piloté par des chasseurs spécialisés, conçu pour les candidats<br className="hidden sm:inline" />{' '}et cabinets d'avocats les plus prestigieux du marché.
           </motion.p>
           <motion.div variants={fadeUp} className="mt-14 sm:mt-20">
