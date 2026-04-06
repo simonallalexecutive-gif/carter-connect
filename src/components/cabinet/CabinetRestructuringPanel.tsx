@@ -6,6 +6,7 @@ import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import { Check, Minus, Plus } from 'lucide-react';
 import SquareGauge from '@/components/shared/SquareGauge';
 import { buildQuantizedChartData } from '@/lib/percentages';
+import CabinetRestructuringSynthesis from '@/components/cabinet/CabinetRestructuringSynthesis';
 
 /* ── Palette ── */
 const COL_AMIABLE = 'hsl(215, 50%, 35%)';
@@ -164,61 +165,11 @@ const CabinetRestructuringPanel = () => {
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
             className="md:sticky md:top-8 md:w-[320px] flex-shrink-0 w-full"
           >
-            <div className="carter-card p-5 space-y-4">
-              <p className="text-sm font-sans font-medium text-foreground">Synthèse</p>
-
-              {/* Pie chart */}
-              <div className="self-center mx-auto" style={{ width: 200, height: 200 }}>
-                <ResponsiveContainer width="100%" height="100%">
-                  <PieChart>
-                    <Pie data={chartData} cx="50%" cy="50%" innerRadius={48} outerRadius={88} dataKey="value" paddingAngle={1.5} stroke="hsl(var(--background))" strokeWidth={2} label={renderLabel} labelLine={false}>
-                      {chartData.map((seg, i) => <Cell key={i} fill={seg.color} />)}
-                    </Pie>
-                    <Tooltip formatter={(v: number) => [`${v}%`, '']} contentStyle={tooltipStyle} />
-                  </PieChart>
-                </ResponsiveContainer>
-              </div>
-
-              {/* Legend — Activité */}
-              <div className="space-y-1.5">
-                <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium mb-2">Activité</p>
-                {chartData.map(seg => (
-                  <div key={seg.name} className="flex items-center gap-2.5">
-                    <span className="w-2.5 h-2.5 rounded-sm flex-shrink-0" style={{ background: seg.color }} />
-                    <span className="text-[11px] font-sans text-foreground/80 flex-1 min-w-0 truncate">{seg.name}</span>
-                    <span className="text-[11px] font-sans font-bold text-foreground tabular-nums">{seg.value}%</span>
-                  </div>
-                ))}
-              </div>
-
-              {/* Legend — Positionnement */}
-              {posChartData.length > 0 && (
-                <div className="border-t border-border pt-3 space-y-1.5">
-                  <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium mb-1">Positionnement</p>
-                  {posChartData.map((seg, i) => (
-                    <div key={seg.name} className="flex items-center gap-2.5">
-                      <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: COL_POS[i % COL_POS.length] }} />
-                      <span className="text-[11px] font-sans text-foreground/70 flex-1">{seg.name}</span>
-                      <span className="text-[11px] font-sans font-semibold text-foreground tabular-nums">{seg.value}%</span>
-                    </div>
-                  ))}
-                </div>
-              )}
-
-              {/* Legend — Clientèle */}
-              {cliChartData.length > 0 && (
-                <div className="border-t border-border pt-3 space-y-1.5">
-                  <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium mb-1">Clientèle</p>
-                  {cliChartData.map((seg, i) => (
-                    <div key={seg.name} className="flex items-center gap-2.5">
-                      <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: COL_CLI[i % COL_CLI.length] }} />
-                      <span className="text-[11px] font-sans text-foreground/70 flex-1">{seg.name}</span>
-                      <span className="text-[11px] font-sans font-semibold text-foreground tabular-nums">{seg.value}%</span>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
+            <CabinetRestructuringSynthesis
+              chartData={chartData}
+              posChartData={posChartData}
+              cliChartData={cliChartData}
+            />
           </motion.div>
         )}
       </AnimatePresence>
