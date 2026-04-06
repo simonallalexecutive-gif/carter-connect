@@ -330,56 +330,60 @@ const SearchValidation = () => {
                 ))}
               </div>
 
-              {/* Scope detail chips + pie chart */}
-              {(activeActivities.length > 0 || sectionCounts.length > 0) && (
-                <div className="flex items-start gap-6 mt-4 pt-4 border-t border-white/[0.06]">
-                  {/* Pie chart by section type */}
-                  {sectionCounts.length > 0 && (
-                    <div className="flex flex-col items-center flex-shrink-0">
-                      <ResponsiveContainer width={120} height={120}>
-                        <PieChart>
-                          <Pie
-                            data={sectionCounts}
-                            cx="50%"
-                            cy="50%"
-                            innerRadius={28}
-                            outerRadius={52}
-                            dataKey="value"
-                            stroke="hsl(0, 0%, 10%)"
-                            strokeWidth={2}
-                          >
-                            {sectionCounts.map((_, i) => (
-                              <Cell key={i} fill={VALIDATION_PIE_PALETTE[i % VALIDATION_PIE_PALETTE.length]} />
-                            ))}
-                          </Pie>
-                          <Tooltip
-                            formatter={(value: number, name: string) => [`${value} sélection(s)`, name]}
-                            contentStyle={{ fontSize: '10px', borderRadius: '4px', background: 'hsl(0,0%,15%)', color: 'white', border: '1px solid rgba(255,255,255,0.1)' }}
-                          />
-                        </PieChart>
-                      </ResponsiveContainer>
-                      <div className="flex flex-col gap-1 mt-2">
-                        {sectionCounts.map((sc, i) => (
-                          <div key={sc.name} className="flex items-center gap-1.5">
-                            <span className="w-2 h-2 rounded-sm flex-shrink-0" style={{ background: VALIDATION_PIE_PALETTE[i % VALIDATION_PIE_PALETTE.length] }} />
-                            <span className="text-[9px] text-white/50 font-sans">{sc.name} ({sc.value})</span>
+              {/* Scope detail per expertise with quantized pie chart */}
+              {Object.entries(scopeChartDataByExpertise).map(([exp, chartData]) => (
+                chartData.length > 0 && (
+                  <div key={exp} className="mt-5 pt-4 border-t border-white/[0.06]">
+                    <p className="text-[8px] uppercase tracking-[0.1em] text-white/35 font-sans mb-3">{exp} — Répartition des dossiers</p>
+                    <div className="flex items-start gap-6">
+                      <div className="flex-shrink-0" style={{ width: 140, height: 140 }}>
+                        <ResponsiveContainer width="100%" height="100%">
+                          <PieChart>
+                            <Pie
+                              data={chartData}
+                              cx="50%"
+                              cy="50%"
+                              innerRadius={32}
+                              outerRadius={62}
+                              dataKey="value"
+                              paddingAngle={2}
+                              stroke="hsl(0, 0%, 10%)"
+                              strokeWidth={2}
+                              label={({ cx, cy, midAngle, innerRadius: ir, outerRadius: or, index }: any) => {
+                                const RADIAN = Math.PI / 180;
+                                const radius = ir + (or - ir) * 0.5;
+                                const x = cx + radius * Math.cos(-midAngle * RADIAN);
+                                const y = cy + radius * Math.sin(-midAngle * RADIAN);
+                                const pct = chartData[index]?.value ?? 0;
+                                if (pct < 15) return null;
+                                return <text x={x} y={y} fill="white" textAnchor="middle" dominantBaseline="central" fontSize={10} fontWeight={700} fontFamily="Inter, sans-serif">{pct}%</text>;
+                              }}
+                              labelLine={false}
+                            >
+                              {chartData.map((entry, index) => (
+                                <Cell key={index} fill={entry.color} />
+                              ))}
+                            </Pie>
+                            <Tooltip
+                              formatter={(value: number, name: string) => [`${value}%`, name]}
+                              contentStyle={{ fontSize: '10px', borderRadius: '4px', background: 'hsl(0,0%,15%)', color: 'white', border: '1px solid rgba(255,255,255,0.1)' }}
+                            />
+                          </PieChart>
+                        </ResponsiveContainer>
+                      </div>
+                      <div className="flex-1 min-w-0 space-y-2">
+                        {chartData.map((item, i) => (
+                          <div key={item.name} className="flex items-center gap-2">
+                            <span className="w-2.5 h-2.5 rounded-sm flex-shrink-0" style={{ background: item.color }} />
+                            <span className="text-[11px] font-sans text-white/70 flex-1">{item.name}</span>
+                            <span className="text-[11px] font-sans font-bold text-white">{item.value}%</span>
                           </div>
                         ))}
                       </div>
                     </div>
-                  )}
-
-                  {/* Scope chips */}
-                  <div className="flex-1 min-w-0">
-                    <p className="text-[8px] uppercase tracking-[0.1em] text-white/35 font-sans mb-2">Scope d'intervention</p>
-                    <div className="flex flex-wrap gap-1.5">
-                      {activeActivities.map((a) => (
-                        <span key={a.label} className="text-[10px] bg-white/[0.07] border border-white/[0.12] rounded px-2.5 py-1 text-white/70 font-sans">{a.label}</span>
-                      ))}
-                    </div>
                   </div>
-                </div>
-              )}
+                )
+              ))}
 
               {/* Activity split pie chart when multiple expertises */}
               {s.expertise.length >= 2 && Object.keys(s.activitySplit).length > 0 && (
