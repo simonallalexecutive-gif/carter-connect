@@ -10,6 +10,8 @@ import ActivityPieChart from '@/components/shared/ActivityPieChart';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 import { buildQuantizedChartData } from '@/lib/percentages';
+import CabinetActivityPieSummary from '@/components/cabinet/CabinetActivityPieSummary';
+import CabinetRestructuringSynthesis from '@/components/cabinet/CabinetRestructuringSynthesis';
 import CabinetStep3Search from './CabinetStep3Search';
 
 const PALIER_MAP: Record<string, string> = {
@@ -330,57 +332,15 @@ const SearchValidation = () => {
                 ))}
               </div>
 
-              {/* Scope detail per expertise with quantized pie chart */}
               {Object.entries(scopeChartDataByExpertise).map(([exp, chartData]) => (
                 chartData.length > 0 && (
                   <div key={exp} className="mt-5 pt-4 border-t border-white/[0.06]">
-                    <p className="text-[8px] uppercase tracking-[0.1em] text-white/35 font-sans mb-3">{exp} — Répartition des dossiers</p>
-                    <div className="flex items-start gap-6">
-                      <div className="flex-shrink-0" style={{ width: 140, height: 140 }}>
-                        <ResponsiveContainer width="100%" height="100%">
-                          <PieChart>
-                            <Pie
-                              data={chartData}
-                              cx="50%"
-                              cy="50%"
-                              innerRadius={32}
-                              outerRadius={62}
-                              dataKey="value"
-                              paddingAngle={2}
-                              stroke="hsl(0, 0%, 10%)"
-                              strokeWidth={2}
-                              label={({ cx, cy, midAngle, innerRadius: ir, outerRadius: or, index }: any) => {
-                                const RADIAN = Math.PI / 180;
-                                const radius = ir + (or - ir) * 0.5;
-                                const x = cx + radius * Math.cos(-midAngle * RADIAN);
-                                const y = cy + radius * Math.sin(-midAngle * RADIAN);
-                                const pct = chartData[index]?.value ?? 0;
-                                if (pct < 15) return null;
-                                return <text x={x} y={y} fill="white" textAnchor="middle" dominantBaseline="central" fontSize={10} fontWeight={700} fontFamily="Inter, sans-serif">{pct}%</text>;
-                              }}
-                              labelLine={false}
-                            >
-                              {chartData.map((entry, index) => (
-                                <Cell key={index} fill={entry.color} />
-                              ))}
-                            </Pie>
-                            <Tooltip
-                              formatter={(value: number, name: string) => [`${value}%`, name]}
-                              contentStyle={{ fontSize: '10px', borderRadius: '4px', background: 'hsl(0,0%,15%)', color: 'white', border: '1px solid rgba(255,255,255,0.1)' }}
-                            />
-                          </PieChart>
-                        </ResponsiveContainer>
-                      </div>
-                      <div className="flex-1 min-w-0 space-y-2">
-                        {chartData.map((item, i) => (
-                          <div key={item.name} className="flex items-center gap-2">
-                            <span className="w-2.5 h-2.5 rounded-sm flex-shrink-0" style={{ background: item.color }} />
-                            <span className="text-[11px] font-sans text-white/70 flex-1">{item.name}</span>
-                            <span className="text-[11px] font-sans font-bold text-white">{item.value}%</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
+                    <p className="text-[8px] uppercase tracking-[0.1em] text-white/35 font-sans mb-3">{exp} — scope d'intervention</p>
+                    <CabinetActivityPieSummary
+                      chartData={chartData}
+                      theme="dark"
+                      className="text-white"
+                    />
                   </div>
                 )
               ))}
@@ -428,80 +388,62 @@ const SearchValidation = () => {
                 </div>
               )}
 
-              {/* Restructuring synthesis pie chart */}
-              {s.expertise.includes('Restructuring') && Object.keys(s.pourcentages).length > 0 && (
-                <div className="mt-5 pt-4 border-t border-white/[0.06]">
-                  <p className="text-[8px] uppercase tracking-[0.1em] text-white/35 font-sans mb-3">Synthèse Restructuring</p>
-                  <div className="flex items-start gap-6">
-                    <div className="flex flex-col items-center flex-shrink-0">
-                      <ResponsiveContainer width={120} height={120}>
-                        <PieChart>
-                          <Pie
-                            data={Object.entries(s.pourcentages).filter(([, v]) => v > 0).map(([name, value]) => ({ name, value }))}
-                            cx="50%"
-                            cy="50%"
-                            innerRadius={28}
-                            outerRadius={52}
-                            dataKey="value"
-                            stroke="hsl(0, 0%, 10%)"
-                            strokeWidth={2}
-                            label={({ cx, cy, midAngle, innerRadius: ir, outerRadius: or, value }: any) => {
-                              const RADIAN = Math.PI / 180;
-                              const radius = ir + (or - ir) * 0.5;
-                              const x = cx + radius * Math.cos(-midAngle * RADIAN);
-                              const y = cy + radius * Math.sin(-midAngle * RADIAN);
-                              if (value < 10) return null;
-                              return <text x={x} y={y} fill="white" textAnchor="middle" dominantBaseline="central" fontSize={10} fontWeight={700}>{Math.round(value)}%</text>;
-                            }}
-                          >
-                            {Object.entries(s.pourcentages).filter(([, v]) => v > 0).map((_, i) => (
-                              <Cell key={i} fill={VALIDATION_PIE_PALETTE[i % VALIDATION_PIE_PALETTE.length]} />
-                            ))}
-                          </Pie>
-                          <Tooltip
-                            formatter={(value: number, name: string) => [`${value}%`, name]}
-                            contentStyle={{ fontSize: '10px', borderRadius: '4px', background: 'hsl(0,0%,15%)', color: 'white', border: '1px solid rgba(255,255,255,0.1)' }}
-                          />
-                        </PieChart>
-                      </ResponsiveContainer>
-                      <div className="flex flex-col gap-1 mt-2">
-                        {Object.entries(s.pourcentages).filter(([, v]) => v > 0).map(([name, value], i) => (
-                          <div key={name} className="flex items-center gap-1.5">
-                            <span className="w-2 h-2 rounded-sm flex-shrink-0" style={{ background: VALIDATION_PIE_PALETTE[i % VALIDATION_PIE_PALETTE.length] }} />
-                            <span className="text-[9px] text-white/50 font-sans">{name} ({value}%)</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                    <div className="flex-1 min-w-0 space-y-3">
-                      {s.positionnementRestr.length > 0 && (
-                        <div>
-                          <p className="text-[8px] uppercase tracking-[0.1em] text-white/35 font-sans mb-1.5">Positionnement</p>
-                          <div className="flex flex-wrap gap-1.5">
-                            {s.positionnementRestr.map((p) => (
-                              <span key={p} className="text-[10px] bg-white/[0.07] border border-white/[0.12] rounded px-2.5 py-1 text-white/70 font-sans">
-                                {p}{s.positionnementRestrPct[p] ? ` (${s.positionnementRestrPct[p]}%)` : ''}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-                      {s.clienteleRestr.length > 0 && (
-                        <div>
-                          <p className="text-[8px] uppercase tracking-[0.1em] text-white/35 font-sans mb-1.5">Clientèle</p>
-                          <div className="flex flex-wrap gap-1.5">
-                            {s.clienteleRestr.map((c) => (
-                              <span key={c} className="text-[10px] bg-white/[0.07] border border-white/[0.12] rounded px-2.5 py-1 text-white/70 font-sans">
-                                {c}{s.clienteleRestrPct[c] ? ` (${s.clienteleRestrPct[c]}%)` : ''}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-                    </div>
+              {s.expertise.includes('Restructuring') && Object.keys(s.pourcentages).length > 0 && (() => {
+                const distressedVal = s.pourcentages['restr_distressed'] ?? 10;
+                const contentieuxVal = s.pourcentages['restr_contentieux_affaires'] ?? 10;
+                const restructuringMainPct = Math.max(0, 100 - distressedVal - contentieuxVal);
+                const amiableVal = s.sousActivites['restr_restructuring']?.amiable ?? 50;
+                const amiableRatio = amiableVal / 100;
+                const totalAmiablePct = Math.round(restructuringMainPct * amiableRatio);
+                const judiciairePct = restructuringMainPct - totalAmiablePct;
+                const financierPct = Math.round(totalAmiablePct * ((s.restrFinancier ?? 0) / 100));
+                const amiableHorsFinancierPct = totalAmiablePct - financierPct;
+
+                const chartData = [
+                  amiableHorsFinancierPct > 0 ? { name: 'Amiable (hors financier)', value: amiableHorsFinancierPct, color: 'hsl(215, 50%, 35%)' } : null,
+                  financierPct > 0 ? { name: 'Restructuring financier', value: financierPct, color: 'hsl(210, 25%, 50%)' } : null,
+                  judiciairePct > 0 ? { name: 'Judiciaire', value: judiciairePct, color: 'hsl(215, 55%, 22%)' } : null,
+                  distressedVal > 0 ? { name: 'Distressed M&A', value: distressedVal, color: 'hsl(200, 12%, 45%)' } : null,
+                  contentieuxVal > 0 ? { name: 'Contentieux', value: contentieuxVal, color: 'hsl(220, 15%, 62%)' } : null,
+                ].filter(Boolean) as Array<{ name: string; value: number; color: string }>;
+
+                const posColors = ['hsl(215, 50%, 35%)', 'hsl(200, 15%, 50%)', 'hsl(220, 20%, 30%)'];
+                const cliColors = ['hsl(215, 55%, 22%)', 'hsl(210, 20%, 42%)', 'hsl(200, 12%, 55%)', 'hsl(220, 15%, 35%)', 'hsl(215, 50%, 35%)', 'hsl(210, 10%, 62%)'];
+
+                const posChartData = s.positionnementRestr.length === 0
+                  ? []
+                  : buildQuantizedChartData(
+                      s.positionnementRestr.map((opt, i) => ({
+                        key: opt,
+                        name: opt,
+                        raw: s.positionnementRestrPct[opt] || 10,
+                        color: posColors[i % posColors.length],
+                      }))
+                    );
+
+                const cliChartData = s.clienteleRestr.length === 0
+                  ? []
+                  : buildQuantizedChartData(
+                      s.clienteleRestr.map((opt, i) => ({
+                        key: opt,
+                        name: opt,
+                        raw: s.clienteleRestrPct[opt] || 10,
+                        color: cliColors[i % cliColors.length],
+                      }))
+                    );
+
+                return (
+                  <div className="mt-5 pt-4 border-t border-white/[0.06]">
+                    <p className="text-[8px] uppercase tracking-[0.1em] text-white/35 font-sans mb-3">Synthèse Restructuring</p>
+                    <CabinetRestructuringSynthesis
+                      chartData={chartData}
+                      posChartData={posChartData}
+                      cliChartData={cliChartData}
+                      theme="dark"
+                    />
                   </div>
-                </div>
-              )}
+                );
+              })()}
             </div>
           )}
 
