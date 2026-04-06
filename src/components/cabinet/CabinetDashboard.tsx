@@ -548,11 +548,11 @@ const SearchValidation = () => {
             </div>
           </div>
 
-          <div className="p-6 md:p-8 text-center">
+          <div className="p-6 md:p-8 text-center bg-[hsl(0,0%,7%)]">
             <p className="text-[10px] text-white/30 font-sans mb-3 leading-relaxed">
               LOGAN qualifie l'opportunité des deux côtés avant toute mise en relation.
             </p>
-            <button className="w-full py-3 bg-white text-foreground font-bold text-[13px] rounded cursor-default font-sans">
+            <button className="w-full py-3 bg-white/[0.12] border border-white/[0.15] text-white font-bold text-[13px] rounded cursor-default font-sans">
               Je suis intéressé(e) par cette opportunité →
             </button>
             <div className="mt-2 text-[10px] text-white/25 font-sans">Un consultant Logan vous contactera sous 48h pour échanger plus en détails sur cette opportunité</div>
