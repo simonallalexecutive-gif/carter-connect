@@ -56,7 +56,7 @@ const NotreOffrePage = () => (
     {/* Hero */}
     <section className="pt-32 pb-20 md:pt-40 md:pb-28 relative overflow-hidden">
       <div className="absolute inset-0" style={{ background: 'hsl(0 0% 6%)' }} />
-      <div className="relative z-10 max-w-5xl mx-auto px-6 sm:px-8 lg:px-10">
+      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-8 lg:px-10">
         <motion.div
           variants={stagger}
           initial="hidden"
@@ -77,13 +77,13 @@ const NotreOffrePage = () => (
 
     {/* Pricing cards */}
     <section className="pb-24 md:pb-36">
-      <div className="max-w-5xl mx-auto px-6 sm:px-8 lg:px-10">
+      <div className="max-w-5xl mx-auto px-4 sm:px-8 lg:px-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="grid md:grid-cols-3 gap-6 md:gap-8"
+          className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8"
         >
           {plans.map((plan) => (
             <div
@@ -150,7 +150,7 @@ const NotreOffrePage = () => (
 
     {/* Pourquoi Logan */}
     <section className="pb-24 md:pb-36">
-      <div className="max-w-5xl mx-auto px-6 sm:px-8 lg:px-10">
+      <div className="max-w-5xl mx-auto px-4 sm:px-8 lg:px-10">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -175,7 +175,7 @@ const NotreOffrePage = () => (
 
     {/* CTA */}
     <section className="pb-24 md:pb-36">
-      <div className="max-w-5xl mx-auto px-6 sm:px-8 lg:px-10 text-center">
+      <div className="max-w-5xl mx-auto px-4 sm:px-8 lg:px-10 text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
