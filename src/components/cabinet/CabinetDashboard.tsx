@@ -409,6 +409,81 @@ const SearchValidation = () => {
                   </div>
                 </div>
               )}
+
+              {/* Restructuring synthesis pie chart */}
+              {s.expertise.includes('Restructuring') && Object.keys(s.pourcentages).length > 0 && (
+                <div className="mt-5 pt-4 border-t border-white/[0.06]">
+                  <p className="text-[8px] uppercase tracking-[0.1em] text-white/35 font-sans mb-3">Synthèse Restructuring</p>
+                  <div className="flex items-start gap-6">
+                    <div className="flex flex-col items-center flex-shrink-0">
+                      <ResponsiveContainer width={120} height={120}>
+                        <PieChart>
+                          <Pie
+                            data={Object.entries(s.pourcentages).filter(([, v]) => v > 0).map(([name, value]) => ({ name, value }))}
+                            cx="50%"
+                            cy="50%"
+                            innerRadius={28}
+                            outerRadius={52}
+                            dataKey="value"
+                            stroke="hsl(0, 0%, 10%)"
+                            strokeWidth={2}
+                            label={({ cx, cy, midAngle, innerRadius: ir, outerRadius: or, value }: any) => {
+                              const RADIAN = Math.PI / 180;
+                              const radius = ir + (or - ir) * 0.5;
+                              const x = cx + radius * Math.cos(-midAngle * RADIAN);
+                              const y = cy + radius * Math.sin(-midAngle * RADIAN);
+                              if (value < 10) return null;
+                              return <text x={x} y={y} fill="white" textAnchor="middle" dominantBaseline="central" fontSize={10} fontWeight={700}>{Math.round(value)}%</text>;
+                            }}
+                          >
+                            {Object.entries(s.pourcentages).filter(([, v]) => v > 0).map((_, i) => (
+                              <Cell key={i} fill={VALIDATION_PIE_PALETTE[i % VALIDATION_PIE_PALETTE.length]} />
+                            ))}
+                          </Pie>
+                          <Tooltip
+                            formatter={(value: number, name: string) => [`${value}%`, name]}
+                            contentStyle={{ fontSize: '10px', borderRadius: '4px', background: 'hsl(0,0%,15%)', color: 'white', border: '1px solid rgba(255,255,255,0.1)' }}
+                          />
+                        </PieChart>
+                      </ResponsiveContainer>
+                      <div className="flex flex-col gap-1 mt-2">
+                        {Object.entries(s.pourcentages).filter(([, v]) => v > 0).map(([name, value], i) => (
+                          <div key={name} className="flex items-center gap-1.5">
+                            <span className="w-2 h-2 rounded-sm flex-shrink-0" style={{ background: VALIDATION_PIE_PALETTE[i % VALIDATION_PIE_PALETTE.length] }} />
+                            <span className="text-[9px] text-white/50 font-sans">{name} ({value}%)</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="flex-1 min-w-0 space-y-3">
+                      {s.positionnementRestr.length > 0 && (
+                        <div>
+                          <p className="text-[8px] uppercase tracking-[0.1em] text-white/35 font-sans mb-1.5">Positionnement</p>
+                          <div className="flex flex-wrap gap-1.5">
+                            {s.positionnementRestr.map((p) => (
+                              <span key={p} className="text-[10px] bg-white/[0.07] border border-white/[0.12] rounded px-2.5 py-1 text-white/70 font-sans">
+                                {p}{s.positionnementRestrPct[p] ? ` (${s.positionnementRestrPct[p]}%)` : ''}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                      {s.clienteleRestr.length > 0 && (
+                        <div>
+                          <p className="text-[8px] uppercase tracking-[0.1em] text-white/35 font-sans mb-1.5">Clientèle</p>
+                          <div className="flex flex-wrap gap-1.5">
+                            {s.clienteleRestr.map((c) => (
+                              <span key={c} className="text-[10px] bg-white/[0.07] border border-white/[0.12] rounded px-2.5 py-1 text-white/70 font-sans">
+                                {c}{s.clienteleRestrPct[c] ? ` (${s.clienteleRestrPct[c]}%)` : ''}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           )}
 
@@ -473,11 +548,11 @@ const SearchValidation = () => {
             </div>
           </div>
 
-          <div className="p-6 md:p-8 text-center">
+          <div className="p-6 md:p-8 text-center bg-[hsl(0,0%,7%)]">
             <p className="text-[10px] text-white/30 font-sans mb-3 leading-relaxed">
               LOGAN qualifie l'opportunité des deux côtés avant toute mise en relation.
             </p>
-            <button className="w-full py-3 bg-white text-foreground font-bold text-[13px] rounded cursor-default font-sans">
+            <button className="w-full py-3 bg-white/[0.12] border border-white/[0.15] text-white font-bold text-[13px] rounded cursor-default font-sans">
               Je suis intéressé(e) par cette opportunité →
             </button>
             <div className="mt-2 text-[10px] text-white/25 font-sans">Un consultant Logan vous contactera sous 48h pour échanger plus en détails sur cette opportunité</div>
