@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import { useCabinetStore } from '@/stores/cabinetStore';
 import { PROFILES, DEPT_KEY_MAP, CABINET_EXPERTISE_DETAIL, type CabinetProfile } from '@/lib/cabinetConstants';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
@@ -9,6 +9,7 @@ import { X, Search, Eye, Plus, FileText, Users, User } from 'lucide-react';
 import ActivityPieChart from '@/components/shared/ActivityPieChart';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
+import { buildQuantizedChartData } from '@/lib/percentages';
 import CabinetStep3Search from './CabinetStep3Search';
 
 const PALIER_MAP: Record<string, string> = {
