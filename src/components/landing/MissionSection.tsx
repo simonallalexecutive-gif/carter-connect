@@ -13,7 +13,7 @@ const stagger = {
 
 const MissionSection = () => (
   <section className="relative overflow-hidden" style={{ background: 'hsl(0 0% 6%)' }}>
-    <div className="relative z-10 max-w-5xl mx-auto px-6 sm:px-8 lg:px-10 py-24 md:py-36">
+    <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-8 lg:px-10 py-16 md:py-36">
 
       {/* ── Header ── */}
       <motion.div

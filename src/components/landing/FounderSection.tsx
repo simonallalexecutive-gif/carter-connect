@@ -4,7 +4,7 @@ import { motion } from 'motion/react';
 const FounderSection = () => {
   return (
     <section className="py-20 md:py-28 overflow-hidden border-t border-white/[0.08]" style={{ background: 'hsl(0 0% 8%)' }}>
-      <div className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-10">
+      <div className="max-w-6xl mx-auto px-4 sm:px-8 lg:px-10">
 
         {/* Section label */}
         <motion.p

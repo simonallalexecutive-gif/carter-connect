@@ -37,7 +37,7 @@ const StatsTickerSection = () => {
 
   return (
     <section ref={ref} className="relative py-24 md:py-32 overflow-hidden" style={{ background: 'hsl(0 0% 6%)' }}>
-      <div className="max-w-5xl mx-auto px-6 sm:px-8 lg:px-10 relative z-10">
+      <div className="max-w-5xl mx-auto px-4 sm:px-8 lg:px-10 relative z-10">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
