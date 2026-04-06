@@ -285,7 +285,7 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
             {/* Sub-categories with pie chart */}
             {s.expertise.length > 0 && (
               <div className="mt-5 space-y-5">
-                {s.expertise.map((exp) => {
+                {s.expertise.filter(exp => exp !== 'Restructuring').map((exp) => {
                   const detail = CABINET_EXPERTISE_DETAIL[exp];
                   if (!detail) return null;
                   const selectedItems = detail.sections.flatMap(sec =>
