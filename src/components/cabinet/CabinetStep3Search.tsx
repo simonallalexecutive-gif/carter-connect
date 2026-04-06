@@ -8,8 +8,8 @@ import { cn } from '@/lib/utils';
 import { formatNumberWithDots } from '@/lib/formatters';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import { Check, Minus, Plus } from 'lucide-react';
-import ActivityPieChart from '@/components/shared/ActivityPieChart';
 import { buildQuantizedChartData } from '@/lib/percentages';
+import CabinetActivityPieSummary from '@/components/cabinet/CabinetActivityPieSummary';
 import CabinetRestructuringPanel from '@/components/cabinet/CabinetRestructuringPanel';
 
 const TABS = ['Profil recherché', 'Contexte & équipe', 'Rémunération & conditions', 'Confidentialité'];
@@ -330,78 +330,8 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
 
                         return (
                           <div className="mt-4 pt-4 border-t border-border">
-                            <p className="font-sans text-[11px] font-medium text-muted-foreground uppercase tracking-[0.15em] mb-5">Répartition des dossiers</p>
-                            <div className="flex flex-col md:flex-row gap-6 items-center md:items-start">
-                              {/* Pie chart */}
-                              <div className="flex-shrink-0" style={{ width: 160, height: 160 }}>
-                                <ResponsiveContainer width="100%" height="100%">
-                                  <PieChart>
-                                    <Pie
-                                      data={scopeChartData}
-                                      cx="50%"
-                                      cy="50%"
-                                      innerRadius={38}
-                                      outerRadius={72}
-                                      dataKey="value"
-                                      paddingAngle={2}
-                                      stroke="hsl(var(--background))"
-                                      strokeWidth={2}
-                                      label={({ cx, cy, midAngle, innerRadius: ir, outerRadius: or, index }) => {
-                                        const RADIAN = Math.PI / 180;
-                                        const radius = ir + (or - ir) * 0.5;
-                                        const x = cx + radius * Math.cos(-midAngle * RADIAN);
-                                        const y = cy + radius * Math.sin(-midAngle * RADIAN);
-                                        const pct = scopeChartData[index]?.value ?? 0;
-                                        if (pct < 15) return null;
-                                        return (
-                                          <text x={x} y={y} fill="white" textAnchor="middle" dominantBaseline="central" fontSize={11} fontWeight={700} fontFamily="Inter, sans-serif">
-                                            {pct}%
-                                          </text>
-                                        );
-                                      }}
-                                      labelLine={false}
-                                    >
-                                      {scopeChartData.map((_, index) => (
-                                        <Cell key={index} fill={PIE_COLORS[index % PIE_COLORS.length]} />
-                                      ))}
-                                    </Pie>
-                                  </PieChart>
-                                </ResponsiveContainer>
-                              </div>
-
-                              {/* +/- Controls */}
-                              <div className="flex-1 w-full space-y-2">
-                                {selectedItems.map((item, i) => {
-                                  const displayPercent = scopeChartData.find(d => d.name === item.label)?.value ?? 0;
-                                  return (
-                                    <div key={item.key} className="flex items-center gap-3 py-2 border-b border-border last:border-b-0">
-                                      <div className="w-3 h-3 rounded-sm flex-shrink-0" style={{ backgroundColor: PIE_COLORS[i % PIE_COLORS.length] }} />
-                                      <span className="text-[12px] font-sans text-foreground flex-1 min-w-0 truncate">{item.label}</span>
-                                      <div className="flex items-center gap-1.5">
-                                        <button
-                                          type="button"
-                                          onClick={() => handleScopePercentChange(item.key, -10)}
-                                          className="w-7 h-7 rounded-sm border border-border flex items-center justify-center hover:bg-secondary transition-colors"
-                                        >
-                                          <Minus className="w-3 h-3 text-foreground" />
-                                        </button>
-                                        <span className="text-[12px] font-sans font-bold text-foreground w-10 text-center tabular-nums">
-                                          {displayPercent}%
-                                        </span>
-                                        <button
-                                          type="button"
-                                          onClick={() => handleScopePercentChange(item.key, 10)}
-                                          className="w-7 h-7 rounded-sm border border-border flex items-center justify-center hover:bg-secondary transition-colors"
-                                        >
-                                          <Plus className="w-3 h-3 text-foreground" />
-                                        </button>
-                                      </div>
-                                    </div>
-                                  );
-                                })}
-                                <p className="text-[10px] text-muted-foreground font-sans pt-1">Ajustez le poids relatif de chaque activité par paliers de 10 points.</p>
-                              </div>
-                            </div>
+                            <CabinetActivityPieSummary chartData={scopeChartData} />
+                            <p className="text-[10px] text-muted-foreground font-sans pt-3">Ajustez le poids relatif de chaque activité par paliers de 10 points.</p>
                           </div>
                         );
                       })()}
