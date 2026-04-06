@@ -280,7 +280,7 @@ const SearchValidation = () => {
 
       {/* Preview card — dark premium style */}
       <div className="mb-6">
-        <div className="bg-foreground rounded-lg overflow-hidden shadow-[0_25px_60px_-12px_rgba(0,0,0,0.5)] backdrop-blur-sm">
+        <div className="bg-[hsl(0,0%,7%)] rounded-lg overflow-hidden shadow-[0_25px_60px_-12px_rgba(0,0,0,0.5)] backdrop-blur-sm">
 
           {/* ─── 1. EN-TÊTE : Statut | Département | Années ─── */}
           <div className="p-6 md:p-8 border-b border-white/[0.08]">
@@ -486,7 +486,7 @@ const SearchValidation = () => {
       </div>
 
       {/* Approval */}
-      <div className="bg-foreground rounded-md p-5 mb-6">
+      <div className="bg-[hsl(0,0%,7%)] rounded-md p-5 mb-6">
         <div className="font-sans text-[13px] font-semibold text-white mb-3">Confirmez votre recherche</div>
         <div className="flex flex-col gap-2">
           {[
