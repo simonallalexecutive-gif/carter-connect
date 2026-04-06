@@ -246,22 +246,35 @@ const SearchValidation = () => {
           if (detail) {
             for (const sec of detail.sections) {
               const item = sec.items.find((it) => it.key === k);
-              if (item) return { label: item.label, section: sec.title };
+              if (item) return { key: k, label: item.label, section: sec.title };
             }
           }
         }
-        return { label: k, section: 'Autre' };
+        return { key: k, label: k, section: 'Autre' };
       });
   }, [s.cabinetActivites, s.expertise]);
 
-  // Section counts for pie chart
-  const sectionCounts = useMemo(() => {
-    const counts: Record<string, number> = {};
-    activeActivities.forEach((a) => {
-      counts[a.section] = (counts[a.section] || 0) + 1;
+  // Build quantized chart data per expertise (same as Step3Search)
+  const scopeChartDataByExpertise = useMemo(() => {
+    const result: Record<string, ReturnType<typeof buildQuantizedChartData>> = {};
+    s.expertise.filter(exp => exp !== 'Restructuring').forEach((exp) => {
+      const detail = CABINET_EXPERTISE_DETAIL[exp];
+      if (!detail) return;
+      const selectedItems = detail.sections.flatMap(sec =>
+        sec.items.filter(item => s.cabinetActivites[item.key])
+      );
+      if (selectedItems.length === 0) return;
+      result[exp] = buildQuantizedChartData(
+        selectedItems.map((item, index) => ({
+          key: item.key,
+          name: item.label,
+          raw: s.scopePercentages[item.key] || 10,
+          color: VALIDATION_PIE_PALETTE[index % VALIDATION_PIE_PALETTE.length],
+        })),
+      );
     });
-    return Object.entries(counts).map(([name, value]) => ({ name, value }));
-  }, [activeActivities]);
+    return result;
+  }, [s.expertise, s.cabinetActivites, s.scopePercentages]);
 
   const retroStr = s.retroMin && s.retroMax ? `${s.retroMin}€ — ${s.retroMax}€` : s.retroMin ? `À partir de ${s.retroMin}€` : s.retroMax ? `Jusqu'à ${s.retroMax}€` : '';
 
