@@ -63,20 +63,20 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
   const allComplete = tabComplete[0] && tabComplete[1] && tabComplete[2] && tabComplete[3];
 
   // Scope percentages per item: { [itemKey]: number }
-  const [scopePercentages, setScopePercentages] = useState<Record<string, number>>({});
+  const scopePercentages = s.scopePercentages || {};
 
   const toggleActivity = (key: string) => {
     const newActivites = { ...s.cabinetActivites, [key]: !s.cabinetActivites[key] };
     s.setField('cabinetActivites', newActivites);
     if (!s.cabinetActivites[key]) {
-      setScopePercentages(prev => ({ ...prev, [key]: 10 }));
+      s.setField('scopePercentages', { ...scopePercentages, [key]: 10 });
     }
   };
 
   const handleScopePercentChange = (key: string, delta: number) => {
     const current = scopePercentages[key] ?? 10;
     const next = Math.max(0, Math.min(100, current + delta));
-    setScopePercentages(prev => ({ ...prev, [key]: next }));
+    s.setField('scopePercentages', { ...scopePercentages, [key]: next });
   };
 
   const chartData = useMemo(() => {
