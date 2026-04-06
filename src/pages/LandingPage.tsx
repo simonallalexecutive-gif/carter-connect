@@ -41,7 +41,7 @@ const LandingPage = () => (
     <Header />
 
     {/* Hero */}
-    <section className="h-[100svh] flex flex-col relative overflow-hidden bg-black">
+    <section className="h-[100svh] flex flex-col relative overflow-hidden bg-black" style={{ paddingTop: 'env(safe-area-inset-top)', paddingBottom: 'env(safe-area-inset-bottom)' }}>
       {/* Background photo with cinematic living Ken Burns */}
       <div className="absolute inset-0">
         <motion.img

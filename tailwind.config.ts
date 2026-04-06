@@ -128,7 +128,7 @@ export default {
         "scale-in": "scale-in 0.5s cubic-bezier(.16,1,.3,1) forwards",
         "fade-in": "fade-in 0.3s ease-out forwards",
         "slide-in-right": "slide-in-right 0.5s cubic-bezier(.16,1,.3,1) forwards",
-        marquee: "marquee 6.2s linear infinite",
+        marquee: "marquee 8s linear infinite",
       },
     },
   },
