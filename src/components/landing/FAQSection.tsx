@@ -97,7 +97,7 @@ const FAQSection = () => {
 
   return (
     <section className="py-24 md:py-32" style={{ background: 'hsl(0 0% 8%)' }}>
-      <div className="max-w-4xl mx-auto px-6 sm:px-8 lg:px-10">
+      <div className="max-w-4xl mx-auto px-4 sm:px-8 lg:px-10">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}

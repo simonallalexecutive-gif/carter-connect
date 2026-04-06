@@ -41,7 +41,7 @@ const LandingPage = () => (
     <Header />
 
     {/* Hero */}
-    <section className="h-[100svh] flex flex-col relative overflow-hidden bg-black">
+    <section className="h-[100svh] flex flex-col relative overflow-hidden bg-black" style={{ paddingTop: 'env(safe-area-inset-top)', paddingBottom: 'env(safe-area-inset-bottom)' }}>
       {/* Background photo with cinematic living Ken Burns */}
       <div className="absolute inset-0">
         <motion.img
@@ -103,17 +103,17 @@ const LandingPage = () => (
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-transparent to-black/70" />
       </div>
-      <div className="px-6 sm:px-8 lg:px-10 max-w-6xl relative z-10 pt-24 flex-1 flex items-center pb-4">
+      <div className="px-4 sm:px-8 lg:px-10 max-w-6xl relative z-10 pt-20 sm:pt-24 flex-1 flex items-center pb-4">
         <motion.div variants={stagger} initial="hidden" animate="visible" className="max-w-[min(95vw,72rem)]">
           <div className="inline-block">
-          <motion.h1 variants={fadeUp} className="text-[1.646rem] sm:text-[3.075rem] md:text-[4.117rem] lg:text-[5.353rem] font-serif font-[500] text-white leading-[1.1] md:leading-[1.02] mb-3 md:mb-5 tracking-[-0.03em] sm:whitespace-nowrap">
+          <motion.h1 variants={fadeUp} className="text-[1.5rem] sm:text-[3.075rem] md:text-[4.117rem] lg:text-[5.353rem] font-serif font-[500] text-white leading-[1.12] md:leading-[1.02] mb-3 md:mb-5 tracking-[-0.03em]">
               Connecting Top Tier Lawyers
             </motion.h1>
           </div>
-          <motion.p variants={fadeUp} className="text-[1.147rem] sm:text-[1.252rem] md:text-[1.273rem] text-white font-sans font-[480] leading-[1.65] max-w-[72rem]">
+          <motion.p variants={fadeUp} className="text-[0.95rem] sm:text-[1.252rem] md:text-[1.273rem] text-white font-sans font-[480] leading-[1.65] max-w-[72rem]">
             Un réseau confidentiel, piloté par des chasseurs spécialisés, conçu pour les candidats<br className="hidden sm:inline" />{' '}et cabinets d'avocats les plus prestigieux du marché.
           </motion.p>
-          <motion.div variants={fadeUp} className="mt-14 sm:mt-20">
+          <motion.div variants={fadeUp} className="mt-8 sm:mt-20">
             <Link to="/demander-acces">
               <Button
                 size="lg"
@@ -143,7 +143,7 @@ const LandingPage = () => (
           <div className="flex-1 overflow-hidden">
             <div className="flex animate-marquee whitespace-nowrap items-center">
               {[...firmNames, ...firmNames].map((name, i) => (
-                <span key={i} className="mx-6 md:mx-14 text-base md:text-[1.05rem] font-serif font-medium text-white select-none flex-shrink-0 tracking-wide">
+                <span key={i} className="mx-4 md:mx-14 text-sm md:text-[1.05rem] font-serif font-medium text-white select-none flex-shrink-0 tracking-wide">
                   {name}
                 </span>
               ))}

@@ -212,6 +212,11 @@
     @apply border-border;
   }
 
+  html, body {
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+
   body {
     @apply bg-background text-foreground font-sans antialiased;
   }
@@ -278,7 +283,7 @@
   }
 
   .carter-container {
-    @apply max-w-6xl mx-auto px-6 sm:px-8 lg:px-10;
+    @apply max-w-6xl mx-auto px-4 sm:px-8 lg:px-10;
   }
 
   .carter-label {

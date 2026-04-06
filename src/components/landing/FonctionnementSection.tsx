@@ -50,8 +50,8 @@ const candidatPoints = [
 ];
 
 const FonctionnementSection = () => (
-  <section className="relative overflow-hidden py-24 md:py-36" style={{ background: '#111111' }}>
-    <div className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-10">
+  <section className="relative overflow-hidden py-16 md:py-36" style={{ background: '#111111' }}>
+    <div className="max-w-6xl mx-auto px-4 sm:px-8 lg:px-10">
 
       {/* ── Header ── */}
       <motion.div
