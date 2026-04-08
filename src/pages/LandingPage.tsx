@@ -13,7 +13,7 @@ import FonctionnementSection from '@/components/landing/FonctionnementSection';
 import StatsTickerSection from '@/components/landing/StatsTickerSection';
 import { ArrowRight } from 'lucide-react';
 import heroVideoAsset from '@/assets/hero-video-abstract-bw.mp4.asset.json';
-const heroBg = '/images/hero-bg.jpeg';
+import heroBoardroom from '@/assets/hero-boardroom.jpeg';
 
 const firmNames = [
   'Linklaters', 'Kirkland & Ellis', 'Ropes & Gray', 'Darrois Villey', 'Bredin Prat',
@@ -45,7 +45,7 @@ const LandingPage = () => (
       {/* Background photo with cinematic living Ken Burns */}
       <div className="absolute inset-0">
         <motion.img
-          src={heroBg}
+          src={heroBoardroom}
           alt=""
           initial={{ opacity: 0, scale: 1.18, x: '0%', y: '0%' }}
           animate={{
