@@ -150,12 +150,6 @@ const LandingPage = () => (
     {/* Notre approche */}
     <MissionSection />
 
-    {/* Notre fonctionnement — Cabinets */}
-    <FonctionnementCabinetsSection />
-
-    {/* Notre fonctionnement — Candidats */}
-    <FonctionnementCandidatsSection />
-
     {/* Stats ticker */}
     <StatsTickerSection />
 
