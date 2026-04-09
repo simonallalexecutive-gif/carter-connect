@@ -183,22 +183,7 @@ const LandingPage = () => (
 
 
     {/* CTA */}
-    <section className="py-24 md:py-32 bg-black relative overflow-hidden">
-      <div className="absolute inset-0">
-        <motion.video
-          src={heroVideoAsset.url}
-          autoPlay
-          muted
-          loop
-          playsInline
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 0.4 }}
-          viewport={{ once: true }}
-          transition={{ duration: 2 }}
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black" />
-      </div>
+    <section className="py-24 md:py-32 relative overflow-hidden" style={{ background: 'hsl(0 0% 6%)' }}>
       <div className="carter-container text-center relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

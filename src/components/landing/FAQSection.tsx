@@ -96,7 +96,7 @@ const FAQSection = () => {
   const items = tab === 'candidat' ? candidatFAQ : cabinetFAQ;
 
   return (
-    <section className="py-24 md:py-32" style={{ background: 'hsl(0 0% 8%)' }}>
+    <section className="py-24 md:py-32" style={{ background: 'hsl(30 8% 18%)' }}>
       <div className="max-w-4xl mx-auto px-4 sm:px-8 lg:px-10">
         {/* Header */}
         <motion.div
@@ -106,10 +106,10 @@ const FAQSection = () => {
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           className="text-center mb-16"
         >
-          <p className="text-[10px] tracking-[0.3em] uppercase text-white/40 font-sans font-medium mb-4">
+          <p className="text-[10px] tracking-[0.3em] uppercase text-white/50 font-sans font-medium mb-4">
             Questions fréquentes
           </p>
-          <h2 className="text-2xl sm:text-3xl md:text-[2.5rem] font-serif font-normal text-white tracking-[-0.02em]">
+          <h2 className="text-2xl sm:text-3xl md:text-[2.5rem] font-serif font-normal text-white/95 tracking-[-0.02em]">
             FAQ
           </h2>
         </motion.div>
@@ -122,7 +122,7 @@ const FAQSection = () => {
           transition={{ duration: 0.5, delay: 0.1 }}
           className="flex justify-center mb-12"
         >
-          <div className="inline-flex rounded-full border border-white/15 bg-white/[0.05] p-1">
+          <div className="inline-flex rounded-full border border-white/20 bg-white/[0.07] p-1">
             {(['candidat', 'cabinet'] as Tab[]).map((t) => (
               <button
                 key={t}
@@ -152,15 +152,15 @@ const FAQSection = () => {
               <AccordionItem
                 key={i}
                 value={`item-${i}`}
-                className="border-b border-white/[0.1] first:border-t first:border-white/[0.1] rounded-none px-0 overflow-hidden"
+                className="border-b border-white/[0.12] first:border-t first:border-white/[0.12] rounded-none px-0 overflow-hidden"
               >
-                <AccordionTrigger className="text-left font-sans text-sm md:text-[15px] font-medium text-white/85 hover:text-white hover:no-underline py-6 gap-4 transition-colors">
+                <AccordionTrigger className="text-left font-sans text-sm md:text-[15px] font-medium text-white/90 hover:text-white hover:no-underline py-6 gap-4 transition-colors">
                   <span className="flex items-baseline gap-3">
-                    <span className="text-white/30 font-sans text-xs tabular-nums">{String(i + 1).padStart(2, '0')}</span>
+                    <span className="text-white/40 font-sans text-xs tabular-nums">{String(i + 1).padStart(2, '0')}</span>
                     {item.question}
                   </span>
                 </AccordionTrigger>
-                <AccordionContent className="text-white/55 font-sans text-sm leading-relaxed pb-6">
+                <AccordionContent className="text-white/65 font-sans text-sm leading-relaxed pb-6">
                   {item.answer}
                 </AccordionContent>
               </AccordionItem>

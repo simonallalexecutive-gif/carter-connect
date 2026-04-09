@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { Building2, UserCheck } from 'lucide-react';
+import { Building2, UserCheck, Shield, Cpu } from 'lucide-react';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 28 },
@@ -12,8 +12,8 @@ const stagger = {
 };
 
 const MissionSection = () => (
-  <section className="relative overflow-hidden" style={{ background: 'hsl(0 0% 6%)' }}>
-    <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-8 lg:px-10 py-16 md:py-36">
+  <section className="relative overflow-hidden bg-white">
+    <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-8 lg:px-10 py-20 md:py-36">
 
       {/* ── Header ── */}
       <motion.div
@@ -21,45 +21,39 @@ const MissionSection = () => (
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: '-80px' }}
-        className="mb-10 md:mb-16"
+        className="mb-14 md:mb-20 text-center"
       >
-        <motion.p variants={fadeUp} className="text-[11px] font-sans font-medium tracking-[0.25em] uppercase text-white/30 mb-6">
+        <motion.p variants={fadeUp} className="text-[11px] font-sans font-medium tracking-[0.25em] uppercase text-black/35 mb-6">
           Notre approche
         </motion.p>
-        <motion.h2 variants={fadeUp} className="font-serif text-3xl sm:text-4xl md:text-[3.2rem] leading-[1.15] text-white/90 mb-6 max-w-3xl">
-          Logan n'est pas une plateforme de recrutement.
+        <motion.h2 variants={fadeUp} className="font-serif text-3xl sm:text-4xl md:text-[3rem] leading-[1.15] text-black/90 mb-5 max-w-2xl mx-auto">
+          Une infrastructure confidentielle de marché
         </motion.h2>
-        <motion.p variants={fadeUp} className="font-serif text-xl sm:text-2xl md:text-[1.7rem] leading-[1.4] text-white/45 max-w-3xl">
-          C'est une infrastructure confidentielle de marché.
+        <motion.p variants={fadeUp} className="font-sans text-base md:text-lg leading-[1.7] text-black/50 max-w-2xl mx-auto">
+          Logan structure un écosystème discret réunissant les acteurs les plus prestigieux du marché des avocats d'affaires, dans une exigence absolue de confidentialité.
         </motion.p>
       </motion.div>
 
-      {/* ── Manifesto ── */}
+      {/* ── Piliers ── */}
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-60px' }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className="mb-14 md:mb-20"
+        className="grid sm:grid-cols-2 gap-5 md:gap-6 mb-16 md:mb-20"
       >
-        <div className="border-l-2 border-white/10 pl-8 md:pl-12 max-w-3xl">
-          <p className="font-sans text-[1.05rem] md:text-lg leading-[1.85] text-white/55">
-            Logan structure un écosystème discret et exigeant, réunissant les acteurs les plus prestigieux du marché des avocats d'affaires, dans une exigence absolue de confidentialité. Vous disposez d'un accès continu à un réseau hautement qualifié, composé de profils rares et rigoureusement sélectionnés.
-          </p>
-        </div>
-      </motion.div>
-
-      {/* ── Centered bold statement ── */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-60px' }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className="mb-14 md:mb-20"
-      >
-        <p className="font-sans text-[1.05rem] md:text-lg leading-[1.7] text-white/75 font-bold text-center max-w-3xl mx-auto">
-          Logan préserve l'anonymat de chaque partie et intervient à leurs côtés pour les accompagner lorsque des rapprochements stratégiques s'imposent.
-        </p>
+        {[
+          { icon: Shield, title: 'Confidentialité absolue', desc: 'Anonymat garanti pour chaque partie à chaque étape du processus.' },
+          { icon: Cpu, title: 'Technologie & expertise', desc: 'Un matching intelligent, validé et enrichi par l'intervention humaine.' },
+          { icon: Building2, title: 'Accès continu', desc: 'Un vivier qualifié accessible en permanence, tous départements confondus.' },
+          { icon: UserCheck, title: 'Accompagnement sur-mesure', desc: 'Un consultant dédié qui orchestre chaque rapprochement stratégique.' },
+        ].map(({ icon: Icon, title, desc }) => (
+          <div key={title} className="border border-black/[0.08] rounded-sm p-7 md:p-9 bg-black/[0.02]">
+            <Icon className="w-5 h-5 text-black/25 mb-4" strokeWidth={1.5} />
+            <p className="font-serif text-lg font-medium text-black/85 mb-2">{title}</p>
+            <p className="font-sans text-sm leading-[1.7] text-black/45">{desc}</p>
+          </div>
+        ))}
       </motion.div>
 
       {/* ── Two sides — Cabinets / Candidats ── */}
@@ -69,30 +63,27 @@ const MissionSection = () => (
         viewport={{ once: true, margin: '-60px' }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       >
-        <p className="font-sans text-sm font-medium tracking-[0.15em] uppercase text-white/25 mb-10">
-          Un réseau d'exception, une dynamique transparente, une confidentialité assurée
-        </p>
-        <div className="grid md:grid-cols-2 gap-6 md:gap-10">
+        <div className="grid md:grid-cols-2 gap-6 md:gap-8">
           {/* Cabinets */}
-          <div className="border border-white/[0.08] rounded-sm p-8 md:p-10" style={{ background: 'hsl(0 0% 4%)' }}>
-            <Building2 className="w-5 h-5 text-white/25 mb-5" strokeWidth={1.5} />
-            <p className="font-sans text-xs font-medium tracking-[0.2em] uppercase text-white/30 mb-2">Cabinets</p>
-            <p className="font-serif text-lg md:text-xl font-medium text-white/85 mb-4">
+          <div className="border border-black/[0.08] rounded-sm p-8 md:p-10 bg-black/[0.03]">
+            <Building2 className="w-5 h-5 text-black/25 mb-5" strokeWidth={1.5} />
+            <p className="font-sans text-xs font-medium tracking-[0.2em] uppercase text-black/30 mb-2">Cabinets</p>
+            <p className="font-serif text-lg md:text-xl font-medium text-black/85 mb-3">
               Vivez votre marché, ne le subissez plus.
             </p>
-            <p className="font-sans text-[0.95rem] leading-[1.75] text-white/50">
-              Une identité protégée, un accès en temps réel à la dynamique de votre marché, accessible pour tous vos départements — pour rester en alerte et opportuniste dans vos recrutements, présents comme futurs.
+            <p className="font-sans text-sm leading-[1.75] text-black/45">
+              Accédez en temps réel à la dynamique de votre marché et restez opportuniste dans vos recrutements — dans une confidentialité totale.
             </p>
           </div>
           {/* Candidats */}
-          <div className="border border-white/[0.08] rounded-sm p-8 md:p-10" style={{ background: 'hsl(0 0% 4%)' }}>
-            <UserCheck className="w-5 h-5 text-white/25 mb-5" strokeWidth={1.5} />
-            <p className="font-sans text-xs font-medium tracking-[0.2em] uppercase text-white/30 mb-2">Candidats</p>
-            <p className="font-serif text-lg md:text-xl font-medium text-white/85 mb-4">
-              Restez attractif, dans la discrétion la plus totale.
+          <div className="border border-black/[0.08] rounded-sm p-8 md:p-10 bg-black/[0.03]">
+            <UserCheck className="w-5 h-5 text-black/25 mb-5" strokeWidth={1.5} />
+            <p className="font-sans text-xs font-medium tracking-[0.2em] uppercase text-black/30 mb-2">Candidats</p>
+            <p className="font-serif text-lg md:text-xl font-medium text-black/85 mb-3">
+              Restez attractif, en toute discrétion.
             </p>
-            <p className="font-sans text-[0.95rem] leading-[1.75] text-white/50">
-              Un cadre structuré et transparent qui vous confère une visibilité inégalée sur votre marché, tout en préservant votre identité — avec, à chaque instant, un consultant à vos côtés pour vous accompagner à chaque étape de votre carrière.
+            <p className="font-sans text-sm leading-[1.75] text-black/45">
+              Bénéficiez d'une visibilité inégalée sur votre marché, tout en préservant votre identité — avec un consultant à vos côtés à chaque étape.
             </p>
           </div>
         </div>
