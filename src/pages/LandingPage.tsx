@@ -169,13 +169,25 @@ const LandingPage = () => (
     {/* CTA — full-height with background photo */}
     <section className="min-h-screen flex items-center justify-center relative overflow-hidden">
       <div className="absolute inset-0">
-        <img
+        <motion.img
           src={heroBoardroom}
           alt=""
+          initial={{ scale: 1.12 }}
+          animate={{
+            scale: [1.12, 1.04, 1.08, 1.02, 1.06],
+            x: ['0%', '1%', '-0.5%', '0.8%', '0%'],
+            y: ['0%', '-0.5%', '0.3%', '-0.3%', '0%'],
+          }}
+          transition={{
+            scale: { duration: 35, ease: 'easeInOut', repeat: Infinity, repeatType: 'reverse' },
+            x: { duration: 30, ease: 'easeInOut', repeat: Infinity, repeatType: 'reverse' },
+            y: { duration: 25, ease: 'easeInOut', repeat: Infinity, repeatType: 'reverse' },
+          }}
           className="w-full h-full object-cover"
+          style={{ willChange: 'transform' }}
         />
-        <div className="absolute inset-0 bg-black/55" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-black/20" />
+        <div className="absolute inset-0 bg-black/50" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/20" />
       </div>
       <div className="text-center relative z-10 px-4">
         <motion.div
