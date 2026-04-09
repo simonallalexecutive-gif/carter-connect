@@ -91,7 +91,7 @@ const MissionSection = () => (
           <div className="space-y-8">
             {cabinetSteps.map(({ title, desc }, i) => (
               <motion.div key={i} variants={fadeUp} className="flex gap-4">
-                <span className="font-serif text-lg text-white/[0.08] font-medium select-none leading-none pt-0.5 w-6 flex-shrink-0">
+                <span className="font-serif text-sm text-white/60 font-medium select-none leading-none pt-0.5 w-6 flex-shrink-0">
                   {String(i + 1).padStart(2, '0')}
                 </span>
                 <div>
@@ -148,7 +148,7 @@ const MissionSection = () => (
           <div className="space-y-8">
             {candidatSteps.map(({ title, desc }, i) => (
               <motion.div key={i} variants={fadeUp} className="flex gap-4">
-                <span className="font-serif text-lg text-white/[0.08] font-medium select-none leading-none pt-0.5 w-6 flex-shrink-0">
+                <span className="font-serif text-sm text-white/60 font-medium select-none leading-none pt-0.5 w-6 flex-shrink-0">
                   {String(i + 1).padStart(2, '0')}
                 </span>
                 <div>
@@ -190,23 +190,17 @@ const MissionSection = () => (
 
       {/* ── Citation Logan ── */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
         viewport={{ once: true, margin: '-60px' }}
-        transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-        className="py-20 md:py-28"
+        transition={{ duration: 1 }}
+        className="py-14 md:py-20 flex items-center gap-6"
       >
-        <div className="grid md:grid-cols-[1fr_2fr] gap-8 md:gap-16 items-start">
-          <div>
-            <span className="font-serif text-7xl md:text-8xl text-white/[0.04] leading-none select-none block -mb-4">"</span>
-            <span className="text-[10px] font-sans font-medium tracking-[0.2em] uppercase text-white/20 block mt-6">
-              — L'équipe Logan
-            </span>
-          </div>
-          <p className="font-serif text-xl md:text-[1.65rem] text-white/40 italic font-normal leading-[1.55] tracking-[-0.01em]">
-            Logan se positionne comme la plateforme la plus exigeante et structurée du marché, offrant un accompagnement sur mesure, résolument confidentiel et parfaitement ciblé.
-          </p>
-        </div>
+        <div className="w-8 border-t border-white/[0.1] flex-shrink-0" />
+        <p className="font-sans text-sm md:text-[0.95rem] text-white/30 leading-[1.7] tracking-wide">
+          « La plateforme la plus exigeante et structurée du marché. »
+          <span className="text-white/15 ml-3">— Logan</span>
+        </p>
       </motion.div>
 
     </div>
