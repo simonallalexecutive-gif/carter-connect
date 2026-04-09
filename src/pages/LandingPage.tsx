@@ -12,7 +12,7 @@ import FonctionnementSection from '@/components/landing/FonctionnementSection';
 
 import StatsTickerSection from '@/components/landing/StatsTickerSection';
 import { ArrowRight } from 'lucide-react';
-
+import heroMountain from '@/assets/hero-mountain.jpeg';
 import heroBoardroom from '@/assets/hero-boardroom.jpeg';
 
 const firmNames = [
@@ -45,7 +45,7 @@ const LandingPage = () => (
       {/* Background photo with cinematic living Ken Burns */}
       <div className="absolute inset-0">
         <motion.img
-          src={heroBoardroom}
+          src={heroMountain}
           alt=""
           initial={{ opacity: 0, scale: 1.18, x: '0%', y: '0%' }}
           animate={{
@@ -183,7 +183,16 @@ const LandingPage = () => (
 
 
     {/* CTA */}
-    <section className="py-24 md:py-32 relative overflow-hidden" style={{ background: 'hsl(0 0% 6%)' }}>
+    <section className="py-24 md:py-32 relative overflow-hidden">
+      <div className="absolute inset-0">
+        <img
+          src={heroBoardroom}
+          alt=""
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-black/60" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/30" />
+      </div>
       <div className="carter-container text-center relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
