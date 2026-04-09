@@ -2,17 +2,16 @@ import { motion } from 'motion/react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import Header from '@/components/layout/Header';
+import Footer from '@/components/layout/Footer';
 
-import FounderSection from '@/components/landing/FounderSection';
 import FAQSection from '@/components/landing/FAQSection';
 import MissionSection from '@/components/landing/MissionSection';
-import FonctionnementSection from '@/components/landing/FonctionnementSection';
+import FonctionnementCabinetsSection from '@/components/landing/FonctionnementCabinetsSection';
+import FonctionnementCandidatsSection from '@/components/landing/FonctionnementCandidatsSection';
 
 import StatsTickerSection from '@/components/landing/StatsTickerSection';
-import { ArrowRight } from 'lucide-react';
 import heroMountain from '@/assets/hero-mountain.jpeg';
 import heroBoardroom from '@/assets/hero-boardroom.jpeg';
-import logoMonogram from '@/assets/logo-logan-monogram.png';
 
 const firmNames = [
   'Linklaters', 'Kirkland & Ellis', 'Ropes & Gray', 'Darrois Villey', 'Bredin Prat',
@@ -34,14 +33,12 @@ const fadeUp = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] as const } },
 };
 
-
 const LandingPage = () => (
   <div className="min-h-screen bg-background">
     <Header />
 
     {/* Hero */}
     <section className="h-[100svh] flex flex-col relative overflow-hidden bg-black" style={{ paddingTop: 'env(safe-area-inset-top)', paddingBottom: 'env(safe-area-inset-bottom)' }}>
-      {/* Background photo with cinematic living Ken Burns */}
       <div className="absolute inset-0">
         <motion.img
           src={heroMountain}
@@ -102,7 +99,7 @@ const LandingPage = () => (
       <div className="px-4 sm:px-8 lg:px-10 max-w-6xl relative z-10 pt-20 sm:pt-24 flex-1 flex items-center pb-4">
         <motion.div variants={stagger} initial="hidden" animate="visible" className="max-w-[min(95vw,72rem)]">
           <div className="inline-block">
-          <motion.h1 variants={fadeUp} className="text-[1.5rem] sm:text-[3.075rem] md:text-[4.117rem] lg:text-[5.353rem] font-serif font-[500] text-white leading-[1.12] md:leading-[1.02] mb-3 md:mb-5 tracking-[-0.03em]">
+            <motion.h1 variants={fadeUp} className="text-[1.5rem] sm:text-[3.075rem] md:text-[4.117rem] lg:text-[5.353rem] font-serif font-[500] text-white leading-[1.12] md:leading-[1.02] mb-3 md:mb-5 tracking-[-0.03em]">
               Connecting Top Tier Lawyers
             </motion.h1>
           </div>
@@ -152,16 +149,14 @@ const LandingPage = () => (
       </motion.div>
     </section>
 
-    {/* Notre raison d'être */}
+    {/* Notre approche */}
     <MissionSection />
 
-    {/* Notre fonctionnement */}
-    <FonctionnementSection />
+    {/* Notre fonctionnement — Cabinets */}
+    <FonctionnementCabinetsSection />
 
-    {/* Notre vision */}
-    <div id="notre-vision">
-      <FounderSection />
-    </div>
+    {/* Notre fonctionnement — Candidats */}
+    <FonctionnementCandidatsSection />
 
     {/* Stats ticker */}
     <StatsTickerSection />
@@ -171,31 +166,28 @@ const LandingPage = () => (
       <FAQSection />
     </div>
 
-    {/* CTA + Footer — unified with full background image */}
-    <section className="relative overflow-hidden">
-      {/* Full background image */}
+    {/* CTA — full-height with background photo */}
+    <section className="min-h-screen flex items-center justify-center relative overflow-hidden">
       <div className="absolute inset-0">
         <img
           src={heroBoardroom}
           alt=""
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-black/65" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/20" />
+        <div className="absolute inset-0 bg-black/55" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-black/20" />
       </div>
-
-      {/* CTA content */}
-      <div className="relative z-10 pt-24 md:pt-32 pb-20 md:pb-24 text-center">
+      <div className="text-center relative z-10 px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="max-w-xl mx-auto px-4"
+          className="max-w-2xl mx-auto"
         >
-          <span className="font-serif text-3xl md:text-4xl text-white tracking-[0.04em] block mb-10">
+          <span className="font-serif text-4xl md:text-5xl lg:text-6xl text-white tracking-[0.04em] block mb-10">
             <em className="italic">Legal recruitment, redefined.</em>
           </span>
-          <p className="text-white/50 font-sans font-light leading-relaxed mb-10">
+          <p className="text-white/50 font-sans font-light leading-relaxed mb-12 text-lg">
             Inscription confidentielle en moins de 10 minutes.<br />
             Profil validé sous 48h.
           </p>
@@ -209,78 +201,9 @@ const LandingPage = () => (
           </Link>
         </motion.div>
       </div>
-
-      {/* Footer — integrated into the same background */}
-      <div className="relative z-10 border-t border-white/[0.08]">
-        <div className="w-full px-4 sm:px-8 md:px-16 lg:px-24 pt-16 pb-10">
-          {/* Top grid */}
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 pb-14 border-b border-white/[0.08] items-start">
-            {/* Brand */}
-            <div className="md:col-span-3">
-              <img src={logoMonogram} alt="Logan" className="h-12 w-12 mb-2 invert" />
-              <p className="font-sans text-xs text-white/40 font-light leading-relaxed max-w-xs">
-                Réseau confidentiel de mise en relation entre avocats d'affaires et cabinets de premier plan.
-              </p>
-            </div>
-
-            {/* Navigation */}
-            <div className="md:col-span-3">
-              <p className="text-[10px] font-sans font-medium tracking-[0.2em] uppercase text-white/30 mb-6">Navigation</p>
-              <ul className="space-y-3">
-                {[
-                  { label: 'Accueil', to: '/' },
-                  { label: 'Espace candidat', to: '/inscription?espace=candidat' },
-                  { label: 'Espace cabinet', to: '/inscription?espace=cabinet' },
-                ].map((link) => (
-                  <li key={link.label}>
-                    <Link to={link.to} className="font-sans text-sm text-white/50 hover:text-white transition-colors duration-300 font-light">
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Contact */}
-            <div className="md:col-span-3">
-              <p className="text-[10px] font-sans font-medium tracking-[0.2em] uppercase text-white/30 mb-6">Contact</p>
-              <ul className="space-y-3">
-                <li className="font-sans text-sm text-white/50 font-light">contact@logan.law</li>
-                <li className="font-sans text-sm text-white/50 font-light">+33 1 00 00 00 00</li>
-                <li className="font-sans text-sm text-white/50 font-light leading-relaxed">
-                  12 rue de la Paix<br />75002 Paris
-                </li>
-              </ul>
-            </div>
-
-            {/* CTA */}
-            <div className="md:col-span-3 md:text-right">
-              <p className="text-[10px] font-sans font-medium tracking-[0.2em] uppercase text-white/30 mb-6">Échangeons</p>
-              <p className="font-sans text-sm text-white/50 font-light leading-relaxed">
-                Vous souhaitez en savoir plus ?<br />Contactez-nous.
-              </p>
-            </div>
-          </div>
-
-          {/* Bottom bar */}
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4 pt-8">
-            <p className="text-[11px] font-sans font-light text-white/25">
-              © {new Date().getFullYear()} Logan. Tous droits réservés.
-            </p>
-            <div className="flex gap-6">
-              {['Mentions légales', 'Politique de confidentialité', 'CGU'].map((item) => (
-                <a key={item} href="#" className="text-[11px] font-sans font-light text-white/25 hover:text-white/50 transition-colors duration-300">
-                  {item}
-                </a>
-              ))}
-              <Link to="/admin" className="text-[11px] font-sans font-light text-white/15 hover:text-white/40 transition-colors duration-300">
-                Admin
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
     </section>
+
+    <Footer />
   </div>
 );
 
