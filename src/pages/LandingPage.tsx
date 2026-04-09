@@ -12,7 +12,7 @@ import FonctionnementSection from '@/components/landing/FonctionnementSection';
 
 import StatsTickerSection from '@/components/landing/StatsTickerSection';
 import { ArrowRight } from 'lucide-react';
-import heroVideoAsset from '@/assets/hero-video-abstract-bw.mp4.asset.json';
+
 import heroBoardroom from '@/assets/hero-boardroom.jpeg';
 
 const firmNames = [
