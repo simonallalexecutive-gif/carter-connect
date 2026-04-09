@@ -198,8 +198,8 @@ const MissionSection = () => (
       >
         <div className="w-8 border-t border-white/[0.1] flex-shrink-0" />
         <p className="font-sans text-sm md:text-[0.95rem] text-white/30 leading-[1.7] tracking-wide">
-          « La plateforme la plus exigeante et structurée du marché. »
-          <span className="text-white/15 ml-3">— Logan</span>
+          « Logan se positionne comme la plateforme la plus exigeante et structurée du marché, offrant un accompagnement sur mesure, résolument confidentiel et parfaitement ciblé. »
+          <span className="text-white/15 ml-3">— L'équipe Logan</span>
         </p>
       </motion.div>
 
