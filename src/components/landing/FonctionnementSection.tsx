@@ -13,42 +13,6 @@ const stagger = {
   visible: { transition: { staggerChildren: 0.12 } },
 };
 
-const cabinetPoints = [
-  {
-    num: '01',
-    title: 'Attirez les meilleurs en toute confidentialité',
-    text: "Déposez votre recherche, préservez l'identité de votre cabinet, adressez-vous à un pool de candidats ultra qualifiés.",
-    bullets: [
-      'Nationalité du cabinet',
-      'Présence dans Chambers',
-      'Contexte du recrutement, séniorité et expertise recherchée',
-    ],
-  },
-  {
-    num: '02',
-    title: 'Analysez en temps réel la dynamique du marché',
-    text: "Accédez en continu à une lecture consolidée et structurée des candidats les plus convoités pour tous vos départements et conservez un temps d'avance sur vos concurrents en actionnant l'intermédiation de Logan pour opérer un rapprochement.",
-    bullets: [
-      'Expertise',
-      'Séniorité',
-      'Projet',
-    ],
-  },
-];
-
-const candidatPoints = [
-  {
-    num: '01',
-    title: 'Visibilité sans exposition',
-    text: "Restez présent sur le marché en toute discrétion. Votre identité n'est jamais communiquée sans votre accord — seuls votre séniorité, expertise et positionnement Chambers sont visibles.",
-  },
-  {
-    num: '02',
-    title: 'Opportunités exclusives',
-    text: 'Consultez en temps réel les recherches les plus premiums. Échangez avec un consultant Logan avant tout rapprochement — rien ne se fait sans votre consentement explicite.',
-  },
-];
-
 const FonctionnementSection = () => (
   <section className="relative overflow-hidden py-16 md:py-36" style={{ background: '#111111' }}>
     <div className="max-w-6xl mx-auto px-4 sm:px-8 lg:px-10">
@@ -67,8 +31,8 @@ const FonctionnementSection = () => (
         <motion.h2 variants={fadeUp} className="font-serif text-3xl sm:text-4xl md:text-[3rem] leading-[1.15] text-white mb-5">
           Deux perspectives, une même exigence
         </motion.h2>
-        <motion.p variants={fadeUp} className="font-sans text-[1.02rem] md:text-lg leading-[1.7] text-white/45 max-w-2xl mx-auto">
-          Logan est le seul intermédiaire. Chaque interaction est qualifiée, confidentielle et orchestrée.
+        <motion.p variants={fadeUp} className="font-sans text-[1.02rem] md:text-lg leading-[1.7] text-white/45 max-w-xl mx-auto">
+          Chaque interaction est qualifiée, confidentielle et orchestrée par Logan.
         </motion.p>
       </motion.div>
 
@@ -90,29 +54,26 @@ const FonctionnementSection = () => (
             <h3 className="font-serif text-2xl md:text-[1.7rem] text-white">Cabinets</h3>
           </motion.div>
 
-          <div className="space-y-8">
-            {cabinetPoints.map((point) => (
-              <motion.div key={point.num} variants={fadeUp}>
-                <div className="flex items-baseline gap-3 mb-2">
-                  <span className="font-serif text-2xl text-white/[0.12] font-medium select-none">{point.num}</span>
-                  <h4 className="font-sans text-[0.95rem] font-semibold text-white tracking-[-0.01em]">{point.title}</h4>
-                </div>
-                <p className="font-sans text-[0.92rem] leading-[1.8] text-white/50 pl-9">{point.text}</p>
-                {point.bullets && (
-                  <ul className="mt-3 pl-9 space-y-1.5">
-                    {point.bullets.map((b) => (
-                      <li key={b} className="flex items-start gap-2 text-[0.88rem] text-white/40 font-sans">
-                        <ArrowRight className="w-3 h-3 mt-1 shrink-0 text-white/25" strokeWidth={1.5} />
-                        {b}
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </motion.div>
-            ))}
+          <div className="space-y-6">
+            <motion.div variants={fadeUp}>
+              <h4 className="font-sans text-[0.95rem] font-semibold text-white tracking-[-0.01em] mb-2">
+                Attirez les meilleurs en toute confidentialité
+              </h4>
+              <p className="font-sans text-[0.92rem] leading-[1.8] text-white/50">
+                Déposez votre recherche anonyme et adressez-vous à un pool de candidats ultra qualifiés — sans jamais exposer l'identité de votre cabinet.
+              </p>
+            </motion.div>
+            <motion.div variants={fadeUp}>
+              <h4 className="font-sans text-[0.95rem] font-semibold text-white tracking-[-0.01em] mb-2">
+                Analysez la dynamique du marché en temps réel
+              </h4>
+              <p className="font-sans text-[0.92rem] leading-[1.8] text-white/50">
+                Consultez les profils les plus convoités par expertise et séniorité. Gardez un temps d'avance sur vos concurrents.
+              </p>
+            </motion.div>
           </div>
 
-          <motion.div variants={fadeUp} className="flex flex-wrap gap-4 mt-10 pl-9">
+          <motion.div variants={fadeUp} className="flex flex-wrap gap-3 mt-8">
             {[
               { icon: Shield, label: 'Confidentialité' },
               { icon: Search, label: 'Pool qualifié' },
@@ -125,7 +86,7 @@ const FonctionnementSection = () => (
             ))}
           </motion.div>
 
-          <motion.div variants={fadeUp} className="mt-10 pl-9">
+          <motion.div variants={fadeUp} className="mt-8">
             <Link to="/notre-offre">
               <Button
                 variant="outline"
@@ -154,19 +115,26 @@ const FonctionnementSection = () => (
             <h3 className="font-serif text-2xl md:text-[1.7rem] text-white">Candidats</h3>
           </motion.div>
 
-          <div className="space-y-8">
-            {candidatPoints.map(({ num, title, text }) => (
-              <motion.div key={num} variants={fadeUp}>
-                <div className="flex items-baseline gap-3 mb-2">
-                  <span className="font-serif text-2xl text-white/[0.12] font-medium select-none">{num}</span>
-                  <h4 className="font-sans text-[0.95rem] font-semibold text-white tracking-[-0.01em]">{title}</h4>
-                </div>
-                <p className="font-sans text-[0.92rem] leading-[1.8] text-white/50 pl-9">{text}</p>
-              </motion.div>
-            ))}
+          <div className="space-y-6">
+            <motion.div variants={fadeUp}>
+              <h4 className="font-sans text-[0.95rem] font-semibold text-white tracking-[-0.01em] mb-2">
+                Visibilité sans exposition
+              </h4>
+              <p className="font-sans text-[0.92rem] leading-[1.8] text-white/50">
+                Restez présent sur le marché en toute discrétion. Votre identité n'est jamais communiquée sans votre accord.
+              </p>
+            </motion.div>
+            <motion.div variants={fadeUp}>
+              <h4 className="font-sans text-[0.95rem] font-semibold text-white tracking-[-0.01em] mb-2">
+                Opportunités exclusives
+              </h4>
+              <p className="font-sans text-[0.92rem] leading-[1.8] text-white/50">
+                Consultez les recherches les plus premiums en temps réel. Un consultant Logan vous accompagne avant tout rapprochement.
+              </p>
+            </motion.div>
           </div>
 
-          <motion.div variants={fadeUp} className="flex flex-wrap gap-4 mt-10 pl-9">
+          <motion.div variants={fadeUp} className="flex flex-wrap gap-3 mt-8">
             {[
               { icon: Lock, label: 'Anonymat garanti' },
               { icon: Bell, label: 'Alertes ciblées' },
@@ -179,7 +147,7 @@ const FonctionnementSection = () => (
             ))}
           </motion.div>
 
-          <motion.div variants={fadeUp} className="mt-10 pl-9">
+          <motion.div variants={fadeUp} className="mt-8">
             <Link to="/prendre-rdv">
               <Button
                 variant="outline"

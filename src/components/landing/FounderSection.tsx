@@ -1,6 +1,5 @@
 import { motion } from 'motion/react';
 
-
 const FounderSection = () => {
   return (
     <section className="py-20 md:py-28 overflow-hidden border-t border-white/[0.08]" style={{ background: 'hsl(0 0% 8%)' }}>
@@ -17,13 +16,13 @@ const FounderSection = () => {
           Notre vision
         </motion.p>
 
-        {/* Founder — photo left, bio right (wider) */}
+        {/* Founder bio */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col sm:flex-row items-start gap-10 sm:gap-16 mb-16 md:mb-20"
+          className="flex flex-col sm:flex-row items-start gap-10 sm:gap-16"
         >
           <div className="text-left flex-1">
             <h3 className="font-serif text-2xl text-white font-normal mb-0.5 tracking-[-0.01em]">
@@ -43,24 +42,6 @@ const FounderSection = () => {
                 Cette mise en relation, fondée sur une analyse fine et un accompagnement attentif, permet de faire émerger des collaborations pleinement réussies.
               </p>
             </div>
-          </div>
-        </motion.div>
-
-        {/* Quote — right aligned, hero serif font */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.9, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-          className="flex justify-end"
-        >
-          <div className="max-w-lg text-right">
-            <p className="font-serif text-lg md:text-xl text-white/45 italic font-normal leading-[1.6] mb-4 tracking-[-0.01em]">
-              «&nbsp;Logan se positionne comme la plateforme la plus exigeante et structurée du marché, offrant un accompagnement sur mesure, résolument confidentiel et parfaitement ciblé.&nbsp;»
-            </p>
-            <span className="text-[10px] font-sans font-medium tracking-[0.15em] uppercase text-white/25">
-              — L'équipe Logan
-            </span>
           </div>
         </motion.div>
       </div>
