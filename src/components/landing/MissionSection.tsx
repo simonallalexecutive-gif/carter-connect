@@ -56,53 +56,61 @@ const MissionSection = () => (
         ))}
       </motion.div>
 
-      {/* ── Two sides — Cabinets / Candidats ── */}
+      {/* ── Two sides — text only, no cards ── */}
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-60px' }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        className="mb-16 md:mb-20"
       >
-        <div className="grid md:grid-cols-2 gap-6 md:gap-8">
+        <div className="grid md:grid-cols-2 gap-12 md:gap-16">
           {/* Cabinets */}
-          <div className="border border-black/[0.15] rounded-sm p-8 md:p-10 bg-black text-white">
-            <Building2 className="w-5 h-5 text-white/40 mb-5" strokeWidth={1.5} />
-            <p className="font-sans text-xs font-medium tracking-[0.2em] uppercase text-white/45 mb-2">Cabinets</p>
-            <p className="font-serif text-lg md:text-xl font-medium text-white mb-3">
+          <div>
+            <div className="flex items-center gap-3 mb-4">
+              <Building2 className="w-4 h-4 text-black/30" strokeWidth={1.5} />
+              <p className="font-sans text-xs font-medium tracking-[0.2em] uppercase text-black/35">Cabinets</p>
+            </div>
+            <p className="font-serif text-xl md:text-2xl font-medium text-black/85 mb-3 leading-[1.3]">
               Vivez votre marché, ne le subissez plus.
             </p>
-            <p className="font-sans text-sm leading-[1.75] text-white/55">
+            <p className="font-sans text-sm leading-[1.75] text-black/45">
               Accédez en temps réel à la dynamique de votre marché et restez opportuniste dans vos recrutements — dans une confidentialité totale.
             </p>
           </div>
           {/* Candidats */}
-          <div className="border border-black/[0.15] rounded-sm p-8 md:p-10 bg-black text-white">
-            <UserCheck className="w-5 h-5 text-white/40 mb-5" strokeWidth={1.5} />
-            <p className="font-sans text-xs font-medium tracking-[0.2em] uppercase text-white/45 mb-2">Candidats</p>
-            <p className="font-serif text-lg md:text-xl font-medium text-white mb-3">
+          <div>
+            <div className="flex items-center gap-3 mb-4">
+              <UserCheck className="w-4 h-4 text-black/30" strokeWidth={1.5} />
+              <p className="font-sans text-xs font-medium tracking-[0.2em] uppercase text-black/35">Candidats</p>
+            </div>
+            <p className="font-serif text-xl md:text-2xl font-medium text-black/85 mb-3 leading-[1.3]">
               Restez attractif, en toute discrétion.
             </p>
-            <p className="font-sans text-sm leading-[1.75] text-white/55">
+            <p className="font-sans text-sm leading-[1.75] text-black/45">
               Bénéficiez d'une visibilité inégalée sur votre marché, tout en préservant votre identité — avec un consultant à vos côtés à chaque étape.
             </p>
           </div>
         </div>
       </motion.div>
 
-      {/* ── Citation Logan ── */}
+      {/* ── Citation Logan — mise en valeur ── */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-60px' }}
         transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-        className="mt-16 md:mt-20 text-center"
+        className="border-t border-black/[0.08] pt-14 md:pt-16"
       >
-        <p className="font-serif text-lg md:text-xl text-black/40 italic font-normal leading-[1.6] max-w-2xl mx-auto tracking-[-0.01em]">
-          «&nbsp;Logan se positionne comme la plateforme la plus exigeante et structurée du marché, offrant un accompagnement sur mesure, résolument confidentiel et parfaitement ciblé.&nbsp;»
-        </p>
-        <span className="inline-block mt-4 text-[10px] font-sans font-medium tracking-[0.15em] uppercase text-black/25">
-          — L'équipe Logan
-        </span>
+        <div className="max-w-3xl mx-auto text-center">
+          <span className="inline-block font-serif text-5xl md:text-6xl text-black/[0.08] leading-none mb-4 select-none">"</span>
+          <p className="font-serif text-xl md:text-2xl text-black/60 italic font-normal leading-[1.5] tracking-[-0.01em] -mt-8">
+            Logan se positionne comme la plateforme la plus exigeante et structurée du marché, offrant un accompagnement sur mesure, résolument confidentiel et parfaitement ciblé.
+          </p>
+          <span className="inline-block mt-6 text-[10px] font-sans font-medium tracking-[0.2em] uppercase text-black/30">
+            — L'équipe Logan
+          </span>
+        </div>
       </motion.div>
 
     </div>
