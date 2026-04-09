@@ -7,6 +7,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
+import { Building2, User } from 'lucide-react';
 
 type Tab = 'candidat' | 'cabinet';
 
@@ -106,12 +107,15 @@ const FAQSection = () => {
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           className="text-center mb-16"
         >
-          <p className="text-[10px] tracking-[0.3em] uppercase text-white/50 font-sans font-medium mb-4">
+          <p className="text-[10px] tracking-[0.3em] uppercase text-white/40 font-sans font-medium mb-5">
             Questions fréquentes
           </p>
-          <h2 className="text-2xl sm:text-3xl md:text-[2.5rem] font-serif font-normal text-white/95 tracking-[-0.02em]">
-            FAQ
+          <h2 className="text-2xl sm:text-3xl md:text-[2.5rem] font-serif font-normal text-white tracking-[-0.02em] mb-4">
+            Tout ce que vous devez savoir
           </h2>
+          <p className="font-sans text-sm md:text-base text-white/45 max-w-lg mx-auto leading-relaxed">
+            Candidats ou cabinets, retrouvez les réponses aux questions les plus fréquentes sur le fonctionnement de Logan.
+          </p>
         </motion.div>
 
         {/* Tab toggle */}
@@ -120,21 +124,25 @@ const FAQSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="flex justify-center mb-12"
+          className="flex justify-center mb-14"
         >
-          <div className="inline-flex rounded-full border border-white/20 bg-white/[0.07] p-1">
-            {(['candidat', 'cabinet'] as Tab[]).map((t) => (
+          <div className="inline-flex rounded-sm border border-white/[0.12] bg-white/[0.04] p-1 gap-1">
+            {([
+              { key: 'candidat' as Tab, icon: User, label: 'Candidats' },
+              { key: 'cabinet' as Tab, icon: Building2, label: 'Cabinets' },
+            ]).map(({ key, icon: Icon, label }) => (
               <button
-                key={t}
-                onClick={() => setTab(t)}
+                key={key}
+                onClick={() => setTab(key)}
                 className={cn(
-                  'px-6 py-2 rounded-full text-sm font-sans font-medium transition-all duration-300 capitalize',
-                  tab === t
+                  'flex items-center gap-2 px-6 py-2.5 rounded-sm text-sm font-sans font-medium transition-all duration-300',
+                  tab === key
                     ? 'bg-white text-black shadow-sm'
-                    : 'text-white/50 hover:text-white'
+                    : 'text-white/45 hover:text-white/70'
                 )}
               >
-                {t}
+                <Icon className="w-3.5 h-3.5" strokeWidth={1.5} />
+                {label}
               </button>
             ))}
           </div>
@@ -152,15 +160,15 @@ const FAQSection = () => {
               <AccordionItem
                 key={i}
                 value={`item-${i}`}
-                className="border-b border-white/[0.12] first:border-t first:border-white/[0.12] rounded-none px-0 overflow-hidden"
+                className="border-b border-white/[0.10] first:border-t first:border-white/[0.10] rounded-none px-0 overflow-hidden"
               >
-                <AccordionTrigger className="text-left font-sans text-sm md:text-[15px] font-medium text-white/90 hover:text-white hover:no-underline py-6 gap-4 transition-colors">
-                  <span className="flex items-baseline gap-3">
-                    <span className="text-white/40 font-sans text-xs tabular-nums">{String(i + 1).padStart(2, '0')}</span>
+                <AccordionTrigger className="text-left font-sans text-sm md:text-[15px] font-medium text-white/85 hover:text-white hover:no-underline py-6 gap-4 transition-colors">
+                  <span className="flex items-baseline gap-4">
+                    <span className="text-white/25 font-serif text-lg tabular-nums select-none">{String(i + 1).padStart(2, '0')}</span>
                     {item.question}
                   </span>
                 </AccordionTrigger>
-                <AccordionContent className="text-white/65 font-sans text-sm leading-relaxed pb-6">
+                <AccordionContent className="text-white/55 font-sans text-sm leading-[1.8] pb-6 pl-10">
                   {item.answer}
                 </AccordionContent>
               </AccordionItem>

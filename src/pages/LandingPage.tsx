@@ -2,8 +2,6 @@ import { motion } from 'motion/react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import Header from '@/components/layout/Header';
-import Footer from '@/components/layout/Footer';
-
 
 import FounderSection from '@/components/landing/FounderSection';
 import FAQSection from '@/components/landing/FAQSection';
@@ -14,6 +12,7 @@ import StatsTickerSection from '@/components/landing/StatsTickerSection';
 import { ArrowRight } from 'lucide-react';
 import heroMountain from '@/assets/hero-mountain.jpeg';
 import heroBoardroom from '@/assets/hero-boardroom.jpeg';
+import logoMonogram from '@/assets/logo-logan-monogram.png';
 
 const firmNames = [
   'Linklaters', 'Kirkland & Ellis', 'Ropes & Gray', 'Darrois Villey', 'Bredin Prat',
@@ -63,7 +62,6 @@ const LandingPage = () => (
           className="w-full h-full object-cover"
           style={{ willChange: 'transform' }}
         />
-        {/* Animated warm sunlight sweep — moves across the frame */}
         <motion.div
           className="absolute inset-0"
           animate={{
@@ -77,7 +75,6 @@ const LandingPage = () => (
           }}
           transition={{ duration: 20, ease: 'easeInOut', repeat: Infinity, repeatType: 'reverse' }}
         />
-        {/* Slow golden-hour shift with movement */}
         <motion.div
           className="absolute inset-0"
           animate={{
@@ -90,7 +87,6 @@ const LandingPage = () => (
           }}
           transition={{ duration: 28, ease: 'easeInOut', repeat: Infinity, repeatType: 'mirror' }}
         />
-        {/* Subtle vignette pulse */}
         <motion.div
           className="absolute inset-0"
           animate={{ opacity: [0.6, 0.75, 0.65, 0.8, 0.7] }}
@@ -127,7 +123,7 @@ const LandingPage = () => (
         </motion.div>
       </div>
 
-      {/* Logo marquee — Harvey-style frosted glass band */}
+      {/* Logo marquee */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -135,11 +131,8 @@ const LandingPage = () => (
         className="relative z-10 mb-0 w-full"
       >
         <div className="relative flex items-center py-5 bg-white/[0.06] backdrop-blur-md border-t border-b border-white/[0.08]">
-          {/* Fade edges */}
           <div className="absolute left-0 top-0 bottom-0 w-12 md:w-20 bg-gradient-to-r from-black/40 to-transparent z-10 pointer-events-none" />
           <div className="absolute right-0 top-0 bottom-0 w-12 md:w-20 bg-gradient-to-l from-black/40 to-transparent z-10 pointer-events-none sm:hidden" />
-
-          {/* Scrolling logos */}
           <div className="flex-1 overflow-hidden">
             <div className="flex animate-marquee whitespace-nowrap items-center">
               {[...firmNames, ...firmNames].map((name, i) => (
@@ -149,8 +142,6 @@ const LandingPage = () => (
               ))}
             </div>
           </div>
-
-          {/* Static "Nos partenaires" chip */}
           <div className="hidden sm:flex flex-shrink-0 items-center pl-6 pr-6 md:pr-10 relative z-20">
             <div className="absolute inset-y-0 -left-16 right-0 bg-gradient-to-r from-transparent via-black/80 to-black pointer-events-none" />
             <span className="relative inline-block px-5 py-2 border border-white/40 rounded-sm text-sm font-sans font-normal tracking-wide text-white whitespace-nowrap cursor-default leading-none">
@@ -175,30 +166,31 @@ const LandingPage = () => (
     {/* Stats ticker */}
     <StatsTickerSection />
 
-
     {/* FAQ */}
     <div id="faq">
       <FAQSection />
     </div>
 
-
-    {/* CTA */}
-    <section className="py-24 md:py-32 relative overflow-hidden">
+    {/* CTA + Footer — unified with full background image */}
+    <section className="relative overflow-hidden">
+      {/* Full background image */}
       <div className="absolute inset-0">
         <img
           src={heroBoardroom}
           alt=""
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-black/60" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/30" />
+        <div className="absolute inset-0 bg-black/65" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/20" />
       </div>
-      <div className="carter-container text-center relative z-10">
+
+      {/* CTA content */}
+      <div className="relative z-10 pt-24 md:pt-32 pb-20 md:pb-24 text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="max-w-xl mx-auto"
+          className="max-w-xl mx-auto px-4"
         >
           <span className="font-serif text-3xl md:text-4xl text-white tracking-[0.04em] block mb-10">
             <em className="italic">Legal recruitment, redefined.</em>
@@ -217,9 +209,78 @@ const LandingPage = () => (
           </Link>
         </motion.div>
       </div>
-    </section>
 
-    <Footer />
+      {/* Footer — integrated into the same background */}
+      <div className="relative z-10 border-t border-white/[0.08]">
+        <div className="w-full px-4 sm:px-8 md:px-16 lg:px-24 pt-16 pb-10">
+          {/* Top grid */}
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 pb-14 border-b border-white/[0.08] items-start">
+            {/* Brand */}
+            <div className="md:col-span-3">
+              <img src={logoMonogram} alt="Logan" className="h-12 w-12 mb-2 invert" />
+              <p className="font-sans text-xs text-white/40 font-light leading-relaxed max-w-xs">
+                Réseau confidentiel de mise en relation entre avocats d'affaires et cabinets de premier plan.
+              </p>
+            </div>
+
+            {/* Navigation */}
+            <div className="md:col-span-3">
+              <p className="text-[10px] font-sans font-medium tracking-[0.2em] uppercase text-white/30 mb-6">Navigation</p>
+              <ul className="space-y-3">
+                {[
+                  { label: 'Accueil', to: '/' },
+                  { label: 'Espace candidat', to: '/inscription?espace=candidat' },
+                  { label: 'Espace cabinet', to: '/inscription?espace=cabinet' },
+                ].map((link) => (
+                  <li key={link.label}>
+                    <Link to={link.to} className="font-sans text-sm text-white/50 hover:text-white transition-colors duration-300 font-light">
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Contact */}
+            <div className="md:col-span-3">
+              <p className="text-[10px] font-sans font-medium tracking-[0.2em] uppercase text-white/30 mb-6">Contact</p>
+              <ul className="space-y-3">
+                <li className="font-sans text-sm text-white/50 font-light">contact@logan.law</li>
+                <li className="font-sans text-sm text-white/50 font-light">+33 1 00 00 00 00</li>
+                <li className="font-sans text-sm text-white/50 font-light leading-relaxed">
+                  12 rue de la Paix<br />75002 Paris
+                </li>
+              </ul>
+            </div>
+
+            {/* CTA */}
+            <div className="md:col-span-3 md:text-right">
+              <p className="text-[10px] font-sans font-medium tracking-[0.2em] uppercase text-white/30 mb-6">Échangeons</p>
+              <p className="font-sans text-sm text-white/50 font-light leading-relaxed">
+                Vous souhaitez en savoir plus ?<br />Contactez-nous.
+              </p>
+            </div>
+          </div>
+
+          {/* Bottom bar */}
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4 pt-8">
+            <p className="text-[11px] font-sans font-light text-white/25">
+              © {new Date().getFullYear()} Logan. Tous droits réservés.
+            </p>
+            <div className="flex gap-6">
+              {['Mentions légales', 'Politique de confidentialité', 'CGU'].map((item) => (
+                <a key={item} href="#" className="text-[11px] font-sans font-light text-white/25 hover:text-white/50 transition-colors duration-300">
+                  {item}
+                </a>
+              ))}
+              <Link to="/admin" className="text-[11px] font-sans font-light text-white/15 hover:text-white/40 transition-colors duration-300">
+                Admin
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
 );
 
