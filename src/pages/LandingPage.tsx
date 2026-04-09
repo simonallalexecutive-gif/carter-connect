@@ -6,8 +6,6 @@ import Footer from '@/components/layout/Footer';
 
 import FAQSection from '@/components/landing/FAQSection';
 import MissionSection from '@/components/landing/MissionSection';
-import FonctionnementCabinetsSection from '@/components/landing/FonctionnementCabinetsSection';
-import FonctionnementCandidatsSection from '@/components/landing/FonctionnementCandidatsSection';
 
 import StatsTickerSection from '@/components/landing/StatsTickerSection';
 import heroMountain from '@/assets/hero-mountain.jpeg';
@@ -151,12 +149,6 @@ const LandingPage = () => (
 
     {/* Notre approche */}
     <MissionSection />
-
-    {/* Notre fonctionnement — Cabinets */}
-    <FonctionnementCabinetsSection />
-
-    {/* Notre fonctionnement — Candidats */}
-    <FonctionnementCandidatsSection />
 
     {/* Stats ticker */}
     <StatsTickerSection />
