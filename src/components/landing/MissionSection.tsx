@@ -44,7 +44,7 @@ const MissionSection = () => (
       >
         {[
           { icon: Shield, title: 'Confidentialité absolue', desc: 'Anonymat garanti pour chaque partie à chaque étape du processus.' },
-          { icon: Cpu, title: 'Technologie & expertise', desc: 'Un matching intelligent, validé et enrichi par l'intervention humaine.' },
+          { icon: Cpu, title: 'Technologie & expertise', desc: "Un matching intelligent, validé et enrichi par l'intervention humaine." },
           { icon: Building2, title: 'Accès continu', desc: 'Un vivier qualifié accessible en permanence, tous départements confondus.' },
           { icon: UserCheck, title: 'Accompagnement sur-mesure', desc: 'Un consultant dédié qui orchestre chaque rapprochement stratégique.' },
         ].map(({ icon: Icon, title, desc }) => (
