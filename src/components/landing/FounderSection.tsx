@@ -1,22 +1,49 @@
 import { motion, useScroll, useTransform } from 'motion/react';
 import { useRef } from 'react';
+import mountainBg from '@/assets/quote-mountain.jpeg';
 
 const FounderSection = () => {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
   const opacity = useTransform(scrollYProgress, [0, 0.3, 0.5, 0.7, 1], [0, 1, 1, 1, 0.3]);
   const y = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [60, 0, 0, -30]);
+  const bgScale = useTransform(scrollYProgress, [0, 0.5, 1], [1.15, 1, 1.05]);
+  const bgY = useTransform(scrollYProgress, [0, 1], ['0%', '20%']);
 
   return (
     <section
       ref={ref}
       className="relative flex items-center justify-center overflow-hidden border-t border-white/[0.06]"
-      style={{ background: 'hsl(0 0% 5%)', minHeight: '100svh' }}
+      style={{ minHeight: '100svh' }}
     >
-      {/* Subtle radial glow */}
-      <div className="absolute inset-0 pointer-events-none" style={{
-        background: 'radial-gradient(ellipse 60% 50% at 50% 50%, rgba(255,255,255,0.03) 0%, transparent 70%)',
-      }} />
+      {/* Animated background image */}
+      <motion.div
+        className="absolute inset-0"
+        style={{ scale: bgScale, y: bgY }}
+      >
+        <img
+          src={mountainBg}
+          alt=""
+          className="w-full h-full object-cover"
+          style={{ minHeight: '120%' }}
+        />
+      </motion.div>
+
+      {/* Dark overlay for text legibility */}
+      <div className="absolute inset-0 bg-black/60" />
+
+      {/* Subtle animated radial glow */}
+      <motion.div
+        className="absolute inset-0 pointer-events-none"
+        animate={{
+          background: [
+            'radial-gradient(ellipse 60% 50% at 50% 50%, rgba(255,255,255,0.04) 0%, transparent 70%)',
+            'radial-gradient(ellipse 70% 60% at 48% 52%, rgba(255,255,255,0.06) 0%, transparent 70%)',
+            'radial-gradient(ellipse 60% 50% at 52% 48%, rgba(255,255,255,0.04) 0%, transparent 70%)',
+          ],
+        }}
+        transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+      />
 
       <div className="max-w-5xl mx-auto px-6 sm:px-10 lg:px-14 py-24 md:py-32 relative z-10">
         <motion.div style={{ opacity, y }} className="text-center">
@@ -34,7 +61,7 @@ const FounderSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="font-serif text-2xl sm:text-3xl md:text-[2.8rem] lg:text-[3.4rem] leading-[1.2] text-white/80 italic tracking-[-0.02em] max-w-4xl mx-auto"
+            className="font-serif text-2xl sm:text-3xl md:text-[2.8rem] lg:text-[3.4rem] leading-[1.2] text-white/90 italic tracking-[-0.02em] max-w-4xl mx-auto drop-shadow-lg"
           >
             «&nbsp;Logan se positionne comme la plateforme la plus exigeante et structurée du marché, offrant un accompagnement sur mesure, résolument confidentiel et parfaitement ciblé.&nbsp;»
           </motion.p>
@@ -46,7 +73,7 @@ const FounderSection = () => {
             transition={{ duration: 0.8, delay: 0.6 }}
             className="mt-10"
           >
-            <span className="text-[10px] font-sans font-medium tracking-[0.25em] uppercase text-white/20">
+            <span className="text-[10px] font-sans font-medium tracking-[0.25em] uppercase text-white/30">
               — L'équipe Logan
             </span>
           </motion.div>
