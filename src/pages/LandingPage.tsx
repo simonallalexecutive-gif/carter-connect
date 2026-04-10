@@ -4,12 +4,16 @@ import { Link } from 'react-router-dom';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 
+
+import FounderSection from '@/components/landing/FounderSection';
 import FAQSection from '@/components/landing/FAQSection';
 import MissionSection from '@/components/landing/MissionSection';
+import FonctionnementSection from '@/components/landing/FonctionnementSection';
 
 import StatsTickerSection from '@/components/landing/StatsTickerSection';
-import heroMountain from '@/assets/hero-mountain.jpeg';
-
+import { ArrowRight } from 'lucide-react';
+import heroVideoAsset from '@/assets/hero-video-abstract-bw.mp4.asset.json';
+import heroBoardroom from '@/assets/hero-boardroom.jpeg';
 
 const firmNames = [
   'Linklaters', 'Kirkland & Ellis', 'Ropes & Gray', 'Darrois Villey', 'Bredin Prat',
@@ -31,15 +35,17 @@ const fadeUp = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] as const } },
 };
 
+
 const LandingPage = () => (
   <div className="min-h-screen bg-background">
     <Header />
 
     {/* Hero */}
     <section className="h-[100svh] flex flex-col relative overflow-hidden bg-black" style={{ paddingTop: 'env(safe-area-inset-top)', paddingBottom: 'env(safe-area-inset-bottom)' }}>
+      {/* Background photo with cinematic living Ken Burns */}
       <div className="absolute inset-0">
         <motion.img
-          src={heroMountain}
+          src={heroBoardroom}
           alt=""
           initial={{ opacity: 0, scale: 1.18, x: '0%', y: '0%' }}
           animate={{
@@ -57,6 +63,7 @@ const LandingPage = () => (
           className="w-full h-full object-cover"
           style={{ willChange: 'transform' }}
         />
+        {/* Animated warm sunlight sweep — moves across the frame */}
         <motion.div
           className="absolute inset-0"
           animate={{
@@ -70,6 +77,7 @@ const LandingPage = () => (
           }}
           transition={{ duration: 20, ease: 'easeInOut', repeat: Infinity, repeatType: 'reverse' }}
         />
+        {/* Slow golden-hour shift with movement */}
         <motion.div
           className="absolute inset-0"
           animate={{
@@ -82,6 +90,7 @@ const LandingPage = () => (
           }}
           transition={{ duration: 28, ease: 'easeInOut', repeat: Infinity, repeatType: 'mirror' }}
         />
+        {/* Subtle vignette pulse */}
         <motion.div
           className="absolute inset-0"
           animate={{ opacity: [0.6, 0.75, 0.65, 0.8, 0.7] }}
@@ -97,7 +106,7 @@ const LandingPage = () => (
       <div className="px-4 sm:px-8 lg:px-10 max-w-6xl relative z-10 pt-20 sm:pt-24 flex-1 flex items-center pb-4">
         <motion.div variants={stagger} initial="hidden" animate="visible" className="max-w-[min(95vw,72rem)]">
           <div className="inline-block">
-            <motion.h1 variants={fadeUp} className="text-[1.5rem] sm:text-[3.075rem] md:text-[4.117rem] lg:text-[5.353rem] font-serif font-[500] text-white leading-[1.12] md:leading-[1.02] mb-3 md:mb-5 tracking-[-0.03em]">
+          <motion.h1 variants={fadeUp} className="text-[1.5rem] sm:text-[3.075rem] md:text-[4.117rem] lg:text-[5.353rem] font-serif font-[500] text-white leading-[1.12] md:leading-[1.02] mb-3 md:mb-5 tracking-[-0.03em]">
               Connecting Top Tier Lawyers
             </motion.h1>
           </div>
@@ -118,7 +127,7 @@ const LandingPage = () => (
         </motion.div>
       </div>
 
-      {/* Logo marquee */}
+      {/* Logo marquee — Harvey-style frosted glass band */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -126,8 +135,11 @@ const LandingPage = () => (
         className="relative z-10 mb-0 w-full"
       >
         <div className="relative flex items-center py-5 bg-white/[0.06] backdrop-blur-md border-t border-b border-white/[0.08]">
+          {/* Fade edges */}
           <div className="absolute left-0 top-0 bottom-0 w-12 md:w-20 bg-gradient-to-r from-black/40 to-transparent z-10 pointer-events-none" />
           <div className="absolute right-0 top-0 bottom-0 w-12 md:w-20 bg-gradient-to-l from-black/40 to-transparent z-10 pointer-events-none sm:hidden" />
+
+          {/* Scrolling logos */}
           <div className="flex-1 overflow-hidden">
             <div className="flex animate-marquee whitespace-nowrap items-center">
               {[...firmNames, ...firmNames].map((name, i) => (
@@ -137,6 +149,8 @@ const LandingPage = () => (
               ))}
             </div>
           </div>
+
+          {/* Static "Nos partenaires" chip */}
           <div className="hidden sm:flex flex-shrink-0 items-center pl-6 pr-6 md:pr-10 relative z-20">
             <div className="absolute inset-y-0 -left-16 right-0 bg-gradient-to-r from-transparent via-black/80 to-black pointer-events-none" />
             <span className="relative inline-block px-5 py-2 border border-white/40 rounded-sm text-sm font-sans font-normal tracking-wide text-white whitespace-nowrap cursor-default leading-none">
@@ -147,30 +161,55 @@ const LandingPage = () => (
       </motion.div>
     </section>
 
-    {/* Notre approche */}
+    {/* Notre raison d'être */}
     <MissionSection />
+
+    {/* Notre fonctionnement */}
+    <FonctionnementSection />
+
+    {/* Notre vision */}
+    <div id="notre-vision">
+      <FounderSection />
+    </div>
 
     {/* Stats ticker */}
     <StatsTickerSection />
+
 
     {/* FAQ */}
     <div id="faq">
       <FAQSection />
     </div>
 
+
     {/* CTA */}
-    <section className="min-h-screen flex items-center justify-center bg-[hsl(0,0%,7%)]">
-      <div className="text-center px-4">
+    <section className="py-24 md:py-32 bg-black relative overflow-hidden">
+      <div className="absolute inset-0">
+        <motion.video
+          src={heroVideoAsset.url}
+          autoPlay
+          muted
+          loop
+          playsInline
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 0.4 }}
+          viewport={{ once: true }}
+          transition={{ duration: 2 }}
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black" />
+      </div>
+      <div className="carter-container text-center relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="max-w-2xl mx-auto"
+          className="max-w-xl mx-auto"
         >
-          <span className="font-serif text-4xl md:text-5xl lg:text-6xl text-white tracking-[0.04em] block mb-10">
+          <span className="font-serif text-3xl md:text-4xl text-white tracking-[0.04em] block mb-10">
             <em className="italic">Legal recruitment, redefined.</em>
           </span>
-          <p className="text-white/50 font-sans font-light leading-relaxed mb-12 text-lg">
+          <p className="text-white/50 font-sans font-light leading-relaxed mb-10">
             Inscription confidentielle en moins de 10 minutes.<br />
             Profil validé sous 48h.
           </p>
