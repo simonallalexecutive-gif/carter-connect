@@ -498,6 +498,7 @@ const Step6Review = () => {
           socialConseil: store.socialConseil, socialRelationType: store.socialRelationType,
           socialClientele: store.socialClientele, socialExpertises: store.socialExpertises,
           maPeFonds: store.maPeFonds, maIndusSecteurs: store.maIndusSecteurs,
+          previousCabinets: store.previousCabinets, notaBene: store.notaBene,
         };
         try {
           await supabase.from('candidate_registrations').insert({
@@ -595,9 +596,24 @@ const Step6Review = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {pqe && <div><span className="text-[10px] text-muted-foreground font-sans font-light">Séniorité</span><div className="mt-1"><SeniorityBadge info={pqe} /></div></div>}
               <DataRow label="Cabinet" value={store.cabinet} />
-      <DataRow label="Répertorié Chambers" value={chambersInfo?.isIntegrated ? 'Oui' : 'Non'} />
+              <DataRow label="Répertorié Chambers" value={chambersInfo?.isIntegrated ? 'Oui' : 'Non'} />
               <DataRow label="Pratique" value={store.departement} />
             </div>
+            {store.previousCabinets.length > 0 && (
+              <div className="mt-4 pt-3 border-t border-border">
+                <p className="text-[9px] uppercase tracking-wider text-muted-foreground mb-2">Cabinets précédents</p>
+                <div className="space-y-1.5">
+                  {store.previousCabinets.map((pc, i) => (
+                    <div key={i} className="text-xs font-sans font-light text-foreground">
+                      <span className="font-medium">{pc.name}</span>
+                      {pc.practices.length > 0 && (
+                        <span className="text-muted-foreground"> — {pc.practices.join(', ')}</span>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </SectionCard>
 
           {/* Rémunération */}
