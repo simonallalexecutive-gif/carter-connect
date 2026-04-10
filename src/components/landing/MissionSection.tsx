@@ -15,17 +15,17 @@ const pillars = [
   {
     icon: Shield,
     title: 'Confidentialité absolue',
-    desc: 'Logan préserve l'anonymat de chaque partie en amont de tout rapprochement potentiel. Aucune information n'est partagée sans accord explicite.',
+    desc: "Logan préserve l'anonymat de chaque partie en amont de tout rapprochement potentiel. Aucune information n'est partagée sans accord explicite.",
   },
   {
     icon: Eye,
     title: 'Écosystème qualifié',
-    desc: 'Chaque interaction est qualifiée, chaque rapprochement orchestré avec précision au sein d'un réseau réunissant les acteurs les plus prestigieux du marché.',
+    desc: "Chaque interaction est qualifiée, chaque rapprochement orchestré avec précision au sein d'un réseau réunissant les acteurs les plus prestigieux du marché.",
   },
   {
     icon: Compass,
     title: 'Accompagnement sur-mesure',
-    desc: 'Logan est le seul intermédiaire. Nous pilotons chaque étape du processus, de l'identification à la finalisation du rapprochement.',
+    desc: "Logan est le seul intermédiaire. Nous pilotons chaque étape du processus, de l'identification à la finalisation du rapprochement.",
   },
 ];
 
