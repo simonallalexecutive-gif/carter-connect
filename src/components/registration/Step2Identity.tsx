@@ -633,7 +633,6 @@ const Step2Identity = () => {
                       <span className="inline-flex items-center px-3 py-1 rounded-sm bg-foreground text-background text-xs font-sans font-medium">
                         Chambers Band {currentChambersBand}
                       </span>
-                      </span>
                       <span className="text-xs text-muted-foreground font-sans font-light">
                         {store.cabinet} · {store.departement}
                       </span>
