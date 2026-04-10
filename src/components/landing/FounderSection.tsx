@@ -14,23 +14,23 @@ const FounderSection = () => {
     <section
       ref={ref}
       className="relative flex items-center justify-center overflow-hidden border-t border-white/[0.06]"
+
       style={{ minHeight: '100svh' }}
     >
       {/* Animated background image */}
-      <motion.div
-        className="absolute inset-0"
-        style={{ scale: bgScale, y: bgY }}
-      >
+      {/* Fixed background covering full viewport */}
+      <div className="fixed inset-0 -z-10">
         <img
           src={mountainBg}
           alt=""
           className="w-full h-full object-cover"
-          style={{ minHeight: '120%' }}
         />
-      </motion.div>
+        <div className="absolute inset-0 bg-black/60" />
+      </div>
 
       {/* Dark overlay for text legibility */}
-      <div className="absolute inset-0 bg-black/60" />
+      {/* Additional overlay on the section itself */}
+      <div className="absolute inset-0 bg-black/30" />
 
       {/* Subtle animated radial glow */}
       <motion.div
@@ -61,7 +61,7 @@ const FounderSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="font-serif text-2xl sm:text-3xl md:text-[2.8rem] lg:text-[3.4rem] leading-[1.2] text-white/90 italic tracking-[-0.02em] max-w-4xl mx-auto drop-shadow-lg"
+            className="font-serif text-xl sm:text-2xl md:text-[2.24rem] lg:text-[2.72rem] leading-[1.2] text-white/90 italic tracking-[-0.02em] max-w-4xl mx-auto drop-shadow-lg"
           >
             «&nbsp;Logan se positionne comme la plateforme la plus exigeante et structurée du marché, offrant un accompagnement sur mesure, résolument confidentiel et parfaitement ciblé.&nbsp;»
           </motion.p>
