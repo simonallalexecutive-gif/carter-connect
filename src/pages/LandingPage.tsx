@@ -9,7 +9,7 @@ import MissionSection from '@/components/landing/MissionSection';
 
 import StatsTickerSection from '@/components/landing/StatsTickerSection';
 import heroMountain from '@/assets/hero-mountain.jpeg';
-import heroBoardroom from '@/assets/hero-boardroom.jpeg';
+
 
 const firmNames = [
   'Linklaters', 'Kirkland & Ellis', 'Ropes & Gray', 'Darrois Villey', 'Bredin Prat',
