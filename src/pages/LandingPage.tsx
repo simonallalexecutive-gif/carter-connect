@@ -5,7 +5,7 @@ import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 
 import FounderSection from '@/components/landing/FounderSection';
-import FAQSection from '@/components/landing/FAQSection';
+
 import MissionSection from '@/components/landing/MissionSection';
 import FonctionnementSection from '@/components/landing/FonctionnementSection';
 
@@ -158,18 +158,15 @@ const LandingPage = () => (
     </div>
 
     {/* Notre fonctionnement */}
-    <FonctionnementSection />
+    <div id="fonctionnement">
+      <FonctionnementSection />
+    </div>
 
     {/* Citation Logan — full page WOW */}
     <FounderSection />
 
     {/* Stats ticker */}
     <StatsTickerSection />
-
-    {/* FAQ */}
-    <div id="faq">
-      <FAQSection />
-    </div>
 
     {/* CTA */}
     <section className="py-24 md:py-32 bg-black relative overflow-hidden">

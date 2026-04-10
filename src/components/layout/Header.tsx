@@ -112,8 +112,8 @@ const Header = () => {
 
           <nav className="hidden md:flex items-center gap-1">
             {[
-              { label: 'Approche', section: 'notre-approche' },
-              { label: 'FAQ', section: 'faq' },
+              { label: 'Notre approche', section: 'notre-approche' },
+              { label: 'Notre fonctionnement', section: 'fonctionnement' },
             ].map(({ label, section }) => (
               <button
                 key={section}
@@ -154,8 +154,7 @@ className={`flex items-center gap-1 px-2.5 py-1.5 text-[12.3px] font-sans font-s
       {menuOpen && (
         <div className="md:hidden bg-black min-h-[calc(100dvh-4rem)] flex flex-col px-6 pt-8 pb-12 gap-5 animate-in fade-in slide-in-from-top-2 duration-200">
           <button onClick={() => scrollToSection('notre-approche')} className="font-sans text-base font-normal text-white/70 hover:text-white transition-colors tracking-wide text-left">Notre approche</button>
-          
-          <button onClick={() => scrollToSection('faq')} className="font-sans text-base font-normal text-white/70 hover:text-white transition-colors tracking-wide text-left">FAQ</button>
+          <button onClick={() => scrollToSection('fonctionnement')} className="font-sans text-base font-normal text-white/70 hover:text-white transition-colors tracking-wide text-left">Notre fonctionnement</button>
           <div className="h-px bg-white/10 my-2" />
           <Link to="/connexion" onClick={() => setMenuOpen(false)} className="font-sans text-base font-normal text-white/70 hover:text-white transition-colors tracking-wide">Connexion</Link>
           <Link to="/rendez-vous" onClick={() => setMenuOpen(false)} className="font-sans text-base font-normal text-white/70 hover:text-white transition-colors tracking-wide">Prendre RDV</Link>
