@@ -13,11 +13,6 @@ import { Link } from 'react-router-dom';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import { toast } from 'sonner';
 import { buildQuantizedChartData } from '@/lib/percentages';
-import { useState, useMemo } from 'react';
-import { cn } from '@/lib/utils';
-import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
-import { toast } from 'sonner';
-import { buildQuantizedChartData } from '@/lib/percentages';
 
 const CHART_COLORS = [
   'hsl(215, 60%, 30%)',
