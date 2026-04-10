@@ -158,18 +158,15 @@ const LandingPage = () => (
     </div>
 
     {/* Notre fonctionnement */}
-    <FonctionnementSection />
+    <div id="fonctionnement">
+      <FonctionnementSection />
+    </div>
 
     {/* Citation Logan — full page WOW */}
     <FounderSection />
 
     {/* Stats ticker */}
     <StatsTickerSection />
-
-    {/* FAQ */}
-    <div id="faq">
-      <FAQSection />
-    </div>
 
     {/* CTA */}
     <section className="py-24 md:py-32 bg-black relative overflow-hidden">
