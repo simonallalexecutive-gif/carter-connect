@@ -41,7 +41,7 @@ const ConfidentialityIntro = ({ onContinue }: ConfidentialityIntroProps) => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-      className="min-h-screen bg-white flex items-center justify-center px-6 sm:px-12 lg:px-20 relative overflow-hidden"
+      className="min-h-screen bg-[#111111] flex items-center justify-center px-6 sm:px-12 lg:px-20 relative overflow-hidden"
     >
       <div className="max-w-xl w-full relative z-10 py-20">
         {/* Shield icon */}
@@ -51,17 +51,17 @@ const ConfidentialityIntro = ({ onContinue }: ConfidentialityIntroProps) => {
           transition={{ delay: 0.2, duration: 0.5 }}
           className="flex justify-center mb-10"
         >
-          <div className="w-14 h-14 rounded-full border border-border flex items-center justify-center bg-secondary/50">
-            <Shield className="w-6 h-6 text-foreground/40" />
+           <div className="w-14 h-14 rounded-full border border-white/10 flex items-center justify-center bg-white/[0.05]">
+            <Shield className="w-6 h-6 text-white/40" />
           </div>
         </motion.div>
 
-        <h1 className="text-2xl md:text-3xl font-serif font-normal text-foreground text-center mb-3 tracking-[-0.02em]">
+        <h1 className="text-2xl md:text-3xl font-serif font-normal text-white text-center mb-3 tracking-[-0.02em]">
           Vos informations restent<br />
-          <em className="text-muted-foreground font-normal">strictement confidentielles</em>
+          <em className="text-white/50 font-normal">strictement confidentielles</em>
         </h1>
 
-        <p className="text-xs text-muted-foreground font-sans font-light text-center mb-14 max-w-md mx-auto leading-relaxed">
+        <p className="text-xs text-white/40 font-sans font-light text-center mb-14 max-w-md mx-auto leading-relaxed">
           Voici comment Logan garantit la confidentialité de votre profil à chaque étape.
         </p>
 
@@ -77,16 +77,16 @@ const ConfidentialityIntro = ({ onContinue }: ConfidentialityIntroProps) => {
             >
               {/* Vertical line */}
               <div className="flex flex-col items-center flex-shrink-0">
-                <div className="w-9 h-9 rounded-full border border-border flex items-center justify-center bg-secondary/30">
-                  <step.icon className="w-4 h-4 text-foreground/50" />
+                <div className="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center bg-white/[0.05]">
+                  <step.icon className="w-4 h-4 text-white/50" />
                 </div>
                 {i < steps.length - 1 && (
-                  <div className="w-px flex-1 bg-border my-1" />
+                  <div className="w-px flex-1 bg-white/10 my-1" />
                 )}
               </div>
               <div className="pb-7">
-                <p className="text-sm font-sans font-medium text-foreground mb-1">{step.title}</p>
-                <p className="text-xs font-sans font-light text-muted-foreground leading-relaxed">{step.description}</p>
+                <p className="text-sm font-sans font-medium text-white mb-1">{step.title}</p>
+                <p className="text-xs font-sans font-light text-white/45 leading-relaxed">{step.description}</p>
               </div>
             </motion.div>
           ))}
@@ -102,12 +102,12 @@ const ConfidentialityIntro = ({ onContinue }: ConfidentialityIntroProps) => {
           <Button
             onClick={onContinue}
             size="lg"
-            className="bg-foreground text-background hover:bg-foreground/90 font-sans text-sm font-medium rounded-sm py-5 px-10 group"
+            className="bg-white text-black hover:bg-white/90 font-sans text-sm font-medium rounded-sm py-5 px-10 group"
           >
             J'ai compris, commencer l'inscription
             <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
           </Button>
-          <p className="mt-6 text-[10px] text-muted-foreground/40 font-sans font-light tracking-wide flex items-center justify-center gap-1.5">
+          <p className="mt-6 text-[10px] text-white/25 font-sans font-light tracking-wide flex items-center justify-center gap-1.5">
             <Lock className="w-3 h-3" />
             Données chiffrées · Accès restreint · RGPD
           </p>
