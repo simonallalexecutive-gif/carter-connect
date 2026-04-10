@@ -75,6 +75,9 @@ export interface RegistrationState {
   maIndusClientele: string[];
   maSanteClientele: string[];
   maVcStades: string[];
+  maPublicOps: string[];
+  maClientele: string[];
+  vcSecteurs: string[];
   // Concurrence
   concAcquereur: number;
   concCtxDefense: number;
