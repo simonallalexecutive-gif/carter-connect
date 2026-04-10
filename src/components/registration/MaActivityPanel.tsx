@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { useRegistrationStore } from '@/stores/registrationStore';
 import { cn } from '@/lib/utils';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
-import { Check } from 'lucide-react';
+import { Check, Minus, Plus } from 'lucide-react';
 import SquareGauge from '@/components/shared/SquareGauge';
 import { buildQuantizedChartData } from '@/lib/percentages';
 
@@ -11,27 +11,32 @@ import { buildQuantizedChartData } from '@/lib/percentages';
 const COL_PE = 'hsl(215, 55%, 28%)';
 const COL_MA = 'hsl(35, 35%, 48%)';
 const COL_VC = 'hsl(160, 35%, 38%)';
-const COL_AUTRES = 'hsl(200, 15%, 60%)';
 
 const COL_PE_LBO = 'hsl(215, 50%, 35%)';
 const COL_PE_MBO = 'hsl(215, 40%, 48%)';
 const COL_PE_PTP = 'hsl(210, 45%, 55%)';
 const COL_PE_PIPE = 'hsl(220, 35%, 62%)';
 
-const COL_MA_INDUS = 'hsl(30, 40%, 42%)';
+const COL_MA_PRIVATE = 'hsl(30, 40%, 42%)';
+const COL_MA_PUBLIC = 'hsl(40, 25%, 58%)';
+
+const COL_MA_INDUS = 'hsl(30, 45%, 38%)';
+const COL_MA_TECH = 'hsl(25, 35%, 50%)';
 const COL_MA_SANTE = 'hsl(45, 35%, 50%)';
-const COL_MA_PUB = 'hsl(40, 25%, 58%)';
+const COL_MA_ENERGY = 'hsl(35, 30%, 42%)';
+const COL_MA_SERVICES = 'hsl(40, 40%, 55%)';
+const COL_MA_INFRA = 'hsl(28, 30%, 46%)';
+
+const COL_MA_OPA = 'hsl(38, 30%, 44%)';
+const COL_MA_OPE = 'hsl(42, 28%, 52%)';
+const COL_MA_SQUEEZE = 'hsl(36, 25%, 58%)';
+const COL_MA_DUAL = 'hsl(44, 22%, 48%)';
 
 const COL_VC_LEVEES = 'hsl(155, 35%, 35%)';
 const COL_VC_CORP = 'hsl(170, 30%, 48%)';
+const COL_VC_SECONDARY = 'hsl(145, 25%, 55%)';
 
-const MAIN_CATEGORIES = [
-  { key: 'ma_pe', label: 'Private Equity', color: COL_PE },
-  { key: 'ma_ma', label: 'M&A', color: COL_MA },
-  { key: 'ma_vc', label: 'Venture Capital', color: COL_VC },
-  { key: 'ma_autres', label: 'Autres', color: COL_AUTRES },
-];
-
+/* ── PE sub-activities ── */
 const PE_SUBS = [
   { key: 'lbo', label: 'LBO', color: COL_PE_LBO },
   { key: 'mbo', label: 'MBO / Management', color: COL_PE_MBO },
@@ -39,21 +44,54 @@ const PE_SUBS = [
   { key: 'pipe', label: 'PIPE', color: COL_PE_PIPE },
 ];
 
-const MA_SUBS = [
-  { key: 'industriel', label: 'M&A industriel', color: COL_MA_INDUS },
-  { key: 'sante', label: 'M&A santé', color: COL_MA_SANTE },
-  { key: 'public', label: 'Public M&A', color: COL_MA_PUB },
+/* ── M&A sub-activities ── */
+const MA_TYPES = [
+  { key: 'private', label: 'Private M&A', color: COL_MA_PRIVATE },
+  { key: 'public', label: 'Public M&A', color: COL_MA_PUBLIC },
 ];
 
+const MA_PRIVATE_SECTEURS = [
+  { key: 'industriel', label: 'Industrie / Manufacturing' },
+  { key: 'tech', label: 'Tech / TMT' },
+  { key: 'sante', label: 'Santé / Life Sciences' },
+  { key: 'energie', label: 'Énergie / ENR' },
+  { key: 'services', label: 'Services / Distribution' },
+  { key: 'infra', label: 'Infrastructures' },
+];
+
+const MA_PUBLIC_OPS = [
+  'OPA (offre publique d\'achat)',
+  'OPE (offre publique d\'échange)',
+  'Squeeze-out / Retrait obligatoire',
+  'Dual-track (IPO vs M&A)',
+  'Offre publique de rachat (OPRA)',
+  'Offre publique obligatoire (franchissement seuil)',
+];
+
+const MA_CLIENTELE = [
+  'Corporates / Industriels',
+  'Fonds d\'investissement',
+  'Family offices',
+  'Dirigeants / Management',
+  'Banques d\'affaires',
+  'Institutionnels (assureurs, fonds souverains)',
+];
+
+/* ── VC sub-activities ── */
 const VC_SUBS = [
   { key: 'levees', label: 'Levées de fonds', color: COL_VC_LEVEES },
-  { key: 'corporate', label: 'Corporate / structuration', color: COL_VC_CORP },
+  { key: 'corporate', label: 'Corporate venture / Structuration', color: COL_VC_CORP },
+  { key: 'secondary', label: 'Secondary / Cessions', color: COL_VC_SECONDARY },
 ];
 
-const MA_INDUS_SECTEURS = ['Production / industrie', 'Ingénierie', 'Fabrication', 'Luxe', 'Hôtellerie', 'Énergie', 'Infrastructure / construction', 'Logistique'];
-const MA_INDUS_CLIENTELE = ['PME', 'Family offices', 'Entreprises détenues par des investisseurs privés'];
-const MA_SANTE_CLIENTELE = ['Cliniques', 'Laboratoires', 'Medtech', 'Biotech', 'Pharmaceutique'];
-const VC_STADES = ['Seed', 'Série A', 'Série B', 'Série C ou plus'];
+const VC_STADES = ['Seed / Pré-seed', 'Série A', 'Série B', 'Série C+', 'Late stage / Growth'];
+
+const VC_SECTEURS = [
+  'Tech / SaaS', 'Fintech', 'Biotech / Healthtech', 'Cleantech / Greentech',
+  'Deep tech', 'Consumer / D2C', 'Marketplace / Plateforme', 'Impact / ESG',
+];
+
+const COL_CLI = ['hsl(215, 55%, 22%)', 'hsl(210, 20%, 42%)', 'hsl(200, 12%, 55%)', 'hsl(220, 15%, 35%)', 'hsl(215, 50%, 35%)', 'hsl(210, 10%, 62%)'];
 
 const tooltipStyle = {
   fontSize: '11px', fontFamily: 'Inter',
@@ -85,6 +123,12 @@ const ChipButton = ({ active, onClick, children }: { active: boolean; onClick: (
   </button>
 );
 
+const MAIN_CATEGORIES = [
+  { key: 'ma_pe', label: 'Private Equity', color: COL_PE },
+  { key: 'ma_ma', label: 'M&A', color: COL_MA },
+  { key: 'ma_vc', label: 'Venture Capital', color: COL_VC },
+];
+
 const MaActivityPanel = () => {
   const store = useRegistrationStore();
 
@@ -105,18 +149,17 @@ const MaActivityPanel = () => {
     store.setField('sousActivites', { ...store.sousActivites, [parent]: { ...cur, [child]: value } });
   };
 
-  const toggleArr = (field: 'maIndusSecteurs' | 'maIndusClientele' | 'maSanteClientele' | 'maVcStades', value: string) => {
+  const toggleArr = (field: 'maIndusSecteurs' | 'maIndusClientele' | 'maSanteClientele' | 'maVcStades' | 'maPublicOps' | 'maClientele' | 'vcSecteurs', value: string) => {
     const cur = (store[field] as string[]) || [];
     store.setField(field, cur.includes(value) ? cur.filter(v => v !== value) : [...cur, value]);
   };
 
   const selected = MAIN_CATEGORIES.filter(c => store.activites[c.key]);
   const hasAny = selected.length > 0;
-  const totalRaw = useMemo(() => selected.reduce((s, c) => s + (store.pourcentages[c.key] || 10), 0), [selected, store.pourcentages]);
 
-  const hasPE = store.activites['ma_pe'];
-  const hasMA = store.activites['ma_ma'];
-  const hasVC = store.activites['ma_vc'];
+  const hasPE = !!store.activites['ma_pe'];
+  const hasMA = !!store.activites['ma_ma'];
+  const hasVC = !!store.activites['ma_vc'];
 
   const mainChartData = useMemo(() =>
     buildQuantizedChartData(
@@ -133,7 +176,7 @@ const MaActivityPanel = () => {
   };
 
   const peChart = useMemo(() => hasPE ? buildSubChart('ma_pe', PE_SUBS) : [], [hasPE, store.sousActivites]);
-  const maChart = useMemo(() => hasMA ? buildSubChart('ma_ma', MA_SUBS) : [], [hasMA, store.sousActivites]);
+  const maChart = useMemo(() => hasMA ? buildSubChart('ma_ma', MA_TYPES) : [], [hasMA, store.sousActivites]);
   const vcChart = useMemo(() => hasVC ? buildSubChart('ma_vc', VC_SUBS) : [], [hasVC, store.sousActivites]);
 
   const peFonds = store.maPeFonds ?? 50;
@@ -193,6 +236,11 @@ const MaActivityPanel = () => {
                       <span className="text-[11px] font-sans font-semibold text-foreground tabular-nums">{seg.value}%</span>
                     </div>
                   ))}
+                  <div className="flex items-center gap-2 pt-1">
+                    <span className="text-[10px] font-sans text-muted-foreground">Fonds {peFonds}%</span>
+                    <span className="text-[10px] text-muted-foreground">·</span>
+                    <span className="text-[10px] font-sans text-muted-foreground">Management {100 - peFonds}%</span>
+                  </div>
                 </div>
               )}
 
@@ -207,6 +255,13 @@ const MaActivityPanel = () => {
                       <span className="text-[11px] font-sans font-semibold text-foreground tabular-nums">{seg.value}%</span>
                     </div>
                   ))}
+                  {(store.maClientele || []).length > 0 && (
+                    <div className="flex flex-wrap gap-1.5 pt-1">
+                      {(store.maClientele || []).map(c => (
+                        <span key={c} className="inline-flex items-center px-2.5 py-0.5 rounded-sm text-[11px] font-sans bg-secondary text-foreground/80 border border-border">{c}</span>
+                      ))}
+                    </div>
+                  )}
                 </div>
               )}
 
@@ -221,6 +276,13 @@ const MaActivityPanel = () => {
                       <span className="text-[11px] font-sans font-semibold text-foreground tabular-nums">{seg.value}%</span>
                     </div>
                   ))}
+                  {(store.vcSecteurs || []).length > 0 && (
+                    <div className="flex flex-wrap gap-1.5 pt-1">
+                      {(store.vcSecteurs || []).map(s => (
+                        <span key={s} className="inline-flex items-center px-2.5 py-0.5 rounded-sm text-[11px] font-sans bg-secondary text-foreground/80 border border-border">{s}</span>
+                      ))}
+                    </div>
+                  )}
                 </div>
               )}
 
@@ -255,6 +317,7 @@ const MaActivityPanel = () => {
             <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">Répartition</p>
             <div className="pl-3 border-l-2 border-border space-y-2.5">
               {selected.map(c => {
+                const totalRaw = selected.reduce((s, cc) => s + (store.pourcentages[cc.key] || 10), 0);
                 const pct = totalRaw > 0 ? Math.round(((store.pourcentages[c.key] || 10) / totalRaw) * 100) : 0;
                 return (
                   <SquareGauge
@@ -270,113 +333,161 @@ const MaActivityPanel = () => {
           </div>
         )}
 
-        {/* ═══════ PRIVATE EQUITY DETAIL ═══════ */}
+        {/* ═══════════════════════════════════════
+            BLOC 1 — PRIVATE EQUITY
+           ═══════════════════════════════════════ */}
         {hasPE && (
-          <div className="border-t border-border pt-5 space-y-4">
-            <p className="text-sm font-sans font-medium text-foreground">Détail Private Equity</p>
-            <div className="pl-3 border-l-2 border-border space-y-2.5">
-              {PE_SUBS.map(sub => {
-                const vals = store.sousActivites['ma_pe'] || {};
-                const raw = vals[sub.key] ?? 25;
-                const total = PE_SUBS.reduce((s, ss) => s + (vals[ss.key] ?? 25), 0);
-                const pct = total > 0 ? Math.round((raw / total) * 100) : 0;
-                return (
-                  <SquareGauge key={sub.key} value={raw} onChange={v => handleSub('ma_pe', sub.key, v)} activeColor={sub.color} label={`${sub.label} (${pct}%)`} />
-                );
-              })}
+          <div className="border-t-2 border-foreground/20 pt-6 space-y-5">
+            <div className="flex items-center gap-2">
+              <span className="w-3 h-3 rounded-sm" style={{ background: COL_PE }} />
+              <p className="text-base font-sans font-semibold text-foreground">Private Equity</p>
             </div>
 
-            {/* PE Positionnement */}
-            <div className="pl-3 border-l-2 border-border space-y-2">
-              <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">Positionnement PE</p>
-              <SquareGauge value={peFonds} onChange={v => store.setField('maPeFonds', v)} activeColor={COL_PE} label="Côté fonds" />
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-sans text-foreground">Côté management</span>
-                <span className="text-xs font-sans font-bold text-foreground tabular-nums">{100 - peFonds}%</span>
+            {/* PE Positionnement (LBO, MBO, PtP, PIPE) */}
+            <div className="space-y-3">
+              <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">Positionnement</p>
+              <div className="pl-3 border-l-2 border-border space-y-2.5">
+                {PE_SUBS.map(sub => {
+                  const vals = store.sousActivites['ma_pe'] || {};
+                  const raw = vals[sub.key] ?? 25;
+                  const total = PE_SUBS.reduce((s, ss) => s + (vals[ss.key] ?? 25), 0);
+                  const pct = total > 0 ? Math.round((raw / total) * 100) : 0;
+                  return (
+                    <SquareGauge key={sub.key} value={raw} onChange={v => handleSub('ma_pe', sub.key, v)} activeColor={sub.color} label={`${sub.label} (${pct}%)`} />
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* PE Clientèle: Fonds vs Management */}
+            <div className="space-y-2">
+              <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">Clientèle</p>
+              <div className="pl-3 border-l-2 border-border space-y-2">
+                <SquareGauge value={peFonds} onChange={v => store.setField('maPeFonds', v)} activeColor={COL_PE} label="Côté fonds" />
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-sans text-foreground">Côté management</span>
+                  <span className="text-xs font-sans font-bold text-foreground tabular-nums">{100 - peFonds}%</span>
+                </div>
               </div>
             </div>
           </div>
         )}
 
-        {/* ═══════ M&A DETAIL ═══════ */}
+        {/* ═══════════════════════════════════════
+            BLOC 2 — M&A
+           ═══════════════════════════════════════ */}
         {hasMA && (
-          <div className="border-t border-border pt-5 space-y-4">
-            <p className="text-sm font-sans font-medium text-foreground">Détail M&A</p>
-            <div className="pl-3 border-l-2 border-border space-y-2.5">
-              {MA_SUBS.map(sub => {
-                const vals = store.sousActivites['ma_ma'] || {};
-                const raw = vals[sub.key] ?? 33;
-                const total = MA_SUBS.reduce((s, ss) => s + (vals[ss.key] ?? 33), 0);
-                const pct = total > 0 ? Math.round((raw / total) * 100) : 0;
-                return (
-                  <SquareGauge key={sub.key} value={raw} onChange={v => handleSub('ma_ma', sub.key, v)} activeColor={sub.color} label={`${sub.label} (${pct}%)`} />
-                );
-              })}
+          <div className="border-t-2 border-foreground/20 pt-6 space-y-5">
+            <div className="flex items-center gap-2">
+              <span className="w-3 h-3 rounded-sm" style={{ background: COL_MA }} />
+              <p className="text-base font-sans font-semibold text-foreground">M&A</p>
             </div>
 
-            {/* M&A Industriel */}
-            {((store.sousActivites['ma_ma'] || {})['industriel'] ?? 33) > 0 && (
+            {/* Private vs Public M&A */}
+            <div className="space-y-3">
+              <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">Répartition Private / Public M&A</p>
+              <div className="pl-3 border-l-2 border-border space-y-2.5">
+                {MA_TYPES.map(sub => {
+                  const vals = store.sousActivites['ma_ma'] || {};
+                  const raw = vals[sub.key] ?? 50;
+                  const total = MA_TYPES.reduce((s, ss) => s + (vals[ss.key] ?? 50), 0);
+                  const pct = total > 0 ? Math.round((raw / total) * 100) : 0;
+                  return (
+                    <SquareGauge key={sub.key} value={raw} onChange={v => handleSub('ma_ma', sub.key, v)} activeColor={sub.color} label={`${sub.label} (${pct}%)`} />
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Private M&A — Secteurs */}
+            {((store.sousActivites['ma_ma'] || {})['private'] ?? 50) > 0 && (
               <div className="space-y-3">
-                <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">M&A Industriel – Secteurs</p>
+                <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">Private M&A — Secteurs</p>
                 <div className="flex flex-wrap gap-1.5">
-                  {MA_INDUS_SECTEURS.map(s => (
-                    <ChipButton key={s} active={(store.maIndusSecteurs || []).includes(s)} onClick={() => toggleArr('maIndusSecteurs', s)}>{s}</ChipButton>
-                  ))}
-                </div>
-                <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium pt-2">M&A Industriel – Clientèle</p>
-                <div className="flex flex-wrap gap-1.5">
-                  {MA_INDUS_CLIENTELE.map(s => (
-                    <ChipButton key={s} active={(store.maIndusClientele || []).includes(s)} onClick={() => toggleArr('maIndusClientele', s)}>{s}</ChipButton>
+                  {MA_PRIVATE_SECTEURS.map(s => (
+                    <ChipButton key={s.key} active={(store.maIndusSecteurs || []).includes(s.key)} onClick={() => toggleArr('maIndusSecteurs', s.key)}>
+                      {s.label}
+                    </ChipButton>
                   ))}
                 </div>
               </div>
             )}
 
-            {/* M&A Santé */}
-            {((store.sousActivites['ma_ma'] || {})['sante'] ?? 33) > 0 && (
+            {/* Public M&A — Types d'opérations */}
+            {((store.sousActivites['ma_ma'] || {})['public'] ?? 50) > 0 && (
               <div className="space-y-3">
-                <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">M&A Santé – Clientèle</p>
+                <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">Public M&A — Types d'opérations</p>
                 <div className="flex flex-wrap gap-1.5">
-                  {MA_SANTE_CLIENTELE.map(s => (
-                    <ChipButton key={s} active={(store.maSanteClientele || []).includes(s)} onClick={() => toggleArr('maSanteClientele', s)}>{s}</ChipButton>
+                  {MA_PUBLIC_OPS.map(op => (
+                    <ChipButton key={op} active={(store.maPublicOps || []).includes(op)} onClick={() => toggleArr('maPublicOps', op)}>
+                      {op}
+                    </ChipButton>
                   ))}
-                </div>
-                <div className="pl-3 border-l-2 border-border space-y-2">
-                  <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">Positionnement M&A Santé</p>
-                  <SquareGauge value={maSanteVendeur} onChange={v => store.setField('maSanteVendeur', v)} activeColor={COL_MA} label="Côté vendeur" />
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-sans text-foreground">Côté acquéreur</span>
-                    <span className="text-xs font-sans font-bold text-foreground tabular-nums">{100 - maSanteVendeur}%</span>
-                  </div>
                 </div>
               </div>
             )}
+
+            {/* M&A Positionnement: Vendeur vs Acquéreur */}
+            <div className="space-y-2">
+              <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">Positionnement M&A</p>
+              <div className="pl-3 border-l-2 border-border space-y-2">
+                <SquareGauge value={maSanteVendeur} onChange={v => store.setField('maSanteVendeur', v)} activeColor={COL_MA} label="Côté vendeur / cédant" />
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-sans text-foreground">Côté acquéreur</span>
+                  <span className="text-xs font-sans font-bold text-foreground tabular-nums">{100 - maSanteVendeur}%</span>
+                </div>
+              </div>
+            </div>
+
+            {/* M&A Clientèle */}
+            <div className="space-y-3">
+              <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">Clientèle M&A</p>
+              <div className="flex flex-wrap gap-1.5">
+                {MA_CLIENTELE.map(c => (
+                  <ChipButton key={c} active={(store.maClientele || []).includes(c)} onClick={() => toggleArr('maClientele', c)}>
+                    {c}
+                  </ChipButton>
+                ))}
+              </div>
+            </div>
           </div>
         )}
 
-        {/* ═══════ VENTURE CAPITAL DETAIL ═══════ */}
+        {/* ═══════════════════════════════════════
+            BLOC 3 — VENTURE CAPITAL
+           ═══════════════════════════════════════ */}
         {hasVC && (
-          <div className="border-t border-border pt-5 space-y-4">
-            <p className="text-sm font-sans font-medium text-foreground">Détail Venture Capital</p>
-            <div className="pl-3 border-l-2 border-border space-y-2.5">
-              {VC_SUBS.map(sub => {
-                const vals = store.sousActivites['ma_vc'] || {};
-                const raw = vals[sub.key] ?? 50;
-                const total = VC_SUBS.reduce((s, ss) => s + (vals[ss.key] ?? 50), 0);
-                const pct = total > 0 ? Math.round((raw / total) * 100) : 0;
-                return (
-                  <SquareGauge key={sub.key} value={raw} onChange={v => handleSub('ma_vc', sub.key, v)} activeColor={sub.color} label={`${sub.label} (${pct}%)`} />
-                );
-              })}
+          <div className="border-t-2 border-foreground/20 pt-6 space-y-5">
+            <div className="flex items-center gap-2">
+              <span className="w-3 h-3 rounded-sm" style={{ background: COL_VC }} />
+              <p className="text-base font-sans font-semibold text-foreground">Venture Capital</p>
+            </div>
+
+            {/* VC Sous-activités */}
+            <div className="space-y-3">
+              <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">Nature de l'activité</p>
+              <div className="pl-3 border-l-2 border-border space-y-2.5">
+                {VC_SUBS.map(sub => {
+                  const vals = store.sousActivites['ma_vc'] || {};
+                  const raw = vals[sub.key] ?? Math.round(100 / VC_SUBS.length);
+                  const total = VC_SUBS.reduce((s, ss) => s + (vals[ss.key] ?? Math.round(100 / VC_SUBS.length)), 0);
+                  const pct = total > 0 ? Math.round((raw / total) * 100) : 0;
+                  return (
+                    <SquareGauge key={sub.key} value={raw} onChange={v => handleSub('ma_vc', sub.key, v)} activeColor={sub.color} label={`${sub.label} (${pct}%)`} />
+                  );
+                })}
+              </div>
             </div>
 
             {/* VC Positionnement */}
-            <div className="pl-3 border-l-2 border-border space-y-2">
-              <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">Positionnement VC</p>
-              <SquareGauge value={vcFonds} onChange={v => store.setField('maVcFonds', v)} activeColor={COL_VC} label="Côté investisseurs / fonds" />
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-sans text-foreground">Côté fondateurs</span>
-                <span className="text-xs font-sans font-bold text-foreground tabular-nums">{100 - vcFonds}%</span>
+            <div className="space-y-2">
+              <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">Positionnement</p>
+              <div className="pl-3 border-l-2 border-border space-y-2">
+                <SquareGauge value={vcFonds} onChange={v => store.setField('maVcFonds', v)} activeColor={COL_VC} label="Côté investisseurs / fonds" />
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-sans text-foreground">Côté fondateurs / management</span>
+                  <span className="text-xs font-sans font-bold text-foreground tabular-nums">{100 - vcFonds}%</span>
+                </div>
               </div>
             </div>
 
@@ -386,6 +497,16 @@ const MaActivityPanel = () => {
               <div className="flex flex-wrap gap-1.5">
                 {VC_STADES.map(s => (
                   <ChipButton key={s} active={(store.maVcStades || []).includes(s)} onClick={() => toggleArr('maVcStades', s)}>{s}</ChipButton>
+                ))}
+              </div>
+            </div>
+
+            {/* VC Secteurs */}
+            <div className="space-y-3">
+              <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">Secteurs</p>
+              <div className="flex flex-wrap gap-1.5">
+                {VC_SECTEURS.map(s => (
+                  <ChipButton key={s} active={(store.vcSecteurs || []).includes(s)} onClick={() => toggleArr('vcSecteurs', s)}>{s}</ChipButton>
                 ))}
               </div>
             </div>
