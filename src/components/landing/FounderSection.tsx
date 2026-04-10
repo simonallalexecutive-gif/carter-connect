@@ -1,67 +1,64 @@
-import { motion } from 'motion/react';
-
+import { motion, useScroll, useTransform } from 'motion/react';
+import { useRef } from 'react';
 
 const FounderSection = () => {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
+  const opacity = useTransform(scrollYProgress, [0, 0.3, 0.5, 0.7, 1], [0, 1, 1, 1, 0.3]);
+  const y = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [60, 0, 0, -30]);
+
   return (
-    <section className="py-20 md:py-28 overflow-hidden border-t border-white/[0.08]" style={{ background: 'hsl(0 0% 8%)' }}>
-      <div className="max-w-6xl mx-auto px-4 sm:px-8 lg:px-10">
+    <section
+      ref={ref}
+      className="relative flex items-center justify-center overflow-hidden border-t border-white/[0.06]"
+      style={{ background: 'hsl(0 0% 5%)', minHeight: '100svh' }}
+    >
+      {/* Subtle radial glow */}
+      <div className="absolute inset-0 pointer-events-none" style={{
+        background: 'radial-gradient(ellipse 60% 50% at 50% 50%, rgba(255,255,255,0.03) 0%, transparent 70%)',
+      }} />
 
-        {/* Section label */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="text-[11px] font-sans font-medium tracking-[0.25em] uppercase text-white/30 mb-16 md:mb-20"
-        >
-          Notre vision
-        </motion.p>
+      <div className="max-w-5xl mx-auto px-6 sm:px-10 lg:px-14 py-24 md:py-32 relative z-10">
+        <motion.div style={{ opacity, y }} className="text-center">
+          {/* Decorative line */}
+          <motion.div
+            initial={{ scaleX: 0 }}
+            whileInView={{ scaleX: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+            className="w-16 h-px bg-white/20 mx-auto mb-12 origin-center"
+          />
 
-        {/* Founder — photo left, bio right (wider) */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col sm:flex-row items-start gap-10 sm:gap-16 mb-16 md:mb-20"
-        >
-          <div className="text-left flex-1">
-            <h3 className="font-serif text-2xl text-white font-normal mb-0.5 tracking-[-0.01em]">
-              Simon Allal
-            </h3>
-            <p className="text-[11px] font-sans font-medium tracking-[0.15em] uppercase text-white/40 mb-6">
-              Fondateur
-            </p>
-            <div className="font-sans text-[0.92rem] text-white/55 font-light leading-[1.75] space-y-4">
-              <p>
-                Fort d'un réseau solidement établi et d'une connaissance approfondie du marché des avocats d'affaires, Simon Allal a fondé Logan avec une ambition claire&nbsp;: créer les conditions de rencontres décisives et durables entre cabinets et candidats.
-              </p>
-              <p>
-                Logan s'inscrit comme un espace confidentiel, structuré et exigeant, où les attentes des uns, les compétences des autres et la personnalité de chacun sont appréhendées avec précision.
-              </p>
-              <p>
-                Cette mise en relation, fondée sur une analyse fine et un accompagnement attentif, permet de faire émerger des collaborations pleinement réussies.
-              </p>
-            </div>
-          </div>
-        </motion.div>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="font-serif text-2xl sm:text-3xl md:text-[2.8rem] lg:text-[3.4rem] leading-[1.2] text-white/80 italic tracking-[-0.02em] max-w-4xl mx-auto"
+          >
+            «&nbsp;Logan se positionne comme la plateforme la plus exigeante et structurée du marché, offrant un accompagnement sur mesure, résolument confidentiel et parfaitement ciblé.&nbsp;»
+          </motion.p>
 
-        {/* Quote — right aligned, hero serif font */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.9, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-          className="flex justify-end"
-        >
-          <div className="max-w-lg text-right">
-            <p className="font-serif text-lg md:text-xl text-white/45 italic font-normal leading-[1.6] mb-4 tracking-[-0.01em]">
-              «&nbsp;Logan se positionne comme la plateforme la plus exigeante et structurée du marché, offrant un accompagnement sur mesure, résolument confidentiel et parfaitement ciblé.&nbsp;»
-            </p>
-            <span className="text-[10px] font-sans font-medium tracking-[0.15em] uppercase text-white/25">
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="mt-10"
+          >
+            <span className="text-[10px] font-sans font-medium tracking-[0.25em] uppercase text-white/20">
               — L'équipe Logan
             </span>
-          </div>
+          </motion.div>
+
+          {/* Decorative line */}
+          <motion.div
+            initial={{ scaleX: 0 }}
+            whileInView={{ scaleX: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.2, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            className="w-16 h-px bg-white/20 mx-auto mt-12 origin-center"
+          />
         </motion.div>
       </div>
     </section>

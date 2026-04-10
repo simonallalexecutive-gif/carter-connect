@@ -2,6 +2,8 @@ import { motion } from 'motion/react';
 import { Shield, Eye, Search, Lock, Bell, Building2, User, ArrowRight, CalendarCheck } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+import { useState } from 'react';
+import { cn } from '@/lib/utils';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -16,23 +18,18 @@ const stagger = {
 const cabinetPoints = [
   {
     num: '01',
-    title: 'Attirez les meilleurs en toute confidentialité',
-    text: "Déposez votre recherche, préservez l'identité de votre cabinet, adressez-vous à un pool de candidats ultra qualifiés.",
-    bullets: [
-      'Nationalité du cabinet',
-      'Présence dans Chambers',
-      'Contexte du recrutement, séniorité et expertise recherchée',
-    ],
+    title: 'Déposez votre recherche en toute confidentialité',
+    text: "Identité protégée, accès à un pool de candidats ultra qualifiés, classés par séniorité et expertise.",
   },
   {
     num: '02',
-    title: 'Analysez en temps réel la dynamique du marché',
-    text: "Accédez en continu à une lecture consolidée et structurée des candidats les plus convoités pour tous vos départements et conservez un temps d'avance sur vos concurrents en actionnant l'intermédiation de Logan pour opérer un rapprochement.",
-    bullets: [
-      'Expertise',
-      'Séniorité',
-      'Projet',
-    ],
+    title: 'Analysez la dynamique du marché en temps réel',
+    text: "Accédez à une lecture consolidée des candidats les plus convoités pour vos départements.",
+  },
+  {
+    num: '03',
+    title: 'Actionnez Logan pour un rapprochement ciblé',
+    text: "Un consultant vous accompagne pour chaque mise en relation, orchestrée et confidentielle.",
   },
 ];
 
@@ -40,161 +37,146 @@ const candidatPoints = [
   {
     num: '01',
     title: 'Visibilité sans exposition',
-    text: "Restez présent sur le marché en toute discrétion. Votre identité n'est jamais communiquée sans votre accord — seuls votre séniorité, expertise et positionnement Chambers sont visibles.",
+    text: "Votre identité n'est jamais communiquée sans votre accord — seuls séniorité, expertise et positionnement Chambers sont visibles.",
   },
   {
     num: '02',
-    title: 'Opportunités exclusives',
-    text: 'Consultez en temps réel les recherches les plus premiums. Échangez avec un consultant Logan avant tout rapprochement — rien ne se fait sans votre consentement explicite.',
+    title: 'Opportunités exclusives en temps réel',
+    text: "Consultez les recherches les plus premiums. Échangez avec un consultant avant tout rapprochement.",
+  },
+  {
+    num: '03',
+    title: 'Un contrôle total sur votre carrière',
+    text: "Rien ne se fait sans votre consentement explicite. Vous décidez du rythme et des étapes.",
   },
 ];
 
-const FonctionnementSection = () => (
-  <section className="relative overflow-hidden py-16 md:py-36" style={{ background: '#111111' }}>
-    <div className="max-w-6xl mx-auto px-4 sm:px-8 lg:px-10">
+const FonctionnementSection = () => {
+  const [activeTab, setActiveTab] = useState<'cabinet' | 'candidat'>('cabinet');
 
-      {/* ── Header ── */}
-      <motion.div
-        variants={stagger}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: '-80px' }}
-        className="text-center mb-20 md:mb-28"
-      >
-        <motion.p variants={fadeUp} className="text-[11px] font-sans font-medium tracking-[0.25em] uppercase text-white/30 mb-5">
-          Notre fonctionnement
-        </motion.p>
-        <motion.h2 variants={fadeUp} className="font-serif text-3xl sm:text-4xl md:text-[3rem] leading-[1.15] text-white mb-5">
-          Deux perspectives, une même exigence
-        </motion.h2>
-        <motion.p variants={fadeUp} className="font-sans text-[1.02rem] md:text-lg leading-[1.7] text-white/45 max-w-2xl mx-auto">
-          Logan est le seul intermédiaire. Chaque interaction est qualifiée, confidentielle et orchestrée.
-        </motion.p>
-      </motion.div>
+  const points = activeTab === 'cabinet' ? cabinetPoints : candidatPoints;
+  const badges = activeTab === 'cabinet'
+    ? [
+        { icon: Shield, label: 'Confidentialité' },
+        { icon: Search, label: 'Pool qualifié' },
+        { icon: Eye, label: 'Vision marché' },
+      ]
+    : [
+        { icon: Lock, label: 'Anonymat garanti' },
+        { icon: Bell, label: 'Alertes ciblées' },
+        { icon: Shield, label: 'Contrôle total' },
+      ];
 
-      {/* ── Two columns ── */}
-      <div className="grid md:grid-cols-2 gap-0 md:gap-0">
+  return (
+    <section className="relative overflow-hidden py-20 md:py-36" style={{ background: '#111111' }}>
+      <div className="max-w-5xl mx-auto px-4 sm:px-8 lg:px-10">
 
-        {/* ▌ CABINETS */}
+        {/* Header */}
         <motion.div
           variants={stagger}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: '-60px' }}
-          className="md:border-r border-white/[0.08] md:pr-12 lg:pr-16 pb-16 md:pb-0"
+          viewport={{ once: true, margin: '-80px' }}
+          className="text-center mb-14 md:mb-20"
         >
-          <motion.div variants={fadeUp} className="flex items-center gap-3 mb-10">
-            <div className="w-9 h-9 rounded-full bg-white/[0.06] flex items-center justify-center">
-              <Building2 className="w-4 h-4 text-white/50" strokeWidth={1.5} />
-            </div>
-            <h3 className="font-serif text-2xl md:text-[1.7rem] text-white">Cabinets</h3>
-          </motion.div>
-
-          <div className="space-y-8">
-            {cabinetPoints.map((point) => (
-              <motion.div key={point.num} variants={fadeUp}>
-                <div className="flex items-baseline gap-3 mb-2">
-                  <span className="font-serif text-2xl text-white/[0.12] font-medium select-none">{point.num}</span>
-                  <h4 className="font-sans text-[0.95rem] font-semibold text-white tracking-[-0.01em]">{point.title}</h4>
-                </div>
-                <p className="font-sans text-[0.92rem] leading-[1.8] text-white/50 pl-9">{point.text}</p>
-                {point.bullets && (
-                  <ul className="mt-3 pl-9 space-y-1.5">
-                    {point.bullets.map((b) => (
-                      <li key={b} className="flex items-start gap-2 text-[0.88rem] text-white/40 font-sans">
-                        <ArrowRight className="w-3 h-3 mt-1 shrink-0 text-white/25" strokeWidth={1.5} />
-                        {b}
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </motion.div>
-            ))}
-          </div>
-
-          <motion.div variants={fadeUp} className="flex flex-wrap gap-4 mt-10 pl-9">
-            {[
-              { icon: Shield, label: 'Confidentialité' },
-              { icon: Search, label: 'Pool qualifié' },
-              { icon: Eye, label: 'Vision marché' },
-            ].map(({ icon: Icon, label }) => (
-              <span key={label} className="inline-flex items-center gap-2 text-xs font-sans text-white/35 border border-white/[0.08] rounded-sm px-3 py-1.5">
-                <Icon className="w-3.5 h-3.5" strokeWidth={1.5} />
-                {label}
-              </span>
-            ))}
-          </motion.div>
-
-          <motion.div variants={fadeUp} className="mt-10 pl-9">
-            <Link to="/notre-offre">
-              <Button
-                variant="outline"
-                size="sm"
-                className="font-sans text-xs font-medium tracking-wide rounded-sm border-white/20 text-white hover:bg-white hover:text-black transition-colors"
-              >
-                Découvrir notre offre
-                <ArrowRight className="w-3.5 h-3.5 ml-2" strokeWidth={1.5} />
-              </Button>
-            </Link>
-          </motion.div>
+          <motion.p variants={fadeUp} className="text-[11px] font-sans font-medium tracking-[0.25em] uppercase text-white/30 mb-5">
+            Notre fonctionnement
+          </motion.p>
+          <motion.h2 variants={fadeUp} className="font-serif text-3xl sm:text-4xl md:text-[3rem] leading-[1.15] text-white mb-5">
+            Deux perspectives, une même exigence
+          </motion.h2>
         </motion.div>
 
-        {/* ▌ CANDIDATS */}
-        <motion.div
-          variants={stagger}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-60px' }}
-          className="md:pl-12 lg:pl-16 pt-16 md:pt-0 border-t md:border-t-0 border-white/[0.08]"
-        >
-          <motion.div variants={fadeUp} className="flex items-center gap-3 mb-10">
-            <div className="w-9 h-9 rounded-full bg-white/[0.06] flex items-center justify-center">
-              <User className="w-4 h-4 text-white/50" strokeWidth={1.5} />
-            </div>
-            <h3 className="font-serif text-2xl md:text-[1.7rem] text-white">Candidats</h3>
-          </motion.div>
+        {/* Tabs */}
+        <div className="flex justify-center mb-14 md:mb-20">
+          <div className="inline-flex rounded-sm overflow-hidden border border-white/[0.12]">
+            <button
+              onClick={() => setActiveTab('cabinet')}
+              className={cn(
+                "flex items-center gap-2.5 px-8 py-3.5 text-sm font-sans font-medium tracking-wide transition-all duration-300",
+                activeTab === 'cabinet'
+                  ? "bg-white text-black"
+                  : "bg-transparent text-white/50 hover:text-white/80"
+              )}
+            >
+              <Building2 className="w-4 h-4" strokeWidth={1.5} />
+              Cabinets
+            </button>
+            <button
+              onClick={() => setActiveTab('candidat')}
+              className={cn(
+                "flex items-center gap-2.5 px-8 py-3.5 text-sm font-sans font-medium tracking-wide transition-all duration-300",
+                activeTab === 'candidat'
+                  ? "bg-white text-black"
+                  : "bg-transparent text-white/50 hover:text-white/80"
+              )}
+            >
+              <User className="w-4 h-4" strokeWidth={1.5} />
+              Candidats
+            </button>
+          </div>
+        </div>
 
-          <div className="space-y-8">
-            {candidatPoints.map(({ num, title, text }) => (
-              <motion.div key={num} variants={fadeUp}>
-                <div className="flex items-baseline gap-3 mb-2">
-                  <span className="font-serif text-2xl text-white/[0.12] font-medium select-none">{num}</span>
-                  <h4 className="font-sans text-[0.95rem] font-semibold text-white tracking-[-0.01em]">{title}</h4>
+        {/* Content */}
+        <motion.div
+          key={activeTab}
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          className="max-w-3xl mx-auto"
+        >
+          <div className="space-y-10">
+            {points.map((point) => (
+              <div key={point.num} className="flex gap-6">
+                <span className="font-serif text-3xl text-white/[0.1] font-medium select-none flex-shrink-0 w-10 text-right">{point.num}</span>
+                <div>
+                  <h4 className="font-sans text-base font-semibold text-white tracking-[-0.01em] mb-2">{point.title}</h4>
+                  <p className="font-sans text-[0.92rem] leading-[1.8] text-white/45">{point.text}</p>
                 </div>
-                <p className="font-sans text-[0.92rem] leading-[1.8] text-white/50 pl-9">{text}</p>
-              </motion.div>
+              </div>
             ))}
           </div>
 
-          <motion.div variants={fadeUp} className="flex flex-wrap gap-4 mt-10 pl-9">
-            {[
-              { icon: Lock, label: 'Anonymat garanti' },
-              { icon: Bell, label: 'Alertes ciblées' },
-              { icon: Shield, label: 'Contrôle total' },
-            ].map(({ icon: Icon, label }) => (
-              <span key={label} className="inline-flex items-center gap-2 text-xs font-sans text-white/35 border border-white/[0.08] rounded-sm px-3 py-1.5">
+          {/* Badges */}
+          <div className="flex flex-wrap gap-3 mt-12 justify-center">
+            {badges.map(({ icon: Icon, label }) => (
+              <span key={label} className="inline-flex items-center gap-2 text-xs font-sans text-white/30 border border-white/[0.08] rounded-sm px-3 py-1.5">
                 <Icon className="w-3.5 h-3.5" strokeWidth={1.5} />
                 {label}
               </span>
             ))}
-          </motion.div>
+          </div>
 
-          <motion.div variants={fadeUp} className="mt-10 pl-9">
-            <Link to="/prendre-rdv">
-              <Button
-                variant="outline"
-                size="sm"
-                className="font-sans text-xs font-medium tracking-wide rounded-sm border-white/20 text-white hover:bg-white hover:text-black transition-colors"
-              >
-                Prendre rendez-vous
-                <CalendarCheck className="w-3.5 h-3.5 ml-2" strokeWidth={1.5} />
-              </Button>
-            </Link>
-          </motion.div>
+          {/* CTA */}
+          <div className="flex justify-center mt-10">
+            {activeTab === 'cabinet' ? (
+              <Link to="/notre-offre">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="font-sans text-xs font-medium tracking-wide rounded-sm border-white/20 text-white hover:bg-white hover:text-black transition-colors"
+                >
+                  Découvrir notre offre
+                  <ArrowRight className="w-3.5 h-3.5 ml-2" strokeWidth={1.5} />
+                </Button>
+              </Link>
+            ) : (
+              <Link to="/prendre-rdv">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="font-sans text-xs font-medium tracking-wide rounded-sm border-white/20 text-white hover:bg-white hover:text-black transition-colors"
+                >
+                  Prendre rendez-vous
+                  <CalendarCheck className="w-3.5 h-3.5 ml-2" strokeWidth={1.5} />
+                </Button>
+              </Link>
+            )}
+          </div>
         </motion.div>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
 export default FonctionnementSection;
