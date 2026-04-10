@@ -526,6 +526,91 @@ const Step2Identity = () => {
           />
         </div>
 
+        {/* Previous Cabinets */}
+        {store.cabinet && (
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Cabinets précédents</Label>
+              {store.previousCabinets.length < 3 && (
+                <button
+                  type="button"
+                  onClick={() => store.setField('previousCabinets', [...store.previousCabinets, { name: '', practices: [] }])}
+                  className="text-xs font-sans font-medium text-foreground/70 hover:text-foreground border border-border rounded-sm px-3 py-1.5 transition-colors"
+                >
+                  + Ajouter un cabinet
+                </button>
+              )}
+            </div>
+            {store.previousCabinets.length === 0 && (
+              <p className="text-xs text-muted-foreground font-sans font-light">
+                Avez-vous exercé dans d'autres cabinets auparavant ?
+              </p>
+            )}
+            {store.previousCabinets.map((prev, idx) => (
+              <div key={idx} className="rounded-sm border border-border p-4 space-y-3 bg-card">
+                <div className="flex items-center justify-between gap-3">
+                  <div className="flex-1">
+                    <AutocompleteInput
+                      data={allCabinets}
+                      value={prev.name}
+                      onChange={(v) => {
+                        const updated = [...store.previousCabinets];
+                        updated[idx] = { ...updated[idx], name: typeof v === 'string' ? v : v[0] };
+                        store.setField('previousCabinets', updated);
+                      }}
+                      placeholder="Nom du cabinet..."
+                    />
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const updated = store.previousCabinets.filter((_, i) => i !== idx);
+                      store.setField('previousCabinets', updated);
+                    }}
+                    className="p-1 text-muted-foreground hover:text-foreground"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                </div>
+                {prev.name && (
+                  <div>
+                    <p className="text-[10px] text-muted-foreground font-sans font-light uppercase tracking-wider mb-2">
+                      Compétences développées dans ce cabinet
+                    </p>
+                    <div className="flex flex-wrap gap-1.5">
+                      {allPractices.map(p => {
+                        const isSelected = prev.practices.includes(p.label);
+                        return (
+                          <button
+                            key={p.key}
+                            type="button"
+                            onClick={() => {
+                              const updated = [...store.previousCabinets];
+                              const practices = isSelected
+                                ? prev.practices.filter(pr => pr !== p.label)
+                                : [...prev.practices, p.label];
+                              updated[idx] = { ...updated[idx], practices };
+                              store.setField('previousCabinets', updated);
+                            }}
+                            className={cn(
+                              "px-2.5 py-1 rounded-sm text-[10px] font-sans border transition-all",
+                              isSelected
+                                ? "bg-foreground text-background border-foreground font-medium"
+                                : "bg-transparent text-muted-foreground border-border hover:border-foreground/40"
+                            )}
+                          >
+                            {p.label}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
+
         {/* Pratique — all Chambers departments */}
         <div>
           <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Votre pratique *</Label>

@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 
-
 import FounderSection from '@/components/landing/FounderSection';
 import FAQSection from '@/components/landing/FAQSection';
 import MissionSection from '@/components/landing/MissionSection';
@@ -63,7 +62,6 @@ const LandingPage = () => (
           className="w-full h-full object-cover"
           style={{ willChange: 'transform' }}
         />
-        {/* Animated warm sunlight sweep — moves across the frame */}
         <motion.div
           className="absolute inset-0"
           animate={{
@@ -77,7 +75,6 @@ const LandingPage = () => (
           }}
           transition={{ duration: 20, ease: 'easeInOut', repeat: Infinity, repeatType: 'reverse' }}
         />
-        {/* Slow golden-hour shift with movement */}
         <motion.div
           className="absolute inset-0"
           animate={{
@@ -90,7 +87,6 @@ const LandingPage = () => (
           }}
           transition={{ duration: 28, ease: 'easeInOut', repeat: Infinity, repeatType: 'mirror' }}
         />
-        {/* Subtle vignette pulse */}
         <motion.div
           className="absolute inset-0"
           animate={{ opacity: [0.6, 0.75, 0.65, 0.8, 0.7] }}
@@ -127,19 +123,16 @@ const LandingPage = () => (
         </motion.div>
       </div>
 
-      {/* Logo marquee — Harvey-style frosted glass band */}
+      {/* Logo marquee — flush at bottom, no gap */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.2, duration: 1.5 }}
-        className="relative z-10 mb-0 w-full"
+        className="relative z-10 w-full"
       >
-        <div className="relative flex items-center py-5 bg-white/[0.06] backdrop-blur-md border-t border-b border-white/[0.08]">
-          {/* Fade edges */}
+        <div className="relative flex items-center py-5 bg-white/[0.06] backdrop-blur-md border-t border-white/[0.08]">
           <div className="absolute left-0 top-0 bottom-0 w-12 md:w-20 bg-gradient-to-r from-black/40 to-transparent z-10 pointer-events-none" />
           <div className="absolute right-0 top-0 bottom-0 w-12 md:w-20 bg-gradient-to-l from-black/40 to-transparent z-10 pointer-events-none sm:hidden" />
-
-          {/* Scrolling logos */}
           <div className="flex-1 overflow-hidden">
             <div className="flex animate-marquee whitespace-nowrap items-center">
               {[...firmNames, ...firmNames].map((name, i) => (
@@ -149,8 +142,6 @@ const LandingPage = () => (
               ))}
             </div>
           </div>
-
-          {/* Static "Nos partenaires" chip */}
           <div className="hidden sm:flex flex-shrink-0 items-center pl-6 pr-6 md:pr-10 relative z-20">
             <div className="absolute inset-y-0 -left-16 right-0 bg-gradient-to-r from-transparent via-black/80 to-black pointer-events-none" />
             <span className="relative inline-block px-5 py-2 border border-white/40 rounded-sm text-sm font-sans font-normal tracking-wide text-white whitespace-nowrap cursor-default leading-none">
@@ -161,26 +152,24 @@ const LandingPage = () => (
       </motion.div>
     </section>
 
-    {/* Notre raison d'être */}
-    <MissionSection />
+    {/* Notre approche */}
+    <div id="notre-approche">
+      <MissionSection />
+    </div>
 
     {/* Notre fonctionnement */}
     <FonctionnementSection />
 
-    {/* Notre vision */}
-    <div id="notre-vision">
-      <FounderSection />
-    </div>
+    {/* Citation Logan — full page WOW */}
+    <FounderSection />
 
     {/* Stats ticker */}
     <StatsTickerSection />
-
 
     {/* FAQ */}
     <div id="faq">
       <FAQSection />
     </div>
-
 
     {/* CTA */}
     <section className="py-24 md:py-32 bg-black relative overflow-hidden">

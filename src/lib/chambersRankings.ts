@@ -218,6 +218,8 @@ export function getFirmChambersRankings(firmName: string): { key: string; label:
  * Format Chambers band display
  */
 export function formatChambersBand(band: number): string {
+  if (band <= 2) return 'Band 1/Band 2';
+  if (band <= 4) return 'Band 3/Band 4';
   return `Band ${band}`;
 }
 

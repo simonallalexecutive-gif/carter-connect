@@ -6,9 +6,10 @@ import { usePQE } from '@/hooks/usePQE';
 import SeniorityBadge from '@/components/shared/SeniorityBadge';
 import { ACTIVITES_BY_PRACTICE, ACTIVITES_DEFAULT, CABINET_META } from '@/lib/constants';
 import { CHAMBERS_DB, CHAMBERS_DEPARTMENTS } from '@/lib/chambersRankings';
-import { Eye, ArrowLeft, Check, User } from 'lucide-react';
+import { Eye, ArrowLeft, ArrowRight, Check, User } from 'lucide-react';
 import { useState, useMemo } from 'react';
 import { cn } from '@/lib/utils';
+import { Link } from 'react-router-dom';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import { toast } from 'sonner';
 import { buildQuantizedChartData } from '@/lib/percentages';
@@ -497,6 +498,7 @@ const Step6Review = () => {
           socialConseil: store.socialConseil, socialRelationType: store.socialRelationType,
           socialClientele: store.socialClientele, socialExpertises: store.socialExpertises,
           maPeFonds: store.maPeFonds, maIndusSecteurs: store.maIndusSecteurs,
+          previousCabinets: store.previousCabinets, notaBene: store.notaBene,
         };
         try {
           await supabase.from('candidate_registrations').insert({
@@ -594,9 +596,24 @@ const Step6Review = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {pqe && <div><span className="text-[10px] text-muted-foreground font-sans font-light">Séniorité</span><div className="mt-1"><SeniorityBadge info={pqe} /></div></div>}
               <DataRow label="Cabinet" value={store.cabinet} />
-      <DataRow label="Répertorié Chambers" value={chambersInfo?.isIntegrated ? 'Oui' : 'Non'} />
+              <DataRow label="Répertorié Chambers" value={chambersInfo?.isIntegrated ? 'Oui' : 'Non'} />
               <DataRow label="Pratique" value={store.departement} />
             </div>
+            {store.previousCabinets.length > 0 && (
+              <div className="mt-4 pt-3 border-t border-border">
+                <p className="text-[9px] uppercase tracking-wider text-muted-foreground mb-2">Cabinets précédents</p>
+                <div className="space-y-1.5">
+                  {store.previousCabinets.map((pc, i) => (
+                    <div key={i} className="text-xs font-sans font-light text-foreground">
+                      <span className="font-medium">{pc.name}</span>
+                      {pc.practices.length > 0 && (
+                        <span className="text-muted-foreground"> — {pc.practices.join(', ')}</span>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </SectionCard>
 
           {/* Rémunération */}
@@ -775,6 +792,33 @@ const Step6Review = () => {
           </div>
         </div>
       )}
+
+      {/* Nota Bene */}
+      <div className="rounded-sm border border-border bg-card px-5 py-4 mt-6">
+        <p className="text-[9px] uppercase tracking-[0.15em] text-muted-foreground font-sans font-light mb-3">Nota bene (facultatif)</p>
+        <textarea
+          value={store.notaBene || ''}
+          onChange={e => store.setField('notaBene', e.target.value)}
+          placeholder="Un mot à ajouter ? Une précision, un contexte particulier..."
+          className="w-full min-h-[80px] rounded-md border border-input bg-background px-3 py-2 text-sm font-sans ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+        />
+      </div>
+
+      {/* RDV option */}
+      <div className="rounded-sm border border-border bg-card px-5 py-4 mt-4">
+        <div className="flex items-center justify-between">
+          <div>
+            <p className="text-sm font-sans font-medium text-foreground">Souhaitez-vous échanger avec un consultant Logan ?</p>
+            <p className="text-xs font-sans font-light text-muted-foreground mt-1">Prenez rendez-vous dès la validation de votre inscription.</p>
+          </div>
+          <Link to="/prendre-rdv" target="_blank" className="ml-4 flex-shrink-0">
+            <Button variant="outline" size="sm" className="font-sans text-xs font-medium rounded-sm gap-1.5">
+              Prendre RDV
+              <ArrowRight className="w-3 h-3" />
+            </Button>
+          </Link>
+        </div>
+      </div>
 
       {/* Navigation */}
       <div className="flex justify-between pt-10">
