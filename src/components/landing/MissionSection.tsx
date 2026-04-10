@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { Shield, Eye, Compass } from 'lucide-react';
+import { Shield, Compass } from 'lucide-react';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 28 },
@@ -16,11 +16,6 @@ const pillars = [
     icon: Shield,
     title: 'Confidentialité absolue',
     desc: "Logan préserve l'anonymat de chaque partie en amont de tout rapprochement potentiel. Aucune information n'est partagée sans accord explicite.",
-  },
-  {
-    icon: Eye,
-    title: 'Écosystème qualifié',
-    desc: "Chaque interaction est qualifiée, chaque rapprochement orchestré avec précision au sein d'un réseau réunissant les acteurs les plus prestigieux du marché.",
   },
   {
     icon: Compass,
@@ -44,20 +39,20 @@ const MissionSection = () => (
           Notre approche
         </motion.p>
         <motion.h2 variants={fadeUp} className="font-serif text-3xl sm:text-4xl md:text-[3rem] leading-[1.15] text-black mb-8 max-w-4xl mx-auto">
-          Une infrastructure confidentielle de marché pour des rapprochements stratégiques ciblés
+          Une infrastructure confidentielle pour des rapprochements stratégiques ciblés
         </motion.h2>
         <motion.p variants={fadeUp} className="font-sans text-[1.05rem] md:text-lg leading-[1.9] text-black/55 max-w-3xl mx-auto">
-          Logan structure, encadre et accompagne un écosystème discret et exigeant, réunissant les acteurs les plus prestigieux du marché des avocats d'affaires.
+          Logan structure et accompagne un écosystème discret réunissant les acteurs les plus prestigieux du marché des avocats d'affaires.
         </motion.p>
       </motion.div>
 
-      {/* Pillar cards */}
+      {/* Two pillar cards */}
       <motion.div
         variants={stagger}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: '-60px' }}
-        className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8"
+        className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-3xl mx-auto"
       >
         {pillars.map((p) => (
           <motion.div
@@ -73,25 +68,6 @@ const MissionSection = () => (
           </motion.div>
         ))}
       </motion.div>
-
-      {/* Minimal separator */}
-      <motion.div
-        initial={{ scaleX: 0 }}
-        whileInView={{ scaleX: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-        className="w-16 h-px bg-black/15 mx-auto my-14 origin-center"
-      />
-
-      <motion.p
-        initial={{ opacity: 0, y: 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className="font-sans text-sm md:text-base leading-[1.8] text-black/40 text-center max-w-2xl mx-auto"
-      >
-        Logan préserve l'anonymat de chaque partie et intervient à leurs côtés pour les accompagner lorsque des rapprochements stratégiques s'imposent.
-      </motion.p>
     </div>
   </section>
 );
