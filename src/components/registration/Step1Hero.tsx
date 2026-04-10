@@ -58,7 +58,7 @@ const Step1Hero = ({ onBeforeRegister }: Step1HeroProps) => {
   const isCabinet = view === 'login-cabinet';
 
   return (
-    <div className="min-h-screen bg-white flex items-center justify-start px-6 sm:px-16 lg:px-24 relative overflow-hidden">
+    <div className="min-h-screen bg-[#111111] flex items-center justify-start px-6 sm:px-16 lg:px-24 relative overflow-hidden">
       {/* Fixed header */}
       <header className="fixed top-0 left-0 right-0 z-50">
         <div className="px-6 sm:px-8 lg:px-10 flex items-center h-20">
