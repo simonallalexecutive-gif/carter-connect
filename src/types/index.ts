@@ -19,6 +19,7 @@ export interface RegistrationState {
   sermentMois: number | null;
   sermentAnnee: number | null;
   cabinet: string;
+  previousCabinets: { name: string; practices: string[] }[];
   cabNat: string;
   cabTier: string;
   departement: string;
@@ -149,6 +150,7 @@ export interface RegistrationState {
   qualitesAppreciees: string[];
   axesAmelioration: string[];
   motivation: string;
+  notaBene: string;
   bullets: string[];
   cabinetsCibles: string[];
   noGo: string[];
