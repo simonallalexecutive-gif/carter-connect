@@ -22,9 +22,7 @@ const RegisterPage = () => {
   const isDarkStep = currentStep === 7;
   const isStepContent = currentStep >= 2 && currentStep <= 6;
 
-  // For candidat: show confidentiality intro first (skip Step1Hero)
   const [showConfIntro, setShowConfIntro] = useState(espaceParam === 'candidat');
-  // For cabinet: show cabinet confidentiality intro
   const [showCabinetIntro, setShowCabinetIntro] = useState(espaceParam === 'cabinet');
 
   useEffect(() => {
@@ -38,22 +36,18 @@ const RegisterPage = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [currentStep, showConfIntro, showCabinetIntro]);
 
-  // Apply theme-light to <body> so Radix portals (Select, Popover, etc.) inherit correct tokens
+  // White theme for registration steps 2-6, dark for step 7
   useEffect(() => {
-    const shouldBeDark = (isStepContent || (currentStep >= 2 && currentStep <= 6)) && !showConfIntro && !showCabinetIntro;
-    if (shouldBeDark) {
-      document.body.classList.add('theme-dark-registration');
-      document.body.classList.remove('theme-light');
-    } else if (!isDarkStep && !showConfIntro && !showCabinetIntro) {
-      document.body.classList.add('theme-light');
-      document.body.classList.remove('theme-dark-registration');
+    if (isStepContent && !showConfIntro && !showCabinetIntro) {
+      document.body.classList.add('theme-light-registration');
+      document.body.classList.remove('theme-dark-registration', 'theme-light');
+    } else if (isDarkStep) {
+      document.body.classList.remove('theme-light-registration', 'theme-light', 'theme-dark-registration');
     } else {
-      document.body.classList.remove('theme-light');
-      document.body.classList.remove('theme-dark-registration');
+      document.body.classList.remove('theme-light-registration', 'theme-dark-registration', 'theme-light');
     }
     return () => {
-      document.body.classList.remove('theme-light');
-      document.body.classList.remove('theme-dark-registration');
+      document.body.classList.remove('theme-light-registration', 'theme-dark-registration', 'theme-light');
     };
   }, [isDarkStep, isStepContent, currentStep, showConfIntro, showCabinetIntro]);
 
@@ -92,13 +86,13 @@ const RegisterPage = () => {
     <div className={(isDarkStep || showConfIntro || showCabinetIntro) ? '' : 'min-h-screen'}>
       {showProgress && (
         <>
-          <LogoBanner subtitle="Espace Candidat" variant="matte" />
-          <div className="sticky top-0 z-40 backdrop-blur-sm bg-background">
+          <LogoBanner subtitle="Espace Candidat" variant="light" />
+          <div className="sticky top-0 z-40 backdrop-blur-sm bg-white">
             <StepProgress currentStep={currentStep} />
           </div>
         </>
       )}
-      <div className={isStepContent && !showConfIntro && !showCabinetIntro ? 'theme-dark-registration bg-background min-h-[calc(100vh-140px)]' : ''}>
+      <div className={isStepContent && !showConfIntro && !showCabinetIntro ? 'bg-white min-h-[calc(100vh-140px)]' : ''}>
         {renderStep()}
       </div>
     </div>

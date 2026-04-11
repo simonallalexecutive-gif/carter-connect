@@ -1,4 +1,4 @@
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { Menu, X } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
@@ -40,18 +40,15 @@ const Header = () => {
           <Link to="/" className="flex items-center">
             <span className="font-serif text-[32px] tracking-[0.04em] transition-colors duration-500 text-white">Logan</span>
           </Link>
-
-          <nav className="hidden md:flex items-center gap-1">
-            <Link
-              to="/rendez-vous"
-              className="flex items-center gap-1 px-2.5 py-1.5 text-[12.3px] font-sans font-semibold transition-colors duration-200 tracking-wide text-white hover:text-white/80"
-            >
-              Prendre RDV
-            </Link>
-          </nav>
         </div>
 
-        <div className="hidden md:flex items-center">
+        <div className="hidden md:flex items-center gap-1">
+          <Link
+            to="/rendez-vous"
+            className="text-[12.3px] font-sans font-semibold px-2.5 py-1.5 transition-colors duration-200 tracking-wide text-white hover:text-white/80"
+          >
+            Prendre RDV
+          </Link>
           <Link
             to="/connexion"
             className="text-[12.3px] font-sans font-semibold px-2.5 py-1.5 transition-colors duration-200 tracking-wide text-white hover:text-white/80"
@@ -72,8 +69,8 @@ const Header = () => {
       {menuOpen && (
         <div className="md:hidden bg-black min-h-[calc(100dvh-4rem)] flex flex-col px-6 pt-8 pb-12 gap-5 animate-in fade-in slide-in-from-top-2 duration-200">
           <div className="h-px bg-white/10 my-2" />
-          <Link to="/connexion" onClick={() => setMenuOpen(false)} className="font-sans text-base font-normal text-white/70 hover:text-white transition-colors tracking-wide">Connexion</Link>
           <Link to="/rendez-vous" onClick={() => setMenuOpen(false)} className="font-sans text-base font-normal text-white/70 hover:text-white transition-colors tracking-wide">Prendre RDV</Link>
+          <Link to="/connexion" onClick={() => setMenuOpen(false)} className="font-sans text-base font-normal text-white/70 hover:text-white transition-colors tracking-wide">Connexion</Link>
           <Link to="/demander-acces" onClick={() => setMenuOpen(false)} className="font-sans text-sm font-normal text-white border border-white/30 rounded-sm px-6 py-3 transition-colors tracking-wide inline-flex items-center gap-2 mt-2 w-fit">Demander un accès</Link>
         </div>
       )}
