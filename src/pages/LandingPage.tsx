@@ -165,8 +165,8 @@ const LandingPage = () => (
     {/* Citation Logan — full page WOW */}
     <FounderSection />
 
-    {/* Stats ticker */}
-    <StatsTickerSection />
+    {/* FAQ */}
+    <FAQSection />
 
     {/* CTA */}
     <section className="py-24 md:py-32 bg-black relative overflow-hidden">
