@@ -22,8 +22,8 @@ const cabinetPoints = [
   },
   {
     num: '02',
-    title: 'Décryptez la dynamique du marché et accédez en temps réel aux meilleurs profils',
-    text: "Restez opportuniste et anticipez vos recrutements avec pertinence pour l'ensemble de vos départements.",
+    title: 'Accédez en temps réel aux profils les plus convoités du marché',
+    text: "Décryptez la dynamique du marché, restez opportuniste et anticipez vos recrutements pour l'ensemble de vos départements.",
     icon: Eye,
   },
   {
@@ -77,7 +77,7 @@ const StepCard = ({ num, title, text, icon: Icon, dark = false }: StepCardProps)
   return (
     <motion.div
       variants={fadeUp}
-      className={`group relative border ${borderColor} ${hoverBorder} rounded-sm p-8 md:p-10 transition-all duration-500`}
+      className={`group relative border ${borderColor} ${hoverBorder} rounded-sm p-8 md:p-10 transition-all duration-500 flex flex-col h-full`}
     >
       {/* Large faded number */}
       <span className={`absolute top-6 right-8 font-serif text-[4.5rem] md:text-[5.5rem] leading-none font-bold ${numColor} select-none pointer-events-none`}>
@@ -92,10 +92,10 @@ const StepCard = ({ num, title, text, icon: Icon, dark = false }: StepCardProps)
       {/* Accent line */}
       <div className={`w-8 h-px ${lineColor} mb-5`} />
 
-      <h4 className={`font-sans text-base font-semibold ${titleColor} tracking-[-0.01em] mb-3 pr-12`}>
+      <h4 className={`font-sans text-base font-semibold ${titleColor} tracking-[-0.01em] mb-3 pr-12 min-h-[3.5rem] flex items-start`}>
         {title}
       </h4>
-      <p className={`font-sans text-[0.92rem] leading-[1.85] ${textColor} text-justify`}>
+      <p className={`font-sans text-[0.92rem] leading-[1.85] ${textColor} text-justify mt-auto`}>
         {text}
       </p>
     </motion.div>
