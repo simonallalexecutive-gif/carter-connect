@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { Shield, Eye, Search, Lock, Bell, Building2, User, ArrowRight, CalendarCheck } from 'lucide-react';
+import { Shield, Eye, Search, Lock, Bell, CalendarCheck } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 
@@ -10,7 +10,7 @@ const fadeUp = {
 
 const stagger = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.12 } },
+  visible: { transition: { staggerChildren: 0.15 } },
 };
 
 const cabinetPoints = [
@@ -18,16 +18,19 @@ const cabinetPoints = [
     num: '01',
     title: 'Déposez votre recherche en toute confidentialité',
     text: "Identité protégée, accès à un pool de candidats ultra qualifiés, classés par séniorité et expertise.",
+    icon: Shield,
   },
   {
     num: '02',
     title: 'Analysez la dynamique du marché en temps réel',
     text: "Accédez à une lecture consolidée des candidats les plus convoités pour vos départements.",
+    icon: Eye,
   },
   {
     num: '03',
     title: 'Actionnez Logan pour un rapprochement ciblé',
     text: "Un consultant vous accompagne pour chaque mise en relation, orchestrée et confidentielle.",
+    icon: Search,
   },
 ];
 
@@ -36,29 +39,81 @@ const candidatPoints = [
     num: '01',
     title: 'Visibilité sans exposition',
     text: "Votre identité n'est jamais communiquée sans votre accord — seuls séniorité, expertise et positionnement Chambers sont visibles.",
+    icon: Lock,
   },
   {
     num: '02',
     title: 'Opportunités exclusives en temps réel',
     text: "Consultez les recherches les plus premiums. Échangez avec un consultant avant tout rapprochement.",
+    icon: Bell,
   },
   {
     num: '03',
     title: 'Un contrôle total sur votre carrière',
     text: "Rien ne se fait sans votre consentement explicite. Vous décidez du rythme et des étapes.",
+    icon: Shield,
   },
 ];
 
+/* ---------- Step Card Component ---------- */
+interface StepCardProps {
+  num: string;
+  title: string;
+  text: string;
+  icon: React.ElementType;
+  dark?: boolean;
+}
+
+const StepCard = ({ num, title, text, icon: Icon, dark = false }: StepCardProps) => {
+  const borderColor = dark ? 'border-white/[0.08]' : 'border-black/[0.06]';
+  const hoverBorder = dark ? 'hover:border-white/20' : 'hover:border-black/15';
+  const numColor = dark ? 'text-white/[0.06]' : 'text-black/[0.05]';
+  const titleColor = dark ? 'text-white' : 'text-black';
+  const textColor = dark ? 'text-white/50' : 'text-black/50';
+  const iconBg = dark ? 'bg-white/[0.06]' : 'bg-black/[0.04]';
+  const iconColor = dark ? 'text-white/40' : 'text-black/35';
+  const lineColor = dark ? 'bg-white/[0.08]' : 'bg-black/[0.06]';
+
+  return (
+    <motion.div
+      variants={fadeUp}
+      className={`group relative border ${borderColor} ${hoverBorder} rounded-sm p-8 md:p-10 transition-all duration-500`}
+    >
+      {/* Large faded number */}
+      <span className={`absolute top-6 right-8 font-serif text-[4.5rem] md:text-[5.5rem] leading-none font-bold ${numColor} select-none pointer-events-none`}>
+        {num}
+      </span>
+
+      {/* Icon */}
+      <div className={`w-11 h-11 rounded-full ${iconBg} flex items-center justify-center mb-6`}>
+        <Icon className={`w-[18px] h-[18px] ${iconColor}`} strokeWidth={1.5} />
+      </div>
+
+      {/* Accent line */}
+      <div className={`w-8 h-px ${lineColor} mb-5`} />
+
+      <h4 className={`font-sans text-base font-semibold ${titleColor} tracking-[-0.01em] mb-3 pr-12`}>
+        {title}
+      </h4>
+      <p className={`font-sans text-[0.92rem] leading-[1.85] ${textColor} text-justify`}>
+        {text}
+      </p>
+    </motion.div>
+  );
+};
+
 /* ---------- Cabinet Page ---------- */
 const CabinetPage = () => (
-<section className="relative overflow-hidden py-20 md:py-36" style={{ background: '#111111' }}>
+  <section className="relative overflow-hidden py-20 md:py-36" style={{ background: '#111111' }}>
     <div className="max-w-5xl mx-auto px-4 sm:px-8 lg:px-10">
+
+      {/* Header — left-aligned */}
       <motion.div
         variants={stagger}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: '-80px' }}
-        className="text-center mb-14 md:mb-20"
+        className="mb-16 md:mb-24"
       >
         <motion.p variants={fadeUp} className="text-[11px] font-sans font-medium tracking-[0.25em] uppercase text-white/30 mb-6">
           Notre fonctionnement
@@ -66,57 +121,39 @@ const CabinetPage = () => (
         <motion.h2 variants={fadeUp} className="font-serif text-3xl sm:text-4xl md:text-[2.8rem] leading-[1.15] text-white mb-5">
           Firms
         </motion.h2>
-        <motion.p variants={fadeUp} className="font-sans text-[0.95rem] md:text-base leading-[1.8] text-white/40 max-w-2xl mx-auto">
+        <motion.p variants={fadeUp} className="font-sans text-[0.95rem] md:text-base leading-[1.8] text-white/40 max-w-2xl text-justify">
           Un processus structuré et confidentiel pour accéder aux candidats les plus qualifiés du marché.
         </motion.p>
       </motion.div>
 
+      {/* Step cards — grid layout */}
       <motion.div
         variants={stagger}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: '-60px' }}
-        className="space-y-10 mb-14"
+        className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8"
       >
         {cabinetPoints.map((point) => (
-          <motion.div key={point.num} variants={fadeUp} className="flex gap-6">
-            <span className="font-serif text-3xl text-white/[0.1] font-medium select-none flex-shrink-0 w-10 text-right">{point.num}</span>
-            <div>
-              <h4 className="font-sans text-base font-semibold text-white tracking-[-0.01em] mb-2">{point.title}</h4>
-              <p className="font-sans text-[0.92rem] leading-[1.8] text-white/45">{point.text}</p>
-            </div>
-          </motion.div>
+          <StepCard key={point.num} {...point} dark />
         ))}
       </motion.div>
-
-      {/* Badges */}
-      <div className="flex flex-wrap gap-3 justify-center mb-10">
-        {[
-          { icon: Shield, label: 'Confidentialité' },
-          { icon: Search, label: 'Pool qualifié' },
-          { icon: Eye, label: 'Vision marché' },
-        ].map(({ icon: Icon, label }) => (
-          <span key={label} className="inline-flex items-center gap-2 text-xs font-sans text-white/30 border border-white/[0.08] rounded-sm px-3 py-1.5">
-            <Icon className="w-3.5 h-3.5" strokeWidth={1.5} />
-            {label}
-          </span>
-        ))}
-      </div>
-
     </div>
   </section>
 );
 
 /* ---------- Candidat Page ---------- */
 const CandidatPage = () => (
-<section className="relative overflow-hidden py-20 md:py-36 bg-white">
+  <section className="relative overflow-hidden py-20 md:py-36 bg-white">
     <div className="max-w-5xl mx-auto px-4 sm:px-8 lg:px-10">
+
+      {/* Header — left-aligned */}
       <motion.div
         variants={stagger}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: '-80px' }}
-        className="text-center mb-14 md:mb-20"
+        className="mb-16 md:mb-24"
       >
         <motion.p variants={fadeUp} className="text-[11px] font-sans font-medium tracking-[0.25em] uppercase text-black/30 mb-6">
           Notre fonctionnement
@@ -124,42 +161,23 @@ const CandidatPage = () => (
         <motion.h2 variants={fadeUp} className="font-serif text-3xl sm:text-4xl md:text-[2.8rem] leading-[1.15] text-black mb-5">
           Candidates
         </motion.h2>
-        <motion.p variants={fadeUp} className="font-sans text-[0.95rem] md:text-base leading-[1.8] text-black/45 max-w-2xl mx-auto">
+        <motion.p variants={fadeUp} className="font-sans text-[0.95rem] md:text-base leading-[1.8] text-black/45 max-w-2xl text-justify">
           Accédez aux opportunités les plus exclusives tout en préservant votre anonymat.
         </motion.p>
       </motion.div>
 
+      {/* Step cards — grid layout */}
       <motion.div
         variants={stagger}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: '-60px' }}
-        className="space-y-10 mb-14"
+        className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-14"
       >
         {candidatPoints.map((point) => (
-          <motion.div key={point.num} variants={fadeUp} className="flex gap-6">
-            <span className="font-serif text-3xl text-black/[0.1] font-medium select-none flex-shrink-0 w-10 text-right">{point.num}</span>
-            <div>
-              <h4 className="font-sans text-base font-semibold text-black tracking-[-0.01em] mb-2">{point.title}</h4>
-              <p className="font-sans text-[0.92rem] leading-[1.8] text-black/45">{point.text}</p>
-            </div>
-          </motion.div>
+          <StepCard key={point.num} {...point} />
         ))}
       </motion.div>
-
-      {/* Badges */}
-      <div className="flex flex-wrap gap-3 justify-center mb-10">
-        {[
-          { icon: Lock, label: 'Anonymat garanti' },
-          { icon: Bell, label: 'Alertes ciblées' },
-          { icon: Shield, label: 'Contrôle total' },
-        ].map(({ icon: Icon, label }) => (
-          <span key={label} className="inline-flex items-center gap-2 text-xs font-sans text-black/30 border border-black/[0.08] rounded-sm px-3 py-1.5">
-            <Icon className="w-3.5 h-3.5" strokeWidth={1.5} />
-            {label}
-          </span>
-        ))}
-      </div>
 
       <div className="flex justify-center">
         <Link to="/prendre-rdv">
