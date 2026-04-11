@@ -160,7 +160,7 @@ const CabinetStep2Identity = () => {
                       'text-[10px] font-bold px-2 py-0.5 rounded-sm',
                       r.tier <= 2 ? 'bg-foreground text-background' : 'bg-secondary text-foreground'
                     )}>
-                      {formatChambersBand(r.tier)}
+                      Band {r.tier}
                     </span>
                   </div>
                 ))}
