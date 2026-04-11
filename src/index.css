@@ -115,6 +115,57 @@
     --shadow-elevated: 0 4px 16px -2px hsl(0 0% 0% / 0.4);
   }
 
+  /* White theme for candidate registration steps */
+  .theme-light-registration {
+    --background: 0 0% 100%;             /* white */
+    --foreground: 0 0% 8%;               /* near-black */
+
+    --card: 0 0% 97%;                    /* very light grey cards */
+    --card-foreground: 0 0% 8%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 8%;
+
+    --primary: 0 0% 8%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 0 0% 94%;
+    --secondary-foreground: 0 0% 20%;
+
+    --muted: 0 0% 94%;
+    --muted-foreground: 0 0% 40%;
+
+    --accent: 0 0% 94%;
+    --accent-foreground: 0 0% 8%;
+
+    --destructive: 0 55% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 85%;
+    --input: 0 0% 85%;
+    --ring: 0 0% 40%;
+
+    --carter-bg-deep: 0 0% 100%;
+    --carter-bg: 0 0% 100%;
+    --carter-bg-elevated: 0 0% 97%;
+    --carter-bg-surface: 0 0% 94%;
+
+    --carter-gold: 0 0% 30%;
+    --carter-gold-muted: 0 0% 45%;
+    --carter-gold-bright: 0 0% 8%;
+
+    --carter-text-primary: 0 0% 8%;
+    --carter-text-secondary: 0 0% 30%;
+    --carter-text-tertiary: 0 0% 50%;
+
+    --carter-border: 0 0% 85%;
+    --carter-border-subtle: 0 0% 90%;
+    --carter-border-accent: 0 0% 70%;
+
+    --shadow-card: 0 1px 3px 0 hsl(0 0% 0% / 0.06);
+    --shadow-elevated: 0 4px 16px -2px hsl(0 0% 0% / 0.08);
+  }
+
   /* Dark matte theme for registration step content */
   .theme-dark-registration {
     --background: 0 0% 7%;              /* #111111 — noir mat */
