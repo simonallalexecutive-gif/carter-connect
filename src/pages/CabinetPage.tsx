@@ -207,17 +207,18 @@ const CabinetDashboardLayout = () => {
               </div>
             </header>
 
-            {/* Content — white background */}
-            <main className="flex-1 py-10 px-6 sm:px-8 lg:px-10 max-w-5xl mx-auto w-full theme-light-registration bg-background text-foreground">
-              {showAccount ? <CabinetAccount /> : <CabinetDashboard />}
-            </main>
+            {/* Content wrapper — white background */}
+            <div className="flex-1 flex flex-col theme-light-registration bg-background text-foreground">
+              <main className="flex-1 py-10 px-6 sm:px-8 lg:px-10 max-w-5xl mx-auto w-full">
+                {showAccount ? <CabinetAccount /> : <CabinetDashboard />}
+              </main>
 
-            {/* Footer info — white background */}
-            <div className="max-w-5xl mx-auto w-full px-6 sm:px-8 lg:px-10 pb-8 theme-light-registration bg-background text-foreground">
-              <div className="pt-6 border-t border-border flex justify-between items-center">
-                <p className="text-xs text-muted-foreground font-sans">
-                  Connecté en tant que {user?.email || s.cabinetName}
-                </p>
+              <div className="max-w-5xl mx-auto w-full px-6 sm:px-8 lg:px-10 pb-8">
+                <div className="pt-6 border-t border-border flex justify-between items-center">
+                  <p className="text-xs text-muted-foreground font-sans">
+                    Connecté en tant que {user?.email || s.cabinetName}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
