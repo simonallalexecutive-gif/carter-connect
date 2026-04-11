@@ -29,7 +29,7 @@ const cabinetPoints = [
   {
     num: '03',
     title: 'Actionnez Logan pour un rapprochement ciblé',
-    text: "Que vous soyez en recherche active ou simplement opportuniste sur un profil, Logan est à vos côtés pour opérer et concrétiser chaque rapprochement.",
+    text: "Que vous soyez en recherche ou opportuniste sur un profil, Logan est à vos côtés pour opérer et concrétiser chaque rapprochement.",
     icon: Search,
   },
 ];
