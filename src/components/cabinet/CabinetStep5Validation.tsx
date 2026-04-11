@@ -68,7 +68,7 @@ const CabinetStep5Validation = () => {
     <div className="max-w-[780px] mx-auto">
       <div className="text-[9px] font-bold text-muted-foreground tracking-[0.16em] uppercase mb-3 flex items-center gap-2">
         <span className="w-5 h-[1.5px] bg-foreground rounded-sm" />
-        Étape 4 / 4
+        Étape 3 / 3
       </div>
       <h2 className="font-sans text-3xl md:text-4xl font-normal text-foreground leading-tight mb-2.5">Validation & aperçu</h2>
       <p className="text-sm text-muted-foreground font-light leading-relaxed mb-8 max-w-xl">
@@ -259,7 +259,7 @@ const CabinetStep5Validation = () => {
 
       {/* Nav */}
       <div className="flex justify-between items-center mt-11 pt-7 border-t border-border">
-        <Button variant="outline" onClick={() => s.setStep(4)} className="font-sans text-sm rounded-sm">← Retour</Button>
+        <Button variant="outline" onClick={() => s.setStep(3)} className="font-sans text-sm rounded-sm">← Retour</Button>
         <Button onClick={() => s.setStep(6)} disabled={!allChecked} className="bg-foreground text-background hover:bg-foreground/90 font-sans text-sm font-bold rounded-sm px-8">
           Soumettre ma demande →
         </Button>
