@@ -55,7 +55,7 @@ const CandidateSidebar = ({
   const { photoPreviewUrl, prenom, nom } = useRegistrationStore();
 
   return (
-    <Sidebar collapsible="icon" className="border-r-0 !border-r-0 bg-[hsl(0,0%,7%)] [&>div]:border-r-0">
+    <Sidebar collapsible="icon" className="border-r border-white/[0.06] bg-[hsl(0,0%,7%)] [&>div]:border-r-0" style={{ background: 'hsl(0, 0%, 7%)' }}>
       <SidebarContent className="bg-[hsl(0,0%,7%)] text-white py-6 flex flex-col justify-between h-full">
         <div>
           {/* Logo */}

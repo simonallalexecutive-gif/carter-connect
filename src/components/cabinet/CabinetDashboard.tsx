@@ -120,6 +120,11 @@ const CabinetDashboard = () => {
   // Dashboard home
   return (
     <div>
+      <div className="mb-8">
+        <p className="text-[10px] font-sans font-medium tracking-[0.2em] uppercase text-muted-foreground mb-2">Tableau de bord</p>
+        <div className="w-8 h-px bg-foreground" />
+      </div>
+
       {s.searches.length > 0 && (
         <div className="mb-7">
           <div className="text-[9px] font-bold tracking-[0.14em] uppercase text-muted-foreground mb-3">Recherches actives</div>
@@ -714,35 +719,25 @@ const ExploreView = ({
               {p.isNew && (
                 <span className="absolute top-3 right-3 text-[7px] font-bold tracking-[0.12em] uppercase bg-foreground/90 text-background px-2 py-0.5 rounded-sm">NOUVEAU</span>
               )}
-              <div className="text-[9px] text-muted-foreground tracking-[0.08em] mb-2 font-sans">{p.id}</div>
               <div className="font-sans text-sm font-bold text-foreground mb-1.5 leading-tight">
                 {status}{senDetail ? ` — ${senDetail}` : ''}{p.pqe ? ` · ${p.pqe}` : ''}
               </div>
-              <div className="font-sans text-[13px] font-semibold text-muted-foreground mb-2">{p.deptLabel}</div>
+              <div className="font-sans text-[13px] font-semibold text-muted-foreground mb-3">{p.deptLabel}</div>
 
-              {/* Expertises from activity split */}
-              {Object.keys(p.split).length > 0 && (
-                <div className="flex flex-wrap gap-1.5 mb-3">
-                  {Object.keys(p.split).map((expertise) => (
-                    <span key={expertise} className="text-[10px] font-bold px-2 py-1 rounded border border-border text-foreground/70 bg-secondary">{expertise}</span>
-                  ))}
-                </div>
-              )}
-
-              {/* Key info */}
-              <div className="space-y-2 text-[11px] font-sans border-t border-border pt-3">
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground font-medium">Nationalité du cabinet</span>
-                  <span className="font-bold text-foreground/85 border border-border rounded px-2 py-0.5">{natLabel}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground font-medium">Reconnu Chambers</span>
-                  <span className={cn('font-bold border border-border rounded px-2 py-0.5', chambers ? 'text-foreground/85' : 'text-muted-foreground')}>{chambers ? 'Oui' : 'Non'}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground font-medium">Recherche active</span>
-                  <span className="font-bold text-foreground/85 border border-border rounded px-2 py-0.5">{p.disponibilite === 'Immédiate' ? 'Oui' : 'Non'}</span>
-                </div>
+              {/* Key info — Chambers + Actif only */}
+              <div className="flex items-center gap-2">
+                <span className={cn(
+                  'text-[10px] font-bold px-2.5 py-1 rounded border',
+                  chambers ? 'border-foreground/20 text-foreground/85 bg-foreground/[0.05]' : 'border-border text-muted-foreground bg-secondary'
+                )}>
+                  Chambers : {chambers ? 'Oui' : 'Non'}
+                </span>
+                <span className={cn(
+                  'text-[10px] font-bold px-2.5 py-1 rounded border',
+                  p.disponibilite === 'Immédiate' ? 'border-foreground/20 text-foreground/85 bg-foreground/[0.05]' : 'border-border text-muted-foreground bg-secondary'
+                )}>
+                  {p.disponibilite === 'Immédiate' ? 'Actif' : 'Passif'}
+                </span>
               </div>
             </div>
           );
