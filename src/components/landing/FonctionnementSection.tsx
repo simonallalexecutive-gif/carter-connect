@@ -49,8 +49,8 @@ const candidatPoints = [
   },
   {
     num: '03',
-    title: 'Actionnez Logan pour un rapprochement ciblé',
-    text: "En recherche active ou opportuniste, Logan orchestre chaque rapprochement dans un cadre confidentiel, maîtrisé et transparent, jusqu'à sa concrétisation.",
+    title: "Bénéficiez d'un accompagnement personnalisé à chaque étape de votre carrière",
+    text: "Que vous soyez en recherche ou simplement à l'écoute du marché, Logan demeure votre seul et unique intermédiaire : nous vous accompagnons dans tous vos rapprochements et préservons strictement la confidentialité de vos démarches.",
     icon: Shield,
   },
 ];
