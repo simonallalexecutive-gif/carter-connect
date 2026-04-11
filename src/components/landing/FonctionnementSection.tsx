@@ -92,7 +92,7 @@ const StepCard = ({ num, title, text, icon: Icon, dark = false }: StepCardProps)
       {/* Accent line */}
       <div className={`w-8 h-px ${lineColor} mb-5`} />
 
-      <h4 className={`font-sans text-base font-semibold ${titleColor} tracking-[-0.01em] mb-3 pr-12 min-h-[3.5rem] flex items-start`}>
+      <h4 className={`font-sans text-[0.9rem] font-semibold ${titleColor} tracking-[-0.01em] mb-3 pr-10 min-h-[3.6rem] max-h-[4.5rem] flex items-start leading-[1.4]`}>
         {title}
       </h4>
       <p className={`font-sans text-[0.92rem] leading-[1.85] ${textColor} text-justify mt-auto`}>
