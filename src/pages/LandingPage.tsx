@@ -172,7 +172,7 @@ const LandingPage = () => (
     <FAQSection />
 
     {/* CTA */}
-    <section className="py-24 md:py-32 bg-black relative overflow-hidden">
+    <section className="pt-24 md:pt-32 pb-0 relative overflow-hidden" style={{ background: 'hsl(0 0% 8%)' }}>
       <div className="absolute inset-0">
         <motion.video
           src={heroVideoAsset.url}
