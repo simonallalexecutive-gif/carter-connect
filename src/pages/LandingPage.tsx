@@ -8,7 +8,7 @@ import FounderSection from '@/components/landing/FounderSection';
 
 import MissionSection from '@/components/landing/MissionSection';
 import FonctionnementSection from '@/components/landing/FonctionnementSection';
-
+import FAQSection from '@/components/landing/FAQSection';
 import StatsTickerSection from '@/components/landing/StatsTickerSection';
 import { ArrowRight } from 'lucide-react';
 import heroVideoAsset from '@/assets/hero-video-abstract-bw.mp4.asset.json';
@@ -167,6 +167,9 @@ const LandingPage = () => (
 
     {/* Stats ticker */}
     <StatsTickerSection />
+
+    {/* FAQ */}
+    <FAQSection />
 
     {/* CTA */}
     <section className="py-24 md:py-32 bg-black relative overflow-hidden">
