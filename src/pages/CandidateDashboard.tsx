@@ -165,7 +165,7 @@ const CandidateDashboardContent = () => {
       <CandidateSidebar activeTab={activeTab} setActiveTab={setActiveTab} notifCount={notifCount} />
 
       <div className="flex-1 flex flex-col min-h-screen">
-        {/* Top bar — dark matte card surface */}
+        {/* Top bar — dark matte, stays dark */}
         <header className="flex items-center border-b border-white/[0.08] px-8 py-10 gap-5 bg-[hsl(0,0%,7%)]">
           <SidebarTrigger className="text-white/50 hover:text-white" />
           <div className="flex items-center gap-5 flex-1 min-w-0">
@@ -210,21 +210,22 @@ const CandidateDashboardContent = () => {
           </div>
         </header>
 
-        {/* Content */}
-        <main className="flex-1 py-10 px-6 sm:px-8 lg:px-10 max-w-5xl mx-auto w-full">
-          {activeTab === 'dashboard' && <CandidateDashboardOverview onNavigate={(t) => setActiveTab(t as TabKey)} notifCount={notifCount} />}
-          {activeTab === 'offres' && <CandidateOffers />}
-          {activeTab === 'profil' && <CandidateProfile />}
-          {activeTab === 'processus' && <CandidateProcesses />}
-          {activeTab === 'demandes' && <CandidateRequests />}
-          {activeTab === 'notifications' && <CandidateNotifications />}
-          {activeTab === 'booking' && <CandidateBooking />}
-        </main>
+        {/* Content wrapper — white background */}
+        <div className="flex-1 flex flex-col theme-light-registration bg-background text-foreground">
+          <main className="flex-1 py-10 px-6 sm:px-8 lg:px-10 max-w-5xl mx-auto w-full">
+            {activeTab === 'dashboard' && <CandidateDashboardOverview onNavigate={(t) => setActiveTab(t as TabKey)} notifCount={notifCount} />}
+            {activeTab === 'offres' && <CandidateOffers />}
+            {activeTab === 'profil' && <CandidateProfile />}
+            {activeTab === 'processus' && <CandidateProcesses />}
+            {activeTab === 'demandes' && <CandidateRequests />}
+            {activeTab === 'notifications' && <CandidateNotifications />}
+            {activeTab === 'booking' && <CandidateBooking />}
+          </main>
 
-        {/* Footer info */}
-        <div className="max-w-5xl mx-auto w-full px-6 sm:px-8 lg:px-10 pb-8">
-          <div className="pt-6 border-t border-border flex justify-between items-center">
-            <p className="text-xs text-muted-foreground font-sans">Connecté en tant que {user.email}</p>
+          <div className="max-w-5xl mx-auto w-full px-6 sm:px-8 lg:px-10 pb-8">
+            <div className="pt-6 border-t border-border flex justify-between items-center">
+              <p className="text-xs text-muted-foreground font-sans">Connecté en tant que {user.email}</p>
+            </div>
           </div>
         </div>
       </div>
