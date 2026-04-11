@@ -526,6 +526,47 @@ const Step2Identity = () => {
           />
         </div>
 
+        {/* Pratique — all Chambers departments */}
+        <div>
+          <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Votre pratique *</Label>
+          {store.cabinet ? (
+            <>
+              <Select value={store.departement} onValueChange={handleDepartmentChange}>
+                <SelectTrigger className="mt-2"><SelectValue placeholder="Sélectionner votre pratique" /></SelectTrigger>
+                <SelectContent>
+                  {allPractices.map(p => (
+                    <SelectItem key={p.key} value={p.label}>
+                      {p.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              {store.departement && currentChambersBand !== undefined && (
+                <div className="mt-3 flex items-center gap-2">
+                  {currentChambersBand !== null ? (
+                    <>
+                      <span className="inline-flex items-center px-3 py-1 rounded-sm bg-foreground text-background text-xs font-sans font-medium">
+                        Chambers Band {currentChambersBand}
+                      </span>
+                      <span className="text-xs text-muted-foreground font-sans font-light">
+                        {store.cabinet} · {store.departement}
+                      </span>
+                    </>
+                  ) : (
+                    <span className="text-xs text-muted-foreground font-sans font-light italic">
+                      {store.cabinet} n'est pas classé dans Chambers pour la pratique {store.departement}
+                    </span>
+                  )}
+                </div>
+              )}
+            </>
+          ) : (
+            <p className="mt-2 text-sm text-muted-foreground font-sans font-light">
+              Veuillez d'abord renseigner votre cabinet.
+            </p>
+          )}
+        </div>
+
         {/* Previous Cabinets */}
         {store.cabinet && (
           <div className="space-y-4">
@@ -610,47 +651,6 @@ const Step2Identity = () => {
             ))}
           </div>
         )}
-
-        {/* Pratique — all Chambers departments */}
-        <div>
-          <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Votre pratique *</Label>
-          {store.cabinet ? (
-            <>
-              <Select value={store.departement} onValueChange={handleDepartmentChange}>
-                <SelectTrigger className="mt-2"><SelectValue placeholder="Sélectionner votre pratique" /></SelectTrigger>
-                <SelectContent>
-                  {allPractices.map(p => (
-                    <SelectItem key={p.key} value={p.label}>
-                      {p.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              {store.departement && currentChambersBand !== undefined && (
-                <div className="mt-3 flex items-center gap-2">
-                  {currentChambersBand !== null ? (
-                    <>
-                      <span className="inline-flex items-center px-3 py-1 rounded-sm bg-foreground text-background text-xs font-sans font-medium">
-                        Chambers Band {currentChambersBand}
-                      </span>
-                      <span className="text-xs text-muted-foreground font-sans font-light">
-                        {store.cabinet} · {store.departement}
-                      </span>
-                    </>
-                  ) : (
-                    <span className="text-xs text-muted-foreground font-sans font-light italic">
-                      {store.cabinet} n'est pas classé dans Chambers pour la pratique {store.departement}
-                    </span>
-                  )}
-                </div>
-              )}
-            </>
-          ) : (
-            <p className="mt-2 text-sm text-muted-foreground font-sans font-light">
-              Veuillez d'abord renseigner votre cabinet.
-            </p>
-          )}
-        </div>
 
 
 
