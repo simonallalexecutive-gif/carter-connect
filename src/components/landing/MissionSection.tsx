@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { Building2, User, ArrowRight, Zap, Handshake } from 'lucide-react';
+import { Building2, User, ArrowRight, Zap, Handshake, MoveRight, MoveLeft } from 'lucide-react';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 32 },
@@ -44,50 +44,74 @@ const MissionSection = () => (
         </motion.p>
       </motion.div>
 
-      {/* Two audience blocks */}
+      {/* Firms — Logan Bridge — Candidates */}
       <motion.div
         variants={staggerSlow}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: '-60px' }}
-        className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 mb-20 md:mb-28"
+        className="mb-20 md:mb-28"
       >
-        {/* Cabinets */}
-        <motion.div variants={fadeScale} className="group relative border border-black/[0.08] rounded-sm p-8 md:p-10 hover:border-black/20 transition-colors duration-500">
-          <div className="w-10 h-10 rounded-full border border-black/10 flex items-center justify-center mb-6 group-hover:border-black/25 transition-colors duration-500">
-            <Building2 className="w-4.5 h-4.5 text-black/40 group-hover:text-black/70 transition-colors duration-500" strokeWidth={1.5} />
-          </div>
-          <h3 className="font-serif text-xl text-black mb-4 tracking-[-0.01em]">Firms</h3>
-          <p className="font-sans text-sm leading-[1.85] text-black/45 font-light text-justify">
-            Restez connectés à votre marché toute l'année, de manière proactive, grâce à un abonnement combiné à un success fee réduit.
-          </p>
-        </motion.div>
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] items-stretch gap-0">
+          {/* Firms */}
+          <motion.div variants={fadeScale} className="group relative border border-black/[0.08] rounded-sm p-8 md:p-10 hover:border-black/20 transition-colors duration-500">
+            <div className="w-10 h-10 rounded-full border border-black/10 flex items-center justify-center mb-6 group-hover:border-black/25 transition-colors duration-500">
+              <Building2 className="w-4.5 h-4.5 text-black/40 group-hover:text-black/70 transition-colors duration-500" strokeWidth={1.5} />
+            </div>
+            <h3 className="font-serif text-xl text-black mb-4 tracking-[-0.01em]">Firms</h3>
+            <p className="font-sans text-sm leading-[1.85] text-black/45 font-light text-justify">
+              Restez connectés à votre marché toute l'année, de manière proactive, grâce à un abonnement combiné à un success fee réduit.
+            </p>
+          </motion.div>
 
-        {/* Candidats */}
-        <motion.div variants={fadeScale} className="group relative border border-black/[0.08] rounded-sm p-8 md:p-10 hover:border-black/20 transition-colors duration-500">
-          <div className="w-10 h-10 rounded-full border border-black/10 flex items-center justify-center mb-6 group-hover:border-black/25 transition-colors duration-500">
-            <User className="w-4.5 h-4.5 text-black/40 group-hover:text-black/70 transition-colors duration-500" strokeWidth={1.5} />
-          </div>
-          <h3 className="font-serif text-xl text-black mb-4 tracking-[-0.01em]">Candidates</h3>
-          <p className="font-sans text-sm leading-[1.85] text-black/45 font-light text-justify">
-            Restez attractif aux yeux des meilleurs cabinets et bénéficiez d'un espace structuré, transparent et encadré pour saisir la bonne opportunité, tout en conservant votre anonymat.
-          </p>
-        </motion.div>
-      </motion.div>
+          {/* Central bridge — Logan as connector */}
+          <motion.div
+            variants={fadeUp}
+            className="flex flex-col items-center justify-center px-6 md:px-10 py-8 md:py-0"
+          >
+            {/* Top arrow (from Firms) */}
+            <div className="hidden md:flex flex-col items-center gap-2 mb-4">
+              <div className="w-px h-8 bg-gradient-to-b from-transparent to-black/15" />
+              <MoveRight className="w-4 h-4 text-black/20 -rotate-90" strokeWidth={1.5} />
+            </div>
 
-      {/* Intermediary role */}
-      <motion.div
-        variants={stagger}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: '-60px' }}
-        className="max-w-3xl mx-auto mb-20 md:mb-28"
-      >
-        <motion.div variants={fadeUp} className="text-center">
-          <p className="font-sans text-[1.02rem] leading-[1.9] text-black/60 font-light">
-            Logan orchestre chaque rapprochement, en garantit la pertinence et accompagne chaque partie à chaque étape du processus jusqu'à sa concrétisation.
-          </p>
-        </motion.div>
+            {/* Logan badge */}
+            <div className="relative">
+              <div className="w-14 h-14 rounded-full bg-black flex items-center justify-center shadow-lg">
+                <Handshake className="w-5 h-5 text-white/80" strokeWidth={1.5} />
+              </div>
+            </div>
+
+            {/* Connector text */}
+            <p className="font-sans text-[11px] md:text-xs text-center leading-[1.7] text-black/50 mt-4 max-w-[180px] font-medium">
+              Logan orchestre chaque rapprochement et accompagne chaque partie jusqu'à sa concrétisation.
+            </p>
+
+            {/* Bottom arrow (to Candidates) */}
+            <div className="hidden md:flex flex-col items-center gap-2 mt-4">
+              <MoveLeft className="w-4 h-4 text-black/20 -rotate-90" strokeWidth={1.5} />
+              <div className="w-px h-8 bg-gradient-to-b from-black/15 to-transparent" />
+            </div>
+
+            {/* Mobile horizontal arrows */}
+            <div className="flex md:hidden items-center gap-3 mt-3">
+              <div className="w-8 h-px bg-black/15" />
+              <Handshake className="w-3.5 h-3.5 text-black/25" strokeWidth={1.5} />
+              <div className="w-8 h-px bg-black/15" />
+            </div>
+          </motion.div>
+
+          {/* Candidates */}
+          <motion.div variants={fadeScale} className="group relative border border-black/[0.08] rounded-sm p-8 md:p-10 hover:border-black/20 transition-colors duration-500">
+            <div className="w-10 h-10 rounded-full border border-black/10 flex items-center justify-center mb-6 group-hover:border-black/25 transition-colors duration-500">
+              <User className="w-4.5 h-4.5 text-black/40 group-hover:text-black/70 transition-colors duration-500" strokeWidth={1.5} />
+            </div>
+            <h3 className="font-serif text-xl text-black mb-4 tracking-[-0.01em]">Candidates</h3>
+            <p className="font-sans text-sm leading-[1.85] text-black/45 font-light text-justify">
+              Restez attractif aux yeux des meilleurs cabinets et bénéficiez d'un espace structuré, transparent et encadré pour saisir la bonne opportunité, tout en conservant votre anonymat.
+            </p>
+          </motion.div>
+        </div>
       </motion.div>
 
       {/* Differentiator */}
