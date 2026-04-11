@@ -49,8 +49,8 @@ const candidatPoints = [
   },
   {
     num: '03',
-    title: "Bénéficiez d'un accompagnement personnalisé à chaque étape de votre carrière",
-    text: "Que vous soyez en recherche ou simplement à l'écoute du marché, Logan demeure votre seul et unique intermédiaire : nous vous accompagnons dans tous vos rapprochements et préservons strictement la confidentialité de vos démarches.",
+    title: 'Logan comme seul intermédiaire',
+    text: "Bénéficiez d'un accompagnement personnalisé dans un cadre strictement confidentiel, maîtrisé et transparent.",
     icon: Shield,
   },
 ];
