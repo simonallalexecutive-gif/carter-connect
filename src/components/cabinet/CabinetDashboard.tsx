@@ -153,7 +153,7 @@ const CabinetDashboard = () => {
           className="group relative text-left rounded-lg border-2 border-border p-6 transition-all hover:border-foreground hover:shadow-lg bg-background"
         >
           <Eye className="w-6 h-6 text-foreground mb-4" />
-          <div className="font-sans text-lg font-bold text-foreground mb-2">Explorer le marché des candidats</div>
+          <div className="font-sans text-[11px] font-bold text-foreground tracking-wide mb-1">Explorer le marché des candidats</div>
           <p className="text-xs text-muted-foreground leading-relaxed mb-4">
             Parcourez librement tous les profils à l'écoute du marché, toutes matières confondues. Alertez LOGAN si un candidat vous intéresse — en dehors de tout mandat.
           </p>
@@ -171,7 +171,7 @@ const CabinetDashboard = () => {
           className="group relative text-left rounded-lg border-2 border-border p-6 transition-all hover:border-foreground hover:shadow-lg bg-background"
         >
           <FileText className="w-6 h-6 text-foreground mb-4" />
-          <div className="font-sans text-lg font-bold text-foreground mb-2">Publier une nouvelle recherche</div>
+          <div className="font-sans text-[11px] font-bold text-foreground tracking-wide mb-1">Publier une nouvelle recherche</div>
           <p className="text-xs text-muted-foreground leading-relaxed mb-4">
             Déposez un mandat confidentiel. LOGAN identifie et approche les meilleurs profils selon vos critères précis.
           </p>
@@ -714,27 +714,27 @@ const ExploreView = ({
             <div
               key={p.id}
               onClick={() => setDrawerProfile(p)}
-              className="rounded-lg p-5 cursor-pointer transition-all hover:shadow-lg hover:-translate-y-0.5 relative border border-border bg-card"
+              className="rounded-lg p-5 cursor-pointer transition-all hover:shadow-lg hover:-translate-y-0.5 relative border border-white/[0.08] bg-[hsl(0,0%,7%)]"
             >
               {p.isNew && (
-                <span className="absolute top-3 right-3 text-[7px] font-bold tracking-[0.12em] uppercase bg-foreground/90 text-background px-2 py-0.5 rounded-sm">NOUVEAU</span>
+                <span className="absolute top-3 right-3 text-[7px] font-bold tracking-[0.12em] uppercase bg-white/90 text-black px-2 py-0.5 rounded-sm">NOUVEAU</span>
               )}
-              <div className="font-sans text-sm font-bold text-foreground mb-1.5 leading-tight">
-                {status}{senDetail ? ` — ${senDetail}` : ''}{p.pqe ? ` · ${p.pqe}` : ''}
+              <div className="font-sans text-sm font-bold text-white mb-1.5 leading-tight">
+                {status === 'Collaborateur' ? (senDetail || 'Collaborateur') : status}{p.pqe ? ` · ${p.pqe}` : ''}
               </div>
-              <div className="font-sans text-[13px] font-semibold text-muted-foreground mb-3">{p.deptLabel}</div>
+              <div className="font-sans text-[13px] font-semibold text-white/50 mb-3">{p.deptLabel}</div>
 
               {/* Key info — Chambers + Actif only */}
               <div className="flex items-center gap-2">
                 <span className={cn(
                   'text-[10px] font-bold px-2.5 py-1 rounded border',
-                  chambers ? 'border-foreground/20 text-foreground/85 bg-foreground/[0.05]' : 'border-border text-muted-foreground bg-secondary'
+                  chambers ? 'border-white/20 text-white/85 bg-white/[0.05]' : 'border-white/[0.08] text-white/40 bg-white/[0.03]'
                 )}>
                   Chambers : {chambers ? 'Oui' : 'Non'}
                 </span>
                 <span className={cn(
                   'text-[10px] font-bold px-2.5 py-1 rounded border',
-                  p.disponibilite === 'Immédiate' ? 'border-foreground/20 text-foreground/85 bg-foreground/[0.05]' : 'border-border text-muted-foreground bg-secondary'
+                  p.disponibilite === 'Immédiate' ? 'border-white/20 text-white/85 bg-white/[0.05]' : 'border-white/[0.08] text-white/40 bg-white/[0.03]'
                 )}>
                   {p.disponibilite === 'Immédiate' ? 'Actif' : 'Passif'}
                 </span>
