@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { cn } from '@/lib/utils';
 import {
   Accordion,
@@ -93,34 +93,42 @@ const cabinetFAQ: FAQItem[] = [
 
 const FAQSection = () => {
   const [tab, setTab] = useState<Tab>('candidat');
-  const items = tab === 'candidat' ? candidatFAQ : cabinetFAQ;
+  const candidatItems = candidatFAQ;
+  const cabinetItems = cabinetFAQ;
+
+  // Split items into two columns for mirror effect
+  const leftItems = tab === 'candidat' ? candidatItems : cabinetItems;
+  const midpoint = Math.ceil(leftItems.length / 2);
+  const col1 = leftItems.slice(0, midpoint);
+  const col2 = leftItems.slice(midpoint);
 
   return (
-    <section className="py-24 md:py-32" style={{ background: 'hsl(0 0% 8%)' }}>
-      <div className="max-w-4xl mx-auto px-4 sm:px-8 lg:px-10">
-        {/* Header */}
+    <section className="py-24 md:py-36" style={{ background: 'hsl(0 0% 8%)' }}>
+      <div className="max-w-5xl mx-auto px-4 sm:px-8 lg:px-10">
+
+        {/* Header — left-aligned */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="text-center mb-16"
+          className="mb-12"
         >
-          <p className="text-[10px] tracking-[0.3em] uppercase text-white/40 font-sans font-medium mb-4">
+          <p className="text-[11px] tracking-[0.25em] uppercase text-white/30 font-sans font-medium mb-6">
             Questions fréquentes
           </p>
-          <h2 className="text-2xl sm:text-3xl md:text-[2.5rem] font-serif font-normal text-white tracking-[-0.02em]">
+          <h2 className="text-3xl sm:text-4xl md:text-[2.8rem] font-serif font-normal text-white tracking-[-0.02em] mb-5">
             FAQ
           </h2>
         </motion.div>
 
-        {/* Tab toggle */}
+        {/* Tab toggle — left-aligned */}
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="flex justify-center mb-12"
+          className="mb-14"
         >
           <div className="inline-flex rounded-full border border-white/15 bg-white/[0.05] p-1">
             {(['candidat', 'cabinet'] as Tab[]).map((t) => (
@@ -140,33 +148,63 @@ const FAQSection = () => {
           </div>
         </motion.div>
 
-        {/* Accordion */}
-        <motion.div
-          key={tab}
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <Accordion type="single" collapsible className="space-y-0">
-            {items.map((item, i) => (
-              <AccordionItem
-                key={i}
-                value={`item-${i}`}
-                className="border-b border-white/[0.1] first:border-t first:border-white/[0.1] rounded-none px-0 overflow-hidden"
-              >
-                <AccordionTrigger className="text-left font-sans text-sm md:text-[15px] font-medium text-white/85 hover:text-white hover:no-underline py-6 gap-4 transition-colors">
-                  <span className="flex items-baseline gap-3">
-                    <span className="text-white/30 font-sans text-xs tabular-nums">{String(i + 1).padStart(2, '0')}</span>
-                    {item.question}
-                  </span>
-                </AccordionTrigger>
-                <AccordionContent className="text-white/55 font-sans text-sm leading-relaxed pb-6">
-                  {item.answer}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        </motion.div>
+        {/* Mirror layout — two columns */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={tab}
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -12 }}
+            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            className="grid grid-cols-1 md:grid-cols-2 gap-0 md:gap-12"
+          >
+            {/* Left column */}
+            <div>
+              <Accordion type="single" collapsible className="space-y-0">
+                {col1.map((item, i) => (
+                  <AccordionItem
+                    key={i}
+                    value={`left-${i}`}
+                    className="border-b border-white/[0.08] first:border-t first:border-white/[0.08] rounded-none px-0 overflow-hidden"
+                  >
+                    <AccordionTrigger className="text-left font-sans text-sm md:text-[15px] font-medium text-white/85 hover:text-white hover:no-underline py-6 gap-4 transition-colors">
+                      <span className="flex items-baseline gap-3">
+                        <span className="text-white/20 font-sans text-xs tabular-nums">{String(i + 1).padStart(2, '0')}</span>
+                        {item.question}
+                      </span>
+                    </AccordionTrigger>
+                    <AccordionContent className="text-white/55 font-sans text-sm leading-relaxed pb-6 text-justify">
+                      {item.answer}
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            </div>
+
+            {/* Right column (mirror) */}
+            <div>
+              <Accordion type="single" collapsible className="space-y-0">
+                {col2.map((item, i) => (
+                  <AccordionItem
+                    key={i}
+                    value={`right-${i}`}
+                    className="border-b border-white/[0.08] first:border-t first:border-white/[0.08] rounded-none px-0 overflow-hidden"
+                  >
+                    <AccordionTrigger className="text-left font-sans text-sm md:text-[15px] font-medium text-white/85 hover:text-white hover:no-underline py-6 gap-4 transition-colors">
+                      <span className="flex items-baseline gap-3">
+                        <span className="text-white/20 font-sans text-xs tabular-nums">{String(midpoint + i + 1).padStart(2, '0')}</span>
+                        {item.question}
+                      </span>
+                    </AccordionTrigger>
+                    <AccordionContent className="text-white/55 font-sans text-sm leading-relaxed pb-6 text-justify">
+                      {item.answer}
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            </div>
+          </motion.div>
+        </AnimatePresence>
       </div>
     </section>
   );

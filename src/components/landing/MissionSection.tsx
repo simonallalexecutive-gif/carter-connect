@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { Building2, User, Handshake, ArrowRight, Zap } from 'lucide-react';
+import { Building2, User, ArrowRight, Zap, Handshake } from 'lucide-react';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 32 },
@@ -25,21 +25,21 @@ const MissionSection = () => (
   <section id="notre-approche" className="relative overflow-hidden bg-white">
     <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-8 lg:px-10 py-24 md:py-40">
 
-      {/* Header */}
+      {/* Header — left-aligned */}
       <motion.div
         variants={stagger}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: '-80px' }}
-        className="text-center mb-20 md:mb-28"
+        className="mb-20 md:mb-28"
       >
         <motion.p variants={fadeUp} className="text-[11px] font-sans font-medium tracking-[0.25em] uppercase text-black/30 mb-6">
           Notre approche
         </motion.p>
-        <motion.h2 variants={fadeUp} className="font-serif text-3xl sm:text-4xl md:text-[2.8rem] leading-[1.15] text-black mb-8 max-w-4xl mx-auto">
+        <motion.h2 variants={fadeUp} className="font-serif text-3xl sm:text-4xl md:text-[2.8rem] leading-[1.15] text-black mb-8 max-w-4xl">
           Logan n'est pas une plateforme de recrutement.
         </motion.h2>
-        <motion.p variants={fadeUp} className="font-sans text-[1.05rem] md:text-lg leading-[1.9] text-black/55 max-w-3xl mx-auto">
+        <motion.p variants={fadeUp} className="font-sans text-[1.05rem] md:text-lg leading-[1.9] text-black/55 max-w-3xl text-justify">
           C'est une infrastructure confidentielle de marché. Nous offrons un accès constant à un réseau hautement qualifié — un cercle restreint de profils rares, rigoureusement sélectionnés.
         </motion.p>
       </motion.div>
@@ -58,7 +58,7 @@ const MissionSection = () => (
             <Building2 className="w-4.5 h-4.5 text-black/40 group-hover:text-black/70 transition-colors duration-500" strokeWidth={1.5} />
           </div>
           <h3 className="font-serif text-xl text-black mb-4 tracking-[-0.01em]">Firms</h3>
-          <p className="font-sans text-sm leading-[1.85] text-black/45 font-light">
+          <p className="font-sans text-sm leading-[1.85] text-black/45 font-light text-justify">
             Restez connectés à votre marché toute l'année, de manière proactive, grâce à un abonnement combiné à un success fee réduit.
           </p>
         </motion.div>
@@ -69,7 +69,7 @@ const MissionSection = () => (
             <User className="w-4.5 h-4.5 text-black/40 group-hover:text-black/70 transition-colors duration-500" strokeWidth={1.5} />
           </div>
           <h3 className="font-serif text-xl text-black mb-4 tracking-[-0.01em]">Candidates</h3>
-          <p className="font-sans text-sm leading-[1.85] text-black/45 font-light">
+          <p className="font-sans text-sm leading-[1.85] text-black/45 font-light text-justify">
             Restez attractif aux yeux des meilleurs cabinets et bénéficiez d'un espace structuré, transparent et encadré pour saisir la bonne opportunité, tout en conservant votre anonymat.
           </p>
         </motion.div>
