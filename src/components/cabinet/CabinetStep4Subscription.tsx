@@ -53,7 +53,6 @@ const CabinetStep4Subscription = () => {
 
   return (
     <div className="max-w-[780px] mx-auto">
-      {/* Step indicator */}
       <div className="text-[9px] font-bold text-muted-foreground tracking-[0.16em] uppercase mb-3 flex items-center gap-2">
         <span className="w-5 h-[1.5px] bg-foreground rounded-sm" />
         Étape 2 / 3
