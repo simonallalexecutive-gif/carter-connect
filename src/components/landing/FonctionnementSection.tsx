@@ -22,7 +22,7 @@ const cabinetPoints = [
   },
   {
     num: '02',
-    title: 'Accédez en temps réel aux profils les plus convoités du marché',
+    title: 'Accédez en temps réel aux meilleurs profils du marché',
     text: "Décryptez la dynamique du marché, restez opportuniste et anticipez vos recrutements pour l'ensemble de vos départements.",
     icon: Eye,
   },
