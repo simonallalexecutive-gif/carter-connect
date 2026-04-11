@@ -83,8 +83,8 @@ const MissionSection = () => (
             </div>
 
             {/* Connector text */}
-            <p className="font-sans text-[11px] md:text-xs text-center leading-[1.7] text-black/50 mt-4 max-w-[180px] font-medium">
-              Logan orchestre chaque rapprochement et accompagne chaque partie jusqu'à sa concrétisation.
+            <p className="font-sans text-[10px] md:text-[11px] text-center leading-[1.7] text-black/50 mt-4 max-w-[200px] font-medium">
+              Logan orchestre chaque rapprochement, en garantit la pertinence et accompagne chaque partie à chaque étape du processus jusqu'à sa concrétisation.
             </p>
 
             {/* Bottom arrow (to Candidates) */}
