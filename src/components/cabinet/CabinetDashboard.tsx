@@ -150,14 +150,14 @@ const CabinetDashboard = () => {
       <div className="grid grid-cols-2 gap-4">
         <button
           onClick={() => s.setField('dashboardView', 'explore')}
-          className="group relative text-left rounded-lg border-2 border-border p-6 transition-all hover:border-foreground hover:shadow-lg bg-background"
+          className="group relative text-left rounded-lg border-2 border-border p-6 transition-all hover:border-foreground hover:shadow-lg bg-background flex flex-col"
         >
-          <Eye className="w-6 h-6 text-foreground mb-4" />
+          <Eye className="w-5 h-5 text-foreground mb-3" />
           <div className="font-sans text-[11px] font-bold text-foreground tracking-wide mb-1">Explorer le marché des candidats</div>
-          <p className="text-xs text-muted-foreground leading-relaxed mb-4">
-            Parcourez librement tous les profils à l'écoute du marché, toutes matières confondues. Alertez LOGAN si un candidat vous intéresse — en dehors de tout mandat.
+          <p className="text-[11px] text-muted-foreground leading-relaxed mb-4 flex-1">
+            Parcourez librement tous les profils à l'écoute du marché, toutes matières confondues.
           </p>
-          <div className="flex items-center gap-2 text-xs font-semibold text-foreground">
+          <div className="flex items-center gap-2 text-[10px] font-semibold text-foreground mt-auto">
             <Users className="w-3.5 h-3.5" />
             {PROFILES.length} profils disponibles
           </div>
@@ -168,14 +168,14 @@ const CabinetDashboard = () => {
             s.resetSearch();
             s.setField('dashboardView', 'newSearch');
           }}
-          className="group relative text-left rounded-lg border-2 border-border p-6 transition-all hover:border-foreground hover:shadow-lg bg-background"
+          className="group relative text-left rounded-lg border-2 border-border p-6 transition-all hover:border-foreground hover:shadow-lg bg-background flex flex-col"
         >
-          <FileText className="w-6 h-6 text-foreground mb-4" />
+          <FileText className="w-5 h-5 text-foreground mb-3" />
           <div className="font-sans text-[11px] font-bold text-foreground tracking-wide mb-1">Publier une nouvelle recherche</div>
-          <p className="text-xs text-muted-foreground leading-relaxed mb-4">
-            Déposez un mandat confidentiel. LOGAN identifie et approche les meilleurs profils selon vos critères précis.
+          <p className="text-[11px] text-muted-foreground leading-relaxed mb-4 flex-1">
+            Déposez un mandat confidentiel. LOGAN identifie et approche les meilleurs profils.
           </p>
-          <div className="flex items-center gap-2 text-xs font-semibold text-foreground">
+          <div className="flex items-center gap-2 text-[10px] font-semibold text-foreground mt-auto">
             <Plus className="w-3.5 h-3.5" />
             Créer une recherche
           </div>
@@ -581,8 +581,8 @@ function getSeniorityDetail(p: CabinetProfile): string | null {
   const status = getStatusLabel(p);
   if (status !== 'Collaborateur') return null;
   if (p.seniority === 'Junior' || p.seniority.includes('Junior')) return 'Junior';
-  if (p.seniority === 'Mid Level' || p.seniority.includes('Mid')) return 'Mid-level';
-  if (p.seniority === 'Sénior' || p.seniority.includes('Sénior') || p.seniority.includes('Senior')) return 'Sénior';
+  if (p.seniority === 'Mid Level' || p.seniority.includes('Mid')) return 'Mid Level';
+  if (p.seniority === 'Sénior' || p.seniority.includes('Sénior') || p.seniority.includes('Senior')) return 'Senior';
   return null;
 }
 
