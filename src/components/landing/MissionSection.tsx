@@ -83,8 +83,8 @@ const MissionSection = () => (
             </div>
 
             {/* Connector text */}
-            <p className="font-sans text-[11px] md:text-xs text-center leading-[1.7] text-black/50 mt-4 max-w-[180px] font-medium">
-              Logan orchestre chaque rapprochement et accompagne chaque partie jusqu'à sa concrétisation.
+            <p className="font-sans text-[10px] md:text-[11px] text-center leading-[1.7] text-black/50 mt-4 max-w-[200px] font-medium">
+              Logan orchestre chaque rapprochement, en garantit la pertinence et accompagne chaque partie à chaque étape du processus jusqu'à sa concrétisation.
             </p>
 
             {/* Bottom arrow (to Candidates) */}
@@ -123,7 +123,7 @@ const MissionSection = () => (
         className="text-center mb-20 md:mb-28"
       >
         <motion.p variants={fadeUp} className="font-serif text-xl sm:text-2xl md:text-[1.7rem] leading-[1.5] text-black max-w-3xl mx-auto mb-6">
-          Logan est le seul endroit où l'on trouve simultanément les meilleurs cabinets et les profils qui ne se montrent nulle part ailleurs.
+          Logan est le seul hub confidentiel où se rencontrent les meilleurs cabinets et les profils qui ne se montrent nulle part ailleurs.
         </motion.p>
         <motion.div variants={fadeUp} className="w-12 h-px bg-black/15 mx-auto" />
       </motion.div>
