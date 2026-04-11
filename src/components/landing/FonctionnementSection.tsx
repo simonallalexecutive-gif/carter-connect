@@ -16,20 +16,20 @@ const stagger = {
 const cabinetPoints = [
   {
     num: '01',
-    title: 'Déposez votre recherche en toute confidentialité',
-    text: "Identité protégée, accès à un pool de candidats ultra qualifiés, classés par séniorité et expertise.",
+    title: 'Lancez votre recherche en toute confidentialité',
+    text: "Adressez-vous à un pool de candidats qualifiés et rigoureusement sélectionnés, tout en préservant l'identité de votre cabinet.",
     icon: Shield,
   },
   {
     num: '02',
-    title: 'Analysez la dynamique du marché en temps réel',
-    text: "Accédez à une lecture consolidée des candidats les plus convoités pour vos départements.",
+    title: 'Décryptez la dynamique du marché et accédez en temps réel aux meilleurs profils',
+    text: "Restez opportuniste et anticipez vos recrutements avec pertinence pour l'ensemble de vos départements.",
     icon: Eye,
   },
   {
     num: '03',
     title: 'Actionnez Logan pour un rapprochement ciblé',
-    text: "Un consultant vous accompagne pour chaque mise en relation, orchestrée et confidentielle.",
+    text: "Que vous soyez en recherche active ou simplement opportuniste sur un profil, Logan est à vos côtés pour opérer et concrétiser chaque rapprochement.",
     icon: Search,
   },
 ];
