@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { Shield, Users, Handshake, ArrowRight, Zap } from 'lucide-react';
+import { Building2, User, Handshake, ArrowRight, Zap } from 'lucide-react';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 32 },
@@ -55,7 +55,7 @@ const MissionSection = () => (
         {/* Cabinets */}
         <motion.div variants={fadeScale} className="group relative border border-black/[0.08] rounded-sm p-8 md:p-10 hover:border-black/20 transition-colors duration-500">
           <div className="w-10 h-10 rounded-full border border-black/10 flex items-center justify-center mb-6 group-hover:border-black/25 transition-colors duration-500">
-            <Users className="w-4.5 h-4.5 text-black/40 group-hover:text-black/70 transition-colors duration-500" strokeWidth={1.5} />
+            <Building2 className="w-4.5 h-4.5 text-black/40 group-hover:text-black/70 transition-colors duration-500" strokeWidth={1.5} />
           </div>
           <h3 className="font-serif text-xl text-black mb-4 tracking-[-0.01em]">Firms</h3>
           <p className="font-sans text-sm leading-[1.85] text-black/45 font-light">
@@ -66,7 +66,7 @@ const MissionSection = () => (
         {/* Candidats */}
         <motion.div variants={fadeScale} className="group relative border border-black/[0.08] rounded-sm p-8 md:p-10 hover:border-black/20 transition-colors duration-500">
           <div className="w-10 h-10 rounded-full border border-black/10 flex items-center justify-center mb-6 group-hover:border-black/25 transition-colors duration-500">
-            <Shield className="w-4.5 h-4.5 text-black/40 group-hover:text-black/70 transition-colors duration-500" strokeWidth={1.5} />
+            <User className="w-4.5 h-4.5 text-black/40 group-hover:text-black/70 transition-colors duration-500" strokeWidth={1.5} />
           </div>
           <h3 className="font-serif text-xl text-black mb-4 tracking-[-0.01em]">Candidates</h3>
           <p className="font-sans text-sm leading-[1.85] text-black/45 font-light">
@@ -83,10 +83,8 @@ const MissionSection = () => (
         viewport={{ once: true, margin: '-60px' }}
         className="max-w-3xl mx-auto mb-20 md:mb-28"
       >
-        <motion.div variants={fadeUp} className="relative pl-8 py-2">
-          <div className="absolute left-0 top-1/2 -translate-y-1/2 w-px h-2/3 bg-black/10" />
+        <motion.div variants={fadeUp} className="text-center">
           <p className="font-sans text-[1.02rem] leading-[1.9] text-black/60 font-light">
-            <Handshake className="w-4 h-4 text-black/30 inline-block mr-2 -translate-y-px" strokeWidth={1.5} />
             Logan orchestre chaque rapprochement, en garantit la pertinence et accompagne chaque partie à chaque étape du processus jusqu'à sa concrétisation.
           </p>
         </motion.div>

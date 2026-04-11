@@ -251,8 +251,8 @@ const DiscoverSection = () => {
   };
 
   return (
-    <section className="py-20 md:py-28 bg-background relative overflow-hidden" id="notre-approche-section">
-      <div className="carter-container relative z-10">
+    <section className="py-20 md:py-36 bg-background relative overflow-hidden" id="notre-approche-section">
+      <div className="max-w-5xl mx-auto px-4 sm:px-8 lg:px-10 relative z-10">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
