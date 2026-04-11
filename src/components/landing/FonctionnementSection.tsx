@@ -51,8 +51,8 @@ const candidatPoints = [
 
 /* ---------- Cabinet Page ---------- */
 const CabinetPage = () => (
-  <section className="relative overflow-hidden py-20 md:py-36" style={{ background: '#111111' }}>
-    <div className="max-w-4xl mx-auto px-4 sm:px-8 lg:px-10">
+<section className="relative overflow-hidden py-20 md:py-36" style={{ background: '#111111' }}>
+    <div className="max-w-5xl mx-auto px-4 sm:px-8 lg:px-10">
       <motion.div
         variants={stagger}
         initial="hidden"
@@ -60,12 +60,11 @@ const CabinetPage = () => (
         viewport={{ once: true, margin: '-80px' }}
         className="text-center mb-14 md:mb-20"
       >
-        <motion.div variants={fadeUp} className="inline-flex items-center gap-2.5 border border-white/[0.12] rounded-sm px-5 py-2 mb-8">
-          <Building2 className="w-4 h-4 text-white/50" strokeWidth={1.5} />
-          <span className="text-xs font-sans font-medium tracking-[0.15em] uppercase text-white/50">Cabinets</span>
-        </motion.div>
+        <motion.p variants={fadeUp} className="text-[11px] font-sans font-medium tracking-[0.25em] uppercase text-white/30 mb-6">
+          Notre fonctionnement
+        </motion.p>
         <motion.h2 variants={fadeUp} className="font-serif text-3xl sm:text-4xl md:text-[2.8rem] leading-[1.15] text-white mb-5">
-          Identifiez les meilleurs talents en toute discrétion
+          Firms
         </motion.h2>
         <motion.p variants={fadeUp} className="font-sans text-[0.95rem] md:text-base leading-[1.8] text-white/40 max-w-2xl mx-auto">
           Un processus structuré et confidentiel pour accéder aux candidats les plus qualifiés du marché.
@@ -110,8 +109,8 @@ const CabinetPage = () => (
 
 /* ---------- Candidat Page ---------- */
 const CandidatPage = () => (
-  <section className="relative overflow-hidden py-20 md:py-36 bg-white">
-    <div className="max-w-4xl mx-auto px-4 sm:px-8 lg:px-10">
+<section className="relative overflow-hidden py-20 md:py-36 bg-white">
+    <div className="max-w-5xl mx-auto px-4 sm:px-8 lg:px-10">
       <motion.div
         variants={stagger}
         initial="hidden"
@@ -119,12 +118,11 @@ const CandidatPage = () => (
         viewport={{ once: true, margin: '-80px' }}
         className="text-center mb-14 md:mb-20"
       >
-        <motion.div variants={fadeUp} className="inline-flex items-center gap-2.5 border border-black/[0.12] rounded-sm px-5 py-2 mb-8">
-          <User className="w-4 h-4 text-black/50" strokeWidth={1.5} />
-          <span className="text-xs font-sans font-medium tracking-[0.15em] uppercase text-black/50">Candidats</span>
-        </motion.div>
+        <motion.p variants={fadeUp} className="text-[11px] font-sans font-medium tracking-[0.25em] uppercase text-black/30 mb-6">
+          Notre fonctionnement
+        </motion.p>
         <motion.h2 variants={fadeUp} className="font-serif text-3xl sm:text-4xl md:text-[2.8rem] leading-[1.15] text-black mb-5">
-          Prenez le contrôle de votre trajectoire
+          Candidates
         </motion.h2>
         <motion.p variants={fadeUp} className="font-sans text-[0.95rem] md:text-base leading-[1.8] text-black/45 max-w-2xl mx-auto">
           Accédez aux opportunités les plus exclusives tout en préservant votre anonymat.
