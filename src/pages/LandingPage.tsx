@@ -165,6 +165,9 @@ const LandingPage = () => (
     {/* Citation Logan — full page WOW */}
     <FounderSection />
 
+    {/* Stats ticker */}
+    <StatsTickerSection />
+
     {/* FAQ */}
     <FAQSection />
 
