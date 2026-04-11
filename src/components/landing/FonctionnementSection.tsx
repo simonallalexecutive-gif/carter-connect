@@ -104,14 +104,6 @@ const CabinetPage = () => (
         ))}
       </div>
 
-      <div className="flex justify-center">
-        <Link to="/notre-offre">
-          <Button variant="outline" size="sm" className="font-sans text-xs font-medium tracking-wide rounded-sm border-white/20 text-white hover:bg-white hover:text-black transition-colors">
-            Découvrir notre offre
-            <ArrowRight className="w-3.5 h-3.5 ml-2" strokeWidth={1.5} />
-          </Button>
-        </Link>
-      </div>
     </div>
   </section>
 );
