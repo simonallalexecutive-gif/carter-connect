@@ -28,8 +28,8 @@ const FonctionnementCandidatsSection = () => (
         <motion.p variants={fadeUp} className="text-[11px] font-sans font-medium tracking-[0.25em] uppercase text-black/30 mb-6">
           Notre fonctionnement
         </motion.p>
-        <motion.h2 variants={fadeUp} className="font-serif text-3xl sm:text-4xl md:text-[3.2rem] leading-[1.15] text-black mb-5 max-w-3xl">
-          Perspective candidats
+        <motion.h2 variants={fadeUp} className="font-serif text-3xl sm:text-4xl md:text-[2.8rem] leading-[1.15] text-black mb-5 max-w-3xl mx-auto">
+          Candidates — Perspective détaillée
         </motion.h2>
         <motion.p variants={fadeUp} className="font-sans text-[1.05rem] md:text-lg leading-[1.7] text-black/50 max-w-2xl">
           Logan offre aux candidats une présence permanente sur le marché, un accompagnement dédié et une confidentialité absolue.
