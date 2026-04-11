@@ -37,20 +37,20 @@ const cabinetPoints = [
 const candidatPoints = [
   {
     num: '01',
-    title: 'Visibilité sans exposition',
-    text: "Votre identité n'est jamais communiquée sans votre accord — seuls séniorité, expertise et positionnement Chambers sont visibles.",
+    title: 'Accédez en temps réel aux meilleures opportunités du marché',
+    text: "Identifiez une opportunité, étudiez sa pertinence au regard de votre projet et échangez avec un consultant en amont de tout rapprochement.",
     icon: Lock,
   },
   {
     num: '02',
-    title: 'Opportunités exclusives en temps réel',
-    text: "Consultez les recherches les plus premiums. Échangez avec un consultant avant tout rapprochement.",
+    title: 'Cultivez votre attractivité sans compromettre votre anonymat',
+    text: "Restez en alerte et opportuniste sur votre marché : dès lors qu'un cabinet manifeste un intérêt pour votre profil, Logan est à vos côtés pour en parler.",
     icon: Bell,
   },
   {
     num: '03',
-    title: 'Un contrôle total sur votre carrière',
-    text: "Rien ne se fait sans votre consentement explicite. Vous décidez du rythme et des étapes.",
+    title: 'Actionnez Logan pour un rapprochement ciblé',
+    text: "En recherche active ou opportuniste, Logan orchestre chaque rapprochement dans un cadre confidentiel, maîtrisé et transparent, jusqu'à sa concrétisation.",
     icon: Shield,
   },
 ];
