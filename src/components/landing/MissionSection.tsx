@@ -37,7 +37,7 @@ const MissionSection = () => (
           Notre approche
         </motion.p>
         <motion.h2 variants={fadeUp} className="font-serif text-3xl sm:text-4xl md:text-[2.8rem] leading-[1.15] text-black mb-8 max-w-4xl">
-          Logan n'est pas une plateforme de recrutement.
+          Logan est <span className="line-through decoration-black/60 text-black/35">une plateforme de recrutement</span> la nouvelle infrastructure confidentielle du marché des avocats.
         </motion.h2>
         <motion.p variants={fadeUp} className="font-sans text-[1.05rem] md:text-lg leading-[1.9] text-black/55 max-w-3xl text-justify">
           C'est une infrastructure confidentielle de marché. Nous offrons un accès constant à un réseau hautement qualifié — un cercle restreint de profils rares, rigoureusement sélectionnés.
