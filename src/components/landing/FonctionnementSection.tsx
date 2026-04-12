@@ -179,14 +179,6 @@ const CandidatPage = () => (
         ))}
       </motion.div>
 
-      <div className="flex justify-center">
-        <Link to="/prendre-rdv">
-          <Button variant="outline" size="sm" className="font-sans text-xs font-medium tracking-wide rounded-sm border-black/20 text-black hover:bg-black hover:text-white transition-colors">
-            Prendre rendez-vous
-            <CalendarCheck className="w-3.5 h-3.5 ml-2" strokeWidth={1.5} />
-          </Button>
-        </Link>
-      </div>
     </div>
   </section>
 );
