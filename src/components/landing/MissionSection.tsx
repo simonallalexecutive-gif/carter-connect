@@ -22,12 +22,9 @@ const staggerSlow = {
 };
 
 const cardKeywordsDark = (items: string[]) => (
-  <div className="flex flex-col gap-3">
+  <div className="flex flex-col gap-3 items-center">
     {items.map((kw) => (
-      <div key={kw} className="flex items-start gap-2.5">
-        <div className="w-1 h-1 rounded-full bg-white/20 shrink-0 mt-2" />
-        <span className="font-sans text-sm text-white/50 font-light">{kw}</span>
-      </div>
+      <span key={kw} className="font-sans text-sm text-white/50 font-light">{kw}</span>
     ))}
   </div>
 );
