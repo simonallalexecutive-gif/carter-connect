@@ -172,7 +172,7 @@ const LandingPage = () => (
     <FAQSection />
 
     {/* CTA */}
-    <section className="py-32 md:py-44 bg-black relative overflow-hidden">
+    <section className="min-h-[100svh] bg-black relative overflow-hidden flex items-center">
       <div className="absolute inset-0">
         <motion.video
           ref={(el) => { if (el) el.playbackRate = 0.65; }}
@@ -189,54 +189,77 @@ const LandingPage = () => (
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black" />
       </div>
-      <div className="max-w-5xl mx-auto px-4 sm:px-8 lg:px-10 relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
+
+      {/* Dispersed WOW words — positioned absolutely across the viewport */}
+      <div className="absolute inset-0 z-[1] pointer-events-none overflow-hidden">
+        <motion.span
+          initial={{ opacity: 0, x: -80 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+          className="absolute top-[8%] left-[4%] font-serif text-[2.5rem] sm:text-[4rem] md:text-[5.5rem] lg:text-[7rem] font-[500] text-white/[0.06] tracking-[-0.03em] leading-none"
+          style={{ fontVariant: 'small-caps' }}
+        >
+          Confidentiel.
+        </motion.span>
+        <motion.span
+          initial={{ opacity: 0, x: 80 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1.2, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          className="absolute top-[38%] right-[6%] font-serif text-[2.2rem] sm:text-[3.5rem] md:text-[4.8rem] lg:text-[6.2rem] font-[500] text-white/[0.05] tracking-[-0.03em] leading-none"
+          style={{ fontVariant: 'small-caps' }}
+        >
+          Structuré.
+        </motion.span>
+        <motion.span
+          initial={{ opacity: 0, y: 60 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-left"
+          transition={{ duration: 1.2, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+          className="absolute bottom-[10%] left-[12%] font-serif text-[2rem] sm:text-[3rem] md:text-[4.2rem] lg:text-[5.5rem] font-[500] text-white/[0.07] tracking-[-0.03em] leading-none"
+          style={{ fontVariant: 'small-caps' }}
         >
-          {/* WOW words — same font as hero h1, small caps */}
-          <div className="mb-12 md:mb-16 space-y-1">
-            {['Confidentiel.', 'Structuré.', 'Décisif.'].map((word, i) => (
-              <motion.div
-                key={word}
-                initial={{ opacity: 0, x: -40 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: 0.15 * i, ease: [0.16, 1, 0.3, 1] }}
-              >
-                <span className="block font-serif text-[2.1rem] sm:text-[3.5rem] md:text-[4.7rem] lg:text-[6rem] font-[500] text-white/[0.08] tracking-[-0.03em] leading-[1.1]" style={{ fontVariant: 'small-caps' }}>
-                  {word}
-                </span>
-              </motion.div>
-            ))}
-          </div>
+          Décisif.
+        </motion.span>
+      </div>
 
+      <div className="max-w-5xl mx-auto px-4 sm:px-8 lg:px-10 relative z-10 py-32 md:py-44">
+        <div className="flex flex-col items-center text-center">
           <motion.span
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 1, delay: 0.6 }}
-            className="font-serif text-2xl md:text-3xl text-white tracking-[0.04em] block mb-8"
+            transition={{ duration: 1, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            className="font-serif text-2xl sm:text-3xl md:text-4xl text-white tracking-[0.04em] block mb-6"
           >
             <em className="italic">Legal recruitment, redefined.</em>
           </motion.span>
+
+          <motion.div
+            initial={{ scaleX: 0 }}
+            whileInView={{ scaleX: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="w-16 h-px bg-white/20 mb-8"
+          />
+
           <motion.p
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 1, delay: 0.8 }}
-            className="text-white/50 font-sans font-light leading-relaxed mb-10 max-w-md"
+            transition={{ duration: 1, delay: 1 }}
+            className="text-white/45 font-sans font-light text-sm leading-relaxed mb-10 max-w-sm"
           >
             Inscription confidentielle en moins de 10 minutes.<br />
             Profil validé sous 48h.
           </motion.p>
+
           <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 1, delay: 1 }}
+            transition={{ duration: 1, delay: 1.2 }}
           >
             <Link to="/demander-acces">
               <Button
@@ -247,7 +270,7 @@ const LandingPage = () => (
               </Button>
             </Link>
           </motion.div>
-        </motion.div>
+        </div>
       </div>
     </section>
 
