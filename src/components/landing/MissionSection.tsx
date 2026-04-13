@@ -22,23 +22,20 @@ const staggerSlow = {
 };
 
 const cardKeywordsDark = (items: string[]) => (
-  <div className="flex flex-col gap-3">
+  <div className="flex flex-col gap-3 items-center">
     {items.map((kw) => (
-      <div key={kw} className="flex items-start gap-2.5">
-        <div className="w-1 h-1 rounded-full bg-white/20 shrink-0 mt-2" />
-        <span className="font-sans text-sm text-white/50 font-light">{kw}</span>
-      </div>
+      <span key={kw} className="font-sans text-sm text-white/50 font-light">{kw}</span>
     ))}
   </div>
 );
 
 const badgeRowDark = () => (
-  <div className="flex items-center gap-3 pt-6 mt-8 border-t border-white/[0.08]">
-    <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm bg-white/[0.06] border border-white/[0.08]">
+  <div className="flex items-center justify-center gap-4 pt-6 mt-8 border-t border-white/[0.08]">
+    <div className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-sm bg-white/[0.06] border border-white/[0.08]">
       <Award className="w-3.5 h-3.5 text-white/45" strokeWidth={1.5} />
       <span className="font-serif text-[10px] tracking-wide text-white/50 font-medium">Chambers</span>
     </div>
-    <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm bg-white/[0.06] border border-white/[0.08]">
+    <div className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-sm bg-white/[0.06] border border-white/[0.08]">
       <BookOpen className="w-3.5 h-3.5 text-white/45" strokeWidth={1.5} />
       <span className="font-serif text-[10px] tracking-wide text-white/50 font-medium">Legal 500</span>
     </div>
@@ -82,11 +79,11 @@ const MissionSection = () => (
         <div className="bg-[#0F0F0F] rounded-lg p-6 sm:p-8 md:p-10 lg:p-12">
           <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] items-stretch gap-0">
             {/* Cabinet */}
-            <motion.div variants={fadeScale} className="group flex flex-col p-6 md:p-8 border border-white/[0.06] rounded-sm hover:border-white/[0.12] transition-colors duration-500">
-              <div className="w-10 h-10 rounded-full border border-white/[0.1] flex items-center justify-center mb-6 group-hover:border-white/20 transition-colors duration-500">
-                <Building2 className="w-4.5 h-4.5 text-white/40 group-hover:text-white/70 transition-colors duration-500" strokeWidth={1.5} />
+            <motion.div variants={fadeScale} className="group flex flex-col items-center text-center p-6 md:p-8">
+              <div className="flex items-center gap-3 mb-6">
+                <Building2 className="w-5 h-5 text-white/50 group-hover:text-white/80 transition-colors duration-500" strokeWidth={1.5} />
+                <h3 className="font-serif text-xl text-white tracking-[-0.01em]">Cabinet</h3>
               </div>
-              <h3 className="font-serif text-xl text-white mb-5 tracking-[-0.01em]">Cabinet</h3>
               {cardKeywordsDark(['Confidentialité de vos recherches', 'Vision consolidée du marché', 'Recrutements stratégiques'])}
               {badgeRowDark()}
             </motion.div>
@@ -118,11 +115,11 @@ const MissionSection = () => (
             </motion.div>
 
             {/* Candidat */}
-            <motion.div variants={fadeScale} className="group flex flex-col p-6 md:p-8 border border-white/[0.06] rounded-sm hover:border-white/[0.12] transition-colors duration-500">
-              <div className="w-10 h-10 rounded-full border border-white/[0.1] flex items-center justify-center mb-6 group-hover:border-white/20 transition-colors duration-500">
-                <User className="w-4.5 h-4.5 text-white/40 group-hover:text-white/70 transition-colors duration-500" strokeWidth={1.5} />
+            <motion.div variants={fadeScale} className="group flex flex-col items-center text-center p-6 md:p-8">
+              <div className="flex items-center gap-3 mb-6">
+                <User className="w-5 h-5 text-white/50 group-hover:text-white/80 transition-colors duration-500" strokeWidth={1.5} />
+                <h3 className="font-serif text-xl text-white tracking-[-0.01em]">Candidat</h3>
               </div>
-              <h3 className="font-serif text-xl text-white mb-5 tracking-[-0.01em]">Candidat</h3>
               {cardKeywordsDark(['Identité préservée', 'Attractivité boostée', 'Accès en temps réel aux meilleures opportunités'])}
               {badgeRowDark()}
             </motion.div>
