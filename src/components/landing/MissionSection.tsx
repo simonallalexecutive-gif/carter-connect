@@ -31,12 +31,12 @@ const cardKeywordsDark = (items: string[]) => (
 
 const badgeRowDark = () => (
   <div className="flex items-center justify-center gap-4 pt-6 mt-8 border-t border-white/[0.08]">
-    <div className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-sm bg-white/[0.06] border border-white/[0.08]">
-      <Award className="w-3.5 h-3.5 text-white/45" strokeWidth={1.5} />
+    <div className="flex items-center justify-center gap-1.5 min-w-[110px] px-3.5 py-1.5 rounded-sm bg-white/[0.06] border border-white/[0.08]">
+      <Award className="w-3.5 h-3.5 text-white/45 shrink-0" strokeWidth={1.5} />
       <span className="font-serif text-[10px] tracking-wide text-white/50 font-medium">Chambers</span>
     </div>
-    <div className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-sm bg-white/[0.06] border border-white/[0.08]">
-      <Award className="w-3.5 h-3.5 text-white/45" strokeWidth={1.5} />
+    <div className="flex items-center justify-center gap-1.5 min-w-[110px] px-3.5 py-1.5 rounded-sm bg-white/[0.06] border border-white/[0.08]">
+      <Award className="w-3.5 h-3.5 text-white/45 shrink-0" strokeWidth={1.5} />
       <span className="font-serif text-[10px] tracking-wide text-white/50 font-medium">Legal 500</span>
     </div>
   </div>
@@ -109,8 +109,8 @@ const MissionSection = () => (
                 </div>
               </div>
 
-              <p className="font-sans text-[10px] md:text-[11px] text-center leading-[1.7] text-white/40 mt-5 max-w-[200px] font-medium">
-                Logan identifie, qualifie et orchestre chaque mise en relation.
+              <p className="font-sans text-[10px] md:text-[11px] text-center leading-[1.7] text-white/40 mt-5 max-w-[240px] font-medium">
+                Logan identifie, qualifie et orchestre chaque mise en relation — de la première intention à la signature.
               </p>
             </motion.div>
 
