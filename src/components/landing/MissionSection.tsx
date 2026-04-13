@@ -67,7 +67,7 @@ const MissionSection = () => (
         {/* Ecosystem quote — no border, no italic */}
         <motion.div variants={fadeUp} className="max-w-2xl">
           <p className="font-sans text-base sm:text-lg leading-[1.6] text-black/45">
-            « Un écosystème discret, exigeant et structuré où chaque profil est validé et où chaque interaction est pilotée dans la plus stricte confidentialité. »
+            Un écosystème exigeant, discret et structuré, enrichi chaque jour par nos consultants spécialisés, au service d'une expérience de recrutement réinventée.
           </p>
         </motion.div>
       </motion.div>
