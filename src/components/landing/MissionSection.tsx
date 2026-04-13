@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { Building2, User, Award, Shield, Eye, Target } from 'lucide-react';
+import { Building2, User, Award, Handshake, Shield, Eye, Target } from 'lucide-react';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 32 },
@@ -96,17 +96,21 @@ const MissionSection = () => (
               <div className="hidden md:flex items-center gap-0 w-full">
                 <div className="flex-1 h-px bg-gradient-to-r from-white/[0.03] to-white/[0.12]" />
                 <div className="relative mx-3">
-                  <span className="font-serif text-xl text-white tracking-[-0.01em]">Logan</span>
+                  <div className="w-14 h-14 rounded-full bg-white flex items-center justify-center shadow-[0_8px_32px_-4px_rgba(255,255,255,0.15)]">
+                    <Handshake className="w-5.5 h-5.5 text-[#0F0F0F]" strokeWidth={1.5} />
+                  </div>
                 </div>
                 <div className="flex-1 h-px bg-gradient-to-r from-white/[0.12] to-white/[0.03]" />
               </div>
 
               <div className="flex md:hidden">
-                <span className="font-serif text-xl text-white tracking-[-0.01em]">Logan</span>
+                <div className="w-14 h-14 rounded-full bg-white flex items-center justify-center shadow-[0_8px_32px_-4px_rgba(255,255,255,0.15)]">
+                  <Handshake className="w-5.5 h-5.5 text-[#0F0F0F]" strokeWidth={1.5} />
+                </div>
               </div>
 
-              <p className="font-sans text-[10px] md:text-[11px] text-center leading-[1.7] text-white/40 mt-5 max-w-[280px] font-medium">
-                Nous orchestrons chaque mise en relation et vous accompagnons à chaque étape du processus, jusqu'à la signature.
+              <p className="font-sans text-[10px] md:text-[11px] text-center leading-[1.7] text-white/40 mt-5 max-w-[240px] font-medium">
+                Logan identifie, qualifie et orchestre chaque mise en relation — de la première intention à la signature.
               </p>
             </motion.div>
 
