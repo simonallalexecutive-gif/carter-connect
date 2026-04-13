@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { Building2, User, Zap, Handshake, Award, BookOpen, Shield, Eye, Target } from 'lucide-react';
+import { Building2, User, Award, Shield, Eye, Target } from 'lucide-react';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 32 },
@@ -63,7 +63,7 @@ const MissionSection = () => (
         {/* Ecosystem quote — no border, no italic */}
         <motion.div variants={fadeUp} className="max-w-2xl">
           <p className="font-sans text-base sm:text-lg leading-[1.6] text-black/45">
-            Un écosystème exigeant, discret et structuré, enrichi chaque jour par nos consultants spécialisés, au service d'une expérience de recrutement réinventée.
+            Un écosystème exigeant et discret, enrichi chaque jour par nos consultants spécialisés et piloté dans la plus stricte confidentialité.
           </p>
         </motion.div>
       </motion.div>
@@ -82,7 +82,7 @@ const MissionSection = () => (
             <motion.div variants={fadeScale} className="group flex flex-col items-center text-center p-6 md:p-8">
               <div className="flex items-center gap-3 mb-6">
                 <Building2 className="w-5 h-5 text-white/50 group-hover:text-white/80 transition-colors duration-500" strokeWidth={1.5} />
-                <h3 className="font-serif text-xl text-white tracking-[-0.01em]">Cabinet</h3>
+                <h3 className="font-serif text-xl text-white tracking-[-0.01em]">Cabinets</h3>
               </div>
               {cardKeywordsDark(['Confidentialité de vos recherches', 'Vision consolidée du marché', 'Recrutements stratégiques'])}
               {badgeRowDark()}
@@ -96,21 +96,17 @@ const MissionSection = () => (
               <div className="hidden md:flex items-center gap-0 w-full">
                 <div className="flex-1 h-px bg-gradient-to-r from-white/[0.03] to-white/[0.12]" />
                 <div className="relative mx-3">
-                  <div className="w-14 h-14 rounded-full bg-white flex items-center justify-center shadow-[0_8px_32px_-4px_rgba(255,255,255,0.15)]">
-                    <Handshake className="w-5.5 h-5.5 text-[#0F0F0F]" strokeWidth={1.5} />
-                  </div>
+                  <span className="font-serif text-xl text-white tracking-[-0.01em]">Logan</span>
                 </div>
                 <div className="flex-1 h-px bg-gradient-to-r from-white/[0.12] to-white/[0.03]" />
               </div>
 
               <div className="flex md:hidden">
-                <div className="w-14 h-14 rounded-full bg-white flex items-center justify-center shadow-[0_8px_32px_-4px_rgba(255,255,255,0.15)]">
-                  <Handshake className="w-5.5 h-5.5 text-[#0F0F0F]" strokeWidth={1.5} />
-                </div>
+                <span className="font-serif text-xl text-white tracking-[-0.01em]">Logan</span>
               </div>
 
-              <p className="font-sans text-[10px] md:text-[11px] text-center leading-[1.7] text-white/40 mt-5 max-w-[240px] font-medium">
-                Logan identifie, qualifie et orchestre chaque mise en relation — de la première intention à la signature.
+              <p className="font-sans text-[10px] md:text-[11px] text-center leading-[1.7] text-white/40 mt-5 max-w-[280px] font-medium">
+                Nous orchestrons chaque mise en relation et vous accompagnons à chaque étape du processus, jusqu'à la signature.
               </p>
             </motion.div>
 
@@ -118,7 +114,7 @@ const MissionSection = () => (
             <motion.div variants={fadeScale} className="group flex flex-col items-center text-center p-6 md:p-8">
               <div className="flex items-center gap-3 mb-6">
                 <User className="w-5 h-5 text-white/50 group-hover:text-white/80 transition-colors duration-500" strokeWidth={1.5} />
-                <h3 className="font-serif text-xl text-white tracking-[-0.01em]">Candidat</h3>
+                <h3 className="font-serif text-xl text-white tracking-[-0.01em]">Candidats</h3>
               </div>
               {cardKeywordsDark(['Accès aux meilleures opportunités', 'Attractivité boostée', 'Identité préservée'])}
               {badgeRowDark()}
@@ -136,7 +132,7 @@ const MissionSection = () => (
         className="text-center mb-20 md:mb-28"
       >
         <motion.p variants={fadeUp} className="font-serif text-xl sm:text-2xl md:text-[1.7rem] leading-[1.5] text-black max-w-3xl mx-auto mb-6">
-          Logan est le seul <em>hub</em> confidentiel où se rencontrent les meilleurs cabinets et les profils qui ne se montrent nulle part ailleurs.
+          Logan est le seul <em>hub</em> confidentiel et structuré où se rencontrent les meilleurs cabinets et les profils qui ne se montrent nulle part ailleurs.
         </motion.p>
         <motion.div variants={fadeUp} className="w-12 h-px bg-black/15 mx-auto" />
       </motion.div>
