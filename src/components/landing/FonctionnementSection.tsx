@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { Shield, Eye, Search, Lock, Bell, CalendarCheck } from 'lucide-react';
+import { Shield, Eye, Search } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 
@@ -39,19 +39,19 @@ const candidatPoints = [
     num: '01',
     title: 'Accédez en temps réel aux meilleures opportunités du marché',
     text: "Identifiez une opportunité, étudiez sa pertinence au regard de votre projet et échangez avec un consultant en amont de tout rapprochement.",
-    icon: Lock,
+    icon: Shield,
   },
   {
     num: '02',
     title: 'Cultivez votre attractivité sans compromettre votre anonymat',
     text: "Restez en alerte et opportuniste sur votre marché : dès lors qu'un cabinet manifeste un intérêt pour votre profil, Logan est à vos côtés pour en parler.",
-    icon: Bell,
+    icon: Eye,
   },
   {
     num: '03',
     title: 'Logan comme seul intermédiaire',
     text: "Bénéficiez d'un accompagnement personnalisé dans un cadre strictement confidentiel, maîtrisé et transparent.",
-    icon: Shield,
+    icon: Search,
   },
 ];
 
@@ -119,7 +119,7 @@ const CabinetPage = () => (
           Notre fonctionnement
         </motion.p>
         <motion.h2 variants={fadeUp} className="font-serif text-3xl sm:text-4xl md:text-[2.8rem] leading-[1.15] text-white mb-5">
-          Firms
+          Cabinets
         </motion.h2>
         <motion.p variants={fadeUp} className="font-sans text-[0.95rem] md:text-base leading-[1.8] text-white/40 max-w-2xl text-justify">
           Un processus structuré et confidentiel pour accéder aux candidats les plus qualifiés du marché.
@@ -159,7 +159,7 @@ const CandidatPage = () => (
           Notre fonctionnement
         </motion.p>
         <motion.h2 variants={fadeUp} className="font-serif text-3xl sm:text-4xl md:text-[2.8rem] leading-[1.15] text-black mb-5">
-          Candidates
+          Candidats
         </motion.h2>
         <motion.p variants={fadeUp} className="font-sans text-[0.95rem] md:text-base leading-[1.8] text-black/45 max-w-2xl text-justify">
           Accédez aux opportunités les plus exclusives tout en préservant votre anonymat.
