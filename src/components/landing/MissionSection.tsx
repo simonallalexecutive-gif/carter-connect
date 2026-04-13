@@ -109,8 +109,8 @@ const MissionSection = () => (
                 </div>
               </div>
 
-              <p className="font-sans text-[10px] md:text-[11px] text-center leading-[1.7] text-white/40 mt-5 max-w-[200px] font-medium">
-                Logan identifie, qualifie et orchestre chaque mise en relation.
+              <p className="font-sans text-[10px] md:text-[11px] text-center leading-[1.7] text-white/40 mt-5 max-w-[240px] font-medium">
+                Logan identifie, qualifie et orchestre chaque mise en relation — de la première intention à la signature.
               </p>
             </motion.div>
 
