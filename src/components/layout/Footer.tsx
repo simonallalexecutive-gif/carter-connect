@@ -10,7 +10,7 @@ const Footer = () => (
       <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 pb-16 border-b border-white/10 items-start">
         {/* Brand */}
         <div className="md:col-span-3">
-          <img src={logoMonogram} alt="Logan" className="h-12 w-12 mb-2 invert" />
+          <img src={logoMonogram} alt="Logan" className="h-12 w-12 mb-2 invert -ml-1" />
           <p className="font-sans text-xs text-white/40 font-light leading-relaxed max-w-xs pl-0">
             Réseau confidentiel de mise en relation entre avocats d'affaires et cabinets de premier plan.
           </p>
