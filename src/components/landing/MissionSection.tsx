@@ -21,30 +21,29 @@ const staggerSlow = {
   visible: { transition: { staggerChildren: 0.18 } },
 };
 
-const cardKeywords = (items: string[]) => (
+const cardKeywordsDark = (items: string[]) => (
   <div className="flex flex-col gap-3">
     {items.map((kw) => (
       <div key={kw} className="flex items-start gap-2.5">
-        <div className="w-1 h-1 rounded-full bg-black/20 shrink-0 mt-2" />
-        <span className="font-sans text-sm text-black/50 font-light">{kw}</span>
+        <div className="w-1 h-1 rounded-full bg-white/20 shrink-0 mt-2" />
+        <span className="font-sans text-sm text-white/50 font-light">{kw}</span>
       </div>
     ))}
   </div>
 );
 
-const badgeRow = () => (
-  <div className="flex items-center gap-3 pt-6 mt-8 border-t border-black/[0.06]">
-    <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm bg-black/[0.04] border border-black/[0.06]">
-      <Award className="w-3.5 h-3.5 text-black/50" strokeWidth={1.5} />
-      <span className="font-serif text-[10px] tracking-wide text-black/55 font-medium">Chambers</span>
+const badgeRowDark = () => (
+  <div className="flex items-center gap-3 pt-6 mt-8 border-t border-white/[0.08]">
+    <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm bg-white/[0.06] border border-white/[0.08]">
+      <Award className="w-3.5 h-3.5 text-white/45" strokeWidth={1.5} />
+      <span className="font-serif text-[10px] tracking-wide text-white/50 font-medium">Chambers</span>
     </div>
-    <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm bg-black/[0.04] border border-black/[0.06]">
-      <BookOpen className="w-3.5 h-3.5 text-black/50" strokeWidth={1.5} />
-      <span className="font-serif text-[10px] tracking-wide text-black/55 font-medium">Legal 500</span>
+    <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm bg-white/[0.06] border border-white/[0.08]">
+      <BookOpen className="w-3.5 h-3.5 text-white/45" strokeWidth={1.5} />
+      <span className="font-serif text-[10px] tracking-wide text-white/50 font-medium">Legal 500</span>
     </div>
   </div>
 );
-
 const MissionSection = () => (
   <section id="notre-approche" className="relative overflow-hidden bg-white">
     <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-8 lg:px-10 py-24 md:py-40">
