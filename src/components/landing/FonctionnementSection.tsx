@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { Shield, Eye } from 'lucide-react';
+import { Shield, Eye, Clock, Zap, Lock, Users, Star, CheckCircle } from 'lucide-react';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -28,7 +28,6 @@ const SideCard = ({ num, title, text, icon: Icon, dark = false }: SideCardProps)
 
   return (
     <motion.div variants={fadeUp} className="relative flex flex-col h-full">
-      {/* Watermark number */}
       <span className={`absolute -top-2 -right-1 font-serif text-[5rem] leading-none font-bold ${numColor} select-none pointer-events-none`}>
         {num}
       </span>
@@ -72,18 +71,37 @@ const GradientLine = ({ dark = false }: { dark?: boolean }) => {
   );
 };
 
+/* ---------- Pillar ---------- */
+interface PillarProps {
+  icon: React.ElementType;
+  label: string;
+  dark?: boolean;
+}
+
+const Pillar = ({ icon: Icon, label, dark = false }: PillarProps) => (
+  <motion.div variants={fadeUp} className="flex flex-col items-center text-center gap-3">
+    <div className={`w-9 h-9 rounded-full flex items-center justify-center ${dark ? 'bg-white/[0.06]' : 'bg-black/[0.04]'}`}>
+      <Icon className={`w-4 h-4 ${dark ? 'text-white/40' : 'text-black/30'}`} strokeWidth={1.4} />
+    </div>
+    <span className={`font-sans text-[0.78rem] font-medium tracking-[-0.01em] ${dark ? 'text-white/50' : 'text-black/40'}`}>
+      {label}
+    </span>
+  </motion.div>
+);
+
 /* ---------- Section wrapper ---------- */
 interface SectionBlockProps {
   label: string;
   title: string;
   desc: string;
   dark?: boolean;
+  pillars: { icon: React.ElementType; label: string }[];
   children: React.ReactNode;
 }
 
-const SectionBlock = ({ label, title, desc, dark = false, children }: SectionBlockProps) => (
-  <section className={`relative overflow-hidden py-20 md:py-32 ${dark ? '' : 'bg-white'}`} style={dark ? { background: '#111111' } : undefined}>
-    <div className="max-w-5xl mx-auto px-4 sm:px-8 lg:px-10">
+const SectionBlock = ({ label, title, desc, dark = false, pillars, children }: SectionBlockProps) => (
+  <section className={`relative overflow-hidden ${dark ? '' : 'bg-white'}`} style={dark ? { background: '#111111' } : undefined}>
+    <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-8 lg:px-10 py-24 md:py-40">
       <motion.div
         variants={stagger}
         initial="hidden"
@@ -111,17 +129,38 @@ const SectionBlock = ({ label, title, desc, dark = false, children }: SectionBlo
       >
         {children}
       </motion.div>
+
+      {/* Pillars */}
+      <motion.div
+        variants={stagger}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: '-40px' }}
+        className="mt-20 md:mt-28"
+      >
+        <motion.div variants={fadeUp} className={`w-full h-px mb-12 bg-gradient-to-r ${dark ? 'from-transparent via-white/[0.08] to-transparent' : 'from-transparent via-black/[0.06] to-transparent'}`} />
+        <div className="grid grid-cols-3 gap-6 md:gap-12 max-w-lg mx-auto">
+          {pillars.map((p) => (
+            <Pillar key={p.label} icon={p.icon} label={p.label} dark={dark} />
+          ))}
+        </div>
+      </motion.div>
     </div>
   </section>
 );
 
 /* ---------- Cabinets ---------- */
-const CabinetPage = () => (
+const CabinetBlock = () => (
   <SectionBlock
     label="Notre fonctionnement"
     title="Cabinets"
     desc="Un processus structuré et confidentiel pour accéder aux candidats les plus qualifiés du marché."
     dark
+    pillars={[
+      { icon: Lock, label: 'Confidentialité' },
+      { icon: Zap, label: 'Réactivité' },
+      { icon: Star, label: 'Exclusivité' },
+    ]}
   >
     <SideCard
       num="01"
@@ -135,7 +174,7 @@ const CabinetPage = () => (
     <GradientLine dark />
     <SideCard
       num="02"
-      title="Accédez en temps réel aux meilleurs profils du marché"
+      title="Accédez aux meilleurs profils du marché"
       text="Décryptez la dynamique du marché, restez opportuniste et anticipez vos recrutements pour l'ensemble de vos départements."
       icon={Eye}
       dark
@@ -144,11 +183,16 @@ const CabinetPage = () => (
 );
 
 /* ---------- Candidats ---------- */
-const CandidatPage = () => (
+const CandidatBlock = () => (
   <SectionBlock
     label="Notre fonctionnement"
     title="Candidats"
     desc="Accédez aux opportunités les plus exclusives tout en préservant votre anonymat."
+    pillars={[
+      { icon: Shield, label: 'Anonymat' },
+      { icon: Users, label: 'Accompagnement' },
+      { icon: CheckCircle, label: 'Transparence' },
+    ]}
   >
     <SideCard
       num="01"
@@ -170,8 +214,8 @@ const CandidatPage = () => (
 
 const FonctionnementSection = () => (
   <>
-    <CabinetPage />
-    <CandidatPage />
+    <CabinetBlock />
+    <CandidatBlock />
   </>
 );
 

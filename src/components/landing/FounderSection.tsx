@@ -11,10 +11,10 @@ const FounderSection = () => {
   return (
     <section
       ref={ref}
-      className="relative flex items-center justify-center overflow-hidden border-t border-white/[0.06]"
+      className="relative flex items-end justify-end overflow-hidden border-t border-white/[0.06]"
       style={{ minHeight: '100svh' }}
     >
-      {/* Ken Burns animated background covering full section */}
+      {/* Ken Burns animated background */}
       <div className="absolute inset-0 overflow-hidden">
         <motion.img
           src={mountainBg}
@@ -35,8 +35,8 @@ const FounderSection = () => {
         />
       </div>
 
-      {/* Dark overlay */}
-      <div className="absolute inset-0 bg-black/55" />
+      {/* Darker overlay — 15% more */}
+      <div className="absolute inset-0 bg-black/65" />
 
       {/* Subtle animated radial glow */}
       <motion.div
@@ -65,15 +65,15 @@ const FounderSection = () => {
         transition={{ duration: 18, ease: 'easeInOut', repeat: Infinity, repeatType: 'mirror' }}
       />
 
-      <div className="max-w-5xl mx-auto px-6 sm:px-10 lg:px-14 py-24 md:py-32 relative z-10">
-        <motion.div style={{ opacity, y }} className="text-center">
+      <div className="max-w-5xl w-full mx-auto px-6 sm:px-10 lg:px-14 py-16 md:py-24 relative z-10">
+        <motion.div style={{ opacity, y }} className="text-right max-w-2xl ml-auto">
           {/* Decorative line */}
           <motion.div
             initial={{ scaleX: 0 }}
             whileInView={{ scaleX: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-            className="w-16 h-px bg-white/20 mx-auto mb-12 origin-center"
+            className="w-16 h-px bg-white/20 ml-auto mb-10 origin-right"
           />
 
           <motion.p
@@ -81,7 +81,7 @@ const FounderSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="font-serif text-xl sm:text-2xl md:text-[2.3rem] lg:text-[2.8rem] leading-[1.25] text-white/90 italic tracking-[-0.02em] max-w-4xl mx-auto drop-shadow-lg"
+            className="font-serif text-lg sm:text-xl md:text-[2.07rem] lg:text-[2.52rem] leading-[1.25] text-white/90 italic tracking-[-0.02em] drop-shadow-lg"
           >
             «&nbsp;Logan se positionne comme la plateforme la plus exigeante et structurée du marché, offrant un accompagnement sur mesure, résolument confidentiel et parfaitement ciblé.&nbsp;»
           </motion.p>
@@ -91,7 +91,7 @@ const FounderSection = () => {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="mt-10"
+            className="mt-8"
           >
             <span className="text-[10px] font-sans font-medium tracking-[0.25em] uppercase text-white/30">
               — L'équipe Logan
@@ -104,7 +104,7 @@ const FounderSection = () => {
             whileInView={{ scaleX: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 1.2, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="w-16 h-px bg-white/20 mx-auto mt-12 origin-center"
+            className="w-16 h-px bg-white/20 ml-auto mt-10 origin-right"
           />
         </motion.div>
       </div>

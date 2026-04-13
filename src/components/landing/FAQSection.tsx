@@ -93,20 +93,16 @@ const cabinetFAQ: FAQItem[] = [
 
 const FAQSection = () => {
   const [tab, setTab] = useState<Tab>('candidat');
-  const candidatItems = candidatFAQ;
-  const cabinetItems = cabinetFAQ;
-
-  // Split items into two columns for mirror effect
-  const leftItems = tab === 'candidat' ? candidatItems : cabinetItems;
-  const midpoint = Math.ceil(leftItems.length / 2);
-  const col1 = leftItems.slice(0, midpoint);
-  const col2 = leftItems.slice(midpoint);
+  const items = tab === 'candidat' ? candidatFAQ : cabinetFAQ;
+  const midpoint = Math.ceil(items.length / 2);
+  const col1 = items.slice(0, midpoint);
+  const col2 = items.slice(midpoint);
 
   return (
     <section className="py-24 md:py-36" style={{ background: 'hsl(0 0% 8%)' }}>
       <div className="max-w-5xl mx-auto px-4 sm:px-8 lg:px-10">
 
-        {/* Header — left-aligned */}
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -122,7 +118,7 @@ const FAQSection = () => {
           </h2>
         </motion.div>
 
-        {/* Tab toggle — left-aligned */}
+        {/* Tab toggle — underline style */}
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -130,25 +126,32 @@ const FAQSection = () => {
           transition={{ duration: 0.5, delay: 0.1 }}
           className="mb-14"
         >
-          <div className="inline-flex rounded-full border border-white/15 bg-white/[0.05] p-1">
+          <div className="inline-flex gap-0 border-b border-white/10">
             {(['candidat', 'cabinet'] as Tab[]).map((t) => (
               <button
                 key={t}
                 onClick={() => setTab(t)}
                 className={cn(
-                  'px-6 py-2 rounded-full text-sm font-sans font-medium transition-all duration-300 capitalize',
+                  'relative px-6 py-3 text-sm font-sans font-medium transition-all duration-300 capitalize',
                   tab === t
-                    ? 'bg-white text-black shadow-sm'
-                    : 'text-white/50 hover:text-white'
+                    ? 'text-white'
+                    : 'text-white/35 hover:text-white/60'
                 )}
               >
-                {t}
+                {t === 'candidat' ? 'Candidats' : 'Cabinets'}
+                {tab === t && (
+                  <motion.div
+                    layoutId="faq-tab-indicator"
+                    className="absolute bottom-0 left-0 right-0 h-px bg-white"
+                    transition={{ type: 'spring', stiffness: 500, damping: 35 }}
+                  />
+                )}
               </button>
             ))}
           </div>
         </motion.div>
 
-        {/* Mirror layout — two columns */}
+        {/* Two columns */}
         <AnimatePresence mode="wait">
           <motion.div
             key={tab}
@@ -158,7 +161,6 @@ const FAQSection = () => {
             transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
             className="grid grid-cols-1 md:grid-cols-2 gap-0 md:gap-12"
           >
-            {/* Left column */}
             <div>
               <Accordion type="single" collapsible className="space-y-0">
                 {col1.map((item, i) => (
@@ -181,7 +183,6 @@ const FAQSection = () => {
               </Accordion>
             </div>
 
-            {/* Right column (mirror) */}
             <div>
               <Accordion type="single" collapsible className="space-y-0">
                 {col2.map((item, i) => (
