@@ -36,7 +36,7 @@ const badgeRowDark = () => (
       <span className="font-serif text-[10px] tracking-wide text-white/50 font-medium">Chambers</span>
     </div>
     <div className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-sm bg-white/[0.06] border border-white/[0.08]">
-      <BookOpen className="w-3.5 h-3.5 text-white/45" strokeWidth={1.5} />
+      <Award className="w-3.5 h-3.5 text-white/45" strokeWidth={1.5} />
       <span className="font-serif text-[10px] tracking-wide text-white/50 font-medium">Legal 500</span>
     </div>
   </div>
@@ -120,7 +120,7 @@ const MissionSection = () => (
                 <User className="w-5 h-5 text-white/50 group-hover:text-white/80 transition-colors duration-500" strokeWidth={1.5} />
                 <h3 className="font-serif text-xl text-white tracking-[-0.01em]">Candidat</h3>
               </div>
-              {cardKeywordsDark(['Identité préservée', 'Attractivité boostée', 'Accès en temps réel aux meilleures opportunités'])}
+              {cardKeywordsDark(['Accès en temps réel aux meilleures opportunités', 'Attractivité boostée', 'Identité préservée'])}
               {badgeRowDark()}
             </motion.div>
           </div>
