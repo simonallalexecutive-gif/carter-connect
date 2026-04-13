@@ -154,7 +154,7 @@ const CabinetBlock = () => (
   <SectionBlock
     label="Notre fonctionnement"
     title="Cabinets"
-    desc="Un processus structuré et confidentiel pour accéder aux candidats les plus qualifiés du marché."
+    desc="Ne subissez plus votre marché : vivez-le."
     dark
     pillars={[
       { icon: Lock, label: 'Confidentialité' },
@@ -187,7 +187,7 @@ const CandidatBlock = () => (
   <SectionBlock
     label="Notre fonctionnement"
     title="Candidats"
-    desc="Accédez aux opportunités les plus exclusives tout en préservant votre anonymat."
+    desc="Un espace confidentiel, un processus structuré et un accès privilégié au marché des opportunités."
     pillars={[
       { icon: Shield, label: 'Anonymat' },
       { icon: Users, label: 'Accompagnement' },

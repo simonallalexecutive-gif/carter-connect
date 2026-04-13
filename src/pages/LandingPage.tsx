@@ -196,7 +196,7 @@ const LandingPage = () => (
           viewport={{ once: true }}
           className="text-left"
         >
-          {/* WOW words */}
+          {/* WOW words — same font as hero h1, small caps */}
           <div className="mb-12 md:mb-16 space-y-1">
             {['Confidentiel.', 'Structuré.', 'Décisif.'].map((word, i) => (
               <motion.div
@@ -206,7 +206,7 @@ const LandingPage = () => (
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: 0.15 * i, ease: [0.16, 1, 0.3, 1] }}
               >
-                <span className="block font-serif text-[2.5rem] sm:text-[3.5rem] md:text-[5rem] lg:text-[6.5rem] font-medium text-white/[0.08] uppercase tracking-[-0.03em] leading-[1.05]">
+                <span className="block font-serif text-[2.1rem] sm:text-[3.5rem] md:text-[4.7rem] lg:text-[6rem] font-[500] text-white/[0.08] tracking-[-0.03em] leading-[1.1]" style={{ fontVariant: 'small-caps' }}>
                   {word}
                 </span>
               </motion.div>
