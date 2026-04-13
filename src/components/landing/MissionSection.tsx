@@ -33,7 +33,7 @@ const cardKeywords = (items: string[]) => (
 );
 
 const badgeRow = () => (
-  <div className="flex items-center gap-3 pt-5 mt-auto border-t border-black/[0.06]">
+  <div className="flex items-center gap-3 pt-6 mt-8 border-t border-black/[0.06]">
     <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm bg-black/[0.04] border border-black/[0.06]">
       <Award className="w-3.5 h-3.5 text-black/50" strokeWidth={1.5} />
       <span className="font-serif text-[10px] tracking-wide text-black/55 font-medium">Chambers</span>
