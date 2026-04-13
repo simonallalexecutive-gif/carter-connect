@@ -1,7 +1,5 @@
 import { motion } from 'motion/react';
-import { Shield, Eye, Search } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
+import { Shield, Eye, Handshake } from 'lucide-react';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -13,101 +11,86 @@ const stagger = {
   visible: { transition: { staggerChildren: 0.15 } },
 };
 
-const cabinetPoints = [
-  {
-    num: '01',
-    title: 'Lancez votre recherche en toute confidentialité',
-    text: "Adressez-vous à un pool de candidats qualifiés et rigoureusement sélectionnés, tout en préservant l'identité de votre cabinet.",
-    icon: Shield,
-  },
-  {
-    num: '02',
-    title: 'Accédez en temps réel aux meilleurs profils du marché',
-    text: "Décryptez la dynamique du marché, restez opportuniste et anticipez vos recrutements pour l'ensemble de vos départements.",
-    icon: Eye,
-  },
-  {
-    num: '03',
-    title: 'Actionnez Logan pour un rapprochement ciblé',
-    text: "Que vous soyez en recherche ou opportuniste sur un profil, Logan est à vos côtés pour opérer et concrétiser chaque rapprochement.",
-    icon: Search,
-  },
-];
-
-const candidatPoints = [
-  {
-    num: '01',
-    title: 'Accédez en temps réel aux meilleures opportunités du marché',
-    text: "Identifiez une opportunité, étudiez sa pertinence au regard de votre projet et échangez avec un consultant en amont de tout rapprochement.",
-    icon: Shield,
-  },
-  {
-    num: '02',
-    title: 'Cultivez votre attractivité sans compromettre votre anonymat',
-    text: "Restez en alerte et opportuniste sur votre marché : dès lors qu'un cabinet manifeste un intérêt pour votre profil, Logan est à vos côtés pour en parler.",
-    icon: Eye,
-  },
-  {
-    num: '03',
-    title: 'Logan comme seul intermédiaire',
-    text: "Bénéficiez d'un accompagnement personnalisé dans un cadre strictement confidentiel, maîtrisé et transparent.",
-    icon: Search,
-  },
-];
-
-/* ---------- Step Card Component ---------- */
-interface StepCardProps {
-  num: string;
+/* ---------- Side Card ---------- */
+interface SideCardProps {
   title: string;
   text: string;
   icon: React.ElementType;
   dark?: boolean;
 }
 
-const StepCard = ({ num, title, text, icon: Icon, dark = false }: StepCardProps) => {
-  const borderColor = dark ? 'border-white/[0.08]' : 'border-black/[0.06]';
-  const hoverBorder = dark ? 'hover:border-white/20' : 'hover:border-black/15';
-  const numColor = dark ? 'text-white/[0.06]' : 'text-black/[0.05]';
+const SideCard = ({ title, text, icon: Icon, dark = false }: SideCardProps) => {
+  const bg = dark ? 'bg-white/[0.03]' : 'bg-black/[0.02]';
+  const borderColor = dark ? 'border-white/[0.06]' : 'border-black/[0.05]';
   const titleColor = dark ? 'text-white' : 'text-black';
-  const textColor = dark ? 'text-white/50' : 'text-black/50';
+  const textColor = dark ? 'text-white/45' : 'text-black/45';
   const iconBg = dark ? 'bg-white/[0.06]' : 'bg-black/[0.04]';
-  const iconColor = dark ? 'text-white/40' : 'text-black/35';
-  const lineColor = dark ? 'bg-white/[0.08]' : 'bg-black/[0.06]';
+  const iconColor = dark ? 'text-white/40' : 'text-black/30';
 
   return (
     <motion.div
       variants={fadeUp}
-      className={`group relative border ${borderColor} ${hoverBorder} rounded-sm p-8 md:p-10 transition-all duration-500 flex flex-col h-full`}
+      className={`${bg} border ${borderColor} rounded-sm p-7 md:p-9 flex flex-col h-full transition-all duration-500`}
     >
-      {/* Large faded number */}
-      <span className={`absolute top-6 right-8 font-serif text-[4.5rem] md:text-[5.5rem] leading-none font-bold ${numColor} select-none pointer-events-none`}>
-        {num}
-      </span>
-
-      {/* Icon */}
-      <div className={`w-11 h-11 rounded-full ${iconBg} flex items-center justify-center mb-6`}>
-        <Icon className={`w-[18px] h-[18px] ${iconColor}`} strokeWidth={1.5} />
+      <div className={`w-10 h-10 rounded-full ${iconBg} flex items-center justify-center mb-5`}>
+        <Icon className={`w-[17px] h-[17px] ${iconColor}`} strokeWidth={1.5} />
       </div>
-
-      {/* Accent line */}
-      <div className={`w-8 h-px ${lineColor} mb-5`} />
-
-      <h4 className={`font-sans text-[0.9rem] font-semibold ${titleColor} tracking-[-0.01em] mb-3 pr-10 min-h-[3.6rem] max-h-[4.5rem] flex items-start leading-[1.4]`}>
+      <h4 className={`font-sans text-[0.88rem] font-semibold ${titleColor} tracking-[-0.01em] mb-3 leading-[1.4]`}>
         {title}
       </h4>
-      <p className={`font-sans text-[0.92rem] leading-[1.85] ${textColor} text-justify mt-auto`}>
+      <p className={`font-sans text-[0.88rem] leading-[1.85] ${textColor} text-justify mt-auto`}>
         {text}
       </p>
     </motion.div>
   );
 };
 
-/* ---------- Cabinet Page ---------- */
+/* ---------- Center Bridge Card ---------- */
+interface BridgeCardProps {
+  title: string;
+  text: string;
+  dark?: boolean;
+}
+
+const BridgeCard = ({ title, text, dark = false }: BridgeCardProps) => {
+  const titleColor = dark ? 'text-white' : 'text-black';
+  const textColor = dark ? 'text-white/45' : 'text-black/45';
+  const lineColor = dark
+    ? 'from-transparent via-white/[0.12] to-transparent'
+    : 'from-transparent via-black/[0.08] to-transparent';
+
+  return (
+    <motion.div
+      variants={fadeUp}
+      className="flex flex-col items-center text-center h-full justify-center py-6 md:py-0"
+    >
+      {/* Top line */}
+      <div className={`w-px h-8 bg-gradient-to-b ${lineColor} mb-5 hidden md:block`} />
+
+      {/* Handshake badge */}
+      <div className={`w-14 h-14 rounded-full ${dark ? 'bg-white' : 'bg-black'} flex items-center justify-center shadow-lg mb-5`}>
+        <Handshake className={`w-[22px] h-[22px] ${dark ? 'text-[#111]' : 'text-white'}`} strokeWidth={1.5} />
+      </div>
+
+      <h4 className={`font-serif text-[1rem] md:text-[1.05rem] font-semibold ${titleColor} mb-3 leading-[1.3]`}>
+        {title}
+      </h4>
+
+      <p className={`font-sans text-[0.85rem] leading-[1.8] ${textColor} max-w-[220px]`}>
+        {text}
+      </p>
+
+      {/* Bottom line */}
+      <div className={`w-px h-8 bg-gradient-to-b ${lineColor} mt-5 hidden md:block`} />
+    </motion.div>
+  );
+};
+
+/* ---------- Cabinet Section ---------- */
 const CabinetPage = () => (
   <section className="relative overflow-hidden py-20 md:py-36" style={{ background: '#111111' }}>
     <div className="max-w-5xl mx-auto px-4 sm:px-8 lg:px-10">
 
-      {/* Header — left-aligned */}
       <motion.div
         variants={stagger}
         initial="hidden"
@@ -126,28 +109,47 @@ const CabinetPage = () => (
         </motion.p>
       </motion.div>
 
-      {/* Step cards — grid layout */}
       <motion.div
         variants={stagger}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: '-60px' }}
-        className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8"
+        className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-6 md:gap-0 items-stretch"
       >
-        {cabinetPoints.map((point) => (
-          <StepCard key={point.num} {...point} dark />
-        ))}
+        {/* Left */}
+        <SideCard
+          title="Lancez votre recherche en toute confidentialité"
+          text="Adressez-vous à un pool de candidats qualifiés et rigoureusement sélectionnés, tout en préservant l'identité de votre cabinet."
+          icon={Shield}
+          dark
+        />
+
+        {/* Center — Logan bridge */}
+        <div className="flex items-center justify-center md:px-8">
+          <BridgeCard
+            title="Logan à vos côtés"
+            text="Nous opérons et concrétisons chaque rapprochement, de l'intention à la signature."
+            dark
+          />
+        </div>
+
+        {/* Right */}
+        <SideCard
+          title="Accédez en temps réel aux meilleurs profils du marché"
+          text="Décryptez la dynamique du marché, restez opportuniste et anticipez vos recrutements pour l'ensemble de vos départements."
+          icon={Eye}
+          dark
+        />
       </motion.div>
     </div>
   </section>
 );
 
-/* ---------- Candidat Page ---------- */
+/* ---------- Candidat Section ---------- */
 const CandidatPage = () => (
   <section className="relative overflow-hidden py-20 md:py-36 bg-white">
     <div className="max-w-5xl mx-auto px-4 sm:px-8 lg:px-10">
 
-      {/* Header — left-aligned */}
       <motion.div
         variants={stagger}
         initial="hidden"
@@ -166,19 +168,35 @@ const CandidatPage = () => (
         </motion.p>
       </motion.div>
 
-      {/* Step cards — grid layout */}
       <motion.div
         variants={stagger}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: '-60px' }}
-        className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-14"
+        className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-6 md:gap-0 items-stretch"
       >
-        {candidatPoints.map((point) => (
-          <StepCard key={point.num} {...point} />
-        ))}
-      </motion.div>
+        {/* Left */}
+        <SideCard
+          title="Accédez aux meilleures opportunités du marché"
+          text="Identifiez une opportunité, étudiez sa pertinence au regard de votre projet et échangez avec un consultant en amont de tout rapprochement."
+          icon={Eye}
+        />
 
+        {/* Center — Logan bridge */}
+        <div className="flex items-center justify-center md:px-8">
+          <BridgeCard
+            title="Logan, seul intermédiaire"
+            text="Un accompagnement personnalisé dans un cadre strictement confidentiel, maîtrisé et transparent."
+          />
+        </div>
+
+        {/* Right */}
+        <SideCard
+          title="Cultivez votre attractivité sans compromettre votre anonymat"
+          text="Restez en alerte et opportuniste sur votre marché : dès lors qu'un cabinet manifeste un intérêt pour votre profil, Logan est à vos côtés pour en parler."
+          icon={Shield}
+        />
+      </motion.div>
     </div>
   </section>
 );
