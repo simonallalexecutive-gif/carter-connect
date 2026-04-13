@@ -31,12 +31,12 @@ const cardKeywordsDark = (items: string[]) => (
 
 const badgeRowDark = () => (
   <div className="flex items-center justify-center gap-4 pt-6 mt-8 border-t border-white/[0.08]">
-    <div className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-sm bg-white/[0.06] border border-white/[0.08]">
-      <Award className="w-3.5 h-3.5 text-white/45" strokeWidth={1.5} />
+    <div className="flex items-center justify-center gap-1.5 min-w-[110px] px-3.5 py-1.5 rounded-sm bg-white/[0.06] border border-white/[0.08]">
+      <Award className="w-3.5 h-3.5 text-white/45 shrink-0" strokeWidth={1.5} />
       <span className="font-serif text-[10px] tracking-wide text-white/50 font-medium">Chambers</span>
     </div>
-    <div className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-sm bg-white/[0.06] border border-white/[0.08]">
-      <Award className="w-3.5 h-3.5 text-white/45" strokeWidth={1.5} />
+    <div className="flex items-center justify-center gap-1.5 min-w-[110px] px-3.5 py-1.5 rounded-sm bg-white/[0.06] border border-white/[0.08]">
+      <Award className="w-3.5 h-3.5 text-white/45 shrink-0" strokeWidth={1.5} />
       <span className="font-serif text-[10px] tracking-wide text-white/50 font-medium">Legal 500</span>
     </div>
   </div>
