@@ -21,30 +21,29 @@ const staggerSlow = {
   visible: { transition: { staggerChildren: 0.18 } },
 };
 
-const cardKeywords = (items: string[]) => (
+const cardKeywordsDark = (items: string[]) => (
   <div className="flex flex-col gap-3">
     {items.map((kw) => (
       <div key={kw} className="flex items-start gap-2.5">
-        <div className="w-1 h-1 rounded-full bg-black/20 shrink-0 mt-2" />
-        <span className="font-sans text-sm text-black/50 font-light">{kw}</span>
+        <div className="w-1 h-1 rounded-full bg-white/20 shrink-0 mt-2" />
+        <span className="font-sans text-sm text-white/50 font-light">{kw}</span>
       </div>
     ))}
   </div>
 );
 
-const badgeRow = () => (
-  <div className="flex items-center gap-3 pt-6 mt-8 border-t border-black/[0.06]">
-    <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm bg-black/[0.04] border border-black/[0.06]">
-      <Award className="w-3.5 h-3.5 text-black/50" strokeWidth={1.5} />
-      <span className="font-serif text-[10px] tracking-wide text-black/55 font-medium">Chambers</span>
+const badgeRowDark = () => (
+  <div className="flex items-center gap-3 pt-6 mt-8 border-t border-white/[0.08]">
+    <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm bg-white/[0.06] border border-white/[0.08]">
+      <Award className="w-3.5 h-3.5 text-white/45" strokeWidth={1.5} />
+      <span className="font-serif text-[10px] tracking-wide text-white/50 font-medium">Chambers</span>
     </div>
-    <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm bg-black/[0.04] border border-black/[0.06]">
-      <BookOpen className="w-3.5 h-3.5 text-black/50" strokeWidth={1.5} />
-      <span className="font-serif text-[10px] tracking-wide text-black/55 font-medium">Legal 500</span>
+    <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm bg-white/[0.06] border border-white/[0.08]">
+      <BookOpen className="w-3.5 h-3.5 text-white/45" strokeWidth={1.5} />
+      <span className="font-serif text-[10px] tracking-wide text-white/50 font-medium">Legal 500</span>
     </div>
   </div>
 );
-
 const MissionSection = () => (
   <section id="notre-approche" className="relative overflow-hidden bg-white">
     <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-8 lg:px-10 py-24 md:py-40">
@@ -72,7 +71,7 @@ const MissionSection = () => (
         </motion.div>
       </motion.div>
 
-      {/* Cabinet — Logan Bridge — Candidat */}
+      {/* Cabinet — Logan Bridge — Candidat — Unified dark block */}
       <motion.div
         variants={staggerSlow}
         initial="hidden"
@@ -80,55 +79,54 @@ const MissionSection = () => (
         viewport={{ once: true, margin: '-60px' }}
         className="mb-20 md:mb-28"
       >
-        <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] items-stretch gap-0">
-          {/* Cabinet */}
-          <motion.div variants={fadeScale} className="group relative border border-black/[0.08] rounded-sm p-8 md:p-10 hover:border-black/20 transition-colors duration-500 flex flex-col">
-            <div className="w-10 h-10 rounded-full border border-black/10 flex items-center justify-center mb-6 group-hover:border-black/25 transition-colors duration-500">
-              <Building2 className="w-4.5 h-4.5 text-black/40 group-hover:text-black/70 transition-colors duration-500" strokeWidth={1.5} />
-            </div>
-            <h3 className="font-serif text-xl text-black mb-5 tracking-[-0.01em]">Cabinet</h3>
-            {cardKeywords(['Confidentialité de vos recherches', 'Vision consolidée du marché', 'Recrutements stratégiques'])}
-            {badgeRow()}
-          </motion.div>
+        <div className="bg-[#0F0F0F] rounded-lg p-6 sm:p-8 md:p-10 lg:p-12">
+          <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] items-stretch gap-0">
+            {/* Cabinet */}
+            <motion.div variants={fadeScale} className="group flex flex-col p-6 md:p-8 border border-white/[0.06] rounded-sm hover:border-white/[0.12] transition-colors duration-500">
+              <div className="w-10 h-10 rounded-full border border-white/[0.1] flex items-center justify-center mb-6 group-hover:border-white/20 transition-colors duration-500">
+                <Building2 className="w-4.5 h-4.5 text-white/40 group-hover:text-white/70 transition-colors duration-500" strokeWidth={1.5} />
+              </div>
+              <h3 className="font-serif text-xl text-white mb-5 tracking-[-0.01em]">Cabinet</h3>
+              {cardKeywordsDark(['Confidentialité de vos recherches', 'Vision consolidée du marché', 'Recrutements stratégiques'])}
+              {badgeRowDark()}
+            </motion.div>
 
-          {/* Central bridge */}
-          <motion.div
-            variants={fadeUp}
-            className="flex flex-col items-center justify-center px-6 md:px-12 py-8 md:py-0"
-          >
-            <div className="hidden md:flex items-center gap-0 w-full">
-              <div className="flex-1 h-px bg-gradient-to-r from-black/5 to-black/15" />
-              <div className="relative mx-3">
-                <div className="w-16 h-16 rounded-full bg-black flex items-center justify-center shadow-[0_8px_32px_-8px_rgba(0,0,0,0.4)]">
-                  <Handshake className="w-6 h-6 text-white/85" strokeWidth={1.5} />
+            {/* Central bridge */}
+            <motion.div
+              variants={fadeUp}
+              className="flex flex-col items-center justify-center px-4 md:px-10 py-8 md:py-0"
+            >
+              <div className="hidden md:flex items-center gap-0 w-full">
+                <div className="flex-1 h-px bg-gradient-to-r from-white/[0.03] to-white/[0.12]" />
+                <div className="relative mx-3">
+                  <div className="w-14 h-14 rounded-full bg-white flex items-center justify-center shadow-[0_8px_32px_-4px_rgba(255,255,255,0.15)]">
+                    <Handshake className="w-5.5 h-5.5 text-[#0F0F0F]" strokeWidth={1.5} />
+                  </div>
                 </div>
-                <div className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-white border border-black/10 flex items-center justify-center">
-                  <Zap className="w-2.5 h-2.5 text-black/40" strokeWidth={2} />
+                <div className="flex-1 h-px bg-gradient-to-r from-white/[0.12] to-white/[0.03]" />
+              </div>
+
+              <div className="flex md:hidden">
+                <div className="w-14 h-14 rounded-full bg-white flex items-center justify-center shadow-[0_8px_32px_-4px_rgba(255,255,255,0.15)]">
+                  <Handshake className="w-5.5 h-5.5 text-[#0F0F0F]" strokeWidth={1.5} />
                 </div>
               </div>
-              <div className="flex-1 h-px bg-gradient-to-r from-black/15 to-black/5" />
-            </div>
 
-            <div className="flex md:hidden">
-              <div className="w-16 h-16 rounded-full bg-black flex items-center justify-center shadow-[0_8px_32px_-8px_rgba(0,0,0,0.4)]">
-                <Handshake className="w-6 h-6 text-white/85" strokeWidth={1.5} />
+              <p className="font-sans text-[10px] md:text-[11px] text-center leading-[1.7] text-white/40 mt-5 max-w-[200px] font-medium">
+                Logan identifie, qualifie et orchestre chaque mise en relation.
+              </p>
+            </motion.div>
+
+            {/* Candidat */}
+            <motion.div variants={fadeScale} className="group flex flex-col p-6 md:p-8 border border-white/[0.06] rounded-sm hover:border-white/[0.12] transition-colors duration-500">
+              <div className="w-10 h-10 rounded-full border border-white/[0.1] flex items-center justify-center mb-6 group-hover:border-white/20 transition-colors duration-500">
+                <User className="w-4.5 h-4.5 text-white/40 group-hover:text-white/70 transition-colors duration-500" strokeWidth={1.5} />
               </div>
-            </div>
-
-            <p className="font-sans text-[10px] md:text-[11px] text-center leading-[1.7] text-black/50 mt-5 max-w-[220px] font-medium">
-              Logan identifie, qualifie et orchestre chaque mise en relation — de la première intention à la signature.
-            </p>
-          </motion.div>
-
-          {/* Candidat */}
-          <motion.div variants={fadeScale} className="group relative border border-black/[0.08] rounded-sm p-8 md:p-10 hover:border-black/20 transition-colors duration-500 flex flex-col">
-            <div className="w-10 h-10 rounded-full border border-black/10 flex items-center justify-center mb-6 group-hover:border-black/25 transition-colors duration-500">
-              <User className="w-4.5 h-4.5 text-black/40 group-hover:text-black/70 transition-colors duration-500" strokeWidth={1.5} />
-            </div>
-            <h3 className="font-serif text-xl text-black mb-5 tracking-[-0.01em]">Candidat</h3>
-            {cardKeywords(['Identité préservée', 'Attractivité boostée', 'Accès en temps réel aux meilleures opportunités'])}
-            {badgeRow()}
-          </motion.div>
+              <h3 className="font-serif text-xl text-white mb-5 tracking-[-0.01em]">Candidat</h3>
+              {cardKeywordsDark(['Identité préservée', 'Attractivité boostée', 'Accès en temps réel aux meilleures opportunités'])}
+              {badgeRowDark()}
+            </motion.div>
+          </div>
         </div>
       </motion.div>
 
