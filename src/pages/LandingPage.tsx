@@ -103,7 +103,7 @@ const LandingPage = () => (
         <motion.div variants={stagger} initial="hidden" animate="visible" className="max-w-[min(95vw,72rem)]">
           <div className="inline-block">
           <motion.h1 variants={fadeUp} className="text-[2.1rem] sm:text-[3.5rem] md:text-[4.7rem] lg:text-[6rem] font-serif font-[500] text-white leading-[1.1] mb-3 md:mb-5 tracking-[-0.03em] whitespace-nowrap">
-              Connecting Top-Tier Legal Minds.
+              Connecting <em className="italic">Top-Tier</em> Legal <em className="italic">Minds.</em>
             </motion.h1>
           </div>
           <motion.p variants={fadeUp} className="text-[0.95rem] sm:text-[1.252rem] md:text-[1.273rem] text-white font-sans font-[480] leading-[1.65] max-w-[72rem]">
