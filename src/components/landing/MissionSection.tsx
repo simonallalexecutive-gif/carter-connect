@@ -25,7 +25,7 @@ const MissionSection = () => (
   <section id="notre-approche" className="relative overflow-hidden bg-white">
     <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-8 lg:px-10 py-24 md:py-40">
 
-      {/* Header */}
+      {/* Header — quote replaces old badges area */}
       <motion.div
         variants={stagger}
         initial="hidden"
@@ -40,16 +40,11 @@ const MissionSection = () => (
           Logan est <span className="line-through decoration-[0.5px] decoration-black/50 text-black/35">une plateforme de recrutement</span> la nouvelle infrastructure privilégiée et confidentielle du marché des avocats.
         </motion.h2>
 
-        {/* Chambers & Legal 500 badges */}
-        <motion.div variants={fadeUp} className="flex items-center gap-6">
-          <div className="flex items-center gap-2.5 border border-black/10 rounded-sm px-5 py-2.5">
-            <Award className="w-4 h-4 text-black/50" strokeWidth={1.5} />
-            <span className="font-serif text-sm tracking-wide text-black/60">Chambers</span>
-          </div>
-          <div className="flex items-center gap-2.5 border border-black/10 rounded-sm px-5 py-2.5">
-            <BookOpen className="w-4 h-4 text-black/50" strokeWidth={1.5} />
-            <span className="font-serif text-sm tracking-wide text-black/60">Legal 500</span>
-          </div>
+        {/* Ecosystem quote — moved here */}
+        <motion.div variants={fadeUp} className="border-l-2 border-black/10 pl-6 py-1 max-w-2xl">
+          <p className="font-serif text-base sm:text-lg leading-[1.6] text-black/50 italic">
+            « Un écosystème discret, exigeant et structuré où chaque profil est validé et où chaque interaction est pilotée dans la plus stricte confidentialité. »
+          </p>
         </motion.div>
       </motion.div>
 
@@ -68,13 +63,24 @@ const MissionSection = () => (
               <Building2 className="w-4.5 h-4.5 text-black/40 group-hover:text-black/70 transition-colors duration-500" strokeWidth={1.5} />
             </div>
             <h3 className="font-serif text-xl text-black mb-5 tracking-[-0.01em]">Cabinet</h3>
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-3 mb-6">
               {['Confidentialité de vos recherches', 'Vision consolidée du marché des candidats pour tous vos départements', 'Recrutements stratégiques'].map((kw) => (
                 <div key={kw} className="flex items-start gap-2.5">
                   <div className="w-1 h-1 rounded-full bg-black/20 shrink-0 mt-2" />
                   <span className="font-sans text-sm text-black/50 font-light">{kw}</span>
                 </div>
               ))}
+            </div>
+            {/* Discrete badges */}
+            <div className="flex items-center gap-3 pt-4 border-t border-black/[0.06]">
+              <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-sm bg-black/[0.02]">
+                <Award className="w-3 h-3 text-black/30" strokeWidth={1.5} />
+                <span className="font-serif text-[10px] tracking-wide text-black/35">Chambers</span>
+              </div>
+              <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-sm bg-black/[0.02]">
+                <BookOpen className="w-3 h-3 text-black/30" strokeWidth={1.5} />
+                <span className="font-serif text-[10px] tracking-wide text-black/35">Legal 500</span>
+              </div>
             </div>
           </motion.div>
 
@@ -83,10 +89,6 @@ const MissionSection = () => (
             variants={fadeUp}
             className="flex flex-col items-center justify-center px-6 md:px-12 py-8 md:py-0"
           >
-            {/* Horizontal connector line left */}
-            <div className="hidden md:block absolute left-0 right-0" />
-            
-            {/* Connecting lines */}
             <div className="hidden md:flex items-center gap-0 w-full">
               <div className="flex-1 h-px bg-gradient-to-r from-black/5 to-black/15" />
               <div className="relative mx-3">
@@ -100,14 +102,12 @@ const MissionSection = () => (
               <div className="flex-1 h-px bg-gradient-to-r from-black/15 to-black/5" />
             </div>
 
-            {/* Mobile badge */}
             <div className="flex md:hidden">
               <div className="w-16 h-16 rounded-full bg-black flex items-center justify-center shadow-[0_8px_32px_-8px_rgba(0,0,0,0.4)]">
                 <Handshake className="w-6 h-6 text-white/85" strokeWidth={1.5} />
               </div>
             </div>
 
-            {/* Connector text */}
             <p className="font-sans text-[10px] md:text-[11px] text-center leading-[1.7] text-black/50 mt-5 max-w-[220px] font-medium">
               Logan identifie, qualifie et orchestre chaque mise en relation — de la première intention à la signature.
             </p>
@@ -119,13 +119,24 @@ const MissionSection = () => (
               <User className="w-4.5 h-4.5 text-black/40 group-hover:text-black/70 transition-colors duration-500" strokeWidth={1.5} />
             </div>
             <h3 className="font-serif text-xl text-black mb-5 tracking-[-0.01em]">Candidat</h3>
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-3 mb-6">
               {['Identité préservée', 'Attractivité boostée', 'Accès en temps réel aux meilleures opportunités'].map((kw) => (
                 <div key={kw} className="flex items-start gap-2.5">
                   <div className="w-1 h-1 rounded-full bg-black/20 shrink-0 mt-2" />
                   <span className="font-sans text-sm text-black/50 font-light">{kw}</span>
                 </div>
               ))}
+            </div>
+            {/* Discrete badges */}
+            <div className="flex items-center gap-3 pt-4 border-t border-black/[0.06]">
+              <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-sm bg-black/[0.02]">
+                <Award className="w-3 h-3 text-black/30" strokeWidth={1.5} />
+                <span className="font-serif text-[10px] tracking-wide text-black/35">Chambers</span>
+              </div>
+              <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-sm bg-black/[0.02]">
+                <BookOpen className="w-3 h-3 text-black/30" strokeWidth={1.5} />
+                <span className="font-serif text-[10px] tracking-wide text-black/35">Legal 500</span>
+              </div>
             </div>
           </motion.div>
         </div>
@@ -143,21 +154,6 @@ const MissionSection = () => (
           Logan est le seul <em>hub</em> confidentiel où se rencontrent les meilleurs cabinets et les profils qui ne se montrent nulle part ailleurs.
         </motion.p>
         <motion.div variants={fadeUp} className="w-12 h-px bg-black/15 mx-auto" />
-      </motion.div>
-
-      {/* Ecosystem quote */}
-      <motion.div
-        variants={stagger}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: '-60px' }}
-        className="mb-20 md:mb-28 max-w-3xl mx-auto"
-      >
-        <motion.div variants={fadeUp} className="border-l-2 border-black/10 pl-8 py-2">
-          <p className="font-serif text-lg sm:text-xl md:text-[1.35rem] leading-[1.6] text-black/60 italic">
-            « Un écosystème discret, exigeant et structuré où chaque profil est validé et où chaque interaction est pilotée dans la plus stricte confidentialité. »
-          </p>
-        </motion.div>
       </motion.div>
 
       {/* Bottom pillars */}
