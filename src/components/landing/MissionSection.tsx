@@ -120,7 +120,7 @@ const MissionSection = () => (
                 <User className="w-5 h-5 text-white/50 group-hover:text-white/80 transition-colors duration-500" strokeWidth={1.5} />
                 <h3 className="font-serif text-xl text-white tracking-[-0.01em]">Candidat</h3>
               </div>
-              {cardKeywordsDark(['Identité préservée', 'Attractivité boostée', 'Accès en temps réel aux meilleures opportunités'])}
+              {cardKeywordsDark(['Accès en temps réel aux meilleures opportunités', 'Attractivité boostée', 'Identité préservée'])}
               {badgeRowDark()}
             </motion.div>
           </div>
