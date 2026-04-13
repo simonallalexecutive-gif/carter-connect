@@ -82,11 +82,11 @@ const MissionSection = () => (
         <div className="bg-[#0F0F0F] rounded-lg p-6 sm:p-8 md:p-10 lg:p-12">
           <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] items-stretch gap-0">
             {/* Cabinet */}
-            <motion.div variants={fadeScale} className="group flex flex-col p-6 md:p-8 border border-white/[0.06] rounded-sm hover:border-white/[0.12] transition-colors duration-500">
-              <div className="w-10 h-10 rounded-full border border-white/[0.1] flex items-center justify-center mb-6 group-hover:border-white/20 transition-colors duration-500">
-                <Building2 className="w-4.5 h-4.5 text-white/40 group-hover:text-white/70 transition-colors duration-500" strokeWidth={1.5} />
+            <motion.div variants={fadeScale} className="group flex flex-col items-center text-center p-6 md:p-8">
+              <div className="flex items-center gap-3 mb-6">
+                <Building2 className="w-5 h-5 text-white/50 group-hover:text-white/80 transition-colors duration-500" strokeWidth={1.5} />
+                <h3 className="font-serif text-xl text-white tracking-[-0.01em]">Cabinet</h3>
               </div>
-              <h3 className="font-serif text-xl text-white mb-5 tracking-[-0.01em]">Cabinet</h3>
               {cardKeywordsDark(['Confidentialité de vos recherches', 'Vision consolidée du marché', 'Recrutements stratégiques'])}
               {badgeRowDark()}
             </motion.div>
@@ -118,11 +118,11 @@ const MissionSection = () => (
             </motion.div>
 
             {/* Candidat */}
-            <motion.div variants={fadeScale} className="group flex flex-col p-6 md:p-8 border border-white/[0.06] rounded-sm hover:border-white/[0.12] transition-colors duration-500">
-              <div className="w-10 h-10 rounded-full border border-white/[0.1] flex items-center justify-center mb-6 group-hover:border-white/20 transition-colors duration-500">
-                <User className="w-4.5 h-4.5 text-white/40 group-hover:text-white/70 transition-colors duration-500" strokeWidth={1.5} />
+            <motion.div variants={fadeScale} className="group flex flex-col items-center text-center p-6 md:p-8">
+              <div className="flex items-center gap-3 mb-6">
+                <User className="w-5 h-5 text-white/50 group-hover:text-white/80 transition-colors duration-500" strokeWidth={1.5} />
+                <h3 className="font-serif text-xl text-white tracking-[-0.01em]">Candidat</h3>
               </div>
-              <h3 className="font-serif text-xl text-white mb-5 tracking-[-0.01em]">Candidat</h3>
               {cardKeywordsDark(['Identité préservée', 'Attractivité boostée', 'Accès en temps réel aux meilleures opportunités'])}
               {badgeRowDark()}
             </motion.div>
