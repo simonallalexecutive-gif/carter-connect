@@ -172,9 +172,10 @@ const LandingPage = () => (
     <FAQSection />
 
     {/* CTA */}
-    <section className="py-24 md:py-32 bg-black relative overflow-hidden">
+    <section className="py-32 md:py-44 bg-black relative overflow-hidden">
       <div className="absolute inset-0">
         <motion.video
+          ref={(el) => { if (el) el.playbackRate = 0.65; }}
           src={heroVideoAsset.url}
           autoPlay
           muted
@@ -188,28 +189,64 @@ const LandingPage = () => (
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black" />
       </div>
-      <div className="carter-container text-center relative z-10">
+      <div className="max-w-5xl mx-auto px-4 sm:px-8 lg:px-10 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="max-w-xl mx-auto"
+          className="text-left"
         >
-          <span className="font-serif text-3xl md:text-4xl text-white tracking-[0.04em] block mb-10">
+          {/* WOW words */}
+          <div className="mb-12 md:mb-16 space-y-1">
+            {['Confidentiel.', 'Structuré.', 'Décisif.'].map((word, i) => (
+              <motion.div
+                key={word}
+                initial={{ opacity: 0, x: -40 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.15 * i, ease: [0.16, 1, 0.3, 1] }}
+              >
+                <span className="block font-serif text-[2.5rem] sm:text-[3.5rem] md:text-[5rem] lg:text-[6.5rem] font-medium text-white/[0.08] uppercase tracking-[-0.03em] leading-[1.05]">
+                  {word}
+                </span>
+              </motion.div>
+            ))}
+          </div>
+
+          <motion.span
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, delay: 0.6 }}
+            className="font-serif text-2xl md:text-3xl text-white tracking-[0.04em] block mb-8"
+          >
             <em className="italic">Legal recruitment, redefined.</em>
-          </span>
-          <p className="text-white/50 font-sans font-light leading-relaxed mb-10">
+          </motion.span>
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, delay: 0.8 }}
+            className="text-white/50 font-sans font-light leading-relaxed mb-10 max-w-md"
+          >
             Inscription confidentielle en moins de 10 minutes.<br />
             Profil validé sous 48h.
-          </p>
-          <Link to="/demander-acces">
-            <Button
-              size="lg"
-              className="bg-white text-black hover:bg-white/90 font-sans text-sm font-medium px-8 py-5 rounded-sm tracking-wide"
-            >
-              Request access
-            </Button>
-          </Link>
+          </motion.p>
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, delay: 1 }}
+          >
+            <Link to="/demander-acces">
+              <Button
+                size="lg"
+                className="bg-white text-black hover:bg-white/90 font-sans text-sm font-medium px-8 py-5 rounded-sm tracking-wide"
+              >
+                Request access
+              </Button>
+            </Link>
+          </motion.div>
         </motion.div>
       </div>
     </section>
