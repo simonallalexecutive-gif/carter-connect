@@ -190,40 +190,6 @@ const LandingPage = () => (
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black" />
       </div>
 
-      {/* Dispersed WOW words — positioned absolutely across the viewport */}
-      <div className="absolute inset-0 z-[1] pointer-events-none overflow-hidden">
-        <motion.span
-          initial={{ opacity: 0, x: -80 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-          className="absolute top-[8%] left-[4%] font-serif text-[2.5rem] sm:text-[4rem] md:text-[5.5rem] lg:text-[7rem] font-[500] text-white/[0.06] tracking-[-0.03em] leading-none"
-          style={{ fontVariant: 'small-caps' }}
-        >
-          Confidentiel.
-        </motion.span>
-        <motion.span
-          initial={{ opacity: 0, x: 80 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1.2, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          className="absolute top-[38%] right-[6%] font-serif text-[2.2rem] sm:text-[3.5rem] md:text-[4.8rem] lg:text-[6.2rem] font-[500] text-white/[0.05] tracking-[-0.03em] leading-none"
-          style={{ fontVariant: 'small-caps' }}
-        >
-          Structuré.
-        </motion.span>
-        <motion.span
-          initial={{ opacity: 0, y: 60 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1.2, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          className="absolute bottom-[10%] left-[12%] font-serif text-[2rem] sm:text-[3rem] md:text-[4.2rem] lg:text-[5.5rem] font-[500] text-white/[0.07] tracking-[-0.03em] leading-none"
-          style={{ fontVariant: 'small-caps' }}
-        >
-          Décisif.
-        </motion.span>
-      </div>
-
       <div className="max-w-5xl mx-auto px-4 sm:px-8 lg:px-10 relative z-10 py-32 md:py-44">
         <div className="flex flex-col items-center text-center">
           <motion.span
@@ -269,6 +235,28 @@ const LandingPage = () => (
                 Request access
               </Button>
             </Link>
+          </motion.div>
+
+          {/* Three words — centered, lowercase, stacked */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.2, delay: 1.6 }}
+            className="mt-14 flex flex-col items-center gap-1"
+          >
+            {['confidentiel.', 'structuré.', 'décisif.'].map((word, i) => (
+              <motion.span
+                key={word}
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 1.8 + i * 0.15, ease: [0.16, 1, 0.3, 1] }}
+                className="font-serif text-lg sm:text-xl md:text-2xl text-white/25 tracking-[0.08em] font-light"
+              >
+                {word}
+              </motion.span>
+            ))}
           </motion.div>
         </div>
       </div>

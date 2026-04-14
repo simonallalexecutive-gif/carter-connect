@@ -60,12 +60,6 @@ const MissionSection = () => (
           Logan est <span className="line-through decoration-[0.5px] decoration-black/50 text-black/35">une plateforme de recrutement</span> la nouvelle infrastructure privilégiée et confidentielle du marché des avocats.
         </motion.h2>
 
-        {/* Ecosystem quote — no border, no italic */}
-        <motion.div variants={fadeUp} className="max-w-2xl">
-          <p className="font-sans text-base sm:text-lg leading-[1.6] text-black/45">
-            Un écosystème exigeant et discret, enrichi chaque jour par nos consultants spécialisés et piloté dans la plus stricte confidentialité.
-          </p>
-        </motion.div>
       </motion.div>
 
       {/* Cabinet — Logan Bridge — Candidat — Unified dark block */}
@@ -74,7 +68,7 @@ const MissionSection = () => (
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: '-60px' }}
-        className="mb-20 md:mb-28"
+        className="mb-20 md:mb-28 -mt-6 md:-mt-10"
       >
         <div className="bg-[#0F0F0F] rounded-lg p-6 sm:p-8 md:p-10 lg:p-12">
           <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] items-stretch gap-0">
