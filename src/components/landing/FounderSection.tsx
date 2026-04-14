@@ -69,7 +69,7 @@ const FounderSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-          className="self-start max-w-md text-left mb-auto mt-0"
+          className="self-start max-w-md text-left mb-auto mt-[-3%]"
         >
           <p className="font-sans text-[0.9rem] sm:text-[0.96rem] md:text-[1.01rem] leading-[1.6] text-white/35 font-light tracking-wide">
             Un écosystème exigeant et discret, enrichi chaque jour par nos consultants spécialisés et piloté dans la plus stricte confidentialité.
