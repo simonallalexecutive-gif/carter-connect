@@ -66,35 +66,27 @@ const FounderSection = () => {
       />
 
       <div className="max-w-5xl w-full mx-auto px-6 sm:px-10 lg:px-14 py-16 md:py-24 relative z-10 flex flex-col min-h-[80svh]">
-        {/* Top-right ecosystem tagline */}
+        {/* Top-left ecosystem tagline — no italic, +50% font size */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-          className="self-end max-w-sm text-right mb-auto"
+          className="self-start max-w-md text-left mb-auto"
         >
-          <p className="font-sans text-[0.8rem] sm:text-[0.85rem] md:text-[0.9rem] leading-[1.7] text-white/35 font-light italic tracking-wide">
+          <p className="font-sans text-[1.2rem] sm:text-[1.28rem] md:text-[1.35rem] leading-[1.6] text-white/35 font-light tracking-wide">
             Un écosystème exigeant et discret, enrichi chaque jour par nos consultants spécialisés et piloté dans la plus stricte confidentialité.
           </p>
         </motion.div>
 
-        <motion.div style={{ opacity, y }} className="text-right max-w-2xl ml-auto mt-auto">
-          {/* Decorative line */}
-          <motion.div
-            initial={{ scaleX: 0 }}
-            whileInView={{ scaleX: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-            className="w-16 h-px bg-white/20 ml-auto mb-10 origin-right"
-          />
-
+        {/* Quote — reduced 40%, pushed down 30% */}
+        <motion.div style={{ opacity, y }} className="text-right max-w-2xl ml-auto mt-auto mb-[5%]">
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="font-serif text-base sm:text-lg md:text-[1.86rem] lg:text-[2.27rem] leading-[1.25] text-white/90 italic tracking-[-0.02em] drop-shadow-lg"
+            className="font-serif text-sm sm:text-base md:text-[1.12rem] lg:text-[1.36rem] leading-[1.3] text-white/90 italic tracking-[-0.02em] drop-shadow-lg"
           >
             «&nbsp;Logan se positionne comme la plateforme la plus exigeante et structurée du marché, offrant un accompagnement sur mesure, résolument confidentiel et parfaitement ciblé.&nbsp;»
           </motion.p>
@@ -104,21 +96,12 @@ const FounderSection = () => {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="mt-8"
+            className="mt-5"
           >
-            <span className="text-[10px] font-sans font-medium tracking-[0.25em] uppercase text-white/30">
+            <span className="text-[9px] font-sans font-medium tracking-[0.25em] uppercase text-white/30">
               — L'équipe Logan
             </span>
           </motion.div>
-
-          {/* Decorative line */}
-          <motion.div
-            initial={{ scaleX: 0 }}
-            whileInView={{ scaleX: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1.2, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="w-16 h-px bg-white/20 ml-auto mt-10 origin-right"
-          />
         </motion.div>
       </div>
     </section>
