@@ -8,7 +8,7 @@ const FounderSection = () => {
   const opacity = useTransform(scrollYProgress, [0, 0.3, 0.5, 0.7, 1], [0, 1, 1, 1, 0.3]);
   const y = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [60, 0, 0, -30]);
 
-  const taglineWords = 'Un écosystème exigeant et discret, enrichi chaque jour par nos consultants spécialisés et piloté dans la plus stricte confidentialité.'.split(' ');
+  const taglineWords = 'Un écosystème enrichi chaque jour par nos consultants spécialisés et piloté dans la plus stricte confidentialité.'.split(' ');
 
   return (
     <section
