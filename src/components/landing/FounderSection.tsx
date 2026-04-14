@@ -77,7 +77,7 @@ const FounderSection = () => {
         </motion.div>
 
         {/* Quote — reduced 10%, shifted 20% right */}
-        <motion.div style={{ opacity, y }} className="text-right max-w-2xl ml-auto mr-[-5%] mt-auto mb-[-8%]">
+        <motion.div style={{ opacity, y }} className="text-right max-w-2xl ml-auto mr-[-5%] mt-auto mb-[4%]">
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
