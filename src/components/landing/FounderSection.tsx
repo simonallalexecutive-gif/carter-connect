@@ -8,6 +8,8 @@ const FounderSection = () => {
   const opacity = useTransform(scrollYProgress, [0, 0.3, 0.5, 0.7, 1], [0, 1, 1, 1, 0.3]);
   const y = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [60, 0, 0, -30]);
 
+  const taglineWords = 'Un écosystème exigeant et discret, enrichi chaque jour par nos consultants spécialisés et piloté dans la plus stricte confidentialité.'.split(' ');
+
   return (
     <section
       ref={ref}
@@ -63,21 +65,57 @@ const FounderSection = () => {
       />
 
       <div className="max-w-6xl w-full mx-auto px-4 sm:px-8 lg:px-10 py-12 md:py-20 relative z-10 flex flex-col min-h-[80svh]">
-        {/* Top-left ecosystem tagline — pushed to very top-left */}
+        {/* Top-left ecosystem tagline — WOW word-by-word reveal with glow */}
         <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial="hidden"
+          whileInView="visible"
           viewport={{ once: true }}
-          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-          className="self-start max-w-md text-left mb-auto mt-[-3%]"
+          className="self-start max-w-lg text-left mt-[-6%] mb-auto relative"
         >
-          <p className="font-sans text-[0.9rem] sm:text-[0.96rem] md:text-[1.01rem] leading-[1.6] text-white/35 font-light tracking-wide">
-            Un écosystème exigeant et discret, enrichi chaque jour par nos consultants spécialisés et piloté dans la plus stricte confidentialité.
+          {/* Animated glow behind text */}
+          <motion.div
+            className="absolute -inset-8 pointer-events-none rounded-full"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 2, delay: 0.5 }}
+            style={{
+              background: 'radial-gradient(ellipse 100% 80% at 30% 50%, rgba(255,255,255,0.06) 0%, transparent 70%)',
+              filter: 'blur(20px)',
+            }}
+          />
+
+          {/* Animated thin line that draws in */}
+          <motion.div
+            className="w-8 h-px bg-white/25 mb-4"
+            initial={{ scaleX: 0, originX: 0 }}
+            whileInView={{ scaleX: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.2, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+          />
+
+          <p className="font-sans text-[0.9rem] sm:text-[0.96rem] md:text-[1.01rem] leading-[1.6] font-light tracking-wide relative">
+            {taglineWords.map((word, i) => (
+              <motion.span
+                key={i}
+                className="inline-block mr-[0.3em] text-white/40"
+                initial={{ opacity: 0, y: 14, filter: 'blur(4px)' }}
+                whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                viewport={{ once: true }}
+                transition={{
+                  duration: 0.6,
+                  delay: 0.4 + i * 0.04,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
+              >
+                {word}
+              </motion.span>
+            ))}
           </p>
         </motion.div>
 
-        {/* Quote — reduced 10%, shifted 20% right */}
-        <motion.div style={{ opacity, y }} className="text-right max-w-2xl ml-auto mr-[-5%] mt-auto mb-[4%]">
+        {/* Quote — shifted down 5% */}
+        <motion.div style={{ opacity, y }} className="text-right max-w-2xl ml-auto mr-[-5%] mt-auto mb-[-1%]">
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
