@@ -16,7 +16,6 @@ const FounderSection = () => {
       className="relative flex items-end justify-end overflow-hidden border-t border-white/[0.06]"
       style={{ minHeight: '100svh' }}
     >
-      {/* Ken Burns animated background */}
       <div className="absolute inset-0 overflow-hidden">
         <motion.img
           src={mountainBg}
@@ -65,14 +64,13 @@ const FounderSection = () => {
       />
 
       <div className="max-w-6xl w-full mx-auto px-4 sm:px-8 lg:px-10 py-12 md:py-20 relative z-10 flex flex-col min-h-[80svh]">
-        {/* Top-left ecosystem tagline — WOW word-by-word reveal with glow */}
+        {/* Top-left ecosystem tagline — bright text */}
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="self-start max-w-lg text-left mt-[-6%] mb-auto relative"
+          className="self-start max-w-lg text-left mt-[-10%] mb-auto relative"
         >
-          {/* Animated glow behind text */}
           <motion.div
             className="absolute -inset-8 pointer-events-none rounded-full"
             initial={{ opacity: 0 }}
@@ -85,20 +83,11 @@ const FounderSection = () => {
             }}
           />
 
-          {/* Animated thin line that draws in */}
-          <motion.div
-            className="w-8 h-px bg-white/25 mb-4"
-            initial={{ scaleX: 0, originX: 0 }}
-            whileInView={{ scaleX: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1.2, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-          />
-
           <p className="font-sans text-[0.9rem] sm:text-[0.96rem] md:text-[1.01rem] leading-[1.6] font-light tracking-wide relative">
             {taglineWords.map((word, i) => (
               <motion.span
                 key={i}
-                className="inline-block mr-[0.3em] text-white/40"
+                className="inline-block mr-[0.3em] text-white/90"
                 initial={{ opacity: 0, y: 14, filter: 'blur(4px)' }}
                 whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
                 viewport={{ once: true }}
@@ -114,14 +103,14 @@ const FounderSection = () => {
           </p>
         </motion.div>
 
-        {/* Quote — shifted down 5% */}
+        {/* Quote — subdued text */}
         <motion.div style={{ opacity, y }} className="text-right max-w-2xl ml-auto mr-[-5%] mt-auto mb-[-1%]">
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="font-serif text-[0.9rem] sm:text-base md:text-[1.1rem] lg:text-[1.35rem] leading-[1.3] text-white/90 italic tracking-[-0.02em] drop-shadow-lg"
+            className="font-serif text-[0.9rem] sm:text-base md:text-[1.1rem] lg:text-[1.35rem] leading-[1.3] text-white/35 italic tracking-[-0.02em] drop-shadow-lg"
           >
             «&nbsp;Logan se positionne comme la plateforme la plus exigeante et structurée du marché, offrant un accompagnement sur mesure, résolument confidentiel et parfaitement ciblé.&nbsp;»
           </motion.p>
