@@ -60,7 +60,7 @@ const MissionSection = () => (
           Logan est <span className="line-through decoration-[0.5px] decoration-black/50 text-black/35">une plateforme de recrutement</span> la nouvelle infrastructure privilégiée et confidentielle du marché des avocats.
         </motion.h2>
         <motion.p variants={fadeUp} className="font-sans text-[0.95rem] sm:text-[1.05rem] leading-[1.7] text-black/40 font-light max-w-3xl">
-          Nous structurons et encadrons un écosystème composé de profils rigoureusement qualifiés et de cabinets reconnus pour leur positionnement.
+          Nos consultants structurent, encadrent et accompagnent un écosystème composé de profils rares, rigoureusement qualifiés, et de cabinets reconnus pour leur positionnement.
         </motion.p>
 
       </motion.div>
