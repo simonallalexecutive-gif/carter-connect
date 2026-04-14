@@ -59,8 +59,8 @@ const MissionSection = () => (
         <motion.h2 variants={fadeUp} className="font-serif text-3xl sm:text-4xl md:text-[2.8rem] leading-[1.15] text-black mb-5 max-w-4xl">
           Logan est <span className="line-through decoration-[0.5px] decoration-black/50 text-black/35">une plateforme de recrutement</span> la nouvelle infrastructure privilégiée et confidentielle du marché des avocats.
         </motion.h2>
-        <motion.p variants={fadeUp} className="font-sans text-[0.95rem] sm:text-[1.05rem] leading-[1.7] text-black/40 font-light max-w-3xl">
-          Nos consultants structurent, encadrent et accompagnent un écosystème composé de profils rares, rigoureusement qualifiés, et de cabinets reconnus pour leur positionnement.
+        <motion.p variants={fadeUp} className="font-sans text-[0.95rem] sm:text-[1.252rem] md:text-[1.273rem] font-[480] leading-[1.65] text-black/40 max-w-3xl">
+          Nos consultants structurent et accompagnent un écosystème composé de profils rigoureusement qualifiés et de cabinets reconnus pour leur positionnement.
         </motion.p>
 
       </motion.div>
