@@ -110,9 +110,11 @@ const FounderSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="font-serif text-[0.68rem] sm:text-[0.75rem] md:text-[0.83rem] lg:text-[1.01rem] leading-[1.3] text-white/35 italic tracking-[-0.02em] drop-shadow-lg"
+            className="font-serif text-[0.82rem] sm:text-[0.9rem] md:text-[1rem] lg:text-[1.21rem] leading-[1.4] text-white/35 italic tracking-[-0.02em] drop-shadow-lg"
           >
-            «&nbsp;Logan se positionne comme la plateforme la plus exigeante et structurée du marché, offrant un accompagnement sur mesure, résolument confidentiel et parfaitement ciblé.&nbsp;»
+            «&nbsp;Logan se positionne comme la plateforme la plus exigeante et structurée du marché.
+            <br />Elle offre un accompagnement sur mesure, résolument confidentiel.
+            <br />Un positionnement parfaitement ciblé, au service des meilleurs.&nbsp;»
           </motion.p>
 
           <motion.div
