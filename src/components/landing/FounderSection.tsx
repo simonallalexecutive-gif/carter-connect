@@ -35,10 +35,8 @@ const FounderSection = () => {
         />
       </div>
 
-      {/* Darker overlay — 15% more */}
       <div className="absolute inset-0 bg-black/65" />
 
-      {/* Subtle animated radial glow */}
       <motion.div
         className="absolute inset-0 pointer-events-none"
         animate={{
@@ -51,7 +49,6 @@ const FounderSection = () => {
         transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
       />
 
-      {/* Cinematic light leak */}
       <motion.div
         className="absolute inset-0 pointer-events-none"
         animate={{
@@ -65,28 +62,28 @@ const FounderSection = () => {
         transition={{ duration: 18, ease: 'easeInOut', repeat: Infinity, repeatType: 'mirror' }}
       />
 
-      <div className="max-w-5xl w-full mx-auto px-6 sm:px-10 lg:px-14 py-16 md:py-24 relative z-10 flex flex-col min-h-[80svh]">
-        {/* Top-left ecosystem tagline — no italic, +50% font size */}
+      <div className="max-w-6xl w-full mx-auto px-4 sm:px-8 lg:px-10 py-12 md:py-20 relative z-10 flex flex-col min-h-[80svh]">
+        {/* Top-left ecosystem tagline — pushed to very top-left */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-          className="self-start max-w-md text-left mb-auto mt-[3%]"
+          className="self-start max-w-md text-left mb-auto mt-0"
         >
           <p className="font-sans text-[0.9rem] sm:text-[0.96rem] md:text-[1.01rem] leading-[1.6] text-white/35 font-light tracking-wide">
             Un écosystème exigeant et discret, enrichi chaque jour par nos consultants spécialisés et piloté dans la plus stricte confidentialité.
           </p>
         </motion.div>
 
-        {/* Quote — reduced 40%, pushed down 30% */}
-        <motion.div style={{ opacity, y }} className="text-right max-w-2xl ml-auto mt-auto mb-[-8%]">
+        {/* Quote — reduced 10%, shifted 20% right */}
+        <motion.div style={{ opacity, y }} className="text-right max-w-2xl ml-auto mr-[-5%] mt-auto mb-[-8%]">
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="font-serif text-base sm:text-lg md:text-[1.23rem] lg:text-[1.5rem] leading-[1.3] text-white/90 italic tracking-[-0.02em] drop-shadow-lg"
+            className="font-serif text-[0.9rem] sm:text-base md:text-[1.1rem] lg:text-[1.35rem] leading-[1.3] text-white/90 italic tracking-[-0.02em] drop-shadow-lg"
           >
             «&nbsp;Logan se positionne comme la plateforme la plus exigeante et structurée du marché, offrant un accompagnement sur mesure, résolument confidentiel et parfaitement ciblé.&nbsp;»
           </motion.p>
