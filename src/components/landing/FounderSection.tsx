@@ -69,7 +69,7 @@ const FounderSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-          className="self-start max-w-md text-left mb-auto mt-0"
+          className="self-start max-w-md text-left mb-auto mt-[-3%]"
         >
           <p className="font-sans text-[0.9rem] sm:text-[0.96rem] md:text-[1.01rem] leading-[1.6] text-white/35 font-light tracking-wide">
             Un écosystème exigeant et discret, enrichi chaque jour par nos consultants spécialisés et piloté dans la plus stricte confidentialité.
@@ -77,7 +77,7 @@ const FounderSection = () => {
         </motion.div>
 
         {/* Quote — reduced 10%, shifted 20% right */}
-        <motion.div style={{ opacity, y }} className="text-right max-w-2xl ml-auto mr-[-5%] mt-auto mb-[-8%]">
+        <motion.div style={{ opacity, y }} className="text-right max-w-2xl ml-auto mr-[-5%] mt-auto mb-[4%]">
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
