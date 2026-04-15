@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { Shield, Eye, EyeOff, Handshake, ArrowRight, Lock, UserCheck, MessageSquare } from 'lucide-react';
+import { Shield, EyeOff, MessageCircle, UserCheck, Handshake, ArrowRight, Lock, Clock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 interface ConfidentialityIntroProps {
@@ -9,28 +9,27 @@ interface ConfidentialityIntroProps {
 const steps = [
   {
     icon: EyeOff,
-    title: 'Profil anonyme',
-    description: 'Aucun cabinet n\'a accès à votre identité (nom, prénom) ni au nom de votre cabinet actuel.',
+    label: 'Profil anonyme',
+    description:
+      'Nos cabinets partenaires n\'auront pas accès à votre identité ni à celle de votre cabinet actuel. Seules votre séniorité et votre expertise leur sont rendues accessibles.',
   },
   {
-    icon: Eye,
-    title: 'Visibilité limitée',
-    description: 'Seules votre séniorité et votre expertise sont visibles.',
-  },
-  {
-    icon: MessageSquare,
-    title: 'Logan vous contacte',
-    description: 'Si un cabinet manifeste un intérêt pour votre profil, Logan se rapproche de vous, spontanément (en dehors de toute recherche "officielle" du cabinet) ou à votre demande (en présence d\'un mandat), pour vous présenter l\'opportunité plus en détails.',
+    icon: MessageCircle,
+    label: 'Logan, seul intermédiaire',
+    description:
+      'En cas d\'intérêt manifesté par un cabinet pour votre profil, Logan est à vos côtés pour vous en parler, si vous en faites la demande, et vous présenter l\'opportunité en amont de tout éventuel rapprochement.',
   },
   {
     icon: UserCheck,
-    title: 'Vous décidez',
-    description: 'Si l\'opportunité vous intéresse, vous autorisez Logan à faire la mise en relation : ce n\'est qu\'à ce moment précis que votre identité complète est transmise au cabinet.',
+    label: 'Vous êtes seul décisionnaire',
+    description:
+      'Si l\'opportunité vous intéresse, vous autorisez Logan à faire la mise en relation. Ce n\'est qu\'à ce moment précis que le cabinet pourra prendre connaissance de votre profil dans sa globalité.',
   },
   {
     icon: Handshake,
-    title: 'Accompagnement intégral',
-    description: 'Le processus de recrutement est intégralement pris en main par Logan.',
+    label: 'Accompagnement personnalisé',
+    description:
+      'Le processus de recrutement est intégralement pris en main par Logan, du premier entretien à la signature.',
   },
 ];
 
@@ -51,7 +50,7 @@ const ConfidentialityIntro = ({ onContinue }: ConfidentialityIntroProps) => {
           transition={{ delay: 0.2, duration: 0.5 }}
           className="flex justify-center mb-10"
         >
-           <div className="w-14 h-14 rounded-full border border-white/10 flex items-center justify-center bg-white/[0.05]">
+          <div className="w-14 h-14 rounded-full border border-white/10 flex items-center justify-center bg-white/[0.05]">
             <Shield className="w-6 h-6 text-white/40" />
           </div>
         </motion.div>
@@ -61,21 +60,39 @@ const ConfidentialityIntro = ({ onContinue }: ConfidentialityIntroProps) => {
           <em className="text-white/50 font-normal">strictement confidentielles</em>
         </h1>
 
-        <p className="text-xs text-white/40 font-sans font-light text-center mb-14 max-w-md mx-auto leading-relaxed">
+        <p className="text-xs text-white/40 font-sans font-light text-center mb-5 max-w-md mx-auto leading-relaxed">
           Voici comment Logan garantit la confidentialité de votre profil à chaque étape.
         </p>
+
+        {/* Time badges */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.25, duration: 0.5 }}
+          className="flex items-center justify-center gap-6 mb-14"
+        >
+          <div className="flex items-center gap-2 text-white/50">
+            <Clock className="w-3.5 h-3.5" />
+            <span className="text-[11px] font-sans font-light tracking-wide">Inscription en <span className="text-white font-medium">5 min</span></span>
+          </div>
+          <div className="w-px h-3 bg-white/15" />
+          <div className="flex items-center gap-2 text-white/50">
+            <Shield className="w-3.5 h-3.5" />
+            <span className="text-[11px] font-sans font-light tracking-wide">Validation sous <span className="text-white font-medium">48h</span></span>
+          </div>
+        </motion.div>
 
         {/* Steps */}
         <div className="space-y-0">
           {steps.map((step, i) => (
             <motion.div
-              key={step.title}
+              key={step.label}
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.3 + i * 0.1, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ delay: 0.3 + i * 0.12, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
               className="flex gap-4 relative"
             >
-              {/* Vertical line */}
+              {/* Vertical line + icon */}
               <div className="flex flex-col items-center flex-shrink-0">
                 <div className="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center bg-white/[0.05]">
                   <step.icon className="w-4 h-4 text-white/50" />
@@ -84,9 +101,9 @@ const ConfidentialityIntro = ({ onContinue }: ConfidentialityIntroProps) => {
                   <div className="w-px flex-1 bg-white/10 my-1" />
                 )}
               </div>
-              <div className="pb-7">
-                <p className="text-sm font-sans font-medium text-white mb-1">{step.title}</p>
-                <p className="text-xs font-sans font-light text-white/45 leading-relaxed">{step.description}</p>
+              <div className="pb-8">
+                <p className="text-[13px] font-sans font-semibold text-white mb-1.5 tracking-wide">{step.label}</p>
+                <p className="text-[12px] font-sans font-light text-white/45 leading-[1.7]">{step.description}</p>
               </div>
             </motion.div>
           ))}
@@ -97,7 +114,7 @@ const ConfidentialityIntro = ({ onContinue }: ConfidentialityIntroProps) => {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.9, duration: 0.5 }}
-          className="mt-12 text-center"
+          className="mt-14 text-center"
         >
           <Button
             onClick={onContinue}
