@@ -17,7 +17,7 @@ const steps = [
     icon: MessageCircle,
     label: 'Logan, seul intermédiaire',
     description:
-      'Recevez une notification lorsqu\'un cabinet manifeste un intérêt pour votre profil : Logan intervient à votre demande pour en discuter et évaluer avec vous la pertinence d\'un rapprochement',
+      'Recevez une notification instantanée lorsqu\'un cabinet manifeste un intérêt pour votre profil : Logan intervient à votre demande pour en discuter et évaluer avec vous la pertinence d\'un rapprochement',
   },
   {
     icon: UserCheck,
