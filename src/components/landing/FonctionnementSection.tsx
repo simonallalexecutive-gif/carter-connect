@@ -212,7 +212,7 @@ const FonctionnementSection = () => {
           className="mt-24 md:mt-32"
         >
           <motion.div variants={fadeUp} className="w-full h-px mb-14 bg-gradient-to-r from-transparent via-white/[0.08] to-transparent" />
-          <div className="grid grid-cols-3 sm:grid-cols-6 gap-8 md:gap-10 max-w-2xl mx-auto">
+          <div className="grid grid-cols-3 sm:grid-cols-6 gap-6 md:gap-8 max-w-3xl mx-auto">
             <Pillar icon={Lock} label="Confidentialité" />
             <Pillar icon={Zap} label="Réactivité" />
             <Pillar icon={Star} label="Exclusivité" />
