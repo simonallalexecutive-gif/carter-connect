@@ -69,7 +69,7 @@ const FounderSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="font-serif text-[1.23rem] sm:text-[1.35rem] md:text-[1.5rem] lg:text-[1.82rem] leading-[1.4] text-white/35 italic tracking-[-0.02em] drop-shadow-lg"
+            className="font-serif text-[1.42rem] sm:text-[1.55rem] md:text-[1.73rem] lg:text-[2.1rem] leading-[1.4] text-white/70 italic tracking-[-0.02em] drop-shadow-lg"
           >
             «&nbsp;Logan se positionne comme la plateforme la plus exigeante
             <br />et structurée du marché, offrant un accompagnement sur mesure,
