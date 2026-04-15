@@ -37,6 +37,11 @@ const candidatFAQ: FAQItem[] = [
       'Logan vous permet de rester visible et attractif - sans effort et sans exposition de votre identité - aux yeux du marché. Vous êtes alerté lorsqu\'un cabinet s\'intéresse à votre profil ou qu\'une nouvelle opportunité correspond à votre projet, sans avoir à multiplier les démarches : tout est désormais centralisé, accessible et encadré dans la plus grande confidentialité.',
   },
   {
+    question: 'Intégrer Logan, c\'est envoyer un signal au marché que je suis en recherche active ?',
+    answer:
+      'Absolument pas. Logan est là pour renforcer votre attractivité tout en vous conférant la discrétion la plus totale. Ainsi, vous restez connecté à votre marché et maître de décider quand l\'activer, tout en bénéficiant, en temps utiles, d\'un accompagnement sur-mesure et d\'une visibilité inégalée.',
+  },
+  {
     question: 'Comment suis-je informé des opportunités ?',
     answer:
       'Depuis votre espace personnel, vous recevez des notifications dès qu\'un cabinet manifeste un intérêt pour votre profil ou qu\'une opportunité correspond à vos critères. Vous pouvez également consulter la dynamique de votre marché : mouvements, tendances, et nouveaux besoins identifiés par Logan. Tout est centralisé dans un tableau de bord clair et confidentiel.',
@@ -50,11 +55,6 @@ const candidatFAQ: FAQItem[] = [
     question: 'Puis-je me désinscrire à tout moment ?',
     answer:
       'Oui. Vous pouvez supprimer votre compte et l\'ensemble de vos données à tout moment depuis votre espace personnel. La suppression est définitive et immédiate : votre profil est retiré du réseau et aucune information n\'est conservée.',
-  },
-  {
-    question: 'Intégrer Logan, c\'est envoyer un signal au marché que je suis en recherche active ?',
-    answer:
-      'Absolument pas. Logan est là pour renforcer votre attractivité tout en vous conférant la discrétion la plus totale. Ainsi, vous restez connecté à votre marché et maître de décider quand l\'activer, tout en bénéficiant, en temps utiles, d\'un accompagnement sur-mesure et d\'une visibilité inégalée.',
   },
 ];
 
@@ -70,24 +70,24 @@ const cabinetFAQ: FAQItem[] = [
       'Le cloisonnement est au cœur de la plateforme. Vos recherches et mandats ne sont jamais visibles par les candidats ni par les autres cabinets. Seul Logan connaît la nature de vos besoins et assure la mise en relation de manière ciblée et discrète, dans le respect absolu de la confidentialité de votre stratégie de recrutement.',
   },
   {
-    question: 'Puis-je publier une recherche ciblée sur la plateforme ?',
-    answer:
-      'Oui. En complément de l\'exploration libre du vivier, vous pouvez publier un mandat de recherche confidentiel en précisant vos critères : domaine d\'expertise, niveau de séniorité, langues, type de cabinet d\'origine. Logan identifie alors les profils les plus pertinents et vous les propose directement.',
-  },
-  {
     question: 'Quels types de profils sont disponibles et comment sont-ils vérifiés ?',
     answer:
       'Logan réunit des avocats d\'affaires à tous les stades de leur carrière — collaborateurs juniors, mid-levels, seniors, counsels et associés — issus des cabinets les plus reconnus du marché parisien et international. Chaque inscription fait l\'objet d\'une validation manuelle par l\'équipe Logan sous 48 heures : nous vérifions la cohérence du parcours, la pertinence des informations et l\'adéquation avec les standards du réseau.',
   },
   {
-    question: 'Quel est le modèle tarifaire de Logan ?',
+    question: 'Puis-je publier une recherche ciblée sur la plateforme ?',
     answer:
-      'Logan repose sur un modèle hybride : un abonnement donnant un accès permanent au vivier de candidats qualifiés, associé à un fee de placement significativement réduit par rapport aux standards du marché. Ce modèle vous permet de recruter de manière proactive, au bon moment, avec une parfaite maîtrise budgétaire.',
+      'Oui. En complément de l\'exploration libre du vivier, vous pouvez publier un mandat de recherche confidentiel en précisant vos critères : domaine d\'expertise, niveau de séniorité, langues, type de cabinet d\'origine. Logan identifie alors les profils les plus pertinents et vous les propose directement.',
   },
   {
     question: 'Quel accompagnement Logan propose-t-il ?',
     answer:
       'Logan ne se limite pas à la mise en relation. Notre équipe vous accompagne de bout en bout : qualification du besoin, présélection des profils, coordination des entretiens, débriefings réguliers et suivi post-intégration. L\'objectif est de garantir non seulement la pertinence du matching, mais aussi la réussite durable de la collaboration.',
+  },
+  {
+    question: 'Quel est le modèle tarifaire de Logan ?',
+    answer:
+      'Logan repose sur un modèle hybride : un abonnement donnant un accès permanent au vivier de candidats qualifiés, associé à un fee de placement significativement réduit par rapport aux standards du marché. Ce modèle vous permet de recruter de manière proactive, au bon moment, avec une parfaite maîtrise budgétaire.',
   },
 ];
 
@@ -99,34 +99,34 @@ const FAQSection = () => {
   const col2 = items.slice(midpoint);
 
   return (
-    <section className="py-24 md:py-32" style={{ background: 'hsl(0 0% 8%)' }}>
+    <section className="py-24 md:py-32 bg-white">
       <div className="max-w-5xl mx-auto px-4 sm:px-8 lg:px-10">
 
-        {/* Header */}
+        {/* Header — centered */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-12"
+          className="mb-12 text-center"
         >
-          <p className="text-[11px] tracking-[0.25em] uppercase text-white/30 font-sans font-medium mb-6">
+          <p className="text-[11px] tracking-[0.25em] uppercase text-black/30 font-sans font-medium mb-6">
             Questions fréquentes
           </p>
-          <h2 className="text-3xl sm:text-4xl md:text-[2.8rem] font-serif font-normal text-white tracking-[-0.02em] mb-5">
+          <h2 className="text-3xl sm:text-4xl md:text-[2.8rem] font-serif font-normal text-black tracking-[-0.02em] mb-5">
             FAQ
           </h2>
         </motion.div>
 
-        {/* Tab toggle — underline style */}
+        {/* Tab toggle — centered underline style */}
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="mb-14"
+          className="mb-14 flex justify-center"
         >
-          <div className="inline-flex gap-0 border-b border-white/10">
+          <div className="inline-flex gap-0 border-b border-black/10">
             {(['candidat', 'cabinet'] as Tab[]).map((t) => (
               <button
                 key={t}
@@ -134,15 +134,15 @@ const FAQSection = () => {
                 className={cn(
                   'relative px-6 py-3 text-sm font-sans font-medium transition-all duration-300 capitalize',
                   tab === t
-                    ? 'text-white'
-                    : 'text-white/35 hover:text-white/60'
+                    ? 'text-black'
+                    : 'text-black/35 hover:text-black/60'
                 )}
               >
                 {t === 'candidat' ? 'Candidats' : 'Cabinets'}
                 {tab === t && (
                   <motion.div
                     layoutId="faq-tab-indicator"
-                    className="absolute bottom-0 left-0 right-0 h-px bg-white"
+                    className="absolute bottom-0 left-0 right-0 h-px bg-black"
                     transition={{ type: 'spring', stiffness: 500, damping: 35 }}
                   />
                 )}
@@ -167,15 +167,15 @@ const FAQSection = () => {
                   <AccordionItem
                     key={i}
                     value={`left-${i}`}
-                    className="border-b border-white/[0.08] first:border-t first:border-white/[0.08] rounded-none px-0 overflow-hidden"
+                    className="border-b border-black/[0.08] first:border-t first:border-black/[0.08] rounded-none px-0 overflow-hidden"
                   >
-                    <AccordionTrigger className="text-left font-sans text-sm md:text-[15px] font-medium text-white/85 hover:text-white hover:no-underline py-6 gap-4 transition-colors">
+                    <AccordionTrigger className="text-left font-sans text-sm md:text-[15px] font-medium text-black/85 hover:text-black hover:no-underline py-6 gap-4 transition-colors">
                       <span className="flex items-baseline gap-3">
-                        <span className="text-white/20 font-sans text-xs tabular-nums">{String(i + 1).padStart(2, '0')}</span>
+                        <span className="text-black/20 font-sans text-xs tabular-nums">{String(i + 1).padStart(2, '0')}</span>
                         {item.question}
                       </span>
                     </AccordionTrigger>
-                    <AccordionContent className="text-white/55 font-sans text-sm leading-relaxed pb-6 text-justify">
+                    <AccordionContent className="text-black/55 font-sans text-sm leading-relaxed pb-6 text-justify">
                       {item.answer}
                     </AccordionContent>
                   </AccordionItem>
@@ -189,15 +189,15 @@ const FAQSection = () => {
                   <AccordionItem
                     key={i}
                     value={`right-${i}`}
-                    className="border-b border-white/[0.08] first:border-t first:border-white/[0.08] rounded-none px-0 overflow-hidden"
+                    className="border-b border-black/[0.08] first:border-t first:border-black/[0.08] rounded-none px-0 overflow-hidden"
                   >
-                    <AccordionTrigger className="text-left font-sans text-sm md:text-[15px] font-medium text-white/85 hover:text-white hover:no-underline py-6 gap-4 transition-colors">
+                    <AccordionTrigger className="text-left font-sans text-sm md:text-[15px] font-medium text-black/85 hover:text-black hover:no-underline py-6 gap-4 transition-colors">
                       <span className="flex items-baseline gap-3">
-                        <span className="text-white/20 font-sans text-xs tabular-nums">{String(midpoint + i + 1).padStart(2, '0')}</span>
+                        <span className="text-black/20 font-sans text-xs tabular-nums">{String(midpoint + i + 1).padStart(2, '0')}</span>
                         {item.question}
                       </span>
                     </AccordionTrigger>
-                    <AccordionContent className="text-white/55 font-sans text-sm leading-relaxed pb-6 text-justify">
+                    <AccordionContent className="text-black/55 font-sans text-sm leading-relaxed pb-6 text-justify">
                       {item.answer}
                     </AccordionContent>
                   </AccordionItem>
