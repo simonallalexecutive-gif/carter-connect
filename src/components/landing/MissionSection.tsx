@@ -1,5 +1,6 @@
 import { motion } from 'motion/react';
 import { Building2, User, Award, Handshake, Shield, Eye, Target } from 'lucide-react';
+import missionGradientBg from '@/assets/mission-gradient-bg.jpeg';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 32 },
