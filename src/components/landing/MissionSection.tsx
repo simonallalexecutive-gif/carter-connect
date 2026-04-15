@@ -44,7 +44,8 @@ const badgeRowDark = () => (
 );
 
 const MissionSection = () => (
-  <section id="notre-approche" className="relative overflow-hidden bg-white">
+  <section id="notre-approche" className="relative overflow-hidden">
+    <img src={missionGradientBg} alt="" className="absolute inset-0 w-full h-full object-cover" />
     <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-8 lg:px-10 py-24 md:py-40">
 
       {/* Header */}
