@@ -99,7 +99,7 @@ const FAQSection = () => {
   const col2 = items.slice(midpoint);
 
   return (
-    <section className="py-24 md:py-36" style={{ background: 'hsl(0 0% 8%)' }}>
+    <section className="pt-24 md:pt-36 pb-0" style={{ background: 'hsl(0 0% 8%)' }}>
       <div className="max-w-5xl mx-auto px-4 sm:px-8 lg:px-10">
 
         {/* Header */}
