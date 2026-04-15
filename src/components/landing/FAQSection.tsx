@@ -19,22 +19,22 @@ const candidatFAQ: FAQItem[] = [
   {
     question: 'Mon profil est-il strictement protégé ?',
     answer:
-      'Oui. Lors de votre inscription, vous choisissez votre statut de visibilité :\n\n• Confidentiel — Fermé : votre profil est enregistré mais non consultable par les cabinets. Logan vous contacte uniquement si une opportunité pertinente se présente.\n\n• Confidentiel — Ouvert : les cabinets peuvent consulter votre profil (séniorité, expertise, projet professionnel) sans jamais accéder à votre identité ni au nom de votre cabinet actuel.\n\nVotre identité — nom, prénom et cabinet d\'origine — n\'est jamais accessible aux cabinets recruteurs. Seul Logan peut, avec votre accord explicite, organiser un rapprochement. Les informations visibles sont volontairement généralisées et les membres d\'un même cabinet ne peuvent jamais apparaître sur leurs espaces respectifs.',
+      'Oui. Votre identité — nom, prénom et cabinet d\'origine — n\'est jamais accessible aux cabinets recruteurs. Seul Logan peut, avec votre accord explicite, organiser un rapprochement. Les informations visibles sont volontairement généralisées.',
   },
   {
-    question: 'Mon CV ou mes documents sont-ils partagés sans mon accord ?',
+    question: 'Mon cabinet actuel peut-il avoir connaissance de ma présence sur Logan ?',
     answer:
-      'Jamais. Votre CV n\'est transmis à un cabinet qu\'après votre autorisation explicite, dans le cadre d\'une mise en relation validée par Logan. Aucun document n\'est diffusé, partagé ou rendu accessible sans votre consentement préalable. De même, les cabinets ne peuvent jamais vous contacter directement — Logan est l\'unique intermédiaire à chaque étape.',
+      'Non, les membres d\'un même cabinet ne peuvent jamais apparaître sur leurs espaces respectifs. De manière générale, aucun élément ne permet à un cabinet de reconnaître votre identité ni celle de votre cabinet actuel.',
   },
   {
-    question: 'En quoi Logan se distingue-t-il d\'un chasseur de têtes classique ?',
+    question: 'Mon CV peut-il être partagé sans mon accord ?',
     answer:
-      'Logan ne remplace pas la chasse de têtes traditionnelle : il la complète. Là où l\'approche classique repose sur des sollicitations ponctuelles, Logan vous offre un espace personnel dédié avec une visibilité continue sur votre marché, un matching intelligent alimenté par l\'IA et validé par l\'intervention humaine, et une transparence totale sur l\'avancement de chaque processus. Vous passez d\'une posture passive à une posture informée et maîtrisée.',
+      'Jamais. Votre CV n\'est transmis à un cabinet qu\'après votre autorisation explicite, dans le cadre d\'une mise en relation validée par Logan. De même, les cabinets ne peuvent jamais vous contacter directement — Logan est l\'unique intermédiaire à chaque étape.',
   },
   {
     question: 'Quel est l\'intérêt de rejoindre Logan ?',
     answer:
-      'Logan vous permet de rester visible aux yeux du marché sans effort et sans risque. Vous êtes alerté lorsqu\'un cabinet s\'intéresse à votre profil, vous suivez en temps réel les dynamiques de votre segment d\'expertise, et vous pouvez saisir une opportunité au moment précis où elle correspond à vos aspirations — sans avoir à multiplier les démarches ni dépendre du calendrier d\'un chasseur de têtes.',
+      'Logan vous permet de rester visible et attractif - sans effort et sans exposition de votre identité - aux yeux du marché. Vous êtes alerté lorsqu\'un cabinet s\'intéresse à votre profil ou qu\'une nouvelle opportunité correspond à votre projet, sans avoir à multiplier les démarches : tout est désormais centralisé, accessible et encadré dans la plus grande confidentialité.',
   },
   {
     question: 'Comment suis-je informé des opportunités ?',
@@ -44,7 +44,7 @@ const candidatFAQ: FAQItem[] = [
   {
     question: 'L\'inscription est-elle gratuite et combien de temps prend-elle ?',
     answer:
-      'Oui, l\'inscription est entièrement gratuite pour les candidats — sans frais d\'adhésion, sans commission et sans engagement. Le parcours d\'inscription prend moins de 10 minutes : vous renseignez votre séniorité, vos domaines d\'expertise, votre projet professionnel et vos préférences de confidentialité. Votre profil est ensuite validé manuellement par l\'équipe Logan sous 48 heures.',
+      'Oui, l\'inscription est entièrement gratuite et sans engagement pour les candidats. Le parcours d\'inscription prend moins de 5 minutes : vous renseignez votre séniorité, votre expertise, et les grandes lignes de votre projet. Votre profil est ensuite validé manuellement par l\'équipe Logan sous 48 heures.',
   },
   {
     question: 'Puis-je me désinscrire à tout moment ?',
@@ -99,7 +99,7 @@ const FAQSection = () => {
   const col2 = items.slice(midpoint);
 
   return (
-    <section className="pt-24 md:pt-36 pb-0" style={{ background: 'hsl(0 0% 8%)' }}>
+    <section className="py-24 md:py-32" style={{ background: 'hsl(0 0% 8%)' }}>
       <div className="max-w-5xl mx-auto px-4 sm:px-8 lg:px-10">
 
         {/* Header */}
