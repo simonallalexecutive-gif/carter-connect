@@ -99,7 +99,7 @@ const FAQSection = () => {
   const col2 = items.slice(midpoint);
 
   return (
-    <section className="py-24 md:py-32 bg-white min-h-[80vh]">
+    <section className="py-32 md:py-44 bg-white min-h-[80vh]">
       <div className="max-w-5xl mx-auto px-4 sm:px-8 lg:px-10">
 
         {/* Header — centered */}
