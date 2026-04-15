@@ -75,7 +75,7 @@ const MissionSection = () => (
         viewport={{ once: true, margin: '-60px' }}
         className="mb-20 md:mb-28 -mt-6 md:-mt-10"
       >
-        <div className="bg-[#0F0F0F] rounded-lg p-6 sm:p-8 md:p-10 lg:p-12">
+        <div className="bg-black/40 backdrop-blur-sm rounded-lg p-6 sm:p-8 md:p-10 lg:p-12">
           <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] items-stretch gap-0">
             {/* Cabinet */}
             <motion.div variants={fadeScale} className="group flex flex-col items-center text-center p-6 md:p-8">
