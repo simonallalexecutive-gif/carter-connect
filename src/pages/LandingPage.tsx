@@ -164,11 +164,11 @@ const LandingPage = () => (
     {/* Citation Logan — full page WOW */}
     <FounderSection />
 
-    {/* Stats ticker */}
-    <StatsTickerSection />
-
     {/* FAQ */}
     <FAQSection />
+
+    {/* Stats ticker */}
+    <StatsTickerSection />
 
     {/* CTA */}
     {/* CTA + Footer wrapper with shared gradient background */}
@@ -222,7 +222,7 @@ const LandingPage = () => (
               <Link to="/demander-acces">
                 <Button
                   size="lg"
-                  className="bg-white text-black hover:bg-white/90 font-sans text-sm font-medium px-8 py-5 rounded-sm tracking-wide shadow-lg"
+                  className="bg-white text-black hover:bg-white/90 font-sans text-sm font-medium px-8 py-5 rounded-sm tracking-wide shadow-lg mt-4"
                 >
                   Request access
                 </Button>
@@ -234,7 +234,7 @@ const LandingPage = () => (
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 1.2, delay: 1.6 }}
-              className="mt-14 flex flex-row items-center justify-center gap-12 sm:gap-16 md:gap-24"
+              className="mt-24 flex flex-row items-center justify-center gap-12 sm:gap-16 md:gap-24"
             >
               {['confidentiel.', 'structuré.', 'décisif.'].map((word, i) => (
                 <motion.span
