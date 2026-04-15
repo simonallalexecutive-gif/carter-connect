@@ -1,6 +1,7 @@
 import { motion } from 'motion/react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
+import ctaGradientBg from '@/assets/cta-gradient-bg.jpeg';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 
@@ -10,8 +11,6 @@ import MissionSection from '@/components/landing/MissionSection';
 import FonctionnementSection from '@/components/landing/FonctionnementSection';
 import FAQSection from '@/components/landing/FAQSection';
 import StatsTickerSection from '@/components/landing/StatsTickerSection';
-import { ArrowRight } from 'lucide-react';
-import heroVideoAsset from '@/assets/hero-video-abstract-bw.mp4.asset.json';
 import heroBoardroom from '@/assets/hero-boardroom.jpeg';
 
 const firmNames = [
@@ -172,97 +171,92 @@ const LandingPage = () => (
     <FAQSection />
 
     {/* CTA */}
-    <section className="min-h-[100svh] bg-black relative overflow-hidden flex items-center">
+    {/* CTA + Footer wrapper with shared gradient background */}
+    <div className="relative overflow-hidden">
       <div className="absolute inset-0">
-        <motion.video
-          ref={(el) => { if (el) el.playbackRate = 0.65; }}
-          src={heroVideoAsset.url}
-          autoPlay
-          muted
-          loop
-          playsInline
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 0.4 }}
-          viewport={{ once: true }}
-          transition={{ duration: 2 }}
+        <img
+          src={ctaGradientBg}
+          alt=""
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black" />
       </div>
 
-      <div className="max-w-5xl mx-auto px-4 sm:px-8 lg:px-10 relative z-10 py-32 md:py-44">
-        <div className="flex flex-col items-center text-center">
-          <motion.span
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="font-serif text-2xl sm:text-3xl md:text-4xl text-white tracking-[0.04em] block mb-6"
-          >
-            <em className="italic">Legal recruitment, redefined.</em>
-          </motion.span>
+      <section className="min-h-[100svh] relative flex items-center">
+        <div className="max-w-5xl mx-auto px-4 sm:px-8 lg:px-10 relative z-10 py-32 md:py-44">
+          <div className="flex flex-col items-center text-center">
+            <motion.span
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              className="font-serif text-2xl sm:text-3xl md:text-4xl text-white tracking-[0.04em] block mb-6 drop-shadow-lg"
+            >
+              <em className="italic">Legal recruitment, redefined.</em>
+            </motion.span>
 
-          <motion.div
-            initial={{ scaleX: 0 }}
-            whileInView={{ scaleX: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="w-16 h-px bg-white/20 mb-8"
-          />
+            <motion.div
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              className="w-16 h-px bg-white/30 mb-8"
+            />
 
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1, delay: 1 }}
-            className="text-white/45 font-sans font-light text-sm leading-relaxed mb-10 max-w-sm"
-          >
-            Inscription confidentielle en moins de 10 minutes.<br />
-            Profil validé sous 48h.
-          </motion.p>
+            <motion.p
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1, delay: 1 }}
+              className="text-white/60 font-sans font-light text-sm leading-relaxed mb-10 max-w-sm drop-shadow-md"
+            >
+              Inscription confidentielle en moins de 10 minutes.<br />
+              Profil validé sous 48h.
+            </motion.p>
 
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1, delay: 1.2 }}
-          >
-            <Link to="/demander-acces">
-              <Button
-                size="lg"
-                className="bg-white text-black hover:bg-white/90 font-sans text-sm font-medium px-8 py-5 rounded-sm tracking-wide"
-              >
-                Request access
-              </Button>
-            </Link>
-          </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1, delay: 1.2 }}
+            >
+              <Link to="/demander-acces">
+                <Button
+                  size="lg"
+                  className="bg-white text-black hover:bg-white/90 font-sans text-sm font-medium px-8 py-5 rounded-sm tracking-wide shadow-lg"
+                >
+                  Request access
+                </Button>
+              </Link>
+            </motion.div>
 
-          {/* Three words — centered, lowercase, stacked */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1.2, delay: 1.6 }}
-            className="mt-14 flex flex-row items-center justify-center gap-12 sm:gap-16 md:gap-24"
-          >
-            {['confidentiel.', 'structuré.', 'décisif.'].map((word, i) => (
-              <motion.span
-                key={word}
-                initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: 1.8 + i * 0.15, ease: [0.16, 1, 0.3, 1] }}
-                className="font-serif text-lg sm:text-xl md:text-2xl text-white/25 tracking-[0.08em] font-light"
-              >
-                {word}
-              </motion.span>
-            ))}
-          </motion.div>
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1.2, delay: 1.6 }}
+              className="mt-14 flex flex-row items-center justify-center gap-12 sm:gap-16 md:gap-24"
+            >
+              {['confidentiel.', 'structuré.', 'décisif.'].map((word, i) => (
+                <motion.span
+                  key={word}
+                  initial={{ opacity: 0, y: 12 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8, delay: 1.8 + i * 0.15, ease: [0.16, 1, 0.3, 1] }}
+                  className="font-serif text-lg sm:text-xl md:text-2xl text-white/35 tracking-[0.08em] font-light drop-shadow-md"
+                >
+                  {word}
+                </motion.span>
+              ))}
+            </motion.div>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <Footer />
+      <div className="relative z-10">
+        <Footer />
+      </div>
+    </div>
   </div>
 );
 
