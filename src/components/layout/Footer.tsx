@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import logoMonogram from '@/assets/logo-logan-monogram.png';
 
 const Footer = () => (
-  <footer className="bg-black pt-20 pb-0">
+  <footer className="bg-transparent pt-20 pb-0">
     <div className="w-full px-4 sm:px-8 md:px-16 lg:px-24">
       {/* Top grid */}
       <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 pb-16 border-b border-white/10 items-start">
