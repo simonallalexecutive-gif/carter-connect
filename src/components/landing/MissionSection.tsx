@@ -56,14 +56,14 @@ const MissionSection = () => (
         viewport={{ once: true, margin: '-80px' }}
         className="mb-20 md:mb-28"
       >
-        <motion.p variants={fadeUp} className="text-[11px] font-sans font-medium tracking-[0.25em] uppercase text-black/30 mb-6">
+        <motion.p variants={fadeUp} className="text-[11px] font-sans font-medium tracking-[0.25em] uppercase text-white/40 mb-6">
           Notre approche
         </motion.p>
-        <motion.h2 variants={fadeUp} className="font-serif text-3xl sm:text-4xl md:text-[2.8rem] leading-[1.15] text-black mb-5 max-w-4xl">
-          Logan est <span className="line-through decoration-[0.5px] decoration-black text-black/35">une plateforme de recrutement</span> la nouvelle infrastructure privilégiée et confidentielle du marché des avocats.
+        <motion.h2 variants={fadeUp} className="font-serif text-3xl sm:text-4xl md:text-[2.8rem] leading-[1.15] text-white/90 mb-5 max-w-4xl">
+          Logan est <span className="line-through decoration-[0.5px] decoration-white/50 text-white/35">une plateforme de recrutement</span> la nouvelle infrastructure privilégiée et confidentielle du marché des avocats.
         </motion.h2>
-        <motion.p variants={fadeUp} className="font-sans text-[0.76rem] sm:text-[1rem] md:text-[1.018rem] font-[480] leading-[1.65] text-black/40 max-w-3xl">
-          Nous structurons et accompagnons un écosystème discret et exigeant, composé de profils et de cabinets précieusement <span className="text-black">qualifiés et reconnus pour leur positionnement</span>.
+        <motion.p variants={fadeUp} className="font-sans text-[0.76rem] sm:text-[1rem] md:text-[1.018rem] font-[480] leading-[1.65] text-white/50 max-w-3xl">
+          Nous structurons et accompagnons un écosystème discret et exigeant, composé de profils et de cabinets précieusement <span className="text-white/80">qualifiés et reconnus pour leur positionnement</span>.
         </motion.p>
       </motion.div>
 
