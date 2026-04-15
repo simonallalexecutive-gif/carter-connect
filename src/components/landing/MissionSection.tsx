@@ -1,5 +1,6 @@
 import { motion } from 'motion/react';
 import { Building2, User, Award, Handshake, Shield, Eye, Target } from 'lucide-react';
+import missionGradientBg from '@/assets/mission-gradient-bg.jpeg';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 32 },
@@ -43,7 +44,8 @@ const badgeRowDark = () => (
 );
 
 const MissionSection = () => (
-  <section id="notre-approche" className="relative overflow-hidden bg-white">
+  <section id="notre-approche" className="relative overflow-hidden">
+    <img src={missionGradientBg} alt="" className="absolute inset-0 w-full h-full object-cover" />
     <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-8 lg:px-10 py-24 md:py-40">
 
       {/* Header */}
@@ -54,14 +56,14 @@ const MissionSection = () => (
         viewport={{ once: true, margin: '-80px' }}
         className="mb-20 md:mb-28"
       >
-        <motion.p variants={fadeUp} className="text-[11px] font-sans font-medium tracking-[0.25em] uppercase text-black/30 mb-6">
+        <motion.p variants={fadeUp} className="text-[11px] font-sans font-medium tracking-[0.25em] uppercase text-white/40 mb-6">
           Notre approche
         </motion.p>
-        <motion.h2 variants={fadeUp} className="font-serif text-3xl sm:text-4xl md:text-[2.8rem] leading-[1.15] text-black mb-5 max-w-4xl">
-          Logan est <span className="line-through decoration-[0.5px] decoration-black text-black/35">une plateforme de recrutement</span> la nouvelle infrastructure privilégiée et confidentielle du marché des avocats.
+        <motion.h2 variants={fadeUp} className="font-serif text-3xl sm:text-4xl md:text-[2.8rem] leading-[1.15] text-white/90 mb-5 max-w-4xl">
+          Logan est <span className="line-through decoration-[0.5px] decoration-white/50 text-white/35">une plateforme de recrutement</span> la nouvelle infrastructure privilégiée et confidentielle du marché des avocats.
         </motion.h2>
-        <motion.p variants={fadeUp} className="font-sans text-[0.76rem] sm:text-[1rem] md:text-[1.018rem] font-[480] leading-[1.65] text-black/40 max-w-3xl">
-          Nous structurons et accompagnons un écosystème discret et exigeant, composé de profils et de cabinets précieusement <span className="text-black">qualifiés et reconnus pour leur positionnement</span>.
+        <motion.p variants={fadeUp} className="font-sans text-[0.76rem] sm:text-[1rem] md:text-[1.018rem] font-[480] leading-[1.65] text-white/50 max-w-3xl">
+          Nous structurons et accompagnons un écosystème discret et exigeant, composé de profils et de cabinets précieusement <span className="text-white/80">qualifiés et reconnus pour leur positionnement</span>.
         </motion.p>
       </motion.div>
 
@@ -73,7 +75,7 @@ const MissionSection = () => (
         viewport={{ once: true, margin: '-60px' }}
         className="mb-20 md:mb-28 -mt-6 md:-mt-10"
       >
-        <div className="bg-[#0F0F0F] rounded-lg p-6 sm:p-8 md:p-10 lg:p-12">
+        <div className="bg-black/40 backdrop-blur-sm rounded-lg p-6 sm:p-8 md:p-10 lg:p-12">
           <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] items-stretch gap-0">
             {/* Cabinet */}
             <motion.div variants={fadeScale} className="group flex flex-col items-center text-center p-6 md:p-8">
@@ -132,7 +134,7 @@ const MissionSection = () => (
         viewport={{ once: true, margin: '-60px' }}
         className="text-center mb-20 md:mb-28"
       >
-        <motion.p variants={fadeUp} className="font-serif text-xl sm:text-2xl md:text-[1.7rem] leading-[1.5] text-black max-w-3xl mx-auto mb-6">
+        <motion.p variants={fadeUp} className="font-serif text-xl sm:text-2xl md:text-[1.7rem] leading-[1.5] text-black/80 max-w-3xl mx-auto mb-6">
           Logan est le seul <em>hub</em> confidentiel et structuré où se rencontrent les meilleurs cabinets et les profils qui ne se montrent nulle part ailleurs.
         </motion.p>
         <motion.div variants={fadeUp} className="w-12 h-px bg-black/15 mx-auto" />
