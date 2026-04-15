@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { Shield, EyeOff, Search, Zap, Users, Handshake, ArrowRight, Lock } from 'lucide-react';
+import { Shield, Eye, Search, Zap, Users, Handshake, ArrowRight, Lock, Clock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 interface CabinetConfidentialityIntroProps {
@@ -8,29 +8,34 @@ interface CabinetConfidentialityIntroProps {
 
 const steps = [
   {
-    icon: EyeOff,
-    title: 'Identité du cabinet préservée',
-    description: 'Votre identité reste strictement anonyme aux yeux des candidats. Aucun avocat ne peut savoir quel cabinet consulte son profil ou manifeste un intérêt.',
+    icon: Eye,
+    label: 'Recherches publiées en toute confidentialité',
+    description:
+      'Nos candidats pourront consulter les grandes lignes de votre recherche (contexte, équipe, séniorité et expertise recherchées) sans que l\'identité de votre cabinet ne leur soit révélée dans un premier temps.',
   },
   {
     icon: Search,
-    title: 'Recherche visible, identité masquée',
-    description: 'Vos recherches sont visibles sur la plateforme sans que l\'identité de votre cabinet ne soit révélée. Les candidats voient une opportunité, jamais un nom.',
+    label: 'Accès en temps réel à la dynamique de votre marché',
+    description:
+      'Explorez en continu les candidats pertinents, triés par expertise et séniorité, pour l\'ensemble de vos départements.',
   },
   {
     icon: Zap,
-    title: 'Accès en temps réel',
-    description: 'Logan vous propose un accès en temps réel aux candidats pertinents et en recherche active, avec possibilité d\'activer l\'intervention de Logan pour opérer un rapprochement.',
+    label: 'Logan, seul intermédiaire',
+    description:
+      'Dès lors qu\'un candidat vous paraît intéressant, en présence d\'un mandat ou en dehors de toute recherche, activez l\'intervention de Logan pour opérer un rapprochement.',
   },
   {
     icon: Users,
-    title: 'Logan, force de proposition',
-    description: 'En parallèle de vos recherches, Logan peut être force de propositions en identifiant proactivement des profils correspondant à vos critères.',
+    label: 'Logan, force de proposition',
+    description:
+      'En parallèle de vos recherches, Logan peut être force de propositions en identifiant proactivement des profils correspondant à vos critères.',
   },
   {
     icon: Handshake,
-    title: 'Accompagnement de A à Z',
-    description: 'Logan vous accompagne à chaque étape du processus de recrutement, de la recherche initiale jusqu\'à l\'intégration du candidat.',
+    label: 'Accompagnement intégral',
+    description:
+      'Logan vous accompagne à chaque étape du processus de recrutement, de la recherche initiale jusqu\'à l\'intégration du candidat.',
   },
 ];
 
@@ -51,7 +56,7 @@ const CabinetConfidentialityIntro = ({ onContinue }: CabinetConfidentialityIntro
           transition={{ delay: 0.2, duration: 0.5 }}
           className="flex justify-center mb-10"
         >
-           <div className="w-14 h-14 rounded-full border border-white/10 flex items-center justify-center bg-white/[0.05]">
+          <div className="w-14 h-14 rounded-full border border-white/10 flex items-center justify-center bg-white/[0.05]">
             <Shield className="w-6 h-6 text-white/40" />
           </div>
         </motion.div>
@@ -61,18 +66,36 @@ const CabinetConfidentialityIntro = ({ onContinue }: CabinetConfidentialityIntro
           <em className="text-white/50 font-normal">strictement confidentielle</em>
         </h1>
 
-        <p className="text-xs text-white/40 font-sans font-light text-center mb-14 max-w-md mx-auto leading-relaxed">
+        <p className="text-xs text-white/40 font-sans font-light text-center mb-5 max-w-md mx-auto leading-relaxed">
           Voici comment Logan garantit la confidentialité de votre cabinet à chaque étape.
         </p>
+
+        {/* Time badges */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.25, duration: 0.5 }}
+          className="flex items-center justify-center gap-6 mb-14"
+        >
+          <div className="flex items-center gap-2 text-white/50">
+            <Clock className="w-3.5 h-3.5" />
+            <span className="text-[11px] font-sans font-light tracking-wide">Inscription en <span className="text-white font-medium">5 min</span></span>
+          </div>
+          <div className="w-px h-3 bg-white/15" />
+          <div className="flex items-center gap-2 text-white/50">
+            <Shield className="w-3.5 h-3.5" />
+            <span className="text-[11px] font-sans font-light tracking-wide">Validation sous <span className="text-white font-medium">48h</span></span>
+          </div>
+        </motion.div>
 
         {/* Steps */}
         <div className="space-y-0">
           {steps.map((step, i) => (
             <motion.div
-              key={step.title}
+              key={step.label}
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.3 + i * 0.1, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ delay: 0.3 + i * 0.12, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
               className="flex gap-4 relative"
             >
               <div className="flex flex-col items-center flex-shrink-0">
@@ -83,9 +106,9 @@ const CabinetConfidentialityIntro = ({ onContinue }: CabinetConfidentialityIntro
                   <div className="w-px flex-1 bg-white/10 my-1" />
                 )}
               </div>
-              <div className="pb-7">
-                <p className="text-sm font-sans font-medium text-white mb-1">{step.title}</p>
-                <p className="text-xs font-sans font-light text-white/45 leading-relaxed">{step.description}</p>
+              <div className="pb-8">
+                <p className="text-[13px] font-sans font-semibold text-white mb-1.5 tracking-wide">{step.label}</p>
+                <p className="text-[12px] font-sans font-light text-white/45 leading-[1.7]">{step.description}</p>
               </div>
             </motion.div>
           ))}
@@ -96,7 +119,7 @@ const CabinetConfidentialityIntro = ({ onContinue }: CabinetConfidentialityIntro
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.9, duration: 0.5 }}
-          className="mt-12 text-center"
+          className="mt-14 text-center"
         >
           <Button
             onClick={onContinue}
