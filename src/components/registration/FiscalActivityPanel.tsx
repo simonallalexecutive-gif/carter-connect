@@ -207,7 +207,7 @@ const FiscalActivityPanel = () => {
               {/* Dimension internationale */}
               <div className="space-y-3 pt-3 border-t border-border">
                 <div className="flex items-center gap-2">
-                  <Globe className="w-3.5 h-3.5 text-muted-foreground" />
+                  
                   <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">Dimension internationale</p>
                 </div>
                 <div className="space-y-2">
