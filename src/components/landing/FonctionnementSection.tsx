@@ -124,7 +124,7 @@ const FonctionnementSection = () => {
             Notre fonctionnement
           </motion.p>
           <motion.h2 variants={fadeUp} className="font-serif text-3xl sm:text-4xl md:text-[2.8rem] leading-[1.15] text-white mb-5">
-            Deux visions, un intermédiaire.
+            Deux visions, un seul intermédiaire : Logan.
           </motion.h2>
           <motion.p variants={fadeUp} className="font-sans text-[0.95rem] md:text-base leading-[1.8] text-white/40 max-w-2xl text-justify">
             Logan opère chaque rapprochement de l'intention à la signature, dans un cadre confidentiel, structuré et transparent.
