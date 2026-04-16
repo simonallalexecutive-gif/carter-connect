@@ -62,22 +62,22 @@ const cabinetFAQ: FAQItem[] = [
   {
     question: 'Comment fonctionne l\'accès aux profils candidats ?',
     answer:
-      'Vous accédez à un vivier de profils entièrement anonymisés présentant l\'expertise, la séniorité, les langues pratiquées et le projet professionnel de chaque candidat. L\'identité et le cabinet d\'origine restent strictement confidentiels. Lorsqu\'un profil retient votre attention, vous manifestez votre intérêt et Logan organise la mise en relation après avoir obtenu l\'accord explicite du candidat. Chaque mise en relation passe exclusivement par Logan, qui joue le rôle d\'intermédiaire de confiance.',
+      'Depuis votre espace cabinet, accédez en temps réel au marché des candidats et consultez les profils rigoureusement validés en amont et triés par expertise et séniorité. L\'identité et le cabinet d\'origine restent strictement confidentiels. Lorsqu\'un profil retient votre attention, manifestez votre intérêt auprès de Logan. Logan organise la mise en relation après avoir obtenu l\'accord explicite du candidat.',
   },
   {
     question: 'Comment Logan garantit-il la confidentialité de mes recherches ?',
     answer:
-      'Le cloisonnement est au cœur de la plateforme. Vos recherches et mandats ne sont jamais visibles par les candidats ni par les autres cabinets. Seul Logan connaît la nature de vos besoins et assure la mise en relation de manière ciblée et discrète, dans le respect absolu de la confidentialité de votre stratégie de recrutement.',
-  },
-  {
-    question: 'Quels types de profils sont disponibles et comment sont-ils vérifiés ?',
-    answer:
-      'Logan réunit des avocats d\'affaires à tous les stades de leur carrière — collaborateurs juniors, mid-levels, seniors, counsels et associés — issus des cabinets les plus reconnus du marché parisien et international. Chaque inscription fait l\'objet d\'une validation manuelle par l\'équipe Logan sous 48 heures : nous vérifions la cohérence du parcours, la pertinence des informations et l\'adéquation avec les standards du réseau.',
+      'Le cloisonnement est au cœur de la plateforme. L\'identité de votre cabinet n\'est jamais visible par les candidats ni par les autres cabinets. Les candidats pourront prendre connaissance des grandes lignes de votre recherche (contexte, équipe, expertise et séniorité recherchées), jamais de votre identité qui est préservée en amont de toute volonté de rapprochement confirmé.',
   },
   {
     question: 'Puis-je publier une recherche ciblée sur la plateforme ?',
     answer:
-      'Oui. En complément de l\'exploration libre du vivier, vous pouvez publier un mandat de recherche confidentiel en précisant vos critères : domaine d\'expertise, niveau de séniorité, langues, type de cabinet d\'origine. Logan identifie alors les profils les plus pertinents et vous les propose directement.',
+      'Oui. Logan vous permet de diffuser vos recherches les plus confidentielles en préservant l\'identité de votre cabinet : si un candidat manifeste un intérêt pour votre recherche (contexte, équipe, expertise et séniorité recherchées) et que le profil vous paraît pertinent, Logan organise la mise en relation et vous accompagne tout au long du processus jusqu\'à son terme.',
+  },
+  {
+    question: 'Quels types de profils sont disponibles ?',
+    answer:
+      'Logan réunit des avocats d\'affaires à tous les stades de leur carrière — collaborateurs juniors, mid-levels, seniors, counsels et associés — issus des cabinets les plus reconnus du marché (Chambers, Legal 500). Chaque profil est scrupuleusement analysé et validé par Logan.',
   },
   {
     question: 'Quel accompagnement Logan propose-t-il ?',
@@ -90,7 +90,6 @@ const cabinetFAQ: FAQItem[] = [
       'Logan repose sur un modèle hybride : un abonnement donnant un accès permanent au vivier de candidats qualifiés, associé à un fee de placement significativement réduit par rapport aux standards du marché. Ce modèle vous permet de recruter de manière proactive, au bon moment, avec une parfaite maîtrise budgétaire.',
   },
 ];
-
 const FAQSection = () => {
   const [tab, setTab] = useState<Tab>('candidat');
   const items = tab === 'candidat' ? candidatFAQ : cabinetFAQ;
