@@ -8,14 +8,14 @@ import SquareGauge from '@/components/shared/SquareGauge';
 import { buildQuantizedChartData } from '@/lib/percentages';
 
 /* ── Palette ── */
-const COL_AMIABLE = 'hsl(215, 50%, 35%)';
+const COL_AMIABLE = 'hsl(195, 50%, 28%)';
 const COL_JUDICIAIRE = 'hsl(215, 55%, 22%)';
-const COL_FINANCIER = 'hsl(210, 25%, 50%)';
-const COL_DISTRESSED = 'hsl(200, 12%, 45%)';
-const COL_CONTENTIEUX = 'hsl(220, 15%, 62%)';
+const COL_FINANCIER = 'hsl(0, 0%, 30%)';
+const COL_DISTRESSED = 'hsl(0, 0%, 45%)';
+const COL_CONTENTIEUX = 'hsl(0, 0%, 60%)';
 
-const COL_POS = ['hsl(215, 50%, 35%)', 'hsl(200, 15%, 50%)', 'hsl(220, 20%, 30%)'];
-const COL_CLI = ['hsl(215, 55%, 22%)', 'hsl(210, 20%, 42%)', 'hsl(200, 12%, 55%)', 'hsl(220, 15%, 35%)', 'hsl(215, 50%, 35%)', 'hsl(210, 10%, 62%)'];
+const COL_POS = ['hsl(195, 50%, 28%)', 'hsl(0, 0%, 30%)', 'hsl(160, 35%, 32%)'];
+const COL_CLI = ['hsl(215, 55%, 22%)', 'hsl(0, 0%, 30%)', 'hsl(0, 0%, 45%)', 'hsl(0, 0%, 60%)', 'hsl(195, 50%, 28%)', 'hsl(160, 35%, 32%)'];
 
 const POSITIONNEMENT_OPTIONS = ['Côté débiteur', 'Côté créancier', 'Côté repreneur / investisseur'];
 const CLIENTELE_OPTIONS = ['ETI', 'PME', 'Grands groupes', 'Banques', 'Fonds', 'AJ/MJ'];
@@ -167,7 +167,7 @@ const RestructuringActivityPanel = () => {
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
             className="md:sticky md:top-8 md:w-[320px] flex-shrink-0 w-full"
           >
-            <div className="carter-card p-5 space-y-4">
+            <div className="synthesis-dark p-5 space-y-4">
               <p className="text-sm font-sans font-medium text-foreground">Synthèse</p>
 
               {/* Pie chart */}

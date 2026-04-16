@@ -22,14 +22,14 @@ import ArbitrationActivityPanel from './ArbitrationActivityPanel';
 import ProjectsEnergyActivityPanel from './ProjectsEnergyActivityPanel';
 
 const CHART_COLORS = [
-  'hsl(215, 60%, 30%)',
-  'hsl(215, 50%, 42%)',
-  'hsl(220, 55%, 22%)',
-  'hsl(210, 45%, 52%)',
-  'hsl(218, 40%, 36%)',
-  'hsl(222, 50%, 28%)',
-  'hsl(212, 35%, 46%)',
-  'hsl(225, 45%, 18%)',
+  'hsl(0, 0%, 11%)',       // Noir mat
+  'hsl(195, 50%, 28%)',    // Bleu pétrole
+  'hsl(0, 0%, 30%)',       // Gris anthracite
+  'hsl(160, 35%, 32%)',    // Vert green
+  'hsl(215, 55%, 22%)',    // Bleu foncé
+  'hsl(0, 0%, 60%)',       // Gris clair
+  'hsl(200, 30%, 20%)',    // Bleu pétrole foncé
+  'hsl(0, 0%, 45%)',       // Gris moyen
 ];
 
 // All departments that have a specialized panel (not the generic chip+pie fallback)

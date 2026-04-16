@@ -10,13 +10,13 @@ import SquareGauge from '@/components/shared/SquareGauge';
 import type { ActivityItem } from '@/lib/constants';
 
 const CHART_PALETTE = [
-  'hsl(215, 55%, 28%)',
-  'hsl(210, 40%, 48%)',
-  'hsl(200, 25%, 62%)',
-  'hsl(35, 30%, 55%)',
-  'hsl(220, 20%, 38%)',
-  'hsl(30, 25%, 68%)',
-  'hsl(215, 35%, 52%)',
+  'hsl(0, 0%, 11%)',
+  'hsl(195, 50%, 28%)',
+  'hsl(0, 0%, 30%)',
+  'hsl(160, 35%, 32%)',
+  'hsl(215, 55%, 22%)',
+  'hsl(0, 0%, 60%)',
+  'hsl(0, 0%, 45%)',
 ];
 
 const TYPES_ACTIFS = [
@@ -131,7 +131,7 @@ const FinanceActivityPanel = ({ items }: FinanceActivityPanelProps) => {
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
             className="md:sticky md:top-8 md:w-[320px] flex-shrink-0 w-full"
           >
-            <div className="carter-card p-5 space-y-4">
+            <div className="synthesis-dark p-5 space-y-4">
               <p className="text-sm font-sans font-medium text-foreground">Synthèse</p>
 
               {/* Pie chart */}
@@ -174,7 +174,7 @@ const FinanceActivityPanel = ({ items }: FinanceActivityPanelProps) => {
               {/* Clientèle summary */}
               <div className="border-t border-border pt-3">
                 <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium mb-1">Clientèle</p>
-                <span className="text-[11px] font-sans text-foreground/80">🇫🇷 {store.clienteleFrancaise}% — 🌍 {100 - store.clienteleFrancaise}%</span>
+                <span className="text-[11px] font-sans text-foreground/80">FR {store.clienteleFrancaise}% — International {100 - store.clienteleFrancaise}%</span>
               </div>
 
               {/* Taille summary */}

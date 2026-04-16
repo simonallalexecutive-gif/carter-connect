@@ -2,14 +2,14 @@ import { useMemo } from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 
 const BLUE_PALETTE = [
-  'hsl(0, 0%, 25%)',
-  'hsl(0, 0%, 45%)',
-  'hsl(0, 0%, 60%)',
-  'hsl(0, 0%, 35%)',
-  'hsl(0, 0%, 50%)',
-  'hsl(0, 0%, 70%)',
-  'hsl(0, 0%, 40%)',
-  'hsl(0, 0%, 55%)',
+  'hsl(0, 0%, 11%)',       // Noir mat
+  'hsl(195, 50%, 28%)',    // Bleu pétrole
+  'hsl(0, 0%, 30%)',       // Gris anthracite
+  'hsl(160, 35%, 32%)',    // Vert green
+  'hsl(215, 55%, 22%)',    // Bleu foncé
+  'hsl(0, 0%, 60%)',       // Gris clair
+  'hsl(200, 30%, 20%)',    // Bleu pétrole foncé
+  'hsl(0, 0%, 45%)',       // Gris moyen
 ];
 
 interface ActivityPieChartProps {

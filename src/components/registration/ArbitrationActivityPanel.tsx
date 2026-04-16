@@ -7,9 +7,9 @@ import { Check } from 'lucide-react';
 import SquareGauge from '@/components/shared/SquareGauge';
 
 /* ── Palette ── */
-const COL_COMMERCIAL = 'hsl(215, 50%, 35%)';
-const COL_INVEST = 'hsl(200, 50%, 40%)';
-const COL_CONSTRUCTION = 'hsl(210, 25%, 50%)';
+const COL_COMMERCIAL = 'hsl(0, 0%, 11%)';
+const COL_INVEST = 'hsl(195, 50%, 28%)';
+const COL_CONSTRUCTION = 'hsl(0, 0%, 30%)';
 const COL_SPORT = 'hsl(215, 55%, 22%)';
 
 const TYPES_ARBITRAGE = [
@@ -123,7 +123,7 @@ const ArbitrationActivityPanel = () => {
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
             className="md:sticky md:top-8 md:w-[320px] flex-shrink-0 w-full"
           >
-            <div className="carter-card p-5 space-y-4">
+            <div className="synthesis-dark p-5 space-y-4">
               <p className="text-sm font-sans font-medium text-foreground">Synthèse</p>
 
               <div className="self-center mx-auto" style={{ width: 200, height: 200 }}>
@@ -153,11 +153,11 @@ const ArbitrationActivityPanel = () => {
               <div className="pt-3 border-t border-border space-y-1">
                 <p className="text-[10px] font-sans font-medium text-muted-foreground uppercase tracking-[0.12em]">Dimension</p>
                 <div className="flex justify-between text-[11px] font-sans">
-                  <span className="text-foreground/80">🇫🇷 Domestique</span>
+                  <span className="text-foreground/80">FR Domestique</span>
                   <span className="font-semibold text-foreground">{arbDomestique}%</span>
                 </div>
                 <div className="flex justify-between text-[11px] font-sans">
-                  <span className="text-foreground/80">🌍 International</span>
+                  <span className="text-foreground/80">International International</span>
                   <span className="font-semibold text-foreground">{100 - arbDomestique}%</span>
                 </div>
               </div>
@@ -249,8 +249,8 @@ const ArbitrationActivityPanel = () => {
             step={5}
           />
           <div className="flex justify-between text-[11px] font-sans text-muted-foreground">
-            <span>🇫🇷 Domestique {arbDomestique}%</span>
-            <span>🌍 International {100 - arbDomestique}%</span>
+            <span>FR Domestique {arbDomestique}%</span>
+            <span>International International {100 - arbDomestique}%</span>
           </div>
         </div>
 

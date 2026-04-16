@@ -4,15 +4,15 @@ import { Slider } from '@/components/ui/slider';
 import { cn } from '@/lib/utils';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import { useMemo } from 'react';
-import { Check, Globe, TrendingUp, Gavel, FileCheck, Building2, Tag, BarChart3 } from 'lucide-react';
+import { Check, TrendingUp, Gavel, FileCheck, Building2, Tag, BarChart3 } from 'lucide-react';
 
 /* ── Palette ── */
-const COL_TRANSAC = 'hsl(215, 55%, 28%)';
-const COL_CONTENTIEUX = 'hsl(35, 35%, 48%)';
-const COL_CONSEIL = 'hsl(160, 35%, 38%)';
+const COL_TRANSAC = 'hsl(0, 0%, 11%)';
+const COL_CONTENTIEUX = 'hsl(195, 50%, 28%)';
+const COL_CONSEIL = 'hsl(160, 35%, 32%)';
 
-const COL_TR_PE = 'hsl(215, 50%, 35%)';
-const COL_TR_MA = 'hsl(215, 40%, 48%)';
+const COL_TR_PE = 'hsl(0, 0%, 11%)';
+const COL_TR_MA = 'hsl(195, 50%, 28%)';
 const COL_TR_RESTR = 'hsl(210, 45%, 55%)';
 const COL_TR_INTL = 'hsl(220, 35%, 62%)';
 
@@ -207,7 +207,7 @@ const FiscalActivityPanel = () => {
               {/* Dimension internationale */}
               <div className="space-y-3 pt-3 border-t border-border">
                 <div className="flex items-center gap-2">
-                  <Globe className="w-3.5 h-3.5 text-muted-foreground" />
+                  
                   <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">Dimension internationale</p>
                 </div>
                 <div className="space-y-2">
@@ -221,8 +221,8 @@ const FiscalActivityPanel = () => {
                     <div className="bg-foreground/15 h-full transition-all duration-300" style={{ width: `${100 - fiscDomestique}%` }} />
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-[10px] font-sans text-muted-foreground">🇫🇷 Domestique {fiscDomestique}%</span>
-                    <span className="text-[10px] font-sans text-muted-foreground">🌍 International {100 - fiscDomestique}%</span>
+                    <span className="text-[10px] font-sans text-muted-foreground">FR Domestique {fiscDomestique}%</span>
+                    <span className="text-[10px] font-sans text-muted-foreground">International International {100 - fiscDomestique}%</span>
                   </div>
                 </div>
               </div>

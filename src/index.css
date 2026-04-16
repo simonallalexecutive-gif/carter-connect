@@ -166,6 +166,22 @@
     --shadow-elevated: 0 4px 16px -2px hsl(0 0% 0% / 0.08);
   }
 
+  /* Dark synthesis panel (inside white registration) */
+  .synthesis-dark {
+    --background: 0 0% 7%;
+    --foreground: 0 0% 92%;
+    --card: 0 0% 9%;
+    --card-foreground: 0 0% 92%;
+    --muted-foreground: 0 0% 55%;
+    --border: 0 0% 20%;
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 0 0% 80%;
+    --input: 0 0% 20%;
+    background-color: hsl(0, 0%, 7%);
+    color: hsl(0, 0%, 92%);
+    border-radius: 0.25rem;
+  }
+
   /* Dark matte theme for registration step content */
   .theme-dark-registration {
     --background: 0 0% 7%;              /* #111111 — noir mat */
