@@ -9,33 +9,33 @@ interface CabinetConfidentialityIntroProps {
 const steps = [
   {
     icon: Eye,
-    label: 'Recherches publiées en toute confidentialité',
+    label: 'Vos recherches diffusées en toute confidentialité à un pool pertinent',
     description:
-      'Nos candidats pourront consulter les grandes lignes de votre recherche (contexte, équipe, séniorité et expertise recherchées) sans que l\'identité de votre cabinet ne leur soit révélée dans un premier temps.',
-  },
-  {
-    icon: Search,
-    label: 'Accès en temps réel à la dynamique de votre marché',
-    description:
-      'Explorez en continu les candidats pertinents, triés par expertise et séniorité, pour l\'ensemble de vos départements.',
+      'Publiez vos opportunités en toute discrétion auprès de notre pool de candidats qualifiés. Le contexte, l\'équipe, le niveau de séniorité et l\'expertise recherchée sont visibles, tandis que l\'identité de votre cabinet demeure strictement confidentielle dans un premier temps.',
   },
   {
     icon: Zap,
-    label: 'Logan, seul intermédiaire',
+    label: 'Notification immédiate et activation de Logan',
     description:
-      'Dès lors qu\'un candidat vous paraît intéressant, en présence d\'un mandat ou en dehors de toute recherche, activez l\'intervention de Logan pour opérer un rapprochement.',
+      'Notification immédiate lorsqu\'un candidat manifeste un intérêt. Activation de Logan à la demande pour initier un rapprochement ciblé.',
   },
   {
     icon: Users,
-    label: 'Logan, force de proposition',
+    label: 'Sourcing proactif par Logan',
     description:
-      'En parallèle de vos recherches, Logan peut être force de propositions en identifiant proactivement des profils correspondant à vos critères.',
+      'Sourcing proactif mené en parallèle par Logan auprès de profils pertinents. Identité de votre cabinet révélée uniquement au stade opportun du rapprochement.',
+  },
+  {
+    icon: Search,
+    label: 'Une vision en temps réel de votre marché',
+    description:
+      'Accédez en continu aux profils pertinents et à l\'écoute du marché, sur l\'ensemble de vos départements. Identifiez un candidat à fort potentiel, signalez votre intérêt en un instant, et Logan prend le relais pour établir un contact confidentiel et évaluer l\'opportunité d\'une rencontre.',
   },
   {
     icon: Handshake,
-    label: 'Accompagnement intégral',
+    label: 'Logan, intermédiaire unique et discret',
     description:
-      'Logan vous accompagne à chaque étape du processus de recrutement, de la recherche initiale jusqu\'à l\'intégration du candidat.',
+      'Qu\'il s\'agisse d\'un mandat en cours ou d\'une opportunité hors recherche, sollicitez Logan dès qu\'un profil retient votre attention. Dans la plus stricte confidentialité, Logan évalue l\'intérêt mutuel, organise le rapprochement et vous accompagne à chaque étape du processus de recrutement, jusqu\'à l\'intégration du candidat.',
   },
 ];
 
