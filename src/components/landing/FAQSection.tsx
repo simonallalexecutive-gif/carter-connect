@@ -172,15 +172,15 @@ const FAQSection = () => {
                   <AccordionItem
                     key={i}
                     value={`left-${i}`}
-                    className="border-b border-black/[0.08] first:border-t first:border-black/[0.08] rounded-none px-0 overflow-hidden"
+                    className="border-b border-white/[0.08] first:border-t first:border-white/[0.08] rounded-none px-0 overflow-hidden"
                   >
-                    <AccordionTrigger className="text-left font-sans text-sm md:text-[15px] font-medium text-black/85 hover:text-black hover:no-underline py-6 gap-4 transition-colors">
+                    <AccordionTrigger className="text-left font-sans text-sm md:text-[15px] font-medium text-white/85 hover:text-white hover:no-underline py-6 gap-4 transition-colors">
                       <span className="flex items-baseline gap-3">
-                        <span className="text-black/20 font-sans text-xs tabular-nums">{String(i + 1).padStart(2, '0')}</span>
+                        <span className="text-white/30 font-sans text-xs tabular-nums">{String(i + 1).padStart(2, '0')}</span>
                         {item.question}
                       </span>
                     </AccordionTrigger>
-                    <AccordionContent className="text-black/55 font-sans text-sm leading-relaxed pb-6 text-justify">
+                    <AccordionContent className="text-white/55 font-sans text-sm leading-relaxed pb-6 text-justify">
                       {item.answer}
                     </AccordionContent>
                   </AccordionItem>
