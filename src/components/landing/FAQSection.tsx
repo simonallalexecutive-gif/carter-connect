@@ -131,7 +131,7 @@ const FAQSection = () => {
           transition={{ duration: 0.5, delay: 0.1 }}
           className="mb-14 flex justify-center"
         >
-          <div className="inline-flex gap-0 border-b border-black/10">
+          <div className="inline-flex gap-0 border-b border-white/10">
             {(['candidat', 'cabinet'] as Tab[]).map((t) => (
               <button
                 key={t}
@@ -139,15 +139,15 @@ const FAQSection = () => {
                 className={cn(
                   'relative px-6 py-3 text-sm font-sans font-medium transition-all duration-300 capitalize',
                   tab === t
-                    ? 'text-black'
-                    : 'text-black/35 hover:text-black/60'
+                    ? 'text-white'
+                    : 'text-white/35 hover:text-white/60'
                 )}
               >
                 {t === 'candidat' ? 'Candidats' : 'Cabinets'}
                 {tab === t && (
                   <motion.div
                     layoutId="faq-tab-indicator"
-                    className="absolute bottom-0 left-0 right-0 h-px bg-black"
+                    className="absolute bottom-0 left-0 right-0 h-px bg-white"
                     transition={{ type: 'spring', stiffness: 500, damping: 35 }}
                   />
                 )}
