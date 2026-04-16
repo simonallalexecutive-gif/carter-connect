@@ -99,8 +99,13 @@ const FAQSection = () => {
   const col2 = items.slice(midpoint);
 
   return (
-    <section className="py-32 md:py-44 bg-white min-h-[80vh]">
-      <div className="max-w-5xl mx-auto px-4 sm:px-8 lg:px-10">
+    <section className="relative py-32 md:py-44 min-h-[80vh] overflow-hidden">
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: `url(${faqBg})` }}
+      />
+      <div className="absolute inset-0 bg-black/30" />
+      <div className="relative max-w-5xl mx-auto px-4 sm:px-8 lg:px-10">
 
         {/* Header — centered */}
         <motion.div
