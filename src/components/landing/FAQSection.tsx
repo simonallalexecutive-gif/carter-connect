@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { cn } from '@/lib/utils';
-import faqBg from '@/assets/faq-bg.jpg';
 import {
   Accordion,
   AccordionContent,
@@ -99,13 +98,8 @@ const FAQSection = () => {
   const col2 = items.slice(midpoint);
 
   return (
-    <section className="relative py-32 md:py-44 min-h-[80vh] overflow-hidden">
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url(${faqBg})` }}
-      />
-      <div className="absolute inset-0 bg-black/30" />
-      <div className="relative max-w-5xl mx-auto px-4 sm:px-8 lg:px-10">
+    <section className="py-32 md:py-44 bg-white min-h-[80vh]">
+      <div className="max-w-5xl mx-auto px-4 sm:px-8 lg:px-10">
 
         {/* Header — centered */}
         <motion.div
@@ -115,10 +109,10 @@ const FAQSection = () => {
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           className="mb-12 text-center"
         >
-          <p className="text-[11px] tracking-[0.25em] uppercase text-white/40 font-sans font-medium mb-6">
+          <p className="text-[11px] tracking-[0.25em] uppercase text-black/30 font-sans font-medium mb-6">
             Questions fréquentes
           </p>
-          <h2 className="text-3xl sm:text-4xl md:text-[2.8rem] font-serif font-normal text-white tracking-[-0.02em] mb-5">
+          <h2 className="text-3xl sm:text-4xl md:text-[2.8rem] font-serif font-normal text-black tracking-[-0.02em] mb-5">
             FAQ
           </h2>
         </motion.div>
@@ -131,7 +125,7 @@ const FAQSection = () => {
           transition={{ duration: 0.5, delay: 0.1 }}
           className="mb-14 flex justify-center"
         >
-          <div className="inline-flex gap-0 border-b border-white/10">
+          <div className="inline-flex gap-0 border-b border-black/10">
             {(['candidat', 'cabinet'] as Tab[]).map((t) => (
               <button
                 key={t}
@@ -139,15 +133,15 @@ const FAQSection = () => {
                 className={cn(
                   'relative px-6 py-3 text-sm font-sans font-medium transition-all duration-300 capitalize',
                   tab === t
-                    ? 'text-white'
-                    : 'text-white/35 hover:text-white/60'
+                    ? 'text-black'
+                    : 'text-black/35 hover:text-black/60'
                 )}
               >
                 {t === 'candidat' ? 'Candidats' : 'Cabinets'}
                 {tab === t && (
                   <motion.div
                     layoutId="faq-tab-indicator"
-                    className="absolute bottom-0 left-0 right-0 h-px bg-white"
+                    className="absolute bottom-0 left-0 right-0 h-px bg-black"
                     transition={{ type: 'spring', stiffness: 500, damping: 35 }}
                   />
                 )}
@@ -172,15 +166,15 @@ const FAQSection = () => {
                   <AccordionItem
                     key={i}
                     value={`left-${i}`}
-                    className="border-b border-white/[0.08] first:border-t first:border-white/[0.08] rounded-none px-0 overflow-hidden"
+                    className="border-b border-black/[0.08] first:border-t first:border-black/[0.08] rounded-none px-0 overflow-hidden"
                   >
-                    <AccordionTrigger className="text-left font-sans text-sm md:text-[15px] font-medium text-white/85 hover:text-white hover:no-underline py-6 gap-4 transition-colors">
+                    <AccordionTrigger className="text-left font-sans text-sm md:text-[15px] font-medium text-black/85 hover:text-black hover:no-underline py-6 gap-4 transition-colors">
                       <span className="flex items-baseline gap-3">
-                        <span className="text-white/30 font-sans text-xs tabular-nums">{String(i + 1).padStart(2, '0')}</span>
+                        <span className="text-black/20 font-sans text-xs tabular-nums">{String(i + 1).padStart(2, '0')}</span>
                         {item.question}
                       </span>
                     </AccordionTrigger>
-                    <AccordionContent className="text-white/55 font-sans text-sm leading-relaxed pb-6 text-justify">
+                    <AccordionContent className="text-black/55 font-sans text-sm leading-relaxed pb-6 text-justify">
                       {item.answer}
                     </AccordionContent>
                   </AccordionItem>
@@ -194,15 +188,15 @@ const FAQSection = () => {
                   <AccordionItem
                     key={i}
                     value={`right-${i}`}
-                    className="border-b border-white/[0.08] first:border-t first:border-white/[0.08] rounded-none px-0 overflow-hidden"
+                    className="border-b border-black/[0.08] first:border-t first:border-black/[0.08] rounded-none px-0 overflow-hidden"
                   >
-                    <AccordionTrigger className="text-left font-sans text-sm md:text-[15px] font-medium text-white/85 hover:text-white hover:no-underline py-6 gap-4 transition-colors">
+                    <AccordionTrigger className="text-left font-sans text-sm md:text-[15px] font-medium text-black/85 hover:text-black hover:no-underline py-6 gap-4 transition-colors">
                       <span className="flex items-baseline gap-3">
-                        <span className="text-white/30 font-sans text-xs tabular-nums">{String(midpoint + i + 1).padStart(2, '0')}</span>
+                        <span className="text-black/20 font-sans text-xs tabular-nums">{String(midpoint + i + 1).padStart(2, '0')}</span>
                         {item.question}
                       </span>
                     </AccordionTrigger>
-                    <AccordionContent className="text-white/55 font-sans text-sm leading-relaxed pb-6 text-justify">
+                    <AccordionContent className="text-black/55 font-sans text-sm leading-relaxed pb-6 text-justify">
                       {item.answer}
                     </AccordionContent>
                   </AccordionItem>
