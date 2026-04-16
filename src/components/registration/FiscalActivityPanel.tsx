@@ -4,7 +4,7 @@ import { Slider } from '@/components/ui/slider';
 import { cn } from '@/lib/utils';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import { useMemo } from 'react';
-import { Check, Globe, TrendingUp, Gavel, FileCheck, Building2, Tag, BarChart3 } from 'lucide-react';
+import { Check, TrendingUp, Gavel, FileCheck, Building2, Tag, BarChart3 } from 'lucide-react';
 
 /* ── Palette ── */
 const COL_TRANSAC = 'hsl(215, 55%, 28%)';
@@ -221,8 +221,8 @@ const FiscalActivityPanel = () => {
                     <div className="bg-foreground/15 h-full transition-all duration-300" style={{ width: `${100 - fiscDomestique}%` }} />
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-[10px] font-sans text-muted-foreground">🇫🇷 Domestique {fiscDomestique}%</span>
-                    <span className="text-[10px] font-sans text-muted-foreground">🌍 International {100 - fiscDomestique}%</span>
+                    <span className="text-[10px] font-sans text-muted-foreground">FR Domestique {fiscDomestique}%</span>
+                    <span className="text-[10px] font-sans text-muted-foreground">International International {100 - fiscDomestique}%</span>
                   </div>
                 </div>
               </div>

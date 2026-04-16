@@ -198,7 +198,7 @@ const MaActivityPanel = () => {
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
             className="md:sticky md:top-8 md:w-[320px] flex-shrink-0 w-full"
           >
-            <div className="carter-card p-5 space-y-4">
+            <div className="synthesis-dark p-5 space-y-4">
               <p className="text-sm font-sans font-medium text-foreground">Synthèse</p>
 
               {/* Main Pie */}
@@ -289,7 +289,7 @@ const MaActivityPanel = () => {
               {/* Clientèle origine */}
               <div className="border-t border-border pt-3">
                 <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium mb-1">Clientèle</p>
-                <span className="text-[11px] font-sans text-foreground/80">🇫🇷 {store.clienteleFrancaise}% — 🌍 {100 - store.clienteleFrancaise}%</span>
+                <span className="text-[11px] font-sans text-foreground/80">FR {store.clienteleFrancaise}% — International {100 - store.clienteleFrancaise}%</span>
               </div>
             </div>
           </motion.div>

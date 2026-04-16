@@ -4,7 +4,7 @@ import { Slider } from '@/components/ui/slider';
 import { cn } from '@/lib/utils';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import { useMemo } from 'react';
-import { Check, Globe, Landmark, Gavel, FileCheck, Building2, Tag, BarChart3 } from 'lucide-react';
+import { Check, Landmark, Gavel, FileCheck, Building2, Tag, BarChart3 } from 'lucide-react';
 import { buildQuantizedChartData } from '@/lib/percentages';
 
 const COL_CONTRATS = 'hsl(215, 55%, 28%)';
@@ -174,7 +174,7 @@ const DroitPublicActivityPanel = () => {
               {/* Dimension internationale */}
               <div className="space-y-3 pt-3 border-t border-border">
                 <div className="flex items-center gap-2">
-                  <Globe className="w-3.5 h-3.5 text-muted-foreground" />
+                  
                   <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">Dimension internationale</p>
                 </div>
                 <div className="space-y-2">
@@ -188,8 +188,8 @@ const DroitPublicActivityPanel = () => {
                     <div className="bg-foreground/15 h-full transition-all duration-300" style={{ width: `${100 - dpubDomestique}%` }} />
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-[10px] font-sans text-muted-foreground">🇫🇷 Domestique {dpubDomestique}%</span>
-                    <span className="text-[10px] font-sans text-muted-foreground">🌍 International {100 - dpubDomestique}%</span>
+                    <span className="text-[10px] font-sans text-muted-foreground">FR Domestique {dpubDomestique}%</span>
+                    <span className="text-[10px] font-sans text-muted-foreground">International International {100 - dpubDomestique}%</span>
                   </div>
                 </div>
               </div>
