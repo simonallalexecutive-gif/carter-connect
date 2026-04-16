@@ -8,26 +8,26 @@ import SquareGauge from '@/components/shared/SquareGauge';
 import { buildQuantizedChartData } from '@/lib/percentages';
 
 /* ── Palette ── */
-const COL_PE = 'hsl(215, 55%, 28%)';
-const COL_MA = 'hsl(35, 35%, 48%)';
-const COL_VC = 'hsl(160, 35%, 38%)';
+const COL_PE = 'hsl(0, 0%, 11%)';
+const COL_MA = 'hsl(195, 50%, 28%)';
+const COL_VC = 'hsl(160, 35%, 32%)';
 
-const COL_PE_LBO = 'hsl(215, 50%, 35%)';
-const COL_PE_MBO = 'hsl(215, 40%, 48%)';
-const COL_PE_PTP = 'hsl(210, 45%, 55%)';
-const COL_PE_PIPE = 'hsl(220, 35%, 62%)';
+const COL_PE_LBO = 'hsl(0, 0%, 11%)';
+const COL_PE_MBO = 'hsl(195, 50%, 28%)';
+const COL_PE_PTP = 'hsl(0, 0%, 30%)';
+const COL_PE_PIPE = 'hsl(0, 0%, 60%)';
 
-const COL_MA_PRIVATE = 'hsl(30, 40%, 42%)';
-const COL_MA_PUBLIC = 'hsl(40, 25%, 58%)';
+const COL_MA_PRIVATE = 'hsl(0, 0%, 11%)';
+const COL_MA_PUBLIC = 'hsl(195, 50%, 28%)';
 
-const COL_MA_INDUS = 'hsl(30, 45%, 38%)';
-const COL_MA_TECH = 'hsl(25, 35%, 50%)';
-const COL_MA_SANTE = 'hsl(45, 35%, 50%)';
-const COL_MA_ENERGY = 'hsl(35, 30%, 42%)';
-const COL_MA_SERVICES = 'hsl(40, 40%, 55%)';
-const COL_MA_INFRA = 'hsl(28, 30%, 46%)';
+const COL_MA_INDUS = 'hsl(0, 0%, 30%)';
+const COL_MA_TECH = 'hsl(0, 0%, 45%)';
+const COL_MA_SANTE = 'hsl(160, 35%, 32%)';
+const COL_MA_ENERGY = 'hsl(215, 55%, 22%)';
+const COL_MA_SERVICES = 'hsl(0, 0%, 60%)';
+const COL_MA_INFRA = 'hsl(200, 30%, 20%)';
 
-const COL_MA_OPA = 'hsl(38, 30%, 44%)';
+const COL_MA_OPA = 'hsl(0, 0%, 11%)';
 const COL_MA_OPE = 'hsl(42, 28%, 52%)';
 const COL_MA_SQUEEZE = 'hsl(36, 25%, 58%)';
 const COL_MA_DUAL = 'hsl(44, 22%, 48%)';
@@ -91,7 +91,7 @@ const VC_SECTEURS = [
   'Deep tech', 'Consumer / D2C', 'Marketplace / Plateforme', 'Impact / ESG',
 ];
 
-const COL_CLI = ['hsl(215, 55%, 22%)', 'hsl(210, 20%, 42%)', 'hsl(200, 12%, 55%)', 'hsl(220, 15%, 35%)', 'hsl(215, 50%, 35%)', 'hsl(210, 10%, 62%)'];
+const COL_CLI = ['hsl(215, 55%, 22%)', 'hsl(210, 20%, 42%)', 'hsl(200, 12%, 55%)', 'hsl(220, 15%, 35%)', 'hsl(0, 0%, 11%)', 'hsl(210, 10%, 62%)'];
 
 const tooltipStyle = {
   fontSize: '11px', fontFamily: 'Inter',

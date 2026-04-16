@@ -10,13 +10,13 @@ import SquareGauge from '@/components/shared/SquareGauge';
 import type { ActivityItem } from '@/lib/constants';
 
 const CHART_PALETTE = [
-  'hsl(215, 55%, 28%)',
-  'hsl(210, 40%, 48%)',
-  'hsl(200, 25%, 62%)',
-  'hsl(35, 30%, 55%)',
-  'hsl(220, 20%, 38%)',
-  'hsl(30, 25%, 68%)',
-  'hsl(215, 35%, 52%)',
+  'hsl(0, 0%, 11%)',
+  'hsl(195, 50%, 28%)',
+  'hsl(0, 0%, 30%)',
+  'hsl(160, 35%, 32%)',
+  'hsl(215, 55%, 22%)',
+  'hsl(0, 0%, 60%)',
+  'hsl(0, 0%, 45%)',
 ];
 
 const TYPES_ACTIFS = [

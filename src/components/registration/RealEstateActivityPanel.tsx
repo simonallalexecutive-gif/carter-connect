@@ -7,12 +7,12 @@ import { Check } from 'lucide-react';
 import SquareGauge from '@/components/shared/SquareGauge';
 
 /* ── Palette ── */
-const COL_BAUX = 'hsl(215, 50%, 35%)';
-const COL_SHARE = 'hsl(200, 50%, 40%)';
-const COL_ASSET = 'hsl(210, 25%, 50%)';
+const COL_BAUX = 'hsl(0, 0%, 11%)';
+const COL_SHARE = 'hsl(195, 50%, 28%)';
+const COL_ASSET = 'hsl(0, 0%, 30%)';
 const COL_CONSTRUCTION = 'hsl(215, 55%, 22%)';
-const COL_FINANCEMENT = 'hsl(200, 12%, 45%)';
-const COL_CONTENTIEUX = 'hsl(220, 15%, 62%)';
+const COL_FINANCEMENT = 'hsl(0, 0%, 45%)';
+const COL_CONTENTIEUX = 'hsl(0, 0%, 60%)';
 
 const ASSET_TYPES = [
   'Bureaux', 'Retail / Commerces', 'Logistique / Entrepôts',

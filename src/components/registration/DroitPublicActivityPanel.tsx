@@ -7,12 +7,12 @@ import { useMemo } from 'react';
 import { Check, Landmark, Gavel, FileCheck, Building2, Tag, BarChart3 } from 'lucide-react';
 import { buildQuantizedChartData } from '@/lib/percentages';
 
-const COL_CONTRATS = 'hsl(215, 55%, 28%)';
-const COL_CONTENTIEUX = 'hsl(35, 35%, 48%)';
-const COL_CONSEIL = 'hsl(160, 35%, 38%)';
+const COL_CONTRATS = 'hsl(0, 0%, 11%)';
+const COL_CONTENTIEUX = 'hsl(195, 50%, 28%)';
+const COL_CONSEIL = 'hsl(160, 35%, 32%)';
 
-const COL_CT_CMD = 'hsl(215, 50%, 35%)';
-const COL_CT_CONC = 'hsl(215, 40%, 48%)';
+const COL_CT_CMD = 'hsl(0, 0%, 11%)';
+const COL_CT_CONC = 'hsl(195, 50%, 28%)';
 const COL_CT_PPP = 'hsl(210, 45%, 55%)';
 
 const COL_CTX_CONTRATS = 'hsl(30, 40%, 42%)';

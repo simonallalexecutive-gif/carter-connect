@@ -7,12 +7,12 @@ import { useMemo } from 'react';
 import { Check, TrendingUp, Gavel, FileCheck, Building2, Tag, BarChart3 } from 'lucide-react';
 
 /* ── Palette ── */
-const COL_TRANSAC = 'hsl(215, 55%, 28%)';
-const COL_CONTENTIEUX = 'hsl(35, 35%, 48%)';
-const COL_CONSEIL = 'hsl(160, 35%, 38%)';
+const COL_TRANSAC = 'hsl(0, 0%, 11%)';
+const COL_CONTENTIEUX = 'hsl(195, 50%, 28%)';
+const COL_CONSEIL = 'hsl(160, 35%, 32%)';
 
-const COL_TR_PE = 'hsl(215, 50%, 35%)';
-const COL_TR_MA = 'hsl(215, 40%, 48%)';
+const COL_TR_PE = 'hsl(0, 0%, 11%)';
+const COL_TR_MA = 'hsl(195, 50%, 28%)';
 const COL_TR_RESTR = 'hsl(210, 45%, 55%)';
 const COL_TR_INTL = 'hsl(220, 35%, 62%)';
 

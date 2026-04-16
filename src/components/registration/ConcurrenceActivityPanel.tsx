@@ -7,12 +7,12 @@ import { useMemo } from 'react';
 import { Check, Shield, Gavel, FileCheck, Building2, Scale } from 'lucide-react';
 
 /* ── Palette ── */
-const COL_CONCENTRATIONS = 'hsl(215, 55%, 28%)';
-const COL_CONTENTIEUX = 'hsl(35, 35%, 48%)';
-const COL_CONSEIL = 'hsl(160, 35%, 38%)';
+const COL_CONCENTRATIONS = 'hsl(0, 0%, 11%)';
+const COL_CONTENTIEUX = 'hsl(195, 50%, 28%)';
+const COL_CONSEIL = 'hsl(160, 35%, 32%)';
 
-const COL_CONC_NAT = 'hsl(215, 50%, 35%)';
-const COL_CONC_EU = 'hsl(215, 40%, 48%)';
+const COL_CONC_NAT = 'hsl(0, 0%, 11%)';
+const COL_CONC_EU = 'hsl(195, 50%, 28%)';
 const COL_CONC_MULTI = 'hsl(210, 45%, 55%)';
 
 const COL_CTX_CARTELS = 'hsl(30, 40%, 42%)';
