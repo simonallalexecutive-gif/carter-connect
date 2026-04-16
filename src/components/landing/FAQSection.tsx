@@ -115,10 +115,10 @@ const FAQSection = () => {
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           className="mb-12 text-center"
         >
-          <p className="text-[11px] tracking-[0.25em] uppercase text-black/30 font-sans font-medium mb-6">
+          <p className="text-[11px] tracking-[0.25em] uppercase text-white/40 font-sans font-medium mb-6">
             Questions fréquentes
           </p>
-          <h2 className="text-3xl sm:text-4xl md:text-[2.8rem] font-serif font-normal text-black tracking-[-0.02em] mb-5">
+          <h2 className="text-3xl sm:text-4xl md:text-[2.8rem] font-serif font-normal text-white tracking-[-0.02em] mb-5">
             FAQ
           </h2>
         </motion.div>
