@@ -425,6 +425,85 @@ const Step6Review = () => {
                 ))}
               </div>
             )}
+
+            {/* Positionnement prêteur/sponsor (Finance) */}
+            {(store.departement === 'Financement LBO' || store.departement === 'Financement de projets' || store.departement === 'Banking & Finance') && (
+              <div className="border-t border-border pt-3 space-y-1.5">
+                <p className="text-[9px] uppercase tracking-wider text-muted-foreground">Positionnement</p>
+                <div className="flex items-center gap-2 text-xs font-sans font-light">
+                  <span className="text-foreground flex-1">Prêteur</span>
+                  <span className="text-muted-foreground">{store.positionnementPreteur}%</span>
+                </div>
+                <div className="flex items-center gap-2 text-xs font-sans font-light">
+                  <span className="text-foreground flex-1">Sponsor</span>
+                  <span className="text-muted-foreground">{100 - store.positionnementPreteur}%</span>
+                </div>
+              </div>
+            )}
+
+            {/* Employeur / Salarié (Social) */}
+            {(store.departement === 'Droit Social' || store.departement === 'Employment') && (
+              <div className="border-t border-border pt-3 space-y-1.5">
+                <p className="text-[9px] uppercase tracking-wider text-muted-foreground">Positionnement</p>
+                <div className="flex items-center gap-2 text-xs font-sans font-light">
+                  <span className="text-foreground flex-1">Employeur</span>
+                  <span className="text-muted-foreground">{store.socialEmployeur ?? 50}%</span>
+                </div>
+                <div className="flex items-center gap-2 text-xs font-sans font-light">
+                  <span className="text-foreground flex-1">Salarié / dirigeant</span>
+                  <span className="text-muted-foreground">{100 - (store.socialEmployeur ?? 50)}%</span>
+                </div>
+              </div>
+            )}
+
+            {/* Clientèle FR / International */}
+            <div className="border-t border-border pt-3 space-y-1.5">
+              <p className="text-[9px] uppercase tracking-wider text-muted-foreground">Clientèle</p>
+              <div className="flex items-center gap-2 text-xs font-sans font-light">
+                <span className="text-foreground flex-1">FR Domestique</span>
+                <span className="text-muted-foreground">{store.clienteleFrancaise}%</span>
+              </div>
+              <div className="flex items-center gap-2 text-xs font-sans font-light">
+                <span className="text-foreground flex-1">International</span>
+                <span className="text-muted-foreground">{100 - store.clienteleFrancaise}%</span>
+              </div>
+            </div>
+
+            {/* Taille des opérations */}
+            {(store.tailleOperations || []).length > 0 && (
+              <div className="border-t border-border pt-3 space-y-1.5">
+                <p className="text-[9px] uppercase tracking-wider text-muted-foreground">Taille</p>
+                <div className="flex flex-wrap gap-1.5">
+                  {(store.tailleOperations || []).map(t => (
+                    <span key={t} className="inline-flex items-center px-2.5 py-0.5 rounded-sm text-[10px] font-sans bg-secondary text-foreground/80 border border-border">{t}</span>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Social-specific tags */}
+            {(store.departement === 'Droit Social' || store.departement === 'Employment') && (store.socialClientele || []).length > 0 && (
+              <div className="border-t border-border pt-3 space-y-1.5">
+                <p className="text-[9px] uppercase tracking-wider text-muted-foreground">Clientèle cible</p>
+                <div className="flex flex-wrap gap-1.5">
+                  {(store.socialClientele || []).map(c => (
+                    <span key={c} className="inline-flex items-center px-2.5 py-0.5 rounded-sm text-[10px] font-sans bg-secondary text-foreground/80 border border-border">{c}</span>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Social expertises */}
+            {(store.departement === 'Droit Social' || store.departement === 'Employment') && (store.socialExpertises || []).length > 0 && (
+              <div className="border-t border-border pt-3 space-y-1.5">
+                <p className="text-[9px] uppercase tracking-wider text-muted-foreground">Expertises</p>
+                <div className="flex flex-wrap gap-1.5">
+                  {(store.socialExpertises || []).map(e => (
+                    <span key={e} className="inline-flex items-center px-2.5 py-0.5 rounded-sm text-[10px] font-sans bg-secondary text-foreground/80 border border-border">{e}</span>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
