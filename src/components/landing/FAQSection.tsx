@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { cn } from '@/lib/utils';
+import faqBg from '@/assets/faq-bg.jpg';
 import {
   Accordion,
   AccordionContent,
