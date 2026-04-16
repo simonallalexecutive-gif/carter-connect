@@ -15,81 +15,81 @@ import { toast } from 'sonner';
 import { buildQuantizedChartData } from '@/lib/percentages';
 
 const CHART_COLORS = [
-  'hsl(215, 60%, 30%)',
-  'hsl(215, 50%, 42%)',
-  'hsl(220, 55%, 22%)',
-  'hsl(210, 45%, 52%)',
-  'hsl(218, 40%, 36%)',
-  'hsl(222, 50%, 28%)',
+  'hsl(0, 0%, 11%)',       // Noir mat
+  'hsl(195, 50%, 28%)',    // Bleu pétrole
+  'hsl(0, 0%, 30%)',       // Gris anthracite
+  'hsl(160, 35%, 32%)',    // Vert green
+  'hsl(215, 55%, 22%)',    // Bleu foncé
+  'hsl(0, 0%, 60%)',       // Gris clair
 ];
 
 // ── Specialized department category definitions ──
 const MA_CATEGORIES = [
-  { key: 'ma_pe', label: 'Private Equity', color: 'hsl(215, 55%, 28%)' },
-  { key: 'ma_ma', label: 'M&A', color: 'hsl(35, 35%, 48%)' },
-  { key: 'ma_vc', label: 'Venture Capital', color: 'hsl(160, 35%, 38%)' },
-  { key: 'ma_autres', label: 'Autres', color: 'hsl(200, 15%, 60%)' },
+  { key: 'ma_pe', label: 'Private Equity', color: 'hsl(0, 0%, 11%)' },
+  { key: 'ma_ma', label: 'M&A', color: 'hsl(195, 50%, 28%)' },
+  { key: 'ma_vc', label: 'Venture Capital', color: 'hsl(160, 35%, 32%)' },
+  { key: 'ma_autres', label: 'Autres', color: 'hsl(0, 0%, 60%)' },
 ];
 
 const CONC_CATEGORIES = [
-  { key: 'conc_concentrations', label: 'Contrôle des concentrations', color: 'hsl(215, 55%, 28%)' },
-  { key: 'conc_contentieux', label: 'Contentieux / enquêtes', color: 'hsl(35, 35%, 48%)' },
-  { key: 'conc_conseil', label: 'Conseil / compliance', color: 'hsl(160, 35%, 38%)' },
+  { key: 'conc_concentrations', label: 'Contrôle des concentrations', color: 'hsl(0, 0%, 11%)' },
+  { key: 'conc_contentieux', label: 'Contentieux / enquêtes', color: 'hsl(195, 50%, 28%)' },
+  { key: 'conc_conseil', label: 'Conseil / compliance', color: 'hsl(160, 35%, 32%)' },
 ];
 
 const FISC_CATEGORIES = [
-  { key: 'fisc_transac', label: 'Fiscalité transactionnelle', color: 'hsl(215, 55%, 28%)' },
-  { key: 'fisc_contentieux', label: 'Fiscalité contentieuse', color: 'hsl(35, 35%, 48%)' },
-  { key: 'fisc_conseil', label: 'Fiscalité conseil / structuration', color: 'hsl(160, 35%, 38%)' },
+  { key: 'fisc_transac', label: 'Fiscalité transactionnelle', color: 'hsl(0, 0%, 11%)' },
+  { key: 'fisc_contentieux', label: 'Fiscalité contentieuse', color: 'hsl(195, 50%, 28%)' },
+  { key: 'fisc_conseil', label: 'Fiscalité conseil / structuration', color: 'hsl(160, 35%, 32%)' },
 ];
 
 const DPUB_CATEGORIES = [
-  { key: 'dpub_contrats', label: 'Droit public éco. / contrats publics', color: 'hsl(215, 55%, 28%)' },
-  { key: 'dpub_contentieux', label: 'Contentieux administratif', color: 'hsl(35, 35%, 48%)' },
-  { key: 'dpub_conseil', label: 'Conseil / régulation', color: 'hsl(160, 35%, 38%)' },
+  { key: 'dpub_contrats', label: 'Droit public éco. / contrats publics', color: 'hsl(0, 0%, 11%)' },
+  { key: 'dpub_contentieux', label: 'Contentieux administratif', color: 'hsl(195, 50%, 28%)' },
+  { key: 'dpub_conseil', label: 'Conseil / régulation', color: 'hsl(160, 35%, 32%)' },
 ];
 
 const ARB_TYPES = [
-  { key: 'arb_commercial', label: 'Arbitrage commercial', color: 'hsl(215, 50%, 35%)' },
-  { key: 'arb_invest', label: "Arbitrage d'investissement", color: 'hsl(200, 50%, 40%)' },
-  { key: 'arb_construction', label: 'Arbitrage construction', color: 'hsl(210, 25%, 50%)' },
+  { key: 'arb_commercial', label: 'Arbitrage commercial', color: 'hsl(0, 0%, 11%)' },
+  { key: 'arb_invest', label: "Arbitrage d'investissement", color: 'hsl(195, 50%, 28%)' },
+  { key: 'arb_construction', label: 'Arbitrage construction', color: 'hsl(0, 0%, 30%)' },
   { key: 'arb_sport', label: 'Arbitrage sportif', color: 'hsl(215, 55%, 22%)' },
 ];
 
 const PROJ_TYPES = [
-  { key: 'proj_infra', label: 'Infrastructures', color: 'hsl(215, 50%, 35%)' },
-  { key: 'proj_enr', label: 'Énergie renouvelable', color: 'hsl(160, 40%, 38%)' },
-  { key: 'proj_concession', label: 'Concessions / PPP', color: 'hsl(210, 25%, 50%)' },
-  { key: 'proj_fin', label: 'Financement de projets', color: 'hsl(200, 12%, 45%)' },
-  { key: 'proj_regl', label: 'Réglementaire / permitting', color: 'hsl(35, 35%, 48%)' },
+  { key: 'proj_infra', label: 'Infrastructures', color: 'hsl(0, 0%, 11%)' },
+  { key: 'proj_enr', label: 'Énergie renouvelable', color: 'hsl(160, 35%, 32%)' },
+  { key: 'proj_concession', label: 'Concessions / PPP', color: 'hsl(0, 0%, 30%)' },
+  { key: 'proj_fin', label: 'Financement de projets', color: 'hsl(0, 0%, 45%)' },
+  { key: 'proj_regl', label: 'Réglementaire / permitting', color: 'hsl(195, 50%, 28%)' },
 ];
 
 const RESTRUCTURING_COLORS = {
-  amiable: 'hsl(215, 50%, 35%)',
-  financier: 'hsl(210, 25%, 50%)',
+  amiable: 'hsl(195, 50%, 28%)',
+  financier: 'hsl(0, 0%, 30%)',
   judiciaire: 'hsl(215, 55%, 22%)',
-  distressed: 'hsl(200, 12%, 45%)',
-  contentieux: 'hsl(220, 15%, 62%)',
+  distressed: 'hsl(0, 0%, 45%)',
+  contentieux: 'hsl(0, 0%, 60%)',
 };
 
 const RE_COLORS = {
-  baux: 'hsl(215, 50%, 35%)',
-  share: 'hsl(200, 50%, 40%)',
-  asset: 'hsl(210, 25%, 50%)',
+  baux: 'hsl(0, 0%, 11%)',
+  share: 'hsl(195, 50%, 28%)',
+  asset: 'hsl(0, 0%, 30%)',
   construction: 'hsl(215, 55%, 22%)',
-  financement: 'hsl(200, 12%, 45%)',
-  contentieux: 'hsl(220, 15%, 62%)',
+  financement: 'hsl(0, 0%, 45%)',
+  contentieux: 'hsl(0, 0%, 60%)',
 };
 
 const SOCIAL_COLORS = {
-  conseilIndiv: 'hsl(215, 55%, 28%)',
-  conseilColl: 'hsl(215, 40%, 42%)',
-  contentieuxIndiv: 'hsl(35, 30%, 50%)',
-  contentieuxColl: 'hsl(40, 25%, 60%)',
+  conseilIndiv: 'hsl(0, 0%, 11%)',
+  conseilColl: 'hsl(195, 50%, 28%)',
+  contentieuxIndiv: 'hsl(0, 0%, 30%)',
+  contentieuxColl: 'hsl(0, 0%, 60%)',
 };
 
-const RESTRUCTURING_POSITIONING_COLORS = ['hsl(215, 50%, 35%)', 'hsl(200, 15%, 50%)', 'hsl(220, 20%, 30%)'];
-const RESTRUCTURING_CLIENTELE_COLORS = ['hsl(215, 55%, 22%)', 'hsl(210, 20%, 42%)', 'hsl(200, 12%, 55%)', 'hsl(220, 15%, 35%)', 'hsl(215, 50%, 35%)', 'hsl(210, 10%, 62%)'];
+const RESTRUCTURING_POSITIONING_COLORS = ['hsl(0, 0%, 11%)', 'hsl(195, 50%, 28%)', 'hsl(0, 0%, 30%)'];
+const RESTRUCTURING_CLIENTELE_COLORS = ['hsl(215, 55%, 22%)', 'hsl(0, 0%, 30%)', 'hsl(0, 0%, 45%)', 'hsl(0, 0%, 60%)', 'hsl(195, 50%, 28%)', 'hsl(160, 35%, 32%)'];
 
 type PreviewMode = 'recap' | 'cabinet';
 
