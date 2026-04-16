@@ -87,10 +87,14 @@ const Step2Identity = () => {
 
   // All Chambers practices available for selection
   const allPractices = useMemo(() => {
-    return CHAMBERS_DEPARTMENTS.map(d => ({
+    const practices = CHAMBERS_DEPARTMENTS.map(d => ({
       key: d.key,
       label: CHAMBERS_KEY_TO_PRACTICE[d.key] || d.label,
-    })).sort((a, b) => a.label.localeCompare(b.label, 'fr'));
+    }));
+    if (!practices.some(p => p.label === 'VC')) {
+      practices.push({ key: 'vc', label: 'VC' });
+    }
+    return practices.sort((a, b) => a.label.localeCompare(b.label, 'fr'));
   }, []);
 
   // Get current Chambers band for selected practice (null = not ranked)
@@ -616,7 +620,7 @@ const Step2Identity = () => {
                 {prev.name && (
                   <div>
                     <p className="text-[10px] text-muted-foreground font-sans font-light uppercase tracking-wider mb-2">
-                      Compétences développées dans ce cabinet
+                      Précisez simplement votre dominante dans ce cabinet ?
                     </p>
                     <div className="flex flex-wrap gap-1.5">
                       {allPractices.map(p => {
