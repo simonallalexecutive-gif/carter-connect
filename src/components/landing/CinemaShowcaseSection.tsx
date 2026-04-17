@@ -44,7 +44,7 @@ const CinemaShowcaseSection = () => {
           </div>
 
           {/* Inner screen */}
-          <div className="relative w-full h-[calc(100%-1.75rem)] rounded-[10px] overflow-hidden bg-black ring-1 ring-black/10 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.04)]">
+          <div className="relative w-full h-[calc(100%-1.75rem)] rounded-[10px] overflow-hidden bg-white ring-1 ring-black/10">
             <motion.div
               style={{ opacity: overlayOpacity }}
               className="pointer-events-none absolute inset-0 z-10 bg-white"
@@ -56,7 +56,7 @@ const CinemaShowcaseSection = () => {
               loop
               playsInline
               preload="metadata"
-              className="w-full h-full object-contain bg-black"
+              className="absolute inset-0 w-full h-full object-contain bg-white"
             />
           </div>
         </motion.div>
