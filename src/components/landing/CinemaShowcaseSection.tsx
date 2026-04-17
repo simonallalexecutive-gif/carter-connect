@@ -51,6 +51,18 @@ const CinemaShowcaseSection = () => {
             className="w-full h-full object-contain"
           />
         </motion.div>
+
+        {/* Caption pills under video */}
+        <div className="mt-6 md:mt-8 flex flex-wrap items-center justify-center gap-x-10 gap-y-3 px-6">
+          <span className="flex items-center gap-2 font-sans text-[0.78rem] sm:text-[0.85rem] tracking-wide text-black/60">
+            <span aria-hidden className="text-black/40">◇</span>
+            Explorer le marché
+          </span>
+          <span className="flex items-center gap-2 font-sans text-[0.78rem] sm:text-[0.85rem] tracking-wide text-black/60">
+            <span aria-hidden className="text-black/40">◆</span>
+            Publier votre recherche à titre confidentiel
+          </span>
+        </div>
       </div>
     </section>
   );
