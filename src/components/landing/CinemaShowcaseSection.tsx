@@ -36,14 +36,12 @@ const CinemaShowcaseSection = () => {
 
         {/* Cinema video frame — full video visible (object-contain) */}
         <motion.div
-          style={{ scale, borderRadius: radius }}
-          className="relative w-[92%] max-w-[1280px] flex-1 min-h-0 overflow-hidden ring-1 ring-black/10 bg-white"
+          style={{ scale }}
+          className="relative w-[92%] max-w-[1280px] flex-1 min-h-0 overflow-hidden bg-white"
         >
-          <div className="pointer-events-none absolute inset-0 z-20 ring-1 ring-inset ring-black/[0.06] rounded-[inherit]" />
-
           <motion.div
             style={{ opacity: overlayOpacity }}
-            className="pointer-events-none absolute inset-0 z-10 bg-white rounded-[inherit]"
+            className="pointer-events-none absolute inset-0 z-10 bg-white"
           />
 
           <video
