@@ -22,7 +22,7 @@ const CinemaShowcaseSection = () => {
       <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col bg-white pt-14 md:pt-16 pb-4">
         {/* Header — top-left aligned */}
         <div className="px-6 sm:px-10 lg:px-16 mb-5 md:mb-6 max-w-3xl">
-          <p className="text-[11px] font-sans font-medium tracking-[0.25em] uppercase text-black/40 mb-4">
+          <p className="text-[8px] font-sans font-medium tracking-[0.25em] uppercase text-black/40 mb-4">
             Votre espace cabinet
           </p>
           <h2 className="font-serif text-[1.35rem] sm:text-[1.7rem] md:text-[2rem] leading-[1.25] text-black/90">
