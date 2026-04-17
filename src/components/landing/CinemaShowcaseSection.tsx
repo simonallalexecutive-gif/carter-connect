@@ -1,5 +1,6 @@
 import { motion, useScroll, useTransform } from 'motion/react';
 import { useRef } from 'react';
+import { Compass, Lock } from 'lucide-react';
 import heroCinema from '@/assets/hero-cinema.mp4';
 
 const CinemaShowcaseSection = () => {
@@ -52,17 +53,45 @@ const CinemaShowcaseSection = () => {
           />
         </motion.div>
 
-        {/* Caption pills under video */}
-        <div className="mt-6 md:mt-8 flex flex-wrap items-center justify-center gap-x-10 gap-y-3 px-6">
-          <span className="flex items-center gap-2 font-sans text-[0.78rem] sm:text-[0.85rem] tracking-wide text-black/60">
-            <span aria-hidden className="text-black/40">◇</span>
-            Explorer le marché
-          </span>
-          <span className="flex items-center gap-2 font-sans text-[0.78rem] sm:text-[0.85rem] tracking-wide text-black/60">
-            <span aria-hidden className="text-black/40">◆</span>
-            Publier votre recherche à titre confidentiel
-          </span>
-        </div>
+        {/* Caption pillars under video — WOW effect */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+          className="mt-10 md:mt-14 px-6"
+        >
+          <div className="flex items-center justify-center gap-4 mb-6">
+            <div className="h-px w-12 bg-black/15" />
+            <span className="font-sans text-[10px] font-medium tracking-[0.25em] uppercase text-black/40">
+              Deux usages, un même espace
+            </span>
+            <div className="h-px w-12 bg-black/15" />
+          </div>
+
+          <div className="flex flex-col sm:flex-row items-stretch justify-center gap-4 sm:gap-6 max-w-3xl mx-auto">
+            {[
+              { icon: Compass, label: 'Explorer le marché' },
+              { icon: Lock, label: 'Publier votre recherche à titre confidentiel' },
+            ].map(({ icon: Icon, label }, i) => (
+              <motion.div
+                key={label}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.9, delay: 0.25 + i * 0.15, ease: [0.16, 1, 0.3, 1] }}
+                className="group relative flex-1 flex items-center justify-center gap-3 px-6 py-4 rounded-sm border border-black/10 bg-white hover:border-black/30 hover:shadow-[0_8px_30px_-12px_rgba(0,0,0,0.25)] transition-all duration-700"
+              >
+                <div className="w-9 h-9 rounded-full flex items-center justify-center bg-black/[0.04] group-hover:bg-black/[0.08] transition-colors duration-500">
+                  <Icon className="w-4 h-4 text-black/55 group-hover:text-black/80 transition-colors duration-500" strokeWidth={1.4} />
+                </div>
+                <span className="font-sans text-[0.82rem] sm:text-[0.88rem] font-medium tracking-[-0.005em] text-black/75 group-hover:text-black transition-colors duration-500">
+                  {label}
+                </span>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
       </div>
     </section>
   );
