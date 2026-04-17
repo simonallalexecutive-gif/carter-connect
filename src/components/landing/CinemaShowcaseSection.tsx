@@ -1,5 +1,6 @@
 import { motion, useScroll, useTransform } from 'motion/react';
 import { useRef } from 'react';
+import { Compass, Lock } from 'lucide-react';
 import heroCinema from '@/assets/hero-cinema.mp4';
 
 const CinemaShowcaseSection = () => {
