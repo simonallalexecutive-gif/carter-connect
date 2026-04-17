@@ -22,42 +22,38 @@ const CinemaShowcaseSection = () => {
       <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col bg-white pt-14 md:pt-16 pb-4">
         {/* Header — top-left aligned */}
         <div className="px-6 sm:px-10 lg:px-16 mb-5 md:mb-6 max-w-3xl">
-          <p className="text-[8px] font-sans font-medium tracking-[0.25em] uppercase text-black/40 mb-4">
+          <p className="text-[10px] font-sans font-medium tracking-[0.25em] uppercase text-black/40 mb-4">
             Votre espace cabinet
           </p>
           <h2 className="font-serif text-[1.35rem] sm:text-[1.7rem] md:text-[2rem] leading-[1.25] text-black/90">
             Une nouvelle approche du recrutement : accédez en temps réel au marché depuis votre espace cabinet et conservez <em className="italic">un temps d'avance</em>.
-            <span className="block mt-2 text-black/55">Logan vous accompagne dans tous vos rapprochements.</span>
+            <span className="block mt-2 text-black/55 text-[1rem] sm:text-[1.2rem] md:text-[1.4rem] leading-[1.35]">
+              Logan vous accompagne dans tous vos rapprochements.
+            </span>
           </h2>
         </div>
 
-        {/* Outer "device" frame — screen-in-screen effect */}
+        {/* Sober rectangular frame — fine double rule */}
         <motion.div
           style={{ scale }}
-          className="relative w-[92%] max-w-[1280px] mx-auto flex-1 min-h-0 rounded-[18px] bg-gradient-to-b from-neutral-100 to-neutral-200 shadow-[0_30px_70px_-30px_rgba(0,0,0,0.25),0_0_0_1px_rgba(0,0,0,0.06)] p-3 sm:p-4 md:p-5"
+          className="relative w-[92%] max-w-[1280px] mx-auto flex-1 min-h-0 bg-white p-[1px] ring-1 ring-black/15 shadow-[0_30px_70px_-30px_rgba(0,0,0,0.18)]"
         >
-          {/* Top "browser-like" bar with traffic dots */}
-          <div className="flex items-center gap-1.5 px-2 pb-2.5">
-            <span className="w-2.5 h-2.5 rounded-full bg-neutral-300" />
-            <span className="w-2.5 h-2.5 rounded-full bg-neutral-300" />
-            <span className="w-2.5 h-2.5 rounded-full bg-neutral-300" />
-          </div>
-
-          {/* Inner screen */}
-          <div className="relative w-full h-[calc(100%-1.75rem)] rounded-[10px] overflow-hidden bg-white ring-1 ring-black/10">
-            <motion.div
-              style={{ opacity: overlayOpacity }}
-              className="pointer-events-none absolute inset-0 z-10 bg-white"
-            />
-            <video
-              src={heroCinema}
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="metadata"
-              className="absolute inset-0 w-full h-full object-contain bg-white"
-            />
+          <div className="relative w-full h-full p-2.5 sm:p-3 md:p-3.5 ring-1 ring-inset ring-black/10 bg-white">
+            <div className="relative w-full h-full overflow-hidden bg-black ring-1 ring-black/20">
+              <motion.div
+                style={{ opacity: overlayOpacity }}
+                className="pointer-events-none absolute inset-0 z-10 bg-white"
+              />
+              <video
+                src={heroCinema}
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                className="w-full h-full object-contain bg-black"
+              />
+            </div>
           </div>
         </motion.div>
       </div>
