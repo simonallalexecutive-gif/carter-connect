@@ -23,15 +23,12 @@ const CinemaShowcaseSection = () => {
       <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col items-center bg-white pt-16 md:pt-20 pb-8">
         {/* Title — harmonized with MissionSection typography */}
         <div className="text-center px-4 sm:px-8 lg:px-10 mb-6 md:mb-8 max-w-5xl w-full">
-          <p className="text-[11px] font-sans font-medium tracking-[0.25em] uppercase text-black/40 mb-4">
-            Démonstration — côté cabinet
+          <p className="text-[11px] font-sans font-medium tracking-[0.25em] uppercase text-black/40 mb-6">
+            Démonstration
           </p>
           <h2 className="font-serif text-3xl sm:text-4xl md:text-[2.8rem] leading-[1.15] text-black/90">
-            <em className="italic">L'expérience Logan</em>
+            L'expérience Logan : <em className="italic">votre espace cabinet</em>
           </h2>
-          <p className="mt-4 font-sans text-[0.85rem] sm:text-[1rem] md:text-[1.018rem] font-[480] leading-[1.65] text-black/50 max-w-2xl mx-auto">
-            Découvrez l'interface dédiée aux cabinets.
-          </p>
         </div>
 
         {/* Cinema video frame — full video visible (object-contain) */}
