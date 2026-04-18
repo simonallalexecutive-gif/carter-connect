@@ -20,10 +20,10 @@ const CinemaShowcaseSection = () => {
     <section
       ref={sectionRef}
       className="relative bg-white"
-      style={{ height: '120vh' }}
+      style={{ height: '150vh' }}
       aria-label="Démonstration vidéo Logan — côté cabinet"
     >
-      <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col bg-white pt-14 md:pt-16 pb-6">
+      <div className="sticky top-0 min-h-screen h-[125vh] w-full overflow-hidden flex flex-col bg-white pt-14 md:pt-16 pb-6">
         {/* Header — top-left aligned */}
         <div className="px-6 sm:px-10 lg:px-16 mb-9 md:mb-11 max-w-3xl">
           <p className="text-[10px] font-sans font-medium tracking-[0.25em] uppercase text-black/40 mb-4">
