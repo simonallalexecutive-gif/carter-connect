@@ -1137,9 +1137,11 @@ const ProfileDrawer = ({ profile: p, onClose }: { profile: CabinetProfile; onClo
           </div>
 
           {/* CTA */}
-          <div className="bg-foreground rounded-md p-4 text-center">
+          <div className="bg-foreground rounded-md p-5 text-center">
             <div className="text-sm font-bold text-white mb-1.5">Ce candidat vous intéresse ?</div>
-            <p className="text-[11px] text-white/45 mb-3 leading-relaxed">LOGAN se rapprochera du candidat en dehors de tout mandat pour explorer son intérêt.</p>
+            <p className="text-[11px] text-white/55 mb-4 leading-relaxed">
+              Manifestez votre intérêt pour ce candidat, LOGAN se charge du reste pour vous.
+            </p>
             <button
               onClick={() => {
                 onClose();
