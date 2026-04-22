@@ -2,7 +2,6 @@ import { useCabinetStore } from '@/stores/cabinetStore';
 import Footer from '@/components/layout/Footer';
 import LogoBanner from '@/components/layout/LogoBanner';
 import CabinetStepProgress from '@/components/cabinet/CabinetStepProgress';
-import CabinetStep1Hero from '@/components/cabinet/CabinetStep1Hero';
 import CabinetStep2Identity from '@/components/cabinet/CabinetStep2Identity';
 import CabinetStep4Subscription from '@/components/cabinet/CabinetStep4Subscription';
 import CabinetStep5Validation from '@/components/cabinet/CabinetStep5Validation';
@@ -243,12 +242,9 @@ const CabinetPage = () => {
         const name = session.user.user_metadata?.full_name || '';
         if (name) setField('cabinetName', name);
         setStep(6);
-      } else {
-        // Only apply ?start=2 if user is NOT logged in
-        const startStep = searchParams.get('start');
-        if (startStep === '2' && step === 1) {
-          setStep(2);
-        }
+      } else if (step === 1) {
+        // Skip the legacy welcome screen — go directly to Identity
+        setStep(2);
       }
     };
     if (step === 1) checkSession();
@@ -287,8 +283,7 @@ const CabinetPage = () => {
       ) : (
         <LogoBanner subtitle="Espace Cabinet" variant={step >= 2 ? 'light' : 'matte'} />
       )}
-      <main className={step === 1 ? '' : 'flex-1 py-11 px-6 md:px-12'}>
-        {step === 1 && <CabinetStep1Hero />}
+      <main className="flex-1 py-11 px-6 md:px-12">
         {step === 2 && <CabinetStep2Identity />}
         {step === 3 && <CabinetStep4Subscription />}
         {step === 4 && <CabinetStep5Validation />}
