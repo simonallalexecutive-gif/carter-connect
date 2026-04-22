@@ -5,7 +5,7 @@ import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import { CHAMBERS_DEPARTMENTS, getChambersRanking, formatChambersBand } from '@/lib/chambersRankings';
 import { NAT_FLAGS, NAT_LABELS } from '@/lib/legal500Rankings';
 import { cn } from '@/lib/utils';
-import { X, Search, Eye, Plus, FileText, Users, User } from 'lucide-react';
+import { X, Search, Eye, Plus, FileText, Users, User, Sparkles } from 'lucide-react';
 import ActivityPieChart from '@/components/shared/ActivityPieChart';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
@@ -33,8 +33,14 @@ const FILTERS = [
   { key: 'immo', label: 'Real Estate' },
   { key: 'projets', label: 'Projects & Energy' },
   { key: 'tax', label: 'Tax' },
-  { key: 'new', label: '🔔 Nouveaux' },
+  { key: 'new', label: 'Nouveaux', icon: Sparkles },
 ];
+
+// Map of dept key → official practice label (mirrors FILTERS, used inside cards)
+const PRACTICE_LABEL_BY_KEY: Record<string, string> = FILTERS.reduce((acc, f) => {
+  if (f.key !== 'all' && f.key !== 'new') acc[f.key] = f.label;
+  return acc;
+}, {} as Record<string, string>);
 
 // Pie chart palette: bleu nuit, bleu pétrole, gris clair, gris foncé, noir
 const EXPLORE_PIE_PALETTE = [
