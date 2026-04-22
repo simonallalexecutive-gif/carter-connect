@@ -831,7 +831,8 @@ const ExploreView = ({
 // ── PROFILE DRAWER ──
 const ProfileDrawer = ({ profile: p, onClose }: { profile: CabinetProfile; onClose: () => void }) => {
   const status = getStatusLabel(p);
-  const senDetail = getSeniorityDetail(p);
+  const seniorityLabel = getSeniorityLabel(p);
+  const senDetail = status === 'Collaborateur' ? seniorityLabel : null;
   const natLabel = getNatLabel(p.nat);
   const chambers = isChambersRanked(p);
 
