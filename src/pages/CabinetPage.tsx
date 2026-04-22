@@ -234,7 +234,15 @@ const CabinetPage = () => {
   const step = useCabinetStore((s) => s.step);
   const setStep = useCabinetStore((s) => s.setStep);
   const setField = useCabinetStore((s) => s.setField);
-  
+  const [searchParams] = useSearchParams();
+
+  // Skip the confidentiality intro if user already saw it on RegisterPage
+  useEffect(() => {
+    const startStep = searchParams.get('start');
+    if (startStep === '2' && step === 1) {
+      setStep(2);
+    }
+  }, [searchParams, step, setStep]);
 
   useEffect(() => {
     const checkSession = async () => {
