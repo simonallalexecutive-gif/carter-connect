@@ -303,7 +303,7 @@ const Step6Review = () => {
       chartData: buildQuantizedChartData(
         activeActivites.map((item, index) => ({
           key: item.key,
-          name: item.label,
+          name: labelOf(item.key),
           raw: store.pourcentages[item.key] || 10,
           color: CHART_COLORS[index % CHART_COLORS.length],
         })),
