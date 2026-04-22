@@ -147,6 +147,19 @@ const Step6Review = () => {
   const allActivites = practiceActivities.sections.flatMap(s => s.items);
   const activeActivites = allActivites.filter(a => store.activites[a.key]);
 
+  // Global key → label resolver: agrège TOUTES les pratiques pour toujours afficher
+  // un libellé complet (ex: "fin_acq" → "Financement d'acquisition") même quand
+  // le département actuel ne contient pas cette clé.
+  const GLOBAL_LABEL_MAP = useMemo(() => {
+    const map: Record<string, string> = {};
+    Object.values(ACTIVITES_BY_PRACTICE).forEach(p => {
+      p.sections.forEach(s => s.items.forEach(it => { map[it.key] = it.label; }));
+    });
+    ACTIVITES_DEFAULT.sections.forEach(s => s.items.forEach(it => { map[it.key] = it.label; }));
+    return map;
+  }, []);
+  const labelOf = (key: string) => GLOBAL_LABEL_MAP[key] || allActivites.find(a => a.key === key)?.label || key;
+
   const activitySummary = useMemo(() => {
     const dept = store.departement;
 
@@ -247,12 +260,13 @@ const Step6Review = () => {
 
     // ── Finance ──
     if (dept === 'Financement LBO' || dept === 'Financement de projets' || dept === 'Banking & Finance') {
-      const finKeys = Object.keys(store.activites).filter(k => k.startsWith('fin_') && store.activites[k]);
+      const finKeys = Object.keys(store.activites).filter(k => (k.startsWith('fin_') || k.startsWith('finp_')) && store.activites[k]);
       if (finKeys.length > 0) {
-        const items = finKeys.map((k, i) => {
-          const label = allActivites.find(a => a.key === k)?.label || k;
-          return { name: label, raw: store.pourcentages[k] || 10, color: CHART_COLORS[i % CHART_COLORS.length] };
-        });
+        const items = finKeys.map((k, i) => ({
+          name: labelOf(k),
+          raw: store.pourcentages[k] || 10,
+          color: CHART_COLORS[i % CHART_COLORS.length],
+        }));
         const total = items.reduce((s, i) => s + i.raw, 0);
         return { chartData: items.map(i => ({ name: i.name, value: total > 0 ? Math.round((i.raw / total) * 100) : 0, color: i.color })), positionnement: [], clientele: [] };
       }
@@ -289,7 +303,7 @@ const Step6Review = () => {
       chartData: buildQuantizedChartData(
         activeActivites.map((item, index) => ({
           key: item.key,
-          name: item.label,
+          name: labelOf(item.key),
           raw: store.pourcentages[item.key] || 10,
           color: CHART_COLORS[index % CHART_COLORS.length],
         })),
@@ -727,8 +741,8 @@ const Step6Review = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
                   {pqe && <div><span className="text-[9px] uppercase tracking-[0.18em] text-white/45 font-sans font-medium">Séniorité</span><div className="mt-1.5"><SeniorityBadge info={pqe} /></div></div>}
                   <DataRow label="Cabinet" value={store.cabinet} />
-                  <DataRow label="Classement Chambers" value={chambersInfo?.band ? `Band ${chambersInfo.band} — ${chambersInfo.deptLabel}` : chambersInfo?.isIntegrated ? 'Cabinet classé (hors pratique)' : 'Non classé'} />
                   <DataRow label="Pratique" value={store.departement} />
+                  <DataRow label="Chambers" value={chambersInfo?.band ? `Band ${chambersInfo.band} — ${chambersInfo.deptLabel}` : chambersInfo?.isIntegrated ? 'Cabinet classé (hors pratique)' : 'Non classé'} />
                 </div>
                 {store.previousCabinets.length > 0 && (
                   <div className="mt-5 pt-4 border-t border-white/10">
@@ -842,9 +856,9 @@ const Step6Review = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
                   <DataRow label="Pratique" value={store.departement} />
                   {chambersInfo && <DataRow label="Cabinet d'origine" value={chambersInfo.cabinetValue} />}
-                  <DataRow label="Classement Chambers" value={
+                  <DataRow label="Chambers" value={
                     chambersInfo?.band
-                      ? (chambersInfo.band <= 2 ? 'Band 1/Band 2' : chambersInfo.band <= 4 ? 'Band 3/Band 4' : `Band ${chambersInfo.band}`)
+                      ? `Band ${chambersInfo.band}/Band ${chambersInfo.band + 1} — ${chambersInfo.deptLabel}`
                       : chambersInfo?.isIntegrated ? 'Classé (hors pratique)' : 'Non classé'
                   } />
                   {store.anglais && <DataRow label="Anglais" value={store.anglais} />}
