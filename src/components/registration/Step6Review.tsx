@@ -14,24 +14,25 @@ import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import { toast } from 'sonner';
 import { buildQuantizedChartData } from '@/lib/percentages';
 
-// Palette professionnelle, sobre et harmonieuse pour camemberts (sur fond sombre)
+// Palette neutre, sobre et professionnelle — tons gris, ardoise et bleu nuit
+// Conçue pour un rendu monochrome élégant sur fond noir mat
 const CHART_COLORS = [
-  'hsl(212, 60%, 52%)',    // Bleu pétrole lumineux
-  'hsl(160, 42%, 48%)',    // Émeraude profond
-  'hsl(35, 65%, 58%)',     // Or doux
-  'hsl(220, 18%, 70%)',    // Gris perle
-  'hsl(8, 55%, 56%)',      // Terracotta
-  'hsl(265, 30%, 60%)',    // Mauve fumé
+  'hsl(0, 0%, 92%)',       // Blanc cassé / perle
+  'hsl(215, 14%, 62%)',    // Gris ardoise clair
+  'hsl(220, 12%, 42%)',    // Anthracite bleuté
+  'hsl(210, 18%, 78%)',    // Brume claire
+  'hsl(218, 10%, 30%)',    // Graphite profond
+  'hsl(212, 16%, 52%)',    // Bleu acier mat
 ];
 
-// ── Specialized department category definitions (palette pro sur fond sombre) ──
+// ── Specialized department category definitions (palette neutre sur fond sombre) ──
 const PALETTE = {
-  blue: 'hsl(212, 60%, 52%)',
-  emerald: 'hsl(160, 42%, 48%)',
-  gold: 'hsl(35, 65%, 58%)',
-  pearl: 'hsl(220, 18%, 70%)',
-  terra: 'hsl(8, 55%, 56%)',
-  mauve: 'hsl(265, 30%, 60%)',
+  blue: 'hsl(0, 0%, 92%)',         // Perle
+  emerald: 'hsl(215, 14%, 62%)',   // Gris ardoise
+  gold: 'hsl(220, 12%, 42%)',      // Anthracite bleuté
+  pearl: 'hsl(210, 18%, 78%)',     // Brume claire
+  terra: 'hsl(218, 10%, 30%)',     // Graphite
+  mauve: 'hsl(212, 16%, 52%)',     // Bleu acier
 };
 
 const MA_CATEGORIES = [
@@ -103,17 +104,38 @@ const RESTRUCTURING_CLIENTELE_COLORS = [PALETTE.blue, PALETTE.emerald, PALETTE.g
 
 type PreviewMode = 'recap' | 'cabinet';
 
-// Map departement labels → chambers keys
+// Map departement labels → chambers keys (couvre toutes les pratiques)
 const DEPT_TO_CHAMBERS: Record<string, string> = {
+  // Corporate / M&A / PE / VC
   'Corporate': 'ma',
+  'Corporate/M&A': 'ma',
   'M&A (dominante)': 'ma',
+  'Private Equity': 'pe',
   'Private Equity (dominante)': 'pe',
   'Venture Capital': 'pe',
+  // Finance
+  'Banking & Finance': 'banque',
   'Financement LBO': 'banque',
   'Financement de projets': 'projets',
+  // Restructuring
   'Restructuring': 'restructuring',
+  'Restructuring/Insolvency': 'restructuring',
+  // Social
   'Droit Social': 'social',
+  'Employment': 'social',
+  // Concurrence
+  'Competition/European Law': 'concurrence',
+  // Fiscal
+  'Tax': 'tax',
+  // Public
+  'Public Law': 'public',
+  // Arbitration
+  'International Arbitration': 'arbitrage',
+  // Projets
+  'Projects & Energy': 'projets',
+  // Immobilier
   'Immobilier': 'immo',
+  'Real Estate': 'immo',
 };
 
 const getNatLabel = (nat: string) => {
