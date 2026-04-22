@@ -24,73 +24,82 @@ const CHART_COLORS = [
   'hsl(265, 30%, 60%)',    // Mauve fumé
 ];
 
-// ── Specialized department category definitions ──
+// ── Specialized department category definitions (palette pro sur fond sombre) ──
+const PALETTE = {
+  blue: 'hsl(212, 60%, 52%)',
+  emerald: 'hsl(160, 42%, 48%)',
+  gold: 'hsl(35, 65%, 58%)',
+  pearl: 'hsl(220, 18%, 70%)',
+  terra: 'hsl(8, 55%, 56%)',
+  mauve: 'hsl(265, 30%, 60%)',
+};
+
 const MA_CATEGORIES = [
-  { key: 'ma_pe', label: 'Private Equity', color: 'hsl(0, 0%, 11%)' },
-  { key: 'ma_ma', label: 'M&A', color: 'hsl(195, 50%, 28%)' },
-  { key: 'ma_vc', label: 'Venture Capital', color: 'hsl(160, 35%, 32%)' },
-  { key: 'ma_autres', label: 'Autres', color: 'hsl(0, 0%, 60%)' },
+  { key: 'ma_pe', label: 'Private Equity', color: PALETTE.blue },
+  { key: 'ma_ma', label: 'M&A', color: PALETTE.emerald },
+  { key: 'ma_vc', label: 'Venture Capital', color: PALETTE.gold },
+  { key: 'ma_autres', label: 'Autres', color: PALETTE.pearl },
 ];
 
 const CONC_CATEGORIES = [
-  { key: 'conc_concentrations', label: 'Contrôle des concentrations', color: 'hsl(0, 0%, 11%)' },
-  { key: 'conc_contentieux', label: 'Contentieux / enquêtes', color: 'hsl(195, 50%, 28%)' },
-  { key: 'conc_conseil', label: 'Conseil / compliance', color: 'hsl(160, 35%, 32%)' },
+  { key: 'conc_concentrations', label: 'Contrôle des concentrations', color: PALETTE.blue },
+  { key: 'conc_contentieux', label: 'Contentieux / enquêtes', color: PALETTE.emerald },
+  { key: 'conc_conseil', label: 'Conseil / compliance', color: PALETTE.gold },
 ];
 
 const FISC_CATEGORIES = [
-  { key: 'fisc_transac', label: 'Fiscalité transactionnelle', color: 'hsl(0, 0%, 11%)' },
-  { key: 'fisc_contentieux', label: 'Fiscalité contentieuse', color: 'hsl(195, 50%, 28%)' },
-  { key: 'fisc_conseil', label: 'Fiscalité conseil / structuration', color: 'hsl(160, 35%, 32%)' },
+  { key: 'fisc_transac', label: 'Fiscalité transactionnelle', color: PALETTE.blue },
+  { key: 'fisc_contentieux', label: 'Fiscalité contentieuse', color: PALETTE.emerald },
+  { key: 'fisc_conseil', label: 'Fiscalité conseil / structuration', color: PALETTE.gold },
 ];
 
 const DPUB_CATEGORIES = [
-  { key: 'dpub_contrats', label: 'Droit public éco. / contrats publics', color: 'hsl(0, 0%, 11%)' },
-  { key: 'dpub_contentieux', label: 'Contentieux administratif', color: 'hsl(195, 50%, 28%)' },
-  { key: 'dpub_conseil', label: 'Conseil / régulation', color: 'hsl(160, 35%, 32%)' },
+  { key: 'dpub_contrats', label: 'Droit public éco. / contrats publics', color: PALETTE.blue },
+  { key: 'dpub_contentieux', label: 'Contentieux administratif', color: PALETTE.emerald },
+  { key: 'dpub_conseil', label: 'Conseil / régulation', color: PALETTE.gold },
 ];
 
 const ARB_TYPES = [
-  { key: 'arb_commercial', label: 'Arbitrage commercial', color: 'hsl(0, 0%, 11%)' },
-  { key: 'arb_invest', label: "Arbitrage d'investissement", color: 'hsl(195, 50%, 28%)' },
-  { key: 'arb_construction', label: 'Arbitrage construction', color: 'hsl(0, 0%, 30%)' },
-  { key: 'arb_sport', label: 'Arbitrage sportif', color: 'hsl(215, 55%, 22%)' },
+  { key: 'arb_commercial', label: 'Arbitrage commercial', color: PALETTE.blue },
+  { key: 'arb_invest', label: "Arbitrage d'investissement", color: PALETTE.emerald },
+  { key: 'arb_construction', label: 'Arbitrage construction', color: PALETTE.gold },
+  { key: 'arb_sport', label: 'Arbitrage sportif', color: PALETTE.pearl },
 ];
 
 const PROJ_TYPES = [
-  { key: 'proj_infra', label: 'Infrastructures', color: 'hsl(0, 0%, 11%)' },
-  { key: 'proj_enr', label: 'Énergie renouvelable', color: 'hsl(160, 35%, 32%)' },
-  { key: 'proj_concession', label: 'Concessions / PPP', color: 'hsl(0, 0%, 30%)' },
-  { key: 'proj_fin', label: 'Financement de projets', color: 'hsl(0, 0%, 45%)' },
-  { key: 'proj_regl', label: 'Réglementaire / permitting', color: 'hsl(195, 50%, 28%)' },
+  { key: 'proj_infra', label: 'Infrastructures', color: PALETTE.blue },
+  { key: 'proj_enr', label: 'Énergie renouvelable', color: PALETTE.emerald },
+  { key: 'proj_concession', label: 'Concessions / PPP', color: PALETTE.gold },
+  { key: 'proj_fin', label: 'Financement de projets', color: PALETTE.terra },
+  { key: 'proj_regl', label: 'Réglementaire / permitting', color: PALETTE.mauve },
 ];
 
 const RESTRUCTURING_COLORS = {
-  amiable: 'hsl(195, 50%, 28%)',
-  financier: 'hsl(0, 0%, 30%)',
-  judiciaire: 'hsl(215, 55%, 22%)',
-  distressed: 'hsl(0, 0%, 45%)',
-  contentieux: 'hsl(0, 0%, 60%)',
+  amiable: PALETTE.blue,
+  financier: PALETTE.emerald,
+  judiciaire: PALETTE.gold,
+  distressed: PALETTE.terra,
+  contentieux: PALETTE.pearl,
 };
 
 const RE_COLORS = {
-  baux: 'hsl(0, 0%, 11%)',
-  share: 'hsl(195, 50%, 28%)',
-  asset: 'hsl(0, 0%, 30%)',
-  construction: 'hsl(215, 55%, 22%)',
-  financement: 'hsl(0, 0%, 45%)',
-  contentieux: 'hsl(0, 0%, 60%)',
+  baux: PALETTE.blue,
+  share: PALETTE.emerald,
+  asset: PALETTE.gold,
+  construction: PALETTE.pearl,
+  financement: PALETTE.terra,
+  contentieux: PALETTE.mauve,
 };
 
 const SOCIAL_COLORS = {
-  conseilIndiv: 'hsl(0, 0%, 11%)',
-  conseilColl: 'hsl(195, 50%, 28%)',
-  contentieuxIndiv: 'hsl(0, 0%, 30%)',
-  contentieuxColl: 'hsl(0, 0%, 60%)',
+  conseilIndiv: PALETTE.blue,
+  conseilColl: PALETTE.emerald,
+  contentieuxIndiv: PALETTE.gold,
+  contentieuxColl: PALETTE.terra,
 };
 
-const RESTRUCTURING_POSITIONING_COLORS = ['hsl(0, 0%, 11%)', 'hsl(195, 50%, 28%)', 'hsl(0, 0%, 30%)'];
-const RESTRUCTURING_CLIENTELE_COLORS = ['hsl(215, 55%, 22%)', 'hsl(0, 0%, 30%)', 'hsl(0, 0%, 45%)', 'hsl(0, 0%, 60%)', 'hsl(195, 50%, 28%)', 'hsl(160, 35%, 32%)'];
+const RESTRUCTURING_POSITIONING_COLORS = [PALETTE.blue, PALETTE.emerald, PALETTE.gold];
+const RESTRUCTURING_CLIENTELE_COLORS = [PALETTE.blue, PALETTE.emerald, PALETTE.gold, PALETTE.pearl, PALETTE.terra, PALETTE.mauve];
 
 type PreviewMode = 'recap' | 'cabinet';
 
