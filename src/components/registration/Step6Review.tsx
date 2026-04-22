@@ -368,12 +368,23 @@ const Step6Review = () => {
                   strokeWidth={2}
                   label={({ cx, cy, midAngle, innerRadius: ir, outerRadius: or, value }) => {
                     const RADIAN = Math.PI / 180;
-                    const radius = ir + (or - ir) * 0.5;
+                    // Place small slices outside the donut, larger slices inside
+                    const isSmall = value < 10;
+                    const radius = isSmall
+                      ? or + 14
+                      : ir + (or - ir) * 0.5;
                     const x = cx + radius * Math.cos(-midAngle * RADIAN);
                     const y = cy + radius * Math.sin(-midAngle * RADIAN);
-                    if (value < 10) return null;
                     return (
-                      <text x={x} y={y} fill="hsl(var(--background))" textAnchor="middle" dominantBaseline="central" fontSize={11} fontWeight={700}>
+                      <text
+                        x={x}
+                        y={y}
+                        fill={isSmall ? 'hsl(var(--foreground))' : 'hsl(var(--background))'}
+                        textAnchor={isSmall ? (x > cx ? 'start' : 'end') : 'middle'}
+                        dominantBaseline="central"
+                        fontSize={isSmall ? 10 : 11}
+                        fontWeight={700}
+                      >
                         {value}%
                       </text>
                     );
@@ -456,26 +467,26 @@ const Step6Review = () => {
               </div>
             )}
 
-            {/* Clientèle FR / International */}
+            {/* Clientèle Française / Internationale */}
             <div className="border-t border-border pt-3 space-y-1.5">
               <p className="text-[9px] uppercase tracking-wider text-muted-foreground">Clientèle</p>
               <div className="flex items-center gap-2 text-xs font-sans font-light">
-                <span className="text-foreground flex-1">FR Domestique</span>
+                <span className="text-foreground flex-1">Française</span>
                 <span className="text-muted-foreground">{store.clienteleFrancaise}%</span>
               </div>
               <div className="flex items-center gap-2 text-xs font-sans font-light">
-                <span className="text-foreground flex-1">International</span>
+                <span className="text-foreground flex-1">Internationale</span>
                 <span className="text-muted-foreground">{100 - store.clienteleFrancaise}%</span>
               </div>
             </div>
 
-            {/* Taille des opérations */}
+            {/* OPÉRATIONS */}
             {(store.tailleOperations || []).length > 0 && (
               <div className="border-t border-border pt-3 space-y-1.5">
-                <p className="text-[9px] uppercase tracking-wider text-muted-foreground">Taille</p>
+                <p className="text-[9px] uppercase tracking-wider text-muted-foreground">Opérations</p>
                 <div className="flex flex-wrap gap-1.5">
                   {(store.tailleOperations || []).map(t => (
-                    <span key={t} className="inline-flex items-center px-2.5 py-0.5 rounded-sm text-[10px] font-sans bg-secondary text-foreground/80 border border-border">{t}</span>
+                    <span key={t} className="inline-flex items-center px-2.5 py-0.5 rounded-sm text-[10px] font-sans bg-foreground text-background border border-foreground font-medium">{t}</span>
                   ))}
                 </div>
               </div>
