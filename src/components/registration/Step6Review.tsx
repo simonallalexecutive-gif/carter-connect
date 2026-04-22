@@ -104,17 +104,38 @@ const RESTRUCTURING_CLIENTELE_COLORS = [PALETTE.blue, PALETTE.emerald, PALETTE.g
 
 type PreviewMode = 'recap' | 'cabinet';
 
-// Map departement labels → chambers keys
+// Map departement labels → chambers keys (couvre toutes les pratiques)
 const DEPT_TO_CHAMBERS: Record<string, string> = {
+  // Corporate / M&A / PE / VC
   'Corporate': 'ma',
+  'Corporate/M&A': 'ma',
   'M&A (dominante)': 'ma',
+  'Private Equity': 'pe',
   'Private Equity (dominante)': 'pe',
   'Venture Capital': 'pe',
+  // Finance
+  'Banking & Finance': 'banque',
   'Financement LBO': 'banque',
   'Financement de projets': 'projets',
+  // Restructuring
   'Restructuring': 'restructuring',
+  'Restructuring/Insolvency': 'restructuring',
+  // Social
   'Droit Social': 'social',
+  'Employment': 'social',
+  // Concurrence
+  'Competition/European Law': 'concurrence',
+  // Fiscal
+  'Tax': 'tax',
+  // Public
+  'Public Law': 'public',
+  // Arbitration
+  'International Arbitration': 'arbitrage',
+  // Projets
+  'Projects & Energy': 'projets',
+  // Immobilier
   'Immobilier': 'immo',
+  'Real Estate': 'immo',
 };
 
 const getNatLabel = (nat: string) => {
