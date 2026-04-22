@@ -275,11 +275,9 @@ const CabinetPage = () => {
   }
 
   // Registration flow
-  // Steps 2-4 (Identity, Subscription, Validation): dark matte top section with white content below
-  const isDarkTop = step >= 2 && step <= 4;
   return (
     <div className={`min-h-screen flex flex-col ${step >= 2 ? 'theme-light-registration' : 'theme-dark-registration'} bg-background text-foreground`}>
-      <LogoBanner subtitle="Espace Cabinet" variant={isDarkTop || step < 2 ? 'matte' : 'light'} />
+      <LogoBanner subtitle="Espace Cabinet" variant={step >= 2 ? 'light' : 'matte'} />
       {step >= 2 && step <= 4 && <CabinetStepProgress />}
       <main className={step === 1 ? '' : 'flex-1 py-11 px-6 md:px-12'}>
         {step === 1 && <CabinetStep1Hero />}
