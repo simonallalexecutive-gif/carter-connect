@@ -620,6 +620,104 @@ function getRankingsLabel(p: CabinetProfile): string {
   return parts.join(' · ');
 }
 
+/** Rétrocession suggérée par LOGAN, calée sur la séniorité standardisée. */
+function getSuggestedRetro(p: CabinetProfile): string {
+  const sen = getSeniorityLabel(p);
+  switch (sen) {
+    case 'Junior': return '120 K€';
+    case 'Mid Level': return '145 K€';
+    case 'Senior': return '165 K€';
+    case 'Counsel': return '200 K€';
+    case 'Associé': return 'Sur devis (package associé)';
+    default: return '145 K€';
+  }
+}
+
+/**
+ * Renvoie une répartition d'activité cohérente avec la pratique du candidat,
+ * incluant positionnement et clientèle métier (overrides l'aléatoire d'origine).
+ */
+function getCoherentActivity(p: CabinetProfile): {
+  split: Record<string, number>;
+  positioning: string;
+  clientele: string;
+} {
+  switch (p.dept) {
+    case 'banque':
+      return {
+        split: { 'Financement LBO': 80, 'Financement immobilier': 20 },
+        positioning: 'Côté emprunteur',
+        clientele: "Fonds d'investissement",
+      };
+    case 'ma':
+      return {
+        split: { 'M&A industriel': 80, 'LBO': 20 },
+        positioning: 'Côté acquéreur',
+        clientele: 'Corporates & ETI',
+      };
+    case 'restructuring':
+      return {
+        split: { 'Restructuring opérationnel': 70, 'Restructuring financier': 30 },
+        positioning: 'Côté débiteur',
+        clientele: 'Corporates en retournement',
+      };
+    case 'public':
+      return {
+        split: { 'Droit public des affaires': 70, 'Contentieux administratif': 30 },
+        positioning: 'Côté opérateurs privés',
+        clientele: 'Concessionnaires & ETI',
+      };
+    case 'arbitrage':
+      return {
+        split: { 'Arbitrage commercial international': 70, 'Arbitrage d\'investissement': 30 },
+        positioning: 'Côté demandeur',
+        clientele: 'Groupes industriels',
+      };
+    case 'social':
+      return {
+        split: { 'Conseil RH stratégique': 65, 'Contentieux social': 35 },
+        positioning: 'Côté employeur',
+        clientele: 'Grands groupes & ETI',
+      };
+    case 'concurrence':
+      return {
+        split: { 'Contrôle des concentrations': 60, 'Pratiques anticoncurrentielles': 40 },
+        positioning: 'Côté notifiant',
+        clientele: 'Multinationales',
+      };
+    case 'immo':
+      return {
+        split: { 'Transactions immobilières': 70, 'Baux commerciaux': 30 },
+        positioning: 'Côté investisseur',
+        clientele: 'Foncières & SCPI',
+      };
+    case 'projets':
+      return {
+        split: { 'Énergies renouvelables': 70, 'Infrastructures': 30 },
+        positioning: 'Côté sponsor',
+        clientele: 'Producteurs indépendants',
+      };
+    case 'tax':
+      return {
+        split: { 'Fiscalité des transactions': 70, 'Prix de transfert': 30 },
+        positioning: 'Côté contribuable',
+        clientele: 'Groupes internationaux',
+      };
+    case 'fiscal':
+      return {
+        split: { 'Fiscalité des transactions': 70, 'Prix de transfert': 30 },
+        positioning: 'Côté contribuable',
+        clientele: 'Groupes internationaux',
+      };
+    default:
+      return {
+        split: p.split,
+        positioning: '',
+        clientele: '',
+      };
+  }
+}
+
 // ── EXPLORE VIEW ──
 const ExploreView = ({
   filter, setFilter, sort, setSort, drawerProfile, setDrawerProfile
