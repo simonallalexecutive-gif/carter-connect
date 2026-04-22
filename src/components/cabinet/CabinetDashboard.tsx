@@ -5,7 +5,7 @@ import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import { CHAMBERS_DEPARTMENTS, getChambersRanking, formatChambersBand } from '@/lib/chambersRankings';
 import { NAT_FLAGS, NAT_LABELS } from '@/lib/legal500Rankings';
 import { cn } from '@/lib/utils';
-import { X, Search, Eye, Plus, FileText, Users, User, Sparkles } from 'lucide-react';
+import { X, Search, Eye, Plus, FileText, Users, User, Sparkles, Award, BookMarked, Star, CircleDot } from 'lucide-react';
 import ActivityPieChart from '@/components/shared/ActivityPieChart';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
