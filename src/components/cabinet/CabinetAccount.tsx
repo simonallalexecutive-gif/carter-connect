@@ -9,6 +9,25 @@ import { Pencil, Save, X, Camera, Trash2, Building2 } from 'lucide-react';
 const CabinetAccount = () => {
   const s = useCabinetStore();
   const [editing, setEditing] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    if (file.size > 2 * 1024 * 1024) {
+      toast.error('Image trop volumineuse (max 2 Mo)');
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      const dataUrl = ev.target?.result as string;
+      s.setField('cabinetLogoUrl', dataUrl);
+      toast.success('Photo mise à jour');
+    };
+    reader.readAsDataURL(file);
+    // reset value so same file can be re-selected
+    e.target.value = '';
+  };
 
   // Local state for editable fields
   const [form, setForm] = useState({
