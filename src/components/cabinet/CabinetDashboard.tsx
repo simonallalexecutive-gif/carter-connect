@@ -809,7 +809,7 @@ const ExploreView = ({
               <div className="px-6 pb-5 pt-1 flex items-center gap-2">
                 <span className={cn(
                   'inline-block w-1.5 h-1.5 rounded-full',
-                  isActive ? 'bg-emerald-400/80' : 'bg-white/20'
+                  isActive ? 'bg-white' : 'bg-white/20'
                 )} />
                 <span className="text-[10px] font-sans text-white/45 tracking-wide">
                   {isActive ? 'En recherche active' : 'À l\'écoute'}
