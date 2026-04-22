@@ -332,16 +332,21 @@ const Step6Review = () => {
   }, [store.cabinet, store.departement]);
 
   const SectionCard = ({ title, children, className: cls }: { title: string; children: React.ReactNode; className?: string; noBorder?: boolean }) => (
-    <div className={cn("rounded-sm border border-border bg-card px-5 py-4 mb-4", cls)}>
-      <p className="text-[9px] uppercase tracking-[0.15em] text-muted-foreground font-sans font-light mb-3">{title}</p>
+    <div className={cn(
+      "relative rounded-sm border border-border bg-card px-6 py-5 mb-4",
+      "shadow-[0_1px_0_0_hsl(var(--foreground)/0.04)]",
+      "before:absolute before:left-0 before:top-4 before:bottom-4 before:w-[2px] before:bg-foreground/80 before:rounded-r-sm",
+      cls,
+    )}>
+      <p className="text-[9px] uppercase tracking-[0.2em] text-foreground font-sans font-semibold mb-4 pb-2 border-b border-border/60">{title}</p>
       {children}
     </div>
   );
 
   const DataRow = ({ label, value }: { label: string; value: string }) => (
     <div>
-      <span className="text-[9px] text-muted-foreground font-sans font-light">{label}</span>
-      <p className="text-[13px] font-sans font-normal mt-0.5 text-foreground">{value || '—'}</p>
+      <span className="text-[9px] uppercase tracking-[0.15em] text-muted-foreground font-sans font-medium">{label}</span>
+      <p className="text-[13px] font-sans font-medium mt-1 text-foreground">{value || '—'}</p>
     </div>
   );
 
@@ -368,12 +373,23 @@ const Step6Review = () => {
                   strokeWidth={2}
                   label={({ cx, cy, midAngle, innerRadius: ir, outerRadius: or, value }) => {
                     const RADIAN = Math.PI / 180;
-                    const radius = ir + (or - ir) * 0.5;
+                    // Place small slices outside the donut, larger slices inside
+                    const isSmall = value < 10;
+                    const radius = isSmall
+                      ? or + 14
+                      : ir + (or - ir) * 0.5;
                     const x = cx + radius * Math.cos(-midAngle * RADIAN);
                     const y = cy + radius * Math.sin(-midAngle * RADIAN);
-                    if (value < 10) return null;
                     return (
-                      <text x={x} y={y} fill="hsl(var(--background))" textAnchor="middle" dominantBaseline="central" fontSize={11} fontWeight={700}>
+                      <text
+                        x={x}
+                        y={y}
+                        fill={isSmall ? 'hsl(var(--foreground))' : 'hsl(var(--background))'}
+                        textAnchor={isSmall ? (x > cx ? 'start' : 'end') : 'middle'}
+                        dominantBaseline="central"
+                        fontSize={isSmall ? 10 : 11}
+                        fontWeight={700}
+                      >
                         {value}%
                       </text>
                     );
@@ -456,26 +472,26 @@ const Step6Review = () => {
               </div>
             )}
 
-            {/* Clientèle FR / International */}
+            {/* Clientèle Française / Internationale */}
             <div className="border-t border-border pt-3 space-y-1.5">
               <p className="text-[9px] uppercase tracking-wider text-muted-foreground">Clientèle</p>
               <div className="flex items-center gap-2 text-xs font-sans font-light">
-                <span className="text-foreground flex-1">FR Domestique</span>
+                <span className="text-foreground flex-1">Française</span>
                 <span className="text-muted-foreground">{store.clienteleFrancaise}%</span>
               </div>
               <div className="flex items-center gap-2 text-xs font-sans font-light">
-                <span className="text-foreground flex-1">International</span>
+                <span className="text-foreground flex-1">Internationale</span>
                 <span className="text-muted-foreground">{100 - store.clienteleFrancaise}%</span>
               </div>
             </div>
 
-            {/* Taille des opérations */}
+            {/* OPÉRATIONS */}
             {(store.tailleOperations || []).length > 0 && (
               <div className="border-t border-border pt-3 space-y-1.5">
-                <p className="text-[9px] uppercase tracking-wider text-muted-foreground">Taille</p>
+                <p className="text-[9px] uppercase tracking-wider text-muted-foreground">Opérations</p>
                 <div className="flex flex-wrap gap-1.5">
                   {(store.tailleOperations || []).map(t => (
-                    <span key={t} className="inline-flex items-center px-2.5 py-0.5 rounded-sm text-[10px] font-sans bg-secondary text-foreground/80 border border-border">{t}</span>
+                    <span key={t} className="inline-flex items-center px-2.5 py-0.5 rounded-sm text-[10px] font-sans bg-foreground text-background border border-foreground font-medium">{t}</span>
                   ))}
                 </div>
               </div>
@@ -675,7 +691,7 @@ const Step6Review = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {pqe && <div><span className="text-[10px] text-muted-foreground font-sans font-light">Séniorité</span><div className="mt-1"><SeniorityBadge info={pqe} /></div></div>}
               <DataRow label="Cabinet" value={store.cabinet} />
-              <DataRow label="Répertorié Chambers" value={chambersInfo?.isIntegrated ? 'Oui' : 'Non'} />
+              <DataRow label="Classement Chambers" value={chambersInfo?.band ? `Band ${chambersInfo.band} — ${chambersInfo.deptLabel}` : chambersInfo?.isIntegrated ? 'Cabinet classé (hors pratique)' : 'Non classé'} />
               <DataRow label="Pratique" value={store.departement} />
             </div>
             {store.previousCabinets.length > 0 && (
@@ -716,8 +732,7 @@ const Step6Review = () => {
           {/* Activité */}
           <SectionCard title="Activité">
             <ActivitySummaryCard />
-            <div className="mt-4 grid grid-cols-2 gap-3">
-              <TagList items={store.tailleOperations} label="Taille opérations" />
+            <div className="mt-4">
               <TagList items={store.typesClients} label="Clientèle" />
             </div>
             {store.anglais && <p className="text-xs font-sans font-light mt-3"><span className="text-muted-foreground">Anglais : </span>{store.anglais}</p>}
@@ -824,8 +839,7 @@ const Step6Review = () => {
           {/* Activité */}
           <SectionCard title="Activité">
             <ActivitySummaryCard />
-            <div className="mt-4 grid grid-cols-2 gap-3">
-              <TagList items={store.tailleOperations} label="Taille opérations" />
+            <div className="mt-4">
               <TagList items={store.typesClients} label="Clientèle" />
             </div>
             {store.anglais && <p className="text-xs font-sans font-light mt-3"><span className="text-muted-foreground">Anglais : </span>{store.anglais}</p>}
