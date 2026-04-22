@@ -964,29 +964,22 @@ const ProfileDrawer = ({ profile: p, onClose }: { profile: CabinetProfile; onClo
   const senDetail = status === 'Collaborateur' ? seniorityLabel : null;
   const natLabel = getNatLabel(p.nat);
   const chambers = isChambersRanked(p);
+  const legal500 = isLegal500Ranked(p);
+  const isActive = p.disponibilite === 'Immédiate';
 
-  // Mock priorities for demo (from Step4Project PRIORITIES list)
+  // Coherent activity & retro overrides
+  const coherent = getCoherentActivity(p);
+  const splitData = coherent.split;
+  const positioningLabel = coherent.positioning;
+  const clienteleLabel = coherent.clientele;
+  const suggestedRetro = getSuggestedRetro(p);
+
+  // Mock priorities for demo
   const mockPriorities = p.motivation?.includes('autonomie')
     ? ['Responsabilité et autonomie', 'Qualité du management', 'Pratique et dossiers']
     : p.motivation?.includes('rémunération') || p.motivation?.includes('Rémunération')
     ? ['Rémunération', 'Perspectives', 'Équilibre pro/perso']
     : ['Rémunération', 'Responsabilité et autonomie', 'Flexibilité et organisation'];
-
-  // Mock positioning/clientele from expertise
-  const positioning = p.split && Object.keys(p.split).length > 0
-    ? Object.entries(p.split).map(([k]) => {
-        if (k.includes('M&A')) return 'Côté acquéreur / vendeur';
-        if (k.includes('Private Equity')) return 'Côté fonds';
-        if (k.includes('Financement')) return 'Côté prêteur / emprunteur';
-        if (k.includes('Restructuring')) return 'Côté débiteur / créancier';
-        if (k.includes('Social')) return 'Côté employeur';
-        return '';
-      }).filter(Boolean)
-    : [];
-
-  const clientele = p.pqe && parseInt(p.pqe) >= 6
-    ? 'CAC 40 / ETI / Fonds d\'investissement'
-    : 'ETI / PME / Start-ups';
 
   return (
     <>
@@ -994,27 +987,45 @@ const ProfileDrawer = ({ profile: p, onClose }: { profile: CabinetProfile; onClo
       <div className="fixed top-0 right-0 bottom-0 w-[500px] bg-background shadow-2xl z-[400] overflow-y-auto border-l border-border">
         <div className="sticky top-0 bg-background border-b border-border p-4 flex items-center justify-between z-10">
           <span className="text-[12px] font-bold tracking-[0.06em] uppercase text-foreground font-sans">
-            {status}{senDetail ? ` — ${senDetail}` : ''}{p.pqe ? ` · ${p.pqe}` : ''}
+            Profil anonyme
           </span>
           <button onClick={onClose} className="bg-secondary rounded-full w-7 h-7 flex items-center justify-center hover:bg-border">
             <X className="w-4 h-4" />
           </button>
         </div>
         <div className="p-6">
-          {/* Anonymous header with silhouette */}
+          {/* Anonymous header with silhouette + ranking icons */}
           <div className="flex items-center gap-4 mb-6">
             <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[hsl(220,40%,18%)] to-[hsl(195,45%,28%)] flex items-center justify-center">
               <User className="w-7 h-7 text-white/60" />
             </div>
-            <div>
+            <div className="flex-1">
               <p className="font-sans text-lg font-semibold text-foreground">
-                Profil anonymisé du candidat
+                Profil anonyme
               </p>
-              <p className="text-[11px] text-muted-foreground font-sans mt-0.5">{p.id} · {p.deptLabel}</p>
+              <div className="flex items-center gap-3 mt-1">
+                <p className="text-[11px] text-muted-foreground font-sans">{p.id} · {p.deptLabel}</p>
+              </div>
+              {(chambers || legal500) && (
+                <div className="flex items-center gap-3 mt-1.5">
+                  {chambers && (
+                    <span className="inline-flex items-center gap-1 text-[10px] font-medium text-foreground">
+                      <Award className="w-3 h-3" strokeWidth={1.6} />
+                      Chambers
+                    </span>
+                  )}
+                  {legal500 && (
+                    <span className="inline-flex items-center gap-1 text-[10px] font-medium text-foreground">
+                      <BookMarked className="w-3 h-3" strokeWidth={1.6} />
+                      Legal 500
+                    </span>
+                  )}
+                </div>
+              )}
             </div>
           </div>
 
-          {/* Main info */}
+          {/* Main info — Chambers row removed */}
           <div className="grid grid-cols-2 gap-x-6 gap-y-3 mb-6 pb-6 border-b border-border">
             <div>
               <span className="text-[9px] uppercase tracking-[0.1em] text-muted-foreground font-sans">Statut</span>
@@ -1029,27 +1040,34 @@ const ProfileDrawer = ({ profile: p, onClose }: { profile: CabinetProfile; onClo
               <p className="text-sm font-sans font-semibold mt-0.5">{natLabel}</p>
             </div>
             <div>
-              <span className="text-[9px] uppercase tracking-[0.1em] text-muted-foreground font-sans">Reconnu Chambers</span>
-              <p className="text-sm font-sans font-semibold mt-0.5">{chambers ? 'Oui' : 'Non'}</p>
-            </div>
-            <div>
               <span className="text-[9px] uppercase tracking-[0.1em] text-muted-foreground font-sans">Anglais</span>
               <p className="text-sm font-sans font-semibold mt-0.5">{p.english}</p>
             </div>
-            <div>
-              <span className="text-[9px] uppercase tracking-[0.1em] text-muted-foreground font-sans">Recherche active</span>
-              <p className="text-sm font-sans font-semibold mt-0.5">{p.disponibilite === 'Immédiate' ? 'Oui' : 'Non'}</p>
+            <div className="col-span-2">
+              <span className="text-[9px] uppercase tracking-[0.1em] text-muted-foreground font-sans">Disponibilité</span>
+              <p className={cn(
+                "text-sm font-sans font-semibold mt-0.5 inline-flex items-center gap-1.5",
+                isActive ? "text-emerald-600" : "text-foreground"
+              )}>
+                {isActive && (
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75" />
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+                  </span>
+                )}
+                {isActive ? 'En recherche active' : "À l'écoute"}
+              </p>
             </div>
           </div>
 
           {/* Activity pie chart + positioning/clientele */}
-          {Object.keys(p.split).length > 0 && (
+          {Object.keys(splitData).length > 0 && (
             <div className="mb-6 pb-6 border-b border-border">
               <p className="text-[9px] font-bold tracking-[0.14em] uppercase text-muted-foreground mb-4">Répartition de l'activité</p>
               <div className="flex items-start gap-5">
                 <div className="flex-shrink-0">
                   <ActivityPieChart
-                    data={p.split}
+                    data={splitData}
                     size={130}
                     innerRadius={30}
                     outerRadius={56}
@@ -1058,36 +1076,38 @@ const ProfileDrawer = ({ profile: p, onClose }: { profile: CabinetProfile; onClo
                   />
                 </div>
                 <div className="flex-1 space-y-2">
-                  {Object.entries(p.split).map(([name, value], i) => (
+                  {Object.entries(splitData).map(([name, value], i) => (
                     <div key={name} className="flex items-center gap-2">
                       <span className="w-2.5 h-2.5 rounded-sm flex-shrink-0" style={{ background: EXPLORE_PIE_PALETTE[i % EXPLORE_PIE_PALETTE.length] }} />
                       <span className="text-[11px] font-sans text-foreground flex-1">{name}</span>
                       <span className="text-[11px] font-sans font-bold text-foreground">{value}%</span>
                     </div>
                   ))}
-                  {/* Positioning & Clientele, discreetly beside the chart */}
-                  {positioning.length > 0 && (
+                  {positioningLabel && (
                     <div className="pt-2 mt-2 border-t border-border">
                       <span className="text-[9px] text-muted-foreground font-sans">Positionnement : </span>
-                      <span className="text-[10px] text-foreground font-sans">{positioning.join(' / ')}</span>
+                      <span className="text-[10px] text-foreground font-sans">{positioningLabel}</span>
                     </div>
                   )}
-                  <div>
-                    <span className="text-[9px] text-muted-foreground font-sans">Clientèle : </span>
-                    <span className="text-[10px] text-foreground font-sans">{clientele}</span>
-                  </div>
+                  {clienteleLabel && (
+                    <div>
+                      <span className="text-[9px] text-muted-foreground font-sans">Clientèle : </span>
+                      <span className="text-[10px] text-foreground font-sans">{clienteleLabel}</span>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
           )}
 
-          {/* Retrocession */}
-          {p.retro_actuel && (
-            <div className="mb-6 pb-6 border-b border-border">
-              <p className="text-[9px] font-bold tracking-[0.14em] uppercase text-muted-foreground mb-3">Rétrocession</p>
-              <p className="text-sm font-sans font-semibold text-foreground">{p.retro_actuel}</p>
-            </div>
-          )}
+          {/* Retrocession suggérée par LOGAN */}
+          <div className="mb-6 pb-6 border-b border-border">
+            <p className="text-[9px] font-bold tracking-[0.14em] uppercase text-muted-foreground mb-3">Rétrocession suggérée par LOGAN</p>
+            <p className="text-sm font-sans font-semibold text-foreground">{suggestedRetro}</p>
+            <p className="text-[10px] text-muted-foreground mt-1 font-sans">
+              Recommandation alignée sur la séniorité et le marché.
+            </p>
+          </div>
 
           {/* Candidate priorities */}
           <div className="mb-6 pb-6 border-b border-border">
