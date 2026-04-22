@@ -147,6 +147,19 @@ const Step6Review = () => {
   const allActivites = practiceActivities.sections.flatMap(s => s.items);
   const activeActivites = allActivites.filter(a => store.activites[a.key]);
 
+  // Global key → label resolver: agrège TOUTES les pratiques pour toujours afficher
+  // un libellé complet (ex: "fin_acq" → "Financement d'acquisition") même quand
+  // le département actuel ne contient pas cette clé.
+  const GLOBAL_LABEL_MAP = useMemo(() => {
+    const map: Record<string, string> = {};
+    Object.values(ACTIVITES_BY_PRACTICE).forEach(p => {
+      p.sections.forEach(s => s.items.forEach(it => { map[it.key] = it.label; }));
+    });
+    ACTIVITES_DEFAULT.sections.forEach(s => s.items.forEach(it => { map[it.key] = it.label; }));
+    return map;
+  }, []);
+  const labelOf = (key: string) => GLOBAL_LABEL_MAP[key] || allActivites.find(a => a.key === key)?.label || key;
+
   const activitySummary = useMemo(() => {
     const dept = store.departement;
 
