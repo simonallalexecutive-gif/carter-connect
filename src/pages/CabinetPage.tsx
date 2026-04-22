@@ -10,7 +10,7 @@ import CabinetStep6Confirm from '@/components/cabinet/CabinetStep6Confirm';
 import CabinetDashboard from '@/components/cabinet/CabinetDashboard';
 import CabinetAccount from '@/components/cabinet/CabinetAccount';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
 import { NAT_FLAGS, NAT_LABELS } from '@/lib/legal500Rankings';
