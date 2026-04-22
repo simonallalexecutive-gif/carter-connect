@@ -367,44 +367,47 @@ const Step6Review = () => {
     if (activitySummary.chartData.length === 0) return null;
 
     return (
-      <div className="space-y-5">
-        <p className="text-sm font-sans font-medium text-foreground tracking-tight">Synthèse de votre activité</p>
-
-        <div className="flex flex-col md:flex-row gap-6 items-start">
-          <div className="w-44 h-44 flex-shrink-0 self-center">
+      <div className="space-y-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[minmax(280px,340px)_1fr] gap-8 items-start">
+          {/* Donut — espace agrandi */}
+          <div className="w-full aspect-square max-w-[340px] mx-auto lg:mx-0 relative">
             <ResponsiveContainer width="100%" height="100%">
-              <PieChart>
+              <PieChart margin={{ top: 8, right: 8, bottom: 8, left: 8 }}>
                 <Pie
                   data={activitySummary.chartData}
                   cx="50%"
                   cy="50%"
-                  innerRadius={40}
-                  outerRadius={72}
+                  innerRadius="48%"
+                  outerRadius="86%"
                   dataKey="value"
-                  paddingAngle={2}
-                  stroke="hsl(var(--background))"
+                  paddingAngle={1.5}
+                  stroke="hsl(0, 0%, 7%)"
                   strokeWidth={2}
                   label={({ cx, cy, midAngle, innerRadius: ir, outerRadius: or, value }) => {
                     const RADIAN = Math.PI / 180;
-                    // Place small slices outside the donut, larger slices inside
-                    const isSmall = value < 10;
-                    const radius = isSmall
-                      ? or + 14
-                      : ir + (or - ir) * 0.5;
-                    const x = cx + radius * Math.cos(-midAngle * RADIAN);
-                    const y = cy + radius * Math.sin(-midAngle * RADIAN);
+                    // Toujours dans le donut, avec leader pour les petits %
+                    const isSmall = value < 8;
+                    const r = ir + (or - ir) * 0.55;
+                    const x = cx + r * Math.cos(-midAngle * RADIAN);
+                    const y = cy + r * Math.sin(-midAngle * RADIAN);
                     return (
-                      <text
-                        x={x}
-                        y={y}
-                        fill={isSmall ? 'hsl(var(--foreground))' : 'hsl(var(--background))'}
-                        textAnchor={isSmall ? (x > cx ? 'start' : 'end') : 'middle'}
-                        dominantBaseline="central"
-                        fontSize={isSmall ? 10 : 11}
-                        fontWeight={700}
-                      >
-                        {value}%
-                      </text>
+                      <g>
+                        {isSmall && (
+                          <circle cx={x} cy={y} r={11} fill="hsl(0, 0%, 100%)" stroke="hsl(0, 0%, 7%)" strokeWidth={1.5} />
+                        )}
+                        <text
+                          x={x}
+                          y={y}
+                          fill={isSmall ? 'hsl(0, 0%, 7%)' : 'hsl(0, 0%, 100%)'}
+                          textAnchor="middle"
+                          dominantBaseline="central"
+                          fontSize={isSmall ? 10 : 13}
+                          fontWeight={700}
+                          style={{ letterSpacing: '-0.02em' }}
+                        >
+                          {value}%
+                        </text>
+                      </g>
                     );
                   }}
                   labelLine={false}
@@ -413,43 +416,56 @@ const Step6Review = () => {
                     <Cell key={item.name} fill={item.color} />
                   ))}
                 </Pie>
-                <Tooltip formatter={(value: number) => [`${value}%`, '']} contentStyle={{ fontSize: '11px', borderRadius: '4px' }} />
+                <Tooltip
+                  formatter={(value: number) => [`${value}%`, '']}
+                  contentStyle={{
+                    fontSize: '11px',
+                    borderRadius: '4px',
+                    background: 'hsl(0, 0%, 12%)',
+                    border: '1px solid hsl(0, 0%, 22%)',
+                    color: 'white',
+                  }}
+                />
               </PieChart>
             </ResponsiveContainer>
           </div>
 
-          <div className="flex-1 space-y-4 w-full">
-            <div className="space-y-1.5">
-              {activitySummary.chartData.map((item) => (
-                <div key={item.name} className="flex items-center gap-2 text-xs font-sans font-light">
-                  <div className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ backgroundColor: item.color }} />
-                  <span className="text-foreground">{item.name}</span>
-                  <span className="text-muted-foreground ml-auto">{totalPercent > 0 ? Math.round((item.value / totalPercent) * 100) : item.value}%</span>
-                </div>
-              ))}
+          {/* Légende & métriques — texte clair sur fond sombre */}
+          <div className="flex-1 space-y-5 w-full">
+            <div>
+              <p className="text-[9px] uppercase tracking-[0.22em] text-white/45 font-sans font-semibold mb-3">Répartition d'activité</p>
+              <div className="space-y-2">
+                {activitySummary.chartData.map((item) => (
+                  <div key={item.name} className="flex items-baseline gap-3 text-[12px] font-sans">
+                    <span className="block w-2 h-2 rounded-full flex-shrink-0 translate-y-[2px]" style={{ backgroundColor: item.color }} />
+                    <span className="text-white/90 flex-1 leading-snug">{item.name}</span>
+                    <span className="text-white font-mono font-semibold tabular-nums">{totalPercent > 0 ? Math.round((item.value / totalPercent) * 100) : item.value}%</span>
+                  </div>
+                ))}
+              </div>
             </div>
 
             {activitySummary.positionnement.length > 0 && (
-              <div className="border-t border-border pt-3 space-y-1.5">
-                <p className="text-[9px] uppercase tracking-wider text-muted-foreground">Positionnement</p>
+              <div className="pt-4 border-t border-white/10 space-y-2">
+                <p className="text-[9px] uppercase tracking-[0.22em] text-white/45 font-sans font-semibold mb-2">Positionnement</p>
                 {activitySummary.positionnement.map((item) => (
-                  <div key={item.name} className="flex items-center gap-2 text-xs font-sans font-light">
-                    <div className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ backgroundColor: item.color }} />
-                    <span className="text-foreground">{item.name}</span>
-                    <span className="text-muted-foreground ml-auto">{item.value}%</span>
+                  <div key={item.name} className="flex items-baseline gap-3 text-[12px] font-sans">
+                    <span className="block w-2 h-2 rounded-full flex-shrink-0 translate-y-[2px]" style={{ backgroundColor: item.color }} />
+                    <span className="text-white/90 flex-1">{item.name}</span>
+                    <span className="text-white font-mono font-semibold tabular-nums">{item.value}%</span>
                   </div>
                 ))}
               </div>
             )}
 
             {activitySummary.clientele.length > 0 && (
-              <div className="border-t border-border pt-3 space-y-1.5">
-                <p className="text-[9px] uppercase tracking-wider text-muted-foreground">Clientèle</p>
+              <div className="pt-4 border-t border-white/10 space-y-2">
+                <p className="text-[9px] uppercase tracking-[0.22em] text-white/45 font-sans font-semibold mb-2">Clientèle</p>
                 {activitySummary.clientele.map((item) => (
-                  <div key={item.name} className="flex items-center gap-2 text-xs font-sans font-light">
-                    <div className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ backgroundColor: item.color }} />
-                    <span className="text-foreground">{item.name}</span>
-                    <span className="text-muted-foreground ml-auto">{item.value}%</span>
+                  <div key={item.name} className="flex items-baseline gap-3 text-[12px] font-sans">
+                    <span className="block w-2 h-2 rounded-full flex-shrink-0 translate-y-[2px]" style={{ backgroundColor: item.color }} />
+                    <span className="text-white/90 flex-1">{item.name}</span>
+                    <span className="text-white font-mono font-semibold tabular-nums">{item.value}%</span>
                   </div>
                 ))}
               </div>
@@ -457,54 +473,54 @@ const Step6Review = () => {
 
             {/* Positionnement prêteur/sponsor (Finance) */}
             {(store.departement === 'Financement LBO' || store.departement === 'Financement de projets' || store.departement === 'Banking & Finance') && (
-              <div className="border-t border-border pt-3 space-y-1.5">
-                <p className="text-[9px] uppercase tracking-wider text-muted-foreground">Positionnement</p>
-                <div className="flex items-center gap-2 text-xs font-sans font-light">
-                  <span className="text-foreground flex-1">Prêteur</span>
-                  <span className="text-muted-foreground">{store.positionnementPreteur}%</span>
+              <div className="pt-4 border-t border-white/10 space-y-2">
+                <p className="text-[9px] uppercase tracking-[0.22em] text-white/45 font-sans font-semibold mb-2">Positionnement</p>
+                <div className="flex items-baseline gap-3 text-[12px] font-sans">
+                  <span className="text-white/90 flex-1">Prêteur</span>
+                  <span className="text-white font-mono font-semibold tabular-nums">{store.positionnementPreteur}%</span>
                 </div>
-                <div className="flex items-center gap-2 text-xs font-sans font-light">
-                  <span className="text-foreground flex-1">Sponsor</span>
-                  <span className="text-muted-foreground">{100 - store.positionnementPreteur}%</span>
+                <div className="flex items-baseline gap-3 text-[12px] font-sans">
+                  <span className="text-white/90 flex-1">Sponsor</span>
+                  <span className="text-white font-mono font-semibold tabular-nums">{100 - store.positionnementPreteur}%</span>
                 </div>
               </div>
             )}
 
             {/* Employeur / Salarié (Social) */}
             {(store.departement === 'Droit Social' || store.departement === 'Employment') && (
-              <div className="border-t border-border pt-3 space-y-1.5">
-                <p className="text-[9px] uppercase tracking-wider text-muted-foreground">Positionnement</p>
-                <div className="flex items-center gap-2 text-xs font-sans font-light">
-                  <span className="text-foreground flex-1">Employeur</span>
-                  <span className="text-muted-foreground">{store.socialEmployeur ?? 50}%</span>
+              <div className="pt-4 border-t border-white/10 space-y-2">
+                <p className="text-[9px] uppercase tracking-[0.22em] text-white/45 font-sans font-semibold mb-2">Positionnement</p>
+                <div className="flex items-baseline gap-3 text-[12px] font-sans">
+                  <span className="text-white/90 flex-1">Employeur</span>
+                  <span className="text-white font-mono font-semibold tabular-nums">{store.socialEmployeur ?? 50}%</span>
                 </div>
-                <div className="flex items-center gap-2 text-xs font-sans font-light">
-                  <span className="text-foreground flex-1">Salarié / dirigeant</span>
-                  <span className="text-muted-foreground">{100 - (store.socialEmployeur ?? 50)}%</span>
+                <div className="flex items-baseline gap-3 text-[12px] font-sans">
+                  <span className="text-white/90 flex-1">Salarié / dirigeant</span>
+                  <span className="text-white font-mono font-semibold tabular-nums">{100 - (store.socialEmployeur ?? 50)}%</span>
                 </div>
               </div>
             )}
 
             {/* Clientèle Française / Internationale */}
-            <div className="border-t border-border pt-3 space-y-1.5">
-              <p className="text-[9px] uppercase tracking-wider text-muted-foreground">Clientèle</p>
-              <div className="flex items-center gap-2 text-xs font-sans font-light">
-                <span className="text-foreground flex-1">Française</span>
-                <span className="text-muted-foreground">{store.clienteleFrancaise}%</span>
+            <div className="pt-4 border-t border-white/10 space-y-2">
+              <p className="text-[9px] uppercase tracking-[0.22em] text-white/45 font-sans font-semibold mb-2">Clientèle</p>
+              <div className="flex items-baseline gap-3 text-[12px] font-sans">
+                <span className="text-white/90 flex-1">Française</span>
+                <span className="text-white font-mono font-semibold tabular-nums">{store.clienteleFrancaise}%</span>
               </div>
-              <div className="flex items-center gap-2 text-xs font-sans font-light">
-                <span className="text-foreground flex-1">Internationale</span>
-                <span className="text-muted-foreground">{100 - store.clienteleFrancaise}%</span>
+              <div className="flex items-baseline gap-3 text-[12px] font-sans">
+                <span className="text-white/90 flex-1">Internationale</span>
+                <span className="text-white font-mono font-semibold tabular-nums">{100 - store.clienteleFrancaise}%</span>
               </div>
             </div>
 
             {/* OPÉRATIONS */}
             {(store.tailleOperations || []).length > 0 && (
-              <div className="border-t border-border pt-3 space-y-1.5">
-                <p className="text-[9px] uppercase tracking-wider text-muted-foreground">Opérations</p>
+              <div className="pt-4 border-t border-white/10 space-y-2">
+                <p className="text-[9px] uppercase tracking-[0.22em] text-white/45 font-sans font-semibold mb-2">Opérations</p>
                 <div className="flex flex-wrap gap-1.5">
                   {(store.tailleOperations || []).map(t => (
-                    <span key={t} className="inline-flex items-center px-2.5 py-0.5 rounded-sm text-[10px] font-sans bg-foreground text-background border border-foreground font-medium">{t}</span>
+                    <span key={t} className="inline-flex items-center px-2.5 py-1 rounded-sm text-[10px] font-sans bg-white text-[hsl(0,0%,7%)] font-semibold tracking-wide">{t}</span>
                   ))}
                 </div>
               </div>
@@ -512,11 +528,11 @@ const Step6Review = () => {
 
             {/* Social-specific tags */}
             {(store.departement === 'Droit Social' || store.departement === 'Employment') && (store.socialClientele || []).length > 0 && (
-              <div className="border-t border-border pt-3 space-y-1.5">
-                <p className="text-[9px] uppercase tracking-wider text-muted-foreground">Clientèle cible</p>
+              <div className="pt-4 border-t border-white/10 space-y-2">
+                <p className="text-[9px] uppercase tracking-[0.22em] text-white/45 font-sans font-semibold mb-2">Clientèle cible</p>
                 <div className="flex flex-wrap gap-1.5">
                   {(store.socialClientele || []).map(c => (
-                    <span key={c} className="inline-flex items-center px-2.5 py-0.5 rounded-sm text-[10px] font-sans bg-secondary text-foreground/80 border border-border">{c}</span>
+                    <span key={c} className="inline-flex items-center px-2.5 py-1 rounded-sm text-[10px] font-sans bg-white/10 text-white border border-white/20">{c}</span>
                   ))}
                 </div>
               </div>
@@ -524,11 +540,11 @@ const Step6Review = () => {
 
             {/* Social expertises */}
             {(store.departement === 'Droit Social' || store.departement === 'Employment') && (store.socialExpertises || []).length > 0 && (
-              <div className="border-t border-border pt-3 space-y-1.5">
-                <p className="text-[9px] uppercase tracking-wider text-muted-foreground">Expertises</p>
+              <div className="pt-4 border-t border-white/10 space-y-2">
+                <p className="text-[9px] uppercase tracking-[0.22em] text-white/45 font-sans font-semibold mb-2">Expertises</p>
                 <div className="flex flex-wrap gap-1.5">
                   {(store.socialExpertises || []).map(e => (
-                    <span key={e} className="inline-flex items-center px-2.5 py-0.5 rounded-sm text-[10px] font-sans bg-secondary text-foreground/80 border border-border">{e}</span>
+                    <span key={e} className="inline-flex items-center px-2.5 py-1 rounded-sm text-[10px] font-sans bg-white/10 text-white border border-white/20">{e}</span>
                   ))}
                 </div>
               </div>
@@ -543,10 +559,10 @@ const Step6Review = () => {
     if (items.length === 0) return null;
     return (
       <div>
-        {label && <p className="text-[9px] uppercase tracking-wider text-muted-foreground mb-1.5">{label}</p>}
+        {label && <p className="text-[9px] uppercase tracking-[0.22em] text-white/45 font-sans font-semibold mb-2">{label}</p>}
         <div className="flex flex-wrap gap-1.5">
           {items.map(t => (
-            <span key={t} className="text-[10px] px-2 py-0.5 rounded-sm bg-secondary text-foreground border border-border">{t}</span>
+            <span key={t} className="text-[10px] px-2.5 py-1 rounded-sm bg-white/10 text-white border border-white/15 font-sans">{t}</span>
           ))}
         </div>
       </div>
