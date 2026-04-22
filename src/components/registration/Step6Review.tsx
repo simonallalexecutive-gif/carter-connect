@@ -677,8 +677,8 @@ const Step6Review = () => {
       <h2 className="text-2xl font-serif text-foreground mb-2 font-normal tracking-[-0.02em]">Récapitulatif</h2>
       <p className="text-muted-foreground font-sans text-xs font-light mb-8">Vérifiez vos informations avant de soumettre votre profil.</p>
 
-      {/* Tabs */}
-      <div className="flex gap-px mb-10 bg-border rounded-sm overflow-hidden">
+      {/* Tabs — habillage sombre, élégant */}
+      <div className="inline-flex gap-1 mb-6 p-1 bg-[hsl(0,0%,11%)] rounded-md">
         {[
           { key: 'recap' as const, label: 'Mon profil complet', icon: User },
           { key: 'cabinet' as const, label: 'Ce que voient les cabinets', icon: Eye },
@@ -687,8 +687,10 @@ const Step6Review = () => {
             key={tab.key}
             onClick={() => setPreviewMode(tab.key)}
             className={cn(
-              "flex-1 flex items-center justify-center gap-2 px-3 py-3 font-sans text-xs tracking-wider uppercase transition-all duration-300",
-              previewMode === tab.key ? "bg-card text-foreground font-medium" : "bg-secondary text-muted-foreground hover:text-foreground"
+              "flex items-center gap-2 px-4 py-2 font-sans text-[11px] tracking-[0.18em] uppercase transition-all duration-300 rounded-sm",
+              previewMode === tab.key
+                ? "bg-white text-[hsl(0,0%,7%)] font-semibold shadow-[0_2px_8px_rgba(0,0,0,0.3)]"
+                : "text-white/55 hover:text-white/80"
             )}
           >
             <tab.icon className="w-3.5 h-3.5" />
@@ -697,227 +699,226 @@ const Step6Review = () => {
         ))}
       </div>
 
-      {/* ═══ RECAP COMPLET ═══ */}
-      {previewMode === 'recap' && (
-        <div className="space-y-4">
-          {/* Identity */}
-          <SectionCard title="Identité">
-            <div className="flex items-start gap-5 mb-5">
-              {store.photoPreviewUrl ? (
-                <img src={store.photoPreviewUrl} alt="" className="w-14 h-14 rounded-full object-cover border border-border flex-shrink-0" />
-              ) : (
-                <div className="w-14 h-14 rounded-full bg-secondary flex items-center justify-center font-serif text-lg text-foreground flex-shrink-0">
-                  {store.prenom?.[0]}{store.nom?.[0]}
-                </div>
-              )}
-              <div>
-                <p className="font-serif text-lg text-foreground">{store.prenom} {store.nom}</p>
-                <p className="text-sm font-sans font-light text-muted-foreground">{store.email}</p>
-                {store.telephone && <p className="text-xs font-sans font-light text-muted-foreground mt-0.5">{store.telephone}</p>}
-                {store.linkedinUrl && <p className="text-xs font-sans font-light text-muted-foreground mt-0.5 truncate max-w-xs">{store.linkedinUrl}</p>}
-              </div>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              {pqe && <div><span className="text-[10px] text-muted-foreground font-sans font-light">Séniorité</span><div className="mt-1"><SeniorityBadge info={pqe} /></div></div>}
-              <DataRow label="Cabinet" value={store.cabinet} />
-              <DataRow label="Classement Chambers" value={chambersInfo?.band ? `Band ${chambersInfo.band} — ${chambersInfo.deptLabel}` : chambersInfo?.isIntegrated ? 'Cabinet classé (hors pratique)' : 'Non classé'} />
-              <DataRow label="Pratique" value={store.departement} />
-            </div>
-            {store.previousCabinets.length > 0 && (
-              <div className="mt-4 pt-3 border-t border-border">
-                <p className="text-[9px] uppercase tracking-wider text-muted-foreground mb-2">Cabinets précédents</p>
-                <div className="space-y-1.5">
-                  {store.previousCabinets.map((pc, i) => (
-                    <div key={i} className="text-xs font-sans font-light text-foreground">
-                      <span className="font-medium">{pc.name}</span>
-                      {pc.practices.length > 0 && (
-                        <span className="text-muted-foreground"> — {pc.practices.join(', ')}</span>
-                      )}
+      {/* ═══ BLOC MONOLITHIQUE DARK MATTE ═══ */}
+      <div className="relative bg-[hsl(0,0%,7%)] rounded-md overflow-hidden border border-white/[0.06] shadow-[0_24px_60px_-20px_rgba(0,0,0,0.5)]">
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/[0.025] via-transparent to-transparent" />
+
+        <div className="relative">
+          {/* ═══ RECAP COMPLET ═══ */}
+          {previewMode === 'recap' && (
+            <>
+              {/* Identity */}
+              <SectionCard title="Identité" first>
+                <div className="flex items-start gap-5 mb-6">
+                  {store.photoPreviewUrl ? (
+                    <img src={store.photoPreviewUrl} alt="" className="w-16 h-16 rounded-full object-cover border border-white/15 flex-shrink-0" />
+                  ) : (
+                    <div className="w-16 h-16 rounded-full bg-white/[0.06] border border-white/10 flex items-center justify-center font-serif text-xl text-white flex-shrink-0">
+                      {store.prenom?.[0]}{store.nom?.[0]}
                     </div>
-                  ))}
-                </div>
-              </div>
-            )}
-          </SectionCard>
-
-          {/* Rémunération */}
-          {(store.retrocession || store.bonus) && (
-            <SectionCard title="Rémunération">
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                {store.retrocession && <DataRow label="Rétrocession" value={`${store.retrocession} €`} />}
-                {store.bonus && <DataRow label="Bonus" value={`${store.bonus} €`} />}
-                {store.hasObjectifFacturable && store.objectifFacturable && <DataRow label="Objectif heures" value={`${store.objectifFacturable}h`} />}
-                {store.hasObjectifFacturable && store.objectifFacturableReel && <DataRow label="Réalisé" value={`${store.objectifFacturableReel}h`} />}
-              </div>
-              {store.conserverRetrocession !== null && (
-                <p className="mt-4 pt-3 border-t border-border text-xs font-sans text-muted-foreground font-light">
-                  {store.conserverRetrocession ? 'Souhaite conserver sa rétrocession' : 'Ouvert à une baisse de rétrocession'}
-                  {!store.conserverRetrocession && store.raisonsBaisseRetro.length > 0 && ` — ${store.raisonsBaisseRetro.join(', ')}`}
-                </p>
-              )}
-            </SectionCard>
-          )}
-
-          {/* Activité */}
-          <SectionCard title="Activité">
-            <ActivitySummaryCard />
-            <div className="mt-4">
-              <TagList items={store.typesClients} label="Clientèle" />
-            </div>
-            {store.anglais && <p className="text-xs font-sans font-light mt-3"><span className="text-muted-foreground">Anglais : </span>{store.anglais}</p>}
-          </SectionCard>
-
-          {/* Associé / Counsel */}
-          {store.isAssocieOrCounsel && (
-            <SectionCard title={store.statutAssoc === 'associe' ? 'Associé' : 'Counsel'}>
-              <div className="grid grid-cols-2 gap-4">
-                {store.chiffreAffairesPortable && <DataRow label="CA portable" value={`${store.chiffreAffairesPortable} €`} />}
-                {store.assocExpertiseSummary && <DataRow label="Expertise" value={store.assocExpertiseSummary} />}
-              </div>
-              <TagList items={store.assocAttentes} label="Attentes" />
-              <TagList items={store.assocCabTypes} label="Types de cabinets visés" />
-            </SectionCard>
-          )}
-
-          {/* Projet */}
-          <SectionCard title="Projet">
-            <div className="space-y-3">
-              {store.movePriorities.length > 0 && (
-                <div>
-                  <p className="text-[9px] uppercase tracking-wider text-muted-foreground mb-1.5">Priorités</p>
-                  <div className="flex flex-wrap gap-1.5">
-                    {store.movePriorities.map(p => (
-                      <span key={p} className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-foreground text-background text-[10px] font-sans font-light">
-                        <Check className="w-2.5 h-2.5" />{p}
-                      </span>
-                    ))}
+                  )}
+                  <div>
+                    <p className="font-serif text-xl text-white tracking-tight">{store.prenom} {store.nom}</p>
+                    <p className="text-sm font-sans font-light text-white/65 mt-0.5">{store.email}</p>
+                    {store.telephone && <p className="text-xs font-sans font-light text-white/50 mt-0.5">{store.telephone}</p>}
+                    {store.linkedinUrl && <p className="text-xs font-sans font-light text-white/45 mt-0.5 truncate max-w-xs">{store.linkedinUrl}</p>}
                   </div>
                 </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                  {pqe && <div><span className="text-[9px] uppercase tracking-[0.18em] text-white/45 font-sans font-medium">Séniorité</span><div className="mt-1.5"><SeniorityBadge info={pqe} /></div></div>}
+                  <DataRow label="Cabinet" value={store.cabinet} />
+                  <DataRow label="Classement Chambers" value={chambersInfo?.band ? `Band ${chambersInfo.band} — ${chambersInfo.deptLabel}` : chambersInfo?.isIntegrated ? 'Cabinet classé (hors pratique)' : 'Non classé'} />
+                  <DataRow label="Pratique" value={store.departement} />
+                </div>
+                {store.previousCabinets.length > 0 && (
+                  <div className="mt-5 pt-4 border-t border-white/10">
+                    <p className="text-[9px] uppercase tracking-[0.22em] text-white/45 font-sans font-semibold mb-2.5">Cabinets précédents</p>
+                    <div className="space-y-1.5">
+                      {store.previousCabinets.map((pc, i) => (
+                        <div key={i} className="text-xs font-sans text-white/85">
+                          <span className="font-medium text-white">{pc.name}</span>
+                          {pc.practices.length > 0 && (
+                            <span className="text-white/55"> — {pc.practices.join(', ')}</span>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </SectionCard>
+
+              {/* Rémunération */}
+              {(store.retrocession || store.bonus) && (
+                <SectionCard title="Rémunération">
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-5">
+                    {store.retrocession && <DataRow label="Rétrocession" value={`${store.retrocession} €`} />}
+                    {store.bonus && <DataRow label="Bonus" value={`${store.bonus} €`} />}
+                    {store.hasObjectifFacturable && store.objectifFacturable && <DataRow label="Objectif heures" value={`${store.objectifFacturable}h`} />}
+                    {store.hasObjectifFacturable && store.objectifFacturableReel && <DataRow label="Réalisé" value={`${store.objectifFacturableReel}h`} />}
+                  </div>
+                  {store.conserverRetrocession !== null && (
+                    <p className="mt-4 pt-3 border-t border-white/10 text-xs font-sans text-white/60 font-light">
+                      {store.conserverRetrocession ? 'Souhaite conserver sa rétrocession' : 'Ouvert à une baisse de rétrocession'}
+                      {!store.conserverRetrocession && store.raisonsBaisseRetro.length > 0 && ` — ${store.raisonsBaisseRetro.join(', ')}`}
+                    </p>
+                  )}
+                </SectionCard>
               )}
-              {store.motivation && <div><p className="text-[9px] uppercase tracking-wider text-muted-foreground mb-1">Motivation</p><p className="text-sm font-sans font-light">{store.motivation}</p></div>}
-              <div className="grid grid-cols-2 gap-3">
-                <TagList items={store.cabinetsCibles} label="Cabinets cibles" />
-                <TagList items={store.noGoCabinets} label="Cabinets exclus" />
-              </div>
-              {store.processusCours && <DataRow label="Processus en cours" value={store.processusCours} />}
-              {store.souhaitePrendreRdv && store.creneauPrefere && <DataRow label="RDV souhaité" value={store.creneauPrefere} />}
-            </div>
-          </SectionCard>
 
-          {/* Statut */}
-          <SectionCard title="Statut">
-            <div className="grid grid-cols-2 gap-4">
-              <DataRow label="Écoute" value={store.statutEcoute === 'actif' ? 'En recherche active' : store.statutEcoute === 'passif' ? 'À l\'écoute' : '—'} />
-              <DataRow label="Visibilité" value={store.visibilite === 'confidentiel' ? 'Confidentiel – fermé' : store.visibilite === 'semi-confidentiel' ? 'Confidentiel – ouvert' : '—'} />
-              {store.disponibilite && <DataRow label="Disponibilité" value={store.disponibilite} />}
-            </div>
-          </SectionCard>
-        </div>
-      )}
+              {/* Activité */}
+              <SectionCard title="Activité">
+                <ActivitySummaryCard />
+                <div className="mt-5">
+                  <TagList items={store.typesClients} label="Clientèle" />
+                </div>
+                {store.anglais && <p className="text-xs font-sans font-light mt-4 text-white/85"><span className="text-white/50">Anglais : </span>{store.anglais}</p>}
+              </SectionCard>
 
-      {/* ═══ VUE CABINET (anonymisée) ═══ */}
-      {previewMode === 'cabinet' && (
-        <div className="space-y-4">
-          <div className="p-4 bg-secondary/50">
-            <p className="text-xs font-sans font-light text-muted-foreground flex items-center gap-2">
-              <Eye className="w-3.5 h-3.5" />
-              Voici ce que les cabinets partenaires verront. Votre identité est totalement protégée.
-            </p>
-          </div>
-
-          {/* Anonymized header */}
-          <SectionCard title="Profil anonymisé">
-            <div className="flex items-center gap-4 mb-5">
-              <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[hsl(215,20%,30%)] to-[hsl(215,15%,20%)] flex items-center justify-center shadow-inner">
-                <User className="w-6 h-6 text-white/40" />
-              </div>
-              <div>
-                <p className="font-serif text-lg text-foreground">Profil anonyme</p>
-                <div className="mt-1">{pqe && <SeniorityBadge info={pqe} hideExactPQE />}</div>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              <DataRow label="Pratique" value={store.departement} />
-              {chambersInfo && <DataRow label="Cabinet d'origine" value={chambersInfo.cabinetValue} />}
-              <DataRow label="Classement Chambers" value={
-                chambersInfo?.band
-                  ? (chambersInfo.band <= 2 ? 'Band 1/Band 2' : chambersInfo.band <= 4 ? 'Band 3/Band 4' : `Band ${chambersInfo.band}`)
-                  : chambersInfo?.isIntegrated ? 'Classé (hors pratique)' : 'Non classé'
-              } />
-              {store.anglais && <DataRow label="Anglais" value={store.anglais} />}
-            </div>
-          </SectionCard>
-
-          {/* Rémunération (anonymized — same data, no identity) */}
-          {(store.retrocession || store.bonus) && (
-            <SectionCard title="Rémunération">
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                {store.retrocession && <DataRow label="Rétrocession" value={`${store.retrocession} €`} />}
-                {store.bonus && <DataRow label="Bonus" value={`${store.bonus} €`} />}
-                {store.hasObjectifFacturable && store.objectifFacturable && <DataRow label="Objectif heures" value={`${store.objectifFacturable}h`} />}
-              </div>
-              {store.conserverRetrocession !== null && (
-                <p className="mt-4 pt-3 border-t border-border text-xs font-sans text-muted-foreground font-light">
-                  {store.conserverRetrocession ? 'Souhaite conserver sa rétrocession' : 'Ouvert à une baisse de rétrocession'}
-                </p>
+              {/* Associé / Counsel */}
+              {store.isAssocieOrCounsel && (
+                <SectionCard title={store.statutAssoc === 'associe' ? 'Associé' : 'Counsel'}>
+                  <div className="grid grid-cols-2 gap-5">
+                    {store.chiffreAffairesPortable && <DataRow label="CA portable" value={`${store.chiffreAffairesPortable} €`} />}
+                    {store.assocExpertiseSummary && <DataRow label="Expertise" value={store.assocExpertiseSummary} />}
+                  </div>
+                  <div className="mt-4 space-y-4">
+                    <TagList items={store.assocAttentes} label="Attentes" />
+                    <TagList items={store.assocCabTypes} label="Types de cabinets visés" />
+                  </div>
+                </SectionCard>
               )}
-            </SectionCard>
+
+              {/* Projet */}
+              <SectionCard title="Projet">
+                <div className="space-y-4">
+                  {store.movePriorities.length > 0 && (
+                    <div>
+                      <p className="text-[9px] uppercase tracking-[0.22em] text-white/45 font-sans font-semibold mb-2">Priorités</p>
+                      <div className="flex flex-wrap gap-1.5">
+                        {store.movePriorities.map(p => (
+                          <span key={p} className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white text-[hsl(0,0%,7%)] text-[10px] font-sans font-semibold tracking-wide">
+                            <Check className="w-2.5 h-2.5" />{p}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  {store.motivation && <div><p className="text-[9px] uppercase tracking-[0.22em] text-white/45 font-sans font-semibold mb-1.5">Motivation</p><p className="text-sm font-sans font-light text-white/90 leading-relaxed">{store.motivation}</p></div>}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <TagList items={store.cabinetsCibles} label="Cabinets cibles" />
+                    <TagList items={store.noGoCabinets} label="Cabinets exclus" />
+                  </div>
+                  {store.processusCours && <DataRow label="Processus en cours" value={store.processusCours} />}
+                  {store.souhaitePrendreRdv && store.creneauPrefere && <DataRow label="RDV souhaité" value={store.creneauPrefere} />}
+                </div>
+              </SectionCard>
+
+              {/* Statut */}
+              <SectionCard title="Statut">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+                  <DataRow label="Écoute" value={store.statutEcoute === 'actif' ? 'En recherche active' : store.statutEcoute === 'passif' ? 'À l\'écoute' : '—'} />
+                  <DataRow label="Visibilité" value={store.visibilite === 'confidentiel' ? 'Confidentiel – fermé' : store.visibilite === 'semi-confidentiel' ? 'Confidentiel – ouvert' : '—'} />
+                  {store.disponibilite && <DataRow label="Disponibilité" value={store.disponibilite} />}
+                </div>
+              </SectionCard>
+            </>
           )}
 
-          {/* Activité */}
-          <SectionCard title="Activité">
-            <ActivitySummaryCard />
-            <div className="mt-4">
-              <TagList items={store.typesClients} label="Clientèle" />
-            </div>
-            {store.anglais && <p className="text-xs font-sans font-light mt-3"><span className="text-muted-foreground">Anglais : </span>{store.anglais}</p>}
-          </SectionCard>
-
-          {/* Associé / Counsel */}
-          {store.isAssocieOrCounsel && (
-            <SectionCard title={store.statutAssoc === 'associe' ? 'Associé' : 'Counsel'}>
-              <div className="grid grid-cols-2 gap-4">
-                {store.chiffreAffairesPortable && <DataRow label="CA portable" value={`${store.chiffreAffairesPortable} €`} />}
-              </div>
-              <TagList items={store.assocAttentes} label="Attentes" />
-            </SectionCard>
-          )}
-
-          {/* Projet (sans identité, sans cabinets exclus qui pourraient révéler l'identité) */}
-          <SectionCard title="Projet">
-            <div className="space-y-3">
-              {store.movePriorities.length > 0 && (
-                <div>
-                  <p className="text-[9px] uppercase tracking-wider text-muted-foreground mb-1.5">Priorités</p>
-                  <div className="flex flex-wrap gap-1.5">
-                    {store.movePriorities.map(p => (
-                      <span key={p} className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-foreground text-background text-[10px] font-sans font-light">
-                        <Check className="w-2.5 h-2.5" />{p}
-                      </span>
-                    ))}
+          {/* ═══ VUE CABINET (anonymisée) ═══ */}
+          {previewMode === 'cabinet' && (
+            <>
+              {/* Anonymized header */}
+              <SectionCard title="Profil anonymisé" first>
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-white/15 to-white/[0.04] border border-white/10 flex items-center justify-center">
+                    <User className="w-7 h-7 text-white/40" />
+                  </div>
+                  <div>
+                    <p className="font-serif text-xl text-white tracking-tight">Profil anonyme</p>
+                    <div className="mt-1.5">{pqe && <SeniorityBadge info={pqe} hideExactPQE />}</div>
                   </div>
                 </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                  <DataRow label="Pratique" value={store.departement} />
+                  {chambersInfo && <DataRow label="Cabinet d'origine" value={chambersInfo.cabinetValue} />}
+                  <DataRow label="Classement Chambers" value={
+                    chambersInfo?.band
+                      ? (chambersInfo.band <= 2 ? 'Band 1/Band 2' : chambersInfo.band <= 4 ? 'Band 3/Band 4' : `Band ${chambersInfo.band}`)
+                      : chambersInfo?.isIntegrated ? 'Classé (hors pratique)' : 'Non classé'
+                  } />
+                  {store.anglais && <DataRow label="Anglais" value={store.anglais} />}
+                </div>
+              </SectionCard>
+
+              {/* Rémunération (anonymized) */}
+              {(store.retrocession || store.bonus) && (
+                <SectionCard title="Rémunération">
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-5">
+                    {store.retrocession && <DataRow label="Rétrocession" value={`${store.retrocession} €`} />}
+                    {store.bonus && <DataRow label="Bonus" value={`${store.bonus} €`} />}
+                    {store.hasObjectifFacturable && store.objectifFacturable && <DataRow label="Objectif heures" value={`${store.objectifFacturable}h`} />}
+                  </div>
+                  {store.conserverRetrocession !== null && (
+                    <p className="mt-4 pt-3 border-t border-white/10 text-xs font-sans text-white/60 font-light">
+                      {store.conserverRetrocession ? 'Souhaite conserver sa rétrocession' : 'Ouvert à une baisse de rétrocession'}
+                    </p>
+                  )}
+                </SectionCard>
               )}
-              {store.motivation && <div><p className="text-[9px] uppercase tracking-wider text-muted-foreground mb-1">Motivation</p><p className="text-sm font-sans font-light">{store.motivation}</p></div>}
-            </div>
-          </SectionCard>
 
-          {/* Statut */}
-          <SectionCard title="Statut">
-            <div className="grid grid-cols-2 gap-4">
-              <DataRow label="Écoute" value={store.statutEcoute === 'actif' ? 'En recherche active' : store.statutEcoute === 'passif' ? 'À l\'écoute' : '—'} />
-              {store.disponibilite && <DataRow label="Disponibilité" value={store.disponibilite} />}
-            </div>
-          </SectionCard>
+              {/* Activité */}
+              <SectionCard title="Activité">
+                <ActivitySummaryCard />
+                <div className="mt-5">
+                  <TagList items={store.typesClients} label="Clientèle" />
+                </div>
+                {store.anglais && <p className="text-xs font-sans font-light mt-4 text-white/85"><span className="text-white/50">Anglais : </span>{store.anglais}</p>}
+              </SectionCard>
 
-          <div className="p-4">
-            <p className="text-[10px] font-sans font-light text-muted-foreground">
-              Non visible par les cabinets : nom, prénom, email, téléphone, nom du cabinet actuel, cabinets exclus.
-            </p>
-          </div>
+              {/* Associé / Counsel */}
+              {store.isAssocieOrCounsel && (
+                <SectionCard title={store.statutAssoc === 'associe' ? 'Associé' : 'Counsel'}>
+                  <div className="grid grid-cols-2 gap-5">
+                    {store.chiffreAffairesPortable && <DataRow label="CA portable" value={`${store.chiffreAffairesPortable} €`} />}
+                  </div>
+                  <div className="mt-4">
+                    <TagList items={store.assocAttentes} label="Attentes" />
+                  </div>
+                </SectionCard>
+              )}
+
+              {/* Projet */}
+              <SectionCard title="Projet">
+                <div className="space-y-4">
+                  {store.movePriorities.length > 0 && (
+                    <div>
+                      <p className="text-[9px] uppercase tracking-[0.22em] text-white/45 font-sans font-semibold mb-2">Priorités</p>
+                      <div className="flex flex-wrap gap-1.5">
+                        {store.movePriorities.map(p => (
+                          <span key={p} className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white text-[hsl(0,0%,7%)] text-[10px] font-sans font-semibold tracking-wide">
+                            <Check className="w-2.5 h-2.5" />{p}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  {store.motivation && <div><p className="text-[9px] uppercase tracking-[0.22em] text-white/45 font-sans font-semibold mb-1.5">Motivation</p><p className="text-sm font-sans font-light text-white/90 leading-relaxed">{store.motivation}</p></div>}
+                </div>
+              </SectionCard>
+
+              {/* Statut */}
+              <SectionCard title="Statut">
+                <div className="grid grid-cols-2 gap-5">
+                  <DataRow label="Écoute" value={store.statutEcoute === 'actif' ? 'En recherche active' : store.statutEcoute === 'passif' ? 'À l\'écoute' : '—'} />
+                  {store.disponibilite && <DataRow label="Disponibilité" value={store.disponibilite} />}
+                </div>
+              </SectionCard>
+            </>
+          )}
         </div>
-      )}
+      </div>
+
 
       {/* Nota Bene */}
       <div className="rounded-sm border border-border bg-card px-5 py-4 mt-6">
