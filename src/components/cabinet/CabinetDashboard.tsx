@@ -5,7 +5,7 @@ import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import { CHAMBERS_DEPARTMENTS, getChambersRanking, formatChambersBand } from '@/lib/chambersRankings';
 import { NAT_FLAGS, NAT_LABELS } from '@/lib/legal500Rankings';
 import { cn } from '@/lib/utils';
-import { X, Search, Eye, Plus, FileText, Users, User, Sparkles } from 'lucide-react';
+import { X, Search, Eye, Plus, FileText, Users, User, Sparkles, Award, BookMarked, Star, CircleDot } from 'lucide-react';
 import ActivityPieChart from '@/components/shared/ActivityPieChart';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
@@ -33,7 +33,7 @@ const FILTERS = [
   { key: 'immo', label: 'Real Estate' },
   { key: 'projets', label: 'Projects & Energy' },
   { key: 'tax', label: 'Tax' },
-  { key: 'new', label: 'Nouveaux', icon: Sparkles },
+  { key: 'new', label: 'New', icon: Star },
 ];
 
 // Map of dept key → official practice label (mirrors FILTERS, used inside cards)
@@ -620,6 +620,104 @@ function getRankingsLabel(p: CabinetProfile): string {
   return parts.join(' · ');
 }
 
+/** Rétrocession suggérée par LOGAN, calée sur la séniorité standardisée. */
+function getSuggestedRetro(p: CabinetProfile): string {
+  const sen = getSeniorityLabel(p);
+  switch (sen) {
+    case 'Junior': return '120 K€';
+    case 'Mid Level': return '145 K€';
+    case 'Senior': return '165 K€';
+    case 'Counsel': return '200 K€';
+    case 'Associé': return 'Sur devis (package associé)';
+    default: return '145 K€';
+  }
+}
+
+/**
+ * Renvoie une répartition d'activité cohérente avec la pratique du candidat,
+ * incluant positionnement et clientèle métier (overrides l'aléatoire d'origine).
+ */
+function getCoherentActivity(p: CabinetProfile): {
+  split: Record<string, number>;
+  positioning: string;
+  clientele: string;
+} {
+  switch (p.dept) {
+    case 'banque':
+      return {
+        split: { 'Financement LBO': 80, 'Financement immobilier': 20 },
+        positioning: 'Côté emprunteur',
+        clientele: "Fonds d'investissement",
+      };
+    case 'ma':
+      return {
+        split: { 'M&A industriel': 80, 'LBO': 20 },
+        positioning: 'Côté acquéreur',
+        clientele: 'Corporates & ETI',
+      };
+    case 'restructuring':
+      return {
+        split: { 'Restructuring opérationnel': 70, 'Restructuring financier': 30 },
+        positioning: 'Côté débiteur',
+        clientele: 'Corporates en retournement',
+      };
+    case 'public':
+      return {
+        split: { 'Droit public des affaires': 70, 'Contentieux administratif': 30 },
+        positioning: 'Côté opérateurs privés',
+        clientele: 'Concessionnaires & ETI',
+      };
+    case 'arbitrage':
+      return {
+        split: { 'Arbitrage commercial international': 70, 'Arbitrage d\'investissement': 30 },
+        positioning: 'Côté demandeur',
+        clientele: 'Groupes industriels',
+      };
+    case 'social':
+      return {
+        split: { 'Conseil RH stratégique': 65, 'Contentieux social': 35 },
+        positioning: 'Côté employeur',
+        clientele: 'Grands groupes & ETI',
+      };
+    case 'concurrence':
+      return {
+        split: { 'Contrôle des concentrations': 60, 'Pratiques anticoncurrentielles': 40 },
+        positioning: 'Côté notifiant',
+        clientele: 'Multinationales',
+      };
+    case 'immo':
+      return {
+        split: { 'Transactions immobilières': 70, 'Baux commerciaux': 30 },
+        positioning: 'Côté investisseur',
+        clientele: 'Foncières & SCPI',
+      };
+    case 'projets':
+      return {
+        split: { 'Énergies renouvelables': 70, 'Infrastructures': 30 },
+        positioning: 'Côté sponsor',
+        clientele: 'Producteurs indépendants',
+      };
+    case 'tax':
+      return {
+        split: { 'Fiscalité des transactions': 70, 'Prix de transfert': 30 },
+        positioning: 'Côté contribuable',
+        clientele: 'Groupes internationaux',
+      };
+    case 'fiscal':
+      return {
+        split: { 'Fiscalité des transactions': 70, 'Prix de transfert': 30 },
+        positioning: 'Côté contribuable',
+        clientele: 'Groupes internationaux',
+      };
+    default:
+      return {
+        split: p.split,
+        positioning: '',
+        clientele: '',
+      };
+  }
+}
+
 // ── EXPLORE VIEW ──
 const ExploreView = ({
   filter, setFilter, sort, setSort, drawerProfile, setDrawerProfile
@@ -746,74 +844,105 @@ const ExploreView = ({
         </div>
       </div>
 
-      {/* Grid — dark matte cards, more refined and airy */}
+      {/* Grid — sophisticated dark matte cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {filtered.map((p) => {
           const seniorityLabel = getSeniorityLabel(p);
           const practiceLabel = PRACTICE_LABEL_BY_KEY[p.dept] || p.deptLabel;
-          const rankingsLabel = getRankingsLabel(p);
+          const chambers = isChambersRanked(p);
+          const legal500 = isLegal500Ranked(p);
+          const hasAnyRanking = chambers || legal500;
           const isActive = p.disponibilite === 'Immédiate';
 
           return (
             <div
               key={p.id}
               onClick={() => setDrawerProfile(p)}
-              className="group relative rounded-lg cursor-pointer transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_20px_50px_-15px_rgba(0,0,0,0.6)] border border-white/[0.06] hover:border-white/[0.14] bg-[hsl(0,0%,7%)] overflow-hidden"
+              className="group relative rounded-xl cursor-pointer transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_30px_60px_-20px_rgba(0,0,0,0.7)] border border-white/[0.06] hover:border-white/[0.18] bg-[hsl(0,0%,6%)] overflow-hidden"
             >
-              {/* "Nouveau" pin — discreet sparkle */}
-              {p.isNew && (
-                <span className="absolute top-3 right-3 inline-flex items-center gap-1 text-[8px] font-medium tracking-[0.18em] uppercase text-white/75">
-                  <Sparkles className="w-2.5 h-2.5" strokeWidth={1.5} />
-                  Nouveau
-                </span>
-              )}
+              {/* Subtle gradient accent — top edge on hover */}
+              <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/25 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              {/* Hover glow */}
+              <div className="absolute inset-0 bg-gradient-to-br from-white/[0.025] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
-              {/* Header — Seniority + PQE */}
-              <div className="px-6 pt-6 pb-4">
-                <div className="text-[8px] tracking-[0.18em] uppercase text-white/30 font-sans mb-2">
-                  Profil anonymisé
+              {/* Top-right meta cluster: NEW pin */}
+              <div className="absolute top-4 right-5 flex items-center gap-2.5 z-10">
+                {p.isNew && (
+                  <span className="inline-flex items-center gap-1 text-[8px] font-medium tracking-[0.22em] uppercase text-white/85">
+                    <Star className="w-2.5 h-2.5 fill-white/85" strokeWidth={0} />
+                    new
+                  </span>
+                )}
+              </div>
+
+              {/* Header — Profil anonyme + Seniority + PQE */}
+              <div className="px-6 pt-6 pb-5 relative">
+                <div className="text-[8px] tracking-[0.22em] uppercase text-white/30 font-sans mb-2.5">
+                  Profil anonyme
                 </div>
-                <div className="font-sans text-[15px] font-medium text-white leading-tight">
+                <div className="font-sans text-[16px] font-medium text-white leading-tight tracking-tight">
                   {seniorityLabel}
-                  {p.pqe && <span className="text-white/45 font-light"> · {p.pqe}</span>}
+                  {p.pqe && <span className="text-white/40 font-light"> · {p.pqe}</span>}
                 </div>
               </div>
 
               {/* Divider */}
-              <div className="mx-6 h-px bg-white/[0.06]" />
+              <div className="mx-6 h-px bg-gradient-to-r from-transparent via-white/[0.08] to-transparent" />
 
-              {/* Body — practice + meta */}
-              <div className="px-6 py-4 space-y-3">
-                <div>
-                  <div className="text-[8px] tracking-[0.16em] uppercase text-white/30 font-sans mb-1">
-                    Pratique
-                  </div>
-                  <div className="font-sans text-[12.5px] text-white/85 leading-snug">
-                    {practiceLabel}
-                  </div>
+              {/* Body — practice */}
+              <div className="px-6 py-5">
+                <div className="text-[8px] tracking-[0.2em] uppercase text-white/30 font-sans mb-1.5">
+                  Pratique
                 </div>
-
-                {rankingsLabel && (
-                  <div>
-                    <div className="text-[8px] tracking-[0.16em] uppercase text-white/30 font-sans mb-1">
-                      Classements
-                    </div>
-                    <div className="font-sans text-[12px] text-white/75">
-                      {rankingsLabel}
-                    </div>
-                  </div>
-                )}
+                <div className="font-sans text-[13px] text-white/85 leading-snug">
+                  {practiceLabel}
+                </div>
               </div>
 
-              {/* Footer — discrete status dot */}
-              <div className="px-6 pb-5 pt-1 flex items-center gap-2">
-                <span className={cn(
-                  'inline-block w-1.5 h-1.5 rounded-full',
-                  isActive ? 'bg-white' : 'bg-white/20'
-                )} />
-                <span className="text-[10px] font-sans text-white/45 tracking-wide">
-                  {isActive ? 'En recherche active' : 'À l\'écoute'}
-                </span>
+              {/* Footer — rankings (icons) + status */}
+              <div className="px-6 pb-5 pt-3.5 flex items-center justify-between gap-3 border-t border-white/[0.05]">
+                <div className="flex items-center gap-3">
+                  {chambers && (
+                    <span className="inline-flex items-center gap-1 text-[9.5px] font-medium tracking-[0.06em] text-white/80">
+                      <Award className="w-3 h-3" strokeWidth={1.6} />
+                      Chambers
+                    </span>
+                  )}
+                  {legal500 && (
+                    <span className="inline-flex items-center gap-1 text-[9.5px] font-medium tracking-[0.06em] text-white/80">
+                      <BookMarked className="w-3 h-3" strokeWidth={1.6} />
+                      Legal 500
+                    </span>
+                  )}
+                  {!hasAnyRanking && (
+                    <span className="inline-flex items-center gap-1 text-[9.5px] tracking-[0.06em] text-white/25">
+                      <CircleDot className="w-2.5 h-2.5" strokeWidth={1.5} />
+                      Non classé
+                    </span>
+                  )}
+                </div>
+
+                {/* Status — high contrast for "active" */}
+                <div className="flex items-center gap-1.5">
+                  {isActive ? (
+                    <>
+                      <span className="relative flex h-1.5 w-1.5">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                        <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-400" />
+                      </span>
+                      <span className="text-[9.5px] font-semibold uppercase tracking-[0.14em] text-emerald-300">
+                        En recherche active
+                      </span>
+                    </>
+                  ) : (
+                    <>
+                      <span className="inline-block w-1.5 h-1.5 rounded-full bg-white/25" />
+                      <span className="text-[9.5px] font-sans text-white/40 tracking-[0.1em] uppercase">
+                        À l'écoute
+                      </span>
+                    </>
+                  )}
+                </div>
               </div>
             </div>
           );
@@ -835,29 +964,22 @@ const ProfileDrawer = ({ profile: p, onClose }: { profile: CabinetProfile; onClo
   const senDetail = status === 'Collaborateur' ? seniorityLabel : null;
   const natLabel = getNatLabel(p.nat);
   const chambers = isChambersRanked(p);
+  const legal500 = isLegal500Ranked(p);
+  const isActive = p.disponibilite === 'Immédiate';
 
-  // Mock priorities for demo (from Step4Project PRIORITIES list)
+  // Coherent activity & retro overrides
+  const coherent = getCoherentActivity(p);
+  const splitData = coherent.split;
+  const positioningLabel = coherent.positioning;
+  const clienteleLabel = coherent.clientele;
+  const suggestedRetro = getSuggestedRetro(p);
+
+  // Mock priorities for demo
   const mockPriorities = p.motivation?.includes('autonomie')
     ? ['Responsabilité et autonomie', 'Qualité du management', 'Pratique et dossiers']
     : p.motivation?.includes('rémunération') || p.motivation?.includes('Rémunération')
     ? ['Rémunération', 'Perspectives', 'Équilibre pro/perso']
     : ['Rémunération', 'Responsabilité et autonomie', 'Flexibilité et organisation'];
-
-  // Mock positioning/clientele from expertise
-  const positioning = p.split && Object.keys(p.split).length > 0
-    ? Object.entries(p.split).map(([k]) => {
-        if (k.includes('M&A')) return 'Côté acquéreur / vendeur';
-        if (k.includes('Private Equity')) return 'Côté fonds';
-        if (k.includes('Financement')) return 'Côté prêteur / emprunteur';
-        if (k.includes('Restructuring')) return 'Côté débiteur / créancier';
-        if (k.includes('Social')) return 'Côté employeur';
-        return '';
-      }).filter(Boolean)
-    : [];
-
-  const clientele = p.pqe && parseInt(p.pqe) >= 6
-    ? 'CAC 40 / ETI / Fonds d\'investissement'
-    : 'ETI / PME / Start-ups';
 
   return (
     <>
@@ -865,27 +987,45 @@ const ProfileDrawer = ({ profile: p, onClose }: { profile: CabinetProfile; onClo
       <div className="fixed top-0 right-0 bottom-0 w-[500px] bg-background shadow-2xl z-[400] overflow-y-auto border-l border-border">
         <div className="sticky top-0 bg-background border-b border-border p-4 flex items-center justify-between z-10">
           <span className="text-[12px] font-bold tracking-[0.06em] uppercase text-foreground font-sans">
-            {status}{senDetail ? ` — ${senDetail}` : ''}{p.pqe ? ` · ${p.pqe}` : ''}
+            Profil anonyme
           </span>
           <button onClick={onClose} className="bg-secondary rounded-full w-7 h-7 flex items-center justify-center hover:bg-border">
             <X className="w-4 h-4" />
           </button>
         </div>
         <div className="p-6">
-          {/* Anonymous header with silhouette */}
+          {/* Anonymous header with silhouette + ranking icons */}
           <div className="flex items-center gap-4 mb-6">
             <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[hsl(220,40%,18%)] to-[hsl(195,45%,28%)] flex items-center justify-center">
               <User className="w-7 h-7 text-white/60" />
             </div>
-            <div>
+            <div className="flex-1">
               <p className="font-sans text-lg font-semibold text-foreground">
-                Profil anonymisé du candidat
+                Profil anonyme
               </p>
-              <p className="text-[11px] text-muted-foreground font-sans mt-0.5">{p.id} · {p.deptLabel}</p>
+              <div className="flex items-center gap-3 mt-1">
+                <p className="text-[11px] text-muted-foreground font-sans">{p.id} · {p.deptLabel}</p>
+              </div>
+              {(chambers || legal500) && (
+                <div className="flex items-center gap-3 mt-1.5">
+                  {chambers && (
+                    <span className="inline-flex items-center gap-1 text-[10px] font-medium text-foreground">
+                      <Award className="w-3 h-3" strokeWidth={1.6} />
+                      Chambers
+                    </span>
+                  )}
+                  {legal500 && (
+                    <span className="inline-flex items-center gap-1 text-[10px] font-medium text-foreground">
+                      <BookMarked className="w-3 h-3" strokeWidth={1.6} />
+                      Legal 500
+                    </span>
+                  )}
+                </div>
+              )}
             </div>
           </div>
 
-          {/* Main info */}
+          {/* Main info — Chambers row removed */}
           <div className="grid grid-cols-2 gap-x-6 gap-y-3 mb-6 pb-6 border-b border-border">
             <div>
               <span className="text-[9px] uppercase tracking-[0.1em] text-muted-foreground font-sans">Statut</span>
@@ -900,27 +1040,34 @@ const ProfileDrawer = ({ profile: p, onClose }: { profile: CabinetProfile; onClo
               <p className="text-sm font-sans font-semibold mt-0.5">{natLabel}</p>
             </div>
             <div>
-              <span className="text-[9px] uppercase tracking-[0.1em] text-muted-foreground font-sans">Reconnu Chambers</span>
-              <p className="text-sm font-sans font-semibold mt-0.5">{chambers ? 'Oui' : 'Non'}</p>
-            </div>
-            <div>
               <span className="text-[9px] uppercase tracking-[0.1em] text-muted-foreground font-sans">Anglais</span>
               <p className="text-sm font-sans font-semibold mt-0.5">{p.english}</p>
             </div>
-            <div>
-              <span className="text-[9px] uppercase tracking-[0.1em] text-muted-foreground font-sans">Recherche active</span>
-              <p className="text-sm font-sans font-semibold mt-0.5">{p.disponibilite === 'Immédiate' ? 'Oui' : 'Non'}</p>
+            <div className="col-span-2">
+              <span className="text-[9px] uppercase tracking-[0.1em] text-muted-foreground font-sans">Disponibilité</span>
+              <p className={cn(
+                "text-sm font-sans font-semibold mt-0.5 inline-flex items-center gap-1.5",
+                isActive ? "text-emerald-600" : "text-foreground"
+              )}>
+                {isActive && (
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75" />
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+                  </span>
+                )}
+                {isActive ? 'En recherche active' : "À l'écoute"}
+              </p>
             </div>
           </div>
 
           {/* Activity pie chart + positioning/clientele */}
-          {Object.keys(p.split).length > 0 && (
+          {Object.keys(splitData).length > 0 && (
             <div className="mb-6 pb-6 border-b border-border">
               <p className="text-[9px] font-bold tracking-[0.14em] uppercase text-muted-foreground mb-4">Répartition de l'activité</p>
               <div className="flex items-start gap-5">
                 <div className="flex-shrink-0">
                   <ActivityPieChart
-                    data={p.split}
+                    data={splitData}
                     size={130}
                     innerRadius={30}
                     outerRadius={56}
@@ -929,36 +1076,38 @@ const ProfileDrawer = ({ profile: p, onClose }: { profile: CabinetProfile; onClo
                   />
                 </div>
                 <div className="flex-1 space-y-2">
-                  {Object.entries(p.split).map(([name, value], i) => (
+                  {Object.entries(splitData).map(([name, value], i) => (
                     <div key={name} className="flex items-center gap-2">
                       <span className="w-2.5 h-2.5 rounded-sm flex-shrink-0" style={{ background: EXPLORE_PIE_PALETTE[i % EXPLORE_PIE_PALETTE.length] }} />
                       <span className="text-[11px] font-sans text-foreground flex-1">{name}</span>
                       <span className="text-[11px] font-sans font-bold text-foreground">{value}%</span>
                     </div>
                   ))}
-                  {/* Positioning & Clientele, discreetly beside the chart */}
-                  {positioning.length > 0 && (
+                  {positioningLabel && (
                     <div className="pt-2 mt-2 border-t border-border">
                       <span className="text-[9px] text-muted-foreground font-sans">Positionnement : </span>
-                      <span className="text-[10px] text-foreground font-sans">{positioning.join(' / ')}</span>
+                      <span className="text-[10px] text-foreground font-sans">{positioningLabel}</span>
                     </div>
                   )}
-                  <div>
-                    <span className="text-[9px] text-muted-foreground font-sans">Clientèle : </span>
-                    <span className="text-[10px] text-foreground font-sans">{clientele}</span>
-                  </div>
+                  {clienteleLabel && (
+                    <div>
+                      <span className="text-[9px] text-muted-foreground font-sans">Clientèle : </span>
+                      <span className="text-[10px] text-foreground font-sans">{clienteleLabel}</span>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
           )}
 
-          {/* Retrocession */}
-          {p.retro_actuel && (
-            <div className="mb-6 pb-6 border-b border-border">
-              <p className="text-[9px] font-bold tracking-[0.14em] uppercase text-muted-foreground mb-3">Rétrocession</p>
-              <p className="text-sm font-sans font-semibold text-foreground">{p.retro_actuel}</p>
-            </div>
-          )}
+          {/* Retrocession suggérée par LOGAN */}
+          <div className="mb-6 pb-6 border-b border-border">
+            <p className="text-[9px] font-bold tracking-[0.14em] uppercase text-muted-foreground mb-3">Rétrocession suggérée par LOGAN</p>
+            <p className="text-sm font-sans font-semibold text-foreground">{suggestedRetro}</p>
+            <p className="text-[10px] text-muted-foreground mt-1 font-sans">
+              Recommandation alignée sur la séniorité et le marché.
+            </p>
+          </div>
 
           {/* Candidate priorities */}
           <div className="mb-6 pb-6 border-b border-border">
@@ -988,9 +1137,11 @@ const ProfileDrawer = ({ profile: p, onClose }: { profile: CabinetProfile; onClo
           </div>
 
           {/* CTA */}
-          <div className="bg-foreground rounded-md p-4 text-center">
+          <div className="bg-foreground rounded-md p-5 text-center">
             <div className="text-sm font-bold text-white mb-1.5">Ce candidat vous intéresse ?</div>
-            <p className="text-[11px] text-white/45 mb-3 leading-relaxed">LOGAN se rapprochera du candidat en dehors de tout mandat pour explorer son intérêt.</p>
+            <p className="text-[11px] text-white/55 mb-4 leading-relaxed">
+              Manifestez votre intérêt pour ce candidat, LOGAN se charge du reste pour vous.
+            </p>
             <button
               onClick={() => {
                 onClose();
