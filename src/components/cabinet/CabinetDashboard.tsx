@@ -633,13 +633,14 @@ const ExploreView = ({
 }) => {
   const s = useCabinetStore();
   const [chambersOnly, setChambersOnly] = useState(false);
+  const [legal500Only, setLegal500Only] = useState(false);
   const [seniorityFilter, setSeniorityFilter] = useState<string>('all');
 
   const SENIORITY_FILTERS = [
     { key: 'all', label: 'Toutes' },
     { key: 'Junior', label: 'Junior' },
-    { key: 'Mid Level', label: 'Mid-level' },
-    { key: 'Senior', label: 'Sénior' },
+    { key: 'Mid Level', label: 'Mid Level' },
+    { key: 'Senior', label: 'Senior' },
     { key: 'Counsel', label: 'Counsel' },
     { key: 'Associé', label: 'Associé' },
   ];
@@ -649,11 +650,12 @@ const ExploreView = ({
     if (filter === 'new') profiles = profiles.filter((p) => p.isNew);
     else if (filter !== 'all') profiles = profiles.filter((p) => p.dept === filter);
     if (chambersOnly) profiles = profiles.filter((p) => isChambersRanked(p));
-    if (seniorityFilter !== 'all') profiles = profiles.filter((p) => p.seniority === seniorityFilter || p.seniority.includes(seniorityFilter));
+    if (legal500Only) profiles = profiles.filter((p) => isLegal500Ranked(p));
+    if (seniorityFilter !== 'all') profiles = profiles.filter((p) => getSeniorityLabel(p) === seniorityFilter);
     if (sort === 'pqe') profiles.sort((a, b) => parseInt(b.pqe) - parseInt(a.pqe));
     else if (sort === 'match') profiles.sort((a, b) => b.match - a.match);
     return profiles;
-  }, [filter, sort, chambersOnly, seniorityFilter]);
+  }, [filter, sort, chambersOnly, legal500Only, seniorityFilter]);
 
   return (
     <div>
@@ -669,40 +671,56 @@ const ExploreView = ({
         Parcourez tous les profils enregistrés. Cliquez sur un profil pour consulter le détail anonymisé.
       </p>
 
-      {/* Filters */}
+      {/* Filters — Pratique */}
       <div className="flex items-center gap-2 mb-4 flex-wrap">
         <span className="text-[11px] font-semibold text-foreground mr-1">Pratique :</span>
-        {FILTERS.map((f) => (
-          <button
-            key={f.key}
-            onClick={() => setFilter(f.key)}
-            className={cn(
-              'text-[10px] font-medium px-3 py-1.5 border rounded-full transition-all',
-              filter === f.key
-                ? 'bg-foreground text-background border-foreground'
-                : 'bg-background text-muted-foreground border-border hover:border-foreground'
-            )}
-          >
-            {f.label}
-          </button>
-        ))}
+        {FILTERS.map((f) => {
+          const Icon = (f as any).icon as typeof Sparkles | undefined;
+          return (
+            <button
+              key={f.key}
+              onClick={() => setFilter(f.key)}
+              className={cn(
+                'inline-flex items-center gap-1.5 text-[10px] font-medium px-3 py-1.5 border rounded-full transition-all',
+                filter === f.key
+                  ? 'bg-foreground text-background border-foreground'
+                  : 'bg-background text-muted-foreground border-border hover:border-foreground'
+              )}
+            >
+              {Icon && <Icon className="w-3 h-3" strokeWidth={1.75} />}
+              {f.label}
+            </button>
+          );
+        })}
       </div>
 
-      {/* Chambers checkbox + seniority + sort */}
-      <div className="flex items-center gap-4 mb-5 flex-wrap">
-        <div className="flex items-center gap-2">
-          <input
-            type="checkbox"
-            id="chambersFilter"
-            checked={chambersOnly}
-            onChange={e => setChambersOnly(e.target.checked)}
-            className="w-3.5 h-3.5 rounded border-border accent-foreground cursor-pointer"
-          />
-          <label htmlFor="chambersFilter" className="text-[11px] text-foreground font-medium cursor-pointer select-none">
-            Le candidat doit exercer dans un cabinet dont la pratique est reconnue par Chambers
-          </label>
-        </div>
-        <div className="flex items-center gap-2">
+      {/* Filters — Classements + Séniorité + Tri */}
+      <div className="flex items-center gap-3 mb-6 flex-wrap">
+        <span className="text-[11px] font-semibold text-foreground mr-1">Classements :</span>
+        <button
+          onClick={() => setChambersOnly(v => !v)}
+          className={cn(
+            'text-[10px] font-medium px-3 py-1.5 border rounded-full transition-all',
+            chambersOnly
+              ? 'bg-foreground text-background border-foreground'
+              : 'bg-background text-muted-foreground border-border hover:border-foreground'
+          )}
+        >
+          Chambers
+        </button>
+        <button
+          onClick={() => setLegal500Only(v => !v)}
+          className={cn(
+            'text-[10px] font-medium px-3 py-1.5 border rounded-full transition-all',
+            legal500Only
+              ? 'bg-foreground text-background border-foreground'
+              : 'bg-background text-muted-foreground border-border hover:border-foreground'
+          )}
+        >
+          Legal 500
+        </button>
+
+        <div className="flex items-center gap-2 ml-2">
           <span className="text-[11px] font-semibold text-foreground">Séniorité :</span>
           <select
             value={seniorityFilter}
@@ -714,6 +732,7 @@ const ExploreView = ({
             ))}
           </select>
         </div>
+
         <div className="ml-auto flex items-center gap-2">
           <select
             value={sort}
@@ -727,41 +746,73 @@ const ExploreView = ({
         </div>
       </div>
 
-      {/* Grid — dark matte cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      {/* Grid — dark matte cards, more refined and airy */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {filtered.map((p) => {
-          const status = getStatusLabel(p);
-          const senDetail = getSeniorityDetail(p);
-          const natLabel = getNatLabel(p.nat);
-          const chambers = isChambersRanked(p);
+          const seniorityLabel = getSeniorityLabel(p);
+          const practiceLabel = PRACTICE_LABEL_BY_KEY[p.dept] || p.deptLabel;
+          const rankingsLabel = getRankingsLabel(p);
+          const isActive = p.disponibilite === 'Immédiate';
 
           return (
             <div
               key={p.id}
               onClick={() => setDrawerProfile(p)}
-              className="rounded-lg p-5 cursor-pointer transition-all hover:shadow-lg hover:-translate-y-0.5 relative border border-white/[0.08] bg-[hsl(0,0%,7%)]"
+              className="group relative rounded-lg cursor-pointer transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_20px_50px_-15px_rgba(0,0,0,0.6)] border border-white/[0.06] hover:border-white/[0.14] bg-[hsl(0,0%,7%)] overflow-hidden"
             >
+              {/* "Nouveau" pin — discreet sparkle */}
               {p.isNew && (
-                <span className="absolute top-3 right-3 text-[7px] font-bold tracking-[0.12em] uppercase bg-white/90 text-black px-2 py-0.5 rounded-sm">NOUVEAU</span>
-              )}
-              <div className="font-sans text-sm font-bold text-white mb-1.5 leading-tight">
-                {status === 'Collaborateur' ? (senDetail || 'Collaborateur') : status}{p.pqe ? ` · ${p.pqe}` : ''}
-              </div>
-              <div className="font-sans text-[13px] font-semibold text-white/50 mb-3">{p.deptLabel}</div>
-
-              {/* Key info — Chambers + Actif only */}
-              <div className="flex items-center gap-2">
-                <span className={cn(
-                  'text-[10px] font-bold px-2.5 py-1 rounded border',
-                  chambers ? 'border-white/20 text-white/85 bg-white/[0.05]' : 'border-white/[0.08] text-white/40 bg-white/[0.03]'
-                )}>
-                  Chambers : {chambers ? 'Oui' : 'Non'}
+                <span className="absolute top-3 right-3 inline-flex items-center gap-1 text-[8px] font-medium tracking-[0.18em] uppercase text-white/75">
+                  <Sparkles className="w-2.5 h-2.5" strokeWidth={1.5} />
+                  Nouveau
                 </span>
+              )}
+
+              {/* Header — Seniority + PQE */}
+              <div className="px-6 pt-6 pb-4">
+                <div className="text-[8px] tracking-[0.18em] uppercase text-white/30 font-sans mb-2">
+                  Profil anonymisé
+                </div>
+                <div className="font-sans text-[15px] font-medium text-white leading-tight">
+                  {seniorityLabel}
+                  {p.pqe && <span className="text-white/45 font-light"> · {p.pqe}</span>}
+                </div>
+              </div>
+
+              {/* Divider */}
+              <div className="mx-6 h-px bg-white/[0.06]" />
+
+              {/* Body — practice + meta */}
+              <div className="px-6 py-4 space-y-3">
+                <div>
+                  <div className="text-[8px] tracking-[0.16em] uppercase text-white/30 font-sans mb-1">
+                    Pratique
+                  </div>
+                  <div className="font-sans text-[12.5px] text-white/85 leading-snug">
+                    {practiceLabel}
+                  </div>
+                </div>
+
+                {rankingsLabel && (
+                  <div>
+                    <div className="text-[8px] tracking-[0.16em] uppercase text-white/30 font-sans mb-1">
+                      Classements
+                    </div>
+                    <div className="font-sans text-[12px] text-white/75">
+                      {rankingsLabel}
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Footer — discrete status dot */}
+              <div className="px-6 pb-5 pt-1 flex items-center gap-2">
                 <span className={cn(
-                  'text-[10px] font-bold px-2.5 py-1 rounded border',
-                  p.disponibilite === 'Immédiate' ? 'border-white/20 text-white/85 bg-white/[0.05]' : 'border-white/[0.08] text-white/40 bg-white/[0.03]'
-                )}>
-                  {p.disponibilite === 'Immédiate' ? 'Actif' : 'Passif'}
+                  'inline-block w-1.5 h-1.5 rounded-full',
+                  isActive ? 'bg-emerald-400/80' : 'bg-white/20'
+                )} />
+                <span className="text-[10px] font-sans text-white/45 tracking-wide">
+                  {isActive ? 'En recherche active' : 'À l\'écoute'}
                 </span>
               </div>
             </div>
