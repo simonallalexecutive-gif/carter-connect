@@ -583,13 +583,18 @@ function getStatusLabel(p: CabinetProfile): string {
   return 'Collaborateur';
 }
 
-function getSeniorityDetail(p: CabinetProfile): string | null {
-  const status = getStatusLabel(p);
-  if (status !== 'Collaborateur') return null;
-  if (p.seniority === 'Junior' || p.seniority.includes('Junior')) return 'Junior';
-  if (p.seniority === 'Mid Level' || p.seniority.includes('Mid')) return 'Mid Level';
-  if (p.seniority === 'Sénior' || p.seniority.includes('Sénior') || p.seniority.includes('Senior')) return 'Senior';
-  return null;
+/**
+ * Returns standardized seniority label among:
+ * Junior / Mid Level / Senior / Counsel / Associé
+ */
+function getSeniorityLabel(p: CabinetProfile): string {
+  const sen = p.seniority || '';
+  if (sen.includes('Associé')) return 'Associé';
+  if (sen.includes('Counsel')) return 'Counsel';
+  if (sen.includes('Senior') || sen.includes('Sénior')) return 'Senior';
+  if (sen.includes('Mid')) return 'Mid Level';
+  if (sen.includes('Junior')) return 'Junior';
+  return sen || 'Collaborateur';
 }
 
 function getNatLabel(nat: string): string {
@@ -598,7 +603,21 @@ function getNatLabel(nat: string): string {
 }
 
 function isChambersRanked(p: CabinetProfile): boolean {
+  // Chambers reconnaît les pratiques top-tier (Tier 1 ou Tier 2)
+  return p.originTier === 'Tier 1' || p.originTier === 'Tier 2';
+}
+
+function isLegal500Ranked(p: CabinetProfile): boolean {
+  // Legal 500 couvre une plage plus large (Tier 1 à Tier 5)
   return !!(p.originTier && p.originTier.startsWith('Tier'));
+}
+
+/** Renvoie un libellé compact ex: "Chambers", "Legal 500", "Chambers · Legal 500", ou "—" */
+function getRankingsLabel(p: CabinetProfile): string {
+  const parts: string[] = [];
+  if (isChambersRanked(p)) parts.push('Chambers');
+  if (isLegal500Ranked(p)) parts.push('Legal 500');
+  return parts.join(' · ');
 }
 
 // ── EXPLORE VIEW ──
