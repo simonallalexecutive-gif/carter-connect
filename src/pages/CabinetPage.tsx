@@ -9,7 +9,7 @@ import CabinetStep6Confirm from '@/components/cabinet/CabinetStep6Confirm';
 import CabinetDashboard from '@/components/cabinet/CabinetDashboard';
 import CabinetAccount from '@/components/cabinet/CabinetAccount';
 import { useEffect, useState } from 'react';
-import { useSearchParams, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
 import { NAT_FLAGS, NAT_LABELS } from '@/lib/legal500Rankings';
@@ -233,7 +233,7 @@ const CabinetPage = () => {
   const step = useCabinetStore((s) => s.step);
   const setStep = useCabinetStore((s) => s.setStep);
   const setField = useCabinetStore((s) => s.setField);
-  const [searchParams] = useSearchParams();
+  
 
   useEffect(() => {
     const checkSession = async () => {
