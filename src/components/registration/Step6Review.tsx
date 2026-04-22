@@ -727,8 +727,7 @@ const Step6Review = () => {
           {/* Activité */}
           <SectionCard title="Activité">
             <ActivitySummaryCard />
-            <div className="mt-4 grid grid-cols-2 gap-3">
-              <TagList items={store.tailleOperations} label="Taille opérations" />
+            <div className="mt-4">
               <TagList items={store.typesClients} label="Clientèle" />
             </div>
             {store.anglais && <p className="text-xs font-sans font-light mt-3"><span className="text-muted-foreground">Anglais : </span>{store.anglais}</p>}
@@ -835,8 +834,7 @@ const Step6Review = () => {
           {/* Activité */}
           <SectionCard title="Activité">
             <ActivitySummaryCard />
-            <div className="mt-4 grid grid-cols-2 gap-3">
-              <TagList items={store.tailleOperations} label="Taille opérations" />
+            <div className="mt-4">
               <TagList items={store.typesClients} label="Clientèle" />
             </div>
             {store.anglais && <p className="text-xs font-sans font-light mt-3"><span className="text-muted-foreground">Anglais : </span>{store.anglais}</p>}
