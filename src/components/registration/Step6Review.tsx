@@ -686,7 +686,7 @@ const Step6Review = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {pqe && <div><span className="text-[10px] text-muted-foreground font-sans font-light">Séniorité</span><div className="mt-1"><SeniorityBadge info={pqe} /></div></div>}
               <DataRow label="Cabinet" value={store.cabinet} />
-              <DataRow label="Répertorié Chambers" value={chambersInfo?.isIntegrated ? 'Oui' : 'Non'} />
+              <DataRow label="Classement Chambers" value={chambersInfo?.band ? `Band ${chambersInfo.band} — ${chambersInfo.deptLabel}` : chambersInfo?.isIntegrated ? 'Cabinet classé (hors pratique)' : 'Non classé'} />
               <DataRow label="Pratique" value={store.departement} />
             </div>
             {store.previousCabinets.length > 0 && (
