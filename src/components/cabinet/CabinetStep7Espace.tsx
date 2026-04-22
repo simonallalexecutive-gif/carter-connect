@@ -127,7 +127,7 @@ const CabinetStep7Espace = () => {
             >
               {p.isNew && (
                 <span className="absolute top-3 right-3 text-[7px] font-bold tracking-[0.12em] uppercase bg-white text-black px-2 py-0.5 rounded-sm">
-                  NOUVEAU
+                  NEW
                 </span>
               )}
               <div className="text-[9px] text-white/40 tracking-[0.08em] mb-3 font-sans">ID LOGAN · {p.id}</div>
