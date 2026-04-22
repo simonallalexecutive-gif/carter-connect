@@ -14,13 +14,14 @@ import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import { toast } from 'sonner';
 import { buildQuantizedChartData } from '@/lib/percentages';
 
+// Palette professionnelle, sobre et harmonieuse pour camemberts (sur fond sombre)
 const CHART_COLORS = [
-  'hsl(0, 0%, 11%)',       // Noir mat
-  'hsl(195, 50%, 28%)',    // Bleu pétrole
-  'hsl(0, 0%, 30%)',       // Gris anthracite
-  'hsl(160, 35%, 32%)',    // Vert green
-  'hsl(215, 55%, 22%)',    // Bleu foncé
-  'hsl(0, 0%, 60%)',       // Gris clair
+  'hsl(212, 60%, 52%)',    // Bleu pétrole lumineux
+  'hsl(160, 42%, 48%)',    // Émeraude profond
+  'hsl(35, 65%, 58%)',     // Or doux
+  'hsl(220, 18%, 70%)',    // Gris perle
+  'hsl(8, 55%, 56%)',      // Terracotta
+  'hsl(265, 30%, 60%)',    // Mauve fumé
 ];
 
 // ── Specialized department category definitions ──
