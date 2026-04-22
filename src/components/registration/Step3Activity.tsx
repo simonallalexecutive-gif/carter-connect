@@ -21,15 +21,14 @@ import DroitPublicActivityPanel from './DroitPublicActivityPanel';
 import ArbitrationActivityPanel from './ArbitrationActivityPanel';
 import ProjectsEnergyActivityPanel from './ProjectsEnergyActivityPanel';
 
+// Palette neutre, sobre et professionnelle — alignée avec le récapitulatif
 const CHART_COLORS = [
-  'hsl(0, 0%, 11%)',       // Noir mat
-  'hsl(195, 50%, 28%)',    // Bleu pétrole
-  'hsl(0, 0%, 30%)',       // Gris anthracite
-  'hsl(160, 35%, 32%)',    // Vert green
-  'hsl(215, 55%, 22%)',    // Bleu foncé
-  'hsl(0, 0%, 60%)',       // Gris clair
-  'hsl(200, 30%, 20%)',    // Bleu pétrole foncé
-  'hsl(0, 0%, 45%)',       // Gris moyen
+  'hsl(0, 0%, 92%)',       // Perle
+  'hsl(215, 14%, 62%)',    // Gris ardoise clair
+  'hsl(220, 12%, 42%)',    // Anthracite bleuté
+  'hsl(210, 18%, 78%)',    // Brume claire
+  'hsl(218, 10%, 30%)',    // Graphite profond
+  'hsl(212, 16%, 52%)',    // Bleu acier mat
 ];
 
 // All departments that have a specialized panel (not the generic chip+pie fallback)

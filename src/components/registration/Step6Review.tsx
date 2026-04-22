@@ -761,10 +761,19 @@ const Step6Review = () => {
                   </div>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-                  {pqe && <div><span className="text-[9px] uppercase tracking-[0.18em] text-white/45 font-sans font-medium">Séniorité</span><div className="mt-1.5"><SeniorityBadge info={pqe} /></div></div>}
-                  <DataRow label="Cabinet" value={store.cabinet} />
+                  {pqe && (
+                    <div>
+                      <span className="text-[9px] uppercase tracking-[0.18em] text-white/45 font-sans font-medium">Séniorité</span>
+                      <div className="mt-1.5">
+                        <span className="inline-flex items-center text-[13px] font-sans font-medium text-white">
+                          {`${pqe.label} · ${pqe.years} ans`}
+                        </span>
+                      </div>
+                    </div>
+                  )}
                   <DataRow label="Pratique" value={store.departement} />
-                  <DataRow label="Chambers" value={chambersInfo?.band ? `Band ${chambersInfo.band} — ${chambersInfo.deptLabel}` : chambersInfo?.isIntegrated ? 'Cabinet classé (hors pratique)' : 'Non classé'} />
+                  <DataRow label="Cabinet" value={store.cabinet} />
+                  <DataRow label="Chambers" value={chambersInfo?.band ? `Band ${chambersInfo.band}` : chambersInfo?.isIntegrated ? 'Cabinet classé (hors pratique)' : 'Non classé'} />
                 </div>
                 {store.previousCabinets.length > 0 && (
                   <div className="mt-5 pt-4 border-t border-white/10">
