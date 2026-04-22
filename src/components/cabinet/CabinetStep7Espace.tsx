@@ -18,7 +18,7 @@ const FILTERS = [
   { key: 'banque', label: 'Banque & Finance' },
   { key: 'social', label: 'Droit Social' },
   { key: 'fiscal', label: 'Fiscal' },
-  { key: 'new', label: '🔔 Nouveaux' },
+  { key: 'new', label: '✦ New' },
 ];
 
 const CabinetStep7Espace = () => {
