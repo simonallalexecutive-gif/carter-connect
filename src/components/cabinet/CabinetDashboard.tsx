@@ -33,7 +33,7 @@ const FILTERS = [
   { key: 'immo', label: 'Real Estate' },
   { key: 'projets', label: 'Projects & Energy' },
   { key: 'tax', label: 'Tax' },
-  { key: 'new', label: 'Nouveaux', icon: Sparkles },
+  { key: 'new', label: 'New', icon: Star },
 ];
 
 // Map of dept key → official practice label (mirrors FILTERS, used inside cards)
