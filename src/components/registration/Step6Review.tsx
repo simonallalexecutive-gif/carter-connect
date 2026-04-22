@@ -332,16 +332,21 @@ const Step6Review = () => {
   }, [store.cabinet, store.departement]);
 
   const SectionCard = ({ title, children, className: cls }: { title: string; children: React.ReactNode; className?: string; noBorder?: boolean }) => (
-    <div className={cn("rounded-sm border border-border bg-card px-5 py-4 mb-4", cls)}>
-      <p className="text-[9px] uppercase tracking-[0.15em] text-muted-foreground font-sans font-light mb-3">{title}</p>
+    <div className={cn(
+      "relative rounded-sm border border-border bg-card px-6 py-5 mb-4",
+      "shadow-[0_1px_0_0_hsl(var(--foreground)/0.04)]",
+      "before:absolute before:left-0 before:top-4 before:bottom-4 before:w-[2px] before:bg-foreground/80 before:rounded-r-sm",
+      cls,
+    )}>
+      <p className="text-[9px] uppercase tracking-[0.2em] text-foreground font-sans font-semibold mb-4 pb-2 border-b border-border/60">{title}</p>
       {children}
     </div>
   );
 
   const DataRow = ({ label, value }: { label: string; value: string }) => (
     <div>
-      <span className="text-[9px] text-muted-foreground font-sans font-light">{label}</span>
-      <p className="text-[13px] font-sans font-normal mt-0.5 text-foreground">{value || '—'}</p>
+      <span className="text-[9px] uppercase tracking-[0.15em] text-muted-foreground font-sans font-medium">{label}</span>
+      <p className="text-[13px] font-sans font-medium mt-1 text-foreground">{value || '—'}</p>
     </div>
   );
 
