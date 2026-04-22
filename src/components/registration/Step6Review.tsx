@@ -856,9 +856,9 @@ const Step6Review = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
                   <DataRow label="Pratique" value={store.departement} />
                   {chambersInfo && <DataRow label="Cabinet d'origine" value={chambersInfo.cabinetValue} />}
-                  <DataRow label="Classement Chambers" value={
+                  <DataRow label="Chambers" value={
                     chambersInfo?.band
-                      ? (chambersInfo.band <= 2 ? 'Band 1/Band 2' : chambersInfo.band <= 4 ? 'Band 3/Band 4' : `Band ${chambersInfo.band}`)
+                      ? `Band ${chambersInfo.band}/Band ${chambersInfo.band + 1} — ${chambersInfo.deptLabel}`
                       : chambersInfo?.isIntegrated ? 'Classé (hors pratique)' : 'Non classé'
                   } />
                   {store.anglais && <DataRow label="Anglais" value={store.anglais} />}
