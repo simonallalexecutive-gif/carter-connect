@@ -260,12 +260,13 @@ const Step6Review = () => {
 
     // ── Finance ──
     if (dept === 'Financement LBO' || dept === 'Financement de projets' || dept === 'Banking & Finance') {
-      const finKeys = Object.keys(store.activites).filter(k => k.startsWith('fin_') && store.activites[k]);
+      const finKeys = Object.keys(store.activites).filter(k => (k.startsWith('fin_') || k.startsWith('finp_')) && store.activites[k]);
       if (finKeys.length > 0) {
-        const items = finKeys.map((k, i) => {
-          const label = allActivites.find(a => a.key === k)?.label || k;
-          return { name: label, raw: store.pourcentages[k] || 10, color: CHART_COLORS[i % CHART_COLORS.length] };
-        });
+        const items = finKeys.map((k, i) => ({
+          name: labelOf(k),
+          raw: store.pourcentages[k] || 10,
+          color: CHART_COLORS[i % CHART_COLORS.length],
+        }));
         const total = items.reduce((s, i) => s + i.raw, 0);
         return { chartData: items.map(i => ({ name: i.name, value: total > 0 ? Math.round((i.raw / total) * 100) : 0, color: i.color })), positionnement: [], clientele: [] };
       }
