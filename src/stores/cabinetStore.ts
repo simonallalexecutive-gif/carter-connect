@@ -54,6 +54,7 @@ export interface CabinetState {
 
   // Step 2 - Identity (simplified)
   cabinetName: string;
+  cabinetLogoUrl: string;
   selectedFirm: string;
   // Auto-detected from firm selection
   detectedNat: string;
@@ -197,6 +198,7 @@ const searchDefaults = {
 const initialState = {
   step: 1,
   cabinetName: '',
+  cabinetLogoUrl: '',
   selectedFirm: '',
   detectedNat: '',
   detectedRankings: [] as { key: string; label: string; tier: number }[],

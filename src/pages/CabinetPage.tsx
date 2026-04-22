@@ -14,7 +14,7 @@ import { useSearchParams, Link } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
 import { NAT_FLAGS, NAT_LABELS } from '@/lib/legal500Rankings';
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Building2, Eye, FileText, LogOut, Home, Bell, Settings, Search } from 'lucide-react';
 import CabinetNotificationAlerts from '@/components/cabinet/CabinetNotificationAlerts';
 import {
@@ -73,6 +73,7 @@ const CabinetSidebar = ({
             <div className="px-4 mb-8">
               <div className="flex items-center gap-3">
                 <Avatar className="w-9 h-9 border border-white/20">
+                  {s.cabinetLogoUrl && <AvatarImage src={s.cabinetLogoUrl} alt={s.cabinetName || 'Cabinet'} className="object-cover" />}
                   <AvatarFallback className="bg-white/10 text-white text-[10px] font-sans">
                     {s.cabinetName ? s.cabinetName[0].toUpperCase() : <Building2 className="w-4 h-4" />}
                   </AvatarFallback>
@@ -183,6 +184,7 @@ const CabinetDashboardLayout = () => {
               <SidebarTrigger className="text-white/50 hover:text-white" />
               <div className="flex items-center gap-5 flex-1 min-w-0">
                 <Avatar className="w-11 h-11 border border-white/[0.15] shrink-0">
+                  {s.cabinetLogoUrl && <AvatarImage src={s.cabinetLogoUrl} alt={s.cabinetName || 'Cabinet'} className="object-cover" />}
                   <AvatarFallback className="bg-white/[0.08] text-white text-[11px] font-sans">
                     {s.cabinetName ? s.cabinetName[0].toUpperCase() : '?'}
                   </AvatarFallback>

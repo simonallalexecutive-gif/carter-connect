@@ -1,13 +1,33 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useCabinetStore } from '@/stores/cabinetStore';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { toast } from 'sonner';
-import { Pencil, Save, X } from 'lucide-react';
+import { Pencil, Save, X, Camera, Trash2, Building2 } from 'lucide-react';
 
 const CabinetAccount = () => {
   const s = useCabinetStore();
   const [editing, setEditing] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    if (file.size > 2 * 1024 * 1024) {
+      toast.error('Image trop volumineuse (max 2 Mo)');
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      const dataUrl = ev.target?.result as string;
+      s.setField('cabinetLogoUrl', dataUrl);
+      toast.success('Photo mise à jour');
+    };
+    reader.readAsDataURL(file);
+    // reset value so same file can be re-selected
+    e.target.value = '';
+  };
 
   // Local state for editable fields
   const [form, setForm] = useState({
@@ -97,6 +117,58 @@ const CabinetAccount = () => {
 
       {/* Cabinet info */}
       <Section title="Informations du cabinet">
+        {/* Photo / logo upload */}
+        <div className="flex items-center gap-5 mb-6 pb-6 border-b border-border">
+          <Avatar className="w-20 h-20 border border-border">
+            {s.cabinetLogoUrl ? (
+              <AvatarImage src={s.cabinetLogoUrl} alt={form.cabinetName || 'Logo cabinet'} className="object-cover" />
+            ) : null}
+            <AvatarFallback className="bg-secondary text-foreground text-base font-sans">
+              {form.cabinetName ? form.cabinetName[0].toUpperCase() : <Building2 className="w-6 h-6" />}
+            </AvatarFallback>
+          </Avatar>
+          <div className="flex-1">
+            <div className="text-[9px] font-bold tracking-[0.1em] uppercase text-muted-foreground mb-2">
+              Photo / logo du cabinet
+            </div>
+            <p className="text-[11px] text-muted-foreground mb-3 leading-relaxed">
+              Format JPG ou PNG, 2 Mo maximum. Affichée dans votre espace.
+            </p>
+            <div className="flex gap-2">
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/png,image/jpeg,image/webp"
+                className="hidden"
+                onChange={handlePhotoChange}
+              />
+              <Button
+                variant="outline"
+                size="sm"
+                className="text-[11px]"
+                onClick={() => fileInputRef.current?.click()}
+              >
+                <Camera className="w-3.5 h-3.5 mr-1.5" />
+                {s.cabinetLogoUrl ? 'Remplacer' : 'Ajouter une photo'}
+              </Button>
+              {s.cabinetLogoUrl && (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="text-[11px] text-muted-foreground hover:text-foreground"
+                  onClick={() => {
+                    s.setField('cabinetLogoUrl', '');
+                    toast.success('Photo supprimée');
+                  }}
+                >
+                  <Trash2 className="w-3.5 h-3.5 mr-1.5" />
+                  Supprimer
+                </Button>
+              )}
+            </div>
+          </div>
+        </div>
+
         <div className="grid grid-cols-2 gap-4">
           <Field label="Nom du cabinet" value={form.cabinetName} fieldKey="cabinetName" />
           <Field label="Email du cabinet" value={form.email} fieldKey="email" />
