@@ -17,7 +17,7 @@ const CabinetStepProgress = ({ className }: CabinetStepProgressProps) => {
   if (step <= 1 || step > 4) return null;
 
   return (
-    <div className={cn('border-b border-border py-3.5 px-6 md:px-12 bg-background', className)}>
+    <div className={cn('border-b border-white/[0.08] py-3.5 px-6 md:px-12 bg-[hsl(0,0%,7%)]', className)}>
       <div className="max-w-[680px] mx-auto flex items-start">
         {STEPS.map((s, i) => {
           const done = step > s.n;
@@ -28,9 +28,9 @@ const CabinetStepProgress = ({ className }: CabinetStepProgressProps) => {
                 <div
                   className={cn(
                     'w-7 h-7 rounded-full flex items-center justify-center text-[11px] font-bold transition-all',
-                    done && 'bg-foreground text-background',
-                    active && 'bg-foreground text-background shadow-[0_0_0_3px_hsl(var(--foreground)/0.15)]',
-                    !done && !active && 'bg-muted text-muted-foreground'
+                    done && 'bg-white text-black',
+                    active && 'bg-white text-black shadow-[0_0_0_3px_rgba(255,255,255,0.18)]',
+                    !done && !active && 'bg-white/10 text-white/45'
                   )}
                 >
                   {done ? '✓' : i + 1}
@@ -38,14 +38,14 @@ const CabinetStepProgress = ({ className }: CabinetStepProgressProps) => {
                 <span
                   className={cn(
                     'text-[8px] tracking-[0.06em] uppercase whitespace-nowrap',
-                    active ? 'text-foreground font-semibold' : 'text-muted-foreground'
+                    active ? 'text-white font-semibold' : 'text-white/45'
                   )}
                 >
                   {s.label}
                 </span>
               </div>
               {i < STEPS.length - 1 && (
-                <div className={cn('flex-1 h-px mt-3.5 mx-1.5 transition-colors', done ? 'bg-foreground' : 'bg-border')} />
+                <div className={cn('flex-1 h-px mt-3.5 mx-1.5 transition-colors', done ? 'bg-white' : 'bg-white/15')} />
               )}
             </div>
           );
