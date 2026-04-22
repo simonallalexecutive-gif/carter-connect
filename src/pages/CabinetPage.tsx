@@ -277,8 +277,16 @@ const CabinetPage = () => {
   // Registration flow
   return (
     <div className={`min-h-screen flex flex-col ${step >= 2 ? 'theme-light-registration' : 'theme-dark-registration'} bg-background text-foreground`}>
-      <LogoBanner subtitle="Espace Cabinet" variant={step >= 2 ? 'light' : 'matte'} />
-      {step >= 2 && step <= 4 && <CabinetStepProgress />}
+      {step >= 2 && step <= 4 ? (
+        <>
+          <LogoBanner subtitle="Espace Cabinet" variant="light" />
+          <div className="sticky top-0 z-40 backdrop-blur-sm bg-white">
+            <CabinetStepProgress />
+          </div>
+        </>
+      ) : (
+        <LogoBanner subtitle="Espace Cabinet" variant={step >= 2 ? 'light' : 'matte'} />
+      )}
       <main className={step === 1 ? '' : 'flex-1 py-11 px-6 md:px-12'}>
         {step === 1 && <CabinetStep1Hero />}
         {step === 2 && <CabinetStep2Identity />}
