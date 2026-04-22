@@ -844,74 +844,105 @@ const ExploreView = ({
         </div>
       </div>
 
-      {/* Grid — dark matte cards, more refined and airy */}
+      {/* Grid — sophisticated dark matte cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {filtered.map((p) => {
           const seniorityLabel = getSeniorityLabel(p);
           const practiceLabel = PRACTICE_LABEL_BY_KEY[p.dept] || p.deptLabel;
-          const rankingsLabel = getRankingsLabel(p);
+          const chambers = isChambersRanked(p);
+          const legal500 = isLegal500Ranked(p);
+          const hasAnyRanking = chambers || legal500;
           const isActive = p.disponibilite === 'Immédiate';
 
           return (
             <div
               key={p.id}
               onClick={() => setDrawerProfile(p)}
-              className="group relative rounded-lg cursor-pointer transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_20px_50px_-15px_rgba(0,0,0,0.6)] border border-white/[0.06] hover:border-white/[0.14] bg-[hsl(0,0%,7%)] overflow-hidden"
+              className="group relative rounded-xl cursor-pointer transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_30px_60px_-20px_rgba(0,0,0,0.7)] border border-white/[0.06] hover:border-white/[0.18] bg-[hsl(0,0%,6%)] overflow-hidden"
             >
-              {/* "Nouveau" pin — discreet sparkle */}
-              {p.isNew && (
-                <span className="absolute top-3 right-3 inline-flex items-center gap-1 text-[8px] font-medium tracking-[0.18em] uppercase text-white/75">
-                  <Sparkles className="w-2.5 h-2.5" strokeWidth={1.5} />
-                  Nouveau
-                </span>
-              )}
+              {/* Subtle gradient accent — top edge on hover */}
+              <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/25 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              {/* Hover glow */}
+              <div className="absolute inset-0 bg-gradient-to-br from-white/[0.025] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
-              {/* Header — Seniority + PQE */}
-              <div className="px-6 pt-6 pb-4">
-                <div className="text-[8px] tracking-[0.18em] uppercase text-white/30 font-sans mb-2">
-                  Profil anonymisé
+              {/* Top-right meta cluster: NEW pin */}
+              <div className="absolute top-4 right-5 flex items-center gap-2.5 z-10">
+                {p.isNew && (
+                  <span className="inline-flex items-center gap-1 text-[8px] font-medium tracking-[0.22em] uppercase text-white/85">
+                    <Star className="w-2.5 h-2.5 fill-white/85" strokeWidth={0} />
+                    new
+                  </span>
+                )}
+              </div>
+
+              {/* Header — Profil anonyme + Seniority + PQE */}
+              <div className="px-6 pt-6 pb-5 relative">
+                <div className="text-[8px] tracking-[0.22em] uppercase text-white/30 font-sans mb-2.5">
+                  Profil anonyme
                 </div>
-                <div className="font-sans text-[15px] font-medium text-white leading-tight">
+                <div className="font-sans text-[16px] font-medium text-white leading-tight tracking-tight">
                   {seniorityLabel}
-                  {p.pqe && <span className="text-white/45 font-light"> · {p.pqe}</span>}
+                  {p.pqe && <span className="text-white/40 font-light"> · {p.pqe}</span>}
                 </div>
               </div>
 
               {/* Divider */}
-              <div className="mx-6 h-px bg-white/[0.06]" />
+              <div className="mx-6 h-px bg-gradient-to-r from-transparent via-white/[0.08] to-transparent" />
 
-              {/* Body — practice + meta */}
-              <div className="px-6 py-4 space-y-3">
-                <div>
-                  <div className="text-[8px] tracking-[0.16em] uppercase text-white/30 font-sans mb-1">
-                    Pratique
-                  </div>
-                  <div className="font-sans text-[12.5px] text-white/85 leading-snug">
-                    {practiceLabel}
-                  </div>
+              {/* Body — practice */}
+              <div className="px-6 py-5">
+                <div className="text-[8px] tracking-[0.2em] uppercase text-white/30 font-sans mb-1.5">
+                  Pratique
                 </div>
-
-                {rankingsLabel && (
-                  <div>
-                    <div className="text-[8px] tracking-[0.16em] uppercase text-white/30 font-sans mb-1">
-                      Classements
-                    </div>
-                    <div className="font-sans text-[12px] text-white/75">
-                      {rankingsLabel}
-                    </div>
-                  </div>
-                )}
+                <div className="font-sans text-[13px] text-white/85 leading-snug">
+                  {practiceLabel}
+                </div>
               </div>
 
-              {/* Footer — discrete status dot */}
-              <div className="px-6 pb-5 pt-1 flex items-center gap-2">
-                <span className={cn(
-                  'inline-block w-1.5 h-1.5 rounded-full',
-                  isActive ? 'bg-white' : 'bg-white/20'
-                )} />
-                <span className="text-[10px] font-sans text-white/45 tracking-wide">
-                  {isActive ? 'En recherche active' : 'À l\'écoute'}
-                </span>
+              {/* Footer — rankings (icons) + status */}
+              <div className="px-6 pb-5 pt-3.5 flex items-center justify-between gap-3 border-t border-white/[0.05]">
+                <div className="flex items-center gap-3">
+                  {chambers && (
+                    <span className="inline-flex items-center gap-1 text-[9.5px] font-medium tracking-[0.06em] text-white/80">
+                      <Award className="w-3 h-3" strokeWidth={1.6} />
+                      Chambers
+                    </span>
+                  )}
+                  {legal500 && (
+                    <span className="inline-flex items-center gap-1 text-[9.5px] font-medium tracking-[0.06em] text-white/80">
+                      <BookMarked className="w-3 h-3" strokeWidth={1.6} />
+                      Legal 500
+                    </span>
+                  )}
+                  {!hasAnyRanking && (
+                    <span className="inline-flex items-center gap-1 text-[9.5px] tracking-[0.06em] text-white/25">
+                      <CircleDot className="w-2.5 h-2.5" strokeWidth={1.5} />
+                      Non classé
+                    </span>
+                  )}
+                </div>
+
+                {/* Status — high contrast for "active" */}
+                <div className="flex items-center gap-1.5">
+                  {isActive ? (
+                    <>
+                      <span className="relative flex h-1.5 w-1.5">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                        <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-400" />
+                      </span>
+                      <span className="text-[9.5px] font-semibold uppercase tracking-[0.14em] text-emerald-300">
+                        En recherche active
+                      </span>
+                    </>
+                  ) : (
+                    <>
+                      <span className="inline-block w-1.5 h-1.5 rounded-full bg-white/25" />
+                      <span className="text-[9.5px] font-sans text-white/40 tracking-[0.1em] uppercase">
+                        À l'écoute
+                      </span>
+                    </>
+                  )}
+                </div>
               </div>
             </div>
           );
