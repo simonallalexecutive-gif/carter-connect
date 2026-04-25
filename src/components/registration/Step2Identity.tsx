@@ -17,6 +17,7 @@ import { usePQE } from '@/hooks/usePQE';
 import { CABINETS, MOIS, RAISONS_BAISSE_RETRO, ASSOC_ATTENTES, ASSOC_CAB_TYPES } from '@/lib/constants';
 import { formatNumberWithDots, formatPhoneWithDots } from '@/lib/formatters';
 import { getAllChambersFirmNames, getFirmPractices, getChambersRankingByPractice, formatChambersBand, CHAMBERS_DEPARTMENTS, CHAMBERS_KEY_TO_PRACTICE } from '@/lib/chambersRankings';
+import { LEGAL500_DB, LEGAL500_DEPARTMENTS, getFirmTierForDept as getLegal500TierForDept, formatTier as formatLegal500Tier } from '@/lib/legal500Rankings';
 import { Camera, X, ArrowLeft, ArrowRight, Linkedin, Eye, EyeOff, Check, AlertCircle, Loader2 } from 'lucide-react';
 import { useRef, useState, useMemo, useCallback, useEffect } from 'react';
 import { cn } from '@/lib/utils';
@@ -97,10 +98,30 @@ const Step2Identity = () => {
     return practices.sort((a, b) => a.label.localeCompare(b.label, 'fr'));
   }, []);
 
+  // Map French/Chambers practice labels → Legal 500 dept keys
+  const PRACTICE_TO_LEGAL500_KEY: Record<string, string> = {
+    'Corporate/M&A': 'ma',
+    'Private Equity': 'pe',
+    'Banking & Finance': 'banque',
+    'Restructuring/Insolvency': 'restructuring',
+    'Employment': 'social',
+    'Real Estate': 'immo',
+    'Projects & Energy': 'finproj',
+    'VC': 'vc',
+  };
+
   // Get current Chambers band for selected practice (null = not ranked)
   const currentChambersBand = useMemo(() => {
     if (!store.cabinet || !store.departement) return undefined;
     return getChambersRankingByPractice(store.cabinet, store.departement);
+  }, [store.cabinet, store.departement]);
+
+  // Get current Legal 500 tier for selected practice (null = not ranked)
+  const currentLegal500Tier = useMemo(() => {
+    if (!store.cabinet || !store.departement) return undefined;
+    const key = PRACTICE_TO_LEGAL500_KEY[store.departement];
+    if (!key) return null;
+    return getLegal500TierForDept(store.cabinet, key);
   }, [store.cabinet, store.departement]);
 
   const handleDepartmentChange = (dept: string) => {
@@ -545,22 +566,42 @@ const Step2Identity = () => {
                   ))}
                 </SelectContent>
               </Select>
-              {store.departement && currentChambersBand !== undefined && (
-                <div className="mt-3 flex items-center gap-2">
-                  {currentChambersBand !== null ? (
-                    <>
-                      <span className="inline-flex items-center px-3 py-1 rounded-sm bg-foreground text-background text-xs font-sans font-medium">
-                        Chambers Band {currentChambersBand}
+              {store.departement && (currentChambersBand !== undefined || currentLegal500Tier !== undefined) && (
+                <div className="mt-3 space-y-2">
+                  {/* Chambers badge */}
+                  <div className="flex items-center gap-2">
+                    {currentChambersBand !== null && currentChambersBand !== undefined ? (
+                      <>
+                        <span className="inline-flex items-center px-3 py-1 rounded-sm bg-foreground text-background text-xs font-sans font-medium">
+                          Chambers Band {currentChambersBand}
+                        </span>
+                        <span className="text-xs text-muted-foreground font-sans font-light">
+                          {store.cabinet} · {store.departement}
+                        </span>
+                      </>
+                    ) : (
+                      <span className="text-xs text-muted-foreground font-sans font-light italic">
+                        {store.cabinet} n'est pas classé dans Chambers pour la pratique {store.departement}
                       </span>
-                      <span className="text-xs text-muted-foreground font-sans font-light">
-                        {store.cabinet} · {store.departement}
+                    )}
+                  </div>
+                  {/* Legal 500 badge */}
+                  <div className="flex items-center gap-2">
+                    {currentLegal500Tier !== null && currentLegal500Tier !== undefined ? (
+                      <>
+                        <span className="inline-flex items-center px-3 py-1 rounded-sm border border-foreground bg-background text-foreground text-xs font-sans font-medium">
+                          Legal 500 · {formatLegal500Tier(currentLegal500Tier)}
+                        </span>
+                        <span className="text-xs text-muted-foreground font-sans font-light">
+                          {store.cabinet} · {store.departement}
+                        </span>
+                      </>
+                    ) : (
+                      <span className="text-xs text-muted-foreground font-sans font-light italic">
+                        {store.cabinet} n'est pas classé dans Legal 500 pour la pratique {store.departement}
                       </span>
-                    </>
-                  ) : (
-                    <span className="text-xs text-muted-foreground font-sans font-light italic">
-                      {store.cabinet} n'est pas classé dans Chambers pour la pratique {store.departement}
-                    </span>
-                  )}
+                    )}
+                  </div>
                 </div>
               )}
             </>
