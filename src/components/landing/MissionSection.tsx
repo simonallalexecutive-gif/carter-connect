@@ -54,18 +54,18 @@ const MissionSection = () => (
         viewport={{ once: true, margin: '-80px' }}
         className="mb-20 md:mb-28"
       >
-        <motion.p variants={fadeUp} className="text-[11px] font-sans font-medium tracking-[0.25em] uppercase text-white/40 mb-6">
+        <motion.p variants={fadeUp} className="text-[11px] font-sans font-medium tracking-[0.25em] uppercase text-black/45 mb-6">
           Notre approche
         </motion.p>
-        <motion.h2 variants={fadeUp} className="font-serif text-3xl sm:text-4xl md:text-[2.8rem] leading-[1.15] text-white/90 mb-5 max-w-4xl">
-          Logan est <span className="line-through decoration-[0.5px] decoration-white/50 text-white/35">une plateforme de recrutement</span> la nouvelle infrastructure privilégiée et confidentielle du marché des avocats.
+        <motion.h2 variants={fadeUp} className="font-serif text-3xl sm:text-4xl md:text-[2.8rem] leading-[1.15] text-black/90 mb-5 max-w-4xl">
+          Logan est <span className="line-through decoration-[0.5px] decoration-black/40 text-black/35">une plateforme de recrutement</span> la nouvelle infrastructure privilégiée et confidentielle du marché des avocats.
         </motion.h2>
-        <motion.p variants={fadeUp} className="font-sans text-[0.76rem] sm:text-[1rem] md:text-[1.018rem] font-[480] leading-[1.65] text-white/50 max-w-3xl">
-          Nous structurons et accompagnons un écosystème discret et exigeant, composé de profils et de cabinets précieusement <span className="text-white/80">qualifiés et reconnus pour leur positionnement</span>.
+        <motion.p variants={fadeUp} className="font-sans text-[0.76rem] sm:text-[1rem] md:text-[1.018rem] font-[480] leading-[1.65] text-black/55 max-w-3xl">
+          Nous structurons et accompagnons un écosystème discret et exigeant, composé de profils et de cabinets précieusement <span className="text-black/85">qualifiés et reconnus pour leur positionnement</span>.
         </motion.p>
       </motion.div>
 
-      {/* Cabinet — Logan Bridge — Candidat — Unified dark block */}
+      {/* Cabinet — Logan Bridge — Candidat — Unified light block */}
       <motion.div
         variants={staggerSlow}
         initial="hidden"
@@ -73,16 +73,16 @@ const MissionSection = () => (
         viewport={{ once: true, margin: '-60px' }}
         className="mb-20 md:mb-28 -mt-6 md:-mt-10"
       >
-        <div className="bg-black/40 backdrop-blur-sm rounded-lg p-6 sm:p-8 md:p-10 lg:p-12">
+        <div className="bg-black/[0.03] border border-black/[0.06] backdrop-blur-sm rounded-lg p-6 sm:p-8 md:p-10 lg:p-12">
           <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] items-stretch gap-0">
             {/* Cabinet */}
             <motion.div variants={fadeScale} className="group flex flex-col items-center text-center p-6 md:p-8">
               <div className="flex items-center gap-3 mb-6">
-                <Building2 className="w-5 h-5 text-white/50 group-hover:text-white/80 transition-colors duration-500" strokeWidth={1.5} />
-                <h3 className="font-serif text-xl text-white tracking-[-0.01em]">Cabinets</h3>
+                <Building2 className="w-5 h-5 text-black/50 group-hover:text-black/80 transition-colors duration-500" strokeWidth={1.5} />
+                <h3 className="font-serif text-xl text-black tracking-[-0.01em]">Cabinets</h3>
               </div>
-              {cardKeywordsDark(['Confidentialité de vos recherches', 'Vision consolidée du marché', 'Recrutements stratégiques'])}
-              {badgeRowDark()}
+              {cardKeywordsLight(['Confidentialité de vos recherches', 'Vision consolidée du marché', 'Recrutements stratégiques'])}
+              {badgeRowLight()}
             </motion.div>
 
             {/* Central bridge */}
@@ -91,22 +91,22 @@ const MissionSection = () => (
               className="flex flex-col items-center justify-center px-4 md:px-10 py-8 md:py-0"
             >
               <div className="hidden md:flex items-center gap-0 w-full">
-                <div className="flex-1 h-px bg-gradient-to-r from-white/[0.03] to-white/[0.12]" />
+                <div className="flex-1 h-px bg-gradient-to-r from-black/[0.03] to-black/[0.12]" />
                 <div className="relative mx-3">
-                  <div className="w-14 h-14 rounded-full bg-white flex items-center justify-center shadow-[0_8px_32px_-4px_rgba(255,255,255,0.15)]">
-                    <Handshake className="w-5.5 h-5.5 text-[#0F0F0F]" strokeWidth={1.5} />
+                  <div className="w-14 h-14 rounded-full bg-black flex items-center justify-center shadow-[0_8px_32px_-4px_rgba(0,0,0,0.15)]">
+                    <Handshake className="w-5.5 h-5.5 text-white" strokeWidth={1.5} />
                   </div>
                 </div>
-                <div className="flex-1 h-px bg-gradient-to-r from-white/[0.12] to-white/[0.03]" />
+                <div className="flex-1 h-px bg-gradient-to-r from-black/[0.12] to-black/[0.03]" />
               </div>
 
               <div className="flex md:hidden">
-                <div className="w-14 h-14 rounded-full bg-white flex items-center justify-center shadow-[0_8px_32px_-4px_rgba(255,255,255,0.15)]">
-                  <Handshake className="w-5.5 h-5.5 text-[#0F0F0F]" strokeWidth={1.5} />
+                <div className="w-14 h-14 rounded-full bg-black flex items-center justify-center shadow-[0_8px_32px_-4px_rgba(0,0,0,0.15)]">
+                  <Handshake className="w-5.5 h-5.5 text-white" strokeWidth={1.5} />
                 </div>
               </div>
 
-              <p className="font-sans text-[10px] md:text-[11px] text-center leading-[1.7] text-white/40 mt-5 max-w-[240px] font-medium">
+              <p className="font-sans text-[10px] md:text-[11px] text-center leading-[1.7] text-black/45 mt-5 max-w-[240px] font-medium">
                 Logan orchestre chaque mise en relation — de la première intention à la signature.
               </p>
             </motion.div>
@@ -114,11 +114,11 @@ const MissionSection = () => (
             {/* Candidat */}
             <motion.div variants={fadeScale} className="group flex flex-col items-center text-center p-6 md:p-8">
               <div className="flex items-center gap-3 mb-6">
-                <User className="w-5 h-5 text-white/50 group-hover:text-white/80 transition-colors duration-500" strokeWidth={1.5} />
-                <h3 className="font-serif text-xl text-white tracking-[-0.01em]">Candidats</h3>
+                <User className="w-5 h-5 text-black/50 group-hover:text-black/80 transition-colors duration-500" strokeWidth={1.5} />
+                <h3 className="font-serif text-xl text-black tracking-[-0.01em]">Candidats</h3>
               </div>
-              {cardKeywordsDark(['Accès aux meilleures opportunités', 'Attractivité boostée', 'Identité préservée'])}
-              {badgeRowDark()}
+              {cardKeywordsLight(['Accès aux meilleures opportunités', 'Attractivité boostée', 'Identité préservée'])}
+              {badgeRowLight()}
             </motion.div>
           </div>
         </div>
