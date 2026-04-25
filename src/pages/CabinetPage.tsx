@@ -190,8 +190,8 @@ const CabinetDashboardLayout = () => {
                   </AvatarFallback>
                 </Avatar>
                 <div className="min-w-0">
-                  <h1 className="text-xl md:text-2xl font-sans font-normal text-white leading-tight tracking-[-0.01em]">
-                    Bienvenue, {s.cabinetName || 'Cabinet'}
+                  <h1 className="font-serif text-xl tracking-[-0.02em] text-white leading-tight">
+                    {s.cabinetName || 'Cabinet'}
                   </h1>
                   <div className="flex flex-wrap items-center gap-2 mt-2">
                     {s.palier && (
