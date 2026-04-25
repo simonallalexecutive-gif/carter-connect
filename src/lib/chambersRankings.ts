@@ -231,11 +231,7 @@ export const CHAMBERS_KEY_TO_PRACTICE: Record<string, string> = {
   restructuring: 'Restructuring/Insolvency',
   social: 'Employment',
   immo: 'Real Estate',
-  concurrence: 'Competition/European Law',
-  public: 'Public Law',
-  arbitrage: 'International Arbitration',
   projets: 'Projects & Energy',
-  tax: 'Tax',
 };
 
 /**
