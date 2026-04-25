@@ -92,8 +92,8 @@ const Step2Identity = () => {
       key: d.key,
       label: CHAMBERS_KEY_TO_PRACTICE[d.key] || d.label,
     }));
-    if (!practices.some(p => p.label === 'VC')) {
-      practices.push({ key: 'vc', label: 'VC' });
+    if (!practices.some(p => p.label === 'Venture Capital')) {
+      practices.push({ key: 'vc', label: 'Venture Capital' });
     }
     return practices.sort((a, b) => a.label.localeCompare(b.label, 'fr'));
   }, []);
@@ -107,7 +107,7 @@ const Step2Identity = () => {
     'Employment': 'social',
     'Real Estate': 'immo',
     'Projects & Energy': 'finproj',
-    'VC': 'vc',
+    'Venture Capital': 'vc',
   };
 
   // Get current Chambers band for selected practice (null = not ranked)
@@ -537,166 +537,173 @@ const Step2Identity = () => {
           </div>
         )}
 
-        {/* Cabinet — FIRST */}
-        <div>
-          <div className="flex items-center gap-2">
-            <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Cabinet actuel *</Label>
+        {/* Bloc Parcours professionnel */}
+        <div className="rounded-sm p-8 space-y-6 border border-border relative z-0 bg-card">
+          <div>
+            <p className="text-[10px] font-sans font-medium tracking-[0.15em] uppercase text-muted-foreground mb-2">Confidentiel</p>
+            <h3 className="font-serif text-xl text-foreground font-normal">Parcours professionnel</h3>
           </div>
-          <AutocompleteInput
-            data={allCabinets}
-            value={store.cabinet}
-            onChange={handleCabinetSelect}
-            placeholder="Rechercher un cabinet..."
-            className="mt-2"
-          />
-        </div>
 
-        {/* Pratique — all Chambers departments */}
-        <div>
-          <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Votre pratique *</Label>
-          {store.cabinet ? (
-            <>
-              <Select value={store.departement} onValueChange={handleDepartmentChange}>
-                <SelectTrigger className="mt-2"><SelectValue placeholder="Sélectionner votre pratique" /></SelectTrigger>
-                <SelectContent>
-                  {allPractices.map(p => (
-                    <SelectItem key={p.key} value={p.label}>
-                      {p.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              {store.departement && (currentChambersBand !== undefined || currentLegal500Tier !== undefined) && (
-                <div className="mt-3 space-y-2">
-                  {/* Chambers badge */}
-                  <div className="flex items-center gap-2">
-                    {currentChambersBand !== null && currentChambersBand !== undefined ? (
-                      <>
-                        <span className="inline-flex items-center px-3 py-1 rounded-sm bg-foreground text-background text-xs font-sans font-medium">
-                          Chambers Band {currentChambersBand}
-                        </span>
-                        <span className="text-xs text-muted-foreground font-sans font-light">
-                          {store.cabinet} · {store.departement}
-                        </span>
-                      </>
-                    ) : (
-                      <span className="text-xs text-muted-foreground font-sans font-light italic">
-                        {store.cabinet} n'est pas classé dans Chambers pour la pratique {store.departement}
-                      </span>
-                    )}
-                  </div>
-                  {/* Legal 500 badge */}
-                  <div className="flex items-center gap-2">
-                    {currentLegal500Tier !== null && currentLegal500Tier !== undefined ? (
-                      <>
-                        <span className="inline-flex items-center px-3 py-1 rounded-sm border border-foreground bg-background text-foreground text-xs font-sans font-medium">
-                          Legal 500 · {formatLegal500Tier(currentLegal500Tier)}
-                        </span>
-                        <span className="text-xs text-muted-foreground font-sans font-light">
-                          {store.cabinet} · {store.departement}
-                        </span>
-                      </>
-                    ) : (
-                      <span className="text-xs text-muted-foreground font-sans font-light italic">
-                        {store.cabinet} n'est pas classé dans Legal 500 pour la pratique {store.departement}
-                      </span>
-                    )}
-                  </div>
-                </div>
-              )}
-            </>
-          ) : (
-            <p className="mt-2 text-sm text-muted-foreground font-sans font-light">
-              Veuillez d'abord renseigner votre cabinet.
-            </p>
-          )}
-        </div>
-
-        {/* Previous Cabinets */}
-        {store.cabinet && (
-          <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Cabinets précédents</Label>
-              {store.previousCabinets.length < 3 && (
-                <button
-                  type="button"
-                  onClick={() => store.setField('previousCabinets', [...store.previousCabinets, { name: '', practices: [] }])}
-                  className="text-xs font-sans font-medium text-foreground/70 hover:text-foreground border border-border rounded-sm px-3 py-1.5 transition-colors"
-                >
-                  + Ajouter un cabinet
-                </button>
-              )}
+          {/* Cabinet — FIRST */}
+          <div>
+            <div className="flex items-center gap-2">
+              <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Cabinet actuel *</Label>
             </div>
-            {store.previousCabinets.length === 0 && (
-              <p className="text-xs text-muted-foreground font-sans font-light">
-                Avez-vous exercé dans d'autres cabinets auparavant ?
-              </p>
-            )}
-            {store.previousCabinets.map((prev, idx) => (
-              <div key={idx} className="rounded-sm border border-border p-4 space-y-3 bg-card">
-                <div className="flex items-center justify-between gap-3">
-                  <div className="flex-1">
-                    <AutocompleteInput
-                      data={allCabinets}
-                      value={prev.name}
-                      onChange={(v) => {
-                        const updated = [...store.previousCabinets];
-                        updated[idx] = { ...updated[idx], name: typeof v === 'string' ? v : v[0] };
-                        store.setField('previousCabinets', updated);
-                      }}
-                      placeholder="Nom du cabinet..."
-                    />
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      const updated = store.previousCabinets.filter((_, i) => i !== idx);
-                      store.setField('previousCabinets', updated);
-                    }}
-                    className="p-1 text-muted-foreground hover:text-foreground"
-                  >
-                    <X className="w-4 h-4" />
-                  </button>
-                </div>
-                {prev.name && (
-                  <div>
-                    <p className="text-[10px] text-muted-foreground font-sans font-light uppercase tracking-wider mb-2">
-                      Précisez simplement votre dominante dans ce cabinet ?
-                    </p>
-                    <div className="flex flex-wrap gap-1.5">
-                      {allPractices.map(p => {
-                        const isSelected = prev.practices.includes(p.label);
-                        return (
-                          <button
-                            key={p.key}
-                            type="button"
-                            onClick={() => {
-                              const updated = [...store.previousCabinets];
-                              const practices = isSelected
-                                ? prev.practices.filter(pr => pr !== p.label)
-                                : [...prev.practices, p.label];
-                              updated[idx] = { ...updated[idx], practices };
-                              store.setField('previousCabinets', updated);
-                            }}
-                            className={cn(
-                              "px-2.5 py-1 rounded-sm text-[10px] font-sans border transition-all",
-                              isSelected
-                                ? "bg-foreground text-background border-foreground font-medium"
-                                : "bg-transparent text-muted-foreground border-border hover:border-foreground/40"
-                            )}
-                          >
-                            {p.label}
-                          </button>
-                        );
-                      })}
+            <AutocompleteInput
+              data={allCabinets}
+              value={store.cabinet}
+              onChange={handleCabinetSelect}
+              placeholder="Rechercher un cabinet..."
+              className="mt-2"
+            />
+          </div>
+
+          {/* Pratique — all Chambers departments */}
+          <div>
+            <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Votre pratique *</Label>
+            {store.cabinet ? (
+              <>
+                <Select value={store.departement} onValueChange={handleDepartmentChange}>
+                  <SelectTrigger className="mt-2"><SelectValue placeholder="Sélectionner votre pratique" /></SelectTrigger>
+                  <SelectContent>
+                    {allPractices.map(p => (
+                      <SelectItem key={p.key} value={p.label}>
+                        {p.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                {store.departement && (currentChambersBand !== undefined || currentLegal500Tier !== undefined) && (
+                  <div className="mt-3 space-y-2">
+                    {/* Chambers badge */}
+                    <div className="flex items-center gap-2">
+                      {currentChambersBand !== null && currentChambersBand !== undefined ? (
+                        <>
+                          <span className="inline-flex items-center justify-center px-3 py-1 rounded-sm bg-foreground text-background text-[11px] leading-tight font-sans font-medium min-w-[120px]">
+                            Chambers Band {currentChambersBand}
+                          </span>
+                          <span className="text-[11px] text-muted-foreground font-sans font-light">
+                            {store.cabinet} · {store.departement}
+                          </span>
+                        </>
+                      ) : (
+                        <span className="text-[11px] text-muted-foreground font-sans font-light italic">
+                          {store.cabinet} n'est pas classé dans Chambers pour la pratique {store.departement}
+                        </span>
+                      )}
+                    </div>
+                    {/* Legal 500 badge */}
+                    <div className="flex items-center gap-2">
+                      {currentLegal500Tier !== null && currentLegal500Tier !== undefined ? (
+                        <>
+                          <span className="inline-flex items-center justify-center px-3 py-1 rounded-sm border border-foreground bg-background text-foreground text-[11px] leading-tight font-sans font-medium min-w-[120px]">
+                            Legal 500 · {formatLegal500Tier(currentLegal500Tier)}
+                          </span>
+                          <span className="text-[11px] text-muted-foreground font-sans font-light">
+                            {store.cabinet} · {store.departement}
+                          </span>
+                        </>
+                      ) : (
+                        <span className="text-[11px] text-muted-foreground font-sans font-light italic">
+                          {store.cabinet} n'est pas classé dans Legal 500 pour la pratique {store.departement}
+                        </span>
+                      )}
                     </div>
                   </div>
                 )}
-              </div>
-            ))}
+              </>
+            ) : (
+              <p className="mt-2 text-sm text-muted-foreground font-sans font-light">
+                Veuillez d'abord renseigner votre cabinet.
+              </p>
+            )}
           </div>
-        )}
 
+          {/* Previous Cabinets */}
+          {store.cabinet && (
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Cabinets précédents</Label>
+                {store.previousCabinets.length < 3 && (
+                  <button
+                    type="button"
+                    onClick={() => store.setField('previousCabinets', [...store.previousCabinets, { name: '', practices: [] }])}
+                    className="text-xs font-sans font-medium text-foreground/70 hover:text-foreground border border-border rounded-sm px-3 py-1.5 transition-colors"
+                  >
+                    + Ajouter un cabinet
+                  </button>
+                )}
+              </div>
+              {store.previousCabinets.length === 0 && (
+                <p className="text-xs text-muted-foreground font-sans font-light">
+                  Avez-vous exercé dans d'autres cabinets auparavant ?
+                </p>
+              )}
+              {store.previousCabinets.map((prev, idx) => (
+                <div key={idx} className="rounded-sm border border-border p-4 space-y-3 bg-background">
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="flex-1">
+                      <AutocompleteInput
+                        data={allCabinets}
+                        value={prev.name}
+                        onChange={(v) => {
+                          const updated = [...store.previousCabinets];
+                          updated[idx] = { ...updated[idx], name: typeof v === 'string' ? v : v[0] };
+                          store.setField('previousCabinets', updated);
+                        }}
+                        placeholder="Nom du cabinet..."
+                      />
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const updated = store.previousCabinets.filter((_, i) => i !== idx);
+                        store.setField('previousCabinets', updated);
+                      }}
+                      className="p-1 text-muted-foreground hover:text-foreground"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  </div>
+                  {prev.name && (
+                    <div>
+                      <p className="text-[10px] text-muted-foreground font-sans font-light uppercase tracking-wider mb-2">
+                        Précisez simplement votre dominante dans ce cabinet ?
+                      </p>
+                      <div className="flex flex-wrap gap-1.5">
+                        {allPractices.map(p => {
+                          const isSelected = prev.practices.includes(p.label);
+                          return (
+                            <button
+                              key={p.key}
+                              type="button"
+                              onClick={() => {
+                                const updated = [...store.previousCabinets];
+                                const practices = isSelected
+                                  ? prev.practices.filter(pr => pr !== p.label)
+                                  : [...prev.practices, p.label];
+                                updated[idx] = { ...updated[idx], practices };
+                                store.setField('previousCabinets', updated);
+                              }}
+                              className={cn(
+                                "px-2.5 py-1 rounded-sm text-[10px] font-sans border transition-all",
+                                isSelected
+                                  ? "bg-foreground text-background border-foreground font-medium"
+                                  : "bg-transparent text-muted-foreground border-border hover:border-foreground/40"
+                              )}
+                            >
+                              {p.label}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
 
 
 
