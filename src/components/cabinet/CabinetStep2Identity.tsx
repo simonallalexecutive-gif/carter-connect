@@ -203,7 +203,7 @@ const CabinetStep2Identity = () => {
         <div className="mb-6 p-4 rounded border border-border bg-secondary/20">
           <div className="flex items-center gap-2">
             <Building2 className="w-4 h-4 text-muted-foreground" />
-            <span className="text-xs text-muted-foreground">Cabinet non répertorié dans le Legal 500 — votre inscription sera traitée manuellement par l'équipe LOGAN.</span>
+            <span className="text-xs text-muted-foreground">Cabinet non répertorié dans Chambers ni Legal 500 — votre inscription sera traitée manuellement par l'équipe LOGAN.</span>
           </div>
         </div>
       )}
