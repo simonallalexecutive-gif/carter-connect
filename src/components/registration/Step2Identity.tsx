@@ -92,8 +92,8 @@ const Step2Identity = () => {
       key: d.key,
       label: CHAMBERS_KEY_TO_PRACTICE[d.key] || d.label,
     }));
-    if (!practices.some(p => p.label === 'VC')) {
-      practices.push({ key: 'vc', label: 'VC' });
+    if (!practices.some(p => p.label === 'Venture Capital')) {
+      practices.push({ key: 'vc', label: 'Venture Capital' });
     }
     return practices.sort((a, b) => a.label.localeCompare(b.label, 'fr'));
   }, []);
@@ -107,7 +107,7 @@ const Step2Identity = () => {
     'Employment': 'social',
     'Real Estate': 'immo',
     'Projects & Energy': 'finproj',
-    'VC': 'vc',
+    'Venture Capital': 'vc',
   };
 
   // Get current Chambers band for selected practice (null = not ranked)
