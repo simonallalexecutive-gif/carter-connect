@@ -10,18 +10,16 @@ export interface ChambersFirmEntry {
   rankings: ChambersRankings;
 }
 
+// NOTE: Competition/European Law, International Arbitration, Public Law, Tax
+// have été retirés de la sélection (les classements bruts restent dans CHAMBERS_DB).
 export const CHAMBERS_DEPARTMENTS: { key: string; label: string }[] = [
   { key: 'ma', label: 'Corporate/M&A' },
   { key: 'pe', label: 'Private Equity' },
   { key: 'banque', label: 'Banking & Finance' },
   { key: 'restructuring', label: 'Restructuring/Insolvency' },
-  { key: 'public', label: 'Public Law' },
-  { key: 'arbitrage', label: 'International Arbitration' },
   { key: 'social', label: 'Employment' },
-  { key: 'concurrence', label: 'Competition/European Law' },
   { key: 'immo', label: 'Real Estate' },
   { key: 'projets', label: 'Projects & Energy' },
-  { key: 'tax', label: 'Tax' },
 ];
 
 export const CHAMBERS_DB: Record<string, ChambersFirmEntry> = {
