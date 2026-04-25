@@ -21,30 +21,29 @@ const staggerSlow = {
   visible: { transition: { staggerChildren: 0.18 } },
 };
 
-const cardKeywordsDark = (items: string[]) => (
+const cardKeywordsLight = (items: string[]) => (
   <div className="flex flex-col gap-3 items-center">
     {items.map((kw) => (
-      <span key={kw} className="font-sans text-sm text-white/50 font-light">{kw}</span>
+      <span key={kw} className="font-sans text-sm text-black/55 font-light">{kw}</span>
     ))}
   </div>
 );
 
-const badgeRowDark = () => (
-  <div className="flex items-center justify-center gap-4 pt-6 mt-8 border-t border-white/[0.08]">
-    <div className="flex items-center justify-center gap-1.5 min-w-[110px] px-3.5 py-1.5 rounded-sm bg-white border border-white/20">
-      <Award className="w-3.5 h-3.5 text-black/60 shrink-0" strokeWidth={1.5} />
-      <span className="font-serif text-[10px] tracking-wide text-black/70 font-medium">Chambers</span>
+const badgeRowLight = () => (
+  <div className="flex items-center justify-center gap-4 pt-6 mt-8 border-t border-black/[0.08]">
+    <div className="flex items-center justify-center gap-1.5 min-w-[110px] px-3.5 py-1.5 rounded-sm bg-black border border-black/20">
+      <Award className="w-3.5 h-3.5 text-white/80 shrink-0" strokeWidth={1.5} />
+      <span className="font-serif text-[10px] tracking-wide text-white/90 font-medium">Chambers</span>
     </div>
-    <div className="flex items-center justify-center gap-1.5 min-w-[110px] px-3.5 py-1.5 rounded-sm bg-white border border-white/20">
-      <Award className="w-3.5 h-3.5 text-black/60 shrink-0" strokeWidth={1.5} />
-      <span className="font-serif text-[10px] tracking-wide text-black/70 font-medium">Legal 500</span>
+    <div className="flex items-center justify-center gap-1.5 min-w-[110px] px-3.5 py-1.5 rounded-sm bg-black border border-black/20">
+      <Award className="w-3.5 h-3.5 text-white/80 shrink-0" strokeWidth={1.5} />
+      <span className="font-serif text-[10px] tracking-wide text-white/90 font-medium">Legal 500</span>
     </div>
   </div>
 );
 
 const MissionSection = () => (
-  <section id="notre-approche" className="relative overflow-hidden">
-    <img src={missionGradientBg} alt="" className="absolute inset-0 w-full h-full object-cover" />
+  <section id="notre-approche" className="relative overflow-hidden bg-white">
     <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-8 lg:px-10 py-24 md:py-40">
 
       {/* Header */}
