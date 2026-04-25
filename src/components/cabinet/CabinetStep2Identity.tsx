@@ -168,8 +168,32 @@ const CabinetStep2Identity = () => {
             </div>
           )}
 
-          {s.detectedRankings.length === 0 && (
-            <p className="text-xs text-muted-foreground italic">Aucun classement Legal 500 détecté pour ce cabinet.</p>
+          {/* Legal 500 rankings — auto-detected */}
+          {(() => {
+            const l500 = getLegal500Rankings(s.cabinetName);
+            if (l500.length === 0) return null;
+            return (
+              <div className="mt-4">
+                <div className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2">Classements Legal 500</div>
+                <div className="grid grid-cols-2 gap-2">
+                  {l500.map((r) => (
+                    <div key={`l500-${r.key}`} className="flex items-center justify-between p-2.5 rounded border border-border bg-background">
+                      <span className="text-xs text-foreground">{r.label}</span>
+                      <span className={cn(
+                        'text-[10px] font-bold px-2 py-0.5 rounded-sm',
+                        r.tier <= 2 ? 'bg-foreground text-background' : 'bg-secondary text-foreground'
+                      )}>
+                        {formatLegal500Tier(r.tier)}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            );
+          })()}
+
+          {s.detectedRankings.length === 0 && getLegal500Rankings(s.cabinetName).length === 0 && (
+            <p className="text-xs text-muted-foreground italic">Aucun classement Chambers ni Legal 500 détecté pour ce cabinet.</p>
           )}
         </div>
       )}
