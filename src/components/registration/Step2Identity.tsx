@@ -98,10 +98,30 @@ const Step2Identity = () => {
     return practices.sort((a, b) => a.label.localeCompare(b.label, 'fr'));
   }, []);
 
+  // Map French/Chambers practice labels → Legal 500 dept keys
+  const PRACTICE_TO_LEGAL500_KEY: Record<string, string> = {
+    'Corporate/M&A': 'ma',
+    'Private Equity': 'pe',
+    'Banking & Finance': 'banque',
+    'Restructuring/Insolvency': 'restructuring',
+    'Employment': 'social',
+    'Real Estate': 'immo',
+    'Projects & Energy': 'finproj',
+    'VC': 'vc',
+  };
+
   // Get current Chambers band for selected practice (null = not ranked)
   const currentChambersBand = useMemo(() => {
     if (!store.cabinet || !store.departement) return undefined;
     return getChambersRankingByPractice(store.cabinet, store.departement);
+  }, [store.cabinet, store.departement]);
+
+  // Get current Legal 500 tier for selected practice (null = not ranked)
+  const currentLegal500Tier = useMemo(() => {
+    if (!store.cabinet || !store.departement) return undefined;
+    const key = PRACTICE_TO_LEGAL500_KEY[store.departement];
+    if (!key) return null;
+    return getLegal500TierForDept(store.cabinet, key);
   }, [store.cabinet, store.departement]);
 
   const handleDepartmentChange = (dept: string) => {
