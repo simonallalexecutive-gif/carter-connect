@@ -3,7 +3,7 @@ import { useCabinetStore } from '@/stores/cabinetStore';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { CHAMBERS_DB, getFirmChambersRankings, formatChambersBand, CHAMBERS_DEPARTMENTS } from '@/lib/chambersRankings';
-import { NAT_FLAGS, NAT_LABELS } from '@/lib/legal500Rankings';
+import { NAT_FLAGS, NAT_LABELS, getFirmRankings as getLegal500Rankings, formatTier as formatLegal500Tier } from '@/lib/legal500Rankings';
 import { cn } from '@/lib/utils';
 import { formatPhoneWithDots } from '@/lib/formatters';
 import { Plus, Minus, Shield, Building2, Eye, EyeOff } from 'lucide-react';
