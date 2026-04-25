@@ -235,13 +235,9 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
                 { key: 'ma', label: 'Corporate/M&A/PE' },
                 { key: 'banque', label: 'Banking & Finance' },
                 { key: 'restructuring', label: 'Restructuring/Insolvency' },
-                { key: 'public', label: 'Public Law' },
-                { key: 'arbitrage', label: 'International Arbitration' },
                 { key: 'social', label: 'Employment' },
-                { key: 'concurrence', label: 'Competition/European Law' },
                 { key: 'immo', label: 'Real Estate' },
                 { key: 'projets', label: 'Projects & Energy' },
-                { key: 'tax', label: 'Tax' },
               ].map((dept) => (
                 <button
                   key={dept.key}
