@@ -19,6 +19,7 @@ const CinemaShowcaseSection = () => {
   return (
     <section
       ref={sectionRef}
+      id="votre-espace-cabinet"
       className="relative bg-white"
       style={{ height: '150vh' }}
       aria-label="Démonstration vidéo Logan — côté cabinet"
