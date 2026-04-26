@@ -17,6 +17,7 @@ import NotFound from "./pages/NotFound";
 import AccessRequestPage from "./pages/AccessRequestPage";
 import ConnexionPage from "./pages/ConnexionPage";
 import NotreOffrePage from "./pages/NotreOffrePage";
+import ScrollToHash from "./components/ScrollToHash";
 
 
 const queryClient = new QueryClient();
