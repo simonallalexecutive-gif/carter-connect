@@ -169,7 +169,9 @@ const LandingPage = () => (
     <FounderSection />
 
     {/* FAQ */}
-    <FAQSection />
+    <div id="faq">
+      <FAQSection />
+    </div>
 
     {/* Stats ticker */}
     <StatsTickerSection />
