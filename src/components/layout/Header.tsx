@@ -82,7 +82,7 @@ const Header = () => {
               <div className="absolute left-0 top-full pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150">
                 <div className="min-w-[180px] bg-black border border-white/10 rounded-sm py-2 shadow-xl">
                   <Link
-                    to="/cabinet"
+                    to="/#votre-espace-cabinet"
                     className="block px-4 py-2 text-[12.5px] font-sans font-normal text-white/80 hover:text-white hover:bg-white/5 transition-colors tracking-[0.01em]"
                   >
                     Espace cabinet
@@ -140,7 +140,7 @@ const Header = () => {
             </button>
             {demoMobileOpen && (
               <div className="flex flex-col gap-3 pl-4 border-l border-white/10">
-                <Link to="/cabinet" onClick={() => setMenuOpen(false)} className="font-sans text-sm font-normal text-white/70 hover:text-white transition-colors tracking-wide">Espace cabinet</Link>
+                <Link to="/#votre-espace-cabinet" onClick={() => setMenuOpen(false)} className="font-sans text-sm font-normal text-white/70 hover:text-white transition-colors tracking-wide">Espace cabinet</Link>
                 <Link to="/espace-candidat" onClick={() => setMenuOpen(false)} className="font-sans text-sm font-normal text-white/70 hover:text-white transition-colors tracking-wide">Espace candidat</Link>
               </div>
             )}

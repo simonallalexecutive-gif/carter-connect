@@ -17,6 +17,7 @@ import NotFound from "./pages/NotFound";
 import AccessRequestPage from "./pages/AccessRequestPage";
 import ConnexionPage from "./pages/ConnexionPage";
 import NotreOffrePage from "./pages/NotreOffrePage";
+import ScrollToHash from "./components/ScrollToHash";
 
 
 const queryClient = new QueryClient();
@@ -27,6 +28,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <ScrollToHash />
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/inscription" element={<RegisterPage />} />
