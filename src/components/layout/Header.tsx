@@ -68,8 +68,7 @@ const Header = () => {
           </Link>
 
           <nav className="hidden md:flex items-center gap-1 ml-2">
-            <Link to="/notre-offre" className={navLinkBase}>Approche</Link>
-            <Link to="/#fonctionnement" className={navLinkBase}>Fonctionnement</Link>
+            <Link to="/notre-offre" className={navLinkBase}>Notre approche</Link>
 
             {/* Demo dropdown */}
             <div className="relative group">
