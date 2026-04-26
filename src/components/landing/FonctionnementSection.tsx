@@ -120,9 +120,7 @@ const FonctionnementSection = () => {
           viewport={{ once: true, margin: '-80px' }}
           className="mb-20 md:mb-28"
         >
-          <motion.p variants={fadeUp} className="text-[11px] font-sans font-medium tracking-[0.25em] uppercase text-white/30 mb-4">
-            Notre fonctionnement
-          </motion.p>
+          {/* Eyebrow removed */}
           <motion.h2 variants={fadeUp} className="font-serif text-3xl sm:text-4xl md:text-[2.8rem] leading-[1.15] text-white mb-5">
             Deux visions, un seul intermédiaire : Logan.
           </motion.h2>

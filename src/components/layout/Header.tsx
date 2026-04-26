@@ -54,14 +54,8 @@ const Header = () => {
   }, [menuOpen]);
 
   const textColor = menuOpen ? 'text-white' : onLight ? 'text-black' : 'text-white';
-  const hoverColor = onLight && !menuOpen ? 'hover:text-black/60' : 'hover:text-white/70';
-  const navLinkBase = `text-[13px] font-sans font-normal px-3 py-1.5 transition-colors duration-200 tracking-[0.01em] ${textColor} ${hoverColor}`;
-
-  const navItems = [
-    { label: 'Approche', to: '/notre-offre' },
-    { label: 'Fonctionnement', to: '/#fonctionnement' },
-    { label: 'FAQ', to: '/#faq' },
-  ];
+  const hoverColor = onLight && !menuOpen ? 'hover:text-black/60' : 'hover:text-white/80';
+  const navLinkBase = `text-[12.3px] font-sans font-semibold px-2.5 py-1.5 transition-colors duration-200 tracking-wide ${textColor} ${hoverColor}`;
 
   return (
     <header
@@ -74,8 +68,7 @@ const Header = () => {
           </Link>
 
           <nav className="hidden md:flex items-center gap-1 ml-2">
-            <Link to="/notre-offre" className={navLinkBase}>Approche</Link>
-            <Link to="/#fonctionnement" className={navLinkBase}>Fonctionnement</Link>
+            <Link to="/notre-offre" className={navLinkBase}>Notre approche</Link>
 
             {/* Demo dropdown */}
             <div className="relative group">
@@ -134,8 +127,7 @@ const Header = () => {
 
       {menuOpen && (
         <div className="md:hidden bg-black min-h-[calc(100dvh-4rem)] flex flex-col px-6 pt-8 pb-12 gap-5 animate-in fade-in slide-in-from-top-2 duration-200">
-          <Link to="/notre-offre" onClick={() => setMenuOpen(false)} className="font-sans text-base font-normal text-white/80 hover:text-white transition-colors tracking-wide">Approche</Link>
-          <Link to="/#fonctionnement" onClick={() => setMenuOpen(false)} className="font-sans text-base font-normal text-white/80 hover:text-white transition-colors tracking-wide">Fonctionnement</Link>
+          <Link to="/notre-offre" onClick={() => setMenuOpen(false)} className="font-sans text-base font-normal text-white/80 hover:text-white transition-colors tracking-wide">Notre approche</Link>
 
           <div className="flex flex-col gap-3">
             <button
