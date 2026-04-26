@@ -140,7 +140,7 @@ const Header = () => {
             </button>
             {demoMobileOpen && (
               <div className="flex flex-col gap-3 pl-4 border-l border-white/10">
-                <Link to="/cabinet" onClick={() => setMenuOpen(false)} className="font-sans text-sm font-normal text-white/70 hover:text-white transition-colors tracking-wide">Espace cabinet</Link>
+                <Link to="/#votre-espace-cabinet" onClick={() => setMenuOpen(false)} className="font-sans text-sm font-normal text-white/70 hover:text-white transition-colors tracking-wide">Espace cabinet</Link>
                 <Link to="/espace-candidat" onClick={() => setMenuOpen(false)} className="font-sans text-sm font-normal text-white/70 hover:text-white transition-colors tracking-wide">Espace candidat</Link>
               </div>
             )}
