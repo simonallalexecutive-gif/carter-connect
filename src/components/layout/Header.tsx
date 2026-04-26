@@ -54,14 +54,8 @@ const Header = () => {
   }, [menuOpen]);
 
   const textColor = menuOpen ? 'text-white' : onLight ? 'text-black' : 'text-white';
-  const hoverColor = onLight && !menuOpen ? 'hover:text-black/60' : 'hover:text-white/70';
-  const navLinkBase = `text-[13px] font-sans font-normal px-3 py-1.5 transition-colors duration-200 tracking-[0.01em] ${textColor} ${hoverColor}`;
-
-  const navItems = [
-    { label: 'Approche', to: '/notre-offre' },
-    { label: 'Fonctionnement', to: '/#fonctionnement' },
-    { label: 'FAQ', to: '/#faq' },
-  ];
+  const hoverColor = onLight && !menuOpen ? 'hover:text-black/60' : 'hover:text-white/80';
+  const navLinkBase = `text-[12.3px] font-sans font-semibold px-2.5 py-1.5 transition-colors duration-200 tracking-wide ${textColor} ${hoverColor}`;
 
   return (
     <header
