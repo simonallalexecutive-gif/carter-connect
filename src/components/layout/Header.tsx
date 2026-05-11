@@ -55,8 +55,8 @@ const Header = () => {
 
   const textColor = menuOpen ? 'text-white' : onLight ? 'text-black' : 'text-white';
   const hoverColor = onLight && !menuOpen ? 'hover:text-black/60' : 'hover:text-white/80';
-  const leftTextColor = menuOpen ? 'text-white/80' : onLight ? 'text-black/70' : 'text-white/75';
-  const leftHoverColor = onLight && !menuOpen ? 'hover:text-black/50' : 'hover:text-white/60';
+  const leftTextColor = 'text-white';
+  const leftHoverColor = 'hover:text-white/70';
   const leftNavLinkBase = `text-[12.3px] font-sans font-normal px-2.5 py-1.5 transition-colors duration-200 tracking-wide ${leftTextColor} ${leftHoverColor}`;
   const rightNavLinkBase = `text-[12.3px] font-sans font-normal px-3 py-1.5 border border-current/25 rounded-sm transition-colors duration-200 tracking-wide ${textColor} ${hoverColor}`;
 
