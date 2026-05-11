@@ -8,7 +8,7 @@ import Footer from '@/components/layout/Footer';
 import FounderSection from '@/components/landing/FounderSection';
 
 import MissionSection from '@/components/landing/MissionSection';
-import FonctionnementSection from '@/components/landing/FonctionnementSection';
+
 import CinemaShowcaseSection from '@/components/landing/CinemaShowcaseSection';
 import FAQSection from '@/components/landing/FAQSection';
 import StatsTickerSection from '@/components/landing/StatsTickerSection';
@@ -156,10 +156,6 @@ const LandingPage = () => (
       <MissionSection />
     </div>
 
-    {/* Notre fonctionnement */}
-    <div id="fonctionnement">
-      <FonctionnementSection />
-    </div>
 
     {/* Démonstration vidéo cinéma — effet WoW Harvey.ai style */}
     <CinemaShowcaseSection />
