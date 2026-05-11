@@ -85,7 +85,7 @@ const LandingPage = () => (
         transition={{ delay: 1.2, duration: 1.5 }}
         className="relative z-10 w-full"
       >
-        <div className="relative flex items-center py-5 bg-white/[0.06] backdrop-blur-md border-t border-white/[0.08]">
+        <div className="relative flex items-center py-5 bg-black border-t border-white/[0.08]">
           <div className="absolute left-0 top-0 bottom-0 w-12 md:w-20 bg-gradient-to-r from-black/40 to-transparent z-10 pointer-events-none" />
           <div className="absolute right-0 top-0 bottom-0 w-12 md:w-20 bg-gradient-to-l from-black/40 to-transparent z-10 pointer-events-none sm:hidden" />
           <div className="flex-1 overflow-hidden">
