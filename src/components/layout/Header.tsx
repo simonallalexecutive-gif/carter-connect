@@ -79,7 +79,6 @@ const Header = () => {
                 type="button"
                 className={`${leftNavLinkBase} inline-flex items-center gap-1`}
               >
-              >
                 Demo
                 <ChevronDown className="w-3 h-3 opacity-70" />
               </button>
