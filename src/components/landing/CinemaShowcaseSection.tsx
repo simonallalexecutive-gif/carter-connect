@@ -30,8 +30,11 @@ const CinemaShowcaseSection = () => {
           <p className="text-[10px] font-sans font-medium tracking-[0.25em] uppercase text-black/40 mb-4">
             Votre espace cabinet
           </p>
-          <h2 className="font-serif text-[1.35rem] sm:text-[1.7rem] md:text-[2rem] leading-[1.25] text-black/90">
-            Une nouvelle approche du recrutement : accédez en temps réel au marché depuis votre espace cabinet et conservez <em className="italic">un temps d'avance</em>.
+          <h2
+            className="text-[1.55rem] sm:text-[1.95rem] md:text-[2.35rem] leading-[1.2] tracking-[-0.025em] text-black/90 font-light"
+            style={{ fontFamily: "'Söhne', 'Inter', system-ui, -apple-system, sans-serif" }}
+          >
+            Une nouvelle approche du recrutement : <strong className="font-semibold text-black">accédez en temps réel au marché</strong> depuis votre espace cabinet et <strong className="font-semibold text-black">conservez un temps d'avance</strong>.
           </h2>
           <p className="mt-3 font-sans text-[0.76rem] sm:text-[1rem] md:text-[1.018rem] font-[480] leading-[1.65] text-black/50">
             Logan vous accompagne dans tous vos rapprochements.
