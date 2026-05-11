@@ -42,49 +42,16 @@ const LandingPage = () => (
 
     {/* Hero */}
     <section className="h-[100svh] flex flex-col relative overflow-hidden bg-black" style={{ paddingTop: 'env(safe-area-inset-top)', paddingBottom: 'env(safe-area-inset-bottom)' }}>
-      {/* Background — soft sunset gradient */}
+      {/* Background — white to red gradient */}
       <div className="absolute inset-0">
         <img
           src={heroGradientBg}
           alt=""
           className="w-full h-full object-cover"
         />
-        <motion.div
-          className="absolute inset-0"
-          animate={{
-            opacity: [0, 0.18, 0.28, 0.1, 0.22, 0.06, 0.15],
-            background: [
-              'radial-gradient(ellipse 80% 60% at 65% 25%, rgba(255,200,120,0.45) 0%, rgba(255,160,60,0.15) 40%, transparent 70%)',
-              'radial-gradient(ellipse 70% 55% at 80% 35%, rgba(255,210,130,0.4) 0%, rgba(255,170,70,0.12) 45%, transparent 75%)',
-              'radial-gradient(ellipse 90% 65% at 60% 40%, rgba(255,190,100,0.35) 0%, rgba(255,150,50,0.18) 35%, transparent 65%)',
-              'radial-gradient(ellipse 75% 50% at 75% 30%, rgba(255,200,120,0.4) 0%, rgba(255,160,60,0.1) 40%, transparent 70%)',
-            ],
-          }}
-          transition={{ duration: 20, ease: 'easeInOut', repeat: Infinity, repeatType: 'reverse' }}
-        />
-        <motion.div
-          className="absolute inset-0"
-          animate={{
-            opacity: [0.05, 0.14, 0.2, 0.08, 0.16, 0.05],
-            background: [
-              'linear-gradient(125deg, rgba(255,180,80,0.22) 0%, transparent 50%, rgba(180,140,255,0.06) 100%)',
-              'linear-gradient(145deg, rgba(255,190,90,0.18) 0%, transparent 55%, rgba(200,160,255,0.1) 100%)',
-              'linear-gradient(135deg, rgba(255,170,70,0.25) 0%, transparent 45%, rgba(160,120,255,0.08) 100%)',
-            ],
-          }}
-          transition={{ duration: 28, ease: 'easeInOut', repeat: Infinity, repeatType: 'mirror' }}
-        />
-        <motion.div
-          className="absolute inset-0"
-          animate={{ opacity: [0.6, 0.75, 0.65, 0.8, 0.7] }}
-          transition={{ duration: 15, ease: 'easeInOut', repeat: Infinity, repeatType: 'reverse' }}
-          style={{
-            background: 'radial-gradient(ellipse 70% 60% at 50% 50%, transparent 0%, rgba(0,0,0,0.5) 100%)',
-          }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/25 to-black/55" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-transparent to-black/70" />
+        {/* Soft darkening for text legibility on the white upper area */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-black/15 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
       </div>
       <div className="px-4 sm:px-8 lg:px-10 max-w-6xl relative z-10 pt-20 sm:pt-24 flex-1 flex items-center pb-4">
         <motion.div variants={stagger} initial="hidden" animate="visible" className="max-w-[min(95vw,72rem)]">
