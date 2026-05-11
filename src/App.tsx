@@ -43,8 +43,8 @@ const App = () => (
           <Route path="/auth" element={<AuthPage />} />
           <Route path="/reset-password" element={<ResetPasswordPage />} />
           <Route path="/video-preview" element={<VideoPreview />} />
-          <Route path="/espace-candidat" element={<CandidateDashboard />} />
-          <Route path="/admin/*" element={<AdminPage />} />
+          <Route path="/espace-candidat" element={<ProtectedRoute requireUserType="candidat"><CandidateDashboard /></ProtectedRoute>} />
+          <Route path="/admin/*" element={<ProtectedRoute><AdminPage /></ProtectedRoute>} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
