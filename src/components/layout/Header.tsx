@@ -104,16 +104,16 @@ const Header = () => {
           </nav>
         </div>
 
-        <div className="hidden md:flex items-center gap-1">
+        <div className="hidden md:flex items-center gap-2">
           <Link
             to="/rendez-vous"
-            className={`text-[12.3px] font-sans font-semibold px-2.5 py-1.5 transition-colors duration-200 tracking-wide ${textColor} ${hoverColor}`}
+            className={rightNavLinkBase}
           >
             Prendre RDV
           </Link>
           <Link
             to="/connexion"
-            className={`text-[12.3px] font-sans font-semibold px-2.5 py-1.5 transition-colors duration-200 tracking-wide ${textColor} ${hoverColor}`}
+            className={rightNavLinkBase}
           >
             Connexion
           </Link>
