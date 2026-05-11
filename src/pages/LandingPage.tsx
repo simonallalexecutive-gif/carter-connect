@@ -13,7 +13,6 @@ import CinemaShowcaseSection from '@/components/landing/CinemaShowcaseSection';
 import FAQSection from '@/components/landing/FAQSection';
 import StatsTickerSection from '@/components/landing/StatsTickerSection';
 import heroBoardroom from '@/assets/hero-boardroom.jpeg';
-import heroGradientBg from '@/assets/hero-gradient-bg.jpeg';
 
 const firmNames = [
   'Linklaters', 'Kirkland & Ellis', 'Ropes & Gray', 'Darrois Villey', 'Bredin Prat',
@@ -42,17 +41,63 @@ const LandingPage = () => (
 
     {/* Hero */}
     <section className="h-[100svh] flex flex-col relative overflow-hidden bg-black" style={{ paddingTop: 'env(safe-area-inset-top)', paddingBottom: 'env(safe-area-inset-bottom)' }}>
-      {/* Background — clean white → red gradient */}
+      {/* Background photo with cinematic living Ken Burns */}
       <div className="absolute inset-0">
-        <div
+        <motion.img
+          src={heroBoardroom}
+          alt=""
+          initial={{ opacity: 0, scale: 1.18, x: '0%', y: '0%' }}
+          animate={{
+            opacity: 1,
+            scale: [1.18, 1.08, 1.12, 1.06, 1.1, 1.05],
+            x: ['0%', '-1.5%', '0.5%', '-0.8%', '0.3%', '0%'],
+            y: ['0%', '-0.8%', '0.3%', '-0.5%', '0.2%', '0%'],
+          }}
+          transition={{
+            opacity: { duration: 2, ease: 'easeOut' },
+            scale: { duration: 40, ease: 'easeInOut', repeat: Infinity, repeatType: 'reverse' },
+            x: { duration: 35, ease: 'easeInOut', repeat: Infinity, repeatType: 'reverse' },
+            y: { duration: 30, ease: 'easeInOut', repeat: Infinity, repeatType: 'reverse' },
+          }}
+          className="w-full h-full object-cover"
+          style={{ willChange: 'transform' }}
+        />
+        <motion.div
           className="absolute inset-0"
+          animate={{
+            opacity: [0, 0.18, 0.28, 0.1, 0.22, 0.06, 0.15],
+            background: [
+              'radial-gradient(ellipse 80% 60% at 65% 25%, rgba(255,200,120,0.45) 0%, rgba(255,160,60,0.15) 40%, transparent 70%)',
+              'radial-gradient(ellipse 70% 55% at 80% 35%, rgba(255,210,130,0.4) 0%, rgba(255,170,70,0.12) 45%, transparent 75%)',
+              'radial-gradient(ellipse 90% 65% at 60% 40%, rgba(255,190,100,0.35) 0%, rgba(255,150,50,0.18) 35%, transparent 65%)',
+              'radial-gradient(ellipse 75% 50% at 75% 30%, rgba(255,200,120,0.4) 0%, rgba(255,160,60,0.1) 40%, transparent 70%)',
+            ],
+          }}
+          transition={{ duration: 20, ease: 'easeInOut', repeat: Infinity, repeatType: 'reverse' }}
+        />
+        <motion.div
+          className="absolute inset-0"
+          animate={{
+            opacity: [0.05, 0.14, 0.2, 0.08, 0.16, 0.05],
+            background: [
+              'linear-gradient(125deg, rgba(255,180,80,0.22) 0%, transparent 50%, rgba(180,140,255,0.06) 100%)',
+              'linear-gradient(145deg, rgba(255,190,90,0.18) 0%, transparent 55%, rgba(200,160,255,0.1) 100%)',
+              'linear-gradient(135deg, rgba(255,170,70,0.25) 0%, transparent 45%, rgba(160,120,255,0.08) 100%)',
+            ],
+          }}
+          transition={{ duration: 28, ease: 'easeInOut', repeat: Infinity, repeatType: 'mirror' }}
+        />
+        <motion.div
+          className="absolute inset-0"
+          animate={{ opacity: [0.6, 0.75, 0.65, 0.8, 0.7] }}
+          transition={{ duration: 15, ease: 'easeInOut', repeat: Infinity, repeatType: 'reverse' }}
           style={{
-            background:
-              'linear-gradient(to bottom, #ffffff 0%, #ffffff 28%, #f3b3ab 55%, #c8201a 82%, #8a0f0a 100%)',
+            background: 'radial-gradient(ellipse 70% 60% at 50% 50%, transparent 0%, rgba(0,0,0,0.5) 100%)',
           }}
         />
-        {/* Localized darkening behind hero text for legibility on white area */}
-        <div className="absolute inset-x-0 top-0 h-2/3 bg-gradient-to-b from-black/55 via-black/25 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/25 to-black/55" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-transparent to-black/70" />
       </div>
       <div className="px-4 sm:px-8 lg:px-10 max-w-6xl relative z-10 pt-20 sm:pt-24 flex-1 flex items-center pb-4">
         <motion.div variants={stagger} initial="hidden" animate="visible" className="max-w-[min(95vw,72rem)]">
@@ -68,9 +113,9 @@ const LandingPage = () => (
             <Link to="/demander-acces">
               <Button
                 size="lg"
-                className="bg-white text-black hover:bg-white/90 font-sans text-xs font-medium px-6 py-3.5 rounded-sm tracking-wide"
+                className="bg-white text-black hover:bg-white/90 font-sans text-sm font-medium px-8 py-5 rounded-sm tracking-wide"
               >
-                Demander l'accès
+                Request access
               </Button>
             </Link>
           </motion.div>
@@ -85,7 +130,7 @@ const LandingPage = () => (
         transition={{ delay: 1.2, duration: 1.5 }}
         className="relative z-10 w-full"
       >
-        <div className="relative flex items-center py-5 bg-black border-t border-white/[0.08]">
+        <div className="relative flex items-center py-5 bg-white/[0.06] backdrop-blur-md border-t border-white/[0.08]">
           <div className="absolute left-0 top-0 bottom-0 w-12 md:w-20 bg-gradient-to-r from-black/40 to-transparent z-10 pointer-events-none" />
           <div className="absolute right-0 top-0 bottom-0 w-12 md:w-20 bg-gradient-to-l from-black/40 to-transparent z-10 pointer-events-none sm:hidden" />
           <div className="flex-1 overflow-hidden">
@@ -183,9 +228,9 @@ const LandingPage = () => (
               <Link to="/demander-acces">
                 <Button
                   size="lg"
-                  className="bg-white text-black hover:bg-white/90 font-sans text-xs font-medium px-6 py-3.5 rounded-sm tracking-wide mt-4"
+                  className="bg-white text-black hover:bg-white/90 font-sans text-sm font-medium px-8 py-5 rounded-sm tracking-wide shadow-lg mt-4"
                 >
-                  Demander l'accès
+                  Request access
                 </Button>
               </Link>
             </motion.div>
