@@ -100,9 +100,9 @@ const LandingPage = () => (
             <Link to="/demander-acces">
               <Button
                 size="lg"
-                className="bg-black text-white hover:bg-black/70 border border-white/25 font-sans text-xs font-medium px-6 py-3.5 rounded-sm tracking-wide"
+                className="bg-white text-black hover:bg-white/90 font-sans text-xs font-medium px-6 py-3.5 rounded-sm tracking-wide"
               >
-                Soumettre une demande d'accès
+                Demander l'accès
               </Button>
             </Link>
           </motion.div>
@@ -215,9 +215,9 @@ const LandingPage = () => (
               <Link to="/demander-acces">
                 <Button
                   size="lg"
-                  className="bg-black text-white hover:bg-black/70 border border-white/25 font-sans text-xs font-medium px-6 py-3.5 rounded-sm tracking-wide mt-4"
+                  className="bg-white text-black hover:bg-white/90 font-sans text-xs font-medium px-6 py-3.5 rounded-sm tracking-wide mt-4"
                 >
-                  Soumettre une demande d'accès
+                  Demander l'accès
                 </Button>
               </Link>
             </motion.div>
