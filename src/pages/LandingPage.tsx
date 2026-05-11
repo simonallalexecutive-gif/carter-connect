@@ -156,10 +156,6 @@ const LandingPage = () => (
       <MissionSection />
     </div>
 
-    {/* Notre fonctionnement */}
-    <div id="fonctionnement">
-      <FonctionnementSection />
-    </div>
 
     {/* Démonstration vidéo cinéma — effet WoW Harvey.ai style */}
     <CinemaShowcaseSection />
