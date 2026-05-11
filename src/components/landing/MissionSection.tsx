@@ -124,6 +124,112 @@ const MissionSection = () => (
         </div>
       </motion.div>
 
+      {/* Two visions, one Logan — merged from former Fonctionnement section */}
+      <motion.div
+        id="fonctionnement"
+        variants={staggerSlow}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: '-60px' }}
+        className="mb-20 md:mb-28"
+      >
+        <motion.div variants={fadeUp} className="mb-12 md:mb-16">
+          <p className="text-[11px] font-sans font-medium tracking-[0.25em] uppercase text-black/45 mb-6">
+            Deux visions, un seul intermédiaire
+          </p>
+          <h2 className="font-serif text-3xl sm:text-4xl md:text-[2.4rem] leading-[1.15] text-black/90 mb-5 max-w-3xl">
+            Logan opère chaque rapprochement, de l'intention à la signature.
+          </h2>
+          <p className="font-sans text-[0.95rem] md:text-[1.018rem] font-[480] leading-[1.7] text-black/55 max-w-3xl">
+            Un cadre confidentiel, structuré et transparent — pour les cabinets comme pour les candidats.
+          </p>
+        </motion.div>
+
+        {/* Logan central divider */}
+        <motion.div
+          initial={{ opacity: 0, scaleX: 0 }}
+          whileInView={{ opacity: 1, scaleX: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+          className="flex items-center gap-6 mb-12 md:mb-14"
+        >
+          <div className="flex-1 h-px bg-gradient-to-r from-transparent via-black/[0.10] to-black/[0.06]" />
+          <span className="font-serif text-[1.3rem] md:text-[1.5rem] tracking-[-0.02em] text-black/80 font-medium whitespace-nowrap">
+            Logan
+          </span>
+          <div className="flex-1 h-px bg-gradient-to-l from-transparent via-black/[0.10] to-black/[0.06]" />
+        </motion.div>
+
+        {/* Two columns */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
+          {/* Cabinets */}
+          <motion.div variants={stagger} className="space-y-6">
+            <motion.div variants={fadeUp} className="mb-1">
+              <h3 className="font-serif text-xl md:text-2xl text-black/90 mb-1">Cabinets</h3>
+              <p className="font-sans text-[0.82rem] text-black/40 font-light">Ne subissez plus votre marché : vivez-le.</p>
+            </motion.div>
+            {[
+              { num: '01', icon: Shield, title: 'Lancez votre recherche en toute confidentialité', text: 'Adressez-vous à un pool de candidats qualifiés et rigoureusement sélectionnés, tout en préservant l\'identité de votre cabinet.' },
+              { num: '02', icon: Eye, title: 'Accédez aux meilleurs profils du marché', text: 'Décryptez la dynamique du marché, restez opportuniste et anticipez vos recrutements pour l\'ensemble de vos départements.' },
+            ].map((c) => (
+              <motion.div key={c.num} variants={fadeUp} className="relative group p-7 md:p-8 rounded-sm border border-black/[0.08] bg-black/[0.015] hover:bg-black/[0.03] transition-colors duration-500">
+                <span className="absolute -top-3 -right-2 font-serif text-[5rem] leading-none font-bold text-black/[0.04] select-none pointer-events-none">{c.num}</span>
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-9 h-9 rounded-full flex items-center justify-center bg-black/[0.05]">
+                    <c.icon className="w-4 h-4 text-black/55" strokeWidth={1.4} />
+                  </div>
+                  <h4 className="font-sans text-[0.9rem] font-semibold text-black/90 leading-[1.4]">{c.title}</h4>
+                </div>
+                <p className="font-sans text-[0.85rem] leading-[1.85] text-black/55 text-justify">{c.text}</p>
+              </motion.div>
+            ))}
+          </motion.div>
+
+          {/* Candidats */}
+          <motion.div variants={stagger} className="space-y-6">
+            <motion.div variants={fadeUp} className="mb-1">
+              <h3 className="font-serif text-xl md:text-2xl text-black/90 mb-1">Candidats</h3>
+              <p className="font-sans text-[0.82rem] text-black/40 font-light">Un espace confidentiel, un processus structuré.</p>
+            </motion.div>
+            {[
+              { num: '01', icon: Eye, title: 'Accédez aux meilleures opportunités du marché', text: 'Identifiez une opportunité, étudiez sa pertinence au regard de votre projet et échangez avec un consultant en amont de tout rapprochement.' },
+              { num: '02', icon: Shield, title: 'Cultivez votre attractivité sans compromettre votre anonymat', text: 'Restez en alerte et opportuniste : dès lors qu\'un cabinet manifeste un intérêt pour votre profil, Logan est à vos côtés pour en parler.' },
+            ].map((c) => (
+              <motion.div key={c.num} variants={fadeUp} className="relative group p-7 md:p-8 rounded-sm border border-black/[0.08] bg-black/[0.015] hover:bg-black/[0.03] transition-colors duration-500">
+                <span className="absolute -top-3 -right-2 font-serif text-[5rem] leading-none font-bold text-black/[0.04] select-none pointer-events-none">{c.num}</span>
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-9 h-9 rounded-full flex items-center justify-center bg-black/[0.05]">
+                    <c.icon className="w-4 h-4 text-black/55" strokeWidth={1.4} />
+                  </div>
+                  <h4 className="font-sans text-[0.9rem] font-semibold text-black/90 leading-[1.4]">{c.title}</h4>
+                </div>
+                <p className="font-sans text-[0.85rem] leading-[1.85] text-black/55 text-justify">{c.text}</p>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+
+        {/* Pillars row */}
+        <motion.div variants={fadeUp} className="w-full h-px my-14 bg-gradient-to-r from-transparent via-black/[0.10] to-transparent" />
+        <div className="grid grid-cols-3 sm:grid-cols-6 gap-6 md:gap-8 max-w-3xl mx-auto">
+          {[
+            { icon: Lock, label: 'Confidentialité' },
+            { icon: Zap, label: 'Réactivité' },
+            { icon: Star, label: 'Exclusivité' },
+            { icon: Shield, label: 'Anonymat' },
+            { icon: Users, label: 'Accompagnement' },
+            { icon: CheckCircle, label: 'Transparence' },
+          ].map(({ icon: Icon, label }) => (
+            <motion.div key={label} variants={fadeUp} className="flex flex-col items-center text-center gap-3">
+              <div className="w-10 h-10 rounded-full flex items-center justify-center bg-black/[0.04] border border-black/[0.08]">
+                <Icon className="w-4 h-4 text-black/45" strokeWidth={1.4} />
+              </div>
+              <span className="font-sans text-[0.7rem] font-medium tracking-[0.08em] uppercase text-black/45">{label}</span>
+            </motion.div>
+          ))}
+        </div>
+      </motion.div>
+
       {/* Bottom pillars */}
       <motion.div
         variants={staggerSlow}
