@@ -71,13 +71,14 @@ const Header = () => {
           </Link>
 
           <nav className="hidden md:flex items-center gap-1 ml-2">
-            <Link to="/notre-offre" className={navLinkBase}>Notre approche</Link>
+            <Link to="/notre-offre" className={leftNavLinkBase}>Notre approche</Link>
 
             {/* Demo dropdown */}
             <div className="relative group">
               <button
                 type="button"
-                className={`${navLinkBase} inline-flex items-center gap-1`}
+                className={`${leftNavLinkBase} inline-flex items-center gap-1`}
+              >
               >
                 Demo
                 <ChevronDown className="w-3 h-3 opacity-70" />
