@@ -13,7 +13,7 @@ import CinemaShowcaseSection from '@/components/landing/CinemaShowcaseSection';
 import FAQSection from '@/components/landing/FAQSection';
 import StatsTickerSection from '@/components/landing/StatsTickerSection';
 import heroBoardroom from '@/assets/hero-boardroom.jpeg';
-import heroSuitsVideo from '@/assets/hero-suits-ambiance.mp4.asset.json';
+import heroGradientBg from '@/assets/hero-gradient-bg.jpeg';
 
 const firmNames = [
   'Linklaters', 'Kirkland & Ellis', 'Ropes & Gray', 'Darrois Villey', 'Bredin Prat',
@@ -42,18 +42,12 @@ const LandingPage = () => (
 
     {/* Hero */}
     <section className="h-[100svh] flex flex-col relative overflow-hidden bg-black" style={{ paddingTop: 'env(safe-area-inset-top)', paddingBottom: 'env(safe-area-inset-bottom)' }}>
-      {/* Background video — Suits-style law firm ambiance */}
+      {/* Background — soft sunset gradient */}
       <div className="absolute inset-0">
-        <video
-          src={heroSuitsVideo.url}
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="auto"
-          poster={heroBoardroom}
+        <img
+          src={heroGradientBg}
+          alt=""
           className="w-full h-full object-cover"
-          style={{ willChange: 'transform' }}
         />
         <motion.div
           className="absolute inset-0"
