@@ -100,7 +100,7 @@ const Header = () => {
               </div>
             </div>
 
-            <Link to="/#faq" className={navLinkBase}>FAQ</Link>
+            <Link to="/#faq" className={leftNavLinkBase}>FAQ</Link>
           </nav>
         </div>
 
