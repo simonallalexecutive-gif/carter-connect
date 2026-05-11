@@ -113,7 +113,7 @@ const Header = () => {
           </Link>
           <Link
             to="/connexion"
-            className={rightNavLinkBase}
+            className="text-[12.3px] font-sans font-normal px-3 py-1.5 bg-white text-black border border-white rounded-sm transition-colors duration-200 tracking-wide hover:bg-white/90"
           >
             Connexion
           </Link>
