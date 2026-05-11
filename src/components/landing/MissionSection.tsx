@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { Building2, User, Award, Handshake, Shield, Eye, Target } from 'lucide-react';
+import { Building2, User, Award, Handshake, Shield, Eye, Target, Lock, Zap, Star, Users, CheckCircle } from 'lucide-react';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 32 },
