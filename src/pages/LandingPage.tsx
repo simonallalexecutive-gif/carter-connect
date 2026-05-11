@@ -112,8 +112,7 @@ const LandingPage = () => (
           <motion.div variants={fadeUp} className="mt-8 sm:mt-20">
             <Link to="/demander-acces">
               <Button
-                size="lg"
-                className="bg-white text-black hover:bg-white/90 font-sans text-sm font-medium px-8 py-5 rounded-sm tracking-wide"
+                className="bg-white text-black hover:bg-white/90 font-sans font-normal text-[12.3px] px-3 py-1.5 border border-white rounded-sm tracking-wide"
               >
                 Request access
               </Button>
