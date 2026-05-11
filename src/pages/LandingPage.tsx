@@ -42,16 +42,17 @@ const LandingPage = () => (
 
     {/* Hero */}
     <section className="h-[100svh] flex flex-col relative overflow-hidden bg-black" style={{ paddingTop: 'env(safe-area-inset-top)', paddingBottom: 'env(safe-area-inset-bottom)' }}>
-      {/* Background — white to red gradient */}
+      {/* Background — clean white → red gradient */}
       <div className="absolute inset-0">
-        <img
-          src={heroGradientBg}
-          alt=""
-          className="w-full h-full object-cover"
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              'linear-gradient(to bottom, #ffffff 0%, #ffffff 28%, #f3b3ab 55%, #c8201a 82%, #8a0f0a 100%)',
+          }}
         />
-        {/* Soft darkening for text legibility on the white upper area */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-black/15 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+        {/* Localized darkening behind hero text for legibility on white area */}
+        <div className="absolute inset-x-0 top-0 h-2/3 bg-gradient-to-b from-black/55 via-black/25 to-transparent" />
       </div>
       <div className="px-4 sm:px-8 lg:px-10 max-w-6xl relative z-10 pt-20 sm:pt-24 flex-1 flex items-center pb-4">
         <motion.div variants={stagger} initial="hidden" animate="visible" className="max-w-[min(95vw,72rem)]">
