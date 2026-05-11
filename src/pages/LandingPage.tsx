@@ -108,7 +108,7 @@ const LandingPage = () => (
                 size="lg"
                 className="bg-black text-white hover:bg-black/70 border border-white/25 font-sans text-xs font-medium px-6 py-3.5 rounded-sm tracking-wide"
               >
-                Request access
+                Soumettre une demande d'accès
               </Button>
             </Link>
           </motion.div>
@@ -223,7 +223,7 @@ const LandingPage = () => (
                   size="lg"
                   className="bg-black text-white hover:bg-black/70 border border-white/25 font-sans text-xs font-medium px-6 py-3.5 rounded-sm tracking-wide mt-4"
                 >
-                  Request access
+                  Soumettre une demande d'accès
                 </Button>
               </Link>
             </motion.div>
