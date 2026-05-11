@@ -18,6 +18,7 @@ import AccessRequestPage from "./pages/AccessRequestPage";
 import ConnexionPage from "./pages/ConnexionPage";
 import NotreOffrePage from "./pages/NotreOffrePage";
 import ScrollToHash from "./components/ScrollToHash";
+import ProtectedRoute from "./components/auth/ProtectedRoute";
 
 
 const queryClient = new QueryClient();
