@@ -44,7 +44,7 @@ const CinemaShowcaseSection = () => {
         {/* Raw video with dramatic zoom-in */}
         <motion.div
           style={{ scale, opacity, filter }}
-          className="relative w-[99%] max-w-[1920px] mx-auto flex-1 min-h-0"
+          className="relative w-[74%] max-w-[1440px] mx-auto flex-1 min-h-0"
         >
           <video
             ref={(el) => {
