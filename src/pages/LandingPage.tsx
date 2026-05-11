@@ -13,6 +13,7 @@ import CinemaShowcaseSection from '@/components/landing/CinemaShowcaseSection';
 import FAQSection from '@/components/landing/FAQSection';
 import StatsTickerSection from '@/components/landing/StatsTickerSection';
 import heroBoardroom from '@/assets/hero-boardroom.jpeg';
+import heroSuitsVideo from '@/assets/hero-suits-ambiance.mp4.asset.json';
 
 const firmNames = [
   'Linklaters', 'Kirkland & Ellis', 'Ropes & Gray', 'Darrois Villey', 'Bredin Prat',
@@ -41,24 +42,16 @@ const LandingPage = () => (
 
     {/* Hero */}
     <section className="h-[100svh] flex flex-col relative overflow-hidden bg-black" style={{ paddingTop: 'env(safe-area-inset-top)', paddingBottom: 'env(safe-area-inset-bottom)' }}>
-      {/* Background photo with cinematic living Ken Burns */}
+      {/* Background video — Suits-style law firm ambiance */}
       <div className="absolute inset-0">
-        <motion.img
-          src={heroBoardroom}
-          alt=""
-          initial={{ opacity: 0, scale: 1.18, x: '0%', y: '0%' }}
-          animate={{
-            opacity: 1,
-            scale: [1.18, 1.08, 1.12, 1.06, 1.1, 1.05],
-            x: ['0%', '-1.5%', '0.5%', '-0.8%', '0.3%', '0%'],
-            y: ['0%', '-0.8%', '0.3%', '-0.5%', '0.2%', '0%'],
-          }}
-          transition={{
-            opacity: { duration: 2, ease: 'easeOut' },
-            scale: { duration: 40, ease: 'easeInOut', repeat: Infinity, repeatType: 'reverse' },
-            x: { duration: 35, ease: 'easeInOut', repeat: Infinity, repeatType: 'reverse' },
-            y: { duration: 30, ease: 'easeInOut', repeat: Infinity, repeatType: 'reverse' },
-          }}
+        <video
+          src={heroSuitsVideo.url}
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="auto"
+          poster={heroBoardroom}
           className="w-full h-full object-cover"
           style={{ willChange: 'transform' }}
         />
@@ -115,7 +108,7 @@ const LandingPage = () => (
                 size="lg"
                 className="bg-black text-white hover:bg-black/70 border border-white/25 font-sans text-xs font-medium px-6 py-3.5 rounded-sm tracking-wide"
               >
-                Request access
+                Soumettre une demande d'accès
               </Button>
             </Link>
           </motion.div>
@@ -230,7 +223,7 @@ const LandingPage = () => (
                   size="lg"
                   className="bg-black text-white hover:bg-black/70 border border-white/25 font-sans text-xs font-medium px-6 py-3.5 rounded-sm tracking-wide mt-4"
                 >
-                  Request access
+                  Soumettre une demande d'accès
                 </Button>
               </Link>
             </motion.div>
