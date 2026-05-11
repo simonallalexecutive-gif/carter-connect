@@ -42,18 +42,12 @@ const LandingPage = () => (
 
     {/* Hero */}
     <section className="h-[100svh] flex flex-col relative overflow-hidden bg-black" style={{ paddingTop: 'env(safe-area-inset-top)', paddingBottom: 'env(safe-area-inset-bottom)' }}>
-      {/* Background video — Suits-style law firm ambiance */}
+      {/* Background — soft sunset gradient */}
       <div className="absolute inset-0">
-        <video
-          src={heroSuitsVideo.url}
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="auto"
-          poster={heroBoardroom}
+        <img
+          src={heroGradientBg}
+          alt=""
           className="w-full h-full object-cover"
-          style={{ willChange: 'transform' }}
         />
         <motion.div
           className="absolute inset-0"
