@@ -13,7 +13,7 @@ import CinemaShowcaseSection from '@/components/landing/CinemaShowcaseSection';
 import FAQSection from '@/components/landing/FAQSection';
 import StatsTickerSection from '@/components/landing/StatsTickerSection';
 import heroBoardroom from '@/assets/hero-boardroom.jpeg';
-import heroSuitsVideo from '@/assets/hero-suits-ambiance.mp4.asset.json';
+import heroGradientBg from '@/assets/hero-gradient-bg.jpeg';
 
 const firmNames = [
   'Linklaters', 'Kirkland & Ellis', 'Ropes & Gray', 'Darrois Villey', 'Bredin Prat',
