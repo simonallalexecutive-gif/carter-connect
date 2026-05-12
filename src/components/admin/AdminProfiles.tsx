@@ -6,6 +6,7 @@ import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
 import { Eye, Check, X } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import AdminProfilePreview from './AdminProfilePreview';
 
 type Registration = {
   id: string;
@@ -151,21 +152,24 @@ const AdminProfiles = () => {
       </div>
 
       <Dialog open={!!selected} onOpenChange={(o) => !o && setSelected(null)}>
-        <DialogContent className="max-w-3xl max-h-[80vh] overflow-y-auto">
-          <DialogHeader>
-            <DialogTitle>Profil candidat — détails complets</DialogTitle>
+        <DialogContent className="max-w-6xl w-[95vw] max-h-[92vh] overflow-y-auto p-0 bg-transparent border-0 shadow-2xl">
+          <DialogHeader className="sr-only">
+            <DialogTitle>Profil candidat — aperçu complet</DialogTitle>
           </DialogHeader>
           {selected && (
-            <div className="space-y-3 text-[12px]">
-              <div className="grid grid-cols-2 gap-3">
-                {Object.entries(selected.submission_data || {}).map(([k, v]) => (
-                  <div key={k} className="border border-border rounded-sm p-2">
-                    <div className="text-[9px] uppercase tracking-wider text-muted-foreground">{k}</div>
-                    <div className="text-[12px] break-words">
-                      {typeof v === 'object' ? JSON.stringify(v) : String(v ?? '—')}
-                    </div>
-                  </div>
-                ))}
+            <div className="theme-light">
+              <AdminProfilePreview submissionData={selected.submission_data} />
+              <div className="sticky bottom-0 left-0 right-0 bg-background/95 backdrop-blur-sm border-t border-border px-6 py-3 flex items-center justify-end gap-2">
+                {selected.status !== 'rejected' && (
+                  <Button size="sm" variant="outline" className="text-[11px]" onClick={() => setStatus(selected.id, 'rejected')}>
+                    <X className="w-3.5 h-3.5 mr-1" /> Refuser
+                  </Button>
+                )}
+                {selected.status !== 'approved' && (
+                  <Button size="sm" className="text-[11px] bg-emerald-600 hover:bg-emerald-700 text-white" onClick={() => setStatus(selected.id, 'approved')}>
+                    <Check className="w-3.5 h-3.5 mr-1" /> Valider le profil
+                  </Button>
+                )}
               </div>
             </div>
           )}
