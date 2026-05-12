@@ -51,14 +51,8 @@ const AdminProfilePreview = ({ submissionData }: AdminProfilePreviewProps) => {
   }, [data]);
 
   return (
-    <div className="relative min-h-[60vh]">
-      <div className="absolute inset-0 -z-10">
-        <img src={ctaGradientBg} alt="" className="w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-black/40" />
-      </div>
-      <div className="relative">
-        <Step6Review adminPreview />
-      </div>
+    <div className="relative min-h-[60vh] bg-background">
+      <Step6Review adminPreview />
     </div>
   );
 };
