@@ -35,7 +35,7 @@ const AdminPage = () => {
     );
   }
 
-  if (!user) return null;
+  if (!user || !isAdmin) return null;
 
   return (
     <div className="theme-admin">
