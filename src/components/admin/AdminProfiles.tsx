@@ -6,6 +6,7 @@ import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
 import { Eye, Check, X } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import AdminProfilePreview from './AdminProfilePreview';
 
 type Registration = {
   id: string;
