@@ -50,11 +50,7 @@ const AdminProfilePreview = ({ submissionData }: AdminProfilePreviewProps) => {
     };
   }, [data]);
 
-  return (
-    <div className="relative min-h-[60vh] bg-background">
-      <Step6Review adminPreview />
-    </div>
-  );
+  return <Step6Review adminPreview />;
 };
 
 export default AdminProfilePreview;
