@@ -1,7 +1,7 @@
 import { useEffect, useMemo } from 'react';
 import { useRegistrationStore } from '@/stores/registrationStore';
 import Step6Review from '@/components/registration/Step6Review';
-import ctaGradientBg from '@/assets/cta-gradient-bg.jpeg';
+
 
 interface AdminProfilePreviewProps {
   submissionData: Record<string, any> | null;
