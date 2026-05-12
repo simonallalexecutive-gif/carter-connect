@@ -59,7 +59,13 @@ const ProtectedRoute = ({ children, requireUserType, requireApproved = true }: P
     run();
   }, [user, loading, navigate, location.pathname, requireUserType, requireApproved]);
 
-  if (loading || checking || !user || !allowed) return null;
+  if (loading || checking || !user || !allowed) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-white text-neutral-500 text-sm">
+        Chargement…
+      </div>
+    );
+  }
   return <>{children}</>;
 };
 

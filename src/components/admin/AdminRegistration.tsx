@@ -122,11 +122,11 @@ const AdminRegistration = () => {
   // Link generated view
   if (phase === 'link') {
     return (
-      <div>
+      <div className="theme-light bg-background min-h-full -m-6 lg:-m-8 p-6 lg:p-8">
         <h1 className="font-serif text-2xl font-bold text-foreground mb-2">Inscription candidat</h1>
         <p className="text-sm text-muted-foreground mb-8">Profil créé avec succès. Transmettez le lien au candidat.</p>
 
-        <div className="bg-background border border-border rounded-lg p-6 max-w-xl">
+        <div className="bg-card border border-border rounded-lg p-6 max-w-xl">
           <div className="flex items-center gap-3 mb-4">
             <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
               <Link2 className="w-5 h-5 text-primary" />
