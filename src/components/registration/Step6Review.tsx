@@ -156,7 +156,11 @@ const buildCategoryChart = (
   return items.map(i => ({ name: i.name, value: total > 0 ? Math.round((i.raw / total) * 100) : 0, color: i.color }));
 };
 
-const Step6Review = () => {
+interface Step6ReviewProps {
+  adminPreview?: boolean;
+}
+
+const Step6Review = ({ adminPreview = false }: Step6ReviewProps = {}) => {
   const store = useRegistrationStore();
   const isAdmin = store.isAdminMode;
   const pqe = usePQE(store.sermentMois, store.sermentAnnee);
