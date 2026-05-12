@@ -15,6 +15,8 @@ type Registration = {
   email_verified_at: string | null;
   created_at: string;
   submission_data: any;
+  auth_email?: string | null;
+  full_name?: string | null;
 };
 
 const STATUS_LABELS: Record<string, string> = {
@@ -39,10 +41,7 @@ const AdminProfiles = () => {
 
   const load = async () => {
     setLoading(true);
-    const { data, error } = await supabase
-      .from('candidate_registrations')
-      .select('id, user_id, status, visibility, email_verified_at, created_at, submission_data')
-      .order('created_at', { ascending: false });
+    const { data, error } = await (supabase as any).rpc('admin_list_candidate_registrations');
     if (error) toast.error(error.message);
     setRows((data as any) || []);
     setLoading(false);
@@ -111,11 +110,12 @@ const AdminProfiles = () => {
             )}
             {filtered.map((r) => {
               const d = r.submission_data || {};
-              const name = `${d.prenom || ''} ${d.nom || ''}`.trim() || '—';
+              const name = `${d.prenom || ''} ${d.nom || ''}`.trim() || r.full_name || '—';
+              const email = d.email || r.auth_email || '—';
               return (
                 <TableRow key={r.id} className="hover:bg-muted/30">
                   <TableCell className="text-[12px] font-semibold text-foreground">{name}</TableCell>
-                  <TableCell className="text-[11px]">{d.email || '—'}</TableCell>
+                  <TableCell className="text-[11px]">{email}</TableCell>
                   <TableCell className="text-[11px]">{d.cabinet || '—'}</TableCell>
                   <TableCell className="text-[11px]">{d.departement || '—'}</TableCell>
                   <TableCell>
