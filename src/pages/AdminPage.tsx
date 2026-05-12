@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
 import AdminSidebar from '@/components/admin/AdminSidebar';
@@ -9,18 +9,25 @@ import AdminProcesses from '@/components/admin/AdminProcesses';
 import AdminAgenda from '@/components/admin/AdminAgenda';
 import AdminRegistration from '@/components/admin/AdminRegistration';
 import { useAuth } from '@/hooks/useAuth';
+import { supabase } from '@/integrations/supabase/client';
 
 const AdminPage = () => {
   const { user, loading } = useAuth();
   const navigate = useNavigate();
+  const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
 
   useEffect(() => {
-    if (!loading && !user) {
-      navigate('/auth?redirect=/admin', { replace: true });
-    }
+    if (loading) return;
+    if (!user) { navigate('/connexion?redirect=/admin', { replace: true }); return; }
+    (async () => {
+      const { data } = await supabase.from('user_roles').select('role').eq('user_id', user.id);
+      const ok = (data ?? []).some((r: any) => r.role === 'admin');
+      setIsAdmin(ok);
+      if (!ok) navigate('/', { replace: true });
+    })();
   }, [user, loading, navigate]);
 
-  if (loading) {
+  if (loading || isAdmin === null) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
         <div className="text-sm text-muted-foreground">Chargement…</div>
