@@ -19,6 +19,7 @@ import ConnexionPage from "./pages/ConnexionPage";
 import NotreOffrePage from "./pages/NotreOffrePage";
 import ScrollToHash from "./components/ScrollToHash";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
+import PendingApprovalPage from "./pages/PendingApprovalPage";
 
 
 const queryClient = new QueryClient();
