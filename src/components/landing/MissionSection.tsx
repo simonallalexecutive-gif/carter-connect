@@ -1,14 +1,9 @@
 import { motion } from 'motion/react';
-import { Building2, User, Award, Handshake, Shield, Eye, Target } from 'lucide-react';
+import { Building2, User, ArrowLeftRight, Award } from 'lucide-react';
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 32 },
+  hidden: { opacity: 0, y: 28 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1] as const } },
-};
-
-const fadeScale = {
-  hidden: { opacity: 0, scale: 0.92 },
-  visible: { opacity: 1, scale: 1, transition: { duration: 1, ease: [0.16, 1, 0.3, 1] as const } },
 };
 
 const stagger = {
@@ -16,137 +11,186 @@ const stagger = {
   visible: { transition: { staggerChildren: 0.12 } },
 };
 
-const staggerSlow = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.18 } },
-};
-
-const cardKeywordsLight = (items: string[]) => (
-  <div className="flex flex-col gap-3 items-center">
-    {items.map((kw) => (
-      <span key={kw} className="font-sans text-sm text-black/55 font-light">{kw}</span>
-    ))}
-  </div>
-);
-
-const badgeRowLight = () => (
-  <div className="flex items-center justify-center gap-4 pt-6 mt-8 border-t border-black/[0.08]">
-    <div className="flex items-center justify-center gap-1.5 min-w-[110px] px-3.5 py-1.5 rounded-sm bg-black border border-black/20">
-      <Award className="w-3.5 h-3.5 text-white/80 shrink-0" strokeWidth={1.5} />
-      <span className="font-serif text-[10px] tracking-wide text-white/90 font-medium">Chambers</span>
-    </div>
-    <div className="flex items-center justify-center gap-1.5 min-w-[110px] px-3.5 py-1.5 rounded-sm bg-black border border-black/20">
-      <Award className="w-3.5 h-3.5 text-white/80 shrink-0" strokeWidth={1.5} />
-      <span className="font-serif text-[10px] tracking-wide text-white/90 font-medium">Legal 500</span>
-    </div>
-  </div>
-);
-
 const MissionSection = () => (
-  <section id="notre-approche" className="relative overflow-hidden bg-white">
-    <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-8 lg:px-10 py-24 md:py-40">
+  <section
+    id="notre-approche"
+    className="relative overflow-hidden"
+    style={{ background: '#FDFCFB' }}
+  >
+    <div className="relative z-10 max-w-6xl mx-auto px-6 sm:px-8 lg:px-10 py-24 md:py-36">
+      {/* Eyebrow */}
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-80px' }}
+        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+        className="mb-12"
+      >
+        <span className="text-[10px] tracking-[0.3em] uppercase font-sans font-semibold text-black/40">
+          Notre approche
+        </span>
+      </motion.div>
 
-      {/* Header */}
+      {/* Headline + lead */}
       <motion.div
         variants={stagger}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: '-80px' }}
-        className="mb-20 md:mb-28"
+        className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-20 items-end mb-24 md:mb-32"
       >
-        <motion.p variants={fadeUp} className="text-[11px] font-sans font-medium tracking-[0.25em] uppercase text-black/45 mb-6">
-          Notre approche
-        </motion.p>
-        <motion.h2 variants={fadeUp} className="font-serif text-3xl sm:text-4xl md:text-[2.8rem] leading-[1.15] text-black/90 mb-5 max-w-4xl">
-          Logan est <span className="line-through decoration-[0.5px] decoration-black/40 text-black/35">une plateforme de recrutement</span> la nouvelle infrastructure privilégiée et confidentielle du marché des avocats.
+        <motion.h2
+          variants={fadeUp}
+          className="lg:col-span-8 font-serif text-[2.25rem] sm:text-5xl md:text-[4.25rem] leading-[1.05] tracking-[-0.015em] text-black/90 font-normal"
+        >
+          Logan est{' '}
+          <span className="relative inline-block opacity-30">
+            une plateforme de recrutement
+            <span className="absolute left-0 top-1/2 w-full h-[2px] bg-black/90 -rotate-2" />
+          </span>
+          <br />
+          <span className="italic">la nouvelle infrastructure</span> privilégiée et confidentielle du marché des avocats.
         </motion.h2>
-        <motion.p variants={fadeUp} className="font-sans text-[0.76rem] sm:text-[1rem] md:text-[1.018rem] font-[480] leading-[1.65] text-black/55 max-w-3xl">
-          Nous structurons et accompagnons un écosystème discret et exigeant, composé de profils et de cabinets précieusement <span className="text-black/85">qualifiés et reconnus pour leur positionnement</span>.
+
+        <motion.p
+          variants={fadeUp}
+          className="lg:col-span-4 pb-2 font-sans text-base md:text-lg text-black/55 leading-[1.7] max-w-sm font-light"
+        >
+          Nous structurons un écosystème discret et exigeant, où chaque mise en relation est orchestrée avec la précision d'un cabinet de conseil stratégique.
         </motion.p>
       </motion.div>
 
-      {/* Cabinet — Logan Bridge — Candidat — Unified light block */}
+      {/* Infrastructure bridge */}
       <motion.div
-        variants={staggerSlow}
+        variants={stagger}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: '-60px' }}
-        className="mb-20 md:mb-28 -mt-6 md:-mt-10"
+        className="relative"
       >
-        <div className="bg-black/[0.03] border border-black/[0.06] backdrop-blur-sm rounded-lg p-6 sm:p-8 md:p-10 lg:p-12">
-          <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] items-stretch gap-0">
-            {/* Cabinet */}
-            <motion.div variants={fadeScale} className="group flex flex-col items-center text-center p-6 md:p-8">
-              <div className="flex items-center gap-3 mb-6">
-                <Building2 className="w-5 h-5 text-black/50 group-hover:text-black/80 transition-colors duration-500" strokeWidth={1.5} />
-                <h3 className="font-serif text-xl text-black tracking-[-0.01em]">Cabinets</h3>
-              </div>
-              {cardKeywordsLight(['Confidentialité de vos recherches', 'Vision consolidée du marché', 'Recrutements stratégiques'])}
-              {badgeRowLight()}
-            </motion.div>
+        <div className="absolute top-1/2 left-0 w-full h-px bg-black/10 -translate-y-1/2 z-0 hidden md:block" />
 
-            {/* Central bridge */}
-            <motion.div
-              variants={fadeUp}
-              className="flex flex-col items-center justify-center px-4 md:px-10 py-8 md:py-0"
-            >
-              <div className="hidden md:flex items-center gap-0 w-full">
-                <div className="flex-1 h-px bg-gradient-to-r from-black/[0.03] to-black/[0.12]" />
-                <div className="relative mx-3">
-                  <div className="w-14 h-14 rounded-full bg-black flex items-center justify-center shadow-[0_8px_32px_-4px_rgba(0,0,0,0.15)]">
-                    <Handshake className="w-5.5 h-5.5 text-white" strokeWidth={1.5} />
-                  </div>
-                </div>
-                <div className="flex-1 h-px bg-gradient-to-r from-black/[0.12] to-black/[0.03]" />
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 relative z-10">
+          {/* Cabinets */}
+          <motion.div
+            variants={fadeUp}
+            className="bg-white border border-black/[0.06] p-8 md:p-10 flex flex-col h-full shadow-[0_20px_50px_rgba(0,0,0,0.025)]"
+          >
+            <div className="flex items-center gap-3 mb-8">
+              <div className="w-10 h-10 flex items-center justify-center border border-black/[0.08]">
+                <Building2 className="w-4.5 h-4.5 text-black/70" strokeWidth={1.2} />
               </div>
+              <h3 className="font-sans font-medium text-[0.95rem] uppercase tracking-[0.18em] text-black/85">
+                Cabinets
+              </h3>
+            </div>
+            <ul className="space-y-5 font-sans text-sm text-black/55">
+              {[
+                'Confidentialité totale des recherches',
+                'Vision consolidée du marché',
+                'Recrutements stratégiques',
+              ].map((t) => (
+                <li key={t} className="flex items-start gap-3 leading-relaxed">
+                  <span className="w-1 h-1 bg-black mt-2 shrink-0" />
+                  <span>{t}</span>
+                </li>
+              ))}
+            </ul>
+            <div className="mt-10 flex gap-3">
+              <span className="inline-flex items-center gap-1.5 text-[10px] font-sans font-semibold tracking-[0.12em] border px-2.5 py-1 border-black/15 text-black/45">
+                <Award className="w-3 h-3" strokeWidth={1.5} /> CHAMBERS
+              </span>
+              <span className="inline-flex items-center gap-1.5 text-[10px] font-sans font-semibold tracking-[0.12em] border px-2.5 py-1 border-black/15 text-black/45">
+                <Award className="w-3 h-3" strokeWidth={1.5} /> LEGAL 500
+              </span>
+            </div>
+          </motion.div>
 
-              <div className="flex md:hidden">
-                <div className="w-14 h-14 rounded-full bg-black flex items-center justify-center shadow-[0_8px_32px_-4px_rgba(0,0,0,0.15)]">
-                  <Handshake className="w-5.5 h-5.5 text-white" strokeWidth={1.5} />
-                </div>
-              </div>
-
-              <p className="font-sans text-[10px] md:text-[11px] text-center leading-[1.7] text-black/45 mt-5 max-w-[240px] font-medium">
-                Logan orchestre chaque mise en relation — de la première intention à la signature.
+          {/* Logan — intermediary */}
+          <motion.div
+            variants={fadeUp}
+            className="flex flex-col items-center justify-center text-center px-4 py-12 md:py-0"
+          >
+            <div className="w-24 h-24 bg-black rounded-full flex items-center justify-center shadow-[0_20px_60px_-10px_rgba(0,0,0,0.45)] mb-6 transform hover:scale-105 transition-transform duration-500">
+              <ArrowLeftRight className="w-9 h-9 text-white" strokeWidth={1.4} />
+            </div>
+            <div className="px-4 py-2" style={{ background: '#FDFCFB' }}>
+              <p className="text-[11px] font-sans font-semibold uppercase tracking-[0.22em] text-black/85 mb-2">
+                Logan Intermédiation
               </p>
-            </motion.div>
+              <p className="font-serif italic text-sm text-black/55 max-w-[220px] mx-auto leading-relaxed">
+                De la première intention à la signature finale.
+              </p>
+            </div>
+          </motion.div>
 
-            {/* Candidat */}
-            <motion.div variants={fadeScale} className="group flex flex-col items-center text-center p-6 md:p-8">
-              <div className="flex items-center gap-3 mb-6">
-                <User className="w-5 h-5 text-black/50 group-hover:text-black/80 transition-colors duration-500" strokeWidth={1.5} />
-                <h3 className="font-serif text-xl text-black tracking-[-0.01em]">Candidats</h3>
+          {/* Candidats */}
+          <motion.div
+            variants={fadeUp}
+            className="bg-white border border-black/[0.06] p-8 md:p-10 flex flex-col h-full shadow-[0_20px_50px_rgba(0,0,0,0.025)]"
+          >
+            <div className="flex items-center gap-3 mb-8">
+              <div className="w-10 h-10 flex items-center justify-center border border-black/[0.08]">
+                <User className="w-4.5 h-4.5 text-black/70" strokeWidth={1.2} />
               </div>
-              {cardKeywordsLight(['Accès aux meilleures opportunités', 'Attractivité boostée', 'Identité préservée'])}
-              {badgeRowLight()}
-            </motion.div>
-          </div>
+              <h3 className="font-sans font-medium text-[0.95rem] uppercase tracking-[0.18em] text-black/85">
+                Candidats
+              </h3>
+            </div>
+            <ul className="space-y-5 font-sans text-sm text-black/55">
+              {[
+                'Accès aux meilleures opportunités',
+                'Attractivité boostée',
+                'Identité strictement préservée',
+              ].map((t) => (
+                <li key={t} className="flex items-start gap-3 leading-relaxed">
+                  <span className="w-1 h-1 bg-black mt-2 shrink-0" />
+                  <span>{t}</span>
+                </li>
+              ))}
+            </ul>
+            <div className="mt-auto pt-10">
+              <div className="h-px w-full bg-black/[0.08] mb-4" />
+              <p className="text-[10px] font-sans text-black/40 uppercase tracking-[0.22em]">
+                Accompagnement sur-mesure
+              </p>
+            </div>
+          </motion.div>
         </div>
       </motion.div>
 
-      {/* Bottom pillars */}
+      {/* Pillars */}
       <motion.div
-        variants={staggerSlow}
+        variants={stagger}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: '-40px' }}
-        className="grid grid-cols-1 md:grid-cols-3 gap-0 max-w-4xl mx-auto"
+        className="mt-28 md:mt-32 grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-16 border-t border-black/[0.08] pt-14 md:pt-16"
       >
         {[
-          { icon: Shield, title: 'Confidentialité absolue', text: 'Aucune donnée partagée sans consentement explicite.' },
-          { icon: Eye, title: 'Sélectivité rigoureuse', text: 'Seuls les profils validés accèdent au réseau.' },
-          { icon: Target, title: 'Précision chirurgicale', text: 'Chaque mise en relation est ciblée et contextualisée.' },
-        ].map((item, i) => (
-          <motion.div
-            key={i}
-            variants={fadeUp}
-            className="flex flex-col items-center text-center px-6 py-10 md:py-12 border-b md:border-b-0 md:border-r border-black/[0.06] last:border-r-0 last:border-b-0"
-          >
-            <div className="w-14 h-14 rounded-full bg-black flex items-center justify-center mb-6 shadow-[0_6px_24px_-6px_rgba(0,0,0,0.35)]">
-              <item.icon className="w-5 h-5 text-white/90" strokeWidth={1.5} />
-            </div>
-            <h4 className="font-serif text-base text-black mb-3 tracking-[-0.01em]">{item.title}</h4>
-            <p className="font-sans text-[13px] leading-[1.8] text-black/45 font-light max-w-[240px]">{item.text}</p>
+          {
+            num: '01',
+            title: 'Confidentialité',
+            text: 'Une discrétion absolue, garantie par une infrastructure technique et humaine de premier plan.',
+          },
+          {
+            num: '02',
+            title: 'Sélectivité',
+            text: 'Un écosystème fermé aux profils et cabinets les plus exigeants du marché juridique.',
+          },
+          {
+            num: '03',
+            title: 'Précision',
+            text: 'Une analyse chirurgicale des besoins pour une mise en relation à haute valeur ajoutée.',
+          },
+        ].map((p) => (
+          <motion.div key={p.num} variants={fadeUp}>
+            <h4 className="text-[11px] font-sans font-semibold uppercase tracking-[0.22em] text-black/85 mb-4">
+              {p.num}. {p.title}
+            </h4>
+            <p className="font-sans text-sm text-black/50 leading-[1.8] font-light">
+              {p.text}
+            </p>
           </motion.div>
         ))}
       </motion.div>
