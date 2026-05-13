@@ -25,17 +25,42 @@ const CinemaShowcaseSection = () => {
       aria-label="Démonstration vidéo Logan — côté cabinet"
     >
       <div className="sticky top-0 min-h-screen h-[125vh] w-full overflow-hidden flex flex-col bg-white pt-14 md:pt-16 pb-6">
-        {/* Header — top-left aligned */}
-        <div className="px-6 sm:px-10 lg:px-16 mb-9 md:mb-11 max-w-3xl">
-          <p className="text-[10px] font-sans font-medium tracking-[0.25em] uppercase text-black/40 mb-4">
-            Votre espace cabinet
-          </p>
-          <h2 className="font-serif text-[1.35rem] sm:text-[1.7rem] md:text-[2rem] leading-[1.25] text-black/90">
-            Une nouvelle approche du recrutement : accédez en temps réel au marché depuis votre espace cabinet et conservez <em className="italic">un temps d'avance</em>.
-          </h2>
-          <p className="mt-3 font-sans text-[0.76rem] sm:text-[1rem] md:text-[1.018rem] font-[480] leading-[1.65] text-black/50">
-            Logan vous accompagne dans tous vos rapprochements.
-          </p>
+        {/* Editorial header */}
+        <div className="px-6 sm:px-10 lg:px-16 mb-10 md:mb-14 max-w-6xl mx-auto w-full">
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            className="mb-10"
+          >
+            <span className="text-[10px] tracking-[0.3em] uppercase font-sans font-semibold text-black/40">
+              Votre espace cabinet
+            </span>
+          </motion.div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-20 items-end">
+            <motion.h2
+              initial={{ opacity: 0, y: 28 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-80px' }}
+              transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+              className="lg:col-span-8 font-serif text-[2rem] sm:text-4xl md:text-[3.25rem] leading-[1.08] tracking-[-0.015em] text-black/90 font-normal"
+            >
+              Accédez en temps réel au marché et conservez{' '}
+              <span className="italic">un temps d'avance</span>.
+            </motion.h2>
+
+            <motion.p
+              initial={{ opacity: 0, y: 28 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-80px' }}
+              transition={{ duration: 0.9, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+              className="lg:col-span-4 pb-2 font-sans text-base md:text-lg text-black/55 leading-[1.7] max-w-sm font-light"
+            >
+              Une nouvelle approche du recrutement. Logan vous accompagne dans tous vos rapprochements.
+            </motion.p>
+          </div>
         </div>
 
         {/* Raw video with dramatic zoom-in */}
@@ -57,44 +82,29 @@ const CinemaShowcaseSection = () => {
           />
         </motion.div>
 
-        {/* Caption pillars under video — WOW effect */}
+        {/* Inline pillars — editorial style */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-          className="mt-10 md:mt-14 px-6"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-40px' }}
+          variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.1 } } }}
+          className="mt-10 md:mt-14 px-6 max-w-6xl mx-auto w-full pt-8 border-t border-black/[0.08] flex flex-wrap items-center justify-center gap-x-10 gap-y-4"
         >
-          <div className="flex items-center justify-center gap-4 mb-6">
-            <div className="h-px w-12 bg-black/15" />
-            <span className="font-sans text-[10px] font-medium tracking-[0.25em] uppercase text-black/40">
-              Deux usages, un même espace
-            </span>
-            <div className="h-px w-12 bg-black/15" />
-          </div>
-
-          <div className="flex flex-col sm:flex-row items-stretch justify-center gap-4 sm:gap-6 max-w-3xl mx-auto">
-            {[
-              { icon: Compass, label: 'Explorer le marché' },
-              { icon: Lock, label: 'Publier votre recherche à titre confidentiel' },
-            ].map(({ icon: Icon, label }, i) => (
-              <motion.div
-                key={label}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.9, delay: 0.25 + i * 0.15, ease: [0.16, 1, 0.3, 1] }}
-                className="group relative flex-1 flex items-center justify-center gap-3 px-6 py-4 rounded-sm border border-black/10 bg-white hover:border-black/30 hover:shadow-[0_8px_30px_-12px_rgba(0,0,0,0.25)] transition-all duration-700"
-              >
-                <div className="w-9 h-9 rounded-full flex items-center justify-center bg-black/[0.04] group-hover:bg-black/[0.08] transition-colors duration-500">
-                  <Icon className="w-4 h-4 text-black/55 group-hover:text-black/80 transition-colors duration-500" strokeWidth={1.4} />
-                </div>
-                <span className="font-sans text-[0.82rem] sm:text-[0.88rem] font-medium tracking-[-0.005em] text-black/75 group-hover:text-black transition-colors duration-500">
-                  {label}
-                </span>
-              </motion.div>
-            ))}
-          </div>
+          {[
+            { icon: Compass, label: 'Explorer le marché' },
+            { icon: Lock, label: 'Publier votre recherche à titre confidentiel' },
+          ].map(({ icon: Icon, label }) => (
+            <motion.div
+              key={label}
+              variants={{ hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] } } }}
+              className="group flex items-center gap-2.5"
+            >
+              <Icon className="w-3.5 h-3.5 text-black/40 group-hover:text-black/80 transition-colors duration-500" strokeWidth={1.5} />
+              <span className="font-sans text-[10px] uppercase tracking-[0.22em] text-black/40 group-hover:text-black/85 transition-colors duration-500">
+                {label}
+              </span>
+            </motion.div>
+          ))}
         </motion.div>
       </div>
     </section>
