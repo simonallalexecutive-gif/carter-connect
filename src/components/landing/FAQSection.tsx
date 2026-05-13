@@ -171,17 +171,17 @@ const FAQSection = () => {
                     >
                       <AccordionTrigger
                         className={cn(
-                          'text-left font-serif text-xl md:text-[1.6rem] font-normal text-black/85 hover:text-black hover:no-underline py-8 gap-6 transition-colors leading-snug tracking-[-0.01em]',
+                          'text-left font-serif text-lg md:text-2xl font-normal text-black/90 hover:text-black hover:no-underline py-7 gap-6 transition-colors leading-[1.25] tracking-[-0.01em]',
                           '[&>svg]:hidden',
                           '[&[data-state=open]_.faq-plus]:rotate-45'
                         )}
                       >
                         <span className="flex-1">{item.question}</span>
-                        <span className="faq-plus shrink-0 w-10 h-10 rounded-full border border-black/20 flex items-center justify-center transition-all duration-300 group-hover:border-black group-hover:bg-black group-hover:text-white">
+                        <span className="faq-plus shrink-0 w-9 h-9 rounded-full border border-black/20 flex items-center justify-center transition-all duration-300 group-hover:border-black group-hover:bg-black group-hover:text-white">
                           <Plus className="w-4 h-4" strokeWidth={1.5} />
                         </span>
                       </AccordionTrigger>
-                      <AccordionContent className="text-black/55 font-sans text-[15px] leading-relaxed pb-8 pr-16 text-justify">
+                      <AccordionContent className="text-black/55 font-sans text-sm leading-relaxed pb-7 pr-14 text-justify">
                         {item.answer}
                       </AccordionContent>
                     </AccordionItem>
