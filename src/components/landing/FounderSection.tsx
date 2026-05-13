@@ -1,5 +1,6 @@
 import { motion, useScroll, useTransform } from 'motion/react';
 import { useRef } from 'react';
+import heroBoardroom from '@/assets/hero-landing-bg.jpeg';
 
 const FounderSection = () => {
   const ref = useRef<HTMLDivElement>(null);
@@ -10,9 +11,14 @@ const FounderSection = () => {
   return (
     <section
       ref={ref}
-      className="relative flex items-center justify-center overflow-hidden bg-white border-t border-black/[0.06]"
+      className="relative flex items-center justify-center overflow-hidden border-t border-white/[0.06]"
       style={{ minHeight: '100svh' }}
     >
+      <div className="absolute inset-0">
+        <img src={heroBoardroom} alt="" className="w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-black/55" />
+      </div>
+
       <div className="max-w-6xl w-full mx-auto px-4 sm:px-8 lg:px-10 py-12 md:py-20 relative z-10 flex flex-col items-center justify-center min-h-[80svh]">
         <motion.div style={{ opacity, y }} className="text-center max-w-3xl">
           <motion.p
