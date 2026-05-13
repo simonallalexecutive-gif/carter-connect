@@ -87,7 +87,7 @@ const FonctionnementSection = () => {
           </motion.p>
         </motion.div>
 
-        {/* Two columns */}
+        {/* Two columns — synthétique */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20">
           {/* Cabinets */}
           <motion.div
@@ -96,25 +96,22 @@ const FonctionnementSection = () => {
             whileInView="visible"
             viewport={{ once: true, margin: '-60px' }}
           >
-            <motion.div variants={fadeUp} className="flex items-baseline justify-between mb-2">
+            <motion.div variants={fadeUp} className="flex items-baseline justify-between mb-6">
               <h3 className="font-sans text-[11px] uppercase tracking-[0.25em] text-white/85 font-semibold">
                 Cabinets
               </h3>
               <ArrowUpRight className="w-4 h-4 text-white/30" strokeWidth={1.4} />
             </motion.div>
-            <motion.p variants={fadeUp} className="font-serif italic text-base text-white/40 mb-2">
-              Ne subissez plus votre marché : vivez-le.
-            </motion.p>
 
             <Row
               num="01"
-              title="Lancez votre recherche en toute confidentialité"
-              text="Adressez-vous à un pool de candidats qualifiés et rigoureusement sélectionnés, tout en préservant l'identité de votre cabinet."
+              title="Recrutez en toute confidentialité."
+              text="Un pool de candidats qualifiés, sans jamais exposer l'identité de votre cabinet."
             />
             <Row
               num="02"
-              title="Accédez aux meilleurs profils du marché"
-              text="Décryptez la dynamique du marché, restez opportuniste et anticipez vos recrutements pour l'ensemble de vos départements."
+              title="Anticipez le marché."
+              text="Une vision continue des meilleurs profils, pour tous vos départements."
             />
           </motion.div>
 
@@ -125,48 +122,43 @@ const FonctionnementSection = () => {
             whileInView="visible"
             viewport={{ once: true, margin: '-60px' }}
           >
-            <motion.div variants={fadeUp} className="flex items-baseline justify-between mb-2">
+            <motion.div variants={fadeUp} className="flex items-baseline justify-between mb-6">
               <h3 className="font-sans text-[11px] uppercase tracking-[0.25em] text-white/85 font-semibold">
                 Candidats
               </h3>
               <ArrowUpRight className="w-4 h-4 text-white/30" strokeWidth={1.4} />
             </motion.div>
-            <motion.p variants={fadeUp} className="font-serif italic text-base text-white/40 mb-2">
-              Un espace confidentiel, un processus structuré.
-            </motion.p>
 
             <Row
               num="01"
-              title="Accédez aux meilleures opportunités du marché"
-              text="Identifiez une opportunité, étudiez sa pertinence au regard de votre projet et échangez avec un consultant en amont de tout rapprochement."
+              title="Accédez aux meilleures opportunités."
+              text="Étudiez chaque opportunité avec un consultant, en amont de tout rapprochement."
             />
             <Row
               num="02"
-              title="Cultivez votre attractivité sans compromettre votre anonymat"
-              text="Restez en alerte sur votre marché : dès lors qu'un cabinet manifeste un intérêt pour votre profil, Logan est à vos côtés pour en parler."
+              title="Restez visible. Restez anonyme."
+              text="Dès qu'un cabinet manifeste un intérêt, Logan vous accompagne — sans jamais révéler votre identité."
             />
           </motion.div>
         </div>
 
-        {/* Inline pillars */}
+        {/* Inline pillars — réduits */}
         <motion.div
           variants={stagger}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-40px' }}
-          className="mt-24 md:mt-28 pt-10 border-t border-white/[0.08] flex flex-wrap items-center justify-center gap-x-10 gap-y-4"
+          className="mt-20 md:mt-24 pt-10 border-t border-white/[0.08] flex flex-wrap items-center justify-center gap-x-12 gap-y-4"
         >
-          {['Confidentialité', 'Réactivité', 'Exclusivité', 'Anonymat', 'Accompagnement', 'Transparence'].map(
-            (label) => (
-              <motion.span
-                key={label}
-                variants={fadeUp}
-                className="font-sans text-[10px] uppercase tracking-[0.22em] text-white/35 hover:text-white/70 transition-colors duration-500"
-              >
-                {label}
-              </motion.span>
-            ),
-          )}
+          {['Confidentialité', 'Exclusivité', 'Accompagnement'].map((label) => (
+            <motion.span
+              key={label}
+              variants={fadeUp}
+              className="font-sans text-[10px] uppercase tracking-[0.22em] text-white/40 hover:text-white/80 transition-colors duration-500"
+            >
+              {label}
+            </motion.span>
+          ))}
         </motion.div>
       </div>
     </section>
