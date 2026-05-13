@@ -40,7 +40,7 @@ const FounderSection = () => {
             transition={{ duration: 0.8, delay: 0.6 }}
             className="mt-5"
           >
-            <span className="text-[10px] font-sans font-medium tracking-[0.25em] uppercase text-black/40">
+            <span className="text-[10px] font-sans font-medium tracking-[0.25em] uppercase text-white/50">
               — L'équipe Logan
             </span>
           </motion.div>
