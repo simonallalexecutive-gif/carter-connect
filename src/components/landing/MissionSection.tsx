@@ -50,7 +50,7 @@ const MissionSection = () => (
           variants={fadeUp}
           className="lg:col-span-4 pb-2 font-sans text-base md:text-lg text-black/55 leading-[1.7] max-w-sm font-light"
         >
-          Nous structurons un écosystème discret et exigeant, où chaque mise en relation est orchestrée avec la précision d'un cabinet de conseil stratégique.
+          Nous structurons et accompagnons un écosystème discret et exigeant, composé de candidats et cabinets rigoureusement qualifiés et reconnus pour leur positionnement.
         </motion.p>
       </motion.div>
 
