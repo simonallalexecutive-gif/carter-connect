@@ -143,11 +143,13 @@ const MissionSection = () => (
                 </li>
               ))}
             </ul>
-            <div className="mt-auto pt-10">
-              <div className="h-px w-full bg-black/[0.08] mb-4" />
-              <p className="text-[10px] font-sans text-black/40 uppercase tracking-[0.22em]">
-                Accompagnement sur-mesure
-              </p>
+            <div className="mt-10 flex gap-3">
+              <span className="inline-flex items-center gap-1.5 text-[10px] font-sans font-semibold tracking-[0.12em] border px-2.5 py-1 border-black/15 text-black/45">
+                <Award className="w-3 h-3" strokeWidth={1.5} /> CHAMBERS
+              </span>
+              <span className="inline-flex items-center gap-1.5 text-[10px] font-sans font-semibold tracking-[0.12em] border px-2.5 py-1 border-black/15 text-black/45">
+                <Award className="w-3 h-3" strokeWidth={1.5} /> LEGAL 500
+              </span>
             </div>
           </motion.div>
         </div>
