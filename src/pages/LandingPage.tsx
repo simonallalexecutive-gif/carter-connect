@@ -1,6 +1,6 @@
 import { motion } from 'motion/react';
 import { Button } from '@/components/ui/button';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import ctaGradientBg from '@/assets/cta-gradient-bg.jpeg';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
@@ -35,7 +35,11 @@ const fadeUp = {
 };
 
 
-const LandingPage = () => (
+const LandingPage = () => {
+  const location = useLocation();
+  const showCabinetDemo = location.hash === '#votre-espace-cabinet';
+
+  return (
   <div className="min-h-screen bg-background">
     <Header />
 
@@ -161,9 +165,8 @@ const LandingPage = () => (
       <FonctionnementSection />
     </div>
 
-    {/* Démonstration vidéo cinéma — effet WoW Harvey.ai style */}
-    <CinemaShowcaseSection />
-
+    {/* Démonstration vidéo cinéma — affichée uniquement via Demo > Espace cabinet */}
+    {showCabinetDemo && <CinemaShowcaseSection />}
     {/* Citation Logan — full page WOW */}
     <FounderSection />
 
@@ -264,6 +267,7 @@ const LandingPage = () => (
       </div>
     </div>
   </div>
-);
+  );
+};
 
 export default LandingPage;
