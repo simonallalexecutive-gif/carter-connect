@@ -26,26 +26,26 @@ const CinemaShowcaseSection = () => {
     >
       <div className="sticky top-0 min-h-screen h-[125vh] w-full overflow-hidden flex flex-col bg-white pt-14 md:pt-16 pb-6">
         {/* Editorial header */}
-        <div className="px-6 sm:px-10 lg:px-16 mb-10 md:mb-14 max-w-6xl mx-auto w-full">
+        <div className="px-6 sm:px-8 lg:px-10 mb-10 md:mb-14 max-w-6xl mx-auto w-full">
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="mb-10"
+            className="mb-12"
           >
             <span className="text-[10px] tracking-[0.3em] uppercase font-sans font-semibold text-black/40">
               Votre espace cabinet
             </span>
           </motion.div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-20 items-end">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-20 items-end">
             <motion.h2
               initial={{ opacity: 0, y: 28 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-80px' }}
               transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-              className="lg:col-span-8 font-serif text-[2rem] sm:text-4xl md:text-[3.25rem] leading-[1.08] tracking-[-0.015em] text-black/90 font-normal"
+              className="lg:col-span-8 font-serif text-[2.25rem] sm:text-5xl md:text-[4.25rem] leading-[1.05] tracking-[-0.015em] text-black/90 font-normal"
             >
               Accédez en temps réel au marché et conservez{' '}
               <span className="italic">un temps d'avance</span>.
