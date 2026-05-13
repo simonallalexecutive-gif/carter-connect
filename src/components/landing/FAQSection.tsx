@@ -113,10 +113,10 @@ const FAQSection = () => {
             <p className="text-[11px] tracking-[0.25em] uppercase text-black/30 font-sans font-medium mb-8">
               FAQ
             </p>
-            <h2 className="text-5xl sm:text-6xl md:text-[4.5rem] font-serif font-normal text-black tracking-[-0.03em] leading-[0.95] mb-8">
+            <h2 className="font-serif text-[2.25rem] sm:text-5xl md:text-[4.25rem] leading-[1.05] tracking-[-0.015em] text-black/90 font-normal mb-8">
               Questions.
             </h2>
-            <p className="text-base md:text-[17px] text-black/55 font-sans leading-relaxed max-w-md mb-10">
+            <p className="text-sm md:text-[15px] text-black/55 font-sans leading-relaxed max-w-md mb-10">
               Logan opère sous des standards stricts de confidentialité et de sécurité, protégeant l'identité et les intérêts de ses membres à chaque étape.
             </p>
 
@@ -171,17 +171,17 @@ const FAQSection = () => {
                     >
                       <AccordionTrigger
                         className={cn(
-                          'text-left font-serif text-xl md:text-[1.6rem] font-normal text-black/85 hover:text-black hover:no-underline py-8 gap-6 transition-colors leading-snug tracking-[-0.01em]',
+                          'text-left font-serif text-lg md:text-2xl font-normal text-black/90 hover:text-black hover:no-underline py-7 gap-6 transition-colors leading-[1.25] tracking-[-0.01em]',
                           '[&>svg]:hidden',
                           '[&[data-state=open]_.faq-plus]:rotate-45'
                         )}
                       >
                         <span className="flex-1">{item.question}</span>
-                        <span className="faq-plus shrink-0 w-10 h-10 rounded-full border border-black/20 flex items-center justify-center transition-all duration-300 group-hover:border-black group-hover:bg-black group-hover:text-white">
+                        <span className="faq-plus shrink-0 w-9 h-9 rounded-full border border-black/20 flex items-center justify-center transition-all duration-300 group-hover:border-black group-hover:bg-black group-hover:text-white">
                           <Plus className="w-4 h-4" strokeWidth={1.5} />
                         </span>
                       </AccordionTrigger>
-                      <AccordionContent className="text-black/55 font-sans text-[15px] leading-relaxed pb-8 pr-16 text-justify">
+                      <AccordionContent className="text-black/55 font-sans text-sm leading-relaxed pb-7 pr-14 text-justify">
                         {item.answer}
                       </AccordionContent>
                     </AccordionItem>
