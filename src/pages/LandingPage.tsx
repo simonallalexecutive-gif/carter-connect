@@ -35,7 +35,11 @@ const fadeUp = {
 };
 
 
-const LandingPage = () => (
+const LandingPage = () => {
+  const location = useLocation();
+  const showCabinetDemo = location.hash === '#votre-espace-cabinet';
+
+  return (
   <div className="min-h-screen bg-background">
     <Header />
 
