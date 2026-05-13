@@ -1,6 +1,6 @@
 import { motion } from 'motion/react';
 import { Button } from '@/components/ui/button';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import ctaGradientBg from '@/assets/cta-gradient-bg.jpeg';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
