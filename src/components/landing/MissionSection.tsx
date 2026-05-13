@@ -43,13 +43,7 @@ const MissionSection = () => (
           variants={fadeUp}
           className="lg:col-span-8 font-serif text-[2.25rem] sm:text-5xl md:text-[4.25rem] leading-[1.05] tracking-[-0.015em] text-black/90 font-normal"
         >
-          Logan est{' '}
-          <span className="relative inline-block">
-            <span className="text-black/30">une plateforme de recrutement</span>
-            <span className="absolute left-0 top-[55%] w-full h-[3px] bg-black -rotate-2 rounded-full" />
-          </span>
-          <br />
-          <span className="italic">la nouvelle infrastructure</span> privilégiée et confidentielle du marché des avocats.
+          Logan est la nouvelle infrastructure privilégiée et <span className="italic">confidentielle</span> du marché des avocats.
         </motion.h2>
 
         <motion.p
