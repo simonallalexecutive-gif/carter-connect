@@ -1,5 +1,6 @@
 import { motion, useScroll, useTransform } from 'motion/react';
 import { useRef } from 'react';
+import heroBoardroom from '@/assets/hero-landing-bg.jpeg';
 
 const FounderSection = () => {
   const ref = useRef<HTMLDivElement>(null);
@@ -10,9 +11,14 @@ const FounderSection = () => {
   return (
     <section
       ref={ref}
-      className="relative flex items-center justify-center overflow-hidden bg-white border-t border-black/[0.06]"
+      className="relative flex items-center justify-center overflow-hidden border-t border-white/[0.06]"
       style={{ minHeight: '100svh' }}
     >
+      <div className="absolute inset-0">
+        <img src={heroBoardroom} alt="" className="w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-black/55" />
+      </div>
+
       <div className="max-w-6xl w-full mx-auto px-4 sm:px-8 lg:px-10 py-12 md:py-20 relative z-10 flex flex-col items-center justify-center min-h-[80svh]">
         <motion.div style={{ opacity, y }} className="text-center max-w-3xl">
           <motion.p
@@ -20,7 +26,7 @@ const FounderSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="font-serif text-[1.42rem] sm:text-[1.55rem] md:text-[1.73rem] lg:text-[2.1rem] leading-[1.4] text-black/85 italic tracking-[-0.02em]"
+            className="font-serif text-[1.42rem] sm:text-[1.55rem] md:text-[1.73rem] lg:text-[2.1rem] leading-[1.4] text-white/90 italic tracking-[-0.02em] drop-shadow-lg"
           >
             «&nbsp;Logan se positionne comme l'infrastructure la plus exigeante
             <br />et structurée du marché, offrant un accompagnement sur mesure,
@@ -34,7 +40,7 @@ const FounderSection = () => {
             transition={{ duration: 0.8, delay: 0.6 }}
             className="mt-5"
           >
-            <span className="text-[10px] font-sans font-medium tracking-[0.25em] uppercase text-black/40">
+            <span className="text-[10px] font-sans font-medium tracking-[0.25em] uppercase text-white/50">
               — L'équipe Logan
             </span>
           </motion.div>
