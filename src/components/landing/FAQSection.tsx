@@ -113,10 +113,10 @@ const FAQSection = () => {
             <p className="text-[11px] tracking-[0.25em] uppercase text-black/30 font-sans font-medium mb-8">
               FAQ
             </p>
-            <h2 className="text-5xl sm:text-6xl md:text-[4.5rem] font-serif font-normal text-black tracking-[-0.03em] leading-[0.95] mb-8">
+            <h2 className="font-serif text-[2.25rem] sm:text-5xl md:text-[4.25rem] leading-[1.05] tracking-[-0.015em] text-black/90 font-normal mb-8">
               Questions.
             </h2>
-            <p className="text-base md:text-[17px] text-black/55 font-sans leading-relaxed max-w-md mb-10">
+            <p className="text-sm md:text-[15px] text-black/55 font-sans leading-relaxed max-w-md mb-10">
               Logan opère sous des standards stricts de confidentialité et de sécurité, protégeant l'identité et les intérêts de ses membres à chaque étape.
             </p>
 
