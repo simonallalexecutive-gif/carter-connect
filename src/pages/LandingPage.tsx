@@ -110,7 +110,7 @@ const LandingPage = () => {
               Connecting <em className="italic">Top-Tier</em> Legal Minds
             </motion.h1>
           </div>
-          <motion.p variants={fadeUp} className="text-[1.14rem] sm:text-[1.502rem] md:text-[1.528rem] text-white font-sans font-[480] leading-[1.65] max-w-[72rem]">
+          <motion.p variants={fadeUp} className="text-[0.969rem] sm:text-[1.277rem] md:text-[1.299rem] text-white font-sans font-[480] leading-[1.65] max-w-[72rem]">
             Un réseau confidentiel, piloté par des chasseurs spécialisés, conçu pour les candidats<br className="hidden sm:inline" />{' '}et cabinets d'avocats les plus exigeants du marché.
           </motion.p>
           <motion.div variants={fadeUp} className="mt-8 sm:mt-20">
