@@ -251,7 +251,7 @@ const LandingPage = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.8, delay: 1.8 + i * 0.15, ease: [0.16, 1, 0.3, 1] }}
-                  className="font-serif text-lg sm:text-xl md:text-2xl text-white/35 tracking-[0.18em] font-light drop-shadow-md italic"
+                  className="font-serif text-lg sm:text-xl md:text-2xl text-white tracking-[0.18em] font-bold drop-shadow-md italic"
                   style={{ fontVariant: 'small-caps', wordSpacing: '0.15em' }}
                 >
                   {word}
