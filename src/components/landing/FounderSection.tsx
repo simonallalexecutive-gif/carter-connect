@@ -1,6 +1,6 @@
 import { motion, useScroll, useTransform } from 'motion/react';
 import { useRef } from 'react';
-import heroBoardroom from '@/assets/hero-landing-bg.jpeg';
+import heroBoardroom from '@/assets/founder-quote-bg.jpeg';
 
 const FounderSection = () => {
   const ref = useRef<HTMLDivElement>(null);
