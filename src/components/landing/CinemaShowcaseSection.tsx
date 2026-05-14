@@ -70,7 +70,7 @@ const CinemaShowcaseSection = () => {
         >
           <video
             ref={(el) => {
-              if (el) el.playbackRate = 0.5;
+              if (el) el.playbackRate = 0.75;
             }}
             src={heroCinema}
             autoPlay
