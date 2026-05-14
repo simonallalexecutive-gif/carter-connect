@@ -17,6 +17,7 @@ import NotFound from "./pages/NotFound";
 import AccessRequestPage from "./pages/AccessRequestPage";
 import ConnexionPage from "./pages/ConnexionPage";
 import NotreOffrePage from "./pages/NotreOffrePage";
+import RoleDeLoganPage from "./pages/RoleDeLoganPage";
 import ScrollToHash from "./components/ScrollToHash";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import PendingApprovalPage from "./pages/PendingApprovalPage";
@@ -39,6 +40,7 @@ const App = () => (
           <Route path="/rendez-vous" element={<BookingPage />} />
           <Route path="/demander-acces" element={<AccessRequestPage />} />
           <Route path="/notre-offre" element={<NotreOffrePage />} />
+          <Route path="/role-de-logan" element={<RoleDeLoganPage />} />
           <Route path="/connexion" element={<ConnexionPage />} />
           
           <Route path="/auth" element={<AuthPage />} />
