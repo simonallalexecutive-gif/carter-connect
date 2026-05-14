@@ -171,7 +171,7 @@ const FAQSection = () => {
                     >
                       <AccordionTrigger
                         className={cn(
-                          'text-left font-serif text-lg md:text-2xl font-normal text-black/90 hover:text-black hover:no-underline py-7 gap-6 transition-colors leading-[1.25] tracking-[-0.01em]',
+                          'text-left font-sans text-base md:text-lg font-medium text-black/90 hover:text-black hover:no-underline py-7 gap-6 transition-colors leading-[1.4] tracking-[-0.005em]',
                           '[&>svg]:hidden',
                           '[&[data-state=open]_.faq-plus]:rotate-45'
                         )}
