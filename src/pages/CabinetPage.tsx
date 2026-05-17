@@ -288,6 +288,7 @@ const CabinetPage = () => {
         await establishCabinetSession(session.user);
       } else {
         setCabinetAccessGranted(false);
+        if (step === 6) setStep(1);
       }
       setAuthChecked(true);
     };
@@ -372,6 +373,8 @@ const CabinetPage = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [step]);
 
+  if (!authChecked && step === 6) return null;
+
   // Email verification gate — block dashboard access until email is confirmed
   if (emailPending) {
     return (
@@ -415,7 +418,7 @@ const CabinetPage = () => {
   }
 
   // Dashboard mode: full sidebar layout, no Footer
-  if (step === 6) {
+  if (step === 6 && cabinetAccessGranted) {
     return <CabinetDashboardLayout />;
   }
 
