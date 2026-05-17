@@ -255,9 +255,12 @@ const CabinetPage = () => {
           window.location.replace('/espace-candidat');
           return;
         }
+        if (!session.user.email_confirmed_at) {
+          setEmailPending(session.user.email || '');
+          return;
+        }
         const name = session.user.user_metadata?.full_name || '';
         if (name) setField('cabinetName', name);
-        // Ensure cabinet_accounts row exists (idempotent)
         try {
           await (supabase as any)
             .from('cabinet_accounts')
@@ -268,6 +271,7 @@ const CabinetPage = () => {
         } catch (e) {
           console.error('cabinet_accounts upsert failed', e);
         }
+        setEmailPending(null);
         setStep(6);
       }
     };
@@ -282,6 +286,10 @@ const CabinetPage = () => {
           window.location.replace('/espace-candidat');
           return;
         }
+        if (!session.user.email_confirmed_at) {
+          setEmailPending(session.user.email || '');
+          return;
+        }
         const name = session.user.user_metadata?.full_name || '';
         if (name) setField('cabinetName', name);
         (supabase as any)
@@ -292,14 +300,44 @@ const CabinetPage = () => {
           )
           .then(() => {})
           .catch((e: any) => console.error('cabinet_accounts upsert failed', e));
+        setEmailPending(null);
+        setStep(6);
+      }
+      if (event === 'USER_UPDATED' && session?.user?.email_confirmed_at) {
+        setEmailPending(null);
         setStep(6);
       }
       if (event === 'SIGNED_OUT') {
+        setEmailPending(null);
         setStep(1);
       }
     });
     return () => subscription.unsubscribe();
   }, []);
+
+  const handleResendEmail = async () => {
+    if (!emailPending) return;
+    setResending(true);
+    try {
+      const { error } = await (supabase.auth as any).resend({
+        type: 'signup',
+        email: emailPending,
+        options: { emailRedirectTo: `${window.location.origin}/cabinet` },
+      });
+      if (error) throw error;
+      toast.success('Email de vérification renvoyé');
+    } catch (e: any) {
+      toast.error(e.message || 'Erreur lors de l\'envoi');
+    } finally {
+      setResending(false);
+    }
+  };
+
+  const handleSignOut = async () => {
+    await (supabase.auth as any).signOut();
+    setEmailPending(null);
+    setStep(1);
+  };
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
