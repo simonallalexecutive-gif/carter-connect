@@ -12,6 +12,11 @@ import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import { isUserAdmin } from '@/lib/authRoles';
 
+const normalizeRedirectPath = (path: string) => {
+  if (path === '/admin/*' || path === '/admin*') return '/admin';
+  return path;
+};
+
 const ConnexionPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -27,10 +32,11 @@ const ConnexionPage = () => {
     (async () => {
       // Honor explicit redirect (e.g. /admin) — verify admin role when needed
       if (redirectTo) {
-        if (redirectTo.startsWith('/admin')) {
-          if (await isUserAdmin(user.id)) { navigate(redirectTo, { replace: true }); return; }
+        const target = normalizeRedirectPath(redirectTo);
+        if (target.startsWith('/admin')) {
+          if (await isUserAdmin(user.id)) { navigate(target, { replace: true }); return; }
         } else {
-          navigate(redirectTo, { replace: true });
+          navigate(target, { replace: true });
           return;
         }
       }

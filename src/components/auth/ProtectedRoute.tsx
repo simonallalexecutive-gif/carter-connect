@@ -21,7 +21,8 @@ const ProtectedRoute = ({ children, requireUserType, requireApproved = true }: P
   useEffect(() => {
     if (loading) return;
     if (!user) {
-      navigate(`/connexion?redirect=${encodeURIComponent(location.pathname)}`, { replace: true });
+      const redirectPath = location.pathname === '/admin/*' || location.pathname === '/admin*' ? '/admin' : location.pathname;
+      navigate(`/connexion?redirect=${encodeURIComponent(redirectPath)}`, { replace: true });
       return;
     }
 
