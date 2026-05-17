@@ -16,7 +16,7 @@ const CabinetStep6Confirm = () => {
       if (registered || registering || !s.email || !s.password) return;
       setRegistering(true);
       try {
-        const { error } = await (supabase.auth as any).signUp({
+        const { data, error } = await supabase.auth.signUp({
           email: s.email,
           password: s.password,
           options: {
@@ -28,17 +28,20 @@ const CabinetStep6Confirm = () => {
           },
         });
         if (error) throw error;
+        if (data?.session) {
+          await supabase.auth.signOut();
+        }
         setRegistered(true);
         toast.success('Compte créé avec succès');
-      } catch (error: any) {
-        toast.error(error.message || 'Erreur lors de la création du compte');
+      } catch (error: unknown) {
+        toast.error(error instanceof Error ? error.message : 'Erreur lors de la création du compte');
       } finally {
         setRegistering(false);
       }
     };
 
     registerCabinet();
-  }, []);
+  }, [registered, registering, s.cabinetName, s.email, s.password]);
 
   return (
     <motion.div
