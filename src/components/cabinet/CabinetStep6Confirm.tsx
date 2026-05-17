@@ -40,7 +40,6 @@ const CabinetStep6Confirm = () => {
         }
         setRegistered(true);
       } catch (err: unknown) {
-        registrationStarted.current = false;
         const msg = err instanceof Error ? err.message : 'Erreur lors de la création du compte';
         setError(msg);
         toast.error(msg);
