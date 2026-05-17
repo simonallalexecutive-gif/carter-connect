@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
+import { isUserAdmin } from '@/lib/authRoles';
 
 type Props = {
   children: React.ReactNode;
@@ -32,12 +33,7 @@ const ProtectedRoute = ({ children, requireUserType, requireApproved = true }: P
 
     const run = async () => {
       // Admins always allowed
-      const { data: roles } = await supabase
-        .from('user_roles')
-        .select('role')
-        .eq('user_id', user.id);
-      const isAdmin = (roles ?? []).some((r: any) => r.role === 'admin');
-      if (isAdmin) { setAllowed(true); setChecking(false); return; }
+      if (await isUserAdmin(user.id)) { setAllowed(true); setChecking(false); return; }
 
       // Candidate approval gate
       if (requireApproved && (requireUserType === 'candidat' || ut === 'candidat')) {
