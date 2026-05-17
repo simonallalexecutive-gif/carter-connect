@@ -320,7 +320,7 @@ const CabinetPage = () => {
     if (!emailPending) return;
     setResending(true);
     try {
-      const { error } = await (supabase.auth as any).resend({
+      const { error } = await supabase.auth.resend({
         type: 'signup',
         email: emailPending,
         options: { emailRedirectTo: `${window.location.origin}/cabinet` },
