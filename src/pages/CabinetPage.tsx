@@ -238,6 +238,8 @@ const CabinetPage = () => {
   const setStep = useCabinetStore((s) => s.setStep);
   const setField = useCabinetStore((s) => s.setField);
   const [searchParams] = useSearchParams();
+  const [authChecked, setAuthChecked] = useState(false);
+  const [cabinetAccessGranted, setCabinetAccessGranted] = useState(false);
   const [emailPending, setEmailPending] = useState<string | null>(null);
   const [resending, setResending] = useState(false);
 
@@ -250,67 +252,91 @@ const CabinetPage = () => {
   }, [searchParams, step, setStep]);
 
   useEffect(() => {
+    const establishCabinetSession = async (sessionUser: any) => {
+      const ut = sessionUser.user_metadata?.user_type;
+      if (ut === 'candidat') {
+        window.location.replace('/espace-candidat');
+        return;
+      }
+      if (!sessionUser.email_confirmed_at) {
+        setCabinetAccessGranted(false);
+        setEmailPending(sessionUser.email || '');
+        return;
+      }
+      const name = sessionUser.user_metadata?.full_name || '';
+      if (name) setField('cabinetName', name);
+      const { error } = await (supabase as any)
+        .from('cabinet_accounts')
+        .upsert(
+          { user_id: sessionUser.id, cabinet_name: name || 'Cabinet' },
+          { onConflict: 'user_id' }
+        );
+      if (error) {
+        console.error('cabinet_accounts upsert failed', error);
+        toast.error('Impossible d’activer l’espace cabinet pour le moment');
+        setCabinetAccessGranted(false);
+        return;
+      }
+      setEmailPending(null);
+      setCabinetAccessGranted(true);
+      setStep(6);
+    };
+
     const checkSession = async () => {
       const { data: { session } } = await (supabase.auth as any).getSession();
       if (session?.user) {
-        const ut = session.user.user_metadata?.user_type;
-        if (ut === 'candidat') {
-          window.location.replace('/espace-candidat');
-          return;
-        }
-        if (!session.user.email_confirmed_at) {
-          setEmailPending(session.user.email || '');
-          return;
-        }
-        const name = session.user.user_metadata?.full_name || '';
-        if (name) setField('cabinetName', name);
-        try {
-          await (supabase as any)
-            .from('cabinet_accounts')
-            .upsert(
-              { user_id: session.user.id, cabinet_name: name || 'Cabinet' },
-              { onConflict: 'user_id' }
-            );
-        } catch (e) {
-          console.error('cabinet_accounts upsert failed', e);
-        }
-        setEmailPending(null);
-        setStep(6);
+        await establishCabinetSession(session.user);
+      } else {
+        setCabinetAccessGranted(false);
       }
+      setAuthChecked(true);
     };
-    if (step === 1) checkSession();
+    checkSession();
   }, []);
 
   useEffect(() => {
-    const { data: { subscription } } = (supabase.auth as any).onAuthStateChange((event: any, session: any) => {
+    const establishCabinetSession = async (sessionUser: any) => {
+      const ut = sessionUser.user_metadata?.user_type;
+      if (ut === 'candidat') {
+        window.location.replace('/espace-candidat');
+        return;
+      }
+      if (!sessionUser.email_confirmed_at) {
+        setCabinetAccessGranted(false);
+        setEmailPending(sessionUser.email || '');
+        return;
+      }
+      const name = sessionUser.user_metadata?.full_name || '';
+      if (name) setField('cabinetName', name);
+      const { error } = await (supabase as any)
+        .from('cabinet_accounts')
+        .upsert(
+          { user_id: sessionUser.id, cabinet_name: name || 'Cabinet' },
+          { onConflict: 'user_id' }
+        );
+      if (error) {
+        console.error('cabinet_accounts upsert failed', error);
+        toast.error('Impossible d’activer l’espace cabinet pour le moment');
+        setCabinetAccessGranted(false);
+        return;
+      }
+      setEmailPending(null);
+      setCabinetAccessGranted(true);
+      setStep(6);
+    };
+
+    const { data: { subscription } } = (supabase.auth as any).onAuthStateChange(async (event: any, session: any) => {
       if (event === 'SIGNED_IN' && session?.user) {
-        const ut = session.user.user_metadata?.user_type;
-        if (ut === 'candidat') {
-          window.location.replace('/espace-candidat');
-          return;
-        }
-        if (!session.user.email_confirmed_at) {
-          setEmailPending(session.user.email || '');
-          return;
-        }
-        const name = session.user.user_metadata?.full_name || '';
-        if (name) setField('cabinetName', name);
-        (supabase as any)
-          .from('cabinet_accounts')
-          .upsert(
-            { user_id: session.user.id, cabinet_name: name || 'Cabinet' },
-            { onConflict: 'user_id' }
-          )
-          .then(() => {})
-          .catch((e: any) => console.error('cabinet_accounts upsert failed', e));
-        setEmailPending(null);
-        setStep(6);
+        setAuthChecked(true);
+        await establishCabinetSession(session.user);
       }
       if (event === 'USER_UPDATED' && session?.user?.email_confirmed_at) {
-        setEmailPending(null);
-        setStep(6);
+        setAuthChecked(true);
+        await establishCabinetSession(session.user);
       }
       if (event === 'SIGNED_OUT') {
+        setAuthChecked(true);
+        setCabinetAccessGranted(false);
         setEmailPending(null);
         setStep(1);
       }
