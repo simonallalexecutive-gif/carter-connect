@@ -20,7 +20,7 @@ const CabinetStep6Confirm = () => {
           email: s.email,
           password: s.password,
           options: {
-            emailRedirectTo: window.location.origin,
+            emailRedirectTo: `${window.location.origin}/cabinet`,
             data: {
               full_name: s.cabinetName,
               user_type: 'cabinet',
