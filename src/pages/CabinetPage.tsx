@@ -346,6 +346,48 @@ const CabinetPage = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [step]);
 
+  // Email verification gate — block dashboard access until email is confirmed
+  if (emailPending) {
+    return (
+      <div className="min-h-screen flex flex-col theme-dark-registration bg-background text-foreground">
+        <LogoBanner subtitle="Espace Cabinet" variant="matte" />
+        <main className="flex-1 flex items-center justify-center px-6 py-16">
+          <div className="max-w-[520px] w-full text-center">
+            <div className="w-[72px] h-[72px] rounded-full bg-white/10 border border-white/15 flex items-center justify-center mx-auto mb-7">
+              <Mail className="w-7 h-7 text-white" strokeWidth={1.5} />
+            </div>
+            <h1 className="font-serif text-3xl text-white mb-4 tracking-[-0.01em]">Vérifiez votre email</h1>
+            <p className="text-sm text-white/60 leading-relaxed mb-2">
+              Un lien de confirmation a été envoyé à
+            </p>
+            <p className="text-sm text-white font-medium mb-7">{emailPending}</p>
+            <p className="text-xs text-white/50 leading-relaxed mb-8">
+              Cliquez sur le lien dans cet email pour activer votre compte cabinet et accéder à votre espace.
+              Cette étape garantit la confidentialité et la sécurité de votre accès.
+            </p>
+            <div className="flex flex-col gap-3 max-w-[320px] mx-auto">
+              <Button
+                onClick={handleResendEmail}
+                disabled={resending}
+                className="bg-white text-black hover:bg-white/90 font-sans text-sm py-5 rounded-sm"
+              >
+                {resending ? 'Envoi…' : 'Renvoyer l\'email de vérification'}
+              </Button>
+              <Button
+                onClick={handleSignOut}
+                variant="ghost"
+                className="text-white/60 hover:text-white hover:bg-white/5 font-sans text-xs"
+              >
+                Se déconnecter
+              </Button>
+            </div>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
+
   // Dashboard mode: full sidebar layout, no Footer
   if (step === 6) {
     return <CabinetDashboardLayout />;
