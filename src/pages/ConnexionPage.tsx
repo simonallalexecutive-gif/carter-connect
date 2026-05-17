@@ -3,13 +3,14 @@ import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { useEffect } from 'react';
 import { toast } from 'sonner';
 import { motion } from 'motion/react';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
+import { supabase as sb } from '@/integrations/supabase/client';
 
 const ConnexionPage = () => {
   const [email, setEmail] = useState('');
@@ -17,13 +18,33 @@ const ConnexionPage = () => {
   const [submitting, setSubmitting] = useState(false);
   const [showChoice, setShowChoice] = useState(false);
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const redirectTo = searchParams.get('redirect');
   const { user, loading } = useAuth();
 
   useEffect(() => {
-    if (!loading && user?.email_confirmed_at) {
+    if (loading || !user?.email_confirmed_at) return;
+    (async () => {
+      // Honor explicit redirect (e.g. /admin) — verify admin role when needed
+      if (redirectTo) {
+        if (redirectTo.startsWith('/admin')) {
+          const { data } = await sb.from('user_roles').select('role').eq('user_id', user.id);
+          const isAdmin = (data ?? []).some((r: any) => r.role === 'admin');
+          if (isAdmin) { navigate(redirectTo, { replace: true }); return; }
+        } else {
+          navigate(redirectTo, { replace: true });
+          return;
+        }
+      }
+      // Auto-route admins to /admin even without explicit redirect
+      const { data } = await sb.from('user_roles').select('role').eq('user_id', user.id);
+      if ((data ?? []).some((r: any) => r.role === 'admin')) {
+        navigate('/admin', { replace: true });
+        return;
+      }
       setShowChoice(true);
-    }
-  }, [user, loading]);
+    })();
+  }, [user, loading, redirectTo, navigate]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
