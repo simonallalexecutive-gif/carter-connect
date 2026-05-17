@@ -164,7 +164,7 @@ const CabinetStep5Validation = () => {
       {/* Nav */}
       <div className="flex justify-between items-center mt-11 pt-7 border-t border-border">
         <Button variant="outline" onClick={() => s.setStep(3)} className="font-sans text-sm rounded-sm">← Retour</Button>
-        <Button onClick={() => s.setStep(6)} disabled={!allChecked || !hasBooking} className="bg-foreground text-background hover:bg-foreground/90 font-sans text-sm font-bold rounded-sm px-8">
+        <Button onClick={() => s.setStep(5)} disabled={!allChecked || !hasBooking} className="bg-foreground text-background hover:bg-foreground/90 font-sans text-sm font-bold rounded-sm px-8">
           Soumettre ma demande →
         </Button>
       </div>
