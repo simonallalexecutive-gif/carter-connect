@@ -3,7 +3,7 @@ import { useCabinetStore } from '@/stores/cabinetStore';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Mail, Check } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { toast } from 'sonner';
 
 const CabinetStep6Confirm = () => {
@@ -12,10 +12,12 @@ const CabinetStep6Confirm = () => {
   const [registered, setRegistered] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [resending, setResending] = useState(false);
+  const registrationStarted = useRef(false);
 
   useEffect(() => {
     const registerCabinet = async () => {
-      if (registered || registering || !s.email || !s.password) return;
+      if (registrationStarted.current || registered || registering || !s.email || !s.password) return;
+      registrationStarted.current = true;
       setRegistering(true);
       setError(null);
       try {
@@ -26,6 +28,7 @@ const CabinetStep6Confirm = () => {
             emailRedirectTo: `${window.location.origin}/cabinet`,
             data: {
               full_name: s.cabinetName,
+              cabinet_name: s.cabinetName,
               user_type: 'cabinet',
             },
           },
