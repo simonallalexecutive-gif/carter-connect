@@ -235,6 +235,8 @@ const CabinetPage = () => {
   const setStep = useCabinetStore((s) => s.setStep);
   const setField = useCabinetStore((s) => s.setField);
   const [searchParams] = useSearchParams();
+  const [emailPending, setEmailPending] = useState<string | null>(null);
+  const [resending, setResending] = useState(false);
 
   // Skip the confidentiality intro if user already saw it on RegisterPage
   useEffect(() => {
