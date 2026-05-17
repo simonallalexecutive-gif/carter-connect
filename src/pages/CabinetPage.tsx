@@ -309,12 +309,13 @@ const CabinetPage = () => {
       if (event === 'SIGNED_OUT') {
         setAuthChecked(true);
         setCabinetAccessGranted(false);
-        setEmailPending(null);
-        setStep(1);
+        // Do NOT reset step here: signOut is called intentionally after signUp
+        // in CabinetStep6Confirm to force the email-verification flow. Resetting
+        // would kick the user back to step 1 and hide the confirmation screen.
       }
     });
     return () => subscription.unsubscribe();
-  }, [establishCabinetSession, setStep]);
+  }, [establishCabinetSession]);
 
   const handleResendEmail = async () => {
     if (!emailPending) return;
