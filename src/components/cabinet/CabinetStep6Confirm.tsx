@@ -16,7 +16,7 @@ const CabinetStep6Confirm = () => {
       if (registered || registering || !s.email || !s.password) return;
       setRegistering(true);
       try {
-        const { error } = await (supabase.auth as any).signUp({
+        const { data, error } = await (supabase.auth as any).signUp({
           email: s.email,
           password: s.password,
           options: {
@@ -28,6 +28,9 @@ const CabinetStep6Confirm = () => {
           },
         });
         if (error) throw error;
+        if (data?.session) {
+          await (supabase.auth as any).signOut();
+        }
         setRegistered(true);
         toast.success('Compte créé avec succès');
       } catch (error: any) {
