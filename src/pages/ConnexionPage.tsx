@@ -58,7 +58,7 @@ const ConnexionPage = () => {
         return;
       }
       toast.success('Connexion réussie');
-      setShowChoice(true);
+      // useEffect will handle redirect (admin → /admin, ?redirect=… honored)
     } catch (error: any) {
       toast.error(error.message);
     } finally {
