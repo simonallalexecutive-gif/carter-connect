@@ -327,15 +327,15 @@ const CabinetPage = () => {
       });
       if (error) throw error;
       toast.success('Email de vérification renvoyé');
-    } catch (e: any) {
-      toast.error(e.message || 'Erreur lors de l\'envoi');
+    } catch (e: unknown) {
+      toast.error(e instanceof Error ? e.message : 'Erreur lors de l\'envoi');
     } finally {
       setResending(false);
     }
   };
 
   const handleSignOut = async () => {
-    await (supabase.auth as any).signOut();
+    await supabase.auth.signOut();
     setEmailPending(null);
     setStep(1);
   };
