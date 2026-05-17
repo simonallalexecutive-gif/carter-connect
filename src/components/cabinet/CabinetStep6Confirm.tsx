@@ -20,7 +20,7 @@ const CabinetStep6Confirm = () => {
           email: s.email,
           password: s.password,
           options: {
-            emailRedirectTo: window.location.origin,
+            emailRedirectTo: `${window.location.origin}/cabinet`,
             data: {
               full_name: s.cabinetName,
               user_type: 'cabinet',
@@ -77,13 +77,13 @@ const CabinetStep6Confirm = () => {
 
       <div className="border-t border-border pt-6 max-w-[440px] mx-auto">
         <p className="text-[11px] text-muted-foreground mb-4">
-          Une fois votre email confirmé, connectez-vous depuis l'espace cabinet pour accéder à votre tableau de bord.
+          Un email de vérification a été envoyé à <strong>{s.email}</strong>. Cliquez sur le lien pour activer votre compte, puis connectez-vous pour accéder à votre espace cabinet.
         </p>
         <Button
-          onClick={() => s.setStep(6)}
+          onClick={() => { window.location.href = '/connexion'; }}
           className="w-full bg-foreground text-background hover:bg-foreground/90 font-sans text-sm font-bold py-6 rounded-sm"
         >
-          Accéder à mon espace cabinet →
+          Aller à la connexion →
         </Button>
       </div>
     </motion.div>

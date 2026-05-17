@@ -12,6 +12,9 @@ import CabinetAccount from '@/components/cabinet/CabinetAccount';
 import { useEffect, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
+import { toast } from 'sonner';
+import { Button } from '@/components/ui/button';
+import { Mail } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import { NAT_FLAGS, NAT_LABELS } from '@/lib/legal500Rankings';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -235,6 +238,8 @@ const CabinetPage = () => {
   const setStep = useCabinetStore((s) => s.setStep);
   const setField = useCabinetStore((s) => s.setField);
   const [searchParams] = useSearchParams();
+  const [emailPending, setEmailPending] = useState<string | null>(null);
+  const [resending, setResending] = useState(false);
 
   // Skip the confidentiality intro if user already saw it on RegisterPage
   useEffect(() => {
@@ -253,9 +258,12 @@ const CabinetPage = () => {
           window.location.replace('/espace-candidat');
           return;
         }
+        if (!session.user.email_confirmed_at) {
+          setEmailPending(session.user.email || '');
+          return;
+        }
         const name = session.user.user_metadata?.full_name || '';
         if (name) setField('cabinetName', name);
-        // Ensure cabinet_accounts row exists (idempotent)
         try {
           await (supabase as any)
             .from('cabinet_accounts')
@@ -266,6 +274,7 @@ const CabinetPage = () => {
         } catch (e) {
           console.error('cabinet_accounts upsert failed', e);
         }
+        setEmailPending(null);
         setStep(6);
       }
     };
@@ -280,6 +289,10 @@ const CabinetPage = () => {
           window.location.replace('/espace-candidat');
           return;
         }
+        if (!session.user.email_confirmed_at) {
+          setEmailPending(session.user.email || '');
+          return;
+        }
         const name = session.user.user_metadata?.full_name || '';
         if (name) setField('cabinetName', name);
         (supabase as any)
@@ -290,18 +303,90 @@ const CabinetPage = () => {
           )
           .then(() => {})
           .catch((e: any) => console.error('cabinet_accounts upsert failed', e));
+        setEmailPending(null);
+        setStep(6);
+      }
+      if (event === 'USER_UPDATED' && session?.user?.email_confirmed_at) {
+        setEmailPending(null);
         setStep(6);
       }
       if (event === 'SIGNED_OUT') {
+        setEmailPending(null);
         setStep(1);
       }
     });
     return () => subscription.unsubscribe();
   }, []);
 
+  const handleResendEmail = async () => {
+    if (!emailPending) return;
+    setResending(true);
+    try {
+      const { error } = await (supabase.auth as any).resend({
+        type: 'signup',
+        email: emailPending,
+        options: { emailRedirectTo: `${window.location.origin}/cabinet` },
+      });
+      if (error) throw error;
+      toast.success('Email de vérification renvoyé');
+    } catch (e: any) {
+      toast.error(e.message || 'Erreur lors de l\'envoi');
+    } finally {
+      setResending(false);
+    }
+  };
+
+  const handleSignOut = async () => {
+    await (supabase.auth as any).signOut();
+    setEmailPending(null);
+    setStep(1);
+  };
+
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [step]);
+
+  // Email verification gate — block dashboard access until email is confirmed
+  if (emailPending) {
+    return (
+      <div className="min-h-screen flex flex-col theme-dark-registration bg-background text-foreground">
+        <LogoBanner subtitle="Espace Cabinet" variant="matte" />
+        <main className="flex-1 flex items-center justify-center px-6 py-16">
+          <div className="max-w-[520px] w-full text-center">
+            <div className="w-[72px] h-[72px] rounded-full bg-white/10 border border-white/15 flex items-center justify-center mx-auto mb-7">
+              <Mail className="w-7 h-7 text-white" strokeWidth={1.5} />
+            </div>
+            <h1 className="font-serif text-3xl text-white mb-4 tracking-[-0.01em]">Vérifiez votre email</h1>
+            <p className="text-sm text-white/60 leading-relaxed mb-2">
+              Un lien de confirmation a été envoyé à
+            </p>
+            <p className="text-sm text-white font-medium mb-7">{emailPending}</p>
+            <p className="text-xs text-white/50 leading-relaxed mb-8">
+              Cliquez sur le lien dans cet email pour activer votre compte cabinet et accéder à votre espace.
+              Cette étape garantit la confidentialité et la sécurité de votre accès.
+            </p>
+            <div className="flex flex-col gap-3 max-w-[320px] mx-auto">
+              <Button
+                onClick={handleResendEmail}
+                disabled={resending}
+                className="bg-white text-black hover:bg-white/90 font-sans text-sm py-5 rounded-sm"
+              >
+                {resending ? 'Envoi…' : 'Renvoyer l\'email de vérification'}
+              </Button>
+              <Button
+                onClick={handleSignOut}
+                variant="ghost"
+                className="text-white/60 hover:text-white hover:bg-white/5 font-sans text-xs"
+              >
+                Se déconnecter
+              </Button>
+            </div>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
 
   // Dashboard mode: full sidebar layout, no Footer
   if (step === 6) {
