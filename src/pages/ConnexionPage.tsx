@@ -11,11 +11,7 @@ import { motion } from 'motion/react';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import { isUserAdmin } from '@/lib/authRoles';
-
-const normalizeRedirectPath = (path: string) => {
-  if (path === '/admin/*' || path === '/admin*') return '/admin';
-  return path;
-};
+import { normalizeAuthRedirect } from '@/lib/redirectPaths';
 
 const ConnexionPage = () => {
   const [email, setEmail] = useState('');
@@ -32,7 +28,8 @@ const ConnexionPage = () => {
     (async () => {
       // Honor explicit redirect (e.g. /admin) — verify admin role when needed
       if (redirectTo) {
-        const target = normalizeRedirectPath(redirectTo);
+        const target = normalizeAuthRedirect(redirectTo);
+        if (!target) { setShowChoice(true); return; }
         if (target.startsWith('/admin')) {
           if (await isUserAdmin(user.id)) { navigate(target, { replace: true }); return; }
         } else {
