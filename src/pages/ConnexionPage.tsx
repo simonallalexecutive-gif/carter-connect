@@ -23,7 +23,7 @@ const ConnexionPage = () => {
   const { user, loading } = useAuth();
 
   useEffect(() => {
-    if (loading || !user?.email_confirmed_at) return;
+    if (loading || !user) return;
     (async () => {
       // Honor explicit redirect (e.g. /admin) — verify admin role when needed
       if (redirectTo) {
