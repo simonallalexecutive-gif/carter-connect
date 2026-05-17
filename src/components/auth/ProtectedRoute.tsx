@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
 import { isUserAdmin } from '@/lib/authRoles';
+import { normalizeAuthRedirect } from '@/lib/redirectPaths';
 
 type Props = {
   children: React.ReactNode;
@@ -21,7 +22,8 @@ const ProtectedRoute = ({ children, requireUserType, requireApproved = true }: P
   useEffect(() => {
     if (loading) return;
     if (!user) {
-      navigate(`/connexion?redirect=${encodeURIComponent(location.pathname)}`, { replace: true });
+      const redirectPath = normalizeAuthRedirect(location.pathname) || '/';
+      navigate(`/connexion?redirect=${encodeURIComponent(redirectPath)}`, { replace: true });
       return;
     }
 

@@ -48,6 +48,7 @@ const App = () => (
           <Route path="/video-preview" element={<VideoPreview />} />
           <Route path="/en-attente-validation" element={<PendingApprovalPage />} />
           <Route path="/espace-candidat" element={<ProtectedRoute requireUserType="candidat"><CandidateDashboard /></ProtectedRoute>} />
+          <Route path="/admin" element={<ProtectedRoute requireApproved={false}><AdminPage /></ProtectedRoute>} />
           <Route path="/admin/*" element={<ProtectedRoute requireApproved={false}><AdminPage /></ProtectedRoute>} />
           <Route path="*" element={<NotFound />} />
         </Routes>
