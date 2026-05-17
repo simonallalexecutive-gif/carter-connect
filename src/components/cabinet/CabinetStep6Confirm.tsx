@@ -26,6 +26,7 @@ const CabinetStep6Confirm = () => {
             emailRedirectTo: `${window.location.origin}/cabinet`,
             data: {
               full_name: s.cabinetName,
+              cabinet_name: s.cabinetName,
               user_type: 'cabinet',
             },
           },
