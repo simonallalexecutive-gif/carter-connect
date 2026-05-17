@@ -10,7 +10,7 @@ import { toast } from 'sonner';
 import { motion } from 'motion/react';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
-import { supabase as sb } from '@/integrations/supabase/client';
+import { isUserAdmin } from '@/lib/authRoles';
 
 const ConnexionPage = () => {
   const [email, setEmail] = useState('');
@@ -28,17 +28,14 @@ const ConnexionPage = () => {
       // Honor explicit redirect (e.g. /admin) — verify admin role when needed
       if (redirectTo) {
         if (redirectTo.startsWith('/admin')) {
-          const { data } = await sb.from('user_roles').select('role').eq('user_id', user.id);
-          const isAdmin = (data ?? []).some((r: any) => r.role === 'admin');
-          if (isAdmin) { navigate(redirectTo, { replace: true }); return; }
+          if (await isUserAdmin(user.id)) { navigate(redirectTo, { replace: true }); return; }
         } else {
           navigate(redirectTo, { replace: true });
           return;
         }
       }
       // Auto-route admins to /admin even without explicit redirect
-      const { data } = await sb.from('user_roles').select('role').eq('user_id', user.id);
-      if ((data ?? []).some((r: any) => r.role === 'admin')) {
+      if (await isUserAdmin(user.id)) {
         navigate('/admin', { replace: true });
         return;
       }
