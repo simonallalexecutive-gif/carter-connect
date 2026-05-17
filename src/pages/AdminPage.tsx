@@ -9,7 +9,7 @@ import AdminProcesses from '@/components/admin/AdminProcesses';
 import AdminAgenda from '@/components/admin/AdminAgenda';
 import AdminRegistration from '@/components/admin/AdminRegistration';
 import { useAuth } from '@/hooks/useAuth';
-import { supabase } from '@/integrations/supabase/client';
+import { isUserAdmin } from '@/lib/authRoles';
 
 const AdminPage = () => {
   const { user, loading } = useAuth();
@@ -20,8 +20,7 @@ const AdminPage = () => {
     if (loading) return;
     if (!user) { navigate('/connexion?redirect=/admin', { replace: true }); return; }
     (async () => {
-      const { data } = await supabase.from('user_roles').select('role').eq('user_id', user.id);
-      const ok = (data ?? []).some((r: any) => r.role === 'admin');
+      const ok = await isUserAdmin(user.id);
       setIsAdmin(ok);
       if (!ok) navigate('/', { replace: true });
     })();
