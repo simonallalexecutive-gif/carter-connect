@@ -55,10 +55,7 @@ const Header = () => {
 
   const textColor = menuOpen ? 'text-white' : onLight ? 'text-black' : 'text-white';
   const hoverColor = onLight && !menuOpen ? 'hover:text-black/60' : 'hover:text-white/80';
-  const leftTextColor = 'text-white';
-  const leftHoverColor = 'hover:text-white/70';
-  const leftNavLinkBase = `text-[12.3px] font-sans font-normal px-2.5 py-1.5 transition-colors duration-200 tracking-wide ${leftTextColor} ${leftHoverColor}`;
-  const rightNavLinkBase = `text-[12.3px] font-sans font-normal px-3 py-1.5 border border-current/25 rounded-sm transition-colors duration-200 tracking-wide ${textColor} ${hoverColor}`;
+  const navLinkBase = `text-[12.3px] font-sans font-semibold px-2.5 py-1.5 transition-colors duration-200 tracking-wide ${textColor} ${hoverColor}`;
 
   return (
     <header
@@ -71,13 +68,13 @@ const Header = () => {
           </Link>
 
           <nav className="hidden md:flex items-center gap-1 ml-2">
-            <Link to="/notre-offre" className={leftNavLinkBase}>Notre approche</Link>
+            <Link to="/notre-offre" className={navLinkBase}>Notre approche</Link>
 
             {/* Demo dropdown */}
             <div className="relative group">
               <button
                 type="button"
-                className={`${leftNavLinkBase} inline-flex items-center gap-1`}
+                className={`${navLinkBase} inline-flex items-center gap-1`}
               >
                 Demo
                 <ChevronDown className="w-3 h-3 opacity-70" />
@@ -100,20 +97,20 @@ const Header = () => {
               </div>
             </div>
 
-            <Link to="/#faq" className={leftNavLinkBase}>FAQ</Link>
+            <Link to="/#faq" className={navLinkBase}>FAQ</Link>
           </nav>
         </div>
 
-        <div className="hidden md:flex items-center gap-2">
+        <div className="hidden md:flex items-center gap-1">
           <Link
             to="/rendez-vous"
-            className={rightNavLinkBase}
+            className={`text-[12.3px] font-sans font-semibold px-2.5 py-1.5 transition-colors duration-200 tracking-wide ${textColor} ${hoverColor}`}
           >
             Prendre RDV
           </Link>
           <Link
             to="/connexion"
-            className="text-[12.3px] font-sans font-normal px-3 py-1.5 bg-white text-black border border-white rounded-sm transition-colors duration-200 tracking-wide hover:bg-white/90"
+            className={`text-[12.3px] font-sans font-semibold px-2.5 py-1.5 transition-colors duration-200 tracking-wide ${textColor} ${hoverColor}`}
           >
             Connexion
           </Link>

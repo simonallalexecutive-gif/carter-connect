@@ -112,7 +112,8 @@ const LandingPage = () => (
           <motion.div variants={fadeUp} className="mt-8 sm:mt-20">
             <Link to="/demander-acces">
               <Button
-                className="bg-white text-black hover:bg-white/90 font-sans font-normal text-[12.3px] px-3 py-1.5 border border-white rounded-sm tracking-wide"
+                size="lg"
+                className="bg-black text-white hover:bg-black/70 border border-white/25 font-sans text-xs font-medium px-6 py-3.5 rounded-sm tracking-wide"
               >
                 Request access
               </Button>
@@ -143,7 +144,7 @@ const LandingPage = () => (
           </div>
           <div className="hidden sm:flex flex-shrink-0 items-center pl-6 pr-6 md:pr-10 relative z-20">
             <div className="absolute inset-y-0 -left-16 right-0 bg-gradient-to-r from-transparent via-black/80 to-black pointer-events-none" />
-            <span className="relative inline-block px-5 py-2 border border-white/40 rounded-sm text-sm font-sans font-light tracking-wide text-white whitespace-nowrap cursor-default leading-none">
+            <span className="relative inline-block px-5 py-2 border border-white/40 rounded-sm text-sm font-sans font-normal tracking-wide text-white whitespace-nowrap cursor-default leading-none">
               Nos partenaires
             </span>
           </div>
@@ -227,7 +228,7 @@ const LandingPage = () => (
               <Link to="/demander-acces">
                 <Button
                   size="lg"
-                  className="bg-white text-black hover:bg-white/90 font-sans text-sm font-medium px-8 py-5 rounded-sm tracking-wide shadow-lg mt-4"
+                  className="bg-black text-white hover:bg-black/70 border border-white/25 font-sans text-xs font-medium px-6 py-3.5 rounded-sm tracking-wide mt-4"
                 >
                   Request access
                 </Button>
