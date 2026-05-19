@@ -79,7 +79,7 @@ const CandidateOffers = () => {
   const { departement } = useRegistrationStore();
 
   const filteredOffers = useMemo(() => {
-    let offers: CandidateOffer[] = []; // Real opportunities will appear here once cabinets publish them
+    let offers = [...CANDIDATE_OFFERS];
 
     // Filter by candidate's practice (relevance) - show related practices
     const RELATED_DEPTS: Record<string, string[]> = {

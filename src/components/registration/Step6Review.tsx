@@ -156,11 +156,7 @@ const buildCategoryChart = (
   return items.map(i => ({ name: i.name, value: total > 0 ? Math.round((i.raw / total) * 100) : 0, color: i.color }));
 };
 
-interface Step6ReviewProps {
-  adminPreview?: boolean;
-}
-
-const Step6Review = ({ adminPreview = false }: Step6ReviewProps = {}) => {
+const Step6Review = () => {
   const store = useRegistrationStore();
   const isAdmin = store.isAdminMode;
   const pqe = usePQE(store.sermentMois, store.sermentAnnee);
@@ -619,35 +615,6 @@ const Step6Review = ({ adminPreview = false }: Step6ReviewProps = {}) => {
 
     setSubmitting(true);
     try {
-      const submissionData = {
-        prenom: store.prenom, nom: store.nom, email: store.email, telephone: store.telephone,
-        photoPreviewUrl: store.photoPreviewUrl, linkedinUrl: store.linkedinUrl,
-        sermentMois: store.sermentMois, sermentAnnee: store.sermentAnnee,
-        cabinet: store.cabinet, departement: store.departement,
-        retrocession: store.retrocession, bonus: store.bonus,
-        hasObjectifFacturable: store.hasObjectifFacturable,
-        objectifFacturable: store.objectifFacturable, objectifFacturableReel: store.objectifFacturableReel,
-        conserverRetrocession: store.conserverRetrocession, raisonsBaisseRetro: store.raisonsBaisseRetro,
-        activites: store.activites, pourcentages: store.pourcentages, sousActivites: store.sousActivites,
-        anglais: store.anglais, typesClients: store.typesClients, tailleOperations: store.tailleOperations,
-        clienteleFrancaise: store.clienteleFrancaise,
-        movePriorities: store.movePriorities, qualitesAppreciees: store.qualitesAppreciees,
-        axesAmelioration: store.axesAmelioration, motivation: store.motivation,
-        cabinetsCibles: store.cabinetsCibles, noGoCabinets: store.noGoCabinets,
-        statutEcoute: store.statutEcoute, visibilite: store.visibilite, disponibilite: store.disponibilite,
-        isAssocieOrCounsel: store.isAssocieOrCounsel, statutAssoc: store.statutAssoc,
-        chiffreAffairesPortable: store.chiffreAffairesPortable, assocExpertiseSummary: store.assocExpertiseSummary,
-        assocAttentes: store.assocAttentes, assocCabTypes: store.assocCabTypes,
-        processusCours: store.processusCours,
-        positionnementRestr: store.positionnementRestr, positionnementRestrPct: store.positionnementRestrPct,
-        clienteleRestr: store.clienteleRestr, clienteleRestrPct: store.clienteleRestrPct,
-        restrFinancier: store.restrFinancier,
-        socialConseil: store.socialConseil, socialRelationType: store.socialRelationType,
-        socialClientele: store.socialClientele, socialExpertises: store.socialExpertises,
-        maPeFonds: store.maPeFonds, maIndusSecteurs: store.maIndusSecteurs,
-        previousCabinets: store.previousCabinets, notaBene: store.notaBene,
-      };
-
       const { data: signUpData, error } = await (supabase.auth as any).signUp({
         email: store.email,
         password: store.password,
@@ -656,14 +623,54 @@ const Step6Review = ({ adminPreview = false }: Step6ReviewProps = {}) => {
           data: {
             full_name: `${store.prenom} ${store.nom}`.trim(),
             user_type: 'candidat',
-            submission_data: submissionData,
-            visibility: store.visibilite || 'confidentiel',
-            no_go_cabinets: store.noGoCabinets || [],
           },
         },
       });
 
       if (error) throw error;
+
+      // Save registration data to database
+      const userId = signUpData?.user?.id;
+      if (userId) {
+        const submissionData = {
+          prenom: store.prenom, nom: store.nom, email: store.email, telephone: store.telephone,
+          photoPreviewUrl: store.photoPreviewUrl, linkedinUrl: store.linkedinUrl,
+          sermentMois: store.sermentMois, sermentAnnee: store.sermentAnnee,
+          cabinet: store.cabinet, departement: store.departement,
+          retrocession: store.retrocession, bonus: store.bonus,
+          hasObjectifFacturable: store.hasObjectifFacturable,
+          objectifFacturable: store.objectifFacturable, objectifFacturableReel: store.objectifFacturableReel,
+          conserverRetrocession: store.conserverRetrocession, raisonsBaisseRetro: store.raisonsBaisseRetro,
+          activites: store.activites, pourcentages: store.pourcentages, sousActivites: store.sousActivites,
+          anglais: store.anglais, typesClients: store.typesClients, tailleOperations: store.tailleOperations,
+          clienteleFrancaise: store.clienteleFrancaise,
+          movePriorities: store.movePriorities, qualitesAppreciees: store.qualitesAppreciees,
+          axesAmelioration: store.axesAmelioration, motivation: store.motivation,
+          cabinetsCibles: store.cabinetsCibles, noGoCabinets: store.noGoCabinets,
+          statutEcoute: store.statutEcoute, visibilite: store.visibilite, disponibilite: store.disponibilite,
+          isAssocieOrCounsel: store.isAssocieOrCounsel, statutAssoc: store.statutAssoc,
+          chiffreAffairesPortable: store.chiffreAffairesPortable, assocExpertiseSummary: store.assocExpertiseSummary,
+          assocAttentes: store.assocAttentes, assocCabTypes: store.assocCabTypes,
+          processusCours: store.processusCours,
+          positionnementRestr: store.positionnementRestr, positionnementRestrPct: store.positionnementRestrPct,
+          clienteleRestr: store.clienteleRestr, clienteleRestrPct: store.clienteleRestrPct,
+          restrFinancier: store.restrFinancier,
+          socialConseil: store.socialConseil, socialRelationType: store.socialRelationType,
+          socialClientele: store.socialClientele, socialExpertises: store.socialExpertises,
+          maPeFonds: store.maPeFonds, maIndusSecteurs: store.maIndusSecteurs,
+          previousCabinets: store.previousCabinets, notaBene: store.notaBene,
+        };
+        try {
+          await supabase.from('candidate_registrations').insert({
+            user_id: userId,
+            submission_data: submissionData as any,
+            visibility: store.visibilite || 'confidentiel',
+            no_go_cabinets: store.noGoCabinets || [],
+          } as any);
+        } catch (regError) {
+          console.error('Failed to save registration:', regError);
+        }
+      }
 
       if (store.souhaitePrendreRdv && store.creneauPrefere) {
         try {
@@ -958,47 +965,43 @@ const Step6Review = ({ adminPreview = false }: Step6ReviewProps = {}) => {
       </div>
 
 
-      {!adminPreview && (
-        <>
-          {/* Nota Bene */}
-          <div className="rounded-sm border border-border bg-card px-5 py-4 mt-6">
-            <p className="text-[9px] uppercase tracking-[0.15em] text-muted-foreground font-sans font-light mb-3">Nota bene (facultatif)</p>
-            <textarea
-              value={store.notaBene || ''}
-              onChange={e => store.setField('notaBene', e.target.value)}
-              placeholder="Un mot à ajouter ? Une précision, un contexte particulier..."
-              className="w-full min-h-[80px] rounded-md border border-input bg-background px-3 py-2 text-sm font-sans ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-            />
-          </div>
+      {/* Nota Bene */}
+      <div className="rounded-sm border border-border bg-card px-5 py-4 mt-6">
+        <p className="text-[9px] uppercase tracking-[0.15em] text-muted-foreground font-sans font-light mb-3">Nota bene (facultatif)</p>
+        <textarea
+          value={store.notaBene || ''}
+          onChange={e => store.setField('notaBene', e.target.value)}
+          placeholder="Un mot à ajouter ? Une précision, un contexte particulier..."
+          className="w-full min-h-[80px] rounded-md border border-input bg-background px-3 py-2 text-sm font-sans ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+        />
+      </div>
 
-          {/* RDV option */}
-          <div className="rounded-sm border border-border bg-card px-5 py-4 mt-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-sans font-medium text-foreground">Souhaitez-vous échanger avec un consultant Logan ?</p>
-                <p className="text-xs font-sans font-light text-muted-foreground mt-1">Prenez rendez-vous dès la validation de votre inscription.</p>
-              </div>
-              <Link to="/prendre-rdv" target="_blank" className="ml-4 flex-shrink-0">
-                <Button variant="outline" size="sm" className="font-sans text-xs font-medium rounded-sm gap-1.5">
-                  Prendre RDV
-                  <ArrowRight className="w-3 h-3" />
-                </Button>
-              </Link>
-            </div>
+      {/* RDV option */}
+      <div className="rounded-sm border border-border bg-card px-5 py-4 mt-4">
+        <div className="flex items-center justify-between">
+          <div>
+            <p className="text-sm font-sans font-medium text-foreground">Souhaitez-vous échanger avec un consultant Logan ?</p>
+            <p className="text-xs font-sans font-light text-muted-foreground mt-1">Prenez rendez-vous dès la validation de votre inscription.</p>
           </div>
+          <Link to="/prendre-rdv" target="_blank" className="ml-4 flex-shrink-0">
+            <Button variant="outline" size="sm" className="font-sans text-xs font-medium rounded-sm gap-1.5">
+              Prendre RDV
+              <ArrowRight className="w-3 h-3" />
+            </Button>
+          </Link>
+        </div>
+      </div>
 
-          {/* Navigation */}
-          <div className="flex justify-between pt-10">
-            <Button variant="outline" onClick={store.prevStep} className="font-sans font-light rounded-sm gap-2">
-              <ArrowLeft className="w-4 h-4" />
-              Retour
-            </Button>
-            <Button onClick={handleSubmit} disabled={submitting} className="bg-accent text-accent-foreground hover:bg-accent/90 font-sans font-medium px-8 rounded-sm">
-              {submitting ? 'Envoi...' : isAdmin ? 'Générer le lien d\'invitation →' : 'Soumettre mon profil'}
-            </Button>
-          </div>
-        </>
-      )}
+      {/* Navigation */}
+      <div className="flex justify-between pt-10">
+        <Button variant="outline" onClick={store.prevStep} className="font-sans font-light rounded-sm gap-2">
+          <ArrowLeft className="w-4 h-4" />
+          Retour
+        </Button>
+        <Button onClick={handleSubmit} disabled={submitting} className="bg-accent text-accent-foreground hover:bg-accent/90 font-sans font-medium px-8 rounded-sm">
+          {submitting ? 'Envoi...' : isAdmin ? 'Générer le lien d\'invitation →' : 'Soumettre mon profil'}
+        </Button>
+      </div>
     </motion.div>
   );
 };

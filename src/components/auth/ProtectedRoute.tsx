@@ -1,21 +1,17 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
-import { supabase } from '@/integrations/supabase/client';
 
 type Props = {
   children: React.ReactNode;
+  /** Optional user_type required to view this route. If unset, any authenticated user is allowed. */
   requireUserType?: 'candidat' | 'cabinet';
-  /** If true (default for candidats), require status === 'approved'. */
-  requireApproved?: boolean;
 };
 
-const ProtectedRoute = ({ children, requireUserType, requireApproved = true }: Props) => {
+const ProtectedRoute = ({ children, requireUserType }: Props) => {
   const { user, loading } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  const [checking, setChecking] = useState(true);
-  const [allowed, setAllowed] = useState(false);
 
   useEffect(() => {
     if (loading) return;
@@ -23,49 +19,15 @@ const ProtectedRoute = ({ children, requireUserType, requireApproved = true }: P
       navigate(`/connexion?redirect=${encodeURIComponent(location.pathname)}`, { replace: true });
       return;
     }
-
-    const ut = (user.user_metadata as any)?.user_type;
-    if (requireUserType && ut && ut !== requireUserType) {
-      navigate(ut === 'cabinet' ? '/cabinet' : '/espace-candidat', { replace: true });
-      return;
-    }
-
-    const run = async () => {
-      // Admins always allowed
-      const { data: roles } = await supabase
-        .from('user_roles')
-        .select('role')
-        .eq('user_id', user.id);
-      const isAdmin = (roles ?? []).some((r: any) => r.role === 'admin');
-      if (isAdmin) { setAllowed(true); setChecking(false); return; }
-
-      // Candidate approval gate
-      if (requireApproved && (requireUserType === 'candidat' || ut === 'candidat')) {
-        const { data: reg } = await supabase
-          .from('candidate_registrations')
-          .select('status')
-          .eq('user_id', user.id)
-          .order('created_at', { ascending: false })
-          .limit(1)
-          .maybeSingle();
-        if (!reg || reg.status !== 'approved') {
-          navigate('/en-attente-validation', { replace: true });
-          return;
-        }
+    if (requireUserType) {
+      const ut = (user.user_metadata as any)?.user_type;
+      if (ut && ut !== requireUserType) {
+        navigate(ut === 'cabinet' ? '/cabinet' : '/espace-candidat', { replace: true });
       }
-      setAllowed(true);
-      setChecking(false);
-    };
-    run();
-  }, [user, loading, navigate, location.pathname, requireUserType, requireApproved]);
+    }
+  }, [user, loading, navigate, location.pathname, requireUserType]);
 
-  if (loading || checking || !user || !allowed) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-white text-neutral-500 text-sm">
-        Chargement…
-      </div>
-    );
-  }
+  if (loading || !user) return null;
   return <>{children}</>;
 };
 

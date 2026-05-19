@@ -419,20 +419,6 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      admin_list_candidate_registrations: {
-        Args: never
-        Returns: {
-          auth_email: string
-          created_at: string
-          email_verified_at: string
-          full_name: string
-          id: string
-          status: string
-          submission_data: Json
-          user_id: string
-          visibility: string
-        }[]
-      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
