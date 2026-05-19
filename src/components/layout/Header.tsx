@@ -71,8 +71,8 @@ const Header = () => {
           </Link>
 
           <nav className="hidden md:flex items-center gap-1 ml-2">
-            <Link to="/notre-offre" className={leftNavLinkBase}>Notre approche</Link>
-            <Link to="/role-de-logan" className={leftNavLinkBase}>Notre rôle</Link>
+            <Link to="/#notre-approche" className={leftNavLinkBase}>Notre approche</Link>
+            <Link to="/#fonctionnement" className={leftNavLinkBase}>Notre rôle</Link>
 
             {/* Demo dropdown */}
             <div className="relative group">
@@ -131,8 +131,8 @@ const Header = () => {
 
       {menuOpen && (
         <div className="md:hidden bg-black min-h-[calc(100dvh-4rem)] flex flex-col px-6 pt-8 pb-12 gap-5 animate-in fade-in slide-in-from-top-2 duration-200">
-          <Link to="/notre-offre" onClick={() => setMenuOpen(false)} className="font-sans text-base font-normal text-white/80 hover:text-white transition-colors tracking-wide">Notre approche</Link>
-          <Link to="/role-de-logan" onClick={() => setMenuOpen(false)} className="font-sans text-base font-normal text-white/80 hover:text-white transition-colors tracking-wide">Notre rôle</Link>
+          <Link to="/#notre-approche" onClick={() => setMenuOpen(false)} className="font-sans text-base font-normal text-white/80 hover:text-white transition-colors tracking-wide">Notre approche</Link>
+          <Link to="/#fonctionnement" onClick={() => setMenuOpen(false)} className="font-sans text-base font-normal text-white/80 hover:text-white transition-colors tracking-wide">Notre rôle</Link>
 
           <div className="flex flex-col gap-3">
             <button
