@@ -248,24 +248,8 @@ const CabinetPage = () => {
     const checkSession = async () => {
       const { data: { session } } = await (supabase.auth as any).getSession();
       if (session?.user) {
-        const ut = session.user.user_metadata?.user_type;
-        if (ut === 'candidat') {
-          window.location.replace('/espace-candidat');
-          return;
-        }
         const name = session.user.user_metadata?.full_name || '';
         if (name) setField('cabinetName', name);
-        // Ensure cabinet_accounts row exists (idempotent)
-        try {
-          await (supabase as any)
-            .from('cabinet_accounts')
-            .upsert(
-              { user_id: session.user.id, cabinet_name: name || 'Cabinet' },
-              { onConflict: 'user_id' }
-            );
-        } catch (e) {
-          console.error('cabinet_accounts upsert failed', e);
-        }
         setStep(6);
       }
     };
@@ -275,25 +259,9 @@ const CabinetPage = () => {
   useEffect(() => {
     const { data: { subscription } } = (supabase.auth as any).onAuthStateChange((event: any, session: any) => {
       if (event === 'SIGNED_IN' && session?.user) {
-        const ut = session.user.user_metadata?.user_type;
-        if (ut === 'candidat') {
-          window.location.replace('/espace-candidat');
-          return;
-        }
         const name = session.user.user_metadata?.full_name || '';
         if (name) setField('cabinetName', name);
-        (supabase as any)
-          .from('cabinet_accounts')
-          .upsert(
-            { user_id: session.user.id, cabinet_name: name || 'Cabinet' },
-            { onConflict: 'user_id' }
-          )
-          .then(() => {})
-          .catch((e: any) => console.error('cabinet_accounts upsert failed', e));
         setStep(6);
-      }
-      if (event === 'SIGNED_OUT') {
-        setStep(1);
       }
     });
     return () => subscription.unsubscribe();

@@ -1,7 +1,7 @@
 import { motion, useScroll, useTransform } from 'motion/react';
 import { useRef } from 'react';
 import { Compass, Lock } from 'lucide-react';
-import heroCinema from '@/assets/hero-cinema-v2.mov';
+import heroCinema from '@/assets/hero-cinema.mp4';
 
 const CinemaShowcaseSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -44,9 +44,6 @@ const CinemaShowcaseSection = () => {
           className="relative w-[99%] max-w-[1920px] mx-auto flex-1 min-h-0"
         >
           <video
-            ref={(el) => {
-              if (el) el.playbackRate = 0.5;
-            }}
             src={heroCinema}
             autoPlay
             muted

@@ -18,7 +18,6 @@ import AccessRequestPage from "./pages/AccessRequestPage";
 import ConnexionPage from "./pages/ConnexionPage";
 import NotreOffrePage from "./pages/NotreOffrePage";
 import ScrollToHash from "./components/ScrollToHash";
-import ProtectedRoute from "./components/auth/ProtectedRoute";
 
 
 const queryClient = new QueryClient();
@@ -43,8 +42,8 @@ const App = () => (
           <Route path="/auth" element={<AuthPage />} />
           <Route path="/reset-password" element={<ResetPasswordPage />} />
           <Route path="/video-preview" element={<VideoPreview />} />
-          <Route path="/espace-candidat" element={<ProtectedRoute requireUserType="candidat"><CandidateDashboard /></ProtectedRoute>} />
-          <Route path="/admin/*" element={<ProtectedRoute><AdminPage /></ProtectedRoute>} />
+          <Route path="/espace-candidat" element={<CandidateDashboard />} />
+          <Route path="/admin/*" element={<AdminPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
