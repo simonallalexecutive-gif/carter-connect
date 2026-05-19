@@ -3,49 +3,27 @@ import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { useEffect } from 'react';
 import { toast } from 'sonner';
 import { motion } from 'motion/react';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
-import { isUserAdmin } from '@/lib/authRoles';
-import { normalizeAuthRedirect } from '@/lib/redirectPaths';
 
 const ConnexionPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [showChoice, setShowChoice] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
-  const redirectTo = searchParams.get('redirect');
   const { user, loading } = useAuth();
 
   useEffect(() => {
-    if (loading || !user) return;
-    (async () => {
-      const admin = await isUserAdmin(user.id);
-      setIsAdmin(admin);
-
-      // Honor explicit redirect (e.g. /admin from footer)
-      if (redirectTo) {
-        const target = normalizeAuthRedirect(redirectTo);
-        if (target) {
-          if (target.startsWith('/admin')) {
-            if (admin) { navigate(target, { replace: true }); return; }
-          } else {
-            navigate(target, { replace: true });
-            return;
-          }
-        }
-      }
-      // Otherwise show choice screen (admin gets 3 buttons)
+    if (!loading && user?.email_confirmed_at) {
       setShowChoice(true);
-    })();
-  }, [user, loading, redirectTo, navigate]);
+    }
+  }, [user, loading]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -59,6 +37,7 @@ const ConnexionPage = () => {
         return;
       }
       toast.success('Connexion réussie');
+      setShowChoice(true);
     } catch (error: any) {
       toast.error(error.message);
     } finally {
@@ -102,15 +81,6 @@ const ConnexionPage = () => {
                 >
                   Espace Cabinet
                 </Button>
-                {isAdmin && (
-                  <Button
-                    variant="outline"
-                    onClick={() => navigate('/admin')}
-                    className="w-full py-6 font-sans text-sm"
-                  >
-                    Espace Admin
-                  </Button>
-                )}
               </div>
             </>
           ) : (

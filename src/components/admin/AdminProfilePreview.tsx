@@ -1,7 +1,7 @@
 import { useEffect, useMemo } from 'react';
 import { useRegistrationStore } from '@/stores/registrationStore';
 import Step6Review from '@/components/registration/Step6Review';
-
+import ctaGradientBg from '@/assets/cta-gradient-bg.jpeg';
 
 interface AdminProfilePreviewProps {
   submissionData: Record<string, any> | null;
@@ -50,7 +50,17 @@ const AdminProfilePreview = ({ submissionData }: AdminProfilePreviewProps) => {
     };
   }, [data]);
 
-  return <Step6Review adminPreview />;
+  return (
+    <div className="relative min-h-[60vh]">
+      <div className="absolute inset-0 -z-10">
+        <img src={ctaGradientBg} alt="" className="w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-black/40" />
+      </div>
+      <div className="relative">
+        <Step6Review adminPreview />
+      </div>
+    </div>
+  );
 };
 
 export default AdminProfilePreview;

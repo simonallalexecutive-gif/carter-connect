@@ -9,13 +9,9 @@ import CabinetStep5Validation from '@/components/cabinet/CabinetStep5Validation'
 import CabinetStep6Confirm from '@/components/cabinet/CabinetStep6Confirm';
 import CabinetDashboard from '@/components/cabinet/CabinetDashboard';
 import CabinetAccount from '@/components/cabinet/CabinetAccount';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
-import type { Session, User } from '@supabase/supabase-js';
-import { toast } from 'sonner';
-import { Button } from '@/components/ui/button';
-import { Mail } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import { NAT_FLAGS, NAT_LABELS } from '@/lib/legal500Rankings';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -239,40 +235,6 @@ const CabinetPage = () => {
   const setStep = useCabinetStore((s) => s.setStep);
   const setField = useCabinetStore((s) => s.setField);
   const [searchParams] = useSearchParams();
-  const [authChecked, setAuthChecked] = useState(false);
-  const [cabinetAccessGranted, setCabinetAccessGranted] = useState(false);
-  const [emailPending, setEmailPending] = useState<string | null>(null);
-  const [resending, setResending] = useState(false);
-
-  const establishCabinetSession = useCallback(async (sessionUser: User) => {
-    const ut = sessionUser.user_metadata?.user_type;
-    if (ut === 'candidat') {
-      window.location.replace('/espace-candidat');
-      return;
-    }
-    if (!sessionUser.email_confirmed_at) {
-      setCabinetAccessGranted(false);
-      setEmailPending(sessionUser.email || '');
-      return;
-    }
-    const name = sessionUser.user_metadata?.full_name || '';
-    if (name) setField('cabinetName', name);
-    const { error } = await supabase
-      .from('cabinet_accounts')
-      .upsert(
-        { user_id: sessionUser.id, cabinet_name: name || 'Cabinet' },
-        { onConflict: 'user_id' }
-      );
-    if (error) {
-      console.error('cabinet_accounts upsert failed', error);
-      toast.error('Impossible d’activer l’espace cabinet pour le moment');
-      setCabinetAccessGranted(false);
-      return;
-    }
-    setEmailPending(null);
-    setCabinetAccessGranted(true);
-    setStep(6);
-  }, [setField, setStep]);
 
   // Skip the confidentiality intro if user already saw it on RegisterPage
   useEffect(() => {
@@ -284,113 +246,65 @@ const CabinetPage = () => {
 
   useEffect(() => {
     const checkSession = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
+      const { data: { session } } = await (supabase.auth as any).getSession();
       if (session?.user) {
-        await establishCabinetSession(session.user);
-      } else {
-        setCabinetAccessGranted(false);
-        if (step === 6) setStep(1);
+        const ut = session.user.user_metadata?.user_type;
+        if (ut === 'candidat') {
+          window.location.replace('/espace-candidat');
+          return;
+        }
+        const name = session.user.user_metadata?.full_name || '';
+        if (name) setField('cabinetName', name);
+        // Ensure cabinet_accounts row exists (idempotent)
+        try {
+          await (supabase as any)
+            .from('cabinet_accounts')
+            .upsert(
+              { user_id: session.user.id, cabinet_name: name || 'Cabinet' },
+              { onConflict: 'user_id' }
+            );
+        } catch (e) {
+          console.error('cabinet_accounts upsert failed', e);
+        }
+        setStep(6);
       }
-      setAuthChecked(true);
     };
-    checkSession();
-  }, [establishCabinetSession, setStep, step]);
+    if (step === 1) checkSession();
+  }, []);
 
   useEffect(() => {
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event: string, session: Session | null) => {
+    const { data: { subscription } } = (supabase.auth as any).onAuthStateChange((event: any, session: any) => {
       if (event === 'SIGNED_IN' && session?.user) {
-        setAuthChecked(true);
-        await establishCabinetSession(session.user);
-      }
-      if (event === 'USER_UPDATED' && session?.user?.email_confirmed_at) {
-        setAuthChecked(true);
-        await establishCabinetSession(session.user);
+        const ut = session.user.user_metadata?.user_type;
+        if (ut === 'candidat') {
+          window.location.replace('/espace-candidat');
+          return;
+        }
+        const name = session.user.user_metadata?.full_name || '';
+        if (name) setField('cabinetName', name);
+        (supabase as any)
+          .from('cabinet_accounts')
+          .upsert(
+            { user_id: session.user.id, cabinet_name: name || 'Cabinet' },
+            { onConflict: 'user_id' }
+          )
+          .then(() => {})
+          .catch((e: any) => console.error('cabinet_accounts upsert failed', e));
+        setStep(6);
       }
       if (event === 'SIGNED_OUT') {
-        setAuthChecked(true);
-        setCabinetAccessGranted(false);
-        // Do NOT reset step here: signOut is called intentionally after signUp
-        // in CabinetStep6Confirm to force the email-verification flow. Resetting
-        // would kick the user back to step 1 and hide the confirmation screen.
+        setStep(1);
       }
     });
     return () => subscription.unsubscribe();
-  }, [establishCabinetSession]);
-
-  const handleResendEmail = async () => {
-    if (!emailPending) return;
-    setResending(true);
-    try {
-      const { error } = await supabase.auth.resend({
-        type: 'signup',
-        email: emailPending,
-        options: { emailRedirectTo: `${window.location.origin}/cabinet` },
-      });
-      if (error) throw error;
-      toast.success('Email de vérification renvoyé');
-    } catch (e: unknown) {
-      toast.error(e instanceof Error ? e.message : 'Erreur lors de l\'envoi');
-    } finally {
-      setResending(false);
-    }
-  };
-
-  const handleSignOut = async () => {
-    await supabase.auth.signOut();
-    setEmailPending(null);
-    setStep(1);
-  };
+  }, []);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [step]);
 
-  if (!authChecked && step === 6) return null;
-
-  // Email verification gate — block dashboard access until email is confirmed
-  if (emailPending) {
-    return (
-      <div className="min-h-screen flex flex-col theme-dark-registration bg-background text-foreground">
-        <LogoBanner subtitle="Espace Cabinet" variant="matte" />
-        <main className="flex-1 flex items-center justify-center px-6 py-16">
-          <div className="max-w-[520px] w-full text-center">
-            <div className="w-[72px] h-[72px] rounded-full bg-white/10 border border-white/15 flex items-center justify-center mx-auto mb-7">
-              <Mail className="w-7 h-7 text-white" strokeWidth={1.5} />
-            </div>
-            <h1 className="font-serif text-3xl text-white mb-4 tracking-[-0.01em]">Vérifiez votre email</h1>
-            <p className="text-sm text-white/60 leading-relaxed mb-2">
-              Un lien de confirmation a été envoyé à
-            </p>
-            <p className="text-sm text-white font-medium mb-7">{emailPending}</p>
-            <p className="text-xs text-white/50 leading-relaxed mb-8">
-              Cliquez sur le lien dans cet email pour activer votre compte cabinet et accéder à votre espace.
-              Cette étape garantit la confidentialité et la sécurité de votre accès.
-            </p>
-            <div className="flex flex-col gap-3 max-w-[320px] mx-auto">
-              <Button
-                onClick={handleResendEmail}
-                disabled={resending}
-                className="bg-white text-black hover:bg-white/90 font-sans text-sm py-5 rounded-sm"
-              >
-                {resending ? 'Envoi…' : 'Renvoyer l\'email de vérification'}
-              </Button>
-              <Button
-                onClick={handleSignOut}
-                variant="ghost"
-                className="text-white/60 hover:text-white hover:bg-white/5 font-sans text-xs"
-              >
-                Se déconnecter
-              </Button>
-            </div>
-          </div>
-        </main>
-        <Footer />
-      </div>
-    );
-  }
-
   // Dashboard mode: full sidebar layout, no Footer
-  if (step === 6 && cabinetAccessGranted) {
+  if (step === 6) {
     return <CabinetDashboardLayout />;
   }
 

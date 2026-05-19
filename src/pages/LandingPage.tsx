@@ -1,6 +1,6 @@
 import { motion } from 'motion/react';
 import { Button } from '@/components/ui/button';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import ctaGradientBg from '@/assets/cta-gradient-bg.jpeg';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
@@ -12,7 +12,7 @@ import FonctionnementSection from '@/components/landing/FonctionnementSection';
 import CinemaShowcaseSection from '@/components/landing/CinemaShowcaseSection';
 import FAQSection from '@/components/landing/FAQSection';
 import StatsTickerSection from '@/components/landing/StatsTickerSection';
-import heroBoardroom from '@/assets/hero-landing-bg.jpeg';
+import heroBoardroom from '@/assets/hero-boardroom.jpeg';
 
 const firmNames = [
   'Linklaters', 'Kirkland & Ellis', 'Ropes & Gray', 'Darrois Villey', 'Bredin Prat',
@@ -35,11 +35,7 @@ const fadeUp = {
 };
 
 
-const LandingPage = () => {
-  const location = useLocation();
-  const showCabinetDemo = location.hash === '#votre-espace-cabinet';
-
-  return (
+const LandingPage = () => (
   <div className="min-h-screen bg-background">
     <Header />
 
@@ -106,11 +102,11 @@ const LandingPage = () => {
       <div className="px-4 sm:px-8 lg:px-10 max-w-6xl relative z-10 pt-20 sm:pt-24 flex-1 flex items-center pb-4">
         <motion.div variants={stagger} initial="hidden" animate="visible" className="max-w-[min(95vw,72rem)]">
           <div className="inline-block">
-          <motion.h1 variants={fadeUp} className="text-[2.268rem] sm:text-[3.78rem] md:text-[5.04rem] lg:text-[6.426rem] font-serif font-[500] text-white leading-[1.1] mb-3 md:mb-5 tracking-[-0.03em] whitespace-nowrap">
+          <motion.h1 variants={fadeUp} className="text-[1.8rem] sm:text-[3rem] md:text-[4rem] lg:text-[5.1rem] font-serif font-[500] text-white leading-[1.1] mb-3 md:mb-5 tracking-[-0.03em] whitespace-nowrap">
               Connecting <em className="italic">Top-Tier</em> Legal Minds
             </motion.h1>
           </div>
-          <motion.p variants={fadeUp} className="text-[0.969rem] sm:text-[1.277rem] md:text-[1.299rem] text-white font-sans font-[480] leading-[1.65] max-w-[72rem]">
+          <motion.p variants={fadeUp} className="text-[0.95rem] sm:text-[1.252rem] md:text-[1.273rem] text-white font-sans font-[480] leading-[1.65] max-w-[72rem]">
             Un réseau confidentiel, piloté par des chasseurs spécialisés, conçu pour les candidats<br className="hidden sm:inline" />{' '}et cabinets d'avocats les plus exigeants du marché.
           </motion.p>
           <motion.div variants={fadeUp} className="mt-8 sm:mt-20">
@@ -165,8 +161,9 @@ const LandingPage = () => {
       <FonctionnementSection />
     </div>
 
-    {/* Démonstration vidéo cinéma — affichée uniquement via Demo > Espace cabinet */}
-    {showCabinetDemo && <CinemaShowcaseSection />}
+    {/* Démonstration vidéo cinéma — effet WoW Harvey.ai style */}
+    <CinemaShowcaseSection />
+
     {/* Citation Logan — full page WOW */}
     <FounderSection />
 
@@ -251,7 +248,7 @@ const LandingPage = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.8, delay: 1.8 + i * 0.15, ease: [0.16, 1, 0.3, 1] }}
-                  className="font-serif text-lg sm:text-xl md:text-2xl text-white tracking-[0.18em] font-bold drop-shadow-md italic"
+                  className="font-serif text-lg sm:text-xl md:text-2xl text-white/35 tracking-[0.18em] font-light drop-shadow-md italic"
                   style={{ fontVariant: 'small-caps', wordSpacing: '0.15em' }}
                 >
                   {word}
@@ -267,7 +264,6 @@ const LandingPage = () => {
       </div>
     </div>
   </div>
-  );
-};
+);
 
 export default LandingPage;

@@ -2,8 +2,6 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
-import { isUserAdmin } from '@/lib/authRoles';
-import { normalizeAuthRedirect } from '@/lib/redirectPaths';
 
 type Props = {
   children: React.ReactNode;
@@ -22,20 +20,24 @@ const ProtectedRoute = ({ children, requireUserType, requireApproved = true }: P
   useEffect(() => {
     if (loading) return;
     if (!user) {
-      const redirectPath = normalizeAuthRedirect(location.pathname) || '/';
-      navigate(`/connexion?redirect=${encodeURIComponent(redirectPath)}`, { replace: true });
+      navigate(`/connexion?redirect=${encodeURIComponent(location.pathname)}`, { replace: true });
+      return;
+    }
+
+    const ut = (user.user_metadata as any)?.user_type;
+    if (requireUserType && ut && ut !== requireUserType) {
+      navigate(ut === 'cabinet' ? '/cabinet' : '/espace-candidat', { replace: true });
       return;
     }
 
     const run = async () => {
-      // Admins always allowed — bypass user_type gating so they can access any space
-      if (await isUserAdmin(user.id)) { setAllowed(true); setChecking(false); return; }
-
-      const ut = (user.user_metadata as any)?.user_type;
-      if (requireUserType && ut && ut !== requireUserType) {
-        navigate(ut === 'cabinet' ? '/cabinet' : '/espace-candidat', { replace: true });
-        return;
-      }
+      // Admins always allowed
+      const { data: roles } = await supabase
+        .from('user_roles')
+        .select('role')
+        .eq('user_id', user.id);
+      const isAdmin = (roles ?? []).some((r: any) => r.role === 'admin');
+      if (isAdmin) { setAllowed(true); setChecking(false); return; }
 
       // Candidate approval gate
       if (requireApproved && (requireUserType === 'candidat' || ut === 'candidat')) {
