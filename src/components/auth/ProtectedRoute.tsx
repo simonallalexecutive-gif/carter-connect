@@ -27,15 +27,15 @@ const ProtectedRoute = ({ children, requireUserType, requireApproved = true }: P
       return;
     }
 
-    const ut = (user.user_metadata as any)?.user_type;
-    if (requireUserType && ut && ut !== requireUserType) {
-      navigate(ut === 'cabinet' ? '/cabinet' : '/espace-candidat', { replace: true });
-      return;
-    }
-
     const run = async () => {
-      // Admins always allowed
+      // Admins always allowed — bypass user_type gating so they can access any space
       if (await isUserAdmin(user.id)) { setAllowed(true); setChecking(false); return; }
+
+      const ut = (user.user_metadata as any)?.user_type;
+      if (requireUserType && ut && ut !== requireUserType) {
+        navigate(ut === 'cabinet' ? '/cabinet' : '/espace-candidat', { replace: true });
+        return;
+      }
 
       // Candidate approval gate
       if (requireApproved && (requireUserType === 'candidat' || ut === 'candidat')) {
