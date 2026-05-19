@@ -18,6 +18,7 @@ const ConnexionPage = () => {
   const [password, setPassword] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [showChoice, setShowChoice] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const redirectTo = searchParams.get('redirect');
@@ -26,22 +27,22 @@ const ConnexionPage = () => {
   useEffect(() => {
     if (loading || !user) return;
     (async () => {
-      // Honor explicit redirect (e.g. /admin) — verify admin role when needed
+      const admin = await isUserAdmin(user.id);
+      setIsAdmin(admin);
+
+      // Honor explicit redirect (e.g. /admin from footer)
       if (redirectTo) {
         const target = normalizeAuthRedirect(redirectTo);
-        if (!target) { setShowChoice(true); return; }
-        if (target.startsWith('/admin')) {
-          if (await isUserAdmin(user.id)) { navigate(target, { replace: true }); return; }
-        } else {
-          navigate(target, { replace: true });
-          return;
+        if (target) {
+          if (target.startsWith('/admin')) {
+            if (admin) { navigate(target, { replace: true }); return; }
+          } else {
+            navigate(target, { replace: true });
+            return;
+          }
         }
       }
-      // Auto-route admins to /admin even without explicit redirect
-      if (await isUserAdmin(user.id)) {
-        navigate('/admin', { replace: true });
-        return;
-      }
+      // Otherwise show choice screen (admin gets 3 buttons)
       setShowChoice(true);
     })();
   }, [user, loading, redirectTo, navigate]);
@@ -58,7 +59,6 @@ const ConnexionPage = () => {
         return;
       }
       toast.success('Connexion réussie');
-      // useEffect will handle redirect (admin → /admin, ?redirect=… honored)
     } catch (error: any) {
       toast.error(error.message);
     } finally {
@@ -102,6 +102,15 @@ const ConnexionPage = () => {
                 >
                   Espace Cabinet
                 </Button>
+                {isAdmin && (
+                  <Button
+                    variant="outline"
+                    onClick={() => navigate('/admin')}
+                    className="w-full py-6 font-sans text-sm"
+                  >
+                    Espace Admin
+                  </Button>
+                )}
               </div>
             </>
           ) : (
