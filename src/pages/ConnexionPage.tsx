@@ -86,54 +86,22 @@ const ConnexionPage = () => {
                 Bienvenue
               </h1>
               <p className="text-sm text-muted-foreground font-sans leading-relaxed mb-10">
-                {(() => {
-                  const ut = (user?.user_metadata as any)?.user_type;
-                  if (ut === 'cabinet') return 'Accédez à votre espace cabinet';
-                  if (ut === 'candidat') return 'Accédez à votre espace candidat';
-                  return 'Choisissez votre espace';
-                })()}
+                Choisissez votre espace
               </p>
               <div className="flex flex-col gap-4 max-w-sm mx-auto">
-                {(() => {
-                  const ut = (user?.user_metadata as any)?.user_type;
-                  if (ut === 'cabinet') {
-                    return (
-                      <Button
-                        onClick={() => navigate('/cabinet')}
-                        className="w-full py-6 font-sans text-sm"
-                      >
-                        Espace Cabinet
-                      </Button>
-                    );
-                  }
-                  if (ut === 'candidat') {
-                    return (
-                      <Button
-                        onClick={() => navigate('/espace-candidat')}
-                        className="w-full py-6 font-sans text-sm"
-                      >
-                        Espace Candidat
-                      </Button>
-                    );
-                  }
-                  return (
-                    <>
-                      <Button
-                        onClick={() => navigate('/espace-candidat')}
-                        className="w-full py-6 font-sans text-sm"
-                      >
-                        Espace Candidat
-                      </Button>
-                      <Button
-                        variant="outline"
-                        onClick={() => navigate('/cabinet')}
-                        className="w-full py-6 font-sans text-sm"
-                      >
-                        Espace Cabinet
-                      </Button>
-                    </>
-                  );
-                })()}
+                <Button
+                  onClick={() => navigate('/espace-candidat')}
+                  className="w-full py-6 font-sans text-sm"
+                >
+                  Espace Candidat
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={() => navigate('/cabinet')}
+                  className="w-full py-6 font-sans text-sm"
+                >
+                  Espace Cabinet
+                </Button>
               </div>
             </>
           ) : (
