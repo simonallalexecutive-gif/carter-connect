@@ -13,6 +13,7 @@ import { useEffect, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
+import { useLoadCabinetProfile } from '@/hooks/useLoadCabinetProfile';
 import { NAT_FLAGS, NAT_LABELS } from '@/lib/legal500Rankings';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Building2, Eye, FileText, LogOut, Home, Bell, Settings, Search } from 'lucide-react';
@@ -145,6 +146,7 @@ const CabinetSidebar = ({
 const CabinetDashboardLayout = () => {
   const s = useCabinetStore();
   const { user } = useAuth();
+  useLoadCabinetProfile(user);
   const [showAlerts, setShowAlerts] = useState(false);
   const [showAccount, setShowAccount] = useState(false);
 
