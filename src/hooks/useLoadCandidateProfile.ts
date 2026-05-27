@@ -46,7 +46,7 @@ export const useLoadCandidateProfile = (user: User | null) => {
 
           // Default email / visibility
           if (!d.email) store.setField('email', user.email || '');
-          if (data.visibility && !d.visibilite) store.setField('visibilite', data.visibility);
+          if (data.visibility && !d.visibilite) store.setField('visibilite', data.visibility as any);
 
           // Resolve signed URLs for photo / CV when stored in the bucket
           if (d.photoStoragePath) {
