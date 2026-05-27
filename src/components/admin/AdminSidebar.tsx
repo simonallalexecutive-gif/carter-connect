@@ -37,11 +37,11 @@ const AdminSidebar = () => {
           <SidebarGroupLabel className="py-6 h-auto">
             <Link to="/" className="hover:opacity-70 transition-opacity">
               {!collapsed && (
-                <span className="font-serif text-xl tracking-[0.04em] text-foreground">
-                  Logan<span className="text-muted-foreground"> · Admin</span>
+                <span className="font-serif text-[1.5625rem] leading-none tracking-[0.04em] text-foreground">
+                  Logan
                 </span>
               )}
-              {collapsed && <span className="font-serif text-xl tracking-[0.04em] text-foreground">L</span>}
+              {collapsed && <span className="font-serif text-[1.5625rem] leading-none tracking-[0.04em] text-foreground">L</span>}
             </Link>
           </SidebarGroupLabel>
           <SidebarGroupContent className="mt-6">

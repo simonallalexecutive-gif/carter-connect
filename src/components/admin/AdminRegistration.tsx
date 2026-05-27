@@ -30,12 +30,12 @@ const AdminRegistration = () => {
     };
   }, []);
 
-  // Apply light theme for the form steps (same as RegisterPage)
+  // Apply white registration theme for the form steps
   useEffect(() => {
     if (phase === 'stepper') {
-      document.body.classList.add('theme-light');
+      document.body.classList.add('theme-light-registration');
     }
-    return () => document.body.classList.remove('theme-light');
+    return () => document.body.classList.remove('theme-light-registration');
   }, [phase]);
 
   // Intercept step 7 (confirm) — in admin mode this means the review was "submitted"
@@ -173,7 +173,7 @@ const AdminRegistration = () => {
   };
 
   return (
-    <div className="theme-light bg-background min-h-full -m-6 lg:-m-8">
+    <div className="theme-light-registration bg-background min-h-full -m-8 lg:-m-12">
       <div className="sticky top-0 z-40 bg-background/95 backdrop-blur-sm border-b border-border">
         <div className="flex items-center gap-4 px-6 pt-4 pb-0">
           <h1 className="font-serif text-lg font-bold text-foreground">Inscrire un candidat</h1>
