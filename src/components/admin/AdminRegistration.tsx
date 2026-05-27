@@ -30,12 +30,12 @@ const AdminRegistration = () => {
     };
   }, []);
 
-  // Apply light theme for the form steps (same as RegisterPage)
+  // Apply white registration theme for the form steps
   useEffect(() => {
     if (phase === 'stepper') {
-      document.body.classList.add('theme-light');
+      document.body.classList.add('theme-light-registration');
     }
-    return () => document.body.classList.remove('theme-light');
+    return () => document.body.classList.remove('theme-light-registration');
   }, [phase]);
 
   // Intercept step 7 (confirm) — in admin mode this means the review was "submitted"
