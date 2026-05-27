@@ -9,7 +9,7 @@ import FounderSection from '@/components/landing/FounderSection';
 
 import MissionSection from '@/components/landing/MissionSection';
 import FonctionnementSection from '@/components/landing/FonctionnementSection';
-import CinemaShowcaseSection from '@/components/landing/CinemaShowcaseSection';
+
 import FAQSection from '@/components/landing/FAQSection';
 import StatsTickerSection from '@/components/landing/StatsTickerSection';
 import heroBoardroom from '@/assets/hero-boardroom.jpeg';
