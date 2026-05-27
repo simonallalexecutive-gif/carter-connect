@@ -151,14 +151,9 @@ const LandingPage = () => (
       </motion.div>
     </section>
 
-    {/* Notre approche */}
+    {/* Notre approche — fusion des deux sections */}
     <div id="notre-approche">
       <MissionSection />
-    </div>
-
-    {/* Notre fonctionnement */}
-    <div id="fonctionnement">
-      <FonctionnementSection />
     </div>
 
     {/* Citation Logan — full page WOW */}
