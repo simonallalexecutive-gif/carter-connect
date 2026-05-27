@@ -153,9 +153,6 @@ const LandingPage = () => (
       <MissionSection />
     </div>
 
-    {/* Citation Logan — full page WOW */}
-    <FounderSection />
-
     {/* FAQ */}
     <div id="faq">
       <FAQSection />
@@ -164,26 +161,56 @@ const LandingPage = () => (
     {/* Stats ticker */}
     <StatsTickerSection />
 
-    {/* CTA */}
-    {/* CTA + Footer wrapper with shared gradient background */}
-    <div className="relative overflow-hidden">
-      <div className="absolute inset-0">
-        <img
-          src={ctaGradientBg}
-          alt=""
-          className="w-full h-full object-cover"
-        />
-      </div>
-
+    {/* CTA — fond totalement noir, intègre la citation Logan repositionnée */}
+    <div className="relative overflow-hidden bg-black">
       <section className="min-h-[100svh] relative flex items-center">
-        <div className="max-w-5xl mx-auto px-4 sm:px-8 lg:px-10 relative z-10 py-32 md:py-44">
+        {/* Soft ambient glow */}
+        <motion.div
+          aria-hidden
+          className="absolute inset-0 pointer-events-none"
+          animate={{
+            background: [
+              'radial-gradient(ellipse 60% 50% at 50% 40%, rgba(255,255,255,0.04) 0%, transparent 70%)',
+              'radial-gradient(ellipse 70% 60% at 48% 50%, rgba(255,255,255,0.06) 0%, transparent 70%)',
+              'radial-gradient(ellipse 60% 50% at 52% 45%, rgba(255,255,255,0.04) 0%, transparent 70%)',
+            ],
+          }}
+          transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut' }}
+        />
+
+        <div className="max-w-5xl mx-auto px-4 sm:px-8 lg:px-10 relative z-10 py-32 md:py-44 w-full">
           <div className="flex flex-col items-center text-center">
+            {/* Logan quote — intégrée ici, sobre et éditoriale */}
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+              className="max-w-3xl mb-20 md:mb-28"
+            >
+              <span className="block text-[10px] font-sans font-medium tracking-[0.3em] uppercase text-white/30 mb-8">
+                Le mot de l'équipe
+              </span>
+              <p className="font-serif text-[1.15rem] sm:text-[1.35rem] md:text-[1.55rem] leading-[1.55] text-white/85 italic tracking-[-0.01em]">
+                «&nbsp;Logan se positionne comme l'infrastructure la plus exigeante
+                et structurée du marché, offrant un accompagnement sur mesure,
+                résolument confidentiel et parfaitement ciblé.&nbsp;»
+              </p>
+              <div className="mt-7 flex items-center justify-center gap-3">
+                <span className="h-px w-8 bg-white/25" />
+                <span className="text-[10px] font-sans tracking-[0.25em] uppercase text-white/40">
+                  L'équipe Logan
+                </span>
+                <span className="h-px w-8 bg-white/25" />
+              </div>
+            </motion.div>
+
             <motion.span
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 1, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              className="font-serif text-2xl sm:text-3xl md:text-4xl text-white tracking-[0.04em] block mb-6 drop-shadow-lg"
+              transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+              className="font-serif text-2xl sm:text-3xl md:text-4xl text-white tracking-[0.04em] block mb-6"
             >
               <em className="italic">Legal recruitment, redefined.</em>
             </motion.span>
@@ -192,7 +219,7 @@ const LandingPage = () => (
               initial={{ scaleX: 0 }}
               whileInView={{ scaleX: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 1, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
               className="w-16 h-px bg-white/30 mb-8"
             />
 
@@ -200,8 +227,8 @@ const LandingPage = () => (
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 1, delay: 1 }}
-              className="text-white/60 font-sans font-light text-sm leading-relaxed mb-10 max-w-sm drop-shadow-md"
+              transition={{ duration: 1, delay: 0.6 }}
+              className="text-white/55 font-sans font-light text-sm leading-relaxed mb-10 max-w-sm"
             >
               Inscription confidentielle en moins de 10 minutes.<br />
               Profil validé sous 48h.
@@ -211,12 +238,12 @@ const LandingPage = () => (
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 1, delay: 1.2 }}
+              transition={{ duration: 1, delay: 0.8 }}
             >
               <Link to="/demander-acces">
                 <Button
                   size="lg"
-                  className="bg-white text-black hover:bg-white/90 font-sans text-sm font-medium px-8 py-5 rounded-sm tracking-wide shadow-lg mt-4"
+                  className="bg-white text-black hover:bg-white/90 font-sans text-sm font-medium px-8 py-5 rounded-sm tracking-wide mt-4"
                 >
                   Request access
                 </Button>
@@ -227,7 +254,7 @@ const LandingPage = () => (
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 1.2, delay: 1.6 }}
+              transition={{ duration: 1.2, delay: 1.2 }}
               className="mt-24 flex flex-row flex-wrap items-center justify-center gap-x-6 gap-y-3 sm:gap-x-16 md:gap-x-24"
             >
               {['confidentiel.', 'structuré.', 'décisif.'].map((word, i) => (
@@ -236,8 +263,8 @@ const LandingPage = () => (
                   initial={{ opacity: 0, y: 12 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.8, delay: 1.8 + i * 0.15, ease: [0.16, 1, 0.3, 1] }}
-                  className="font-serif text-sm sm:text-xl md:text-2xl text-white/35 tracking-[0.14em] sm:tracking-[0.18em] font-light drop-shadow-md italic"
+                  transition={{ duration: 0.8, delay: 1.4 + i * 0.15, ease: [0.16, 1, 0.3, 1] }}
+                  className="font-serif text-sm sm:text-xl md:text-2xl text-white/30 tracking-[0.14em] sm:tracking-[0.18em] font-light italic"
                   style={{ fontVariant: 'small-caps', wordSpacing: '0.15em' }}
                 >
                   {word}
