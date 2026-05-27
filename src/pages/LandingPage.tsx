@@ -8,6 +8,7 @@ import MissionSection from '@/components/landing/MissionSection';
 
 import FAQSection from '@/components/landing/FAQSection';
 import StatsTickerSection from '@/components/landing/StatsTickerSection';
+import TeamQuoteSection from '@/components/landing/TeamQuoteSection';
 import heroBoardroom from '@/assets/hero-boardroom.jpeg';
 
 const firmNames = [
