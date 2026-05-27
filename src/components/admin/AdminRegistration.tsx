@@ -173,7 +173,7 @@ const AdminRegistration = () => {
   };
 
   return (
-    <div className="theme-light bg-background min-h-full -m-6 lg:-m-8">
+    <div className="theme-light-registration bg-background min-h-full -m-8 lg:-m-12">
       <div className="sticky top-0 z-40 bg-background/95 backdrop-blur-sm border-b border-border">
         <div className="flex items-center gap-4 px-6 pt-4 pb-0">
           <h1 className="font-serif text-lg font-bold text-foreground">Inscrire un candidat</h1>
