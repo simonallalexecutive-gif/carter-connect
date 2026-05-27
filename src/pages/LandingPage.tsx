@@ -154,6 +154,9 @@ const LandingPage = () => (
       <MissionSection />
     </div>
 
+    {/* Citation équipe Logan — visuel cinématique */}
+    <TeamQuoteSection />
+
     {/* FAQ */}
     <div id="faq">
       <FAQSection />
