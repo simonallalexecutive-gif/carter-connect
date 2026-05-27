@@ -26,23 +26,24 @@ const AdminKPIs = () => {
 
   return (
     <div>
-      <div className="mb-8">
-        <h1 className="font-serif text-2xl font-bold text-foreground">Tableau de bord</h1>
-        <p className="text-sm text-muted-foreground mt-1">Vue d'ensemble de l'activité Logan</p>
+      <div className="mb-10 pb-6 border-b border-border">
+        <div className="text-[10px] font-semibold tracking-[0.2em] uppercase text-muted-foreground mb-2">Vue d'ensemble</div>
+        <h1 className="font-serif text-4xl font-bold text-foreground tracking-tight">Tableau de bord</h1>
+        <p className="text-sm text-muted-foreground mt-2">Activité Logan en temps réel</p>
       </div>
 
       {/* KPI cards */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-border border border-border rounded-lg overflow-hidden mb-10">
         {[
           { label: 'Profils inscrits', value: MOCK_PROFILES.length, sub: `+${newThisMonth} ce mois` },
           { label: 'Offres actives', value: activeOffers, sub: `${MOCK_OFFERS.length} total` },
           { label: 'Processus en cours', value: activeProcesses, sub: `${placed} placement(s)` },
           { label: 'Taux de conversion', value: `${Math.round((placed / Math.max(MOCK_PROCESSES.length, 1)) * 100)}%`, sub: 'placés / processus' },
         ].map((kpi) => (
-          <div key={kpi.label} className="bg-background border border-border rounded-lg p-5">
-            <div className="text-[10px] font-semibold tracking-[0.1em] uppercase text-muted-foreground mb-2">{kpi.label}</div>
-            <div className="font-serif text-3xl font-bold text-foreground">{kpi.value}</div>
-            <div className="text-[11px] text-muted-foreground mt-1">{kpi.sub}</div>
+          <div key={kpi.label} className="bg-background p-6 hover:bg-muted/40 transition-colors">
+            <div className="text-[10px] font-semibold tracking-[0.14em] uppercase text-muted-foreground mb-3">{kpi.label}</div>
+            <div className="font-serif text-4xl font-bold text-foreground tracking-tight">{kpi.value}</div>
+            <div className="text-[11px] text-muted-foreground mt-2">{kpi.sub}</div>
           </div>
         ))}
       </div>
