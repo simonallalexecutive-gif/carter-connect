@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useRegistrationStore } from '@/stores/registrationStore';
+import { hydrateRegistration } from '@/lib/registrationSerializer';
 import type { User } from '@supabase/supabase-js';
 
 /**
@@ -40,67 +41,23 @@ export const useLoadCandidateProfile = (user: User | null) => {
         if (data?.submission_data) {
           const d = data.submission_data as Record<string, any>;
 
-          // Populate the store with saved data
-          const fields: Array<[string, any]> = [
-            ['prenom', d.prenom || ''],
-            ['nom', d.nom || ''],
-            ['email', d.email || user.email || ''],
-            ['telephone', d.telephone || ''],
-            ['photoPreviewUrl', d.photoPreviewUrl || ''],
-            ['linkedinUrl', d.linkedinUrl || ''],
-            ['sermentMois', d.sermentMois ?? null],
-            ['sermentAnnee', d.sermentAnnee ?? null],
-            ['cabinet', d.cabinet || ''],
-            ['departement', d.departement || ''],
-            ['retrocession', d.retrocession || ''],
-            ['bonus', d.bonus || ''],
-            ['hasObjectifFacturable', d.hasObjectifFacturable ?? null],
-            ['objectifFacturable', d.objectifFacturable || ''],
-            ['objectifFacturableReel', d.objectifFacturableReel || ''],
-            ['conserverRetrocession', d.conserverRetrocession ?? null],
-            ['raisonsBaisseRetro', d.raisonsBaisseRetro || []],
-            ['activites', d.activites || {}],
-            ['pourcentages', d.pourcentages || {}],
-            ['sousActivites', d.sousActivites || {}],
-            ['anglais', d.anglais || ''],
-            ['typesClients', d.typesClients || []],
-            ['tailleOperations', d.tailleOperations || []],
-            ['clienteleFrancaise', d.clienteleFrancaise ?? 50],
-            ['movePriorities', d.movePriorities || []],
-            ['qualitesAppreciees', d.qualitesAppreciees || []],
-            ['axesAmelioration', d.axesAmelioration || []],
-            ['motivation', d.motivation || ''],
-            ['cabinetsCibles', d.cabinetsCibles || []],
-            ['noGoCabinets', d.noGoCabinets || []],
-            ['statutEcoute', d.statutEcoute || ''],
-            ['visibilite', d.visibilite || data.visibility || ''],
-            ['disponibilite', d.disponibilite || ''],
-            ['isAssocieOrCounsel', d.isAssocieOrCounsel || false],
-            ['statutAssoc', d.statutAssoc || ''],
-            ['chiffreAffairesPortable', d.chiffreAffairesPortable || ''],
-            ['assocExpertiseSummary', d.assocExpertiseSummary || ''],
-            ['assocAttentes', d.assocAttentes || []],
-            ['assocCabTypes', d.assocCabTypes || []],
-            ['processusCours', d.processusCours || ''],
-            // Restructuring
-            ['positionnementRestr', d.positionnementRestr || []],
-            ['positionnementRestrPct', d.positionnementRestrPct || {}],
-            ['clienteleRestr', d.clienteleRestr || []],
-            ['clienteleRestrPct', d.clienteleRestrPct || {}],
-            ['restrFinancier', d.restrFinancier ?? 0],
-            // Social
-            ['socialConseil', d.socialConseil ?? 50],
-            ['socialRelationType', d.socialRelationType || ''],
-            ['socialClientele', d.socialClientele || []],
-            ['socialExpertises', d.socialExpertises || []],
-            // M&A
-            ['maPeFonds', d.maPeFonds ?? 50],
-            ['maIndusSecteurs', d.maIndusSecteurs || []],
-          ];
+          // Hydrate every persisted field in one pass
+          hydrateRegistration(d, store.setField as any);
 
-          for (const [key, value] of fields) {
-            store.setField(key as any, value);
+          // Default email / visibility
+          if (!d.email) store.setField('email', user.email || '');
+          if (data.visibility && !d.visibilite) store.setField('visibilite', data.visibility as any);
+
+          // Resolve signed URLs for photo / CV when stored in the bucket
+          if (d.photoStoragePath) {
+            const { data: signed } = await supabase.storage
+              .from('candidate-files')
+              .createSignedUrl(d.photoStoragePath, 60 * 60);
+            if (signed?.signedUrl) {
+              store.setField('photoPreviewUrl', signed.signedUrl);
+            }
           }
+          // cvStoragePath is kept in the store via hydrate; UI can resolve on demand.
         } else {
           // Fallback: populate from user metadata
           const meta = user.user_metadata;

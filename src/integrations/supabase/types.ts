@@ -50,25 +50,40 @@ export type Database = {
       cabinet_accounts: {
         Row: {
           cabinet_name: string
+          contacts: Json
           created_at: string
           id: string
           is_verified: boolean
+          logo_url: string | null
+          palier: string | null
+          searches: Json
+          submission_data: Json
           updated_at: string
           user_id: string
         }
         Insert: {
           cabinet_name: string
+          contacts?: Json
           created_at?: string
           id?: string
           is_verified?: boolean
+          logo_url?: string | null
+          palier?: string | null
+          searches?: Json
+          submission_data?: Json
           updated_at?: string
           user_id: string
         }
         Update: {
           cabinet_name?: string
+          contacts?: Json
           created_at?: string
           id?: string
           is_verified?: boolean
+          logo_url?: string | null
+          palier?: string | null
+          searches?: Json
+          submission_data?: Json
           updated_at?: string
           user_id?: string
         }
@@ -419,6 +434,23 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      admin_list_cabinet_accounts: {
+        Args: never
+        Returns: {
+          auth_email: string
+          cabinet_name: string
+          contacts: Json
+          created_at: string
+          full_name: string
+          id: string
+          is_verified: boolean
+          logo_url: string
+          palier: string
+          searches: Json
+          submission_data: Json
+          user_id: string
+        }[]
+      }
       admin_list_candidate_registrations: {
         Args: never
         Returns: {
