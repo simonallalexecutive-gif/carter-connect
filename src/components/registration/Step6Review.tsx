@@ -13,6 +13,7 @@ import { Link } from 'react-router-dom';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import { toast } from 'sonner';
 import { buildQuantizedChartData } from '@/lib/percentages';
+import { serializeRegistration } from '@/lib/registrationSerializer';
 
 // Palette neutre, sobre et professionnelle — tons gris, ardoise et bleu nuit
 // Conçue pour un rendu monochrome élégant sur fond noir mat
