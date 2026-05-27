@@ -34,7 +34,7 @@ export const useLoadCabinetProfile = (user: User | null) => {
               .createSignedUrl(resolvedLogoUrl, 60 * 60);
             if (signed?.signedUrl) resolvedLogoUrl = signed.signedUrl;
           }
-          hydrateCabinet({ ...data, logo_url: resolvedLogoUrl }, setField as any);
+          hydrateCabinet({ ...(data as any), logo_url: resolvedLogoUrl }, setField as any);
         }
 
         // Fallback to user metadata for cabinet name
