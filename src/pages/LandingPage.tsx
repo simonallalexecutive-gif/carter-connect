@@ -184,30 +184,7 @@ const LandingPage = () => (
 
         <div className="max-w-5xl mx-auto px-4 sm:px-8 lg:px-10 relative z-10 py-32 md:py-44 w-full">
           <div className="flex flex-col items-center text-center">
-            {/* Logan quote — intégrée ici, sobre et éditoriale */}
-            <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-              className="max-w-3xl mb-20 md:mb-28"
-            >
-              <span className="block text-[10px] font-sans font-medium tracking-[0.3em] uppercase text-white/30 mb-8">
-                Le mot de l'équipe
-              </span>
-              <p className="font-serif text-[1.15rem] sm:text-[1.35rem] md:text-[1.55rem] leading-[1.55] text-white/85 italic tracking-[-0.01em]">
-                «&nbsp;Logan se positionne comme l'infrastructure la plus exigeante
-                et structurée du marché, offrant un accompagnement sur mesure,
-                résolument confidentiel et parfaitement ciblé.&nbsp;»
-              </p>
-              <div className="mt-7 flex items-center justify-center gap-3">
-                <span className="h-px w-8 bg-white/25" />
-                <span className="text-[10px] font-sans tracking-[0.25em] uppercase text-white/40">
-                  L'équipe Logan
-                </span>
-                <span className="h-px w-8 bg-white/25" />
-              </div>
-            </motion.div>
+
 
             <motion.span
               initial={{ opacity: 0, y: 20 }}
