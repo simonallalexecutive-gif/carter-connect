@@ -629,37 +629,39 @@ const Step6Review = () => {
 
       if (error) throw error;
 
-      // Save registration data to database
       const userId = signUpData?.user?.id;
       if (userId) {
-        const submissionData = {
-          prenom: store.prenom, nom: store.nom, email: store.email, telephone: store.telephone,
-          photoPreviewUrl: store.photoPreviewUrl, linkedinUrl: store.linkedinUrl,
-          sermentMois: store.sermentMois, sermentAnnee: store.sermentAnnee,
-          cabinet: store.cabinet, departement: store.departement,
-          retrocession: store.retrocession, bonus: store.bonus,
-          hasObjectifFacturable: store.hasObjectifFacturable,
-          objectifFacturable: store.objectifFacturable, objectifFacturableReel: store.objectifFacturableReel,
-          conserverRetrocession: store.conserverRetrocession, raisonsBaisseRetro: store.raisonsBaisseRetro,
-          activites: store.activites, pourcentages: store.pourcentages, sousActivites: store.sousActivites,
-          anglais: store.anglais, typesClients: store.typesClients, tailleOperations: store.tailleOperations,
-          clienteleFrancaise: store.clienteleFrancaise,
-          movePriorities: store.movePriorities, qualitesAppreciees: store.qualitesAppreciees,
-          axesAmelioration: store.axesAmelioration, motivation: store.motivation,
-          cabinetsCibles: store.cabinetsCibles, noGoCabinets: store.noGoCabinets,
-          statutEcoute: store.statutEcoute, visibilite: store.visibilite, disponibilite: store.disponibilite,
-          isAssocieOrCounsel: store.isAssocieOrCounsel, statutAssoc: store.statutAssoc,
-          chiffreAffairesPortable: store.chiffreAffairesPortable, assocExpertiseSummary: store.assocExpertiseSummary,
-          assocAttentes: store.assocAttentes, assocCabTypes: store.assocCabTypes,
-          processusCours: store.processusCours,
-          positionnementRestr: store.positionnementRestr, positionnementRestrPct: store.positionnementRestrPct,
-          clienteleRestr: store.clienteleRestr, clienteleRestrPct: store.clienteleRestrPct,
-          restrFinancier: store.restrFinancier,
-          socialConseil: store.socialConseil, socialRelationType: store.socialRelationType,
-          socialClientele: store.socialClientele, socialExpertises: store.socialExpertises,
-          maPeFonds: store.maPeFonds, maIndusSecteurs: store.maIndusSecteurs,
-          previousCabinets: store.previousCabinets, notaBene: store.notaBene,
-        };
+        // Upload files to storage (best-effort)
+        let photoStoragePath: string | undefined;
+        let cvStoragePath: string | undefined;
+
+        try {
+          if (store.photo) {
+            const ext = store.photo.name.split('.').pop() || 'jpg';
+            const path = `${userId}/photo-${Date.now()}.${ext}`;
+            const { error: upErr } = await supabase.storage
+              .from('candidate-files')
+              .upload(path, store.photo, { upsert: true, contentType: store.photo.type });
+            if (!upErr) photoStoragePath = path;
+          }
+        } catch (e) { console.warn('Photo upload failed', e); }
+
+        try {
+          if (store.cvFile) {
+            const ext = store.cvFile.name.split('.').pop() || 'pdf';
+            const path = `${userId}/cv-${Date.now()}.${ext}`;
+            const { error: upErr } = await supabase.storage
+              .from('candidate-files')
+              .upload(path, store.cvFile, { upsert: true, contentType: store.cvFile.type });
+            if (!upErr) cvStoragePath = path;
+          }
+        } catch (e) { console.warn('CV upload failed', e); }
+
+        const submissionData = serializeRegistration(store, {
+          photoStoragePath,
+          cvStoragePath,
+        });
+
         try {
           await supabase.from('candidate_registrations').insert({
             user_id: userId,
