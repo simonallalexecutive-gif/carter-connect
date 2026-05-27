@@ -162,9 +162,6 @@ const LandingPage = () => (
       <FonctionnementSection />
     </div>
 
-    {/* Démonstration vidéo cinéma — effet WoW Harvey.ai style */}
-    <CinemaShowcaseSection />
-
     {/* Citation Logan — full page WOW */}
     <FounderSection />
 
