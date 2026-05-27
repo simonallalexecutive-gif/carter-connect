@@ -1,12 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
+import { Plus, Minus } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/ui/accordion';
 
 type Tab = 'candidat' | 'cabinet';
 
@@ -90,119 +85,137 @@ const cabinetFAQ: FAQItem[] = [
       'Logan repose sur un modèle hybride : un abonnement donnant un accès permanent au vivier de candidats qualifiés, associé à un fee de placement significativement réduit par rapport aux standards du marché. Ce modèle vous permet de recruter de manière proactive, au bon moment, avec une parfaite maîtrise budgétaire.',
   },
 ];
+
+const FAQRow = ({
+  item,
+  index,
+  open,
+  onToggle,
+}: {
+  item: FAQItem;
+  index: number;
+  open: boolean;
+  onToggle: () => void;
+}) => (
+  <div className="border-b border-black/10 group">
+    <button
+      onClick={onToggle}
+      className="w-full flex items-start gap-6 md:gap-10 py-7 md:py-8 text-left transition-colors"
+    >
+      <span className="font-serif text-[0.7rem] md:text-[0.75rem] text-black/35 tabular-nums tracking-[0.15em] pt-1.5 w-8 shrink-0">
+        {String(index + 1).padStart(2, '0')}
+      </span>
+      <span
+        className={cn(
+          'flex-1 font-serif text-[1rem] md:text-[1.18rem] leading-snug tracking-[-0.01em] transition-colors',
+          open ? 'text-black' : 'text-black/80 group-hover:text-black'
+        )}
+      >
+        {item.question}
+      </span>
+      <span
+        className={cn(
+          'shrink-0 w-9 h-9 rounded-full border flex items-center justify-center transition-all duration-300',
+          open ? 'bg-black border-black text-white rotate-0' : 'border-black/20 text-black/60 group-hover:border-black/50 group-hover:text-black'
+        )}
+      >
+        {open ? <Minus className="w-3.5 h-3.5" strokeWidth={1.8} /> : <Plus className="w-3.5 h-3.5" strokeWidth={1.8} />}
+      </span>
+    </button>
+    <AnimatePresence initial={false}>
+      {open && (
+        <motion.div
+          initial={{ height: 0, opacity: 0 }}
+          animate={{ height: 'auto', opacity: 1 }}
+          exit={{ height: 0, opacity: 0 }}
+          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+          className="overflow-hidden"
+        >
+          <div className="pl-0 md:pl-[3.5rem] pr-0 md:pr-14 pb-8 max-w-3xl">
+            <p className="font-sans text-[0.9rem] md:text-[0.95rem] leading-[1.85] text-black/60 text-justify">
+              {item.answer}
+            </p>
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  </div>
+);
+
 const FAQSection = () => {
   const [tab, setTab] = useState<Tab>('candidat');
+  const [openIdx, setOpenIdx] = useState<number | null>(0);
   const items = tab === 'candidat' ? candidatFAQ : cabinetFAQ;
-  const midpoint = Math.ceil(items.length / 2);
-  const col1 = items.slice(0, midpoint);
-  const col2 = items.slice(midpoint);
+
+  const handleTabChange = (t: Tab) => {
+    setTab(t);
+    setOpenIdx(0);
+  };
 
   return (
-    <section className="py-32 md:py-44 bg-white min-h-[80vh]">
-      <div className="max-w-5xl mx-auto px-4 sm:px-8 lg:px-10">
-
-        {/* Header — centered */}
+    <section className="py-28 md:py-40 bg-white">
+      <div className="max-w-4xl mx-auto px-4 sm:px-8 lg:px-10">
+        {/* Header — left aligned editorial */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-12 text-center"
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-16 md:mb-20 flex flex-col md:flex-row md:items-end md:justify-between gap-8"
         >
-          <p className="text-[11px] tracking-[0.25em] uppercase text-black/30 font-sans font-medium mb-6">
-            Questions fréquentes
-          </p>
-          <h2 className="text-3xl sm:text-4xl md:text-[2.8rem] font-serif font-normal text-black tracking-[-0.02em] mb-5">
-            FAQ
-          </h2>
-        </motion.div>
+          <div>
+            <p className="text-[11px] tracking-[0.3em] uppercase text-black/40 font-sans font-medium mb-5">
+              Questions fréquentes
+            </p>
+            <h2 className="text-[2rem] sm:text-4xl md:text-[3rem] font-serif font-normal text-black tracking-[-0.02em] leading-[1.05]">
+              Tout ce que vous<br />
+              <span className="italic text-black/80">devez savoir.</span>
+            </h2>
+          </div>
 
-        {/* Tab toggle — centered underline style */}
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="mb-14 flex justify-center"
-        >
-          <div className="inline-flex gap-0 border-b border-black/10">
+          {/* Tabs as pill */}
+          <div className="inline-flex p-1 rounded-full bg-black/[0.04] border border-black/[0.06] self-start md:self-auto">
             {(['candidat', 'cabinet'] as Tab[]).map((t) => (
               <button
                 key={t}
-                onClick={() => setTab(t)}
+                onClick={() => handleTabChange(t)}
                 className={cn(
-                  'relative px-6 py-3 text-sm font-sans font-medium transition-all duration-300 capitalize',
-                  tab === t
-                    ? 'text-black'
-                    : 'text-black/35 hover:text-black/60'
+                  'relative px-5 py-2 text-[0.78rem] font-sans font-medium transition-colors rounded-full',
+                  tab === t ? 'text-white' : 'text-black/50 hover:text-black/80'
                 )}
               >
-                {t === 'candidat' ? 'Candidats' : 'Cabinets'}
                 {tab === t && (
-                  <motion.div
-                    layoutId="faq-tab-indicator"
-                    className="absolute bottom-0 left-0 right-0 h-px bg-black"
-                    transition={{ type: 'spring', stiffness: 500, damping: 35 }}
+                  <motion.span
+                    layoutId="faq-pill"
+                    className="absolute inset-0 rounded-full bg-black"
+                    transition={{ type: 'spring', stiffness: 500, damping: 38 }}
                   />
                 )}
+                <span className="relative z-10">{t === 'candidat' ? 'Candidats' : 'Cabinets'}</span>
               </button>
             ))}
           </div>
         </motion.div>
 
-        {/* Two columns */}
+        {/* List */}
         <AnimatePresence mode="wait">
           <motion.div
             key={tab}
-            initial={{ opacity: 0, y: 16 }}
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -12 }}
+            exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="grid grid-cols-1 md:grid-cols-2 gap-0 md:gap-12"
+            className="border-t border-black/10"
           >
-            <div>
-              <Accordion type="single" collapsible className="space-y-0">
-                {col1.map((item, i) => (
-                  <AccordionItem
-                    key={i}
-                    value={`left-${i}`}
-                    className="border-b border-black/[0.08] first:border-t first:border-black/[0.08] rounded-none px-0 overflow-hidden"
-                  >
-                    <AccordionTrigger className="text-left font-sans text-sm md:text-[15px] font-medium text-black/85 hover:text-black hover:no-underline py-6 gap-4 transition-colors">
-                      <span className="flex items-baseline gap-3">
-                        <span className="text-black/20 font-sans text-xs tabular-nums">{String(i + 1).padStart(2, '0')}</span>
-                        {item.question}
-                      </span>
-                    </AccordionTrigger>
-                    <AccordionContent className="text-black/55 font-sans text-sm leading-relaxed pb-6 text-justify">
-                      {item.answer}
-                    </AccordionContent>
-                  </AccordionItem>
-                ))}
-              </Accordion>
-            </div>
-
-            <div>
-              <Accordion type="single" collapsible className="space-y-0">
-                {col2.map((item, i) => (
-                  <AccordionItem
-                    key={i}
-                    value={`right-${i}`}
-                    className="border-b border-black/[0.08] first:border-t first:border-black/[0.08] rounded-none px-0 overflow-hidden"
-                  >
-                    <AccordionTrigger className="text-left font-sans text-sm md:text-[15px] font-medium text-black/85 hover:text-black hover:no-underline py-6 gap-4 transition-colors">
-                      <span className="flex items-baseline gap-3">
-                        <span className="text-black/20 font-sans text-xs tabular-nums">{String(midpoint + i + 1).padStart(2, '0')}</span>
-                        {item.question}
-                      </span>
-                    </AccordionTrigger>
-                    <AccordionContent className="text-black/55 font-sans text-sm leading-relaxed pb-6 text-justify">
-                      {item.answer}
-                    </AccordionContent>
-                  </AccordionItem>
-                ))}
-              </Accordion>
-            </div>
+            {items.map((item, i) => (
+              <FAQRow
+                key={`${tab}-${i}`}
+                item={item}
+                index={i}
+                open={openIdx === i}
+                onToggle={() => setOpenIdx(openIdx === i ? null : i)}
+              />
+            ))}
           </motion.div>
         </AnimatePresence>
       </div>
