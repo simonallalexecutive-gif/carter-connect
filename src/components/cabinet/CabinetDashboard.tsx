@@ -13,6 +13,7 @@ import { buildQuantizedChartData } from '@/lib/percentages';
 import CabinetActivityPieSummary from '@/components/cabinet/CabinetActivityPieSummary';
 import CabinetRestructuringSynthesis from '@/components/cabinet/CabinetRestructuringSynthesis';
 import CabinetStep3Search from './CabinetStep3Search';
+import { supabase } from '@/integrations/supabase/client';
 
 const PALIER_MAP: Record<string, string> = {
   starter: 'Starter · 1.500€/mois',
