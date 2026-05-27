@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Check } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { toast } from 'sonner';
+import { serializeCabinet } from '@/lib/cabinetSerializer';
 
 const CabinetStep6Confirm = () => {
   const s = useCabinetStore();
@@ -16,18 +17,58 @@ const CabinetStep6Confirm = () => {
       if (registered || registering || !s.email || !s.password) return;
       setRegistering(true);
       try {
-        const { error } = await (supabase.auth as any).signUp({
+        const { data: signUpData, error } = await (supabase.auth as any).signUp({
           email: s.email,
           password: s.password,
           options: {
             emailRedirectTo: window.location.origin,
             data: {
               full_name: s.cabinetName,
+              cabinet_name: s.cabinetName,
               user_type: 'cabinet',
             },
           },
         });
         if (error) throw error;
+
+        const userId = signUpData?.user?.id;
+        if (userId) {
+          // Upload logo if it's a File-derived data URL — convert to blob and upload
+          let logoStoragePath: string | null = null;
+          try {
+            if (s.cabinetLogoUrl && s.cabinetLogoUrl.startsWith('data:')) {
+              const res = await fetch(s.cabinetLogoUrl);
+              const blob = await res.blob();
+              const ext = (blob.type.split('/')[1] || 'png').split('+')[0];
+              const path = `${userId}/logo-${Date.now()}.${ext}`;
+              const { error: upErr } = await supabase.storage
+                .from('cabinet-files')
+                .upload(path, blob, { upsert: true, contentType: blob.type });
+              if (!upErr) logoStoragePath = path;
+            } else if (s.cabinetLogoUrl) {
+              // Remote URL (e.g. Clearbit) — keep as-is
+              logoStoragePath = s.cabinetLogoUrl;
+            }
+          } catch (e) { console.warn('Logo upload failed', e); }
+
+          const submissionData = serializeCabinet(s);
+
+          // The handle_new_user trigger inserted an empty row → UPDATE it
+          const { error: updErr } = await supabase
+            .from('cabinet_accounts')
+            .update({
+              cabinet_name: s.cabinetName || 'Cabinet',
+              logo_url: logoStoragePath,
+              palier: s.palier || 'business',
+              submission_data: submissionData as any,
+              contacts: (s.contacts || []) as any,
+              searches: (s.searches || []) as any,
+            } as any)
+            .eq('user_id', userId);
+
+          if (updErr) console.error('Failed to persist cabinet:', updErr);
+        }
+
         setRegistered(true);
         toast.success('Compte créé avec succès');
       } catch (error: any) {
