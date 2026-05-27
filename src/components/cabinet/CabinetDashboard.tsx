@@ -562,8 +562,21 @@ const SearchValidation = () => {
       <div className="flex justify-between items-center pt-7 border-t border-border">
         <Button variant="outline" onClick={() => s.setField('currentSearchStep', 1)} className="font-sans text-[11px] rounded-sm">← Modifier</Button>
         <Button
-          onClick={() => {
+          onClick={async () => {
             s.saveCurrentSearch();
+            // Persist updated searches array to DB
+            try {
+              const { data: { user } } = await supabase.auth.getUser();
+              if (user) {
+                const latest = useCabinetStore.getState().searches;
+                await supabase
+                  .from('cabinet_accounts')
+                  .update({ searches: latest as any })
+                  .eq('user_id', user.id);
+              }
+            } catch (e) {
+              console.error('Failed to persist search:', e);
+            }
             toast.success('Recherche publiée avec succès !');
           }}
           disabled={!allChecked}
