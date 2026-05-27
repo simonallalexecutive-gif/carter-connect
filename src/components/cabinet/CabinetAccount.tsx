@@ -1,70 +1,121 @@
 import { useState, useRef } from 'react';
 import { useCabinetStore } from '@/stores/cabinetStore';
+import { supabase } from '@/integrations/supabase/client';
+import { useAuth } from '@/hooks/useAuth';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { toast } from 'sonner';
 import { Pencil, Save, X, Camera, Trash2, Building2 } from 'lucide-react';
+import { serializeCabinet } from '@/lib/cabinetSerializer';
 
 const CabinetAccount = () => {
   const s = useCabinetStore();
+  const { user } = useAuth();
   const [editing, setEditing] = useState(false);
+  const [saving, setSaving] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handlePhotoChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
     if (file.size > 2 * 1024 * 1024) {
       toast.error('Image trop volumineuse (max 2 Mo)');
       return;
     }
-    const reader = new FileReader();
-    reader.onload = (ev) => {
-      const dataUrl = ev.target?.result as string;
-      s.setField('cabinetLogoUrl', dataUrl);
-      toast.success('Photo mise à jour');
-    };
-    reader.readAsDataURL(file);
-    // reset value so same file can be re-selected
     e.target.value = '';
+
+    if (!user) {
+      // Local preview fallback
+      const reader = new FileReader();
+      reader.onload = (ev) => s.setField('cabinetLogoUrl', ev.target?.result as string);
+      reader.readAsDataURL(file);
+      return;
+    }
+
+    try {
+      const ext = file.name.split('.').pop() || 'png';
+      const path = `${user.id}/logo-${Date.now()}.${ext}`;
+      const { error: upErr } = await supabase.storage
+        .from('cabinet-files')
+        .upload(path, file, { upsert: true, contentType: file.type });
+      if (upErr) throw upErr;
+
+      await supabase
+        .from('cabinet_accounts')
+        .update({ logo_url: path } as any)
+        .eq('user_id', user.id);
+
+      const { data: signed } = await supabase.storage
+        .from('cabinet-files')
+        .createSignedUrl(path, 60 * 60);
+      if (signed?.signedUrl) s.setField('cabinetLogoUrl', signed.signedUrl);
+      toast.success('Photo mise à jour');
+    } catch (err: any) {
+      toast.error(err.message || 'Échec de l\'upload');
+    }
   };
 
   // Local state for editable fields
-  const [form, setForm] = useState({
+  const initialForm = {
     cabinetName: s.cabinetName || '',
     email: s.email || '',
-    iban: '',
-    bic: '',
-    titulaire: '',
-    // Person who created the account
+    iban: (s as any).iban || '',
+    bic: (s as any).bic || '',
+    titulaire: (s as any).titulaire || '',
     creatorPrenom: s.contacts[0]?.prenom || '',
     creatorNom: s.contacts[0]?.nom || '',
     creatorEmail: s.contacts[0]?.email || '',
     creatorMobile: s.contacts[0]?.mobile || '',
     creatorRole: s.contacts[0]?.role || 'Administrateur du compte',
-    // Platform referent
     refPrenom: s.contacts[1]?.prenom || '',
     refNom: s.contacts[1]?.nom || '',
     refEmail: s.contacts[1]?.email || '',
     refMobile: s.contacts[1]?.mobile || '',
     refRole: s.contacts[1]?.role || 'Référent plateforme',
-  });
+  };
+  const [form, setForm] = useState(initialForm);
 
   const handleChange = (key: string, value: string) => {
     setForm(prev => ({ ...prev, [key]: value }));
   };
 
-  const handleSave = () => {
-    // Persist to store
-    s.setField('cabinetName', form.cabinetName);
-    s.setField('email', form.email);
-    const newContacts = [
-      { prenom: form.creatorPrenom, nom: form.creatorNom, email: form.creatorEmail, mobile: form.creatorMobile, role: form.creatorRole },
-      { prenom: form.refPrenom, nom: form.refNom, email: form.refEmail, mobile: form.refMobile, role: form.refRole },
-    ];
-    s.setField('contacts', newContacts);
-    setEditing(false);
-    toast.success('Informations mises à jour avec succès');
+  const handleSave = async () => {
+    setSaving(true);
+    try {
+      s.setField('cabinetName', form.cabinetName);
+      s.setField('email', form.email);
+      const newContacts = [
+        { prenom: form.creatorPrenom, nom: form.creatorNom, email: form.creatorEmail, mobile: form.creatorMobile, role: form.creatorRole },
+        { prenom: form.refPrenom, nom: form.refNom, email: form.refEmail, mobile: form.refMobile, role: form.refRole },
+      ];
+      s.setField('contacts', newContacts);
+
+      if (user) {
+        const submissionData = {
+          ...serializeCabinet({ ...s, cabinetName: form.cabinetName, email: form.email }),
+          iban: form.iban,
+          bic: form.bic,
+          titulaire: form.titulaire,
+        };
+        const { error } = await supabase
+          .from('cabinet_accounts')
+          .update({
+            cabinet_name: form.cabinetName,
+            contacts: newContacts as any,
+            submission_data: submissionData as any,
+          } as any)
+          .eq('user_id', user.id);
+        if (error) throw error;
+      }
+
+      setEditing(false);
+      toast.success('Informations mises à jour avec succès');
+    } catch (err: any) {
+      toast.error(err.message || 'Échec de la sauvegarde');
+    } finally {
+      setSaving(false);
+    }
   };
 
   const Section = ({ title, children }: { title: string; children: React.ReactNode }) => (
@@ -101,11 +152,11 @@ const CabinetAccount = () => {
         </div>
         {editing ? (
           <div className="flex gap-2">
-            <Button variant="outline" size="sm" onClick={() => setEditing(false)} className="text-[11px]">
+            <Button variant="outline" size="sm" onClick={() => setEditing(false)} className="text-[11px]" disabled={saving}>
               <X className="w-3.5 h-3.5 mr-1" /> Annuler
             </Button>
-            <Button size="sm" onClick={handleSave} className="bg-foreground text-background text-[11px]">
-              <Save className="w-3.5 h-3.5 mr-1" /> Enregistrer
+            <Button size="sm" onClick={handleSave} className="bg-foreground text-background text-[11px]" disabled={saving}>
+              <Save className="w-3.5 h-3.5 mr-1" /> {saving ? 'Sauvegarde…' : 'Enregistrer'}
             </Button>
           </div>
         ) : (
@@ -115,9 +166,7 @@ const CabinetAccount = () => {
         )}
       </div>
 
-      {/* Cabinet info */}
       <Section title="Informations du cabinet">
-        {/* Photo / logo upload */}
         <div className="flex items-center gap-5 mb-6 pb-6 border-b border-border">
           <Avatar className="w-20 h-20 border border-border">
             {s.cabinetLogoUrl ? (
@@ -156,8 +205,14 @@ const CabinetAccount = () => {
                   variant="ghost"
                   size="sm"
                   className="text-[11px] text-muted-foreground hover:text-foreground"
-                  onClick={() => {
+                  onClick={async () => {
                     s.setField('cabinetLogoUrl', '');
+                    if (user) {
+                      await supabase
+                        .from('cabinet_accounts')
+                        .update({ logo_url: null } as any)
+                        .eq('user_id', user.id);
+                    }
                     toast.success('Photo supprimée');
                   }}
                 >
@@ -181,7 +236,6 @@ const CabinetAccount = () => {
         </div>
       </Section>
 
-      {/* RIB */}
       <Section title="Coordonnées bancaires (RIB)">
         <div className="grid grid-cols-2 gap-4">
           <Field label="IBAN" value={form.iban} fieldKey="iban" />
@@ -190,7 +244,6 @@ const CabinetAccount = () => {
         </div>
       </Section>
 
-      {/* Creator */}
       <Section title="Personne à l'origine du compte">
         <div className="grid grid-cols-2 gap-4">
           <Field label="Prénom" value={form.creatorPrenom} fieldKey="creatorPrenom" />
@@ -201,7 +254,6 @@ const CabinetAccount = () => {
         </div>
       </Section>
 
-      {/* Platform referent */}
       <Section title="Référent plateforme">
         <div className="grid grid-cols-2 gap-4">
           <Field label="Prénom" value={form.refPrenom} fieldKey="refPrenom" />
