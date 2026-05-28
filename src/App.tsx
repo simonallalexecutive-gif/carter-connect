@@ -18,6 +18,8 @@ import AccessRequestPage from "./pages/AccessRequestPage";
 import ConnexionPage from "./pages/ConnexionPage";
 import NotreOffrePage from "./pages/NotreOffrePage";
 import ScrollToHash from "./components/ScrollToHash";
+import AdminLoginPage from "./pages/AdminLoginPage";
+import ConfirmationPage from "./pages/ConfirmationPage";
 
 
 const queryClient = new QueryClient();
@@ -44,6 +46,8 @@ const App = () => (
           <Route path="/video-preview" element={<VideoPreview />} />
           <Route path="/espace-candidat" element={<CandidateDashboard />} />
           <Route path="/admin/*" element={<AdminPage />} />
+          <Route path="/logan-admin" element={<AdminLoginPage />} />
+          <Route path="/confirmation" element={<ConfirmationPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

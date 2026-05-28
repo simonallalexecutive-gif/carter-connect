@@ -57,6 +57,30 @@ const AdminProfiles = () => {
   const [loading, setLoading] = useState(true);
   const [downloadingCv, setDownloadingCv] = useState<string | null>(null);
 
+  const handleValidate = async (candidate: any, approved: boolean) => {
+    try {
+      const newStatus = approved ? 'approved' : 'rejected';
+      await supabase
+        .from('candidate_registrations')
+        .update({ status: newStatus })
+        .eq('user_id', candidate.user_id);
+
+      await supabase.functions.invoke('notify-validation', {
+        body: {
+          candidateName: candidate.full_name || candidate.auth_email || 'Candidat',
+          candidateEmail: candidate.auth_email || '',
+          approved,
+        },
+      });
+
+      toast.success(approved ? 'Candidat validé — email envoyé.' : 'Candidat refusé — email envoyé.');
+      load();
+    } catch (e) {
+      toast.error('Erreur lors de la validation');
+      console.error(e);
+    }
+  };
+
   const load = async () => {
     setLoading(true);
     const [{ data: c, error: cErr }, { data: cb, error: cbErr }] = await Promise.all([
@@ -192,6 +216,14 @@ const AdminProfiles = () => {
                           </Button>
                         ) : (
                           <span className="text-[10px] text-muted-foreground/60">—</span>
+                        )}
+                      </TableCell>
+                      <TableCell className="text-right">
+                        {c.status === 'pending_admin_approval' && (
+                          <div className="flex gap-1 justify-end">
+                            <Button variant="outline" size="sm" className="text-[11px] h-7 text-green-600 border-green-200 hover:bg-green-50" onClick={() => handleValidate(c, true)}>Valider</Button>
+                            <Button variant="outline" size="sm" className="text-[11px] h-7 text-red-500 border-red-200 hover:bg-red-50" onClick={() => handleValidate(c, false)}>Refuser</Button>
+                          </div>
                         )}
                       </TableCell>
                     </TableRow>

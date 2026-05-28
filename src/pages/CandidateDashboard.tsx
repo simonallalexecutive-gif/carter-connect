@@ -1,6 +1,8 @@
 import { useEffect, useState, useRef } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
+import { supabase } from '@/integrations/supabase/client';
+import React from 'react';
 import { useRegistrationStore } from '@/stores/registrationStore';
 import { useLoadCandidateProfile } from '@/hooks/useLoadCandidateProfile';
 import { usePQE } from '@/hooks/usePQE';
@@ -153,7 +155,38 @@ const CandidateDashboardContent = () => {
     if (!loading && !user) navigate('/auth');
   }, [user, loading, navigate]);
 
-  if (loading || !user || !profileLoaded) return null;
+  const [candidateStatus, setCandidateStatus] = React.useState<string | null>(null);
+  const [statusLoading, setStatusLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    if (user) {
+      supabase
+        .from('candidate_registrations')
+        .select('status')
+        .eq('user_id', user.id)
+        .single()
+        .then(({ data }) => {
+          setCandidateStatus(data?.status || null);
+          setStatusLoading(false);
+        });
+    }
+  }, [user]);
+
+  if (loading || !user || !profileLoaded || statusLoading) return null;
+
+  if (candidateStatus !== 'approved') {
+    return (
+      <div className="min-h-screen w-screen bg-black flex items-center justify-center px-6" style={{position:'fixed',top:0,left:0,right:0,bottom:0,zIndex:9999}}>
+        <div className="text-center max-w-md">
+          <p className="font-display text-xl text-white mb-8">Logan</p>
+          <h1 className="text-2xl font-serif text-white mb-4">Profil en cours de validation</h1>
+          <p className="text-white/60 font-sans font-light leading-relaxed">
+            Votre profil est en cours d'examen par l'équipe Logan. Vous recevrez un email dès que votre accès sera activé.
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   const notifCount = 2;
 

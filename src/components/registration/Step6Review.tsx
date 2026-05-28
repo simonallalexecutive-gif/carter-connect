@@ -620,7 +620,7 @@ const Step6Review = () => {
         email: store.email,
         password: store.password,
         options: {
-          emailRedirectTo: `${window.location.origin}/auth`,
+          emailRedirectTo: `${window.location.origin}/confirmation`,
           data: {
             full_name: `${store.prenom} ${store.nom}`.trim(),
             user_type: 'candidat',
@@ -696,6 +696,16 @@ const Step6Review = () => {
         }
       }
 
+      // Appel Edge Function emails
+      try {
+        await supabase.functions.invoke('notify-registration', {
+          body: {
+            candidateName: `${store.prenom} ${store.nom}`.trim(),
+            candidateEmail: store.email,
+            registrationId: signUpData?.user?.id || '',
+          },
+        });
+      } catch (e) { console.warn('Email failed', e); }
       toast.success('Inscription créée. Vérifiez votre email pour activer votre accès.');
       store.nextStep();
     } catch (error: any) {
