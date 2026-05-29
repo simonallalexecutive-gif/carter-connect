@@ -5,7 +5,9 @@ const ADMIN_EMAIL = "simonallal.executive@gmail.com";
 const APP_URL = Deno.env.get("APP_URL") ?? "http://localhost:8080";
 
 serve(async (req) => {
-  const { candidateName, candidateEmail, registrationId } = await req.json();
+  const body = await req.text();
+  if (!body) return new Response(JSON.stringify({ skipped: true }), { headers: { "Content-Type": "application/json" } });
+  const { candidateName, candidateEmail, registrationId } = JSON.parse(body);
 
   // Email au candidat
   await fetch("https://api.resend.com/emails", {
