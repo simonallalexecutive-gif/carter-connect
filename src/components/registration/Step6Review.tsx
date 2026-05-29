@@ -696,16 +696,7 @@ const Step6Review = () => {
         }
       }
 
-      // Appel Edge Function emails
-      try {
-        await supabase.functions.invoke('notify-registration', {
-          body: {
-            candidateName: `${store.prenom} ${store.nom}`.trim(),
-            candidateEmail: store.email,
-            registrationId: signUpData?.user?.id || '',
-          },
-        });
-      } catch (e) { console.warn('Email failed', e); }
+      // Appel Edge Function email admin
       try {
         await supabase.functions.invoke('notify-registration', {
           body: {
