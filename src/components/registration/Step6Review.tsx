@@ -706,6 +706,15 @@ const Step6Review = () => {
           },
         });
       } catch (e) { console.warn('Email failed', e); }
+      try {
+        await supabase.functions.invoke('notify-registration', {
+          body: {
+            candidateName: `${store.prenom} ${store.nom}`.trim(),
+            candidateEmail: store.email,
+            registrationId: signUpData?.user?.id || '',
+          },
+        });
+      } catch (e) { console.warn('Email admin failed', e); }
       toast.success('Inscription créée. Vérifiez votre email pour activer votre accès.');
       store.nextStep();
     } catch (error: any) {
