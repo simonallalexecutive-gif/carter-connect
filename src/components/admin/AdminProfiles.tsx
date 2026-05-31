@@ -3,8 +3,9 @@ import { supabase } from '@/integrations/supabase/client';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
-import { Download, FileText, Loader2, Mail, RefreshCcw } from 'lucide-react';
+import { Download, Eye, FileText, Loader2, RefreshCcw } from 'lucide-react';
 import { toast } from 'sonner';
+import AdminCandidateProfileDialog from './AdminCandidateProfileDialog';
 
 type CandidateRow = {
   id: string;
@@ -56,6 +57,7 @@ const AdminProfiles = () => {
   const [cabinets, setCabinets] = useState<CabinetRow[]>([]);
   const [loading, setLoading] = useState(true);
   const [downloadingCv, setDownloadingCv] = useState<string | null>(null);
+  const [previewCandidate, setPreviewCandidate] = useState<CandidateRow | null>(null);
 
   const handleValidate = async (candidate: any, approved: boolean) => {
     try {
