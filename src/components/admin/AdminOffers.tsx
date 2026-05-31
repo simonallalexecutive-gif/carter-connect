@@ -39,18 +39,18 @@ const AdminOffers = () => {
           <TableBody>
             {MOCK_OFFERS.map((o) => (
               <TableRow key={o.id} className="cursor-pointer hover:bg-muted/30">
-                <TableCell className="text-[11px] font-mono text-muted-foreground">{o.id}</TableCell>
+                <TableCell className="text-[11px] font-mono text-foreground/70">{o.id}</TableCell>
                 <TableCell className="text-[12px] font-semibold text-foreground">{o.cabinetName}</TableCell>
-                <TableCell className="text-[11px]">{o.dept}</TableCell>
-                <TableCell className="text-[11px] text-muted-foreground">{o.seniority}</TableCell>
-                <TableCell className="text-[11px] font-semibold">{PALIER_LABELS[o.palier]}</TableCell>
-                <TableCell className="text-[11px] font-semibold text-center">{o.profilesMatched}</TableCell>
+                <TableCell className="text-[11px] text-foreground">{o.dept}</TableCell>
+                <TableCell className="text-[11px] text-foreground">{o.seniority}</TableCell>
+                <TableCell className="text-[11px] font-semibold text-foreground">{PALIER_LABELS[o.palier]}</TableCell>
+                <TableCell className="text-[11px] font-semibold text-center text-foreground">{o.profilesMatched}</TableCell>
                 <TableCell>
                   <span className={cn('text-[9px] font-bold tracking-[0.06em] uppercase px-2 py-0.5 rounded-sm', OFFER_STATUS[o.status].class)}>
                     {OFFER_STATUS[o.status].label}
                   </span>
                 </TableCell>
-                <TableCell className="text-[11px] text-muted-foreground">{o.createdAt}</TableCell>
+                <TableCell className="text-[11px] text-foreground/70">{o.createdAt}</TableCell>
               </TableRow>
             ))}
           </TableBody>
