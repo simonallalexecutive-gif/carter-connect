@@ -99,33 +99,12 @@ const Header = () => {
       {menuOpen && (
         <div className="md:hidden bg-black min-h-[calc(100dvh-4rem)] flex flex-col px-6 pt-8 pb-12 gap-5 animate-in fade-in slide-in-from-top-2 duration-200">
 
-          <Link to="/notre-offre" onClick={() => setMenuOpen(false)} className="font-sans text-base font-normal text-white/80 hover:text-white transition-colors tracking-wide">Notre approche</Link>
-
-          <div className="flex flex-col gap-3">
-            <button
-              type="button"
-              onClick={() => setDemoMobileOpen(o => !o)}
-              className="font-sans text-base font-normal text-white/80 hover:text-white transition-colors tracking-wide inline-flex items-center gap-2 text-left"
-            >
-              Demo
-              <ChevronDown className={`w-4 h-4 transition-transform ${demoMobileOpen ? 'rotate-180' : ''}`} />
-            </button>
-            {demoMobileOpen && (
-              <div className="flex flex-col gap-3 pl-4 border-l border-white/10">
-                <Link to="/#votre-espace-cabinet" onClick={() => setMenuOpen(false)} className="font-sans text-sm font-normal text-white/70 hover:text-white transition-colors tracking-wide">Espace cabinet</Link>
-                <Link to="/espace-candidat" onClick={() => setMenuOpen(false)} className="font-sans text-sm font-normal text-white/70 hover:text-white transition-colors tracking-wide">Espace candidat</Link>
-              </div>
-            )}
-          </div>
-
-          <Link to="/#faq" onClick={() => setMenuOpen(false)} className="font-sans text-base font-normal text-white/80 hover:text-white transition-colors tracking-wide">FAQ</Link>
-
-          <div className="h-px bg-white/10 my-2" />
-          <Link to="/rendez-vous" onClick={() => setMenuOpen(false)} className="font-sans text-base font-normal text-white/70 hover:text-white transition-colors tracking-wide">Prendre RDV</Link>
-          <Link to="/connexion" onClick={() => setMenuOpen(false)} className="font-sans text-base font-normal text-white/70 hover:text-white transition-colors tracking-wide">Connexion</Link>
+          <Link to="/rendez-vous" onClick={() => setMenuOpen(false)} className="font-sans text-base font-normal text-white border border-white/40 rounded-sm px-5 py-2.5 transition-colors tracking-wide inline-flex w-fit">Prendre RDV</Link>
+          <Link to="/connexion" onClick={() => setMenuOpen(false)} className="font-sans text-base font-medium text-black bg-white border border-white rounded-sm px-5 py-2.5 transition-colors tracking-wide inline-flex w-fit">Connexion</Link>
           <Link to="/demander-acces" onClick={() => setMenuOpen(false)} className="font-sans text-sm font-normal text-white border border-white/30 rounded-sm px-6 py-3 transition-colors tracking-wide inline-flex items-center gap-2 mt-2 w-fit">Demander un accès</Link>
         </div>
       )}
+
     </header>
   );
 };
