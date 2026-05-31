@@ -171,14 +171,15 @@ const AdminProfiles = () => {
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead className="text-[10px] font-semibold tracking-[0.08em] uppercase">Nom</TableHead>
-                  <TableHead className="text-[10px] font-semibold tracking-[0.08em] uppercase">Email</TableHead>
-                  <TableHead className="text-[10px] font-semibold tracking-[0.08em] uppercase">Département</TableHead>
-                  <TableHead className="text-[10px] font-semibold tracking-[0.08em] uppercase">Cabinet origine</TableHead>
-                  <TableHead className="text-[10px] font-semibold tracking-[0.08em] uppercase">Visibilité</TableHead>
-                  <TableHead className="text-[10px] font-semibold tracking-[0.08em] uppercase">Statut</TableHead>
-                  <TableHead className="text-[10px] font-semibold tracking-[0.08em] uppercase">Inscrit le</TableHead>
-                  <TableHead className="text-[10px] font-semibold tracking-[0.08em] uppercase text-right">CV</TableHead>
+                  <TableHead className="text-[10px] font-semibold tracking-[0.08em] uppercase text-foreground">Nom</TableHead>
+                  <TableHead className="text-[10px] font-semibold tracking-[0.08em] uppercase text-foreground">Email</TableHead>
+                  <TableHead className="text-[10px] font-semibold tracking-[0.08em] uppercase text-foreground">Département</TableHead>
+                  <TableHead className="text-[10px] font-semibold tracking-[0.08em] uppercase text-foreground">Cabinet origine</TableHead>
+                  <TableHead className="text-[10px] font-semibold tracking-[0.08em] uppercase text-foreground">Visibilité</TableHead>
+                  <TableHead className="text-[10px] font-semibold tracking-[0.08em] uppercase text-foreground">Statut</TableHead>
+                  <TableHead className="text-[10px] font-semibold tracking-[0.08em] uppercase text-foreground">Inscrit le</TableHead>
+                  <TableHead className="text-[10px] font-semibold tracking-[0.08em] uppercase text-foreground text-right">CV</TableHead>
+                  <TableHead className="text-[10px] font-semibold tracking-[0.08em] uppercase text-foreground text-right">Actions</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -189,16 +190,16 @@ const AdminProfiles = () => {
                   return (
                     <TableRow key={c.id} className="hover:bg-muted/30">
                       <TableCell className="text-[12px] font-semibold text-foreground">{name}</TableCell>
-                      <TableCell className="text-[11px] text-muted-foreground">{c.auth_email || data.email || '—'}</TableCell>
-                      <TableCell className="text-[11px]">{data.departement || '—'}</TableCell>
-                      <TableCell className="text-[11px] text-muted-foreground">{data.cabinet || '—'}</TableCell>
-                      <TableCell className="text-[11px]">{c.visibility}</TableCell>
+                      <TableCell className="text-[11px] text-foreground/80">{c.auth_email || data.email || '—'}</TableCell>
+                      <TableCell className="text-[11px] text-foreground">{data.departement || '—'}</TableCell>
+                      <TableCell className="text-[11px] text-foreground/80">{data.cabinet || '—'}</TableCell>
+                      <TableCell className="text-[11px] text-foreground">{c.visibility}</TableCell>
                       <TableCell>
                         <span className={cn('text-[9px] font-bold tracking-[0.06em] uppercase px-2 py-0.5 rounded-sm', STATUS_COLORS[c.status] || STATUS_COLORS.pending_email_verification)}>
                           {STATUS_LABELS[c.status] || c.status}
                         </span>
                       </TableCell>
-                      <TableCell className="text-[11px] text-muted-foreground">{formatDate(c.created_at)}</TableCell>
+                      <TableCell className="text-[11px] text-foreground/80">{formatDate(c.created_at)}</TableCell>
                       <TableCell className="text-right">
                         {hasCv ? (
                           <Button
@@ -206,7 +207,7 @@ const AdminProfiles = () => {
                             size="sm"
                             onClick={() => handleDownloadCv(c)}
                             disabled={downloadingCv === c.id}
-                            className="text-[11px] h-7"
+                            className="text-[11px] h-7 text-foreground"
                           >
                             {downloadingCv === c.id ? (
                               <Loader2 className="w-3 h-3 animate-spin" />
@@ -217,16 +218,26 @@ const AdminProfiles = () => {
                             )}
                           </Button>
                         ) : (
-                          <span className="text-[10px] text-muted-foreground/60">—</span>
+                          <span className="text-[10px] text-muted-foreground">—</span>
                         )}
                       </TableCell>
                       <TableCell className="text-right">
-                        {c.status === 'pending_admin_approval' && (
-                          <div className="flex gap-1 justify-end">
-                            <Button variant="outline" size="sm" className="text-[11px] h-7 text-green-600 border-green-200 hover:bg-green-50" onClick={() => handleValidate(c, true)}>Valider</Button>
-                            <Button variant="outline" size="sm" className="text-[11px] h-7 text-red-500 border-red-200 hover:bg-red-50" onClick={() => handleValidate(c, false)}>Refuser</Button>
-                          </div>
-                        )}
+                        <div className="flex gap-1 justify-end items-center">
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="text-[11px] h-7 text-foreground gap-1"
+                            onClick={() => setPreviewCandidate(c)}
+                          >
+                            <Eye className="w-3 h-3" /> Voir
+                          </Button>
+                          {c.status === 'pending_admin_approval' && (
+                            <>
+                              <Button variant="outline" size="sm" className="text-[11px] h-7 text-green-700 border-green-300 hover:bg-green-50" onClick={() => handleValidate(c, true)}>Valider</Button>
+                              <Button variant="outline" size="sm" className="text-[11px] h-7 text-red-600 border-red-300 hover:bg-red-50" onClick={() => handleValidate(c, false)}>Refuser</Button>
+                            </>
+                          )}
+                        </div>
                       </TableCell>
                     </TableRow>
                   );
