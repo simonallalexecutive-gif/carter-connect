@@ -96,17 +96,18 @@ const ConfidentialityIntro = ({ onContinue }: ConfidentialityIntroProps) => {
             >
               {/* Vertical line + icon */}
               <div className="flex flex-col items-center flex-shrink-0">
-                <div className="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center bg-white/[0.05]">
-                  <step.icon className="w-4 h-4 text-white/50" />
+                <div className="w-9 h-9 rounded-full border border-black/15 flex items-center justify-center bg-black/[0.04]">
+                  <step.icon className="w-4 h-4 text-black/70" />
                 </div>
                 {i < steps.length - 1 && (
-                  <div className="w-px flex-1 bg-white/10 my-1" />
+                  <div className="w-px flex-1 bg-black/15 my-1" />
                 )}
               </div>
               <div className="pb-8">
-                <p className="text-[13px] font-sans font-semibold text-white mb-1.5 tracking-wide">{step.label}</p>
-                <p className="text-[12px] font-sans font-light text-white/45 leading-[1.7]">{step.description}</p>
+                <p className="text-[13px] font-sans font-semibold text-black mb-1.5 tracking-wide">{step.label}</p>
+                <p className="text-[12px] font-sans font-light text-black/60 leading-[1.7]">{step.description}</p>
               </div>
+
             </motion.div>
           ))}
         </div>
