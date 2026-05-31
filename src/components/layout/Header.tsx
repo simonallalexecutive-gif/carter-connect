@@ -1,12 +1,12 @@
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
-import { Menu, X, ChevronDown } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 
 const Header = () => {
   const { user, loading, signOut } = useAuth();
   const [menuOpen, setMenuOpen] = useState(false);
-  const [demoMobileOpen, setDemoMobileOpen] = useState(false);
+
   const [hidden, setHidden] = useState(false);
   const [onLight, setOnLight] = useState(false);
   const lastScrollY = useRef(0);
