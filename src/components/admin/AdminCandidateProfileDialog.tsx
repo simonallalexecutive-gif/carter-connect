@@ -135,13 +135,14 @@ const AdminCandidateProfileDialog = ({ open, onOpenChange, candidate, onUpdated 
         </div>
 
         {/* Body — render Step6Review hydrated */}
-        <div className="flex-1 overflow-y-auto bg-white">
-          <div className="bg-white text-black">
+        <div className="flex-1 overflow-y-auto bg-white p-4 sm:p-6">
+          <div className="profile-light bg-white text-black border border-black/10 rounded-sm shadow-sm">
             {hydrated && candidate && (
               <Step6Review readOnly />
             )}
           </div>
         </div>
+
 
         {/* Action footer */}
         <div className="flex items-center justify-between gap-3 px-6 py-4 border-t border-black/10 bg-white">
