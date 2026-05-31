@@ -177,8 +177,6 @@ const MissionSection = () => (
           <div className="flex-1 h-px bg-black/10" />
         </div>
 
-          <div className="flex-1 h-px bg-black/10" />
-        </div>
 
         {/* Candidats */}
         <div className="md:pl-16">
