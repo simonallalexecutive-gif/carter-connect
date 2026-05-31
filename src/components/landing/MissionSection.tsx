@@ -173,9 +173,10 @@ const MissionSection = () => (
         {/* Mobile Logan separator */}
         <div className="md:hidden flex items-center gap-4 my-2">
           <div className="flex-1 h-px bg-black/10" />
-          <div className="w-12 h-12 rounded-full bg-black flex items-center justify-center">
-            <span className="font-serif text-white text-sm">L</span>
-          </div>
+          <span className="font-serif text-[1.4rem] text-black tracking-[-0.01em]">Logan</span>
+          <div className="flex-1 h-px bg-black/10" />
+        </div>
+
           <div className="flex-1 h-px bg-black/10" />
         </div>
 
