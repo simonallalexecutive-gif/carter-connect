@@ -4,15 +4,8 @@ const TeamQuoteSection = () => {
   return (
     <section className="relative min-h-[70svh] flex items-center justify-center bg-white">
       <div className="relative z-10 max-w-3xl mx-auto px-6 sm:px-10 text-center">
-        <motion.span
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-100px' }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="block text-[9px] font-sans font-medium tracking-[0.35em] uppercase text-black/30 mb-8 sm:mb-10"
-        >
-          — Le mot de l'équipe Logan —
-        </motion.span>
+        {/* Eyebrow retiré à la demande */}
+
 
         {/* Opening quote mark */}
         <motion.div
@@ -54,9 +47,7 @@ const TeamQuoteSection = () => {
           <span className="text-[10px] font-sans tracking-[0.25em] uppercase text-black/60">
             L'équipe Logan
           </span>
-          <span className="text-[9px] font-sans tracking-[0.2em] uppercase text-black/30">
-            Paris · Confidentiel
-          </span>
+
         </motion.div>
       </div>
     </section>

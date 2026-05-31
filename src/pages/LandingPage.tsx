@@ -99,13 +99,14 @@ const LandingPage = () => (
       <div className="px-4 sm:px-8 lg:px-10 max-w-6xl relative z-10 pt-20 sm:pt-24 flex-1 flex items-center pb-4">
         <motion.div variants={stagger} initial="hidden" animate="visible" className="max-w-[min(95vw,72rem)]">
           <div className="inline-block">
-          <motion.h1 variants={fadeUp} className="text-[1.8rem] sm:text-[3rem] md:text-[4rem] lg:text-[5.1rem] font-serif font-[500] text-white leading-[1.1] mb-3 md:mb-5 tracking-[-0.03em] whitespace-nowrap">
-              Connecting <em className="italic">Top-Tier</em> Legal Minds
+          <motion.h1 variants={fadeUp} className="text-[1.44rem] sm:text-[2.4rem] md:text-[3.2rem] lg:text-[4.08rem] font-serif font-[500] text-white leading-[1.1] mb-3 md:mb-5 tracking-[-0.03em] whitespace-nowrap">
+              One stop-shop for <em className="italic">top-tier</em> lawyers recruitment
             </motion.h1>
           </div>
-          <motion.p variants={fadeUp} className="text-[0.95rem] sm:text-[1.252rem] md:text-[1.273rem] text-white font-sans font-[480] leading-[1.65] max-w-[72rem]">
+          <motion.p variants={fadeUp} className="text-[0.76rem] sm:text-[1.002rem] md:text-[1.018rem] text-white font-sans font-[480] leading-[1.65] max-w-[72rem]">
             Un réseau confidentiel, piloté par des chasseurs spécialisés, conçu pour les candidats<br className="hidden sm:inline" />{' '}et cabinets d'avocats les plus exigeants du marché.
           </motion.p>
+
           <motion.div variants={fadeUp} className="mt-8 sm:mt-20">
             <Link to="/demander-acces">
               <Button
@@ -245,12 +246,13 @@ const LandingPage = () => (
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.8, delay: 1.4 + i * 0.15, ease: [0.16, 1, 0.3, 1] }}
-                  className="font-serif text-sm sm:text-xl md:text-2xl text-white/30 tracking-[0.14em] sm:tracking-[0.18em] font-light italic"
-                  style={{ fontVariant: 'small-caps', wordSpacing: '0.15em' }}
+                  className="font-serif text-base sm:text-2xl md:text-[1.85rem] text-white tracking-[0.16em] sm:tracking-[0.22em] font-medium italic"
+                  style={{ fontVariant: 'small-caps', wordSpacing: '0.15em', textShadow: '0 2px 24px rgba(255,255,255,0.18)' }}
                 >
                   {word}
                 </motion.span>
               ))}
+
             </motion.div>
           </div>
         </div>

@@ -363,3 +363,37 @@
     background: hsl(var(--carter-gold-muted));
   }
 }
+
+/* === Admin: light read-only profile override === */
+.profile-light,
+.profile-light * {
+  border-color: rgba(0, 0, 0, 0.1) !important;
+}
+.profile-light section,
+.profile-light header,
+.profile-light article,
+.profile-light .bg-black,
+.profile-light [class*="bg-white/"],
+.profile-light [class*="bg-black/"] {
+  background-color: #ffffff !important;
+}
+.profile-light .text-white,
+.profile-light [class*="text-white/"] {
+  color: #000000 !important;
+}
+.profile-light .text-white\/45,
+.profile-light .text-white\/50,
+.profile-light .text-white\/55,
+.profile-light .text-white\/60,
+.profile-light .text-white\/65,
+.profile-light .text-white\/70,
+.profile-light .text-white\/40,
+.profile-light .text-white\/35 {
+  color: rgba(0, 0, 0, 0.7) !important;
+}
+.profile-light [class*="from-white/"],
+.profile-light [class*="via-white/"],
+.profile-light [class*="to-white/"] {
+  --tw-gradient-from: rgba(0,0,0,0.08) !important;
+  --tw-gradient-to: rgba(0,0,0,0) !important;
+}

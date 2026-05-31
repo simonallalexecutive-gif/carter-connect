@@ -59,13 +59,17 @@ const Side = ({
             <span className="font-serif text-[0.7rem] text-black/35 tracking-[0.15em] tabular-nums">
               0{i + 1}
             </span>
-            <h4 className="font-serif text-[1rem] md:text-[1.05rem] text-black tracking-[-0.01em] leading-snug">
+            <h4
+              className="font-sans text-[0.8rem] md:text-[0.85rem] text-black tracking-[0.18em] leading-snug font-semibold uppercase"
+              style={{ fontVariant: 'small-caps' }}
+            >
               {p.title}
             </h4>
           </div>
           <p className={`font-sans text-[0.82rem] md:text-[0.86rem] leading-[1.75] text-black/55 font-light ${align === 'right' ? 'md:text-right' : ''}`}>
             {p.text}
           </p>
+
         </motion.div>
       ))}
     </div>
@@ -101,9 +105,10 @@ const MissionSection = () => (
           variants={fadeUp}
           className="font-serif text-[2rem] sm:text-4xl md:text-[3rem] leading-[1.08] text-black tracking-[-0.02em] mb-8"
         >
-          Deux visions,<br />
-          <span className="italic text-black/85">un seul intermédiaire.</span>
+          Deux perspectives,<br />
+          <span className="italic text-black/85">un seul intermédiaire : Logan.</span>
         </motion.h2>
+
         <motion.p
           variants={fadeUp}
           className="font-sans text-[0.95rem] md:text-[1.02rem] font-[480] leading-[1.7] text-black/55 max-w-2xl"
@@ -151,15 +156,10 @@ const MissionSection = () => (
             style={{ transformOrigin: 'top' }}
             className="w-px flex-1 bg-gradient-to-b from-black/[0.04] via-black/20 to-black/[0.04] min-h-[60px]"
           />
-          <div className="my-5 flex flex-col items-center gap-3">
-            <div className="w-14 h-14 rounded-full bg-black flex items-center justify-center shadow-[0_12px_40px_-8px_rgba(0,0,0,0.4)]">
-              <span className="font-serif text-white text-[0.95rem] tracking-[-0.01em]">L</span>
-            </div>
-            <span className="font-serif text-[0.95rem] tracking-[-0.01em] text-black/80">Logan</span>
-            <span className="text-[10px] font-sans tracking-[0.25em] uppercase text-black/35">
-              Intermédiaire
-            </span>
+          <div className="my-5 flex flex-col items-center gap-3 px-4 py-3 rounded-sm">
+            <span className="font-serif text-[1.6rem] md:text-[1.85rem] tracking-[-0.01em] text-black">Logan</span>
           </div>
+
           <motion.div
             initial={{ scaleY: 0 }}
             whileInView={{ scaleY: 1 }}
@@ -173,11 +173,10 @@ const MissionSection = () => (
         {/* Mobile Logan separator */}
         <div className="md:hidden flex items-center gap-4 my-2">
           <div className="flex-1 h-px bg-black/10" />
-          <div className="w-12 h-12 rounded-full bg-black flex items-center justify-center">
-            <span className="font-serif text-white text-sm">L</span>
-          </div>
+          <span className="font-serif text-[1.4rem] text-black tracking-[-0.01em]">Logan</span>
           <div className="flex-1 h-px bg-black/10" />
         </div>
+
 
         {/* Candidats */}
         <div className="md:pl-16">

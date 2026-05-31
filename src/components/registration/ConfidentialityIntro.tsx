@@ -40,7 +40,7 @@ const ConfidentialityIntro = ({ onContinue }: ConfidentialityIntroProps) => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-      className="min-h-screen bg-[#111111] flex items-center justify-center px-6 sm:px-12 lg:px-20 relative overflow-hidden"
+      className="min-h-screen bg-white flex items-center justify-center px-6 sm:px-12 lg:px-20 relative overflow-hidden"
     >
       <div className="max-w-xl w-full relative z-10 py-20">
         {/* Shield icon */}
@@ -50,17 +50,18 @@ const ConfidentialityIntro = ({ onContinue }: ConfidentialityIntroProps) => {
           transition={{ delay: 0.2, duration: 0.5 }}
           className="flex justify-center mb-10"
         >
-          <div className="w-14 h-14 rounded-full border border-white/10 flex items-center justify-center bg-white/[0.05]">
-            <Shield className="w-6 h-6 text-white/40" />
+          <div className="w-14 h-14 rounded-full border border-black/15 flex items-center justify-center bg-black/[0.04]">
+            <Shield className="w-6 h-6 text-black/60" />
           </div>
+
         </motion.div>
 
-        <h1 className="text-2xl md:text-3xl font-serif font-normal text-white text-center mb-3 tracking-[-0.02em]">
+        <h1 className="text-2xl md:text-3xl font-serif font-normal text-black text-center mb-3 tracking-[-0.02em]">
           Vos informations restent<br />
-          <em className="text-white/50 font-normal">strictement confidentielles</em>
+          <em className="text-black/55 font-normal">strictement confidentielles</em>
         </h1>
 
-        <p className="text-xs text-white/40 font-sans font-light text-center mb-5 max-w-md mx-auto leading-relaxed">
+        <p className="text-xs text-black/55 font-sans font-light text-center mb-5 max-w-md mx-auto leading-relaxed">
           Voici comment Logan garantit la confidentialité de votre profil à chaque étape.
         </p>
 
@@ -71,16 +72,17 @@ const ConfidentialityIntro = ({ onContinue }: ConfidentialityIntroProps) => {
           transition={{ delay: 0.25, duration: 0.5 }}
           className="flex items-center justify-center gap-6 mb-14"
         >
-          <div className="flex items-center gap-2 text-white/50">
+          <div className="flex items-center gap-2 text-black/60">
             <Clock className="w-3.5 h-3.5" />
-            <span className="text-[11px] font-sans font-light tracking-wide">Inscription en <span className="text-white font-medium">5 min</span></span>
+            <span className="text-[11px] font-sans font-light tracking-wide">Inscription en <span className="text-black font-medium">5 min</span></span>
           </div>
-          <div className="w-px h-3 bg-white/15" />
-          <div className="flex items-center gap-2 text-white/50">
+          <div className="w-px h-3 bg-black/15" />
+          <div className="flex items-center gap-2 text-black/60">
             <Shield className="w-3.5 h-3.5" />
-            <span className="text-[11px] font-sans font-light tracking-wide">Validation sous <span className="text-white font-medium">48h</span></span>
+            <span className="text-[11px] font-sans font-light tracking-wide">Validation sous <span className="text-black font-medium">48h</span></span>
           </div>
         </motion.div>
+
 
         {/* Steps */}
         <div className="space-y-0">
@@ -94,17 +96,18 @@ const ConfidentialityIntro = ({ onContinue }: ConfidentialityIntroProps) => {
             >
               {/* Vertical line + icon */}
               <div className="flex flex-col items-center flex-shrink-0">
-                <div className="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center bg-white/[0.05]">
-                  <step.icon className="w-4 h-4 text-white/50" />
+                <div className="w-9 h-9 rounded-full border border-black/15 flex items-center justify-center bg-black/[0.04]">
+                  <step.icon className="w-4 h-4 text-black/70" />
                 </div>
                 {i < steps.length - 1 && (
-                  <div className="w-px flex-1 bg-white/10 my-1" />
+                  <div className="w-px flex-1 bg-black/15 my-1" />
                 )}
               </div>
               <div className="pb-8">
-                <p className="text-[13px] font-sans font-semibold text-white mb-1.5 tracking-wide">{step.label}</p>
-                <p className="text-[12px] font-sans font-light text-white/45 leading-[1.7]">{step.description}</p>
+                <p className="text-[13px] font-sans font-semibold text-black mb-1.5 tracking-wide">{step.label}</p>
+                <p className="text-[12px] font-sans font-light text-black/60 leading-[1.7]">{step.description}</p>
               </div>
+
             </motion.div>
           ))}
         </div>
@@ -119,15 +122,16 @@ const ConfidentialityIntro = ({ onContinue }: ConfidentialityIntroProps) => {
           <Button
             onClick={onContinue}
             size="lg"
-            className="bg-white text-black hover:bg-white/90 font-sans text-sm font-medium rounded-sm py-5 px-10 group"
+            className="bg-black text-white hover:bg-black/90 font-sans text-sm font-medium rounded-sm py-5 px-10 group"
           >
-            J'ai compris, commencer l'inscription
+            Commencer l'inscription
             <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
           </Button>
-          <p className="mt-6 text-[10px] text-white/25 font-sans font-light tracking-wide flex items-center justify-center gap-1.5">
+          <p className="mt-6 text-[10px] text-black/40 font-sans font-light tracking-wide flex items-center justify-center gap-1.5">
             <Lock className="w-3 h-3" />
             Données chiffrées · Accès restreint · RGPD
           </p>
+
         </motion.div>
       </div>
     </motion.div>

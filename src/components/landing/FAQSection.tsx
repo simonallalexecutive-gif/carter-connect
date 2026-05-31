@@ -107,12 +107,13 @@ const FAQRow = ({
       </span>
       <span
         className={cn(
-          'flex-1 font-serif text-[1rem] md:text-[1.18rem] leading-snug tracking-[-0.01em] transition-colors',
+          'flex-1 font-sans text-[0.95rem] md:text-[1.05rem] font-medium leading-snug tracking-[-0.005em] transition-colors',
           open ? 'text-black' : 'text-black/80 group-hover:text-black'
         )}
       >
         {item.question}
       </span>
+
       <span
         className={cn(
           'shrink-0 w-9 h-9 rounded-full border flex items-center justify-center transition-all duration-300',
