@@ -175,21 +175,24 @@ const AdminRegistration = () => {
   return (
     <div className="theme-light-registration bg-background min-h-full -m-8 lg:-m-12">
       <div className="sticky top-0 z-40 bg-background/95 backdrop-blur-sm border-b border-border">
-        <div className="flex items-center gap-4 px-6 pt-4 pb-0">
-          <h1 className="font-serif text-lg font-bold text-foreground">Inscrire un candidat</h1>
-          <span className="text-[10px] font-sans text-muted-foreground tracking-wide uppercase bg-secondary px-2 py-0.5 rounded-sm">Mode admin</span>
+        <div className="flex items-center gap-4 px-6 pt-5 pb-3">
+          <h1 className="font-serif text-lg font-normal text-foreground tracking-[-0.01em]">Inscrire un candidat</h1>
+          <span className="text-[10px] font-sans font-medium text-muted-foreground tracking-[0.15em] uppercase bg-secondary px-2 py-0.5 rounded-sm">Mode admin</span>
         </div>
         <StepProgress currentStep={store.currentStep} />
       </div>
-      {saving ? (
-        <div className="flex items-center justify-center py-20">
-          <p className="text-sm text-muted-foreground">Génération du lien d'invitation…</p>
-        </div>
-      ) : (
-        renderStep()
-      )}
+      <div className="pt-10 md:pt-14">
+        {saving ? (
+          <div className="flex items-center justify-center py-20">
+            <p className="text-sm font-sans text-muted-foreground">Génération du lien d'invitation…</p>
+          </div>
+        ) : (
+          renderStep()
+        )}
+      </div>
     </div>
   );
 };
+
 
 export default AdminRegistration;
