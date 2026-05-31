@@ -47,9 +47,7 @@ const TeamQuoteSection = () => {
           <span className="text-[10px] font-sans tracking-[0.25em] uppercase text-black/60">
             L'équipe Logan
           </span>
-          <span className="text-[9px] font-sans tracking-[0.2em] uppercase text-black/30">
-            Paris · Confidentiel
-          </span>
+
         </motion.div>
       </div>
     </section>
