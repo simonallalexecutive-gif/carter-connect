@@ -157,7 +157,11 @@ const buildCategoryChart = (
   return items.map(i => ({ name: i.name, value: total > 0 ? Math.round((i.raw / total) * 100) : 0, color: i.color }));
 };
 
-const Step6Review = () => {
+interface Step6ReviewProps {
+  readOnly?: boolean;
+}
+
+const Step6Review = ({ readOnly = false }: Step6ReviewProps = {}) => {
   const store = useRegistrationStore();
   const isAdmin = store.isAdminMode;
   const pqe = usePQE(store.sermentMois, store.sermentAnnee);
@@ -978,43 +982,47 @@ const Step6Review = () => {
       </div>
 
 
-      {/* Nota Bene */}
-      <div className="rounded-sm border border-border bg-card px-5 py-4 mt-6">
-        <p className="text-[9px] uppercase tracking-[0.15em] text-muted-foreground font-sans font-light mb-3">Nota bene (facultatif)</p>
-        <textarea
-          value={store.notaBene || ''}
-          onChange={e => store.setField('notaBene', e.target.value)}
-          placeholder="Un mot à ajouter ? Une précision, un contexte particulier..."
-          className="w-full min-h-[80px] rounded-md border border-input bg-background px-3 py-2 text-sm font-sans ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-        />
-      </div>
-
-      {/* RDV option */}
-      <div className="rounded-sm border border-border bg-card px-5 py-4 mt-4">
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="text-sm font-sans font-medium text-foreground">Souhaitez-vous échanger avec un consultant Logan ?</p>
-            <p className="text-xs font-sans font-light text-muted-foreground mt-1">Prenez rendez-vous dès la validation de votre inscription.</p>
+      {!readOnly && (
+        <>
+          {/* Nota Bene */}
+          <div className="rounded-sm border border-border bg-card px-5 py-4 mt-6">
+            <p className="text-[9px] uppercase tracking-[0.15em] text-muted-foreground font-sans font-light mb-3">Nota bene (facultatif)</p>
+            <textarea
+              value={store.notaBene || ''}
+              onChange={e => store.setField('notaBene', e.target.value)}
+              placeholder="Un mot à ajouter ? Une précision, un contexte particulier..."
+              className="w-full min-h-[80px] rounded-md border border-input bg-background px-3 py-2 text-sm font-sans ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            />
           </div>
-          <Link to="/prendre-rdv" target="_blank" className="ml-4 flex-shrink-0">
-            <Button variant="outline" size="sm" className="font-sans text-xs font-medium rounded-sm gap-1.5">
-              Prendre RDV
-              <ArrowRight className="w-3 h-3" />
-            </Button>
-          </Link>
-        </div>
-      </div>
 
-      {/* Navigation */}
-      <div className="flex justify-between pt-10">
-        <Button variant="outline" onClick={store.prevStep} className="font-sans font-light rounded-sm gap-2">
-          <ArrowLeft className="w-4 h-4" />
-          Retour
-        </Button>
-        <Button onClick={handleSubmit} disabled={submitting} className="bg-accent text-accent-foreground hover:bg-accent/90 font-sans font-medium px-8 rounded-sm">
-          {submitting ? 'Envoi...' : isAdmin ? 'Générer le lien d\'invitation →' : 'Soumettre mon profil'}
-        </Button>
-      </div>
+          {/* RDV option */}
+          <div className="rounded-sm border border-border bg-card px-5 py-4 mt-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-sans font-medium text-foreground">Souhaitez-vous échanger avec un consultant Logan ?</p>
+                <p className="text-xs font-sans font-light text-muted-foreground mt-1">Prenez rendez-vous dès la validation de votre inscription.</p>
+              </div>
+              <Link to="/prendre-rdv" target="_blank" className="ml-4 flex-shrink-0">
+                <Button variant="outline" size="sm" className="font-sans text-xs font-medium rounded-sm gap-1.5">
+                  Prendre RDV
+                  <ArrowRight className="w-3 h-3" />
+                </Button>
+              </Link>
+            </div>
+          </div>
+
+          {/* Navigation */}
+          <div className="flex justify-between pt-10">
+            <Button variant="outline" onClick={store.prevStep} className="font-sans font-light rounded-sm gap-2">
+              <ArrowLeft className="w-4 h-4" />
+              Retour
+            </Button>
+            <Button onClick={handleSubmit} disabled={submitting} className="bg-accent text-accent-foreground hover:bg-accent/90 font-sans font-medium px-8 rounded-sm">
+              {submitting ? 'Envoi...' : isAdmin ? 'Générer le lien d\'invitation →' : 'Soumettre mon profil'}
+            </Button>
+          </div>
+        </>
+      )}
     </motion.div>
   );
 };
