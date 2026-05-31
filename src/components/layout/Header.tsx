@@ -68,49 +68,20 @@ const Header = () => {
           </Link>
 
           <nav className="hidden md:flex items-center gap-1 ml-2">
-            <Link to="/notre-offre" className={navLinkBase}>Notre approche</Link>
-
-            {/* Demo dropdown */}
-            <div className="relative group">
-              <button
-                type="button"
-                className={`${navLinkBase} inline-flex items-center gap-1`}
-              >
-                Demo
-                <ChevronDown className="w-3 h-3 opacity-70" />
-              </button>
-              <div className="absolute left-0 top-full pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150">
-                <div className="min-w-[180px] bg-black border border-white/10 rounded-sm py-2 shadow-xl">
-                  <Link
-                    to="/#votre-espace-cabinet"
-                    className="block px-4 py-2 text-[12.5px] font-sans font-normal text-white/80 hover:text-white hover:bg-white/5 transition-colors tracking-[0.01em]"
-                  >
-                    Espace cabinet
-                  </Link>
-                  <Link
-                    to="/espace-candidat"
-                    className="block px-4 py-2 text-[12.5px] font-sans font-normal text-white/80 hover:text-white hover:bg-white/5 transition-colors tracking-[0.01em]"
-                  >
-                    Espace candidat
-                  </Link>
-                </div>
-              </div>
-            </div>
-
-            <Link to="/#faq" className={navLinkBase}>FAQ</Link>
+            {/* Onglets retirés à la demande : Notre approche, Demo, FAQ */}
           </nav>
         </div>
 
-        <div className="hidden md:flex items-center gap-1">
+        <div className="hidden md:flex items-center gap-2">
           <Link
             to="/rendez-vous"
-            className={`text-[12.3px] font-sans font-semibold px-2.5 py-1.5 transition-colors duration-200 tracking-wide ${textColor} ${hoverColor}`}
+            className={`text-[12.3px] font-sans font-semibold px-3.5 py-1.5 rounded-sm border transition-colors duration-200 tracking-wide ${textColor} ${onLight && !menuOpen ? 'border-black/40 hover:bg-black/5' : 'border-white/50 hover:bg-white/10'}`}
           >
             Prendre RDV
           </Link>
           <Link
             to="/connexion"
-            className={`text-[12.3px] font-sans font-semibold px-2.5 py-1.5 transition-colors duration-200 tracking-wide ${textColor} ${hoverColor}`}
+            className="text-[12.3px] font-sans font-semibold px-3.5 py-1.5 rounded-sm bg-white text-black border border-white hover:bg-white/90 transition-colors duration-200 tracking-wide"
           >
             Connexion
           </Link>
@@ -127,6 +98,7 @@ const Header = () => {
 
       {menuOpen && (
         <div className="md:hidden bg-black min-h-[calc(100dvh-4rem)] flex flex-col px-6 pt-8 pb-12 gap-5 animate-in fade-in slide-in-from-top-2 duration-200">
+
           <Link to="/notre-offre" onClick={() => setMenuOpen(false)} className="font-sans text-base font-normal text-white/80 hover:text-white transition-colors tracking-wide">Notre approche</Link>
 
           <div className="flex flex-col gap-3">
