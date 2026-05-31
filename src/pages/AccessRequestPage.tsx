@@ -38,7 +38,7 @@ const AccessRequestPage = () => {
               <Button
                 size="lg"
                 variant="outline"
-                className="font-sans text-sm font-normal px-8 py-6 rounded-sm tracking-wide w-full border-black/30 text-black hover:bg-black/5"
+                className="font-sans text-sm font-normal px-8 py-6 rounded-sm tracking-wide w-full border-black/30 bg-black text-white hover:bg-black/90 hover:text-white"
               >
                 Espace cabinet
               </Button>

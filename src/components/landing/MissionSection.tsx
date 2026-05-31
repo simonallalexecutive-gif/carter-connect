@@ -42,7 +42,7 @@ const Side = ({
       </div>
       <div>
         <p className="text-[10px] font-sans font-medium tracking-[0.28em] uppercase text-black/40">{label}</p>
-        <p className="font-serif text-[1.05rem] md:text-[1.15rem] text-black/90 italic mt-1">{tagline}</p>
+        <p className="font-sans text-[0.95rem] md:text-[1.05rem] text-black tracking-[0.2em] font-semibold uppercase mt-2" style={{ fontVariant: 'small-caps' }}>{tagline}</p>
       </div>
     </motion.div>
 
