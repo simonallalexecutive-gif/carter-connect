@@ -296,6 +296,13 @@ const AdminProfiles = () => {
           )
         )}
       </div>
+
+      <AdminCandidateProfileDialog
+        open={!!previewCandidate}
+        onOpenChange={(o) => { if (!o) setPreviewCandidate(null); }}
+        candidate={previewCandidate}
+        onUpdated={load}
+      />
     </div>
   );
 };
