@@ -122,10 +122,9 @@ const ConfidentialityIntro = ({ onContinue }: ConfidentialityIntroProps) => {
           <Button
             onClick={onContinue}
             size="lg"
-            className="bg-black text-white hover:bg-black/90 font-sans text-sm font-medium rounded-sm py-5 px-10 group"
+            className="bg-black text-white hover:bg-black/90 font-sans text-sm font-normal rounded-sm py-5 px-10"
           >
             Commencer l'inscription
-            <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
           </Button>
           <p className="mt-6 text-[10px] text-black/40 font-sans font-light tracking-wide flex items-center justify-center gap-1.5">
             <Lock className="w-3 h-3" />
