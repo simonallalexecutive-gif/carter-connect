@@ -252,13 +252,13 @@ const AdminProfiles = () => {
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead className="text-[10px] font-semibold tracking-[0.08em] uppercase">Cabinet</TableHead>
-                  <TableHead className="text-[10px] font-semibold tracking-[0.08em] uppercase">Email</TableHead>
-                  <TableHead className="text-[10px] font-semibold tracking-[0.08em] uppercase">Palier</TableHead>
-                  <TableHead className="text-[10px] font-semibold tracking-[0.08em] uppercase">Contacts</TableHead>
-                  <TableHead className="text-[10px] font-semibold tracking-[0.08em] uppercase">Recherches</TableHead>
-                  <TableHead className="text-[10px] font-semibold tracking-[0.08em] uppercase">Vérifié</TableHead>
-                  <TableHead className="text-[10px] font-semibold tracking-[0.08em] uppercase">Inscrit le</TableHead>
+                  <TableHead className="text-[10px] font-semibold tracking-[0.08em] uppercase text-foreground">Cabinet</TableHead>
+                  <TableHead className="text-[10px] font-semibold tracking-[0.08em] uppercase text-foreground">Email</TableHead>
+                  <TableHead className="text-[10px] font-semibold tracking-[0.08em] uppercase text-foreground">Palier</TableHead>
+                  <TableHead className="text-[10px] font-semibold tracking-[0.08em] uppercase text-foreground">Contacts</TableHead>
+                  <TableHead className="text-[10px] font-semibold tracking-[0.08em] uppercase text-foreground">Recherches</TableHead>
+                  <TableHead className="text-[10px] font-semibold tracking-[0.08em] uppercase text-foreground">Vérifié</TableHead>
+                  <TableHead className="text-[10px] font-semibold tracking-[0.08em] uppercase text-foreground">Inscrit le</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -268,10 +268,10 @@ const AdminProfiles = () => {
                   return (
                     <TableRow key={cb.id} className="hover:bg-muted/30">
                       <TableCell className="text-[12px] font-semibold text-foreground">{cb.cabinet_name || '—'}</TableCell>
-                      <TableCell className="text-[11px] text-muted-foreground">{cb.auth_email || '—'}</TableCell>
-                      <TableCell className="text-[11px] uppercase">{cb.palier || '—'}</TableCell>
-                      <TableCell className="text-[11px]">{contacts}</TableCell>
-                      <TableCell className="text-[11px]">
+                      <TableCell className="text-[11px] text-foreground/80">{cb.auth_email || '—'}</TableCell>
+                      <TableCell className="text-[11px] uppercase text-foreground">{cb.palier || '—'}</TableCell>
+                      <TableCell className="text-[11px] text-foreground">{contacts}</TableCell>
+                      <TableCell className="text-[11px] text-foreground">
                         {searches > 0 ? (
                           <span className="inline-flex items-center gap-1 text-foreground font-semibold">
                             <FileText className="w-3 h-3" /> {searches}
@@ -282,12 +282,12 @@ const AdminProfiles = () => {
                         <span className={cn('text-[9px] font-bold tracking-[0.06em] uppercase px-2 py-0.5 rounded-sm',
                           cb.is_verified
                             ? 'bg-primary text-primary-foreground'
-                            : 'bg-muted text-muted-foreground border border-border'
+                            : 'bg-muted text-foreground border border-border'
                         )}>
                           {cb.is_verified ? 'Oui' : 'Non'}
                         </span>
                       </TableCell>
-                      <TableCell className="text-[11px] text-muted-foreground">{formatDate(cb.created_at)}</TableCell>
+                      <TableCell className="text-[11px] text-foreground/80">{formatDate(cb.created_at)}</TableCell>
                     </TableRow>
                   );
                 })}
