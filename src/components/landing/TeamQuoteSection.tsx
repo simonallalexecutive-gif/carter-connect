@@ -49,7 +49,8 @@ const TeamQuoteSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 1.1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          className="font-serif italic text-black text-2xl sm:text-4xl md:text-[2.85rem] lg:text-[3.35rem] leading-[1.25] tracking-[-0.015em] max-w-5xl mx-auto"
+          className="italic text-black text-xl sm:text-2xl md:text-[1.85rem] lg:text-[2.15rem] leading-[1.4] tracking-[-0.005em] max-w-4xl mx-auto font-light"
+          style={{ fontFamily: "'Cormorant Garamond', 'Garamond', serif" }}
         >
           Logan se positionne comme l'
           <em className="not-italic font-medium relative inline-block">
