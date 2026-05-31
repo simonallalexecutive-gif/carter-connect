@@ -225,7 +225,7 @@ const LandingPage = () => (
               <Link to="/demander-acces">
                 <Button
                   size="lg"
-                  className="bg-white text-black hover:bg-white/90 font-sans text-sm font-medium px-8 py-5 rounded-sm tracking-wide mt-4"
+                  className="bg-white text-black hover:bg-white/90 font-sans text-sm font-normal px-8 py-5 rounded-sm tracking-wide mt-4"
                 >
                   Request access
                 </Button>
