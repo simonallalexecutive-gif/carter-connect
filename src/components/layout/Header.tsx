@@ -75,13 +75,13 @@ const Header = () => {
         <div className="hidden md:flex items-center gap-2">
           <Link
             to="/rendez-vous"
-            className={`text-[12.3px] font-sans font-semibold px-3.5 py-1.5 rounded-sm border transition-colors duration-200 tracking-wide ${textColor} ${onLight && !menuOpen ? 'border-black/40 hover:bg-black/5' : 'border-white/50 hover:bg-white/10'}`}
+            className={`text-[12.3px] font-sans font-normal px-3.5 py-1.5 rounded-sm border transition-colors duration-200 tracking-wide ${textColor} ${onLight && !menuOpen ? 'border-black/40 hover:bg-black/5' : 'border-white/50 hover:bg-white/10'}`}
           >
             Prendre RDV
           </Link>
           <Link
             to="/connexion"
-            className="text-[12.3px] font-sans font-semibold px-3.5 py-1.5 rounded-sm bg-white text-black border border-white hover:bg-white/90 transition-colors duration-200 tracking-wide"
+            className="text-[12.3px] font-sans font-normal px-3.5 py-1.5 rounded-sm bg-white text-black border border-white hover:bg-white/90 transition-colors duration-200 tracking-wide"
           >
             Connexion
           </Link>
