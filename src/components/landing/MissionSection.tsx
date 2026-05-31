@@ -156,15 +156,10 @@ const MissionSection = () => (
             style={{ transformOrigin: 'top' }}
             className="w-px flex-1 bg-gradient-to-b from-black/[0.04] via-black/20 to-black/[0.04] min-h-[60px]"
           />
-          <div className="my-5 flex flex-col items-center gap-3">
-            <div className="w-14 h-14 rounded-full bg-black flex items-center justify-center shadow-[0_12px_40px_-8px_rgba(0,0,0,0.4)]">
-              <span className="font-serif text-white text-[0.95rem] tracking-[-0.01em]">L</span>
-            </div>
-            <span className="font-serif text-[0.95rem] tracking-[-0.01em] text-black/80">Logan</span>
-            <span className="text-[10px] font-sans tracking-[0.25em] uppercase text-black/35">
-              Intermédiaire
-            </span>
+          <div className="my-5 flex flex-col items-center gap-3 px-4 py-3 rounded-sm">
+            <span className="font-serif text-[1.6rem] md:text-[1.85rem] tracking-[-0.01em] text-black">Logan</span>
           </div>
+
           <motion.div
             initial={{ scaleY: 0 }}
             whileInView={{ scaleY: 1 }}
