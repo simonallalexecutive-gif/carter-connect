@@ -246,12 +246,13 @@ const LandingPage = () => (
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.8, delay: 1.4 + i * 0.15, ease: [0.16, 1, 0.3, 1] }}
-                  className="font-serif text-sm sm:text-xl md:text-2xl text-white/30 tracking-[0.14em] sm:tracking-[0.18em] font-light italic"
-                  style={{ fontVariant: 'small-caps', wordSpacing: '0.15em' }}
+                  className="font-serif text-base sm:text-2xl md:text-[1.85rem] text-white tracking-[0.16em] sm:tracking-[0.22em] font-medium italic"
+                  style={{ fontVariant: 'small-caps', wordSpacing: '0.15em', textShadow: '0 2px 24px rgba(255,255,255,0.18)' }}
                 >
                   {word}
                 </motion.span>
               ))}
+
             </motion.div>
           </div>
         </div>
