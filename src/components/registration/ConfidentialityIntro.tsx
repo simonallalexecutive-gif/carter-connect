@@ -50,9 +50,10 @@ const ConfidentialityIntro = ({ onContinue }: ConfidentialityIntroProps) => {
           transition={{ delay: 0.2, duration: 0.5 }}
           className="flex justify-center mb-10"
         >
-          <div className="w-14 h-14 rounded-full border border-white/10 flex items-center justify-center bg-white/[0.05]">
-            <Shield className="w-6 h-6 text-white/40" />
+          <div className="w-14 h-14 rounded-full border border-black/15 flex items-center justify-center bg-black/[0.04]">
+            <Shield className="w-6 h-6 text-black/60" />
           </div>
+
         </motion.div>
 
         <h1 className="text-2xl md:text-3xl font-serif font-normal text-white text-center mb-3 tracking-[-0.02em]">
