@@ -59,11 +59,13 @@ const Side = ({
             <span className="font-serif text-[0.7rem] text-black/35 tracking-[0.15em] tabular-nums">
               0{i + 1}
             </span>
-            <h4 className="font-serif text-[1rem] md:text-[1.05rem] text-black tracking-[-0.01em] leading-snug">
+            <h4
+              className="font-sans text-[0.8rem] md:text-[0.85rem] text-black tracking-[0.18em] leading-snug font-semibold uppercase"
+              style={{ fontVariant: 'small-caps' }}
+            >
               {p.title}
             </h4>
-          </div>
-          <p className={`font-sans text-[0.82rem] md:text-[0.86rem] leading-[1.75] text-black/55 font-light ${align === 'right' ? 'md:text-right' : ''}`}>
+
             {p.text}
           </p>
         </motion.div>
