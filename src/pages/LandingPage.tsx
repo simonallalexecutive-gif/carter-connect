@@ -103,7 +103,7 @@ const LandingPage = () => (
               Connecting <em className="italic">top-tier</em> Lawyers
             </motion.h1>
           </div>
-          <motion.p variants={fadeUp} className="text-[0.87rem] sm:text-[1.15rem] md:text-[1.17rem] text-white font-sans font-[480] leading-[1.65] max-w-[72rem]">
+          <motion.p variants={fadeUp} className="text-[0.78rem] sm:text-[1.04rem] md:text-[1.05rem] text-white font-sans font-[480] leading-[1.65] max-w-[72rem]">
             Un réseau confidentiel, piloté par des chasseurs spécialisés, conçu pour les candidats<br className="hidden sm:inline" />{' '}et cabinets d'avocats les plus exigeants du marché.
           </motion.p>
 
