@@ -56,12 +56,12 @@ const ConfidentialityIntro = ({ onContinue }: ConfidentialityIntroProps) => {
 
         </motion.div>
 
-        <h1 className="text-2xl md:text-3xl font-serif font-normal text-white text-center mb-3 tracking-[-0.02em]">
+        <h1 className="text-2xl md:text-3xl font-serif font-normal text-black text-center mb-3 tracking-[-0.02em]">
           Vos informations restent<br />
-          <em className="text-white/50 font-normal">strictement confidentielles</em>
+          <em className="text-black/55 font-normal">strictement confidentielles</em>
         </h1>
 
-        <p className="text-xs text-white/40 font-sans font-light text-center mb-5 max-w-md mx-auto leading-relaxed">
+        <p className="text-xs text-black/55 font-sans font-light text-center mb-5 max-w-md mx-auto leading-relaxed">
           Voici comment Logan garantit la confidentialité de votre profil à chaque étape.
         </p>
 
@@ -72,16 +72,17 @@ const ConfidentialityIntro = ({ onContinue }: ConfidentialityIntroProps) => {
           transition={{ delay: 0.25, duration: 0.5 }}
           className="flex items-center justify-center gap-6 mb-14"
         >
-          <div className="flex items-center gap-2 text-white/50">
+          <div className="flex items-center gap-2 text-black/60">
             <Clock className="w-3.5 h-3.5" />
-            <span className="text-[11px] font-sans font-light tracking-wide">Inscription en <span className="text-white font-medium">5 min</span></span>
+            <span className="text-[11px] font-sans font-light tracking-wide">Inscription en <span className="text-black font-medium">5 min</span></span>
           </div>
-          <div className="w-px h-3 bg-white/15" />
-          <div className="flex items-center gap-2 text-white/50">
+          <div className="w-px h-3 bg-black/15" />
+          <div className="flex items-center gap-2 text-black/60">
             <Shield className="w-3.5 h-3.5" />
-            <span className="text-[11px] font-sans font-light tracking-wide">Validation sous <span className="text-white font-medium">48h</span></span>
+            <span className="text-[11px] font-sans font-light tracking-wide">Validation sous <span className="text-black font-medium">48h</span></span>
           </div>
         </motion.div>
+
 
         {/* Steps */}
         <div className="space-y-0">
