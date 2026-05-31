@@ -99,11 +99,11 @@ const LandingPage = () => (
       <div className="px-4 sm:px-8 lg:px-10 max-w-6xl relative z-10 pt-20 sm:pt-24 flex-1 flex items-center pb-4">
         <motion.div variants={stagger} initial="hidden" animate="visible" className="max-w-[min(95vw,72rem)]">
           <div className="inline-block">
-          <motion.h1 variants={fadeUp} className="text-[1.44rem] sm:text-[2.4rem] md:text-[3.2rem] lg:text-[4.08rem] font-serif font-[500] text-white leading-[1.1] mb-3 md:mb-5 tracking-[-0.03em] whitespace-nowrap">
-              One stop-shop for <em className="italic">top-tier</em> lawyers recruitment
+          <motion.h1 variants={fadeUp} className="text-[1.66rem] sm:text-[2.76rem] md:text-[3.68rem] lg:text-[4.69rem] font-serif font-[500] text-white leading-[1.1] mb-3 md:mb-5 tracking-[-0.03em] whitespace-nowrap">
+              Connecting <em className="italic">top-tier</em> Lawyers
             </motion.h1>
           </div>
-          <motion.p variants={fadeUp} className="text-[0.76rem] sm:text-[1.002rem] md:text-[1.018rem] text-white font-sans font-[480] leading-[1.65] max-w-[72rem]">
+          <motion.p variants={fadeUp} className="text-[0.87rem] sm:text-[1.15rem] md:text-[1.17rem] text-white font-sans font-[480] leading-[1.65] max-w-[72rem]">
             Un réseau confidentiel, piloté par des chasseurs spécialisés, conçu pour les candidats<br className="hidden sm:inline" />{' '}et cabinets d'avocats les plus exigeants du marché.
           </motion.p>
 
@@ -111,7 +111,7 @@ const LandingPage = () => (
             <Link to="/demander-acces">
               <Button
                 size="lg"
-                className="bg-white text-black hover:bg-white/90 font-sans text-sm font-medium px-8 py-5 rounded-sm tracking-wide"
+                className="bg-white text-black hover:bg-white/90 font-sans text-sm font-normal px-8 py-5 rounded-sm tracking-wide"
               >
                 Request access
               </Button>
