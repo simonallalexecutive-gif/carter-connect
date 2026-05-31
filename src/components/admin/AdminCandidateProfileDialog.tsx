@@ -115,51 +115,53 @@ const AdminCandidateProfileDialog = ({ open, onOpenChange, candidate, onUpdated 
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-6xl w-[95vw] h-[92vh] p-0 overflow-hidden flex flex-col gap-0 bg-background">
+      <DialogContent className="max-w-6xl w-[95vw] h-[92vh] p-0 overflow-hidden flex flex-col gap-0 bg-white text-black border border-black/10 shadow-2xl">
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-border bg-background">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-black/10 bg-white">
           <div>
-            <p className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground font-semibold">Fiche candidat</p>
-            <h2 className="text-base font-serif text-foreground mt-0.5">
+            <p className="text-[10px] uppercase tracking-[0.18em] text-black/60 font-semibold">Fiche candidat</p>
+            <h2 className="text-base font-serif text-black mt-0.5">
               {candidate?.full_name || candidate?.auth_email || '—'}
             </h2>
           </div>
           <div className="flex items-center gap-3">
             <span className={cn(
               'text-[10px] font-semibold tracking-[0.08em] uppercase px-2.5 py-1 rounded-sm',
-              candidate?.status === 'approved' ? 'bg-foreground text-background' :
-              candidate?.status === 'rejected' ? 'bg-destructive/10 text-destructive border border-destructive/30' :
-              'bg-muted text-foreground border border-border',
+              candidate?.status === 'approved' ? 'bg-black text-white' :
+              candidate?.status === 'rejected' ? 'bg-red-50 text-red-700 border border-red-200' :
+              'bg-black/5 text-black border border-black/15',
             )}>{statusLabel}</span>
           </div>
         </div>
 
         {/* Body — render Step6Review hydrated */}
-        <div className="flex-1 overflow-y-auto bg-background">
-          {hydrated && candidate && (
-            <Step6Review readOnly />
-          )}
+        <div className="flex-1 overflow-y-auto bg-white">
+          <div className="bg-white text-black">
+            {hydrated && candidate && (
+              <Step6Review readOnly />
+            )}
+          </div>
         </div>
 
         {/* Action footer */}
-        <div className="flex items-center justify-between gap-3 px-6 py-4 border-t border-border bg-background">
-          <Button variant="outline" onClick={() => onOpenChange(false)} className="rounded-sm text-xs">
+        <div className="flex items-center justify-between gap-3 px-6 py-4 border-t border-black/10 bg-white">
+          <Button variant="outline" onClick={() => onOpenChange(false)} className="rounded-sm text-xs bg-white text-black border-black/20 hover:bg-black/5">
             Fermer
           </Button>
           <div className="flex items-center gap-2">
             <Button
               variant="outline"
-              disabled={!isPending || submitting !== null}
+              disabled={submitting !== null}
               onClick={() => handleDecision(false)}
-              className="rounded-sm text-xs text-destructive border-destructive/40 hover:bg-destructive/5 hover:text-destructive gap-1.5"
+              className="rounded-sm text-xs bg-white text-red-700 border-red-300 hover:bg-red-50 hover:text-red-700 gap-1.5"
             >
               {submitting === 'reject' ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <X className="w-3.5 h-3.5" />}
               Refuser
             </Button>
             <Button
-              disabled={!isPending || submitting !== null}
+              disabled={submitting !== null}
               onClick={() => handleDecision(true)}
-              className="rounded-sm text-xs bg-foreground text-background hover:bg-foreground/90 gap-1.5"
+              className="rounded-sm text-xs bg-black text-white hover:bg-black/85 gap-1.5"
             >
               {submitting === 'approve' ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Check className="w-3.5 h-3.5" />}
               Valider le profil
