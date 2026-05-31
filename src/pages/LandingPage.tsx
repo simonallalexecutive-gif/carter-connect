@@ -100,10 +100,11 @@ const LandingPage = () => (
         <motion.div variants={stagger} initial="hidden" animate="visible" className="max-w-[min(95vw,72rem)]">
           <div className="inline-block">
           <motion.h1 variants={fadeUp} className="text-[1.66rem] sm:text-[2.76rem] md:text-[3.68rem] lg:text-[4.69rem] font-serif font-[500] text-white leading-[1.1] mb-3 md:mb-5 tracking-[-0.03em] whitespace-nowrap">
-              Connecting <em className="italic">top-tier</em> Lawyers
+              Connecting <em className="italic">Top-Tier</em> Legal Minds
             </motion.h1>
           </div>
-          <motion.p variants={fadeUp} className="text-[0.78rem] sm:text-[1.04rem] md:text-[1.05rem] text-white font-sans font-[480] leading-[1.65] max-w-[72rem]">
+          <motion.p variants={fadeUp} className="text-[0.86rem] sm:text-[1.14rem] md:text-[1.16rem] text-white font-sans font-[480] leading-[1.65] max-w-[72rem]">
+
             Un réseau confidentiel, piloté par des chasseurs spécialisés, conçu pour les candidats<br className="hidden sm:inline" />{' '}et cabinets d'avocats les plus exigeants du marché.
           </motion.p>
 
