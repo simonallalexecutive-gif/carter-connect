@@ -65,9 +65,11 @@ const Side = ({
             >
               {p.title}
             </h4>
-
+          </div>
+          <p className={`font-sans text-[0.82rem] md:text-[0.86rem] leading-[1.75] text-black/55 font-light ${align === 'right' ? 'md:text-right' : ''}`}>
             {p.text}
           </p>
+
         </motion.div>
       ))}
     </div>
