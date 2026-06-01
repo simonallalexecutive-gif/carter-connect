@@ -36,7 +36,6 @@ type CabinetTabKey = 'dashboard' | 'explore' | 'newSearch' | 'activeSearches' | 
 const CABINET_TABS: { key: CabinetTabKey; label: string; icon: typeof Building2 }[] = [
   { key: 'dashboard', label: 'Tableau de bord', icon: Building2 },
   { key: 'activeSearches', label: 'Mes recherches actives', icon: Search },
-  { key: 'account', label: 'Mon compte', icon: Settings },
 ];
 
 const CabinetSidebar = ({
@@ -90,19 +89,26 @@ const CabinetSidebar = ({
                   {!collapsed && <span className="text-[13px]">Alertes prioritaires</span>}
                 </SidebarMenuButton>
               </SidebarMenuItem>
-              <SidebarMenuItem>
-                <SidebarMenuButton asChild tooltip="Accueil" className="text-sidebar-foreground hover:bg-sidebar-accent rounded-sm">
-                  <Link to="/">
-                    <Home className="mr-2 h-4 w-4" />
-                    {!collapsed && <span className="text-[13px]">Accueil</span>}
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton
+              onClick={() => setActiveTab('account')}
+              isActive={activeTab === 'account'}
+              tooltip="Mon compte"
+              className={`text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground rounded-sm transition-colors ${
+                activeTab === 'account' ? 'bg-sidebar-accent text-sidebar-accent-foreground font-semibold' : ''
+              }`}
+            >
+              <Settings className="mr-2 h-4 w-4" />
+              {!collapsed && <span className="text-[13px]">Mon compte</span>}
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
         <button
           onClick={signOut}
           className="flex items-center gap-2 px-3 py-2 text-[12px] text-sidebar-foreground/60 hover:text-foreground transition-colors w-full"
