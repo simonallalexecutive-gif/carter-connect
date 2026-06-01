@@ -242,7 +242,7 @@ const Step2Identity = () => {
           {linkedinError && (
             <p className="font-sans text-xs text-orange-500 font-light mt-1.5">{linkedinError}</p>
           )}
-          <p className="font-sans text-xs text-muted-foreground font-light mt-1.5">Collez votre lien LinkedIn — votre photo de profil sera importée automatiquement.</p>
+          
         </div>
 
         {/* Photo */}
