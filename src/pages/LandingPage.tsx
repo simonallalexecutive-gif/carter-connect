@@ -195,9 +195,9 @@ const LandingPage = () => (
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-              className="font-serif text-3xl sm:text-4xl md:text-5xl text-white tracking-[0.04em] block mb-6 font-normal"
+              className="font-serif italic text-2xl sm:text-3xl md:text-4xl text-white tracking-[0.04em] block mb-6"
             >
-              Top legal recruitment, redefined
+              Legal recruitment, redefined.
             </motion.span>
 
             <motion.div
@@ -242,14 +242,14 @@ const LandingPage = () => (
               transition={{ duration: 1.2, delay: 1.2 }}
               className="mt-24 flex flex-row flex-wrap items-center justify-center gap-x-6 gap-y-3 sm:gap-x-16 md:gap-x-24"
             >
-              {['confidentiel', 'structuré', 'décisif'].map((word, i) => (
+              {['confidentiel.', 'structuré.', 'décisif.'].map((word, i) => (
                 <motion.span
                   key={word}
                   initial={{ opacity: 0, y: 12 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.8, delay: 1.4 + i * 0.15, ease: [0.16, 1, 0.3, 1] }}
-                  className="font-serif text-base sm:text-2xl md:text-[1.85rem] text-white tracking-[0.16em] sm:tracking-[0.22em] font-medium"
+                  className="font-serif italic text-base sm:text-2xl md:text-[1.85rem] text-white tracking-[0.16em] sm:tracking-[0.22em] font-medium"
                   style={{ fontVariant: 'small-caps', wordSpacing: '0.15em', textShadow: '0 2px 24px rgba(255,255,255,0.18)' }}
                 >
                   {word}
