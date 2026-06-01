@@ -154,7 +154,7 @@ const MissionSection = () => (
             className="w-px flex-1 bg-gradient-to-b from-black/[0.04] via-black/20 to-black/[0.04] min-h-[60px]"
           />
           <div className="my-5 flex flex-col items-center gap-3 px-4 py-3 rounded-sm">
-            <span className="font-serif text-[1.6rem] md:text-[1.85rem] tracking-[-0.01em] text-black">Logan</span>
+            <span className="font-serif text-[1.6rem] md:text-[1.85rem] tracking-[0.04em] text-black">Logan</span>
           </div>
 
           <motion.div
@@ -170,7 +170,7 @@ const MissionSection = () => (
         {/* Mobile Logan separator */}
         <div className="md:hidden flex items-center gap-4 my-2">
           <div className="flex-1 h-px bg-black/10" />
-          <span className="font-serif text-[1.4rem] text-black tracking-[-0.01em]">Logan</span>
+          <span className="font-serif text-[1.4rem] text-black tracking-[0.04em]">Logan</span>
           <div className="flex-1 h-px bg-black/10" />
         </div>
 
