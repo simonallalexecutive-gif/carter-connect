@@ -5,6 +5,7 @@ import AdminSidebar from '@/components/admin/AdminSidebar';
 import AdminKPIs from '@/components/admin/AdminKPIs';
 import AdminProfiles from '@/components/admin/AdminProfiles';
 import AdminOffers from '@/components/admin/AdminOffers';
+import AdminCabinets from '@/components/admin/AdminCabinets';
 import AdminProcesses from '@/components/admin/AdminProcesses';
 import AdminAgenda from '@/components/admin/AdminAgenda';
 import AdminRegistration from '@/components/admin/AdminRegistration';
@@ -49,6 +50,7 @@ const AdminPage = () => {
                 <Route path="agenda" element={<AdminAgenda />} />
                 <Route path="inscrire" element={<AdminRegistration />} />
                 <Route path="profils" element={<AdminProfiles />} />
+                <Route path="cabinets" element={<AdminCabinets />} />
                 <Route path="offres" element={<AdminOffers />} />
                 <Route path="processus" element={<AdminProcesses />} />
               </Routes>
