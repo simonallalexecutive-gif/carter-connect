@@ -100,14 +100,14 @@ const FAQRow = ({
   <div className="border-b border-black/10 group">
     <button
       onClick={onToggle}
-      className="w-full flex items-start gap-6 md:gap-10 py-7 md:py-8 text-left transition-colors"
+      className="w-full flex items-start gap-4 md:gap-5 py-6 md:py-7 text-left transition-colors"
     >
-      <span className="font-serif text-[0.7rem] md:text-[0.75rem] text-black/35 tabular-nums tracking-[0.15em] pt-1.5 w-8 shrink-0">
+      <span className="font-serif text-[0.7rem] md:text-[0.72rem] text-black/35 tabular-nums tracking-[0.15em] pt-1.5 w-7 shrink-0">
         {String(index + 1).padStart(2, '0')}
       </span>
       <span
         className={cn(
-          'flex-1 font-sans text-[0.95rem] md:text-[1.05rem] font-medium leading-snug tracking-[-0.005em] transition-colors',
+          'flex-1 font-sans text-[0.88rem] md:text-[0.95rem] font-medium leading-snug tracking-[-0.005em] transition-colors',
           open ? 'text-black' : 'text-black/80 group-hover:text-black'
         )}
       >
@@ -116,11 +116,11 @@ const FAQRow = ({
 
       <span
         className={cn(
-          'shrink-0 w-9 h-9 rounded-full border flex items-center justify-center transition-all duration-300',
-          open ? 'bg-black border-black text-white rotate-0' : 'border-black/20 text-black/60 group-hover:border-black/50 group-hover:text-black'
+          'shrink-0 w-8 h-8 rounded-full border flex items-center justify-center transition-all duration-300',
+          open ? 'bg-black border-black text-white' : 'border-black/20 text-black/60 group-hover:border-black/50 group-hover:text-black'
         )}
       >
-        {open ? <Minus className="w-3.5 h-3.5" strokeWidth={1.8} /> : <Plus className="w-3.5 h-3.5" strokeWidth={1.8} />}
+        {open ? <Minus className="w-3 h-3" strokeWidth={1.8} /> : <Plus className="w-3 h-3" strokeWidth={1.8} />}
       </span>
     </button>
     <AnimatePresence initial={false}>
@@ -132,8 +132,8 @@ const FAQRow = ({
           transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
           className="overflow-hidden"
         >
-          <div className="pl-0 md:pl-[3.5rem] pr-0 md:pr-14 pb-8 max-w-3xl">
-            <p className="font-sans text-[0.9rem] md:text-[0.95rem] leading-[1.85] text-black/60 text-justify">
+          <div className="pl-0 md:pl-[2.75rem] pr-0 md:pr-6 pb-7">
+            <p className="font-sans text-[0.85rem] md:text-[0.9rem] leading-[1.8] text-black/60 text-justify">
               {item.answer}
             </p>
           </div>
