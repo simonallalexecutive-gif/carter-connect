@@ -99,8 +99,12 @@ const LandingPage = () => (
       <div className="px-4 sm:px-8 lg:px-10 max-w-6xl relative z-10 pt-20 sm:pt-24 flex-1 flex items-center pb-4">
         <motion.div variants={stagger} initial="hidden" animate="visible" className="max-w-[min(95vw,72rem)]">
           <div className="inline-block">
-          <motion.h1 variants={fadeUp} className="text-[1.66rem] sm:text-[2.76rem] md:text-[3.68rem] lg:text-[4.69rem] font-serif font-[500] text-white leading-[1.1] mb-3 md:mb-5 tracking-[-0.03em] whitespace-nowrap">
-              Connecting <em className="italic">Top-Tier</em> Legal Minds
+          <motion.h1
+            variants={fadeUp}
+            className="text-[1.66rem] sm:text-[2.76rem] md:text-[3.68rem] lg:text-[4.69rem] font-[400] text-white leading-[1.05] mb-3 md:mb-5 tracking-[-0.035em] whitespace-nowrap"
+            style={{ fontFamily: '"Instrument Serif", "Cormorant Garamond", Georgia, serif' }}
+          >
+              Connecting Top-Tier Legal Minds
             </motion.h1>
           </div>
           <motion.p variants={fadeUp} className="text-[0.86rem] sm:text-[1.14rem] md:text-[1.16rem] text-white font-sans font-[480] leading-[1.65] max-w-[72rem]">
