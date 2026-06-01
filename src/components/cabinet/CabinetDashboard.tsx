@@ -870,61 +870,59 @@ const ExploreView = ({
             <div
               key={p.id}
               onClick={() => setDrawerProfile(p)}
-              className="rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 border border-border bg-card cursor-pointer"
+              className="group relative rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 border border-border bg-card cursor-pointer flex flex-col"
             >
-              <div className="p-6 md:p-8">
-                <div className="flex items-start justify-between gap-4">
-                  <div className="flex-1 min-w-0">
-                    {p.isNew && (
-                      <span className="inline-flex items-center text-[8px] font-semibold tracking-[0.18em] uppercase text-muted-foreground mb-2">
-                        <Star className="w-2.5 h-2.5 mr-1 fill-foreground/70" strokeWidth={0} />
-                        new
-                      </span>
-                    )}
-                    <div className="flex items-center gap-0 mb-2 flex-wrap">
-                      <span className="text-[14px] font-sans font-semibold text-foreground leading-none">{seniorityLabel}</span>
-                      <span className="mx-2.5 w-px h-5 bg-border inline-block" />
-                      <span className="text-[14px] font-sans font-semibold text-foreground leading-none">{practiceLabel}</span>
-                      {p.pqe && (
-                        <>
-                          <span className="mx-2.5 w-px h-5 bg-border inline-block" />
-                          <span className="text-[14px] font-sans font-semibold text-foreground leading-none">{p.pqe}</span>
-                        </>
-                      )}
-                    </div>
-                    <div className="flex items-center gap-2 mb-3 flex-wrap">
-                      {natLabel && (
-                        <span className="text-[10px] font-sans font-bold text-foreground/70 leading-none border border-border rounded px-2 py-1">{natLabel}</span>
-                      )}
-                      <span className="text-[10px] font-sans font-bold text-foreground/70 leading-none border border-border rounded px-2 py-1">Chambers : {chambers ? 'Oui' : 'Non'}</span>
-                      {legal500 && (
-                        <span className="text-[10px] font-sans font-bold text-foreground/70 leading-none border border-border rounded px-2 py-1">Legal 500</span>
-                      )}
-                    </div>
+              {/* Top strip: ID + status */}
+              <div className="flex items-center justify-between px-5 pt-4 pb-3 border-b border-border/60">
+                <span className="text-[9px] tracking-[0.18em] uppercase text-muted-foreground/70 font-sans">{p.id}</span>
+                {isActive ? (
+                  <span className="inline-flex items-center gap-1.5">
+                    <span className="relative flex h-1.5 w-1.5">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-800 opacity-75" />
+                      <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-blue-800" />
+                    </span>
+                    <span className="text-[9px] font-semibold uppercase tracking-[0.16em] text-blue-700">Active</span>
+                  </span>
+                ) : (
+                  <span className="inline-flex items-center gap-1.5">
+                    <span className="inline-block w-1.5 h-1.5 rounded-full bg-muted-foreground/40" />
+                    <span className="text-[9px] uppercase tracking-[0.16em] text-muted-foreground">À l'écoute</span>
+                  </span>
+                )}
+              </div>
 
-                    <div className="flex items-center justify-between mt-4">
-                      <div className="inline-flex items-center gap-1.5 text-[11px] font-sans">
-                        {isActive ? (
-                          <>
-                            <span className="relative flex h-1.5 w-1.5">
-                              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-800 opacity-75" />
-                              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-blue-800" />
-                            </span>
-                            <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-blue-700">En recherche active</span>
-                          </>
-                        ) : (
-                          <>
-                            <span className="inline-block w-1.5 h-1.5 rounded-full bg-muted-foreground/40" />
-                            <span className="text-[10px] font-sans text-muted-foreground tracking-[0.16em] uppercase">À l'écoute</span>
-                          </>
-                        )}
-                      </div>
-                      <div className="text-[9px] tracking-[0.15em] uppercase text-muted-foreground/60 font-sans">{p.id}</div>
-                    </div>
-                  </div>
-                  <div className="w-10 h-10 rounded-full flex items-center justify-center bg-secondary shrink-0 mt-1">
-                    <Eye className="w-4 h-4 text-muted-foreground" />
-                  </div>
+              {/* Main */}
+              <div className="px-5 py-5 flex-1 flex flex-col">
+                {p.isNew && (
+                  <span className="inline-flex items-center text-[8px] font-semibold tracking-[0.2em] uppercase text-muted-foreground mb-2">
+                    <Star className="w-2.5 h-2.5 mr-1 fill-foreground/70" strokeWidth={0} />
+                    new
+                  </span>
+                )}
+
+                {/* Title */}
+                <div className="mb-1">
+                  <div className="text-[15px] font-sans font-semibold text-foreground leading-tight">{seniorityLabel}</div>
+                  <div className="text-[12px] font-sans text-muted-foreground mt-0.5">{practiceLabel}{p.pqe ? ` · ${p.pqe}` : ''}</div>
+                </div>
+
+                {/* Tags */}
+                <div className="flex flex-wrap gap-1.5 mt-4">
+                  {natLabel && (
+                    <span className="text-[10px] font-sans text-foreground/75 leading-none border border-border rounded px-2 py-1">{natLabel}</span>
+                  )}
+                  <span className="text-[10px] font-sans text-foreground/75 leading-none border border-border rounded px-2 py-1">Chambers&nbsp;: {chambers ? 'Oui' : 'Non'}</span>
+                  {legal500 && (
+                    <span className="text-[10px] font-sans text-foreground/75 leading-none border border-border rounded px-2 py-1">Legal 500</span>
+                  )}
+                </div>
+              </div>
+
+              {/* Footer affordance */}
+              <div className="flex items-center justify-between px-5 py-3 border-t border-border/60 bg-secondary/30">
+                <span className="text-[10px] font-sans font-medium tracking-[0.08em] uppercase text-muted-foreground group-hover:text-foreground transition-colors">Voir le profil</span>
+                <div className="w-8 h-8 rounded-full flex items-center justify-center bg-background border border-border">
+                  <Eye className="w-3.5 h-3.5 text-muted-foreground group-hover:text-foreground transition-colors" />
                 </div>
               </div>
             </div>
