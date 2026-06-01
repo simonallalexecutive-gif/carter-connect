@@ -101,7 +101,7 @@ const LandingPage = () => (
           <div className="inline-block">
           <motion.h1
             variants={fadeUp}
-            className="text-[1.66rem] sm:text-[2.76rem] md:text-[3.68rem] lg:text-[4.69rem] font-serif font-[400] text-white leading-[1.05] mb-3 md:mb-5 tracking-[-0.035em] whitespace-nowrap"
+            className="text-[1.66rem] sm:text-[2.76rem] md:text-[3.68rem] lg:text-[4.69rem] font-serif font-[400] text-white leading-[1.05] mb-3 md:mb-5 tracking-[0.04em] whitespace-nowrap"
           >
               Connecting <em className="italic">Top-Tier</em> Legal Minds
             </motion.h1>
@@ -136,7 +136,7 @@ const LandingPage = () => (
           <div className="flex-1 overflow-hidden">
             <div className="flex animate-marquee whitespace-nowrap items-center">
               {[...firmNames, ...firmNames].map((name, i) => (
-                <span key={i} className="mx-4 md:mx-14 text-sm md:text-[1.05rem] font-serif font-medium text-white select-none flex-shrink-0 tracking-wide">
+                <span key={i} className="mx-4 md:mx-14 text-sm md:text-[1.05rem] font-serif font-[400] text-white select-none flex-shrink-0 tracking-[0.04em]">
                   {name}
                 </span>
               ))}

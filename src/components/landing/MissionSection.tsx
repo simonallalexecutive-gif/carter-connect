@@ -37,12 +37,12 @@ const Side = ({
     className={`flex flex-col gap-10 md:gap-12 ${align === 'right' ? 'md:items-end md:text-right' : 'md:items-start md:text-left'} items-start text-left`}
   >
     <motion.div variants={fadeUp} className="flex items-center gap-3">
-      <div className="w-9 h-9 rounded-full border border-black/10 flex items-center justify-center">
-        <Icon className="w-4 h-4 text-black/70" strokeWidth={1.4} />
+      <div className="w-10 h-10 rounded-full border border-black/10 flex items-center justify-center">
+        <Icon className="w-4 h-4 text-black/60" strokeWidth={1.4} />
       </div>
-      <div>
+      <div className={align === 'right' ? 'md:text-right' : ''}>
         <p className="text-[10px] font-sans font-medium tracking-[0.28em] uppercase text-black/40">{label}</p>
-        <p className="font-sans text-[0.95rem] md:text-[1.05rem] text-black tracking-[0.2em] font-semibold uppercase mt-2" style={{ fontVariant: 'small-caps' }}>{tagline}</p>
+        <p className="font-serif text-[1.4rem] md:text-[1.6rem] text-black tracking-[0.04em] mt-1 italic">{tagline}</p>
       </div>
     </motion.div>
 
@@ -56,17 +56,14 @@ const Side = ({
           className={`flex flex-col gap-2 ${align === 'right' ? 'md:items-end' : ''}`}
         >
           <div className="flex items-baseline gap-3">
-            <span className="font-serif text-[0.7rem] text-black/35 tracking-[0.15em] tabular-nums">
+            <span className="font-serif text-[0.75rem] text-black/35 tabular-nums tracking-[0.04em]">
               0{i + 1}
             </span>
-            <h4
-              className="font-sans text-[0.8rem] md:text-[0.85rem] text-black tracking-[0.18em] leading-snug font-semibold uppercase"
-              style={{ fontVariant: 'small-caps' }}
-            >
+            <h4 className="font-serif font-[400] text-[1.05rem] md:text-[1.15rem] text-black tracking-[0.04em] leading-snug">
               {p.title}
             </h4>
           </div>
-          <p className={`font-sans text-[0.82rem] md:text-[0.86rem] leading-[1.75] text-black/55 font-light ${align === 'right' ? 'md:text-right' : ''}`}>
+          <p className={`font-sans text-[0.9rem] font-[480] leading-[1.65] text-black/60 ${align === 'right' ? 'md:text-right' : ''}`}>
             {p.text}
           </p>
 
@@ -96,22 +93,22 @@ const MissionSection = () => (
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: '-80px' }}
-        className="mb-24 md:mb-32 max-w-3xl"
+        className="mb-24 md:mb-32 max-w-3xl mx-auto text-center"
       >
         <motion.p variants={fadeUp} className="text-[11px] font-sans font-medium tracking-[0.3em] uppercase text-black/40 mb-6">
           Notre approche
         </motion.p>
         <motion.h2
           variants={fadeUp}
-          className="font-serif text-[2rem] sm:text-4xl md:text-[3rem] leading-[1.08] text-black tracking-[-0.02em] mb-8"
+          className="font-serif font-[400] text-[2rem] sm:text-4xl md:text-[3.2rem] leading-[1.08] text-black tracking-[0.04em] mb-8"
         >
           Deux perspectives,<br />
-          <span className="italic text-black/85">un seul intermédiaire : Logan.</span>
+          <em className="italic">un seul intermédiaire.</em>
         </motion.h2>
 
         <motion.p
           variants={fadeUp}
-          className="font-sans text-[0.95rem] md:text-[1.02rem] font-[480] leading-[1.7] text-black/55 max-w-2xl"
+          className="font-sans text-[0.95rem] md:text-[1.05rem] font-[480] leading-[1.65] text-black/60 max-w-2xl mx-auto"
         >
           Logan est la nouvelle infrastructure privilégiée et confidentielle du marché des avocats —
           un écosystème exigeant, où chaque rapprochement est orchestré de l'intention à la signature.
@@ -157,7 +154,7 @@ const MissionSection = () => (
             className="w-px flex-1 bg-gradient-to-b from-black/[0.04] via-black/20 to-black/[0.04] min-h-[60px]"
           />
           <div className="my-5 flex flex-col items-center gap-3 px-4 py-3 rounded-sm">
-            <span className="font-serif text-[1.6rem] md:text-[1.85rem] tracking-[-0.01em] text-black">Logan</span>
+            <span className="font-serif text-[1.6rem] md:text-[1.85rem] tracking-[0.04em] text-black">Logan</span>
           </div>
 
           <motion.div
@@ -173,7 +170,7 @@ const MissionSection = () => (
         {/* Mobile Logan separator */}
         <div className="md:hidden flex items-center gap-4 my-2">
           <div className="flex-1 h-px bg-black/10" />
-          <span className="font-serif text-[1.4rem] text-black tracking-[-0.01em]">Logan</span>
+          <span className="font-serif text-[1.4rem] text-black tracking-[0.04em]">Logan</span>
           <div className="flex-1 h-px bg-black/10" />
         </div>
 
