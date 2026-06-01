@@ -141,8 +141,10 @@ const CabinetDashboardLayout = () => {
   useLoadCabinetProfile(user);
   const [showAlerts, setShowAlerts] = useState(false);
   const [showAccount, setShowAccount] = useState(false);
+  const [showBooking, setShowBooking] = useState(false);
 
   const getActiveTab = (): CabinetTabKey => {
+    if (showBooking) return 'booking';
     if (showAccount) return 'account';
     if (s.dashboardView === 'explore') return 'explore';
     if (s.dashboardView === 'newSearch') return 'newSearch';
@@ -152,8 +154,12 @@ const CabinetDashboardLayout = () => {
 
   const setActiveTab = (tab: CabinetTabKey) => {
     setShowAccount(false);
+    setShowBooking(false);
     if (tab === 'account') {
       setShowAccount(true);
+      s.setField('dashboardView', 'home');
+    } else if (tab === 'booking') {
+      setShowBooking(true);
       s.setField('dashboardView', 'home');
     } else if (tab === 'explore') {
       s.setField('dashboardView', 'explore');
@@ -182,7 +188,7 @@ const CabinetDashboardLayout = () => {
               <span className="text-[10px] tracking-[0.18em] uppercase text-muted-foreground hidden sm:block">Logan</span>
             </header>
             <main className="flex-1 p-8 lg:p-12 overflow-y-auto bg-background">
-              {showAccount ? <CabinetAccount /> : <CabinetDashboard />}
+              {showBooking ? <CandidateBooking /> : showAccount ? <CabinetAccount /> : <CabinetDashboard />}
             </main>
           </div>
         </div>
