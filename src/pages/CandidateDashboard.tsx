@@ -24,7 +24,7 @@ import CandidateProfile from '@/components/candidate/CandidateProfile';
 import CandidateBooking from '@/components/candidate/CandidateBooking';
 import CandidateDashboardOverview from '@/components/candidate/CandidateDashboardOverview';
 
-type TabKey = 'dashboard' | 'offres' | 'profil' | 'demandes' | 'processus' | 'notifications' | 'booking';
+type TabKey = 'dashboard' | 'profil' | 'booking';
 
 const TABS: { key: TabKey; label: string; icon: typeof Briefcase }[] = [
   { key: 'dashboard', label: 'Tableau de bord', icon: Home },
@@ -34,11 +34,9 @@ const TABS: { key: TabKey; label: string; icon: typeof Briefcase }[] = [
 const CandidateSidebar = ({
   activeTab,
   setActiveTab,
-  notifCount,
 }: {
   activeTab: TabKey;
   setActiveTab: (tab: TabKey) => void;
-  notifCount: number;
 }) => {
   const { state } = useSidebar();
   const collapsed = state === 'collapsed';
@@ -152,11 +150,9 @@ const CandidateDashboardContent = () => {
     );
   }
 
-  const notifCount = 2;
-
   return (
     <>
-      <CandidateSidebar activeTab={activeTab} setActiveTab={setActiveTab} notifCount={notifCount} />
+      <CandidateSidebar activeTab={activeTab} setActiveTab={setActiveTab} />
 
       <div className="flex-1 flex flex-col">
         <header className="h-16 flex items-center justify-between border-b border-border bg-background px-6 gap-3">
