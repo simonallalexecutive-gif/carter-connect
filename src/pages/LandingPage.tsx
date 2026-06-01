@@ -41,7 +41,7 @@ const LandingPage = () => (
       {/* Background photo with cinematic living Ken Burns */}
       <div className="absolute inset-0">
         <motion.img
-          src={heroBoardroom}
+          src={heroBoardroom.url}
           alt=""
           initial={{ opacity: 0, scale: 1.18, x: '0%', y: '0%' }}
           animate={{
