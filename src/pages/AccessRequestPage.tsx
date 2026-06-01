@@ -21,10 +21,6 @@ const AccessRequestPage = () => {
             3 à 5 minutes
           </p>
 
-          <p className="text-[0.88rem] font-sans font-light text-black/70 leading-relaxed mb-14 max-w-sm mx-auto">
-            Un cercle privé d'excellence, structuré et piloté par des chasseurs spécialisés, dédié aux profils et cabinets d'affaires les plus exigeants du marché.
-          </p>
-
           <div className="flex flex-col gap-3 max-w-xs mx-auto">
             <Link to="/inscription?espace=candidat">
               <Button
