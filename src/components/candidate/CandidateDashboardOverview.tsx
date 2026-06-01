@@ -1,4 +1,4 @@
-import { Briefcase, Send, Clock, Bell } from 'lucide-react';
+import { Phone, FileText } from 'lucide-react';
 
 interface Props {
   onNavigate: (tab: string) => void;
@@ -7,31 +7,17 @@ interface Props {
 
 const CARDS = [
   {
-    key: 'offres',
-    label: 'Opportunités',
-    icon: Briefcase,
-    desc: 'Consultez les opportunités disponibles correspondant à votre profil.',
-    stat: '4 opportunités',
+    key: 'booking',
+    label: 'Fixer un call',
+    icon: Phone,
+    desc: 'Prenez rendez-vous avec un consultant Logan.',
+    stat: '',
   },
   {
-    key: 'demandes',
-    label: 'Demandes',
-    icon: Send,
-    desc: 'Suivez vos demandes envoyées et leur avancement.',
-    stat: '2 en attente',
-  },
-  {
-    key: 'processus',
-    label: 'Processus',
-    icon: Clock,
-    desc: 'Visualisez l\'état d\'avancement de vos processus de recrutement.',
-    stat: '2 en cours',
-  },
-  {
-    key: 'notifications',
-    label: 'Notifications',
-    icon: Bell,
-    desc: 'Retrouvez toutes les alertes et mises à jour de votre espace.',
+    key: 'profil',
+    label: 'Mon profil',
+    icon: FileText,
+    desc: 'Consultez et mettez à jour les informations de votre profil.',
     stat: '',
   },
 ];
