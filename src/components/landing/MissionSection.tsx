@@ -37,16 +37,16 @@ const Side = ({
     className={`flex flex-col gap-10 md:gap-12 ${align === 'right' ? 'md:items-end md:text-right' : 'md:items-start md:text-left'} items-start text-left`}
   >
     <motion.div variants={fadeUp} className="flex items-center gap-3">
-      <div className="w-10 h-10 rounded-full border border-black/10 flex items-center justify-center">
-        <Icon className="w-4 h-4 text-black/60" strokeWidth={1.4} />
+      <div className="w-10 h-10 rounded-full border border-white/15 flex items-center justify-center">
+        <Icon className="w-4 h-4 text-white/70" strokeWidth={1.4} />
       </div>
       <div className={align === 'right' ? 'md:text-right' : ''}>
-        <p className="text-[10px] font-sans font-medium tracking-[0.28em] uppercase text-black/40">{label}</p>
-        <p className="font-serif text-[1.4rem] md:text-[1.6rem] text-black tracking-[0.04em] mt-1 italic">{tagline}</p>
+        <p className="text-[10px] font-sans font-medium tracking-[0.28em] uppercase text-white/45">{label}</p>
+        <p className="font-serif text-[1.4rem] md:text-[1.6rem] text-white tracking-[0.04em] mt-1 italic">{tagline}</p>
       </div>
     </motion.div>
 
-    <motion.div variants={fadeUp} className="w-10 h-px bg-black/15" />
+    <motion.div variants={fadeUp} className="w-10 h-px bg-white/20" />
 
     <div className="flex flex-col gap-8 md:gap-10 w-full max-w-sm">
       {points.map((p, i) => (
@@ -56,14 +56,14 @@ const Side = ({
           className={`flex flex-col gap-2 ${align === 'right' ? 'md:items-end' : ''}`}
         >
           <div className="flex items-baseline gap-3">
-            <span className="font-serif text-[0.75rem] text-black/35 tabular-nums tracking-[0.04em]">
+            <span className="font-serif text-[0.75rem] text-white/40 tabular-nums tracking-[0.04em]">
               0{i + 1}
             </span>
-            <h4 className="font-serif font-[400] text-[1.05rem] md:text-[1.15rem] text-black tracking-[0.04em] leading-snug">
+            <h4 className="font-serif font-[400] text-[1.05rem] md:text-[1.15rem] text-white tracking-[0.04em] leading-snug">
               {p.title}
             </h4>
           </div>
-          <p className={`font-sans text-[0.9rem] font-[480] leading-[1.65] text-black/60 ${align === 'right' ? 'md:text-right' : ''}`}>
+          <p className={`font-sans text-[0.9rem] font-[480] leading-[1.65] text-white/65 ${align === 'right' ? 'md:text-right' : ''}`}>
             {p.text}
           </p>
 
