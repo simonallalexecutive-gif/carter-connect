@@ -67,8 +67,11 @@ const Header = () => {
             <span className={`font-serif text-[32px] tracking-[0.04em] transition-colors duration-500 ${textColor}`}>Logan</span>
           </Link>
 
-          <nav className="hidden md:flex items-center gap-1 ml-2">
-            {/* Onglets retirés à la demande : Notre approche, Demo, FAQ */}
+          <nav className="hidden md:flex items-center gap-1 ml-4">
+            <Link to="/#notre-approche" className={navLinkBase}>Notre approche</Link>
+            <Link to="/demo" className={navLinkBase}>Demo</Link>
+            <Link to="/notre-offre" className={navLinkBase}>Qui sommes-nous</Link>
+            <Link to="/#faq" className={navLinkBase}>FAQ</Link>
           </nav>
         </div>
 
