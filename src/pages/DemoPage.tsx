@@ -292,7 +292,7 @@ const DemoPage = () => {
                   : 'text-muted-foreground hover:text-foreground'
               )}
             >
-              {p === 'candidat' ? '👤 Côté Candidat' : '🏛️ Côté Cabinet'}
+              {p === 'candidat' ? 'Focus candidat' : 'Focus cabinet'}
             </button>
           ))}
         </motion.div>

@@ -54,31 +54,7 @@ const TeamQuoteSection = () => {
           className="italic text-white text-xl sm:text-2xl md:text-[1.85rem] lg:text-[2.15rem] leading-[1.4] tracking-[-0.005em] max-w-4xl mx-auto font-light drop-shadow-lg"
           style={{ fontFamily: "'Cormorant Garamond', 'Garamond', serif" }}
         >
-          Logan se positionne comme l'
-          <em className="not-italic font-medium relative inline-block">
-            infrastructure la plus exigeante
-            <motion.span
-              initial={{ scaleX: 0 }}
-              whileInView={{ scaleX: 1 }}
-              viewport={{ once: true, margin: '-100px' }}
-              transition={{ duration: 1.2, delay: 1.1, ease: [0.16, 1, 0.3, 1] }}
-              style={{ transformOrigin: 'left' }}
-              className="absolute left-0 right-0 -bottom-1 h-px bg-white/50"
-            />
-          </em>{' '}
-          et structurée du marché, offrant un accompagnement sur mesure,{' '}
-          <em className="not-italic font-medium relative inline-block">
-            résolument confidentiel
-            <motion.span
-              initial={{ scaleX: 0 }}
-              whileInView={{ scaleX: 1 }}
-              viewport={{ once: true, margin: '-100px' }}
-              transition={{ duration: 1.2, delay: 1.4, ease: [0.16, 1, 0.3, 1] }}
-              style={{ transformOrigin: 'left' }}
-              className="absolute left-0 right-0 -bottom-1 h-px bg-white/50"
-            />
-          </em>{' '}
-          et parfaitement ciblé.
+          Logan se positionne comme l'infrastructure la plus exigeante et structurée du marché, offrant un accompagnement sur mesure, résolument confidentiel et parfaitement ciblé.
         </motion.blockquote>
 
         <motion.div
