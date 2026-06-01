@@ -9,6 +9,8 @@ import AdminCabinets from '@/components/admin/AdminCabinets';
 import AdminProcesses from '@/components/admin/AdminProcesses';
 import AdminAgenda from '@/components/admin/AdminAgenda';
 import AdminRegistration from '@/components/admin/AdminRegistration';
+import AdminCabinetRegistration from '@/components/admin/AdminCabinetRegistration';
+import AdminInscrireChooser from '@/components/admin/AdminInscrireChooser';
 import { useAuth } from '@/hooks/useAuth';
 
 const AdminPage = () => {
@@ -48,7 +50,9 @@ const AdminPage = () => {
               <Routes>
                 <Route index element={<AdminKPIs />} />
                 <Route path="agenda" element={<AdminAgenda />} />
-                <Route path="inscrire" element={<AdminRegistration />} />
+                <Route path="inscrire" element={<AdminInscrireChooser />} />
+                <Route path="inscrire/candidat" element={<AdminRegistration />} />
+                <Route path="inscrire/cabinet" element={<AdminCabinetRegistration />} />
                 <Route path="profils" element={<AdminProfiles />} />
                 <Route path="cabinets" element={<AdminCabinets />} />
                 <Route path="offres" element={<AdminOffers />} />
