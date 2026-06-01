@@ -59,7 +59,7 @@ const Side = ({
             <span className="font-serif text-[0.75rem] text-white/40 tabular-nums tracking-[0.04em]">
               0{i + 1}
             </span>
-            <h4 className="font-serif font-[400] text-[1.05rem] md:text-[1.15rem] text-white tracking-[0.04em] leading-snug">
+            <h4 className="font-serif font-[400] text-[1.4rem] md:text-[1.6rem] text-white tracking-[0.04em] leading-snug">
               {p.title}
             </h4>
           </div>
