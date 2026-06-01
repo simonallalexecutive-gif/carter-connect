@@ -90,6 +90,19 @@ const CabinetSidebar = ({
                   {!collapsed && <span className="text-[13px]">Alertes prioritaires</span>}
                 </SidebarMenuButton>
               </SidebarMenuItem>
+              <SidebarMenuItem>
+                <SidebarMenuButton
+                  onClick={() => setActiveTab('booking')}
+                  isActive={activeTab === 'booking'}
+                  tooltip="Fixer un call"
+                  className={`text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground rounded-sm transition-colors ${
+                    activeTab === 'booking' ? 'bg-sidebar-accent text-sidebar-accent-foreground font-semibold' : ''
+                  }`}
+                >
+                  <Phone className="mr-2 h-4 w-4" />
+                  {!collapsed && <span className="text-[13px]">Fixer un call</span>}
+                </SidebarMenuButton>
+              </SidebarMenuItem>
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
