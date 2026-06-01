@@ -101,8 +101,7 @@ const LandingPage = () => (
           <div className="inline-block">
           <motion.h1
             variants={fadeUp}
-            className="text-[1.66rem] sm:text-[2.76rem] md:text-[3.68rem] lg:text-[4.69rem] font-[400] text-white leading-[1.05] mb-3 md:mb-5 tracking-[-0.035em] whitespace-nowrap"
-            style={{ fontFamily: '"Instrument Serif", "Cormorant Garamond", Georgia, serif' }}
+            className="text-[1.66rem] sm:text-[2.76rem] md:text-[3.68rem] lg:text-[4.69rem] font-serif font-[400] text-white leading-[1.05] mb-3 md:mb-5 tracking-[-0.035em] whitespace-nowrap"
           >
               Connecting Top-Tier Legal Minds
             </motion.h1>
