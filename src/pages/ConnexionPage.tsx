@@ -67,18 +67,18 @@ const ConnexionPage = () => {
               <p className="text-sm text-black/60 font-sans leading-relaxed mb-10">
                 Choisissez votre espace
               </p>
-              <div className="flex flex-col gap-4 max-w-sm mx-auto">
+              <div className="flex flex-col gap-3 max-w-xs mx-auto">
                 <Button
                   onClick={() => navigate('/espace-candidat')}
-                  className="w-full py-6 font-sans text-sm"
+                  className="font-sans text-sm font-normal px-8 py-6 rounded-sm tracking-wide w-full bg-black text-white hover:bg-black/90"
                 >
-                  Espace Candidat
+                  Espace candidat
                 </Button>
                 <Button
                   onClick={() => navigate('/cabinet')}
-                  className="w-full py-6 font-sans text-sm"
+                  className="font-sans text-sm font-normal px-8 py-6 rounded-sm tracking-wide w-full border-black/30 bg-black text-white hover:bg-black/90 hover:text-white"
                 >
-                  Espace Cabinet
+                  Espace cabinet
                 </Button>
               </div>
             </>
