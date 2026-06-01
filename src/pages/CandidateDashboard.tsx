@@ -67,11 +67,6 @@ const CandidateSidebar = ({
                   >
                     <tab.icon className="mr-2 h-4 w-4" />
                     {!collapsed && <span className="text-[13px]">{tab.label}</span>}
-                    {tab.key === 'notifications' && notifCount > 0 && !collapsed && (
-                      <span className="ml-auto w-5 h-5 rounded-full bg-foreground text-background text-[9px] font-bold flex items-center justify-center">
-                        {notifCount}
-                      </span>
-                    )}
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
