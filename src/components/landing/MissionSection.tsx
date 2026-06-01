@@ -74,14 +74,14 @@ const Side = ({
 );
 
 const MissionSection = () => (
-  <section id="notre-approche" className="relative overflow-hidden bg-white">
+  <section id="notre-approche" className="relative overflow-hidden bg-black text-white">
     {/* Subtle background veil */}
     <div
       aria-hidden
-      className="absolute inset-0 pointer-events-none opacity-[0.025]"
+      className="absolute inset-0 pointer-events-none opacity-[0.04]"
       style={{
         backgroundImage:
-          'linear-gradient(rgba(0,0,0,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.6) 1px, transparent 1px)',
+          'linear-gradient(rgba(255,255,255,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.6) 1px, transparent 1px)',
         backgroundSize: '96px 96px',
       }}
     />
@@ -95,12 +95,12 @@ const MissionSection = () => (
         viewport={{ once: true, margin: '-80px' }}
         className="mb-24 md:mb-32 max-w-3xl mx-auto text-center"
       >
-        <motion.p variants={fadeUp} className="text-[11px] font-sans font-medium tracking-[0.3em] uppercase text-black/40 mb-6">
+        <motion.p variants={fadeUp} className="text-[11px] font-sans font-medium tracking-[0.3em] uppercase text-white/45 mb-6">
           Notre approche
         </motion.p>
         <motion.h2
           variants={fadeUp}
-          className="font-serif font-[400] text-[2rem] sm:text-4xl md:text-[3.2rem] leading-[1.08] text-black tracking-[0.04em] mb-8"
+          className="font-serif font-[400] text-[2rem] sm:text-4xl md:text-[3.2rem] leading-[1.08] text-white tracking-[0.04em] mb-8"
         >
           Deux perspectives,<br />
           <em className="italic">un seul intermédiaire.</em>
@@ -108,7 +108,7 @@ const MissionSection = () => (
 
         <motion.p
           variants={fadeUp}
-          className="font-sans text-[0.95rem] md:text-[1.05rem] font-[480] leading-[1.65] text-black/60 max-w-2xl mx-auto"
+          className="font-sans text-[0.95rem] md:text-[1.05rem] font-[480] leading-[1.65] text-white/65 max-w-2xl mx-auto"
         >
           Logan est la nouvelle infrastructure privilégiée et confidentielle du marché des avocats —
           un écosystème exigeant, où chaque rapprochement est orchestré de l'intention à la signature.
@@ -151,10 +151,10 @@ const MissionSection = () => (
             viewport={{ once: true }}
             transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
             style={{ transformOrigin: 'top' }}
-            className="w-px flex-1 bg-gradient-to-b from-black/[0.04] via-black/20 to-black/[0.04] min-h-[60px]"
+            className="w-px flex-1 bg-gradient-to-b from-white/[0.04] via-white/25 to-white/[0.04] min-h-[60px]"
           />
           <div className="my-5 flex flex-col items-center gap-3 px-4 py-3 rounded-sm">
-            <span className="font-serif text-[1.6rem] md:text-[1.85rem] tracking-[0.04em] text-black">Logan</span>
+            <span className="font-serif text-[1.6rem] md:text-[1.85rem] tracking-[0.04em] text-white">Logan</span>
           </div>
 
           <motion.div
@@ -163,15 +163,15 @@ const MissionSection = () => (
             viewport={{ once: true }}
             transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
             style={{ transformOrigin: 'top' }}
-            className="w-px flex-1 bg-gradient-to-b from-black/[0.04] via-black/20 to-black/[0.04] min-h-[60px]"
+            className="w-px flex-1 bg-gradient-to-b from-white/[0.04] via-white/25 to-white/[0.04] min-h-[60px]"
           />
         </motion.div>
 
         {/* Mobile Logan separator */}
         <div className="md:hidden flex items-center gap-4 my-2">
-          <div className="flex-1 h-px bg-black/10" />
-          <span className="font-serif text-[1.4rem] text-black tracking-[0.04em]">Logan</span>
-          <div className="flex-1 h-px bg-black/10" />
+          <div className="flex-1 h-px bg-white/15" />
+          <span className="font-serif text-[1.4rem] text-white tracking-[0.04em]">Logan</span>
+          <div className="flex-1 h-px bg-white/15" />
         </div>
 
 
@@ -204,7 +204,7 @@ const MissionSection = () => (
         viewport={{ once: true, margin: '-40px' }}
         className="mt-28 md:mt-36"
       >
-        <motion.div variants={fadeUp} className="w-full h-px mb-14 bg-gradient-to-r from-transparent via-black/10 to-transparent" />
+        <motion.div variants={fadeUp} className="w-full h-px mb-14 bg-gradient-to-r from-transparent via-white/15 to-transparent" />
         <div className="grid grid-cols-3 sm:grid-cols-6 gap-8 md:gap-6 max-w-4xl mx-auto">
           {[
             { icon: Lock, label: 'Confidentialité' },
@@ -215,10 +215,10 @@ const MissionSection = () => (
             { icon: CheckCircle, label: 'Transparence' },
           ].map(({ icon: Icon, label }) => (
             <motion.div key={label} variants={fadeUp} className="flex flex-col items-center text-center gap-3">
-              <div className="w-10 h-10 rounded-full flex items-center justify-center border border-black/10">
-                <Icon className="w-4 h-4 text-black/55" strokeWidth={1.4} />
+              <div className="w-10 h-10 rounded-full flex items-center justify-center border border-white/15">
+                <Icon className="w-4 h-4 text-white/65" strokeWidth={1.4} />
               </div>
-              <span className="font-sans text-[0.7rem] font-medium tracking-[0.12em] uppercase text-black/50">
+              <span className="font-sans text-[0.7rem] font-medium tracking-[0.12em] uppercase text-white/55">
                 {label}
               </span>
             </motion.div>
