@@ -4,7 +4,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
 import React from 'react';
 import { useLoadCandidateProfile } from '@/hooks/useLoadCandidateProfile';
-import { Briefcase, FileText, Clock, Bell, Send, LogOut, Home, Phone } from 'lucide-react';
+import { Briefcase, FileText, LogOut, Home, Phone } from 'lucide-react';
 import {
   SidebarProvider,
   Sidebar,
@@ -20,30 +20,23 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar';
 
-import CandidateOffers from '@/components/candidate/CandidateOffers';
 import CandidateProfile from '@/components/candidate/CandidateProfile';
-import CandidateProcesses from '@/components/candidate/CandidateProcesses';
-import CandidateRequests from '@/components/candidate/CandidateRequests';
-import CandidateNotifications from '@/components/candidate/CandidateNotifications';
 import CandidateBooking from '@/components/candidate/CandidateBooking';
 import CandidateDashboardOverview from '@/components/candidate/CandidateDashboardOverview';
 
-type TabKey = 'dashboard' | 'offres' | 'profil' | 'demandes' | 'processus' | 'notifications' | 'booking';
+type TabKey = 'dashboard' | 'profil' | 'booking';
 
 const TABS: { key: TabKey; label: string; icon: typeof Briefcase }[] = [
   { key: 'dashboard', label: 'Tableau de bord', icon: Home },
   { key: 'booking', label: 'Fixer un call', icon: Phone },
-  { key: 'profil', label: 'Mon profil', icon: FileText },
 ];
 
 const CandidateSidebar = ({
   activeTab,
   setActiveTab,
-  notifCount,
 }: {
   activeTab: TabKey;
   setActiveTab: (tab: TabKey) => void;
-  notifCount: number;
 }) => {
   const { state } = useSidebar();
   const collapsed = state === 'collapsed';
@@ -74,11 +67,6 @@ const CandidateSidebar = ({
                   >
                     <tab.icon className="mr-2 h-4 w-4" />
                     {!collapsed && <span className="text-[13px]">{tab.label}</span>}
-                    {tab.key === 'notifications' && notifCount > 0 && !collapsed && (
-                      <span className="ml-auto w-5 h-5 rounded-full bg-foreground text-background text-[9px] font-bold flex items-center justify-center">
-                        {notifCount}
-                      </span>
-                    )}
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
@@ -87,6 +75,21 @@ const CandidateSidebar = ({
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton
+              onClick={() => setActiveTab('profil')}
+              isActive={activeTab === 'profil'}
+              tooltip="Mon profil"
+              className={`text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground rounded-sm transition-colors ${
+                activeTab === 'profil' ? 'bg-sidebar-accent text-sidebar-accent-foreground font-semibold' : ''
+              }`}
+            >
+              <FileText className="mr-2 h-4 w-4" />
+              {!collapsed && <span className="text-[13px]">Mon profil</span>}
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
         <button
           onClick={signOut}
           className="flex items-center gap-2 px-3 py-2 text-[12px] text-sidebar-foreground/60 hover:text-foreground transition-colors w-full"
@@ -142,11 +145,9 @@ const CandidateDashboardContent = () => {
     );
   }
 
-  const notifCount = 2;
-
   return (
     <>
-      <CandidateSidebar activeTab={activeTab} setActiveTab={setActiveTab} notifCount={notifCount} />
+      <CandidateSidebar activeTab={activeTab} setActiveTab={setActiveTab} />
 
       <div className="flex-1 flex flex-col">
         <header className="h-16 flex items-center justify-between border-b border-border bg-background px-6 gap-3">
@@ -157,12 +158,8 @@ const CandidateDashboardContent = () => {
           <span className="text-[10px] tracking-[0.18em] uppercase text-muted-foreground hidden sm:block">Logan</span>
         </header>
         <main className="flex-1 p-8 lg:p-12 overflow-y-auto bg-background">
-          {activeTab === 'dashboard' && <CandidateDashboardOverview onNavigate={(t) => setActiveTab(t as TabKey)} notifCount={notifCount} />}
-          {activeTab === 'offres' && <CandidateOffers />}
+          {activeTab === 'dashboard' && <CandidateDashboardOverview />}
           {activeTab === 'profil' && <CandidateProfile />}
-          {activeTab === 'processus' && <CandidateProcesses />}
-          {activeTab === 'demandes' && <CandidateRequests />}
-          {activeTab === 'notifications' && <CandidateNotifications />}
           {activeTab === 'booking' && <CandidateBooking />}
         </main>
       </div>
