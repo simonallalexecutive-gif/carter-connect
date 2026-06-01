@@ -195,9 +195,9 @@ const LandingPage = () => (
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-              className="font-serif text-3xl sm:text-4xl md:text-5xl text-white tracking-[0.04em] block mb-6 font-normal"
+              className="font-serif italic text-2xl sm:text-3xl md:text-4xl text-white tracking-[0.04em] block mb-6"
             >
-              Top legal recruitment, redefined
+              Legal recruitment, redefined.
             </motion.span>
 
             <motion.div
