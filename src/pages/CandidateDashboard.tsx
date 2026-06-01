@@ -32,12 +32,8 @@ type TabKey = 'dashboard' | 'offres' | 'profil' | 'demandes' | 'processus' | 'no
 
 const TABS: { key: TabKey; label: string; icon: typeof Briefcase }[] = [
   { key: 'dashboard', label: 'Tableau de bord', icon: Home },
-  { key: 'offres', label: 'Opportunités', icon: Briefcase },
-  { key: 'demandes', label: 'Demandes', icon: Send },
-  { key: 'processus', label: 'Processus', icon: Clock },
-  { key: 'notifications', label: 'Notifications', icon: Bell },
   { key: 'booking', label: 'Fixer un call', icon: Phone },
-  { key: 'profil', label: 'Profil', icon: FileText },
+  { key: 'profil', label: 'Mon profil', icon: FileText },
 ];
 
 const CandidateSidebar = ({

@@ -103,11 +103,11 @@ const LandingPage = () => (
             variants={fadeUp}
             className="text-[1.66rem] sm:text-[2.76rem] md:text-[3.68rem] lg:text-[4.69rem] font-serif font-[400] text-white leading-[1.05] mb-3 md:mb-5 tracking-[-0.035em] whitespace-nowrap"
           >
-              Connecting Top-Tier Legal Minds
+              Connecting Top-Tier Legal <em className="italic">Minds</em>
             </motion.h1>
           </div>
           <motion.p variants={fadeUp} className="text-[0.86rem] sm:text-[1.14rem] md:text-[1.16rem] text-white font-sans font-[480] leading-[1.65] max-w-[72rem]">
-            Un cercle privé d'excellence, structuré et piloté par des chasseurs spécialisés, dédié aux profils et cabinets d'affaires les plus exigeants du marché.
+            Un cercle privé d'excellence, structuré et piloté par des chasseurs spécialisés, dédié aux profils<br />et cabinets d'affaires les plus exigeants du marché.
           </motion.p>
 
           <motion.div variants={fadeUp} className="mt-8 sm:mt-20">
@@ -144,7 +144,7 @@ const LandingPage = () => (
           </div>
           <div className="hidden sm:flex flex-shrink-0 items-center pl-6 pr-6 md:pr-10 relative z-20">
             <div className="absolute inset-y-0 -left-16 right-0 bg-gradient-to-r from-transparent via-black/80 to-black pointer-events-none" />
-            <span className="relative inline-block px-5 py-2 border border-white/40 rounded-sm text-sm font-sans font-normal tracking-wide text-white whitespace-nowrap cursor-default leading-none">
+            <span className="relative inline-block px-3.5 py-1.5 border border-white rounded-sm text-[12.3px] font-sans font-normal tracking-wide text-white whitespace-nowrap cursor-default leading-none">
               Nos partenaires
             </span>
           </div>
