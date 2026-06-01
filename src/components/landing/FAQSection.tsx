@@ -154,7 +154,7 @@ const FAQSection = () => {
   };
 
   return (
-    <section className="py-28 md:py-40 bg-white">
+    <section className="py-28 md:py-40 bg-black text-white">
       <div className="max-w-6xl mx-auto px-4 sm:px-8 lg:px-10">
         {/* Header — left aligned editorial */}
         <motion.div
@@ -165,30 +165,30 @@ const FAQSection = () => {
           className="mb-16 md:mb-20 flex flex-col md:flex-row md:items-end md:justify-between gap-8"
         >
           <div>
-            <p className="text-[11px] tracking-[0.3em] uppercase text-black/40 font-sans font-medium mb-5">
+            <p className="text-[11px] tracking-[0.3em] uppercase text-white/45 font-sans font-medium mb-5">
               Questions fréquentes
             </p>
-            <h2 className="text-[2rem] sm:text-4xl md:text-[3rem] font-serif font-normal text-black tracking-[-0.02em] leading-[1.05]">
+            <h2 className="text-[2rem] sm:text-4xl md:text-[3rem] font-serif font-normal text-white tracking-[-0.02em] leading-[1.05]">
               Tout ce que vous<br />
-              <span className="italic text-black/80">devez savoir.</span>
+              <span className="italic text-white/85">devez savoir.</span>
             </h2>
           </div>
 
           {/* Tabs as pill */}
-          <div className="inline-flex p-1 rounded-full bg-black/[0.04] border border-black/[0.06] self-start md:self-auto">
+          <div className="inline-flex p-1 rounded-full bg-white/[0.06] border border-white/[0.1] self-start md:self-auto">
             {(['candidat', 'cabinet'] as Tab[]).map((t) => (
               <button
                 key={t}
                 onClick={() => handleTabChange(t)}
                 className={cn(
                   'relative px-5 py-2 text-[0.78rem] font-sans font-medium transition-colors rounded-full',
-                  tab === t ? 'text-white' : 'text-black/50 hover:text-black/80'
+                  tab === t ? 'text-black' : 'text-white/55 hover:text-white/85'
                 )}
               >
                 {tab === t && (
                   <motion.span
                     layoutId="faq-pill"
-                    className="absolute inset-0 rounded-full bg-black"
+                    className="absolute inset-0 rounded-full bg-white"
                     transition={{ type: 'spring', stiffness: 500, damping: 38 }}
                   />
                 )}
@@ -206,7 +206,7 @@ const FAQSection = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="border-t border-black/10 grid grid-cols-1 md:grid-cols-2 md:gap-x-12 lg:gap-x-16"
+            className="border-t border-white/10 grid grid-cols-1 md:grid-cols-2 md:gap-x-12 lg:gap-x-16"
           >
             {items.map((item, i) => (
               <FAQRow
