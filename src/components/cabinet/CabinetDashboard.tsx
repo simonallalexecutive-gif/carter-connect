@@ -857,7 +857,7 @@ const ExploreView = ({
       </div>
 
       {/* Grid — light cards matching CandidateOffers preview style */}
-      <div className="space-y-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {filtered.map((p) => {
           const seniorityLabel = getSeniorityLabel(p);
           const practiceLabel = PRACTICE_LABEL_BY_KEY[p.dept] || p.deptLabel;
