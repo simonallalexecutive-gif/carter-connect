@@ -1,5 +1,6 @@
 import { motion, useScroll, useTransform } from 'motion/react';
 import { useRef } from 'react';
+import bgAsset from '@/assets/quote-skyscrapers.jpeg.asset.json';
 
 const TeamQuoteSection = () => {
   const ref = useRef<HTMLElement>(null);
@@ -11,30 +12,31 @@ const TeamQuoteSection = () => {
   const y = useTransform(scrollYProgress, [0, 1], ['8%', '-8%']);
   const opacity = useTransform(scrollYProgress, [0, 0.25, 0.75, 1], [0, 1, 1, 0]);
   const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.96, 1.02, 1]);
+  const bgY = useTransform(scrollYProgress, [0, 1], ['-6%', '6%']);
 
   return (
     <section
       ref={ref}
-      className="relative min-h-[100svh] flex items-center justify-center bg-white overflow-hidden"
+      className="relative min-h-[100svh] flex items-center justify-center overflow-hidden bg-black"
     >
-      {/* Ambient luminous backdrop */}
-      <motion.div
+      {/* Background — skyscrapers */}
+      <motion.img
+        src={bgAsset.url}
+        alt=""
         aria-hidden
-        className="absolute inset-0 pointer-events-none"
-        animate={{
-          background: [
-            'radial-gradient(ellipse 60% 50% at 30% 40%, rgba(0,0,0,0.04) 0%, transparent 70%)',
-            'radial-gradient(ellipse 70% 60% at 70% 60%, rgba(0,0,0,0.05) 0%, transparent 70%)',
-            'radial-gradient(ellipse 60% 50% at 50% 50%, rgba(0,0,0,0.04) 0%, transparent 70%)',
-          ],
-        }}
-        transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut' }}
+        style={{ y: bgY, willChange: 'transform' }}
+        initial={{ scale: 1.1 }}
+        animate={{ scale: [1.1, 1.05, 1.08] }}
+        transition={{ duration: 28, ease: 'easeInOut', repeat: Infinity, repeatType: 'reverse' }}
+        className="absolute inset-0 w-full h-full object-cover opacity-90"
       />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/45 to-black/75" />
+      <div className="absolute inset-0 bg-black/25" />
 
-      {/* Giant decorative quote mark in background */}
+      {/* Giant decorative quote mark */}
       <motion.div
         style={{ y, opacity }}
-        className="absolute -top-10 left-1/2 -translate-x-1/2 font-serif text-[28rem] sm:text-[40rem] leading-none text-black/[0.035] select-none pointer-events-none"
+        className="absolute -top-10 left-1/2 -translate-x-1/2 font-serif text-[28rem] sm:text-[40rem] leading-none text-white/[0.06] select-none pointer-events-none"
         aria-hidden
       >
         "
@@ -49,7 +51,7 @@ const TeamQuoteSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 1.1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          className="italic text-black text-xl sm:text-2xl md:text-[1.85rem] lg:text-[2.15rem] leading-[1.4] tracking-[-0.005em] max-w-4xl mx-auto font-light"
+          className="italic text-white text-xl sm:text-2xl md:text-[1.85rem] lg:text-[2.15rem] leading-[1.4] tracking-[-0.005em] max-w-4xl mx-auto font-light drop-shadow-lg"
           style={{ fontFamily: "'Cormorant Garamond', 'Garamond', serif" }}
         >
           Logan se positionne comme l'
@@ -61,7 +63,7 @@ const TeamQuoteSection = () => {
               viewport={{ once: true, margin: '-100px' }}
               transition={{ duration: 1.2, delay: 1.1, ease: [0.16, 1, 0.3, 1] }}
               style={{ transformOrigin: 'left' }}
-              className="absolute left-0 right-0 -bottom-1 h-px bg-black/40"
+              className="absolute left-0 right-0 -bottom-1 h-px bg-white/50"
             />
           </em>{' '}
           et structurée du marché, offrant un accompagnement sur mesure,{' '}
@@ -73,7 +75,7 @@ const TeamQuoteSection = () => {
               viewport={{ once: true, margin: '-100px' }}
               transition={{ duration: 1.2, delay: 1.4, ease: [0.16, 1, 0.3, 1] }}
               style={{ transformOrigin: 'left' }}
-              className="absolute left-0 right-0 -bottom-1 h-px bg-black/40"
+              className="absolute left-0 right-0 -bottom-1 h-px bg-white/50"
             />
           </em>{' '}
           et parfaitement ciblé.
@@ -84,7 +86,7 @@ const TeamQuoteSection = () => {
           whileInView={{ opacity: 1, scaleX: 1 }}
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 1, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="mx-auto mt-14 sm:mt-16 h-px w-20 bg-black/30 origin-center"
+          className="mx-auto mt-14 sm:mt-16 h-px w-20 bg-white/40 origin-center"
         />
 
         <motion.div
@@ -94,7 +96,7 @@ const TeamQuoteSection = () => {
           transition={{ duration: 0.9, delay: 0.8 }}
           className="mt-7 flex flex-col items-center gap-1.5"
         >
-          <span className="text-[11px] font-sans tracking-[0.3em] uppercase text-black/60">
+          <span className="text-[11px] font-sans tracking-[0.3em] uppercase text-white/70">
             L'équipe Logan
           </span>
         </motion.div>
