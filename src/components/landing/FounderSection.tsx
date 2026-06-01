@@ -1,6 +1,7 @@
 import { motion, useScroll, useTransform } from 'motion/react';
 import { useRef } from 'react';
-import mountainBg from '@/assets/quote-mountain.jpeg';
+import bgAsset from '@/assets/quote-skyscrapers.jpeg.asset.json';
+const mountainBg = bgAsset.url;
 
 const FounderSection = () => {
   const ref = useRef<HTMLDivElement>(null);
