@@ -96,22 +96,22 @@ const MissionSection = () => (
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: '-80px' }}
-        className="mb-24 md:mb-32 max-w-3xl"
+        className="mb-24 md:mb-32 max-w-3xl mx-auto text-center"
       >
         <motion.p variants={fadeUp} className="text-[11px] font-sans font-medium tracking-[0.3em] uppercase text-black/40 mb-6">
           Notre approche
         </motion.p>
         <motion.h2
           variants={fadeUp}
-          className="font-serif text-[2rem] sm:text-4xl md:text-[3rem] leading-[1.08] text-black tracking-[-0.02em] mb-8"
+          className="font-serif font-[400] text-[2rem] sm:text-4xl md:text-[3.2rem] leading-[1.08] text-black tracking-[0.04em] mb-8"
         >
           Deux perspectives,<br />
-          <span className="italic text-black/85">un seul intermédiaire : Logan.</span>
+          <em className="italic">un seul intermédiaire.</em>
         </motion.h2>
 
         <motion.p
           variants={fadeUp}
-          className="font-sans text-[0.95rem] md:text-[1.02rem] font-[480] leading-[1.7] text-black/55 max-w-2xl"
+          className="font-sans text-[0.95rem] md:text-[1.05rem] font-[480] leading-[1.65] text-black/60 max-w-2xl mx-auto"
         >
           Logan est la nouvelle infrastructure privilégiée et confidentielle du marché des avocats —
           un écosystème exigeant, où chaque rapprochement est orchestré de l'intention à la signature.
