@@ -206,7 +206,7 @@ const FAQSection = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="border-t border-black/10"
+            className="border-t border-black/10 grid grid-cols-1 md:grid-cols-2 md:gap-x-12 lg:gap-x-16"
           >
             {items.map((item, i) => (
               <FAQRow
