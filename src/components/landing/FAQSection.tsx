@@ -155,7 +155,7 @@ const FAQSection = () => {
 
   return (
     <section className="py-28 md:py-40 bg-white">
-      <div className="max-w-4xl mx-auto px-4 sm:px-8 lg:px-10">
+      <div className="max-w-6xl mx-auto px-4 sm:px-8 lg:px-10">
         {/* Header — left aligned editorial */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
