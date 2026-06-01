@@ -24,13 +24,11 @@ const PALIER_MAP: Record<string, string> = {
 // Aligned with CHAMBERS_DEPARTMENTS (now includes Tax)
 const FILTERS = [
   { key: 'all', label: 'Tous' },
-  { key: 'ma', label: 'Corporate/M&A/PE' },
+  { key: 'ma', label: 'Corporate/M&A' },
+  { key: 'pe', label: 'Private Equity' },
   { key: 'banque', label: 'Banking & Finance' },
   { key: 'restructuring', label: 'Restructuring/Insolvency' },
-  { key: 'public', label: 'Public Law' },
-  { key: 'arbitrage', label: 'International Arbitration' },
   { key: 'social', label: 'Employment' },
-  { key: 'concurrence', label: 'Competition/European Law' },
   { key: 'immo', label: 'Real Estate' },
   { key: 'projets', label: 'Projects & Energy' },
   { key: 'tax', label: 'Tax' },
@@ -859,7 +857,7 @@ const ExploreView = ({
       </div>
 
       {/* Grid — light cards matching CandidateOffers preview style */}
-      <div className="space-y-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {filtered.map((p) => {
           const seniorityLabel = getSeniorityLabel(p);
           const practiceLabel = PRACTICE_LABEL_BY_KEY[p.dept] || p.deptLabel;

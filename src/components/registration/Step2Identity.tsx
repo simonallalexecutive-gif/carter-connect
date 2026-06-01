@@ -221,178 +221,201 @@ const Step2Identity = () => {
       <h2 className="text-3xl font-serif text-foreground mb-2 font-normal tracking-[-0.02em]">Votre profil</h2>
       <p className="text-muted-foreground font-sans text-sm font-light mb-10">Ces informations restent strictement confidentielles.</p>
 
-      <div className="space-y-8">
-        {/* LinkedIn URL */}
-        <div>
-          <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Profil LinkedIn</Label>
-          <div className="relative mt-2">
-            {linkedinLoading && (
-              <Loader2 className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground animate-spin" />
-            )}
-            <Linkedin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-            <Input
-              value={store.linkedinUrl}
-              onChange={e => handleLinkedinChange(e.target.value)}
-              onPaste={handleLinkedinPaste}
-              onBlur={handleLinkedinBlur}
-              placeholder="https://linkedin.com/in/votre-profil"
-              className="pl-10"
-            />
+      <div className="space-y-10">
+        {/* ── Identité & contact ───────────────────────────────── */}
+        <div className="rounded-sm p-8 space-y-7 border border-border bg-card">
+          <div>
+            <p className="text-[10px] font-sans font-medium tracking-[0.15em] uppercase text-muted-foreground mb-2">Confidentiel</p>
+            <h3 className="font-serif text-xl text-foreground font-normal">Identité & contact</h3>
           </div>
-          {linkedinError && (
-            <p className="font-sans text-xs text-orange-500 font-light mt-1.5">{linkedinError}</p>
-          )}
-          <p className="font-sans text-xs text-muted-foreground font-light mt-1.5">Collez votre lien LinkedIn — votre photo de profil sera importée automatiquement.</p>
-        </div>
 
-        {/* Photo */}
-        <div className="flex items-center gap-6">
-          <div className="relative">
-            {store.photoPreviewUrl ? (
+          {/* Photo + LinkedIn — alignés horizontalement */}
+          <div className="grid grid-cols-1 md:grid-cols-[auto_1fr] gap-6 items-start">
+            <div className="flex items-center gap-4">
               <div className="relative">
-                <img src={store.photoPreviewUrl} alt="Photo" className="w-20 h-20 rounded-full object-cover border border-border" />
-                <button onClick={removePhoto} className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-foreground text-background flex items-center justify-center">
-                  <X className="w-3 h-3" />
-                </button>
+                {store.photoPreviewUrl ? (
+                  <div className="relative">
+                    <img src={store.photoPreviewUrl} alt="Photo" className="w-20 h-20 rounded-full object-cover border border-border" />
+                    <button onClick={removePhoto} className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-foreground text-background flex items-center justify-center">
+                      <X className="w-3 h-3" />
+                    </button>
+                  </div>
+                ) : (
+                  <button onClick={() => photoInputRef.current?.click()} className="w-20 h-20 rounded-full border border-dashed border-border flex items-center justify-center hover:border-accent/50 transition-colors duration-300">
+                    <Camera className="w-5 h-5 text-muted-foreground" />
+                  </button>
+                )}
+                <input ref={photoInputRef} type="file" accept="image/*" onChange={handlePhotoChange} className="hidden" />
               </div>
-            ) : (
-              <button onClick={() => photoInputRef.current?.click()} className="w-20 h-20 rounded-full border border-dashed border-border flex items-center justify-center hover:border-accent/50 transition-colors duration-300">
-                <Camera className="w-5 h-5 text-muted-foreground" />
-              </button>
-            )}
-            <input ref={photoInputRef} type="file" accept="image/*" onChange={handlePhotoChange} className="hidden" />
-          </div>
-          <div>
-            <p className="font-sans text-sm font-medium text-foreground">Photo professionnelle</p>
-            <p className="font-sans text-xs text-muted-foreground font-light">Optionnel · JPG ou PNG, max 5 Mo</p>
-          </div>
-        </div>
+              <div>
+                <p className="font-sans text-sm font-medium text-foreground">Photo professionnelle</p>
+                <p className="font-sans text-xs text-muted-foreground font-light">Optionnel · JPG ou PNG, max 5 Mo</p>
+              </div>
+            </div>
 
-        {/* Nom / Prénom */}
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Prénom *</Label>
-            <Input value={store.prenom} onChange={e => store.setField('prenom', e.target.value)} placeholder="Jean" className="mt-2" />
+            <div>
+              <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Profil LinkedIn</Label>
+              <div className="relative mt-2">
+                {linkedinLoading && (
+                  <Loader2 className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground animate-spin" />
+                )}
+                <Linkedin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                <Input
+                  value={store.linkedinUrl}
+                  onChange={e => handleLinkedinChange(e.target.value)}
+                  onPaste={handleLinkedinPaste}
+                  onBlur={handleLinkedinBlur}
+                  placeholder="https://linkedin.com/in/votre-profil"
+                  className="pl-10"
+                />
+              </div>
+              {linkedinError && (
+                <p className="font-sans text-xs text-orange-500 font-light mt-1.5">{linkedinError}</p>
+              )}
+            </div>
           </div>
-          <div>
-            <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Nom *</Label>
-            <Input value={store.nom} onChange={e => store.setField('nom', e.target.value)} placeholder="Dupont" className="mt-2" />
-          </div>
-        </div>
 
-        {/* Email / Tel */}
-        {isAdmin ? (
-          <div>
-            <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Téléphone *</Label>
-            <Input value={store.telephone} onChange={e => store.setField('telephone', formatPhoneWithDots(e.target.value))} placeholder="06.50.10.20.30" className="mt-2" />
-          </div>
-        ) : (
+          <div className="h-px bg-border" />
+
+          {/* Nom / Prénom */}
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Email *</Label>
-              <Input type="email" value={store.email} onChange={e => store.setField('email', e.target.value)} placeholder="jean@cabinet.com" className="mt-2" />
+              <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Prénom *</Label>
+              <Input value={store.prenom} onChange={e => store.setField('prenom', e.target.value)} placeholder="Jean" className="mt-2" />
             </div>
+            <div>
+              <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Nom *</Label>
+              <Input value={store.nom} onChange={e => store.setField('nom', e.target.value)} placeholder="Dupont" className="mt-2" />
+            </div>
+          </div>
+
+          {/* Email / Tel */}
+          {isAdmin ? (
             <div>
               <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Téléphone *</Label>
               <Input value={store.telephone} onChange={e => store.setField('telephone', formatPhoneWithDots(e.target.value))} placeholder="06.50.10.20.30" className="mt-2" />
             </div>
-          </div>
-        )}
-
-        {/* Password — hidden in admin mode */}
-        {!isAdmin && (
-        <div className="space-y-4">
-          <div>
-            <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Mot de passe *</Label>
-            <div className="relative mt-2">
-              <Input
-                type={showPassword ? 'text' : 'password'}
-                value={store.password}
-                onChange={e => store.setField('password', e.target.value)}
-                placeholder="Créez votre mot de passe"
-                className="pr-10"
-              />
-              <button
-                type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
-              >
-                {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-              </button>
-            </div>
-            {store.password.length > 0 && (
-              <div className="mt-3 space-y-1.5">
-                {[
-                  { key: 'minLength', label: '8 caractères minimum' },
-                  { key: 'hasUpper', label: 'Une lettre majuscule' },
-                  { key: 'hasLower', label: 'Une lettre minuscule' },
-                  { key: 'hasNumber', label: 'Un chiffre' },
-                  { key: 'hasSpecial', label: 'Un caractère spécial (!@#$...)' },
-                ].map(rule => {
-                  const passed = passwordRules[rule.key as keyof typeof passwordRules];
-                  return (
-                    <div key={rule.key} className="flex items-center gap-2">
-                      {passed ? (
-                        <Check className="w-3.5 h-3.5 text-green-500 flex-shrink-0" />
-                      ) : (
-                        <AlertCircle className="w-3.5 h-3.5 text-muted-foreground flex-shrink-0" />
-                      )}
-                      <span className={`font-sans text-xs ${passed ? 'text-green-500' : 'text-muted-foreground'}`}>
-                        {rule.label}
-                      </span>
-                    </div>
-                  );
-                })}
+          ) : (
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Email *</Label>
+                <Input type="email" value={store.email} onChange={e => store.setField('email', e.target.value)} placeholder="jean@cabinet.com" className="mt-2" />
               </div>
-            )}
-          </div>
-          <div>
-            <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Confirmer le mot de passe *</Label>
-            <div className="relative mt-2">
-              <Input
-                type={showConfirm ? 'text' : 'password'}
-                value={store.passwordConfirm}
-                onChange={e => store.setField('passwordConfirm', e.target.value)}
-                placeholder="Confirmez votre mot de passe"
-                className="pr-10"
-              />
-              <button
-                type="button"
-                onClick={() => setShowConfirm(!showConfirm)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
-              >
-                {showConfirm ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-              </button>
+              <div>
+                <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Téléphone *</Label>
+                <Input value={store.telephone} onChange={e => store.setField('telephone', formatPhoneWithDots(e.target.value))} placeholder="06.50.10.20.30" className="mt-2" />
+              </div>
             </div>
-            {store.passwordConfirm.length > 0 && !passwordsMatch && (
-              <p className="text-xs text-red-400 font-sans mt-1.5">Les mots de passe ne correspondent pas</p>
-            )}
-            {passwordsMatch && (
-              <p className="text-xs text-green-500 font-sans mt-1.5 flex items-center gap-1">
-                <Check className="w-3 h-3" /> Mots de passe identiques
-              </p>
-            )}
+          )}
+        </div>
+
+        {/* ── Sécurité du compte ───────────────────────────────── */}
+        {!isAdmin && (
+        <div className="rounded-sm p-8 space-y-6 border border-border bg-card">
+          <div>
+            <p className="text-[10px] font-sans font-medium tracking-[0.15em] uppercase text-muted-foreground mb-2">Confidentiel</p>
+            <h3 className="font-serif text-xl text-foreground font-normal">Sécurité du compte</h3>
           </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Mot de passe *</Label>
+              <div className="relative mt-2">
+                <Input
+                  type={showPassword ? 'text' : 'password'}
+                  value={store.password}
+                  onChange={e => store.setField('password', e.target.value)}
+                  placeholder="Créez votre mot de passe"
+                  className="pr-10"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
+              </div>
+            </div>
+            <div>
+              <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Confirmer le mot de passe *</Label>
+              <div className="relative mt-2">
+                <Input
+                  type={showConfirm ? 'text' : 'password'}
+                  value={store.passwordConfirm}
+                  onChange={e => store.setField('passwordConfirm', e.target.value)}
+                  placeholder="Confirmez votre mot de passe"
+                  className="pr-10"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowConfirm(!showConfirm)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  {showConfirm ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
+              </div>
+              {store.passwordConfirm.length > 0 && !passwordsMatch && (
+                <p className="text-xs text-red-400 font-sans mt-1.5">Les mots de passe ne correspondent pas</p>
+              )}
+              {passwordsMatch && (
+                <p className="text-xs text-green-500 font-sans mt-1.5 flex items-center gap-1">
+                  <Check className="w-3 h-3" /> Mots de passe identiques
+                </p>
+              )}
+            </div>
+          </div>
+          {store.password.length > 0 && (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-1.5">
+              {[
+                { key: 'minLength', label: '8 caractères minimum' },
+                { key: 'hasUpper', label: 'Une lettre majuscule' },
+                { key: 'hasLower', label: 'Une lettre minuscule' },
+                { key: 'hasNumber', label: 'Un chiffre' },
+                { key: 'hasSpecial', label: 'Un caractère spécial (!@#$...)' },
+              ].map(rule => {
+                const passed = passwordRules[rule.key as keyof typeof passwordRules];
+                return (
+                  <div key={rule.key} className="flex items-center gap-2">
+                    {passed ? (
+                      <Check className="w-3.5 h-3.5 text-green-500 flex-shrink-0" />
+                    ) : (
+                      <AlertCircle className="w-3.5 h-3.5 text-muted-foreground flex-shrink-0" />
+                    )}
+                    <span className={`font-sans text-xs ${passed ? 'text-green-500' : 'text-muted-foreground'}`}>
+                      {rule.label}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+          )}
         </div>
         )}
-        {/* Serment */}
-        <div>
-          <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Date de prestation de serment *</Label>
-          <div className="grid grid-cols-2 gap-4 mt-2">
-            <Select value={store.sermentMois?.toString() || ''} onValueChange={v => store.setField('sermentMois', parseInt(v))}>
-              <SelectTrigger><SelectValue placeholder="Mois" /></SelectTrigger>
-              <SelectContent>
-                {MOIS.map(m => <SelectItem key={m.value} value={m.value.toString()}>{m.label}</SelectItem>)}
-              </SelectContent>
-            </Select>
-            <Select value={store.sermentAnnee?.toString() || ''} onValueChange={v => store.setField('sermentAnnee', parseInt(v))}>
-              <SelectTrigger><SelectValue placeholder="Année" /></SelectTrigger>
-              <SelectContent>
-                {YEARS.map(y => <SelectItem key={y} value={y.toString()}>{y}</SelectItem>)}
-              </SelectContent>
-            </Select>
+
+        {/* ── Barreau ──────────────────────────────────────────── */}
+        <div className="rounded-sm p-8 space-y-6 border border-border bg-card">
+          <div>
+            <p className="text-[10px] font-sans font-medium tracking-[0.15em] uppercase text-muted-foreground mb-2">Confidentiel</p>
+            <h3 className="font-serif text-xl text-foreground font-normal">Barreau</h3>
           </div>
-          {pqe && <div className="mt-3"><SeniorityBadge info={pqe} /></div>}
+          <div>
+            <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Date de prestation de serment *</Label>
+            <div className="grid grid-cols-2 gap-4 mt-2">
+              <Select value={store.sermentMois?.toString() || ''} onValueChange={v => store.setField('sermentMois', parseInt(v))}>
+                <SelectTrigger><SelectValue placeholder="Mois" /></SelectTrigger>
+                <SelectContent>
+                  {MOIS.map(m => <SelectItem key={m.value} value={m.value.toString()}>{m.label}</SelectItem>)}
+                </SelectContent>
+              </Select>
+              <Select value={store.sermentAnnee?.toString() || ''} onValueChange={v => store.setField('sermentAnnee', parseInt(v))}>
+                <SelectTrigger><SelectValue placeholder="Année" /></SelectTrigger>
+                <SelectContent>
+                  {YEARS.map(y => <SelectItem key={y} value={y.toString()}>{y}</SelectItem>)}
+                </SelectContent>
+              </Select>
+            </div>
+            {pqe && <div className="mt-3"><SeniorityBadge info={pqe} /></div>}
+          </div>
         </div>
 
         {/* Statut Counsel / Associé — visible si PQE > 6 ans */}
