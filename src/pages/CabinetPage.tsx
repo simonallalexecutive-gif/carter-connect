@@ -14,8 +14,9 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
 import { useLoadCabinetProfile } from '@/hooks/useLoadCabinetProfile';
-import { Building2, Eye, FileText, LogOut, Home, Bell, Settings, Search } from 'lucide-react';
+import { Building2, Eye, FileText, LogOut, Home, Bell, Settings, Search, Phone } from 'lucide-react';
 import CabinetNotificationAlerts from '@/components/cabinet/CabinetNotificationAlerts';
+import CandidateBooking from '@/components/candidate/CandidateBooking';
 import {
   SidebarProvider,
   Sidebar,
