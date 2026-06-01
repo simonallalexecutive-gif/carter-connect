@@ -14,8 +14,9 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
 import { useLoadCabinetProfile } from '@/hooks/useLoadCabinetProfile';
-import { Building2, Eye, FileText, LogOut, Home, Bell, Settings, Search } from 'lucide-react';
+import { Building2, Eye, FileText, LogOut, Home, Bell, Settings, Search, Phone } from 'lucide-react';
 import CabinetNotificationAlerts from '@/components/cabinet/CabinetNotificationAlerts';
+import CandidateBooking from '@/components/candidate/CandidateBooking';
 import {
   SidebarProvider,
   Sidebar,
@@ -31,7 +32,7 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar';
 
-type CabinetTabKey = 'dashboard' | 'explore' | 'newSearch' | 'activeSearches' | 'account';
+type CabinetTabKey = 'dashboard' | 'explore' | 'newSearch' | 'activeSearches' | 'account' | 'booking';
 
 const CABINET_TABS: { key: CabinetTabKey; label: string; icon: typeof Building2 }[] = [
   { key: 'dashboard', label: 'Tableau de bord', icon: Building2 },
@@ -89,6 +90,19 @@ const CabinetSidebar = ({
                   {!collapsed && <span className="text-[13px]">Alertes prioritaires</span>}
                 </SidebarMenuButton>
               </SidebarMenuItem>
+              <SidebarMenuItem>
+                <SidebarMenuButton
+                  onClick={() => setActiveTab('booking')}
+                  isActive={activeTab === 'booking'}
+                  tooltip="Fixer un call"
+                  className={`text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground rounded-sm transition-colors ${
+                    activeTab === 'booking' ? 'bg-sidebar-accent text-sidebar-accent-foreground font-semibold' : ''
+                  }`}
+                >
+                  <Phone className="mr-2 h-4 w-4" />
+                  {!collapsed && <span className="text-[13px]">Fixer un call</span>}
+                </SidebarMenuButton>
+              </SidebarMenuItem>
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
@@ -127,8 +141,10 @@ const CabinetDashboardLayout = () => {
   useLoadCabinetProfile(user);
   const [showAlerts, setShowAlerts] = useState(false);
   const [showAccount, setShowAccount] = useState(false);
+  const [showBooking, setShowBooking] = useState(false);
 
   const getActiveTab = (): CabinetTabKey => {
+    if (showBooking) return 'booking';
     if (showAccount) return 'account';
     if (s.dashboardView === 'explore') return 'explore';
     if (s.dashboardView === 'newSearch') return 'newSearch';
@@ -138,8 +154,12 @@ const CabinetDashboardLayout = () => {
 
   const setActiveTab = (tab: CabinetTabKey) => {
     setShowAccount(false);
+    setShowBooking(false);
     if (tab === 'account') {
       setShowAccount(true);
+      s.setField('dashboardView', 'home');
+    } else if (tab === 'booking') {
+      setShowBooking(true);
       s.setField('dashboardView', 'home');
     } else if (tab === 'explore') {
       s.setField('dashboardView', 'explore');
@@ -168,7 +188,7 @@ const CabinetDashboardLayout = () => {
               <span className="text-[10px] tracking-[0.18em] uppercase text-muted-foreground hidden sm:block">Logan</span>
             </header>
             <main className="flex-1 p-8 lg:p-12 overflow-y-auto bg-background">
-              {showAccount ? <CabinetAccount /> : <CabinetDashboard />}
+              {showBooking ? <CandidateBooking /> : showAccount ? <CabinetAccount /> : <CabinetDashboard />}
             </main>
           </div>
         </div>

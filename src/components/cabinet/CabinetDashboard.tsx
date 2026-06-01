@@ -858,96 +858,76 @@ const ExploreView = ({
         </div>
       </div>
 
-      {/* Grid — sober dark matte cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      {/* Grid — light cards matching CandidateOffers preview style */}
+      <div className="space-y-5">
         {filtered.map((p) => {
           const seniorityLabel = getSeniorityLabel(p);
           const practiceLabel = PRACTICE_LABEL_BY_KEY[p.dept] || p.deptLabel;
           const chambers = isChambersRanked(p);
           const legal500 = isLegal500Ranked(p);
-          const hasAnyRanking = chambers || legal500;
           const isActive = p.disponibilite === 'Immédiate';
+          const natLabel = p.nat ? `Cabinet ${getNatLabel(p.nat)}` : '';
 
           return (
             <div
               key={p.id}
               onClick={() => setDrawerProfile(p)}
-              className="group relative rounded-lg cursor-pointer transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_20px_40px_-20px_rgba(0,0,0,0.6)] border border-white/[0.08] hover:border-white/[0.2] bg-[hsl(0,0%,7%)] overflow-hidden flex flex-col"
+              className="rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 border border-border bg-card cursor-pointer"
             >
-              {/* NEW pin (top-right) */}
-              {p.isNew && (
-                <span className="absolute top-3 right-3 inline-flex items-center text-[8px] font-semibold tracking-[0.18em] uppercase text-white/70 z-10">
-                  <Star className="w-2.5 h-2.5 mr-1 fill-white/70" strokeWidth={0} />
-                  new
-                </span>
-              )}
+              <div className="p-6 md:p-8">
+                <div className="flex items-start justify-between gap-4">
+                  <div className="flex-1 min-w-0">
+                    {p.isNew && (
+                      <span className="inline-flex items-center text-[8px] font-semibold tracking-[0.18em] uppercase text-muted-foreground mb-2">
+                        <Star className="w-2.5 h-2.5 mr-1 fill-foreground/70" strokeWidth={0} />
+                        new
+                      </span>
+                    )}
+                    <div className="flex items-center gap-0 mb-2 flex-wrap">
+                      <span className="text-[14px] font-sans font-semibold text-foreground leading-none">{seniorityLabel}</span>
+                      <span className="mx-2.5 w-px h-5 bg-border inline-block" />
+                      <span className="text-[14px] font-sans font-semibold text-foreground leading-none">{practiceLabel}</span>
+                      {p.pqe && (
+                        <>
+                          <span className="mx-2.5 w-px h-5 bg-border inline-block" />
+                          <span className="text-[14px] font-sans font-semibold text-foreground leading-none">{p.pqe}</span>
+                        </>
+                      )}
+                    </div>
+                    <div className="flex items-center gap-2 mb-3 flex-wrap">
+                      {natLabel && (
+                        <span className="text-[10px] font-sans font-bold text-foreground/70 leading-none border border-border rounded px-2 py-1">{natLabel}</span>
+                      )}
+                      <span className="text-[10px] font-sans font-bold text-foreground/70 leading-none border border-border rounded px-2 py-1">Chambers : {chambers ? 'Oui' : 'Non'}</span>
+                      {legal500 && (
+                        <span className="text-[10px] font-sans font-bold text-foreground/70 leading-none border border-border rounded px-2 py-1">Legal 500</span>
+                      )}
+                    </div>
 
-              {/* Header — Profil anonyme */}
-              <div className="px-5 pt-5 pb-4">
-                <div className="text-[8px] tracking-[0.2em] uppercase text-white/30 font-sans mb-2">
-                  Profil anonyme
+                    <div className="flex items-center justify-between mt-4">
+                      <div className="inline-flex items-center gap-1.5 text-[11px] font-sans">
+                        {isActive ? (
+                          <>
+                            <span className="relative flex h-1.5 w-1.5">
+                              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-800 opacity-75" />
+                              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-blue-800" />
+                            </span>
+                            <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-blue-700">En recherche active</span>
+                          </>
+                        ) : (
+                          <>
+                            <span className="inline-block w-1.5 h-1.5 rounded-full bg-muted-foreground/40" />
+                            <span className="text-[10px] font-sans text-muted-foreground tracking-[0.16em] uppercase">À l'écoute</span>
+                          </>
+                        )}
+                      </div>
+                      <div className="text-[9px] tracking-[0.15em] uppercase text-muted-foreground/60 font-sans">{p.id}</div>
+                    </div>
+                  </div>
+                  <div className="w-10 h-10 rounded-full flex items-center justify-center bg-secondary shrink-0 mt-1">
+                    <Eye className="w-4 h-4 text-muted-foreground" />
+                  </div>
                 </div>
-                <div className="font-sans text-[15px] font-medium text-white leading-tight tracking-tight">
-                  {seniorityLabel}
-                  {p.pqe && <span className="text-white/40 font-light"> · {p.pqe}</span>}
-                </div>
-              </div>
-
-              {/* Divider */}
-              <div className="mx-5 h-px bg-white/[0.06]" />
-
-              {/* Body — practice */}
-              <div className="px-5 py-4">
-                <div className="text-[8px] tracking-[0.2em] uppercase text-white/30 font-sans mb-1.5">
-                  Pratique
-                </div>
-                <div className="font-sans text-[12.5px] text-white/85 leading-snug">
-                  {practiceLabel}
-                </div>
-              </div>
-
-              {/* Rankings row */}
-              <div className="px-5 pb-3 flex items-center gap-3 border-t border-white/[0.05] pt-3">
-                {chambers && (
-                  <span className="inline-flex items-center gap-1 text-[9.5px] font-medium tracking-[0.06em] text-white/75">
-                    <Award className="w-3 h-3" strokeWidth={1.6} />
-                    Chambers
-                  </span>
-                )}
-                {legal500 && (
-                  <span className="inline-flex items-center gap-1 text-[9.5px] font-medium tracking-[0.06em] text-white/75">
-                    <BookMarked className="w-3 h-3" strokeWidth={1.6} />
-                    Legal 500
-                  </span>
-                )}
-                {!hasAnyRanking && (
-                  <span className="inline-flex items-center gap-1 text-[9.5px] tracking-[0.06em] text-white/25">
-                    <CircleDot className="w-2.5 h-2.5" strokeWidth={1.5} />
-                    Non classé
-                  </span>
-                )}
-              </div>
-
-              {/* Status — dedicated last row */}
-              <div className="mt-auto px-5 py-3 border-t border-white/[0.06] bg-white/[0.015] flex items-center justify-center gap-1.5">
-                {isActive ? (
-                  <>
-                    <span className="relative flex h-1.5 w-1.5">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-800 opacity-75" />
-                      <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-blue-800" />
-                    </span>
-                    <span className="text-[9px] font-semibold uppercase tracking-[0.16em] text-blue-500">
-                      En recherche active
-                    </span>
-                  </>
-                ) : (
-                  <>
-                    <span className="inline-block w-1.5 h-1.5 rounded-full bg-white/30" />
-                    <span className="text-[9px] font-sans text-white/45 tracking-[0.16em] uppercase">
-                      À l'écoute
-                    </span>
-                  </>
-                )}
               </div>
             </div>
           );
