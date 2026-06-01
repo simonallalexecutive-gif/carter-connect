@@ -48,7 +48,7 @@ const ConnexionPage = () => {
   if (loading) return null;
 
   return (
-    <div className="min-h-screen bg-background flex flex-col theme-light">
+    <div className="min-h-screen bg-white text-black flex flex-col">
       <Header />
       <main className="flex-1 flex items-center justify-center pt-20 px-6">
         <motion.div
