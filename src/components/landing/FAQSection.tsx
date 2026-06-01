@@ -97,18 +97,18 @@ const FAQRow = ({
   open: boolean;
   onToggle: () => void;
 }) => (
-  <div className="border-b border-black/10 group">
+  <div className="border-b border-white/10 group">
     <button
       onClick={onToggle}
       className="w-full flex items-start gap-4 md:gap-5 py-6 md:py-7 text-left transition-colors"
     >
-      <span className="font-serif text-[0.7rem] md:text-[0.72rem] text-black/35 tabular-nums tracking-[0.15em] pt-1.5 w-7 shrink-0">
+      <span className="font-serif text-[0.7rem] md:text-[0.72rem] text-white/40 tabular-nums tracking-[0.15em] pt-1.5 w-7 shrink-0">
         {String(index + 1).padStart(2, '0')}
       </span>
       <span
         className={cn(
           'flex-1 font-sans text-[0.88rem] md:text-[0.95rem] font-medium leading-snug tracking-[-0.005em] transition-colors',
-          open ? 'text-black' : 'text-black/80 group-hover:text-black'
+          open ? 'text-white' : 'text-white/80 group-hover:text-white'
         )}
       >
         {item.question}
@@ -117,7 +117,7 @@ const FAQRow = ({
       <span
         className={cn(
           'shrink-0 w-8 h-8 rounded-full border flex items-center justify-center transition-all duration-300',
-          open ? 'bg-black border-black text-white' : 'border-black/20 text-black/60 group-hover:border-black/50 group-hover:text-black'
+          open ? 'bg-white border-white text-black' : 'border-white/25 text-white/65 group-hover:border-white/60 group-hover:text-white'
         )}
       >
         {open ? <Minus className="w-3 h-3" strokeWidth={1.8} /> : <Plus className="w-3 h-3" strokeWidth={1.8} />}
@@ -133,7 +133,7 @@ const FAQRow = ({
           className="overflow-hidden"
         >
           <div className="pl-0 md:pl-[2.75rem] pr-0 md:pr-6 pb-7">
-            <p className="font-sans text-[0.85rem] md:text-[0.9rem] leading-[1.8] text-black/60 text-justify">
+            <p className="font-sans text-[0.85rem] md:text-[0.9rem] leading-[1.8] text-white/65 text-justify">
               {item.answer}
             </p>
           </div>
