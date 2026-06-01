@@ -75,7 +75,6 @@ const ConnexionPage = () => {
                   Espace Candidat
                 </Button>
                 <Button
-                  variant="outline"
                   onClick={() => navigate('/cabinet')}
                   className="w-full py-6 font-sans text-sm"
                 >
