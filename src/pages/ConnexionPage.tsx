@@ -57,14 +57,14 @@ const ConnexionPage = () => {
           transition={{ duration: 0.6 }}
           className="w-full max-w-md text-center"
         >
-          <div className="w-12 h-px bg-foreground/20 mx-auto mb-8" />
+          <div className="w-12 h-px bg-black/20 mx-auto mb-8" />
 
           {showChoice ? (
             <>
-              <h1 className="font-sans text-3xl md:text-4xl text-foreground mb-4">
+              <h1 className="font-sans text-3xl md:text-4xl text-black mb-4">
                 Bienvenue
               </h1>
-              <p className="text-sm text-muted-foreground font-sans leading-relaxed mb-10">
+              <p className="text-sm text-black/60 font-sans leading-relaxed mb-10">
                 Choisissez votre espace
               </p>
               <div className="flex flex-col gap-4 max-w-sm mx-auto">
@@ -85,16 +85,16 @@ const ConnexionPage = () => {
             </>
           ) : (
             <>
-              <h1 className="font-serif text-3xl md:text-4xl text-foreground mb-4">
+              <h1 className="font-serif text-3xl md:text-4xl text-black mb-4">
                 Connexion
               </h1>
-              <p className="text-sm text-muted-foreground font-sans leading-relaxed mb-10">
+              <p className="text-sm text-black/60 font-sans leading-relaxed mb-10">
                 Accédez à votre espace Logan
               </p>
 
               <form onSubmit={handleLogin} className="space-y-4 max-w-sm mx-auto text-left">
                 <div>
-                  <Label htmlFor="email" className="font-sans text-xs text-muted-foreground uppercase tracking-wider">
+                  <Label htmlFor="email" className="font-sans text-xs text-black/60 uppercase tracking-wider">
                     Email
                   </Label>
                   <Input
@@ -107,7 +107,7 @@ const ConnexionPage = () => {
                   />
                 </div>
                 <div>
-                  <Label htmlFor="password" className="font-sans text-xs text-muted-foreground uppercase tracking-wider">
+                  <Label htmlFor="password" className="font-sans text-xs text-black/60 uppercase tracking-wider">
                     Mot de passe
                   </Label>
                   <Input
