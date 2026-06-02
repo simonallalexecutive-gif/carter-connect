@@ -1,6 +1,6 @@
 import { motion, useScroll, useTransform } from 'motion/react';
 import { useRef } from 'react';
-import bgAsset from '@/assets/quote-skyscrapers.jpeg.asset.json';
+const bgAsset = { url: '/quote-bg.jpg' };
 
 const TeamQuoteSection = () => {
   const ref = useRef<HTMLElement>(null);
