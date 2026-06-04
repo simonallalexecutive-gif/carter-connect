@@ -1038,4 +1038,71 @@ const Step6Review = ({ readOnly = false }: Step6ReviewProps = {}) => {
   );
 };
 
+const SLOTS = ['09:30', '10:30', '11:30', '14:00', '15:00', '16:00', '17:00'];
+
+const InlineBookingCalendar = ({ onConfirm, selected }: { onConfirm: (slot: string) => void; selected: string }) => {
+  const [date, setDate] = useState<Date | undefined>(undefined);
+  const [slot, setSlot] = useState<string>('');
+
+  const handleConfirm = () => {
+    if (!date || !slot) return;
+    const label = `${format(date, "EEEE d MMMM yyyy", { locale: fr })} à ${slot}`;
+    onConfirm(label);
+  };
+
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-[auto_1fr] gap-5">
+      <div className="rounded-sm border border-border bg-background">
+        <Calendar
+          mode="single"
+          selected={date}
+          onSelect={setDate}
+          locale={fr}
+          weekStartsOn={1}
+          disabled={(d) => isBefore(d, startOfDay(new Date())) || d.getDay() === 0 || d.getDay() === 6}
+          fromDate={new Date()}
+          toDate={addDays(new Date(), 60)}
+          className="pointer-events-auto p-2"
+        />
+      </div>
+      <div className="flex flex-col">
+        <p className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground font-sans mb-2.5">
+          {date ? `Créneaux — ${format(date, 'EEEE d MMM', { locale: fr })}` : 'Sélectionnez une date'}
+        </p>
+        <div className="grid grid-cols-3 gap-2 mb-3">
+          {SLOTS.map((s) => (
+            <button
+              key={s}
+              type="button"
+              disabled={!date}
+              onClick={() => setSlot(s)}
+              className={cn(
+                'px-2 py-2 rounded-sm border text-[12px] font-sans transition-all',
+                !date && 'opacity-40 cursor-not-allowed',
+                slot === s
+                  ? 'bg-foreground text-background border-foreground'
+                  : 'bg-background text-foreground border-border hover:border-foreground'
+              )}
+            >
+              {s}
+            </button>
+          ))}
+        </div>
+        <Button
+          type="button"
+          onClick={handleConfirm}
+          disabled={!date || !slot}
+          size="sm"
+          className="self-start font-sans text-xs font-medium rounded-sm"
+        >
+          Confirmer le créneau
+        </Button>
+        {selected && (
+          <p className="mt-3 text-[11px] font-sans text-emerald-700">✓ {selected}</p>
+        )}
+      </div>
+    </div>
+  );
+};
+
 export default Step6Review;
