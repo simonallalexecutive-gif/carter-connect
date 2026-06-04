@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from 'react';
+import { useState, useMemo, useCallback, useEffect } from 'react';
 import { useCabinetStore } from '@/stores/cabinetStore';
 import { PROFILES, DEPT_KEY_MAP, CABINET_EXPERTISE_DETAIL, type CabinetProfile } from '@/lib/cabinetConstants';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
@@ -731,6 +731,42 @@ function getCoherentActivity(p: CabinetProfile): {
 }
 
 // ── EXPLORE VIEW ──
+// Converts a candidate_registrations row to CabinetProfile
+function registrationToProfile(row: any): CabinetProfile {
+  const d = row.submission_data || {};
+  const pqeYears = (() => {
+    if (!d.sermentMois || !d.sermentAnnee) return 0;
+    const now = new Date();
+    return now.getFullYear() - d.sermentAnnee + (now.getMonth() + 1 < d.sermentMois ? -1 : 0);
+  })();
+  const pqeLabel = pqeYears <= 2 ? 'Junior' : pqeYears <= 5 ? 'Mid Level' : pqeYears <= 8 ? 'Senior' : d.statutAssoc === 'associe' ? 'Associé' : d.statutAssoc === 'counsel' ? 'Counsel' : 'Senior';
+  const deptKey = DEPT_KEY_MAP[d.departement] || 'ma';
+  return {
+    id: row.id,
+    dept: deptKey,
+    deptLabel: d.departement || '—',
+    title: `${pqeLabel} — ${d.departement || ''} · ${pqeYears} ans PQE`,
+    pqe: `${pqeYears} ans`,
+    nat: 'FR',
+    natFlag: 'FR',
+    origin: d.cabinet || '—',
+    originTier: d.cabTier || '—',
+    english: d.langues?.includes('Anglais') ? 'Bilingue' : 'Courant',
+    seniority: pqeLabel,
+    isNew: (() => { const c = new Date(row.created_at); const now = new Date(); return (now.getTime() - c.getTime()) < 7 * 24 * 3600 * 1000; })(),
+    expertise: Object.keys(d.activites || {}).filter(k => d.activites[k]).slice(0, 4),
+    split: d.pourcentages || {},
+    formation: d.formation || '—',
+    droit_etranger: '—',
+    langue2: '—',
+    retro_actuel: d.retrocession ? `${d.retrocession} €` : '—',
+    disponibilite: d.disponibilite || '—',
+    mobilite: d.mobilite || 'Paris',
+    motivation: d.assocExpertiseSummary || d.notaBene || '—',
+    match: Math.floor(70 + Math.random() * 25),
+  };
+}
+
 const ExploreView = ({
   filter, setFilter, sort, setSort, drawerProfile, setDrawerProfile
 }: {
@@ -745,6 +781,17 @@ const ExploreView = ({
   const [chambersOnly, setChambersOnly] = useState(false);
   const [legal500Only, setLegal500Only] = useState(false);
   const [seniorityFilter, setSeniorityFilter] = useState<string>('all');
+  const [realProfiles, setRealProfiles] = useState<CabinetProfile[]>([]);
+
+  useEffect(() => {
+    supabase
+      .from('candidate_registrations')
+      .select('id, created_at, submission_data')
+      .eq('status', 'approved')
+      .then(({ data }) => {
+        if (data) setRealProfiles(data.map(registrationToProfile));
+      });
+  }, []);
 
   const SENIORITY_FILTERS = [
     { key: 'all', label: 'Toutes' },
@@ -756,7 +803,8 @@ const ExploreView = ({
   ];
 
   const filtered = useMemo(() => {
-    let profiles = [...PROFILES];
+    const allProfiles = realProfiles.length > 0 ? realProfiles : [...PROFILES];
+    let profiles = [...allProfiles];
     if (filter === 'new') profiles = profiles.filter((p) => p.isNew);
     else if (filter !== 'all') profiles = profiles.filter((p) => p.dept === filter);
     if (chambersOnly) profiles = profiles.filter((p) => isChambersRanked(p));
@@ -765,7 +813,7 @@ const ExploreView = ({
     if (sort === 'pqe') profiles.sort((a, b) => parseInt(b.pqe) - parseInt(a.pqe));
     else if (sort === 'match') profiles.sort((a, b) => b.match - a.match);
     return profiles;
-  }, [filter, sort, chambersOnly, legal500Only, seniorityFilter]);
+  }, [filter, sort, chambersOnly, legal500Only, seniorityFilter, realProfiles]);
 
   return (
     <div>
