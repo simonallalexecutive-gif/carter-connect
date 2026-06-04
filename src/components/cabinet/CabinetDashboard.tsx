@@ -1119,7 +1119,7 @@ const ProfileDrawer = ({ profile: p, onClose }: { profile: CabinetProfile; onClo
                 </p>
               </div>
               <DrawerDataRow label="Disponibilité" value={p.disponibilite} />
-              {p.mobilite && <DrawerDataRow label="Mobilité" value={p.mobilite} />}
+              
             </div>
           </DrawerSection>
 
