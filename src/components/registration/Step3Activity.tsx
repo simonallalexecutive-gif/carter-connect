@@ -16,7 +16,7 @@ import SocialActivityPanel from './SocialActivityPanel';
 import MaActivityPanel from './MaActivityPanel';
 import RealEstateActivityPanel from './RealEstateActivityPanel';
 import ConcurrenceActivityPanel from './ConcurrenceActivityPanel';
-import FiscalActivityPanel from './FiscalActivityPanel';
+import TaxActivityPanel from './TaxActivityPanel';
 import DroitPublicActivityPanel from './DroitPublicActivityPanel';
 import ArbitrationActivityPanel from './ArbitrationActivityPanel';
 import ProjectsEnergyActivityPanel from './ProjectsEnergyActivityPanel';
