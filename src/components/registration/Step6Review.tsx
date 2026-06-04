@@ -424,13 +424,16 @@ const Step6Review = ({ readOnly = false }: Step6ReviewProps = {}) => {
                   paddingAngle={1.5}
                   stroke="hsl(0, 0%, 7%)"
                   strokeWidth={2}
-                  label={({ cx, cy, midAngle, innerRadius: ir, outerRadius: or, value }) => {
+                  label={({ cx, cy, midAngle, innerRadius: ir, outerRadius: or, value, fill }) => {
                     const RADIAN = Math.PI / 180;
-                    // Toujours dans le donut, avec leader pour les petits %
                     const isSmall = value < 8;
                     const r = ir + (or - ir) * 0.55;
                     const x = cx + r * Math.cos(-midAngle * RADIAN);
                     const y = cy + r * Math.sin(-midAngle * RADIAN);
+                    // Adaptive contrast: parse HSL lightness so text stays readable on any slice
+                    const m = typeof fill === 'string' ? fill.match(/hsl\(\s*\d+\s*,\s*\d+%\s*,\s*(\d+)%/i) : null;
+                    const lightness = m ? parseInt(m[1], 10) : 50;
+                    const sliceTextColor = lightness > 55 ? 'hsl(0, 0%, 7%)' : 'hsl(0, 0%, 100%)';
                     return (
                       <g>
                         {isSmall && (
@@ -439,7 +442,7 @@ const Step6Review = ({ readOnly = false }: Step6ReviewProps = {}) => {
                         <text
                           x={x}
                           y={y}
-                          fill={isSmall ? 'hsl(0, 0%, 7%)' : 'hsl(0, 0%, 100%)'}
+                          fill={isSmall ? 'hsl(0, 0%, 7%)' : sliceTextColor}
                           textAnchor="middle"
                           dominantBaseline="central"
                           fontSize={isSmall ? 10 : 13}
@@ -901,15 +904,16 @@ const Step6Review = ({ readOnly = false }: Step6ReviewProps = {}) => {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                   <DataRow label="Pratique" value={store.departement} />
                   {chambersInfo && <DataRow label="Cabinet d'origine" value={chambersInfo.cabinetValue} />}
                   <DataRow label="Chambers" value={
                     chambersInfo?.band
-                      ? `Band ${chambersInfo.band}/Band ${chambersInfo.band + 1} — ${chambersInfo.deptLabel}`
+                      ? (chambersInfo.band > 1
+                          ? `Band ${chambersInfo.band - 1}/Band ${chambersInfo.band} — ${chambersInfo.deptLabel}`
+                          : `Band ${chambersInfo.band} — ${chambersInfo.deptLabel}`)
                       : chambersInfo?.isIntegrated ? 'Classé (hors pratique)' : 'Non classé'
                   } />
-                  {store.anglais && <DataRow label="Anglais" value={store.anglais} />}
                 </div>
               </SectionCard>
 
@@ -1002,7 +1006,7 @@ const Step6Review = ({ readOnly = false }: Step6ReviewProps = {}) => {
                 <p className="text-sm font-sans font-medium text-foreground">Souhaitez-vous échanger avec un consultant Logan ?</p>
                 <p className="text-xs font-sans font-light text-muted-foreground mt-1">Prenez rendez-vous dès la validation de votre inscription.</p>
               </div>
-              <Link to="/prendre-rdv" target="_blank" className="ml-4 flex-shrink-0">
+              <Link to="/rendez-vous" target="_blank" className="ml-4 flex-shrink-0">
                 <Button variant="outline" size="sm" className="font-sans text-xs font-medium rounded-sm gap-1.5">
                   Prendre RDV
                   <ArrowRight className="w-3 h-3" />

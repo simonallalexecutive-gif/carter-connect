@@ -1027,7 +1027,7 @@ const ProfileDrawer = ({ profile: p, onClose }: { profile: CabinetProfile; onClo
             <div className="col-span-2">
               <span className="text-[9px] uppercase tracking-[0.1em] text-muted-foreground font-sans">Disponibilité</span>
               <p className={cn(
-                "text-sm font-sans font-semibold mt-0.5 inline-flex items-center gap-1.5",
+                "text-sm font-sans font-semibold mt-2.5 inline-flex items-center gap-2",
                 isActive ? "text-emerald-600" : "text-foreground"
               )}>
                 {isActive && (
