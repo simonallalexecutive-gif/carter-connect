@@ -43,6 +43,12 @@ export const CANDIDATE_PERSISTED_KEYS = [
   'fiscInvestisseur', 'fiscCtxDefense', 'fiscDomestique',
   'fiscTransacOps', 'fiscCtxDossiers', 'fiscConsMissions',
   'fiscClientele', 'fiscComplexite', 'fiscSpecialisations',
+  // Tax (new questionnaire)
+  'taxConseilPct', 'taxClients',
+  'taxCorporatePct', 'taxTransacPct',
+  'taxHasPatrimonial', 'taxPatrimonialPct', 'taxPatrimonialTypes',
+  'taxHasPrixTransfert', 'taxPrixTransfertPct',
+  'taxHasTva', 'taxTvaPct', 'taxInternationalPct',
   // Droit Public
   'dpubPublique', 'dpubCtxDefense', 'dpubDomestique',
   'dpubContratsInterventions', 'dpubCtxInterventions', 'dpubConsDomaines',
