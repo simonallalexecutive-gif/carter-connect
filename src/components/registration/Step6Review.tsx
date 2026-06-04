@@ -10,7 +10,7 @@ import { Eye, ArrowLeft, ArrowRight, Check, User, CalendarIcon } from 'lucide-re
 import { useState, useMemo } from 'react';
 import { cn } from '@/lib/utils';
 import { Link } from 'react-router-dom';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
+
 import { Calendar } from '@/components/ui/calendar';
 import { format, addDays, isBefore, startOfDay } from 'date-fns';
 import { fr } from 'date-fns/locale';
