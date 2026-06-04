@@ -563,14 +563,14 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
                         <Input value={s.bonusDesc?.split('-')[0]?.trim() || ''} onChange={(e) => {
                           const max = s.bonusDesc?.split('-')[1]?.trim() || '';
                           s.setField('bonusDesc', `${formatNumberWithDots(e.target.value)}${max ? ` - ${max}` : ''}`);
-                        }} placeholder="Min — Ex : 5.000" className="bg-background pr-8" />
+                        }} placeholder="Min — Ex : 5.000" className="bg-background text-foreground pr-8" />
                         <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[11px] text-muted-foreground">€</span>
                       </div>
                       <div className="relative">
                         <Input value={s.bonusDesc?.split('-')[1]?.trim() || ''} onChange={(e) => {
                           const min = s.bonusDesc?.split('-')[0]?.trim() || '';
                           s.setField('bonusDesc', `${min} - ${formatNumberWithDots(e.target.value)}`);
-                        }} placeholder="Max — Ex : 20.000" className="bg-background pr-8" />
+                        }} placeholder="Max — Ex : 20.000" className="bg-background text-foreground pr-8" />
                         <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[11px] text-muted-foreground">€</span>
                       </div>
                     </div>
@@ -617,14 +617,14 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
                         <Input value={s.bonusDesc?.split('-')[0]?.trim() || ''} onChange={(e) => {
                           const max = s.bonusDesc?.split('-')[1]?.trim() || '';
                           s.setField('bonusDesc', `${formatNumberWithDots(e.target.value)}${max ? ` - ${max}` : ''}`);
-                        }} placeholder="Min — Ex : 5.000" className="bg-background pr-8" />
+                        }} placeholder="Min — Ex : 5.000" className="bg-background text-foreground pr-8" />
                         <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[11px] text-muted-foreground">€</span>
                       </div>
                       <div className="relative">
                         <Input value={s.bonusDesc?.split('-')[1]?.trim() || ''} onChange={(e) => {
                           const min = s.bonusDesc?.split('-')[0]?.trim() || '';
                           s.setField('bonusDesc', `${min} - ${formatNumberWithDots(e.target.value)}`);
-                        }} placeholder="Max — Ex : 20.000" className="bg-background pr-8" />
+                        }} placeholder="Max — Ex : 20.000" className="bg-background text-foreground pr-8" />
                         <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[11px] text-muted-foreground">€</span>
                       </div>
                     </div>
