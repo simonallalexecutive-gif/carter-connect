@@ -7,7 +7,7 @@ import LandingPage from "./pages/LandingPage";
 import RegisterPage from "./pages/RegisterPage";
 import CabinetPage from "./pages/CabinetPage";
 import DemoPage from "./pages/DemoPage";
-import BookingPage from "./pages/BookingPage";
+
 import AuthPage from "./pages/AuthPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
 import VideoPreview from "./pages/VideoPreview";
@@ -36,7 +36,8 @@ const App = () => (
           <Route path="/inscription" element={<RegisterPage />} />
           <Route path="/cabinet" element={<CabinetPage />} />
           <Route path="/demo" element={<DemoPage />} />
-          <Route path="/rendez-vous" element={<BookingPage />} />
+          <Route path="/rendez-vous" element={<AccessRequestPage />} />
+          <Route path="/prendre-rdv" element={<AccessRequestPage />} />
           <Route path="/demander-acces" element={<AccessRequestPage />} />
           <Route path="/notre-offre" element={<NotreOffrePage />} />
           <Route path="/connexion" element={<ConnexionPage />} />

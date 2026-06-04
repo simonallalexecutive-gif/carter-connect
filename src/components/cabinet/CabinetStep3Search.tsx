@@ -141,7 +141,7 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
                       'p-4 rounded border text-center transition-all cursor-pointer',
                       isChecked
                         ? 'bg-foreground text-background border-foreground'
-                        : 'bg-background border-border hover:border-foreground'
+                        : 'bg-background text-foreground border-border hover:border-foreground'
                     )}
                   >
                     <div className="text-[11px] font-medium">{pt.label}</div>
@@ -164,11 +164,11 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
                   </label>
                   <div className="grid grid-cols-2 gap-3">
                     <div className="relative">
-                      <Input value={s.assocCAMin} onChange={(e) => s.setField('assocCAMin', formatNumberWithDots(e.target.value))} placeholder="Min — Ex : 500" className="bg-background pr-12" />
+                      <Input value={s.assocCAMin} onChange={(e) => s.setField('assocCAMin', formatNumberWithDots(e.target.value))} placeholder="Min — Ex : 500" className="bg-background text-foreground pr-12" />
                       <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[11px] text-muted-foreground">K€</span>
                     </div>
                     <div className="relative">
-                      <Input value={s.assocCAMax} onChange={(e) => s.setField('assocCAMax', formatNumberWithDots(e.target.value))} placeholder="Max — Ex : 2.000" className="bg-background pr-12" />
+                      <Input value={s.assocCAMax} onChange={(e) => s.setField('assocCAMax', formatNumberWithDots(e.target.value))} placeholder="Max — Ex : 2.000" className="bg-background text-foreground pr-12" />
                       <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[11px] text-muted-foreground">K€</span>
                     </div>
                   </div>
@@ -177,19 +177,19 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
                   <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2 block">
                     Expertise & positionnement attendus
                   </label>
-                  <Textarea value={s.assocExpertiseDesc} onChange={(e) => s.setField('assocExpertiseDesc', e.target.value)} rows={3} placeholder="Ex : Associé M&A mid-cap avec une clientèle PE établie…" className="bg-background text-[11px]" />
+                  <Textarea value={s.assocExpertiseDesc} onChange={(e) => s.setField('assocExpertiseDesc', e.target.value)} rows={3} placeholder="Ex : Associé M&A mid-cap avec une clientèle PE établie…" className="bg-background text-foreground text-[11px]" />
                 </div>
                 <div>
                   <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2 block">
                     Type de clientèle attendue
                   </label>
-                  <Textarea value={s.assocClienteleDesc} onChange={(e) => s.setField('assocClienteleDesc', e.target.value)} rows={2} placeholder="Ex : Fonds PE mid-cap, industriels du CAC 40…" className="bg-background text-[11px]" />
+                  <Textarea value={s.assocClienteleDesc} onChange={(e) => s.setField('assocClienteleDesc', e.target.value)} rows={2} placeholder="Ex : Fonds PE mid-cap, industriels du CAC 40…" className="bg-background text-foreground text-[11px]" />
                 </div>
                 <div>
                   <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2 block">
                     Projet d'intégration <span className="font-normal normal-case tracking-normal text-[10px] text-border">facultatif</span>
                   </label>
-                  <Textarea value={s.assocProjetDesc} onChange={(e) => s.setField('assocProjetDesc', e.target.value)} rows={3} placeholder="Gouvernance, perspectives, intégration…" className="bg-background text-[11px]" />
+                  <Textarea value={s.assocProjetDesc} onChange={(e) => s.setField('assocProjetDesc', e.target.value)} rows={3} placeholder="Gouvernance, perspectives, intégration…" className="bg-background text-foreground text-[11px]" />
                 </div>
               </div>
             </div>
@@ -213,7 +213,7 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
                         'p-4 rounded border text-center transition-all cursor-pointer',
                         s.seniorities.includes(sen.key)
                           ? 'bg-foreground text-background border-foreground'
-                          : 'bg-background border-border hover:border-foreground'
+                          : 'bg-background text-foreground border-border hover:border-foreground'
                       )}
                     >
                       <div className="font-sans text-[11px] font-bold mb-0.5">{sen.pqe}</div>
@@ -460,15 +460,15 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
             <div className="grid grid-cols-3 gap-3">
               <div>
                 <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-1.5 block">Associés</label>
-                <Input value={s.eqAssocies} onChange={(e) => s.setField('eqAssocies', e.target.value)} type="number" min="0" placeholder="Ex : 2" className="bg-background" />
+                <Input value={s.eqAssocies} onChange={(e) => s.setField('eqAssocies', e.target.value)} type="number" min="0" placeholder="Ex : 2" className="bg-background text-foreground" />
               </div>
               <div>
                 <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-1.5 block">Counsels</label>
-                <Input value={s.eqCounsels} onChange={(e) => s.setField('eqCounsels', e.target.value)} type="number" min="0" placeholder="Ex : 1" className="bg-background" />
+                <Input value={s.eqCounsels} onChange={(e) => s.setField('eqCounsels', e.target.value)} type="number" min="0" placeholder="Ex : 1" className="bg-background text-foreground" />
               </div>
               <div>
                 <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-1.5 block">Collaborateurs</label>
-                <Input value={s.eqCollab} onChange={(e) => s.setField('eqCollab', e.target.value)} type="number" min="0" placeholder="Ex : 4" className="bg-background" />
+                <Input value={s.eqCollab} onChange={(e) => s.setField('eqCollab', e.target.value)} type="number" min="0" placeholder="Ex : 4" className="bg-background text-foreground" />
               </div>
             </div>
           </div>
@@ -484,11 +484,11 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
             </label>
             <div className="grid grid-cols-2 gap-3">
               <div className="relative">
-                <Input value={s.retroMin} onChange={(e) => s.setField('retroMin', formatNumberWithDots(e.target.value))} placeholder="Min — Ex : 90.000" className="bg-background pr-12" />
+                <Input value={s.retroMin} onChange={(e) => s.setField('retroMin', formatNumberWithDots(e.target.value))} placeholder="Min — Ex : 90.000" className="bg-background text-foreground pr-12" />
                 <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[11px] text-muted-foreground">€/an</span>
               </div>
               <div className="relative">
-                <Input value={s.retroMax} onChange={(e) => s.setField('retroMax', formatNumberWithDots(e.target.value))} placeholder="Max — Ex : 130.000" className="bg-background pr-12" />
+                <Input value={s.retroMax} onChange={(e) => s.setField('retroMax', formatNumberWithDots(e.target.value))} placeholder="Max — Ex : 130.000" className="bg-background text-foreground pr-12" />
                 <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[11px] text-muted-foreground">€/an</span>
               </div>
             </div>
@@ -523,7 +523,7 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
                     Objectif d'heures
                   </label>
                   <div className="relative max-w-[260px]">
-                    <Input value={s.heures} onChange={(e) => s.setField('heures', formatNumberWithDots(e.target.value))} placeholder="Ex : 1.800" className="bg-background pr-12" />
+                    <Input value={s.heures} onChange={(e) => s.setField('heures', formatNumberWithDots(e.target.value))} placeholder="Ex : 1.800" className="bg-background text-foreground pr-12" />
                     <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[11px] text-muted-foreground">h/an</span>
                   </div>
                 </div>
@@ -563,14 +563,14 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
                         <Input value={s.bonusDesc?.split('-')[0]?.trim() || ''} onChange={(e) => {
                           const max = s.bonusDesc?.split('-')[1]?.trim() || '';
                           s.setField('bonusDesc', `${formatNumberWithDots(e.target.value)}${max ? ` - ${max}` : ''}`);
-                        }} placeholder="Min — Ex : 5.000" className="bg-background pr-8" />
+                        }} placeholder="Min — Ex : 5.000" className="bg-background text-foreground pr-8" />
                         <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[11px] text-muted-foreground">€</span>
                       </div>
                       <div className="relative">
                         <Input value={s.bonusDesc?.split('-')[1]?.trim() || ''} onChange={(e) => {
                           const min = s.bonusDesc?.split('-')[0]?.trim() || '';
                           s.setField('bonusDesc', `${min} - ${formatNumberWithDots(e.target.value)}`);
-                        }} placeholder="Max — Ex : 20.000" className="bg-background pr-8" />
+                        }} placeholder="Max — Ex : 20.000" className="bg-background text-foreground pr-8" />
                         <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[11px] text-muted-foreground">€</span>
                       </div>
                     </div>
@@ -617,14 +617,14 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
                         <Input value={s.bonusDesc?.split('-')[0]?.trim() || ''} onChange={(e) => {
                           const max = s.bonusDesc?.split('-')[1]?.trim() || '';
                           s.setField('bonusDesc', `${formatNumberWithDots(e.target.value)}${max ? ` - ${max}` : ''}`);
-                        }} placeholder="Min — Ex : 5.000" className="bg-background pr-8" />
+                        }} placeholder="Min — Ex : 5.000" className="bg-background text-foreground pr-8" />
                         <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[11px] text-muted-foreground">€</span>
                       </div>
                       <div className="relative">
                         <Input value={s.bonusDesc?.split('-')[1]?.trim() || ''} onChange={(e) => {
                           const min = s.bonusDesc?.split('-')[0]?.trim() || '';
                           s.setField('bonusDesc', `${min} - ${formatNumberWithDots(e.target.value)}`);
-                        }} placeholder="Max — Ex : 20.000" className="bg-background pr-8" />
+                        }} placeholder="Max — Ex : 20.000" className="bg-background text-foreground pr-8" />
                         <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[11px] text-muted-foreground">€</span>
                       </div>
                     </div>
@@ -701,7 +701,12 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
 
       {/* Nav */}
       <div className="flex justify-between items-center mt-11 pt-7 border-t border-border">
-        <Button variant="outline" onClick={() => isEmbedded && onBack ? onBack() : s.setStep(2)} className="font-sans text-[11px] rounded-sm">← Retour</Button>
+        <Button
+          onClick={() => isEmbedded && onBack ? onBack() : s.setStep(2)}
+          className="bg-foreground text-background hover:bg-foreground/90 font-sans text-[11px] rounded-sm px-6"
+        >
+          ← Retour
+        </Button>
         <Button
           onClick={() => isEmbedded && onNext ? onNext() : s.setStep(4)}
           disabled={!allComplete}

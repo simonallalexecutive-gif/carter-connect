@@ -101,7 +101,7 @@ const LandingPage = () => (
           <div className="inline-block">
           <motion.h1
             variants={fadeUp}
-            className="text-[1.66rem] sm:text-[2.76rem] md:text-[3.68rem] lg:text-[4.69rem] font-serif font-[400] text-white leading-[1.05] mb-3 md:mb-5 tracking-normal whitespace-nowrap"
+            className="text-[1.66rem] sm:text-[2.76rem] md:text-[3.68rem] lg:text-[4.69rem] font-serif font-[300] text-white leading-[1.05] mb-3 md:mb-5 tracking-normal whitespace-nowrap"
           >
               Connecting <em className="italic">Top-Tier</em> Legal Minds
             </motion.h1>
@@ -144,7 +144,7 @@ const LandingPage = () => (
           </div>
           <div className="hidden sm:flex flex-shrink-0 items-center pl-6 pr-6 md:pr-10 relative z-20">
             <div className="absolute inset-y-0 -left-16 right-0 bg-gradient-to-r from-transparent via-black/80 to-black pointer-events-none" />
-            <span className="relative inline-block px-3.5 py-1.5 border border-white rounded-sm text-[12.3px] font-sans font-normal tracking-wide text-white whitespace-nowrap cursor-default leading-none">
+            <span className="relative inline-block px-3.5 py-1.5 border border-white rounded-sm text-[12.3px] font-sans font-normal tracking-wide text-white whitespace-nowrap cursor-default">
               Nos partenaires
             </span>
           </div>

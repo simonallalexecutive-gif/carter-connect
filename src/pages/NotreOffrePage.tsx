@@ -3,22 +3,22 @@ import { Link } from 'react-router-dom';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import { Button } from '@/components/ui/button';
-import { CheckCircle2, ArrowRight, Shield, Users, Cpu, BarChart3 } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 28 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] as const } },
+  hidden: { opacity: 0, y: 16 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] as const } },
 };
 
 const stagger = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.12 } },
+  visible: { transition: { staggerChildren: 0.08 } },
 };
 
 const plans = [
   {
     name: 'Logan Access',
-    tagline: 'Accéder au marché, en continu',
+    tagline: 'Accéder au marché, en continu.',
     price: '2 500',
     engagement: '3 mois',
     successFee: '5 %',
@@ -26,7 +26,7 @@ const plans = [
   },
   {
     name: 'Logan Select',
-    tagline: 'Accélérer et sécuriser ses recrutements',
+    tagline: 'Accélérer et sécuriser ses recrutements.',
     price: '4 000',
     engagement: '3 mois',
     successFee: '7 %',
@@ -34,7 +34,7 @@ const plans = [
   },
   {
     name: 'Logan Exclusive',
-    tagline: 'Mandats stratégiques et profils sensibles',
+    tagline: 'Mandats stratégiques et profils sensibles.',
     price: '6 000',
     engagement: '3 mois',
     successFee: '10 %',
@@ -43,155 +43,151 @@ const plans = [
 ];
 
 const advantages = [
-  { icon: Users, text: 'Un accès continu à un vivier ultra qualifié' },
-  { icon: Shield, text: 'Une approche confidentielle adaptée aux enjeux des cabinets d\'affaires' },
-  { icon: Cpu, text: 'Une combinaison unique entre technologie et accompagnement humain' },
-  { icon: BarChart3, text: 'Un modèle économique plus lisible et plus efficient' },
+  { num: '01', title: 'Vivier qualifié', text: 'Un accès continu à un vivier ultra qualifié d\'avocats du marché des affaires.' },
+  { num: '02', title: 'Confidentialité', text: 'Une approche strictement confidentielle, adaptée aux enjeux des cabinets d\'affaires.' },
+  { num: '03', title: 'Technologie & humain', text: 'Une combinaison rare entre infrastructure technologique et accompagnement consultant.' },
+  { num: '04', title: 'Modèle lisible', text: 'Un modèle économique transparent, plus efficient que les approches classiques.' },
 ];
 
 const NotreOffrePage = () => (
-  <div className="min-h-screen" style={{ background: 'hsl(0 0% 6%)' }}>
+  <div className="min-h-screen bg-white text-black">
     <Header />
 
-    {/* Hero */}
-    <section className="pt-32 pb-20 md:pt-40 md:pb-28 relative overflow-hidden">
-      <div className="absolute inset-0" style={{ background: 'hsl(0 0% 6%)' }} />
-      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-8 lg:px-10">
-        <motion.div
-          variants={stagger}
-          initial="hidden"
-          animate="visible"
-        >
-          <motion.p variants={fadeUp} className="text-[11px] font-sans font-medium tracking-[0.25em] uppercase text-white/30 mb-6">
+    {/* Hero — left aligned, sobre */}
+    <section className="pt-32 pb-14 md:pt-40 md:pb-16">
+      <div className="max-w-5xl mx-auto px-6 sm:px-10">
+        <motion.div variants={stagger} initial="hidden" animate="visible" className="max-w-2xl">
+          <motion.p
+            variants={fadeUp}
+            className="text-[10px] font-sans font-medium tracking-[0.22em] uppercase text-black/45 mb-5"
+          >
             Modalités d'intervention
           </motion.p>
-          <motion.h1 variants={fadeUp} className="font-serif text-3xl sm:text-4xl md:text-[3.2rem] leading-[1.15] text-white/90 mb-8 max-w-3xl">
-            Notre offre
+          <motion.h1
+            variants={fadeUp}
+            className="font-serif text-[2rem] md:text-[2.4rem] leading-[1.15] text-black mb-5 tracking-[-0.01em] font-normal"
+          >
+            Notre approche
           </motion.h1>
-          <motion.p variants={fadeUp} className="font-sans text-[1.05rem] md:text-lg leading-[1.8] text-white/50 max-w-3xl">
-            Logan propose un modèle fondé sur un accès continu, associé à un accompagnement adapté à la nature et à la sensibilité des recherches. Les modalités sont définies en fonction des enjeux propres à chaque cabinet.
+          <motion.p
+            variants={fadeUp}
+            className="font-sans text-[13px] leading-[1.75] text-black/60 max-w-xl"
+          >
+            Un accès continu au marché, associé à un accompagnement adapté à la nature et à la sensibilité des recherches. Les modalités sont définies en fonction des enjeux propres à chaque cabinet.
           </motion.p>
+          <motion.div variants={fadeUp} className="w-10 h-px bg-black/20 mt-8" />
         </motion.div>
       </div>
     </section>
 
-    {/* Pricing cards */}
-    <section className="pb-24 md:pb-36">
-      <div className="max-w-5xl mx-auto px-4 sm:px-8 lg:px-10">
+    {/* Plans */}
+    <section className="pb-20 md:pb-24">
+      <div className="max-w-5xl mx-auto px-6 sm:px-10">
+        <p className="text-[10px] font-sans font-medium tracking-[0.22em] uppercase text-black/45 mb-8">
+          Formules
+        </p>
+
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8"
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="grid grid-cols-1 md:grid-cols-3 border-t border-b border-black/10"
         >
-          {plans.map((plan) => (
+          {plans.map((plan, idx) => (
             <div
               key={plan.name}
-              className="relative rounded-sm p-8 md:p-10 flex flex-col border border-white/[0.08]"
-              style={{ background: 'hsl(0 0% 4%)' }}
+              className={`relative p-7 md:p-8 flex flex-col ${idx < plans.length - 1 ? 'md:border-r border-black/10' : ''} ${idx > 0 ? 'border-t md:border-t-0 border-black/10' : ''}`}
             >
               {plan.featured && (
-                <span className="absolute -top-3 left-1/2 -translate-x-1/2 text-[10px] font-sans font-medium tracking-[0.2em] uppercase px-4 py-1.5 bg-white text-black rounded-sm">
-                  Recommandé
+                <span className="text-[9px] font-sans font-medium tracking-[0.18em] uppercase text-black/50 mb-3">
+                  · Recommandé
                 </span>
               )}
+              {!plan.featured && <span className="text-[9px] mb-3 invisible">·</span>}
 
-              <h3 className="font-serif text-xl md:text-2xl text-white/90 mb-2">
-                {plan.name}
-              </h3>
-              <p className="font-sans text-sm leading-[1.6] text-white/40 mb-8">
-                {plan.tagline}
-              </p>
+              <h3 className="font-serif text-[1.2rem] text-black mb-1 font-normal">{plan.name}</h3>
+              <p className="font-sans text-[12px] leading-[1.55] text-black/55 mb-7">{plan.tagline}</p>
 
-              <div className="flex-1">
-                <div className="mb-6">
-                  <span className="font-serif text-3xl md:text-4xl font-medium text-white/85">
-                    {plan.price} €
-                  </span>
-                  <span className="font-sans text-sm ml-1 text-white/30">
-                    / mois
-                  </span>
+              <div className="flex items-baseline gap-1 mb-6">
+                <span className="font-serif text-[26px] font-light text-black tabular-nums">{plan.price}</span>
+                <span className="font-sans text-[12px] text-black/45">€ / mois</span>
+              </div>
+
+              <div className="space-y-2.5 mb-7 text-[12px] font-sans">
+                <div className="flex items-center justify-between border-b border-black/[0.07] pb-2.5">
+                  <span className="text-[10px] tracking-[0.14em] uppercase text-black/45">Engagement</span>
+                  <span className="text-black/75">{plan.engagement}</span>
                 </div>
-
-                <div className="space-y-4 mb-8">
-                  <div className="flex items-center gap-3 pb-4 border-b border-white/[0.08]">
-                    <span className="font-sans text-xs font-medium tracking-[0.15em] uppercase text-white/30">
-                      Engagement
-                    </span>
-                    <span className="font-sans text-sm ml-auto text-white/60">
-                      {plan.engagement}
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <span className="font-sans text-xs font-medium tracking-[0.15em] uppercase text-white/30">
-                      Success fee
-                    </span>
-                    <span className="font-sans text-sm ml-auto font-medium text-white/60">
-                      {plan.successFee}
-                    </span>
-                  </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] tracking-[0.14em] uppercase text-black/45">Success fee</span>
+                  <span className="text-black/75">{plan.successFee}</span>
                 </div>
               </div>
 
-              <Link to="/demander-acces">
+              <Link to="/demander-acces" className="mt-auto">
                 <Button
-                  className="w-full font-sans text-sm font-medium py-5 rounded-sm tracking-wide bg-white text-black hover:bg-white/90"
+                  variant="outline"
+                  className="w-full font-sans text-[11px] font-medium py-3 rounded-sm tracking-wide border-black/30 text-black hover:bg-black hover:text-white hover:border-black"
                 >
                   Demander un accès
                 </Button>
               </Link>
             </div>
           ))}
-
         </motion.div>
       </div>
     </section>
 
-    {/* Pourquoi Logan */}
-    <section className="pb-24 md:pb-36">
-      <div className="max-w-5xl mx-auto px-4 sm:px-8 lg:px-10">
+    {/* Pourquoi Logan — sober list */}
+    <section className="pb-20 md:pb-28">
+      <div className="max-w-5xl mx-auto px-6 sm:px-10">
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          variants={stagger}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-60px' }}
         >
-          <p className="font-sans text-xs font-medium tracking-[0.25em] uppercase text-white/25 mb-8">
+          <motion.p variants={fadeUp} className="text-[10px] font-sans font-medium tracking-[0.22em] uppercase text-black/45 mb-8">
             Pourquoi Logan
-          </p>
+          </motion.p>
 
-          <div className="grid sm:grid-cols-2 gap-6 md:gap-10">
-            {advantages.map(({ icon: Icon, text }) => (
-              <div key={text} className="border border-white/[0.08] rounded-sm p-8 md:p-10 flex items-start gap-5" style={{ background: 'hsl(0 0% 4%)' }}>
-                <Icon className="w-5 h-5 text-white/25 flex-shrink-0 mt-0.5" strokeWidth={1.5} />
-                <p className="font-sans text-[0.95rem] leading-[1.7] text-white/55">{text}</p>
-              </div>
+          <div className="grid sm:grid-cols-2 gap-x-12 gap-y-10 max-w-3xl">
+            {advantages.map((a) => (
+              <motion.div key={a.num} variants={fadeUp} className="flex flex-col gap-1.5">
+                <div className="flex items-baseline gap-3">
+                  <span className="font-serif text-[0.7rem] text-black/35 tabular-nums">{a.num}</span>
+                  <h4 className="font-serif text-[0.98rem] text-black font-normal tracking-[-0.005em]">{a.title}</h4>
+                </div>
+                <p className="font-sans text-[12.5px] leading-[1.65] text-black/60 pl-7">
+                  {a.text}
+                </p>
+              </motion.div>
             ))}
           </div>
         </motion.div>
       </div>
     </section>
 
-    {/* CTA */}
-    <section className="pb-24 md:pb-36">
-      <div className="max-w-5xl mx-auto px-4 sm:px-8 lg:px-10 text-center">
+    {/* CTA — left aligned, sober */}
+    <section className="pb-24 md:pb-32">
+      <div className="max-w-5xl mx-auto px-6 sm:px-10">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="border-t border-black/10 pt-10 max-w-2xl"
         >
-          <p className="font-serif text-xl sm:text-2xl md:text-[1.8rem] leading-[1.35] text-white/40 max-w-2xl mx-auto mb-10">
-            Prêt à accéder au marché des meilleurs talents ?
+          <p className="font-serif text-[1.3rem] md:text-[1.5rem] leading-[1.35] text-black/85 mb-6 font-normal">
+            <em className="italic">Prêt</em> à accéder au marché des meilleurs talents&nbsp;?
           </p>
           <Link to="/demander-acces">
             <Button
-              size="lg"
-              className="bg-white text-black hover:bg-white/90 font-sans text-sm font-medium px-8 py-5 rounded-sm tracking-wide gap-2"
+              className="bg-black text-white hover:bg-black/90 font-sans text-[12px] font-medium px-6 py-3 rounded-sm tracking-wide gap-2"
             >
               Demander un accès
-              <ArrowRight className="w-4 h-4" />
+              <ArrowRight className="w-3.5 h-3.5" />
             </Button>
           </Link>
         </motion.div>

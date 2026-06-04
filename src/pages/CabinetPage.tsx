@@ -185,7 +185,7 @@ const CabinetDashboardLayout = () => {
                 <SidebarTrigger />
                 <span className="text-[10px] font-semibold tracking-[0.18em] uppercase text-muted-foreground">Espace cabinet</span>
               </div>
-              <span className="text-[10px] tracking-[0.18em] uppercase text-muted-foreground hidden sm:block">Logan</span>
+              
             </header>
             <main className="flex-1 p-8 lg:p-12 overflow-y-auto bg-background">
               {showBooking ? <CandidateBooking /> : showAccount ? <CabinetAccount /> : <CabinetDashboard />}

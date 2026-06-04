@@ -6,10 +6,14 @@ import { usePQE } from '@/hooks/usePQE';
 import SeniorityBadge from '@/components/shared/SeniorityBadge';
 import { ACTIVITES_BY_PRACTICE, ACTIVITES_DEFAULT, CABINET_META } from '@/lib/constants';
 import { CHAMBERS_DB, CHAMBERS_DEPARTMENTS } from '@/lib/chambersRankings';
-import { Eye, ArrowLeft, ArrowRight, Check, User } from 'lucide-react';
+import { Eye, ArrowLeft, ArrowRight, Check, User, CalendarIcon } from 'lucide-react';
 import { useState, useMemo } from 'react';
 import { cn } from '@/lib/utils';
-import { Link } from 'react-router-dom';
+
+
+import { Calendar } from '@/components/ui/calendar';
+import { format, addDays, isBefore, startOfDay } from 'date-fns';
+import { fr } from 'date-fns/locale';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import { toast } from 'sonner';
 import { buildQuantizedChartData } from '@/lib/percentages';
@@ -424,13 +428,16 @@ const Step6Review = ({ readOnly = false }: Step6ReviewProps = {}) => {
                   paddingAngle={1.5}
                   stroke="hsl(0, 0%, 7%)"
                   strokeWidth={2}
-                  label={({ cx, cy, midAngle, innerRadius: ir, outerRadius: or, value }) => {
+                  label={({ cx, cy, midAngle, innerRadius: ir, outerRadius: or, value, fill }) => {
                     const RADIAN = Math.PI / 180;
-                    // Toujours dans le donut, avec leader pour les petits %
                     const isSmall = value < 8;
                     const r = ir + (or - ir) * 0.55;
                     const x = cx + r * Math.cos(-midAngle * RADIAN);
                     const y = cy + r * Math.sin(-midAngle * RADIAN);
+                    // Adaptive contrast: parse HSL lightness so text stays readable on any slice
+                    const m = typeof fill === 'string' ? fill.match(/hsl\(\s*\d+\s*,\s*\d+%\s*,\s*(\d+)%/i) : null;
+                    const lightness = m ? parseInt(m[1], 10) : 50;
+                    const sliceTextColor = lightness > 55 ? 'hsl(0, 0%, 7%)' : 'hsl(0, 0%, 100%)';
                     return (
                       <g>
                         {isSmall && (
@@ -439,7 +446,7 @@ const Step6Review = ({ readOnly = false }: Step6ReviewProps = {}) => {
                         <text
                           x={x}
                           y={y}
-                          fill={isSmall ? 'hsl(0, 0%, 7%)' : 'hsl(0, 0%, 100%)'}
+                          fill={isSmall ? 'hsl(0, 0%, 7%)' : sliceTextColor}
                           textAnchor="middle"
                           dominantBaseline="central"
                           fontSize={isSmall ? 10 : 13}
@@ -836,7 +843,7 @@ const Step6Review = ({ readOnly = false }: Step6ReviewProps = {}) => {
                 <div className="mt-5">
                   <TagList items={store.typesClients} label="Clientèle" />
                 </div>
-                {store.anglais && <p className="text-xs font-sans font-light mt-4 text-white/85"><span className="text-white/50">Anglais : </span>{store.anglais}</p>}
+                {store.anglais && <p className="text-xs font-sans font-light mt-4 text-white/85"><span className="text-white/50">Anglais : </span>{store.anglais}{/^\d+$/.test(String(store.anglais).trim()) ? ' %' : ''}</p>}
               </SectionCard>
 
               {/* Associé / Counsel */}
@@ -904,15 +911,16 @@ const Step6Review = ({ readOnly = false }: Step6ReviewProps = {}) => {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                   <DataRow label="Pratique" value={store.departement} />
                   {chambersInfo && <DataRow label="Cabinet d'origine" value={chambersInfo.cabinetValue} />}
                   <DataRow label="Chambers" value={
                     chambersInfo?.band
-                      ? `Band ${chambersInfo.band}/Band ${chambersInfo.band + 1} — ${chambersInfo.deptLabel}`
+                      ? (chambersInfo.band > 1
+                          ? `Band ${chambersInfo.band - 1}/Band ${chambersInfo.band} — ${chambersInfo.deptLabel}`
+                          : `Band ${chambersInfo.band} — ${chambersInfo.deptLabel}`)
                       : chambersInfo?.isIntegrated ? 'Classé (hors pratique)' : 'Non classé'
                   } />
-                  {store.anglais && <DataRow label="Anglais" value={store.anglais} />}
                 </div>
               </SectionCard>
 
@@ -938,7 +946,7 @@ const Step6Review = ({ readOnly = false }: Step6ReviewProps = {}) => {
                 <div className="mt-5">
                   <TagList items={store.typesClients} label="Clientèle" />
                 </div>
-                {store.anglais && <p className="text-xs font-sans font-light mt-4 text-white/85"><span className="text-white/50">Anglais : </span>{store.anglais}</p>}
+                {store.anglais && <p className="text-xs font-sans font-light mt-4 text-white/85"><span className="text-white/50">Anglais : </span>{store.anglais}{/^\d+$/.test(String(store.anglais).trim()) ? ' %' : ''}</p>}
               </SectionCard>
 
               {/* Associé / Counsel */}
@@ -998,20 +1006,23 @@ const Step6Review = ({ readOnly = false }: Step6ReviewProps = {}) => {
             />
           </div>
 
-          {/* RDV option */}
-          <div className="rounded-sm border border-border bg-card px-5 py-4 mt-4">
-            <div className="flex items-center justify-between">
+          {/* RDV inline */}
+          <div className="rounded-sm border border-border bg-card px-5 py-5 mt-4">
+            <div className="flex items-center justify-between gap-4 mb-4">
               <div>
                 <p className="text-sm font-sans font-medium text-foreground">Souhaitez-vous échanger avec un consultant Logan ?</p>
-                <p className="text-xs font-sans font-light text-muted-foreground mt-1">Prenez rendez-vous dès la validation de votre inscription.</p>
+                <p className="text-xs font-sans font-light text-muted-foreground mt-1">Sélectionnez directement un créneau ci-dessous.</p>
               </div>
-              <Link to="/prendre-rdv" target="_blank" className="ml-4 flex-shrink-0">
-                <Button variant="outline" size="sm" className="font-sans text-xs font-medium rounded-sm gap-1.5">
-                  Prendre RDV
-                  <ArrowRight className="w-3 h-3" />
-                </Button>
-              </Link>
+              <CalendarIcon className="w-4 h-4 text-muted-foreground flex-shrink-0" />
             </div>
+            <InlineBookingCalendar
+              onConfirm={(slot) => {
+                store.setField('souhaitePrendreRdv', true);
+                store.setField('creneauPrefere', slot);
+                toast.success(`Créneau enregistré : ${slot}`);
+              }}
+              selected={store.souhaitePrendreRdv ? store.creneauPrefere : ''}
+            />
           </div>
 
           {/* Navigation */}
@@ -1027,6 +1038,73 @@ const Step6Review = ({ readOnly = false }: Step6ReviewProps = {}) => {
         </>
       )}
     </motion.div>
+  );
+};
+
+const SLOTS = ['09:30', '10:30', '11:30', '14:00', '15:00', '16:00', '17:00'];
+
+const InlineBookingCalendar = ({ onConfirm, selected }: { onConfirm: (slot: string) => void; selected: string }) => {
+  const [date, setDate] = useState<Date | undefined>(undefined);
+  const [slot, setSlot] = useState<string>('');
+
+  const handleConfirm = () => {
+    if (!date || !slot) return;
+    const label = `${format(date, "EEEE d MMMM yyyy", { locale: fr })} à ${slot}`;
+    onConfirm(label);
+  };
+
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-[auto_1fr] gap-5">
+      <div className="rounded-sm border border-border bg-background">
+        <Calendar
+          mode="single"
+          selected={date}
+          onSelect={setDate}
+          locale={fr}
+          weekStartsOn={1}
+          disabled={(d) => isBefore(d, startOfDay(new Date())) || d.getDay() === 0 || d.getDay() === 6}
+          fromDate={new Date()}
+          toDate={addDays(new Date(), 60)}
+          className="pointer-events-auto p-2"
+        />
+      </div>
+      <div className="flex flex-col">
+        <p className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground font-sans mb-2.5">
+          {date ? `Créneaux — ${format(date, 'EEEE d MMM', { locale: fr })}` : 'Sélectionnez une date'}
+        </p>
+        <div className="grid grid-cols-3 gap-2 mb-3">
+          {SLOTS.map((s) => (
+            <button
+              key={s}
+              type="button"
+              disabled={!date}
+              onClick={() => setSlot(s)}
+              className={cn(
+                'px-2 py-2 rounded-sm border text-[12px] font-sans transition-all',
+                !date && 'opacity-40 cursor-not-allowed',
+                slot === s
+                  ? 'bg-foreground text-background border-foreground'
+                  : 'bg-background text-foreground border-border hover:border-foreground'
+              )}
+            >
+              {s}
+            </button>
+          ))}
+        </div>
+        <Button
+          type="button"
+          onClick={handleConfirm}
+          disabled={!date || !slot}
+          size="sm"
+          className="self-start font-sans text-xs font-medium rounded-sm"
+        >
+          Confirmer le créneau
+        </Button>
+        {selected && (
+          <p className="mt-3 text-[11px] font-sans text-emerald-700">✓ {selected}</p>
+        )}
+      </div>
+    </div>
   );
 };
 

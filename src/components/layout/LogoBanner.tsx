@@ -15,7 +15,7 @@ const LogoBanner = ({ subtitle, variant = 'default' }: LogoBannerProps) => {
       <div className="px-6 sm:px-8 lg:px-10 flex items-center justify-between h-20">
         <div className="flex items-center">
           <Link to="/" className="flex items-center hover:opacity-80 transition-opacity duration-300">
-            <span className={`font-serif text-[31px] tracking-[0.04em] ${isLight ? 'text-black' : 'text-white'}`}>Logan</span>
+            <span className={`font-serif text-[31px] font-[400] tracking-normal ${isLight ? 'text-black' : 'text-white'}`}>Logan</span>
           </Link>
           {subtitle && (
             <>

@@ -2,13 +2,13 @@ import { motion } from 'motion/react';
 import { Building2, User, Lock, Zap, Star, Shield, Users, CheckCircle } from 'lucide-react';
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 28 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1] as const } },
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] as const } },
 };
 
 const stagger = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.14 } },
+  visible: { transition: { staggerChildren: 0.12 } },
 };
 
 interface SidePoint {
@@ -34,39 +34,38 @@ const Side = ({
     initial="hidden"
     whileInView="visible"
     viewport={{ once: true, margin: '-60px' }}
-    className={`flex flex-col gap-10 md:gap-12 ${align === 'right' ? 'md:items-end md:text-right' : 'md:items-start md:text-left'} items-start text-left`}
+    className={`flex flex-col gap-8 md:gap-10 ${align === 'right' ? 'md:items-end md:text-right' : 'md:items-start md:text-left'} items-start text-left`}
   >
     <motion.div variants={fadeUp} className="flex items-center gap-3">
-      <div className="w-10 h-10 rounded-full border border-white/15 flex items-center justify-center">
-        <Icon className="w-4 h-4 text-white/70" strokeWidth={1.4} />
+      <div className="w-9 h-9 rounded-full border border-black/15 flex items-center justify-center">
+        <Icon className="w-3.5 h-3.5 text-black/70" strokeWidth={1.4} />
       </div>
       <div className={align === 'right' ? 'md:text-right' : ''}>
-        <p className="text-[10px] font-sans font-medium tracking-[0.28em] uppercase text-white/45">{label}</p>
-        <p className="font-serif text-[1.4rem] md:text-[1.6rem] text-white tracking-[0.04em] mt-1 italic">{tagline}</p>
+        <p className="text-[10px] font-sans font-medium tracking-[0.22em] uppercase text-black/45">{label}</p>
+        <p className="font-serif text-[1.15rem] md:text-[1.25rem] text-black tracking-[0.01em] mt-1 italic font-normal">{tagline}</p>
       </div>
     </motion.div>
 
-    <motion.div variants={fadeUp} className="w-10 h-px bg-white/20" />
+    <motion.div variants={fadeUp} className="w-10 h-px bg-black/15" />
 
-    <div className="flex flex-col gap-8 md:gap-10 w-full max-w-sm">
+    <div className="flex flex-col gap-6 md:gap-8 w-full max-w-sm">
       {points.map((p, i) => (
         <motion.div
           key={i}
           variants={fadeUp}
           className={`flex flex-col gap-2 ${align === 'right' ? 'md:items-end' : ''}`}
         >
-          <div className="flex items-baseline gap-3">
-            <span className="font-serif text-[0.75rem] text-white/40 tabular-nums tracking-[0.04em]">
+          <div className="flex items-baseline gap-2.5">
+            <span className="font-serif text-[0.7rem] text-black/35 tabular-nums">
               0{i + 1}
             </span>
-            <h4 className="font-serif font-[400] text-[1.4rem] md:text-[1.6rem] text-white tracking-[0.04em] leading-snug">
+            <h4 className="font-serif font-normal text-[0.98rem] md:text-[1.05rem] text-black tracking-[-0.005em] leading-snug">
               {p.title}
             </h4>
           </div>
-          <p className={`font-sans text-[0.9rem] font-[480] leading-[1.65] text-white/65 ${align === 'right' ? 'md:text-right' : ''}`}>
+          <p className={`font-sans text-[12.5px] font-normal leading-[1.6] text-black/60 ${align === 'right' ? 'md:text-right' : ''}`}>
             {p.text}
           </p>
-
         </motion.div>
       ))}
     </div>
@@ -74,33 +73,22 @@ const Side = ({
 );
 
 const MissionSection = () => (
-  <section id="notre-approche" className="relative overflow-hidden bg-black text-white">
-    {/* Subtle background veil */}
-    <div
-      aria-hidden
-      className="absolute inset-0 pointer-events-none opacity-[0.04]"
-      style={{
-        backgroundImage:
-          'linear-gradient(rgba(255,255,255,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.6) 1px, transparent 1px)',
-        backgroundSize: '96px 96px',
-      }}
-    />
-
-    <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-8 lg:px-12 py-28 md:py-44">
+  <section id="notre-approche" className="relative overflow-hidden bg-white text-black">
+    <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-8 lg:px-12 py-24 md:py-36">
       {/* Header */}
       <motion.div
         variants={stagger}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: '-80px' }}
-        className="mb-24 md:mb-32 max-w-3xl mx-auto text-center"
+        className="mb-20 md:mb-28 max-w-2xl mx-auto text-center"
       >
-        <motion.p variants={fadeUp} className="text-[11px] font-sans font-medium tracking-[0.3em] uppercase text-white/45 mb-6">
+        <motion.p variants={fadeUp} className="text-[10px] font-sans font-medium tracking-[0.25em] uppercase text-black/45 mb-5">
           Notre approche
         </motion.p>
         <motion.h2
           variants={fadeUp}
-          className="font-serif font-[400] text-[2rem] sm:text-4xl md:text-[3.2rem] leading-[1.08] text-white tracking-[0.04em] mb-8"
+          className="font-serif font-normal text-[1.6rem] sm:text-[1.9rem] md:text-[2.2rem] leading-[1.15] text-black tracking-[-0.01em] mb-6"
         >
           Deux perspectives,<br />
           <em className="italic">un seul intermédiaire.</em>
@@ -108,7 +96,7 @@ const MissionSection = () => (
 
         <motion.p
           variants={fadeUp}
-          className="font-sans text-[0.95rem] md:text-[1.05rem] font-[480] leading-[1.65] text-white/65 max-w-2xl mx-auto"
+          className="font-sans text-[13px] md:text-[13.5px] font-normal leading-[1.65] text-black/60 max-w-xl mx-auto"
         >
           Logan est la nouvelle infrastructure privilégiée et confidentielle du marché des avocats —
           un écosystème exigeant, où chaque rapprochement est orchestré de l'intention à la signature.
@@ -116,9 +104,9 @@ const MissionSection = () => (
       </motion.div>
 
       {/* Axis — Cabinets | Logan | Candidats */}
-      <div className="relative grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-12 md:gap-0 items-start">
+      <div className="relative grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-10 md:gap-0 items-start">
         {/* Cabinets */}
-        <div className="md:pr-16">
+        <div className="md:pr-12">
           <Side
             icon={Building2}
             label="Cabinets"
@@ -151,10 +139,10 @@ const MissionSection = () => (
             viewport={{ once: true }}
             transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
             style={{ transformOrigin: 'top' }}
-            className="w-px flex-1 bg-gradient-to-b from-white/[0.04] via-white/25 to-white/[0.04] min-h-[60px]"
+            className="w-px flex-1 bg-gradient-to-b from-black/[0.04] via-black/20 to-black/[0.04] min-h-[60px]"
           />
-          <div className="my-5 flex flex-col items-center gap-3 px-4 py-3 rounded-sm">
-            <span className="font-serif text-[1.6rem] md:text-[1.85rem] tracking-[0.04em] text-white">Logan</span>
+          <div className="my-4 flex flex-col items-center">
+            <span className="font-serif text-[1.4rem] md:text-[1.55rem] tracking-[0.01em] text-black font-normal">Logan</span>
           </div>
 
           <motion.div
@@ -163,20 +151,19 @@ const MissionSection = () => (
             viewport={{ once: true }}
             transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
             style={{ transformOrigin: 'top' }}
-            className="w-px flex-1 bg-gradient-to-b from-white/[0.04] via-white/25 to-white/[0.04] min-h-[60px]"
+            className="w-px flex-1 bg-gradient-to-b from-black/[0.04] via-black/20 to-black/[0.04] min-h-[60px]"
           />
         </motion.div>
 
         {/* Mobile Logan separator */}
         <div className="md:hidden flex items-center gap-4 my-2">
-          <div className="flex-1 h-px bg-white/15" />
-          <span className="font-serif text-[1.4rem] text-white tracking-[0.04em]">Logan</span>
-          <div className="flex-1 h-px bg-white/15" />
+          <div className="flex-1 h-px bg-black/15" />
+          <span className="font-serif text-[1.25rem] text-black tracking-[0.01em]">Logan</span>
+          <div className="flex-1 h-px bg-black/15" />
         </div>
 
-
         {/* Candidats */}
-        <div className="md:pl-16">
+        <div className="md:pl-12">
           <Side
             icon={User}
             label="Candidats"
@@ -202,10 +189,10 @@ const MissionSection = () => (
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: '-40px' }}
-        className="mt-28 md:mt-36"
+        className="mt-24 md:mt-28"
       >
-        <motion.div variants={fadeUp} className="w-full h-px mb-14 bg-gradient-to-r from-transparent via-white/15 to-transparent" />
-        <div className="grid grid-cols-3 sm:grid-cols-6 gap-8 md:gap-6 max-w-4xl mx-auto">
+        <motion.div variants={fadeUp} className="w-full h-px mb-12 bg-gradient-to-r from-transparent via-black/15 to-transparent" />
+        <div className="grid grid-cols-3 sm:grid-cols-6 gap-6 md:gap-5 max-w-3xl mx-auto">
           {[
             { icon: Lock, label: 'Confidentialité' },
             { icon: Zap, label: 'Réactivité' },
@@ -214,11 +201,11 @@ const MissionSection = () => (
             { icon: Users, label: 'Accompagnement' },
             { icon: CheckCircle, label: 'Transparence' },
           ].map(({ icon: Icon, label }) => (
-            <motion.div key={label} variants={fadeUp} className="flex flex-col items-center text-center gap-3">
-              <div className="w-10 h-10 rounded-full flex items-center justify-center border border-white/15">
-                <Icon className="w-4 h-4 text-white/65" strokeWidth={1.4} />
+            <motion.div key={label} variants={fadeUp} className="flex flex-col items-center text-center gap-2.5">
+              <div className="w-9 h-9 rounded-full flex items-center justify-center border border-black/15">
+                <Icon className="w-3.5 h-3.5 text-black/65" strokeWidth={1.4} />
               </div>
-              <span className="font-sans text-[0.7rem] font-medium tracking-[0.12em] uppercase text-white/55">
+              <span className="font-sans text-[10px] font-medium tracking-[0.12em] uppercase text-black/55">
                 {label}
               </span>
             </motion.div>
