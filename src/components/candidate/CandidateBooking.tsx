@@ -4,21 +4,87 @@ import { Phone, CheckCircle2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
+import { supabase } from '@/integrations/supabase/client';
+import { useAuth } from '@/hooks/useAuth';
+import { format } from 'date-fns';
 
 const TIME_SLOTS = [
   '09:00', '09:30', '10:00', '10:30', '11:00', '11:30',
   '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00',
 ];
 
-const CandidateBooking = () => {
+interface CandidateBookingProps {
+  userType?: 'candidat' | 'cabinet';
+}
+
+const CandidateBooking = ({ userType = 'candidat' }: CandidateBookingProps) => {
+  const { user } = useAuth();
   const [selectedDate, setSelectedDate] = useState<Date | undefined>();
   const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
   const [confirmed, setConfirmed] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
     if (!selectedDate || !selectedSlot) return;
-    setConfirmed(true);
-    toast.success('Créneau réservé avec succès.');
+    setSubmitting(true);
+    try {
+      const bookingDate = format(selectedDate, 'yyyy-MM-dd');
+
+      // Récupère les infos du profil selon le type
+      let candidateName = user?.email || '';
+      let candidateCabinet = '';
+      let candidateDepartment = '';
+      let candidateSeniority = '';
+
+      if (user) {
+        if (userType === 'candidat') {
+          const { data } = await supabase
+            .from('candidate_registrations')
+            .select('submission_data')
+            .eq('user_id', user.id)
+            .single();
+          if (data?.submission_data) {
+            const d = data.submission_data as any;
+            candidateName = `${d.prenom || ''} ${d.nom || ''}`.trim() || candidateName;
+            candidateCabinet = d.cabinet || '';
+            candidateDepartment = d.departement || '';
+          }
+        } else {
+          const { data } = await supabase
+            .from('cabinet_accounts')
+            .select('cabinet_name, submission_data')
+            .eq('user_id', user.id)
+            .single();
+          if (data) {
+            candidateName = data.cabinet_name || candidateName;
+            candidateCabinet = data.cabinet_name || '';
+          }
+        }
+      }
+
+      const { error } = await supabase.from('logan_bookings').insert({
+        candidate_name: candidateName,
+        candidate_email: user?.email || '',
+        candidate_cabinet: candidateCabinet,
+        candidate_department: candidateDepartment,
+        candidate_seniority: candidateSeniority,
+        booking_date: bookingDate,
+        booking_time: selectedSlot,
+        user_id: user?.id || null,
+        status: 'confirmed',
+        notes: userType === 'cabinet' ? 'RDV depuis espace cabinet' : 'RDV depuis espace candidat',
+      } as any);
+
+      if (error) throw error;
+
+      setConfirmed(true);
+      toast.success('Créneau réservé avec succès.');
+    } catch (e) {
+      console.error(e);
+      toast.error('Erreur lors de la réservation. Veuillez réessayer.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const formattedDate = selectedDate
@@ -112,9 +178,10 @@ const CandidateBooking = () => {
                 {selectedSlot && (
                   <Button
                     onClick={handleConfirm}
+                    disabled={submitting}
                     className="w-full mt-4 font-sans text-sm bg-white text-black hover:bg-white/90"
                   >
-                    Confirmer — {selectedSlot}
+                    {submitting ? 'Confirmation…' : `Confirmer — ${selectedSlot}`}
                   </Button>
                 )}
               </div>

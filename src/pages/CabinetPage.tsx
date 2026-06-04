@@ -188,7 +188,7 @@ const CabinetDashboardLayout = () => {
               
             </header>
             <main className="flex-1 p-8 lg:p-12 overflow-y-auto bg-background">
-              {showBooking ? <CandidateBooking /> : showAccount ? <CabinetAccount /> : <CabinetDashboard />}
+              {showBooking ? <CandidateBooking userType="cabinet" /> : showAccount ? <CabinetAccount /> : <CabinetDashboard />}
             </main>
           </div>
         </div>
