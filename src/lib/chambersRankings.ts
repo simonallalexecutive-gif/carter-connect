@@ -20,6 +20,7 @@ export const CHAMBERS_DEPARTMENTS: { key: string; label: string }[] = [
   { key: 'social', label: 'Employment' },
   { key: 'immo', label: 'Real Estate' },
   { key: 'projets', label: 'Projects & Energy' },
+  { key: 'tax', label: 'Tax' },
 ];
 
 export const CHAMBERS_DB: Record<string, ChambersFirmEntry> = {
