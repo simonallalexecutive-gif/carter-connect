@@ -9,7 +9,7 @@ import { CHAMBERS_DB, CHAMBERS_DEPARTMENTS } from '@/lib/chambersRankings';
 import { Eye, ArrowLeft, ArrowRight, Check, User, CalendarIcon } from 'lucide-react';
 import { useState, useMemo } from 'react';
 import { cn } from '@/lib/utils';
-import { Link } from 'react-router-dom';
+
 
 import { Calendar } from '@/components/ui/calendar';
 import { format, addDays, isBefore, startOfDay } from 'date-fns';
