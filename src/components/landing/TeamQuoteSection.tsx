@@ -36,25 +36,27 @@ const TeamQuoteSection = () => {
       {/* Giant decorative quote mark */}
       <motion.div
         style={{ y, opacity }}
-        className="absolute -top-10 left-1/2 -translate-x-1/2 font-serif text-[28rem] sm:text-[40rem] leading-none text-white/[0.06] select-none pointer-events-none"
+        className="absolute -top-10 left-1/2 -translate-x-1/2 font-serif text-[20rem] sm:text-[28rem] leading-none text-white/[0.06] select-none pointer-events-none"
         aria-hidden
       >
-        "
+        “
       </motion.div>
 
       <motion.div
         style={{ scale }}
-        className="relative z-10 max-w-5xl mx-auto px-6 sm:px-10 text-center"
+        className="relative z-10 max-w-4xl mx-auto px-6 sm:px-10 text-center"
       >
         <motion.blockquote
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 1.1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          className="italic text-white text-xl sm:text-2xl md:text-[1.85rem] lg:text-[2.15rem] leading-[1.4] tracking-[-0.005em] max-w-4xl mx-auto font-light drop-shadow-lg"
+          className="italic text-white text-sm sm:text-base md:text-[1.3rem] lg:text-[1.5rem] leading-[1.5] tracking-[-0.005em] max-w-3xl mx-auto font-light drop-shadow-lg relative"
           style={{ fontFamily: "'Cormorant Garamond', 'Garamond', serif" }}
         >
+          <span className="font-serif text-white/40 text-3xl sm:text-4xl align-top mr-1 leading-none">“</span>
           Logan se positionne comme l'infrastructure la plus exigeante et structurée du marché, offrant un accompagnement sur mesure, résolument confidentiel et parfaitement ciblé.
+          <span className="font-serif text-white/40 text-3xl sm:text-4xl align-bottom ml-1 leading-none">”</span>
         </motion.blockquote>
 
         <motion.div

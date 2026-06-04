@@ -15,7 +15,7 @@ const AdminLoginPage = () => {
   return (
     <div className="min-h-screen bg-black flex items-center justify-center px-6">
       <div className="w-full max-w-sm">
-        <p className="font-display text-xl text-white text-center mb-12">Logan</p>
+        <p className="font-serif text-[32px] tracking-[0.04em] text-white text-center mb-12">Logan</p>
         <h1 className="text-2xl font-serif text-white mb-8 text-center">Espace administrateur</h1>
         {sent ? <p className="text-white/60 text-center">Lien envoyé — vérifiez {email}</p> : (
           <form onSubmit={handleLogin} className="space-y-4">

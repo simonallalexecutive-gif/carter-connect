@@ -67,7 +67,7 @@ const BookingContactForm = ({ onSubmit }: BookingContactFormProps) => {
               value={firstName}
               onChange={e => setFirstName(e.target.value)}
               placeholder="Jean"
-              className="w-full bg-white border border-black/15 text-white placeholder:text-black/30 rounded-sm px-3 py-2.5 text-sm focus:border-black/50 focus:outline-none transition-colors"
+              className="w-full bg-white border border-black/15 text-black placeholder:text-black/30 rounded-sm px-3 py-2.5 text-sm focus:border-black/50 focus:outline-none transition-colors"
             />
           </div>
           <div>
@@ -76,7 +76,7 @@ const BookingContactForm = ({ onSubmit }: BookingContactFormProps) => {
               value={lastName}
               onChange={e => setLastName(e.target.value)}
               placeholder="Dupont"
-              className="w-full bg-white border border-black/15 text-white placeholder:text-black/30 rounded-sm px-3 py-2.5 text-sm focus:border-black/50 focus:outline-none transition-colors"
+              className="w-full bg-white border border-black/15 text-black placeholder:text-black/30 rounded-sm px-3 py-2.5 text-sm focus:border-black/50 focus:outline-none transition-colors"
             />
           </div>
         </div>
@@ -95,7 +95,7 @@ const BookingContactForm = ({ onSubmit }: BookingContactFormProps) => {
             }}
             onFocus={() => { setCabinetOpen(true); setCabinetSearch(cabinet); }}
             placeholder="Rechercher un cabinet…"
-            className="w-full bg-white border border-black/15 text-white placeholder:text-black/30 rounded-sm px-3 py-2.5 text-sm focus:border-black/50 focus:outline-none transition-colors"
+            className="w-full bg-white border border-black/15 text-black placeholder:text-black/30 rounded-sm px-3 py-2.5 text-sm focus:border-black/50 focus:outline-none transition-colors"
           />
           {cabinetOpen && (
             <div className="absolute z-50 top-full left-0 right-0 mt-1 bg-white border border-black/15 rounded-sm max-h-48 overflow-y-auto">
@@ -148,7 +148,7 @@ const BookingContactForm = ({ onSubmit }: BookingContactFormProps) => {
             onChange={e => handlePhoneChange(e.target.value)}
             type="tel"
             placeholder="06 12 34 56 78"
-            className="w-full bg-white border border-black/15 text-white placeholder:text-black/30 rounded-sm px-3 py-2.5 text-sm focus:border-black/50 focus:outline-none transition-colors"
+            className="w-full bg-white border border-black/15 text-black placeholder:text-black/30 rounded-sm px-3 py-2.5 text-sm focus:border-black/50 focus:outline-none transition-colors"
           />
         </div>
 
@@ -162,7 +162,7 @@ const BookingContactForm = ({ onSubmit }: BookingContactFormProps) => {
             onChange={e => setEmail(e.target.value)}
             type="email"
             placeholder="votre@email.com"
-            className="w-full bg-white border border-black/15 text-white placeholder:text-black/30 rounded-sm px-3 py-2.5 text-sm focus:border-black/50 focus:outline-none transition-colors"
+            className="w-full bg-white border border-black/15 text-black placeholder:text-black/30 rounded-sm px-3 py-2.5 text-sm focus:border-black/50 focus:outline-none transition-colors"
           />
         </div>
 

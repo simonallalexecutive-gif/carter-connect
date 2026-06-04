@@ -26,7 +26,7 @@ const ConfirmationPage = () => {
   return (
     <div className="min-h-screen bg-black flex items-center justify-center">
       <div className="text-center">
-        <p className="font-display text-xl text-white mb-4">Logan</p>
+        <p className="font-serif text-[32px] tracking-[0.04em] text-white mb-4">Logan</p>
         <p className="text-white/60 font-sans">{status}</p>
       </div>
     </div>
