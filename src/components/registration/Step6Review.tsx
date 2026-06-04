@@ -707,6 +707,9 @@ const Step6Review = ({ readOnly = false }: Step6ReviewProps = {}) => {
             candidateName: `${store.prenom} ${store.nom}`.trim(),
             candidateEmail: store.email,
             registrationId: signUpData?.user?.id || '',
+            notaBene: store.notaBene || '',
+            cabinet: store.cabinet || '',
+            departement: store.departement || '',
           },
         });
       } catch (e) { console.warn('Email admin failed', e); }

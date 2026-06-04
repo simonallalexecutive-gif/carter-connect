@@ -17,20 +17,28 @@ serve(async (req) => {
   let candidateName: string;
   let candidateEmail: string;
   let registrationId: string;
+  let notaBene: string = "";
+  let cabinet: string = "";
+  let departement: string = "";
 
   try {
     const payload = await req.json();
 
-    // Support database webhook format (record.xxx) and direct invocation format
     if (payload.record) {
       const r = payload.record;
       candidateName = `${r.prenom ?? ""} ${r.nom ?? ""}`.trim() || r.name || "Candidat";
       candidateEmail = r.email ?? "";
       registrationId = r.id ?? "";
+      notaBene = r.notaBene ?? "";
+      cabinet = r.cabinet ?? "";
+      departement = r.departement ?? "";
     } else {
       candidateName = payload.candidateName ?? "";
       candidateEmail = payload.candidateEmail ?? "";
       registrationId = payload.registrationId ?? "";
+      notaBene = payload.notaBene ?? "";
+      cabinet = payload.cabinet ?? "";
+      departement = payload.departement ?? "";
     }
   } catch (err) {
     console.error("Failed to parse body:", err);
@@ -77,6 +85,13 @@ serve(async (req) => {
   );
 
   // Email à l'admin
+  const notaBeneBlock = notaBene
+    ? `<div style="margin-top:20px;padding:14px 16px;background:#f5f5f5;border-left:3px solid #000;border-radius:2px;">
+        <p style="margin:0 0 6px;font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:#888;">Nota Bene</p>
+        <p style="margin:0;font-size:14px;color:#1a1a1a;">${notaBene}</p>
+      </div>`
+    : "";
+
   await sendEmail(
     ADMIN_EMAIL,
     `Nouvelle inscription candidat — ${candidateName}`,
@@ -84,8 +99,11 @@ serve(async (req) => {
       <h2 style="font-weight: 400;">Nouveau candidat inscrit</h2>
       <p><strong>Nom :</strong> ${candidateName}</p>
       <p><strong>Email :</strong> ${candidateEmail}</p>
+      ${cabinet ? `<p><strong>Cabinet :</strong> ${cabinet}</p>` : ""}
+      ${departement ? `<p><strong>Département :</strong> ${departement}</p>` : ""}
       <p><strong>ID :</strong> ${registrationId}</p>
-      <a href="${APP_URL}/admin/profils" style="display:inline-block;margin-top:16px;padding:12px 24px;background:#000;color:#fff;text-decoration:none;border-radius:4px;">
+      ${notaBeneBlock}
+      <a href="${APP_URL}/admin/profils" style="display:inline-block;margin-top:20px;padding:12px 24px;background:#000;color:#fff;text-decoration:none;border-radius:4px;">
         Voir le profil dans l'admin
       </a>
     </div>`,
