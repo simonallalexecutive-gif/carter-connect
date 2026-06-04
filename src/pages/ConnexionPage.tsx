@@ -102,7 +102,7 @@ const ConnexionPage = () => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-                    className="mt-1"
+                    className="mt-1 bg-transparent border-black/20 text-black"
                   />
                 </div>
                 <div>
@@ -116,7 +116,7 @@ const ConnexionPage = () => {
                     onChange={(e) => setPassword(e.target.value)}
                     required
                     minLength={6}
-                    className="mt-1"
+                    className="mt-1 bg-transparent border-black/20 text-black"
                   />
                 </div>
                 <Button

@@ -246,7 +246,7 @@ const DemoPage = () => {
     <div className="min-h-screen bg-background flex flex-col">
       {/* Header */}
       <header className="border-b border-border px-6 py-4 flex items-center justify-between">
-        <Link to="/" className="font-display text-2xl tracking-[-0.02em] text-foreground">Logan</Link>
+        <Link to="/" className="font-serif text-[32px] tracking-[0.04em] text-foreground">Logan</Link>
         <Link to="/inscription?espace=candidat">
           <Button variant="outline" size="sm" className="text-xs rounded-sm">
             S'inscrire <ArrowRight className="w-3 h-3 ml-1.5" />
