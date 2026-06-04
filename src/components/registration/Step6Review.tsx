@@ -309,9 +309,22 @@ const Step6Review = ({ readOnly = false }: Step6ReviewProps = {}) => {
       return { chartData: buildCategoryChart(CONC_CATEGORIES, store.activites, store.pourcentages), positionnement: [], clientele: [] };
     }
 
-    // ── Fiscal ──
+    // ── Tax (new questionnaire) ──
     if (dept === 'Tax') {
-      return { chartData: buildCategoryChart(FISC_CATEGORIES, store.activites, store.pourcentages), positionnement: [], clientele: [] };
+      const segs: { name: string; value: number; color: string }[] = [];
+      const corp = store.taxCorporatePct ?? 0;
+      const tr = store.taxTransacPct ?? 0;
+      const patri = store.taxHasPatrimonial === true ? (store.taxPatrimonialPct ?? 0) : 0;
+      const pxt = store.taxHasPrixTransfert === true ? (store.taxPrixTransfertPct ?? 0) : 0;
+      const tva = store.taxHasTva === true ? (store.taxTvaPct ?? 0) : 0;
+      const intl = store.taxInternationalPct ?? 0;
+      if (corp > 0) segs.push({ name: 'Corporate Tax', value: corp, color: PALETTE.blue });
+      if (tr > 0) segs.push({ name: 'Transactionnel (M&A/PE/LBO)', value: tr, color: PALETTE.emerald });
+      if (patri > 0) segs.push({ name: 'Patrimonial', value: patri, color: PALETTE.gold });
+      if (pxt > 0) segs.push({ name: 'Prix de transfert', value: pxt, color: PALETTE.pearl });
+      if (tva > 0) segs.push({ name: 'TVA / Fiscalité indirecte', value: tva, color: PALETTE.terra });
+      if (intl > 0) segs.push({ name: 'Fiscalité internationale', value: intl, color: PALETTE.mauve });
+      return { chartData: segs, positionnement: [], clientele: [] };
     }
 
     // ── Droit Public ──

@@ -108,6 +108,7 @@ const Step2Identity = () => {
     'Real Estate': 'immo',
     'Projects & Energy': 'finproj',
     'Venture Capital': 'vc',
+    'Tax': 'tax',
   };
 
   // Get current Chambers band for selected practice (null = not ranked)
