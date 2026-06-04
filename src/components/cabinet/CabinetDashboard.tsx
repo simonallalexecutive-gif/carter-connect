@@ -939,6 +939,25 @@ const ExploreView = ({
 };
 
 // ── PROFILE DRAWER ──
+// Mirrors the structure of Step6Review (cabinet preview mode) so that the recap
+// view and the cabinet-side drawer share the exact same section layout & ordering.
+const DrawerDataRow = ({ label, value }: { label: string; value?: string | null }) => {
+  if (!value) return null;
+  return (
+    <div>
+      <p className="text-[9px] uppercase tracking-[0.18em] text-muted-foreground font-sans font-semibold mb-1">{label}</p>
+      <p className="text-[13px] font-sans text-foreground leading-snug">{value}</p>
+    </div>
+  );
+};
+
+const DrawerSection = ({ title, children, first }: { title: string; children: React.ReactNode; first?: boolean }) => (
+  <section className={cn('py-5', !first && 'border-t border-border')}>
+    <p className="text-[9px] uppercase tracking-[0.22em] text-muted-foreground font-sans font-semibold mb-4">{title}</p>
+    {children}
+  </section>
+);
+
 const ProfileDrawer = ({ profile: p, onClose }: { profile: CabinetProfile; onClose: () => void }) => {
   const status = getStatusLabel(p);
   const seniorityLabel = getSeniorityLabel(p);
@@ -955,12 +974,17 @@ const ProfileDrawer = ({ profile: p, onClose }: { profile: CabinetProfile; onClo
   const clienteleLabel = coherent.clientele;
   const suggestedRetro = getSuggestedRetro(p);
 
-  // Mock priorities for demo
+  // Mock priorities (mirrors Projet → Priorités in Step6Review)
   const mockPriorities = p.motivation?.includes('autonomie')
     ? ['Responsabilité et autonomie', 'Qualité du management', 'Pratique et dossiers']
     : p.motivation?.includes('rémunération') || p.motivation?.includes('Rémunération')
     ? ['Rémunération', 'Perspectives', 'Équilibre pro/perso']
     : ['Rémunération', 'Responsabilité et autonomie', 'Flexibilité et organisation'];
+
+  // Chambers band display (mirrors Step6Review grouping logic)
+  const chambersDisplay = chambers
+    ? `${p.originTier === 'Tier 1' ? 'Band 1/Band 2' : p.originTier === 'Tier 2' ? 'Band 2/Band 3' : 'Band 3/Band 4'} — ${p.deptLabel}`
+    : legal500 ? 'Classé (hors pratique)' : 'Non classé';
 
   return (
     <>
@@ -974,78 +998,57 @@ const ProfileDrawer = ({ profile: p, onClose }: { profile: CabinetProfile; onClo
             <X className="w-4 h-4" />
           </button>
         </div>
-        <div className="p-6">
-          {/* Anonymous header with silhouette + ranking icons */}
-          <div className="flex items-center gap-4 mb-6">
-            <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[hsl(220,40%,18%)] to-[hsl(195,45%,28%)] flex items-center justify-center">
-              <User className="w-7 h-7 text-white/60" />
-            </div>
-            <div className="flex-1">
-              <p className="font-sans text-lg font-semibold text-foreground">
-                Profil anonyme
-              </p>
-              <div className="flex items-center gap-3 mt-1">
-                <p className="text-[11px] text-muted-foreground font-sans">{p.id} · {p.deptLabel}</p>
+
+        <div className="px-6">
+          {/* 1. Profil anonymisé */}
+          <DrawerSection title="Profil anonymisé" first>
+            <div className="flex items-center gap-4 mb-5">
+              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-foreground/15 to-foreground/[0.04] border border-border flex items-center justify-center">
+                <User className="w-7 h-7 text-foreground/40" />
               </div>
-              {(chambers || legal500) && (
-                <div className="flex items-center gap-3 mt-1.5">
-                  {chambers && (
-                    <span className="inline-flex items-center gap-1 text-[10px] font-medium text-foreground">
-                      <Award className="w-3 h-3" strokeWidth={1.6} />
-                      Chambers
-                    </span>
-                  )}
-                  {legal500 && (
-                    <span className="inline-flex items-center gap-1 text-[10px] font-medium text-foreground">
-                      <BookMarked className="w-3 h-3" strokeWidth={1.6} />
-                      Legal 500
-                    </span>
-                  )}
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* Main info — Chambers row removed */}
-          <div className="grid grid-cols-2 gap-x-6 gap-y-3 mb-6 pb-6 border-b border-border">
-            <div>
-              <span className="text-[9px] uppercase tracking-[0.1em] text-muted-foreground font-sans">Statut</span>
-              <p className="text-sm font-sans font-semibold mt-0.5">{status}{senDetail ? ` — ${senDetail}` : ''}</p>
-            </div>
-            <div>
-              <span className="text-[9px] uppercase tracking-[0.1em] text-muted-foreground font-sans">Ancienneté</span>
-              <p className="text-sm font-sans font-semibold mt-0.5">{p.pqe}</p>
-            </div>
-            <div>
-              <span className="text-[9px] uppercase tracking-[0.1em] text-muted-foreground font-sans">Nationalité du cabinet</span>
-              <p className="text-sm font-sans font-semibold mt-0.5">{natLabel}</p>
-            </div>
-            <div>
-              <span className="text-[9px] uppercase tracking-[0.1em] text-muted-foreground font-sans">Anglais</span>
-              <p className="text-sm font-sans font-semibold mt-0.5">{p.english}</p>
-            </div>
-            <div className="col-span-2">
-              <span className="text-[9px] uppercase tracking-[0.1em] text-muted-foreground font-sans">Disponibilité</span>
-              <p className={cn(
-                "text-sm font-sans font-semibold mt-2.5 inline-flex items-center gap-2",
-                isActive ? "text-emerald-600" : "text-foreground"
-              )}>
-                {isActive && (
-                  <span className="relative flex h-2 w-2">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75" />
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
-                  </span>
+              <div>
+                <p className="font-serif text-lg text-foreground">Profil anonyme</p>
+                <p className="text-[11px] text-muted-foreground font-sans mt-0.5">{p.id} · {status}{senDetail ? ` — ${senDetail}` : ''} · {p.pqe}</p>
+                {(chambers || legal500) && (
+                  <div className="flex items-center gap-3 mt-1.5">
+                    {chambers && (
+                      <span className="inline-flex items-center gap-1 text-[10px] font-medium text-foreground">
+                        <Award className="w-3 h-3" strokeWidth={1.6} /> Chambers
+                      </span>
+                    )}
+                    {legal500 && (
+                      <span className="inline-flex items-center gap-1 text-[10px] font-medium text-foreground">
+                        <BookMarked className="w-3 h-3" strokeWidth={1.6} /> Legal 500
+                      </span>
+                    )}
+                  </div>
                 )}
-                {isActive ? 'En recherche active' : "À l'écoute"}
-              </p>
+              </div>
             </div>
-          </div>
+            <div className="grid grid-cols-2 gap-x-5 gap-y-4">
+              <DrawerDataRow label="Pratique" value={p.deptLabel} />
+              <DrawerDataRow label="Cabinet d'origine" value={`Cabinet ${natLabel.toLowerCase()}`} />
+              <div className="col-span-2">
+                <DrawerDataRow label="Chambers" value={chambersDisplay} />
+              </div>
+            </div>
+          </DrawerSection>
 
-          {/* Activity pie chart + positioning/clientele */}
+          {/* 2. Rémunération */}
+          <DrawerSection title="Rémunération">
+            <div className="grid grid-cols-2 gap-x-5 gap-y-4">
+              <DrawerDataRow label="Rétrocession actuelle" value={p.retro_actuel} />
+              <DrawerDataRow label="Rétrocession suggérée Logan" value={suggestedRetro} />
+            </div>
+            <p className="text-[10px] text-muted-foreground mt-3 font-sans font-light">
+              Recommandation alignée sur la séniorité et le marché.
+            </p>
+          </DrawerSection>
+
+          {/* 3. Activité */}
           {Object.keys(splitData).length > 0 && (
-            <div className="mb-6 pb-6 border-b border-border">
-              <p className="text-[9px] font-bold tracking-[0.14em] uppercase text-muted-foreground mb-4">Répartition de l'activité</p>
-              <div className="flex items-start gap-5">
+            <DrawerSection title="Activité">
+              <div className="flex items-start gap-5 mb-4">
                 <div className="flex-shrink-0">
                   <ActivityPieChart
                     data={splitData}
@@ -1064,63 +1067,73 @@ const ProfileDrawer = ({ profile: p, onClose }: { profile: CabinetProfile; onClo
                       <span className="text-[11px] font-sans font-bold text-foreground">{value}%</span>
                     </div>
                   ))}
-                  {positioningLabel && (
-                    <div className="pt-2 mt-2 border-t border-border">
-                      <span className="text-[9px] text-muted-foreground font-sans">Positionnement : </span>
-                      <span className="text-[10px] text-foreground font-sans">{positioningLabel}</span>
-                    </div>
-                  )}
-                  {clienteleLabel && (
-                    <div>
-                      <span className="text-[9px] text-muted-foreground font-sans">Clientèle : </span>
-                      <span className="text-[10px] text-foreground font-sans">{clienteleLabel}</span>
-                    </div>
-                  )}
                 </div>
               </div>
-            </div>
+              <div className="grid grid-cols-2 gap-x-5 gap-y-4 pt-3 border-t border-border">
+                <DrawerDataRow label="Positionnement" value={positioningLabel} />
+                <DrawerDataRow label="Clientèle" value={clienteleLabel} />
+                <DrawerDataRow label="Anglais" value={p.english} />
+                {p.langue2 && p.langue2 !== '—' && <DrawerDataRow label="Autre langue" value={p.langue2} />}
+              </div>
+            </DrawerSection>
           )}
 
-          {/* Retrocession suggérée par LOGAN */}
-          <div className="mb-6 pb-6 border-b border-border">
-            <p className="text-[9px] font-bold tracking-[0.14em] uppercase text-muted-foreground mb-3">Rétrocession suggérée par LOGAN</p>
-            <p className="text-sm font-sans font-semibold text-foreground">{suggestedRetro}</p>
-            <p className="text-[10px] text-muted-foreground mt-1 font-sans">
-              Recommandation alignée sur la séniorité et le marché.
-            </p>
-          </div>
-
-          {/* Candidate priorities */}
-          <div className="mb-6 pb-6 border-b border-border">
-            <p className="text-[9px] font-bold tracking-[0.14em] uppercase text-muted-foreground mb-3">Axes d'amélioration souhaités</p>
-            <div className="flex flex-wrap gap-2">
-              {mockPriorities.map((priority) => (
-                <span key={priority} className="text-[10px] font-sans font-medium px-3 py-1.5 rounded-full bg-secondary text-foreground border border-border">
-                  {priority}
-                </span>
-              ))}
+          {/* 4. Projet */}
+          <DrawerSection title="Projet">
+            <div className="space-y-4">
+              <div>
+                <p className="text-[9px] uppercase tracking-[0.22em] text-muted-foreground font-sans font-semibold mb-2">Priorités</p>
+                <div className="flex flex-wrap gap-1.5">
+                  {mockPriorities.map((priority) => (
+                    <span key={priority} className="text-[10px] font-sans font-semibold px-3 py-1 rounded-full bg-foreground text-background tracking-wide">
+                      {priority}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              {p.motivation && (
+                <div>
+                  <p className="text-[9px] uppercase tracking-[0.22em] text-muted-foreground font-sans font-semibold mb-1.5">Motivation</p>
+                  <p className="text-[12.5px] font-sans font-light text-foreground leading-relaxed">{p.motivation}</p>
+                </div>
+              )}
             </div>
-          </div>
+          </DrawerSection>
 
-          {/* Motivation */}
-          {p.motivation && (
-            <div className="mb-6 pb-6 border-b border-border">
-              <p className="text-[9px] font-bold tracking-[0.14em] uppercase text-muted-foreground mb-2">Projet professionnel</p>
-              <p className="text-[12px] font-sans font-light text-foreground leading-relaxed">{p.motivation}</p>
+          {/* 5. Statut */}
+          <DrawerSection title="Statut">
+            <div className="grid grid-cols-2 gap-x-5 gap-y-4">
+              <div>
+                <p className="text-[9px] uppercase tracking-[0.18em] text-muted-foreground font-sans font-semibold mb-1">Écoute</p>
+                <p className={cn(
+                  'text-[13px] font-sans inline-flex items-center gap-2',
+                  isActive ? 'text-emerald-600 font-semibold' : 'text-foreground'
+                )}>
+                  {isActive && (
+                    <span className="relative flex h-2 w-2">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75" />
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+                    </span>
+                  )}
+                  {isActive ? 'En recherche active' : "À l'écoute"}
+                </p>
+              </div>
+              <DrawerDataRow label="Disponibilité" value={p.disponibilite} />
+              {p.mobilite && <DrawerDataRow label="Mobilité" value={p.mobilite} />}
             </div>
-          )}
+          </DrawerSection>
 
-          {/* Footer */}
-          <div className="mb-4">
+          {/* Footer note */}
+          <div className="pt-2 pb-4">
             <p className="text-[10px] font-sans font-light text-muted-foreground">
               Non visible : nom, prénom, email, téléphone, nom du cabinet actuel.
             </p>
           </div>
 
           {/* CTA */}
-          <div className="bg-foreground rounded-md p-5 text-center">
-            <div className="text-sm font-bold text-white mb-1.5">Ce candidat vous intéresse ?</div>
-            <p className="text-[11px] text-white/55 mb-4 leading-relaxed">
+          <div className="bg-foreground rounded-md p-5 text-center mb-6">
+            <div className="text-sm font-bold text-background mb-1.5">Ce candidat vous intéresse ?</div>
+            <p className="text-[11px] text-background/55 mb-4 leading-relaxed">
               Manifestez votre intérêt pour ce candidat, LOGAN se charge du reste pour vous.
             </p>
             <button
@@ -1128,7 +1141,7 @@ const ProfileDrawer = ({ profile: p, onClose }: { profile: CabinetProfile; onClo
                 onClose();
                 toast.success(`Intérêt transmis à LOGAN pour le profil ${p.id}`);
               }}
-              className="w-full py-2.5 bg-white text-foreground font-bold text-xs rounded hover:bg-white/90 transition-colors"
+              className="w-full py-2.5 bg-background text-foreground font-bold text-xs rounded hover:bg-background/90 transition-colors"
             >
               Ce candidat m'intéresse →
             </button>
