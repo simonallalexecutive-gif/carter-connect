@@ -141,7 +141,7 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
                       'p-4 rounded border text-center transition-all cursor-pointer',
                       isChecked
                         ? 'bg-foreground text-background border-foreground'
-                        : 'bg-background border-border hover:border-foreground'
+                        : 'bg-background text-foreground border-border hover:border-foreground'
                     )}
                   >
                     <div className="text-[11px] font-medium">{pt.label}</div>
@@ -213,7 +213,7 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
                         'p-4 rounded border text-center transition-all cursor-pointer',
                         s.seniorities.includes(sen.key)
                           ? 'bg-foreground text-background border-foreground'
-                          : 'bg-background border-border hover:border-foreground'
+                          : 'bg-background text-foreground border-border hover:border-foreground'
                       )}
                     >
                       <div className="font-sans text-[11px] font-bold mb-0.5">{sen.pqe}</div>
