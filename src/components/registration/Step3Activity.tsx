@@ -134,7 +134,7 @@ const Step3Activity = () => {
         )}
 
         {(store.departement === 'Tax') && (
-          <FiscalActivityPanel />
+          <TaxActivityPanel />
         )}
 
         {(store.departement === 'Public Law') && (
