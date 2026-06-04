@@ -112,7 +112,7 @@ const BookingPage = () => {
     <div className="min-h-screen bg-white text-black flex flex-col">
       {/* Header */}
       <header className="px-6 sm:px-8 lg:px-10 flex items-center justify-between h-20 relative z-10">
-        <Link to="/" className="font-serif text-[31px] tracking-[0.04em] text-black">Logan</Link>
+        <Link to="/" className="font-serif text-[31px] font-[400] tracking-normal text-black">Logan</Link>
         {step === 'calendar' ? (
           <Button
             variant="ghost"
