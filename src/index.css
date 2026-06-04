@@ -354,7 +354,9 @@
   }
 
   .carter-label {
-    @apply text-xs font-sans font-medium tracking-[0.2em] uppercase;
+    @apply font-sans font-normal uppercase;
+    font-size: 11px;
+    letter-spacing: 0.12em;
     color: hsl(var(--carter-gold));
   }
 
