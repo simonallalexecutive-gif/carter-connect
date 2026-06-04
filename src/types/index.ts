@@ -98,6 +98,19 @@ export interface RegistrationState {
   fiscClientele: string[];
   fiscComplexite: string[];
   fiscSpecialisations: string[];
+  // Tax (new questionnaire)
+  taxConseilPct: number;
+  taxClients: string[];
+  taxCorporatePct: number;
+  taxTransacPct: number;
+  taxHasPatrimonial: boolean | null;
+  taxPatrimonialPct: number;
+  taxPatrimonialTypes: string[];
+  taxHasPrixTransfert: boolean | null;
+  taxPrixTransfertPct: number;
+  taxHasTva: boolean | null;
+  taxTvaPct: number;
+  taxInternationalPct: number;
   // Droit Public
   dpubPublique: number;
   dpubCtxDefense: number;
