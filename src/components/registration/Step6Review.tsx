@@ -1003,20 +1003,23 @@ const Step6Review = ({ readOnly = false }: Step6ReviewProps = {}) => {
             />
           </div>
 
-          {/* RDV option */}
-          <div className="rounded-sm border border-border bg-card px-5 py-4 mt-4">
-            <div className="flex items-center justify-between">
+          {/* RDV inline */}
+          <div className="rounded-sm border border-border bg-card px-5 py-5 mt-4">
+            <div className="flex items-center justify-between gap-4 mb-4">
               <div>
                 <p className="text-sm font-sans font-medium text-foreground">Souhaitez-vous échanger avec un consultant Logan ?</p>
-                <p className="text-xs font-sans font-light text-muted-foreground mt-1">Prenez rendez-vous dès la validation de votre inscription.</p>
+                <p className="text-xs font-sans font-light text-muted-foreground mt-1">Sélectionnez directement un créneau ci-dessous.</p>
               </div>
-              <Link to="/rendez-vous" target="_blank" className="ml-4 flex-shrink-0">
-                <Button variant="outline" size="sm" className="font-sans text-xs font-medium rounded-sm gap-1.5">
-                  Prendre RDV
-                  <ArrowRight className="w-3 h-3" />
-                </Button>
-              </Link>
+              <CalendarIcon className="w-4 h-4 text-muted-foreground flex-shrink-0" />
             </div>
+            <InlineBookingCalendar
+              onConfirm={(slot) => {
+                store.setField('souhaitePrendreRdv', true);
+                store.setField('creneauPrefere', slot);
+                toast.success(`Créneau enregistré : ${slot}`);
+              }}
+              selected={store.souhaitePrendreRdv ? store.creneauPrefere : ''}
+            />
           </div>
 
           {/* Navigation */}
