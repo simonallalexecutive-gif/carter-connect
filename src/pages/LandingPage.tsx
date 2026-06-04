@@ -144,7 +144,7 @@ const LandingPage = () => (
           </div>
           <div className="hidden sm:flex flex-shrink-0 items-center pl-6 pr-6 md:pr-10 relative z-20">
             <div className="absolute inset-y-0 -left-16 right-0 bg-gradient-to-r from-transparent via-black/80 to-black pointer-events-none" />
-            <span className="relative inline-block px-3.5 py-1.5 border border-white rounded-sm text-[12.3px] font-sans font-normal tracking-wide text-white whitespace-nowrap cursor-default leading-none">
+            <span className="relative inline-block px-3.5 py-1.5 border border-white rounded-sm text-[12.3px] font-sans font-normal tracking-wide text-white whitespace-nowrap cursor-default">
               Nos partenaires
             </span>
           </div>
