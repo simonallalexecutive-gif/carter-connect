@@ -20,6 +20,7 @@ import NotreOffrePage from "./pages/NotreOffrePage";
 import ScrollToHash from "./components/ScrollToHash";
 import AdminLoginPage from "./pages/AdminLoginPage";
 import ConfirmationPage from "./pages/ConfirmationPage";
+import BookingPage from "./pages/BookingPage";
 
 
 const queryClient = new QueryClient();
@@ -37,7 +38,7 @@ const App = () => (
           <Route path="/cabinet" element={<CabinetPage />} />
           <Route path="/demo" element={<DemoPage />} />
           <Route path="/rendez-vous" element={<AccessRequestPage />} />
-          <Route path="/prendre-rdv" element={<AccessRequestPage />} />
+          <Route path="/prendre-rdv" element={<BookingPage />} />
           <Route path="/demander-acces" element={<AccessRequestPage />} />
           <Route path="/notre-offre" element={<NotreOffrePage />} />
           <Route path="/connexion" element={<ConnexionPage />} />
