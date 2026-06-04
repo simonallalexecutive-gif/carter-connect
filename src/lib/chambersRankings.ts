@@ -233,6 +233,7 @@ export const CHAMBERS_KEY_TO_PRACTICE: Record<string, string> = {
   social: 'Employment',
   immo: 'Real Estate',
   projets: 'Projects & Energy',
+  tax: 'Tax',
 };
 
 /**
