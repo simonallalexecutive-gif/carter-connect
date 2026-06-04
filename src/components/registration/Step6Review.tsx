@@ -836,7 +836,7 @@ const Step6Review = ({ readOnly = false }: Step6ReviewProps = {}) => {
                 <div className="mt-5">
                   <TagList items={store.typesClients} label="Clientèle" />
                 </div>
-                {store.anglais && <p className="text-xs font-sans font-light mt-4 text-white/85"><span className="text-white/50">Anglais : </span>{store.anglais}</p>}
+                {store.anglais && <p className="text-xs font-sans font-light mt-4 text-white/85"><span className="text-white/50">Anglais : </span>{store.anglais}{/^\d+$/.test(String(store.anglais).trim()) ? ' %' : ''}</p>}
               </SectionCard>
 
               {/* Associé / Counsel */}
