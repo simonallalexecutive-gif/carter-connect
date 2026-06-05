@@ -9,15 +9,8 @@ import { Checkbox } from '@/components/ui/checkbox';
 import SquareGauge from '@/components/shared/SquareGauge';
 import type { ActivityItem } from '@/lib/constants';
 
-const CHART_PALETTE = [
-  'hsl(0, 0%, 8%)',
-  'hsl(220, 45%, 22%)',
-  'hsl(0, 0%, 32%)',
-  'hsl(30, 12%, 50%)',
-  'hsl(220, 45%, 22%)',
-  'hsl(210, 35%, 58%)',
-  'hsl(35, 22%, 72%)',
-];
+import { ACTIVITY_CHART_PALETTE as CHART_PALETTE } from '@/lib/activityPalette';
+
 
 const TYPES_ACTIFS = [
   'Aéronautique', 'Ferroviaire', 'Maritime', 'Automobile',
