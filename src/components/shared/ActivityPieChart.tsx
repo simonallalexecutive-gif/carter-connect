@@ -5,7 +5,7 @@ const BLUE_PALETTE = [
   'hsl(0, 0%, 8%)',       // Noir mat
   'hsl(220, 45%, 18%)',    // Bleu pétrole
   'hsl(0, 0%, 28%)',       // Gris anthracite
-  'hsl(155, 35%, 22%)',    // Vert green
+  'hsl(20, 75%, 32%)',    // Vert green
   'hsl(220, 45%, 18%)',    // Bleu foncé
   'hsl(0, 0%, 72%)',       // Gris clair
   'hsl(220, 45%, 18%)',    // Bleu pétrole foncé

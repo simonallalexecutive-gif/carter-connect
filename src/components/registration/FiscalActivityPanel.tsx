@@ -11,13 +11,13 @@ const COL_TRANSAC = 'hsl(0, 0%, 8%)';
 const COL_CONTENTIEUX = 'hsl(220, 45%, 18%)';
 const COL_CONSEIL = 'hsl(0, 0%, 28%)';
 
-const COL_TR_PE = 'hsl(155, 35%, 22%)';
-const COL_TR_MA = 'hsl(350, 45%, 28%)';
+const COL_TR_PE = 'hsl(350, 45%, 28%)';
+const COL_TR_MA = 'hsl(20, 75%, 32%)';
 const COL_TR_RESTR = 'hsl(0, 0%, 48%)';
 const COL_TR_INTL = 'hsl(220, 35%, 35%)';
 
-const COL_CTX_CTRL = 'hsl(155, 25%, 40%)';
-const COL_CTX_POST = 'hsl(350, 30%, 48%)';
+const COL_CTX_CTRL = 'hsl(350, 35%, 42%)';
+const COL_CTX_POST = 'hsl(15, 65%, 42%)';
 const COL_CTX_NEGO = 'hsl(0, 0%, 72%)';
 
 const COL_CON_STRUCT = 'hsl(220, 25%, 55%)';

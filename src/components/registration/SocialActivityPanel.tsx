@@ -10,8 +10,8 @@ import SquareGauge from '@/components/shared/SquareGauge';
 const COL_CONSEIL = 'hsl(0, 0%, 8%)';
 const COL_CONTENTIEUX = 'hsl(220, 45%, 18%)';
 const COL_INDIV = 'hsl(0, 0%, 28%)';
-const COL_COLL = 'hsl(155, 35%, 22%)';
-const COL_EMPLOYEUR = 'hsl(350, 45%, 28%)';
+const COL_COLL = 'hsl(350, 45%, 28%)';
+const COL_EMPLOYEUR = 'hsl(20, 75%, 32%)';
 const COL_SALARIE = 'hsl(0, 0%, 48%)';
 
 const POSITIONNEMENT_CABINET = [

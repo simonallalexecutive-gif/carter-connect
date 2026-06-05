@@ -11,13 +11,13 @@ const COL_CONCENTRATIONS = 'hsl(0, 0%, 8%)';
 const COL_CONTENTIEUX = 'hsl(220, 45%, 18%)';
 const COL_CONSEIL = 'hsl(0, 0%, 28%)';
 
-const COL_CONC_NAT = 'hsl(155, 35%, 22%)';
-const COL_CONC_EU = 'hsl(350, 45%, 28%)';
+const COL_CONC_NAT = 'hsl(350, 45%, 28%)';
+const COL_CONC_EU = 'hsl(20, 75%, 32%)';
 const COL_CONC_MULTI = 'hsl(0, 0%, 48%)';
 
 const COL_CTX_CARTELS = 'hsl(220, 35%, 35%)';
-const COL_CTX_ABUS = 'hsl(155, 25%, 40%)';
-const COL_CTX_PRATIQUES = 'hsl(350, 30%, 48%)';
+const COL_CTX_ABUS = 'hsl(350, 35%, 42%)';
+const COL_CTX_PRATIQUES = 'hsl(15, 65%, 42%)';
 
 const COL_CONS_COMPLIANCE = 'hsl(0, 0%, 72%)';
 const COL_CONS_CONTRATS = 'hsl(220, 25%, 55%)';

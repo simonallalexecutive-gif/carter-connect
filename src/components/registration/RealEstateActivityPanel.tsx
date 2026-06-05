@@ -10,8 +10,8 @@ import SquareGauge from '@/components/shared/SquareGauge';
 const COL_BAUX = 'hsl(0, 0%, 8%)';
 const COL_SHARE = 'hsl(220, 45%, 18%)';
 const COL_ASSET = 'hsl(0, 0%, 28%)';
-const COL_CONSTRUCTION = 'hsl(155, 35%, 22%)';
-const COL_FINANCEMENT = 'hsl(350, 45%, 28%)';
+const COL_CONSTRUCTION = 'hsl(350, 45%, 28%)';
+const COL_FINANCEMENT = 'hsl(20, 75%, 32%)';
 const COL_CONTENTIEUX = 'hsl(0, 0%, 48%)';
 
 const ASSET_TYPES = [

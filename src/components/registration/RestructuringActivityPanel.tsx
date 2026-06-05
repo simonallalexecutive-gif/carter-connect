@@ -11,11 +11,11 @@ import { buildQuantizedChartData } from '@/lib/percentages';
 const COL_AMIABLE = 'hsl(0, 0%, 8%)';
 const COL_JUDICIAIRE = 'hsl(220, 45%, 18%)';
 const COL_FINANCIER = 'hsl(0, 0%, 28%)';
-const COL_DISTRESSED = 'hsl(155, 35%, 22%)';
-const COL_CONTENTIEUX = 'hsl(350, 45%, 28%)';
+const COL_DISTRESSED = 'hsl(350, 45%, 28%)';
+const COL_CONTENTIEUX = 'hsl(20, 75%, 32%)';
 
 const COL_POS = ['hsl(0, 0%, 8%)', 'hsl(220, 45%, 18%)', 'hsl(0, 0%, 28%)'];
-const COL_CLI = ['hsl(0, 0%, 8%)', 'hsl(220, 45%, 18%)', 'hsl(0, 0%, 28%)', 'hsl(155, 35%, 22%)', 'hsl(350, 45%, 28%)', 'hsl(0, 0%, 48%)'];
+const COL_CLI = ['hsl(0, 0%, 8%)', 'hsl(220, 45%, 18%)', 'hsl(0, 0%, 28%)', 'hsl(350, 45%, 28%)', 'hsl(20, 75%, 32%)', 'hsl(0, 0%, 48%)'];
 
 const POSITIONNEMENT_OPTIONS = ['Côté débiteur', 'Côté créancier', 'Côté repreneur / investisseur'];
 const CLIENTELE_OPTIONS = ['ETI', 'PME', 'Grands groupes', 'Banques', 'Fonds', 'AJ/MJ'];
