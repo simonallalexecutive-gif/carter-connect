@@ -100,7 +100,7 @@ const Step2Identity = () => {
     'Restructuring/Insolvency': 'restructuring',
     'Employment': 'social',
     'Real Estate': 'immo',
-    'Projects & Energy': 'finproj',
+    
     'Venture Capital': 'vc',
     'Tax': 'tax',
   };

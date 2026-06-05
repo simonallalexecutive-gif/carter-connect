@@ -19,7 +19,7 @@ export const CHAMBERS_DEPARTMENTS: { key: string; label: string }[] = [
   { key: 'restructuring', label: 'Restructuring/Insolvency' },
   { key: 'social', label: 'Employment' },
   { key: 'immo', label: 'Real Estate' },
-  { key: 'projets', label: 'Projects & Energy' },
+  
   { key: 'tax', label: 'Tax' },
 ];
 
@@ -232,7 +232,7 @@ export const CHAMBERS_KEY_TO_PRACTICE: Record<string, string> = {
   restructuring: 'Restructuring/Insolvency',
   social: 'Employment',
   immo: 'Real Estate',
-  projets: 'Projects & Energy',
+  
   tax: 'Tax',
 };
 

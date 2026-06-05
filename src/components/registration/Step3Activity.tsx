@@ -19,7 +19,7 @@ import ConcurrenceActivityPanel from './ConcurrenceActivityPanel';
 import TaxActivityPanel from './TaxActivityPanel';
 import DroitPublicActivityPanel from './DroitPublicActivityPanel';
 import ArbitrationActivityPanel from './ArbitrationActivityPanel';
-import ProjectsEnergyActivityPanel from './ProjectsEnergyActivityPanel';
+
 
 // Palette neutre, sobre et professionnelle — alignée avec le récapitulatif
 const CHART_COLORS = [
@@ -38,7 +38,7 @@ const SPECIALIZED_DEPTS = [
   'Droit Social', 'M&A (dominante)', 'Private Equity (dominante)', 'Immobilier', 'Real Estate',
   // Chambers English labels
   'Banking & Finance', 'Competition/European Law', 'Corporate/M&A', 'Employment',
-  'International Arbitration', 'Private Equity', 'Projects & Energy', 'Public Law', 'Tax',
+  'International Arbitration', 'Private Equity', 'Public Law', 'Tax',
 ];
 
 const Step3Activity = () => {
@@ -108,8 +108,9 @@ const Step3Activity = () => {
         ) : (store.departement === 'Banking & Finance') ? (
           <FinanceActivityPanel items={[
             { key: 'fin_obligataire', label: 'Financement obligataire' }, { key: 'fin_acq', label: "Financement d'acquisition" },
-            { key: 'fin_lbo', label: 'Financement LBO' }, { key: 'fin_immo', label: 'Financement immobilier' },
-            { key: 'fin_actifs', label: "Financement d'actifs" }, { key: 'fin_titrisation', label: 'Titrisation' },
+            { key: 'fin_lbo', label: 'Financement LBO' }, { key: 'fin_projets', label: 'Financement de projet' },
+            { key: 'fin_immo', label: 'Financement immobilier' }, { key: 'fin_actifs', label: "Financement d'actifs" },
+            { key: 'fin_titrisation', label: 'Titrisation' },
           ]} />
         ) : null}
 
@@ -145,9 +146,6 @@ const Step3Activity = () => {
           <ArbitrationActivityPanel />
         )}
 
-        {(store.departement === 'Projects & Energy') && (
-          <ProjectsEnergyActivityPanel />
-        )}
 
 
 

@@ -55,8 +55,6 @@ export const CANDIDATE_PERSISTED_KEYS = [
   'dpubClientele', 'dpubDimensionProjets', 'dpubSecteurs',
   // Arbitration
   'arbInstitutions', 'arbSecteurs', 'arbPositionnements', 'arbDomestique',
-  // Projects & Energy
-  'projSecteursEnergie', 'projTypesInfra', 'projPositionnements', 'projTaille', 'projDomestique',
   // Real Estate
   'reBauxAM', 'reShareDeal', 'reAssetDealPct', 'reConstructionPct',
   'reHasFinancement', 'reFinancementPct', 'reShareDealCorporate', 'reShareDealMode',
