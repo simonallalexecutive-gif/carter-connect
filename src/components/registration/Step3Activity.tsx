@@ -15,10 +15,7 @@ import RestructuringActivityPanel from './RestructuringActivityPanel';
 import SocialActivityPanel from './SocialActivityPanel';
 import MaActivityPanel from './MaActivityPanel';
 import RealEstateActivityPanel from './RealEstateActivityPanel';
-import ConcurrenceActivityPanel from './ConcurrenceActivityPanel';
 import TaxActivityPanel from './TaxActivityPanel';
-import DroitPublicActivityPanel from './DroitPublicActivityPanel';
-import ArbitrationActivityPanel from './ArbitrationActivityPanel';
 import ProjectsEnergyActivityPanel from './ProjectsEnergyActivityPanel';
 
 // Palette neutre, sobre et professionnelle — alignée avec le récapitulatif
@@ -31,14 +28,17 @@ const CHART_COLORS = [
   'hsl(212, 16%, 52%)',    // Bleu acier mat
 ];
 
-// All departments that have a specialized panel (not the generic chip+pie fallback)
+// Practices selectable at Step 2 (Identity) that have a specialized panel
 const SPECIALIZED_DEPTS = [
-  // Legacy French names
-  'Financement LBO', 'Financement de projets', 'Restructuring', 'Restructuring/Insolvency',
-  'Droit Social', 'M&A (dominante)', 'Private Equity (dominante)', 'Immobilier', 'Real Estate',
-  // Chambers English labels
-  'Banking & Finance', 'Competition/European Law', 'Corporate/M&A', 'Employment',
-  'International Arbitration', 'Private Equity', 'Projects & Energy', 'Public Law', 'Tax',
+  'Banking & Finance',
+  'Restructuring/Insolvency',
+  'Employment',
+  'Corporate/M&A',
+  'Private Equity',
+  'Venture Capital',
+  'Real Estate',
+  'Tax',
+  'Projects & Energy',
 ];
 
 const Step3Activity = () => {
