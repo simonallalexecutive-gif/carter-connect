@@ -162,7 +162,7 @@ const TaxActivityPanel = () => {
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
             className="md:sticky md:top-8 md:w-[320px] flex-shrink-0 w-full"
           >
-            <div className="synthesis-dark p-5 space-y-4">
+            <div className="bg-white border border-gray-200 rounded-sm p-5 space-y-4">
               <p className="text-sm font-sans font-medium text-foreground">Synthèse</p>
 
               {/* Pie nature des dossiers */}
@@ -237,43 +237,18 @@ const TaxActivityPanel = () => {
       {/* ══════════ RIGHT: QUESTIONNAIRE ══════════ */}
       <div className="carter-card p-5 md:p-7 space-y-6 flex-1 min-w-0">
 
-        {/* ═══════ 1. RÉPARTITION GÉNÉRALE ═══════ */}
+        {/* ═══════ 1. NATURE DES DOSSIERS ═══════ */}
         <div className="space-y-4">
-          <p className="text-sm font-sans font-medium text-foreground">Répartition générale</p>
-
-          <div className="space-y-2.5 pl-3 border-l-2 border-border">
-            <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">Conseil vs Contentieux</p>
-            <SquareGauge value={conseilPct} onChange={v => setField('taxConseilPct', v)} activeColor={COL_CONSEIL} label="Part du conseil" />
-            <div className="flex justify-between text-[10px] text-muted-foreground font-sans">
-              <span>Conseil {conseilPct}%</span>
-              <span>Contentieux {contentieuxPct}%</span>
-            </div>
-          </div>
-
-          <div className="space-y-2 pl-3 border-l-2 border-border">
-            <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">Principaux clients</p>
-            <div className="flex flex-wrap gap-1.5">
-              {CLIENT_TYPES.map(c => (
-                <ChipButton key={c} active={(store.taxClients || []).includes(c)} onClick={() => toggleArr('taxClients', c)}>
-                  {c}
-                </ChipButton>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* ═══════ 2. NATURE DES DOSSIERS ═══════ */}
-        <div className="border-t border-border pt-5 space-y-4">
           <p className="text-sm font-sans font-medium text-foreground">Nature des dossiers</p>
 
           <div className="space-y-2.5 pl-3 border-l-2 border-border">
-            <SquareGauge value={corporate} onChange={v => handleGauge('taxCorporatePct', v)} activeColor={COL_CORPORATE} label="Corporate tax (fiscalité des entreprises)" />
-            <SquareGauge value={transac} onChange={v => handleGauge('taxTransacPct', v)} activeColor={COL_TRANSAC} label="Transactionnel (M&A, PE, LBO)" />
+            <SquareGauge value={corporate} onChange={v => handleGauge('taxCorporatePct', v)} activeColor={COL_CORPORATE} label="Corporate Tax (fiscalité des entreprises et restructurations/réorganisations)" />
+            <SquareGauge value={transac} onChange={v => handleGauge('taxTransacPct', v)} activeColor={COL_TRANSAC} label="Transactionnel (fusions-acquisitions, LBO)" />
           </div>
 
           {/* Patrimoniale Yes/No */}
           <div className="space-y-2.5 pl-3 border-l-2 border-border">
-            <p className="text-xs font-sans text-foreground">Intervenez-vous en fiscalité patrimoniale ?</p>
+            <p className="text-xs font-sans text-foreground">Avez-vous également une activité en fiscalité patrimoniale ?</p>
             <div className="flex gap-2">
               {(['Oui', 'Non'] as const).map(label => {
                 const val = label === 'Oui';
@@ -303,13 +278,13 @@ const TaxActivityPanel = () => {
           </div>
         </div>
 
-        {/* ═══════ 3. EXPERTISES COMPLÉMENTAIRES ═══════ */}
+        {/* ═══════ 2. EXPERTISES COMPLÉMENTAIRES ═══════ */}
         <div className="border-t border-border pt-5 space-y-4">
           <p className="text-sm font-sans font-medium text-foreground">Expertises complémentaires</p>
 
           {/* Prix de transfert */}
           <div className="space-y-2.5 pl-3 border-l-2 border-border">
-            <p className="text-xs font-sans text-foreground">Faites-vous des prix de transfert ?</p>
+            <p className="text-xs font-sans text-foreground">Avez-vous développé une expertise en prix de transfert ?</p>
             <div className="flex gap-2">
               {(['Oui', 'Non'] as const).map(label => {
                 const val = label === 'Oui';
@@ -330,7 +305,7 @@ const TaxActivityPanel = () => {
 
           {/* TVA */}
           <div className="space-y-2.5 pl-3 border-l-2 border-border">
-            <p className="text-xs font-sans text-foreground">Faites-vous de la TVA / fiscalité indirecte ?</p>
+            <p className="text-xs font-sans text-foreground">Avez-vous développé une expertise en TVA ?</p>
             <div className="flex gap-2">
               {(['Oui', 'Non'] as const).map(label => {
                 const val = label === 'Oui';
@@ -351,8 +326,33 @@ const TaxActivityPanel = () => {
 
           {/* International */}
           <div className="space-y-2.5 pl-3 border-l-2 border-border">
-            <p className="text-xs font-sans text-foreground">Quelle place occupe la fiscalité internationale ?</p>
+            <p className="text-xs font-sans text-foreground">Avez-vous une activité en fiscalité internationale ?</p>
             <SquareGauge value={intl} onChange={v => handleGauge('taxInternationalPct', v)} activeColor={COL_INTL} label="Part dans l'activité" />
+          </div>
+        </div>
+
+        {/* ═══════ 3. RÉPARTITION GÉNÉRALE ═══════ */}
+        <div className="border-t border-border pt-5 space-y-4">
+          <p className="text-sm font-sans font-medium text-foreground">Répartition générale</p>
+
+          <div className="space-y-2.5 pl-3 border-l-2 border-border">
+            <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">Conseil vs Contentieux</p>
+            <SquareGauge value={conseilPct} onChange={v => setField('taxConseilPct', v)} activeColor={COL_CONSEIL} label="Part du conseil" />
+            <div className="flex justify-between text-[10px] text-muted-foreground font-sans">
+              <span>Conseil {conseilPct}%</span>
+              <span>Contentieux {contentieuxPct}%</span>
+            </div>
+          </div>
+
+          <div className="space-y-2 pl-3 border-l-2 border-border">
+            <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">Principaux clients</p>
+            <div className="flex flex-wrap gap-1.5">
+              {CLIENT_TYPES.map(c => (
+                <ChipButton key={c} active={(store.taxClients || []).includes(c)} onClick={() => toggleArr('taxClients', c)}>
+                  {c}
+                </ChipButton>
+              ))}
+            </div>
           </div>
         </div>
 
