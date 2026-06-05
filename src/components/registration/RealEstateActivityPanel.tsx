@@ -297,12 +297,12 @@ const RealEstateActivityPanel = () => {
               <SquareGauge value={shareVal} onChange={v => handleSubSlider('reShareDeal', v)} label="Share Deal" />
               <div className="pl-1 space-y-1.5">
                 {SHARE_DEAL_MODES.map(mode => {
-                  const active = shareDealMode === mode.key;
+                  const active = shareDealModes.includes(mode.key);
                   return (
                     <button
                       key={mode.key}
                       type="button"
-                      onClick={() => setField('reShareDealMode', active ? '' : mode.key)}
+                      onClick={() => toggleShareDealMode(mode.key)}
                       className={cn(
                         "flex items-center gap-2 w-full text-left px-2.5 py-1.5 rounded-sm text-[11px] font-sans transition-all duration-200 border",
                         active ? "bg-foreground text-background border-foreground" : "bg-transparent text-foreground/70 border-border hover:border-foreground/40"
@@ -313,6 +313,7 @@ const RealEstateActivityPanel = () => {
                     </button>
                   );
                 })}
+
               </div>
             </div>
 
