@@ -8,11 +8,11 @@ import SquareGauge from '@/components/shared/SquareGauge';
 
 /* ── Palette ── */
 const COL_CONSEIL = 'hsl(0, 0%, 8%)';
-const COL_CONTENTIEUX = 'hsl(0, 0%, 28%)';
-const COL_INDIV = 'hsl(220, 35%, 32%)';
-const COL_COLL = 'hsl(220, 35%, 32%)';
-const COL_EMPLOYEUR = 'hsl(155, 30%, 30%)';
-const COL_SALARIE = 'hsl(40, 25%, 88%)';
+const COL_CONTENTIEUX = 'hsl(220, 45%, 18%)';
+const COL_INDIV = 'hsl(0, 0%, 28%)';
+const COL_COLL = 'hsl(155, 35%, 22%)';
+const COL_EMPLOYEUR = 'hsl(350, 45%, 28%)';
+const COL_SALARIE = 'hsl(0, 0%, 48%)';
 
 const POSITIONNEMENT_CABINET = [
   { key: 'standalone', label: 'Stand alone' },
@@ -104,7 +104,7 @@ const SocialActivityPanel = () => {
       const cIndiv = Math.round(conseilPct * indivWeight);
       const cColl = conseilPct - cIndiv;
       if (cIndiv > 0) segments.push({ name: 'Conseil – Individuel', value: cIndiv, color: COL_CONSEIL });
-      if (cColl > 0) segments.push({ name: 'Conseil – Collectif', value: cColl, color: 'hsl(220, 45%, 18%)' });
+      if (cColl > 0) segments.push({ name: 'Conseil – Collectif', value: cColl, color: 'hsl(220, 35%, 35%)' });
     }
     if (contentieuxPct > 0) {
       const xIndiv = Math.round(contentieuxPct * indivWeight);

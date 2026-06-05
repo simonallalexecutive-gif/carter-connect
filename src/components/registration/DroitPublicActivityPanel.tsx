@@ -9,19 +9,19 @@ import { buildQuantizedChartData } from '@/lib/percentages';
 
 const COL_CONTRATS = 'hsl(0, 0%, 8%)';
 const COL_CONTENTIEUX = 'hsl(220, 45%, 18%)';
-const COL_CONSEIL = 'hsl(155, 35%, 22%)';
+const COL_CONSEIL = 'hsl(0, 0%, 28%)';
 
-const COL_CT_CMD = 'hsl(0, 0%, 8%)';
-const COL_CT_CONC = 'hsl(220, 45%, 18%)';
-const COL_CT_PPP = 'hsl(220, 30%, 45%)';
+const COL_CT_CMD = 'hsl(155, 35%, 22%)';
+const COL_CT_CONC = 'hsl(350, 45%, 28%)';
+const COL_CT_PPP = 'hsl(0, 0%, 48%)';
 
-const COL_CTX_CONTRATS = 'hsl(350, 45%, 28%)';
-const COL_CTX_RESP = 'hsl(350, 35%, 38%)';
-const COL_CTX_REGL = 'hsl(350, 25%, 52%)';
+const COL_CTX_CONTRATS = 'hsl(220, 35%, 35%)';
+const COL_CTX_RESP = 'hsl(155, 25%, 40%)';
+const COL_CTX_REGL = 'hsl(350, 30%, 48%)';
 
-const COL_CON_URB = 'hsl(155, 35%, 22%)';
-const COL_CON_REG = 'hsl(155, 25%, 38%)';
-const COL_CON_ECO = 'hsl(155, 22%, 48%)';
+const COL_CON_URB = 'hsl(0, 0%, 72%)';
+const COL_CON_REG = 'hsl(220, 25%, 55%)';
+const COL_CON_ECO = 'hsl(40, 25%, 88%)';
 
 const MAIN_CATEGORIES = [
   { key: 'dpub_contrats', label: 'Droit public éco. / contrats publics', color: COL_CONTRATS },

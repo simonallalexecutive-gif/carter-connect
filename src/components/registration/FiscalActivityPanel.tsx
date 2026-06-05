@@ -9,21 +9,21 @@ import { Check, TrendingUp, Gavel, FileCheck, Building2, Tag, BarChart3 } from '
 /* ── Palette ── */
 const COL_TRANSAC = 'hsl(0, 0%, 8%)';
 const COL_CONTENTIEUX = 'hsl(220, 45%, 18%)';
-const COL_CONSEIL = 'hsl(155, 35%, 22%)';
+const COL_CONSEIL = 'hsl(0, 0%, 28%)';
 
-const COL_TR_PE = 'hsl(0, 0%, 8%)';
-const COL_TR_MA = 'hsl(220, 45%, 18%)';
-const COL_TR_RESTR = 'hsl(220, 30%, 45%)';
-const COL_TR_INTL = 'hsl(220, 25%, 60%)';
+const COL_TR_PE = 'hsl(155, 35%, 22%)';
+const COL_TR_MA = 'hsl(350, 45%, 28%)';
+const COL_TR_RESTR = 'hsl(0, 0%, 48%)';
+const COL_TR_INTL = 'hsl(220, 35%, 35%)';
 
-const COL_CTX_CTRL = 'hsl(350, 45%, 28%)';
-const COL_CTX_POST = 'hsl(350, 35%, 38%)';
-const COL_CTX_NEGO = 'hsl(350, 25%, 52%)';
+const COL_CTX_CTRL = 'hsl(155, 25%, 40%)';
+const COL_CTX_POST = 'hsl(350, 30%, 48%)';
+const COL_CTX_NEGO = 'hsl(0, 0%, 72%)';
 
-const COL_CON_STRUCT = 'hsl(155, 35%, 22%)';
-const COL_CON_OPS = 'hsl(155, 25%, 38%)';
-const COL_CON_INTL = 'hsl(155, 22%, 48%)';
-const COL_CON_PATRI = 'hsl(155, 30%, 30%)';
+const COL_CON_STRUCT = 'hsl(220, 25%, 55%)';
+const COL_CON_OPS = 'hsl(40, 25%, 88%)';
+const COL_CON_INTL = 'hsl(0, 0%, 18%)';
+const COL_CON_PATRI = 'hsl(220, 50%, 12%)';
 
 const MAIN_CATEGORIES = [
   { key: 'fisc_transac', label: 'Fiscalité transactionnelle', color: COL_TRANSAC },
