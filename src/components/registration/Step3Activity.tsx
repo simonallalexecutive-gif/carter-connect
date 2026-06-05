@@ -15,10 +15,7 @@ import RestructuringActivityPanel from './RestructuringActivityPanel';
 import SocialActivityPanel from './SocialActivityPanel';
 import MaActivityPanel from './MaActivityPanel';
 import RealEstateActivityPanel from './RealEstateActivityPanel';
-import ConcurrenceActivityPanel from './ConcurrenceActivityPanel';
 import TaxActivityPanel from './TaxActivityPanel';
-import DroitPublicActivityPanel from './DroitPublicActivityPanel';
-import ArbitrationActivityPanel from './ArbitrationActivityPanel';
 import ProjectsEnergyActivityPanel from './ProjectsEnergyActivityPanel';
 
 // Palette neutre, sobre et professionnelle — alignée avec le récapitulatif
@@ -31,14 +28,17 @@ const CHART_COLORS = [
   'hsl(212, 16%, 52%)',    // Bleu acier mat
 ];
 
-// All departments that have a specialized panel (not the generic chip+pie fallback)
+// Practices selectable at Step 2 (Identity) that have a specialized panel
 const SPECIALIZED_DEPTS = [
-  // Legacy French names
-  'Financement LBO', 'Financement de projets', 'Restructuring', 'Restructuring/Insolvency',
-  'Droit Social', 'M&A (dominante)', 'Private Equity (dominante)', 'Immobilier', 'Real Estate',
-  // Chambers English labels
-  'Banking & Finance', 'Competition/European Law', 'Corporate/M&A', 'Employment',
-  'International Arbitration', 'Private Equity', 'Projects & Energy', 'Public Law', 'Tax',
+  'Banking & Finance',
+  'Restructuring/Insolvency',
+  'Employment',
+  'Corporate/M&A',
+  'Private Equity',
+  'Venture Capital',
+  'Real Estate',
+  'Tax',
+  'Projects & Energy',
 ];
 
 const Step3Activity = () => {
@@ -99,7 +99,7 @@ const Step3Activity = () => {
 
       <div className="space-y-8">
         {/* Specialized panels */}
-        {(store.departement === 'Financement LBO' || store.departement === 'Financement de projets' || store.departement === 'Banking & Finance') && practiceActivities.sections.filter(s => s.title === 'Type de financement').length > 0 ? (
+        {(store.departement === 'Banking & Finance') && practiceActivities.sections.filter(s => s.title === 'Type de financement').length > 0 ? (
           practiceActivities.sections.filter(s => s.title === 'Type de financement').map(section => (
             <div key={section.title}>
               <FinanceActivityPanel items={section.items} />
@@ -113,36 +113,24 @@ const Step3Activity = () => {
           ]} />
         ) : null}
 
-        {(store.departement === 'Restructuring' || store.departement === 'Restructuring/Insolvency') && (
+        {(store.departement === 'Restructuring/Insolvency') && (
           <RestructuringActivityPanel />
         )}
 
-        {(store.departement === 'Droit Social' || store.departement === 'Employment') && (
+        {(store.departement === 'Employment') && (
           <SocialActivityPanel />
         )}
 
-        {(store.departement === 'M&A (dominante)' || store.departement === 'Private Equity (dominante)' || store.departement === 'Corporate/M&A' || store.departement === 'Private Equity') && (
+        {(store.departement === 'Corporate/M&A' || store.departement === 'Private Equity' || store.departement === 'Venture Capital') && (
           <MaActivityPanel />
         )}
 
-        {(store.departement === 'Immobilier' || store.departement === 'Real Estate') && (
+        {(store.departement === 'Real Estate') && (
           <RealEstateActivityPanel />
-        )}
-
-        {(store.departement === 'Competition/European Law') && (
-          <ConcurrenceActivityPanel />
         )}
 
         {(store.departement === 'Tax') && (
           <TaxActivityPanel />
-        )}
-
-        {(store.departement === 'Public Law') && (
-          <DroitPublicActivityPanel />
-        )}
-
-        {(store.departement === 'International Arbitration') && (
-          <ArbitrationActivityPanel />
         )}
 
         {(store.departement === 'Projects & Energy') && (
