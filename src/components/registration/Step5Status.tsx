@@ -10,8 +10,7 @@ const Step5Status = () => {
   const store = useRegistrationStore();
   const isAdmin = store.isAdminMode;
 
-  const canProceed = isAdmin || (store.statutEcoute !== '' && store.visibilite !== '' &&
-    store.consentement && store.consentementExactitude && store.consentementMiseEnRelation);
+  const canProceed = true;
 
   return (
     <motion.div
@@ -110,7 +109,7 @@ const Step5Status = () => {
             <ArrowLeft className="w-4 h-4" />
             Retour
           </Button>
-          <Button onClick={store.nextStep} disabled={!canProceed} className="bg-foreground text-background hover:bg-foreground/90 font-sans font-medium rounded-sm gap-2">
+          <Button onClick={store.nextStep} className="bg-foreground text-background hover:bg-foreground/90 font-sans font-medium rounded-sm gap-2">
             Continuer
             <ArrowRight className="w-4 h-4" />
           </Button>
