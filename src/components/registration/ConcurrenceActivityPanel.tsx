@@ -4,7 +4,7 @@ import { Slider } from '@/components/ui/slider';
 import { cn } from '@/lib/utils';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import { useMemo } from 'react';
-import { useState as __unused_useState } from 'react';
+import { useState } from 'react';
 import { Check, Shield, Gavel, FileCheck, Building2, Scale } from 'lucide-react';
 
 /* ── Palette ── */
