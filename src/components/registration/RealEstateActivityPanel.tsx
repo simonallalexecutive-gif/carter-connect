@@ -8,11 +8,11 @@ import SquareGauge from '@/components/shared/SquareGauge';
 
 /* ── Palette ── */
 const COL_BAUX = 'hsl(0, 0%, 8%)';
-const COL_SHARE = 'hsl(220, 45%, 18%)';
-const COL_ASSET = 'hsl(0, 0%, 28%)';
-const COL_CONSTRUCTION = 'hsl(350, 45%, 28%)';
-const COL_FINANCEMENT = 'hsl(20, 75%, 32%)';
-const COL_CONTENTIEUX = 'hsl(0, 0%, 48%)';
+const COL_SHARE = 'hsl(220, 45%, 22%)';
+const COL_ASSET = 'hsl(0, 0%, 32%)';
+const COL_CONSTRUCTION = 'hsl(30, 12%, 50%)';
+const COL_FINANCEMENT = 'hsl(210, 35%, 58%)';
+const COL_CONTENTIEUX = 'hsl(35, 22%, 72%)';
 
 const ASSET_TYPES = [
   'Bureaux', 'Retail / Commerces', 'Logistique / Entrepôts',
@@ -21,7 +21,7 @@ const ASSET_TYPES = [
 
 const CONTENTIEUX_DOMAINES = ['Baux commerciaux', 'Construction', 'Post-acquisition/cession', 'Autre'] as const;
 
-const COL_URBANISME = 'hsl(220, 35%, 35%)';
+const COL_URBANISME = 'hsl(0, 0%, 78%)';
 
 const SHARE_DEAL_MODES = [
   { key: 'corporate_real_estate', label: 'Corporate Real Estate' },
@@ -281,11 +281,11 @@ const RealEstateActivityPanel = () => {
           <div className="space-y-2.5 pl-3 border-l-2 border-border">
             <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">Répartition interne</p>
 
-            <SquareGauge value={bauxVal} onChange={v => handleSubSlider('reBauxAM', v)} activeColor={COL_BAUX} label="Baux commerciaux / Asset Management" />
+            <SquareGauge value={bauxVal} onChange={v => handleSubSlider('reBauxAM', v)} label="Baux commerciaux / Asset Management" />
 
             {/* Share Deal + mode selection */}
             <div className="space-y-2">
-              <SquareGauge value={shareVal} onChange={v => handleSubSlider('reShareDeal', v)} activeColor={COL_SHARE} label="Share Deal" />
+              <SquareGauge value={shareVal} onChange={v => handleSubSlider('reShareDeal', v)} label="Share Deal" />
               <div className="pl-1 space-y-1.5">
                 {SHARE_DEAL_MODES.map(mode => {
                   const active = shareDealMode === mode.key;
@@ -307,9 +307,9 @@ const RealEstateActivityPanel = () => {
               </div>
             </div>
 
-            <SquareGauge value={assetVal} onChange={v => handleSubSlider('reAssetDealPct', v)} activeColor={COL_ASSET} label="Asset Deal" />
+            <SquareGauge value={assetVal} onChange={v => handleSubSlider('reAssetDealPct', v)} label="Asset Deal" />
 
-            <SquareGauge value={constructionVal} onChange={v => handleSubSlider('reConstructionPct', v)} activeColor={COL_CONSTRUCTION} label="Construction" />
+            <SquareGauge value={constructionVal} onChange={v => handleSubSlider('reConstructionPct', v)} label="Construction" />
           </div>
         </div>
 
@@ -328,7 +328,7 @@ const RealEstateActivityPanel = () => {
             {hasFinancement && (
               <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden">
                 <div className="pl-3 border-l-2 border-border mt-2 space-y-2">
-                  <SquareGauge value={financementPct} onChange={v => setField('reFinancementPct', v)} activeColor={COL_FINANCEMENT} label="Part dans l'activité globale" />
+                  <SquareGauge value={financementPct} onChange={v => setField('reFinancementPct', v)} label="Part dans l'activité globale" />
                 </div>
               </motion.div>
             )}
@@ -350,7 +350,7 @@ const RealEstateActivityPanel = () => {
             {hasContentieux && (
               <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden">
                 <div className="pl-3 border-l-2 border-border mt-2 space-y-4">
-                  <SquareGauge value={contentieuxPct} onChange={v => setField('reContentieuxPct', v)} activeColor={COL_CONTENTIEUX} label="Part dans l'activité globale" />
+                  <SquareGauge value={contentieuxPct} onChange={v => setField('reContentieuxPct', v)} label="Part dans l'activité globale" />
                   <div className="space-y-2">
                     <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">Dans quel(s) domaine(s) ?</p>
                     <div className="flex flex-wrap gap-2">
@@ -381,8 +381,8 @@ const RealEstateActivityPanel = () => {
             {store.reHasUrbanisme === true && (
               <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden">
                 <div className="pl-3 border-l-2 border-border mt-2 space-y-2">
-                  <SquareGauge value={store.reUrbanismeConseilPct ?? 50} onChange={v => setField('reUrbanismeConseilPct', v)} activeColor={COL_URBANISME} label="Part en conseil" />
-                  <SquareGauge value={store.reUrbanismeContentieuxPct ?? 50} onChange={v => setField('reUrbanismeContentieuxPct', v)} activeColor={COL_CONTENTIEUX} label="Part en contentieux" />
+                  <SquareGauge value={store.reUrbanismeConseilPct ?? 50} onChange={v => setField('reUrbanismeConseilPct', v)} label="Part en conseil" />
+                  <SquareGauge value={store.reUrbanismeContentieuxPct ?? 50} onChange={v => setField('reUrbanismeContentieuxPct', v)} label="Part en contentieux" />
                 </div>
               </motion.div>
             )}

@@ -8,20 +8,20 @@ import { Check, Landmark, Gavel, FileCheck, Building2, Tag, BarChart3 } from 'lu
 import { buildQuantizedChartData } from '@/lib/percentages';
 
 const COL_CONTRATS = 'hsl(0, 0%, 8%)';
-const COL_CONTENTIEUX = 'hsl(220, 45%, 18%)';
-const COL_CONSEIL = 'hsl(0, 0%, 28%)';
+const COL_CONTENTIEUX = 'hsl(220, 45%, 22%)';
+const COL_CONSEIL = 'hsl(0, 0%, 32%)';
 
-const COL_CT_CMD = 'hsl(350, 45%, 28%)';
-const COL_CT_CONC = 'hsl(20, 75%, 32%)';
-const COL_CT_PPP = 'hsl(0, 0%, 48%)';
+const COL_CT_CMD = 'hsl(30, 12%, 50%)';
+const COL_CT_CONC = 'hsl(210, 35%, 58%)';
+const COL_CT_PPP = 'hsl(35, 22%, 72%)';
 
-const COL_CTX_CONTRATS = 'hsl(220, 35%, 35%)';
-const COL_CTX_RESP = 'hsl(350, 35%, 42%)';
-const COL_CTX_REGL = 'hsl(15, 65%, 42%)';
+const COL_CTX_CONTRATS = 'hsl(0, 0%, 78%)';
+const COL_CTX_RESP = 'hsl(40, 28%, 90%)';
+const COL_CTX_REGL = 'hsl(0, 0%, 8%)';
 
-const COL_CON_URB = 'hsl(0, 0%, 72%)';
-const COL_CON_REG = 'hsl(220, 25%, 55%)';
-const COL_CON_ECO = 'hsl(40, 25%, 88%)';
+const COL_CON_URB = 'hsl(220, 45%, 22%)';
+const COL_CON_REG = 'hsl(0, 0%, 32%)';
+const COL_CON_ECO = 'hsl(30, 12%, 50%)';
 
 const MAIN_CATEGORIES = [
   { key: 'dpub_contrats', label: 'Droit public éco. / contrats publics', color: COL_CONTRATS },
@@ -272,7 +272,7 @@ const DroitPublicActivityPanel = () => {
                     <Slider value={[dpubPublique]} onValueChange={([v]) => store.setField('dpubPublique', v)} min={0} max={100} step={10} className="w-full" />
                     <div className="h-2.5 rounded-full overflow-hidden flex border border-border">
                       <div className="h-full transition-all duration-300" style={{ width: `${dpubPublique}%`, backgroundColor: COL_CONTRATS }} />
-                      <div className="h-full transition-all duration-300" style={{ width: `${100 - dpubPublique}%`, backgroundColor: 'hsl(0, 0%, 72%)' }} />
+                      <div className="h-full transition-all duration-300" style={{ width: `${100 - dpubPublique}%`, backgroundColor: 'hsl(220, 45%, 22%)' }} />
                     </div>
                     <div className="flex justify-between">
                       <span className="text-[10px] font-sans text-muted-foreground">Publique {dpubPublique}%</span>
@@ -337,7 +337,7 @@ const DroitPublicActivityPanel = () => {
                     <Slider value={[dpubCtxDefense]} onValueChange={([v]) => store.setField('dpubCtxDefense', v)} min={0} max={100} step={10} className="w-full" />
                     <div className="h-2.5 rounded-full overflow-hidden flex border border-border">
                       <div className="h-full transition-all duration-300" style={{ width: `${dpubCtxDefense}%`, backgroundColor: COL_CONTENTIEUX }} />
-                      <div className="h-full transition-all duration-300" style={{ width: `${100 - dpubCtxDefense}%`, backgroundColor: 'hsl(0, 0%, 72%)' }} />
+                      <div className="h-full transition-all duration-300" style={{ width: `${100 - dpubCtxDefense}%`, backgroundColor: 'hsl(220, 45%, 22%)' }} />
                     </div>
                     <div className="flex justify-between">
                       <span className="text-[10px] font-sans text-muted-foreground">Défense {dpubCtxDefense}%</span>

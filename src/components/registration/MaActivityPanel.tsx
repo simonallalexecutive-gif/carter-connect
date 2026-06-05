@@ -9,32 +9,32 @@ import { buildQuantizedChartData } from '@/lib/percentages';
 
 /* ── Palette ── */
 const COL_PE = 'hsl(0, 0%, 8%)';
-const COL_MA = 'hsl(220, 45%, 18%)';
-const COL_VC = 'hsl(0, 0%, 28%)';
+const COL_MA = 'hsl(220, 45%, 22%)';
+const COL_VC = 'hsl(0, 0%, 32%)';
 
-const COL_PE_LBO = 'hsl(350, 45%, 28%)';
-const COL_PE_MBO = 'hsl(20, 75%, 32%)';
-const COL_PE_PTP = 'hsl(0, 0%, 48%)';
-const COL_PE_PIPE = 'hsl(220, 35%, 35%)';
+const COL_PE_LBO = 'hsl(30, 12%, 50%)';
+const COL_PE_MBO = 'hsl(210, 35%, 58%)';
+const COL_PE_PTP = 'hsl(35, 22%, 72%)';
+const COL_PE_PIPE = 'hsl(0, 0%, 78%)';
 
-const COL_MA_PRIVATE = 'hsl(350, 35%, 42%)';
-const COL_MA_PUBLIC = 'hsl(15, 65%, 42%)';
+const COL_MA_PRIVATE = 'hsl(40, 28%, 90%)';
+const COL_MA_PUBLIC = 'hsl(0, 0%, 8%)';
 
-const COL_MA_INDUS = 'hsl(0, 0%, 72%)';
-const COL_MA_TECH = 'hsl(220, 25%, 55%)';
-const COL_MA_SANTE = 'hsl(40, 25%, 88%)';
-const COL_MA_ENERGY = 'hsl(0, 0%, 18%)';
-const COL_MA_SERVICES = 'hsl(220, 50%, 12%)';
-const COL_MA_INFRA = 'hsl(350, 55%, 18%)';
+const COL_MA_INDUS = 'hsl(220, 45%, 22%)';
+const COL_MA_TECH = 'hsl(0, 0%, 32%)';
+const COL_MA_SANTE = 'hsl(30, 12%, 50%)';
+const COL_MA_ENERGY = 'hsl(210, 35%, 58%)';
+const COL_MA_SERVICES = 'hsl(35, 22%, 72%)';
+const COL_MA_INFRA = 'hsl(0, 0%, 78%)';
 
-const COL_MA_OPA = 'hsl(25, 70%, 50%)';
-const COL_MA_OPE = 'hsl(0, 0%, 38%)';
-const COL_MA_SQUEEZE = 'hsl(220, 30%, 28%)';
-const COL_MA_DUAL = 'hsl(350, 30%, 55%)';
+const COL_MA_OPA = 'hsl(40, 28%, 90%)';
+const COL_MA_OPE = 'hsl(0, 0%, 8%)';
+const COL_MA_SQUEEZE = 'hsl(220, 45%, 22%)';
+const COL_MA_DUAL = 'hsl(0, 0%, 32%)';
 
-const COL_VC_LEVEES = 'hsl(30, 60%, 55%)';
+const COL_VC_LEVEES = 'hsl(30, 12%, 50%)';
 const COL_VC_CORP = 'hsl(0, 0%, 8%)';
-const COL_VC_SECONDARY = 'hsl(220, 45%, 18%)';
+const COL_VC_SECONDARY = 'hsl(220, 45%, 22%)';
 
 /* ── PE sub-activities ── */
 const PE_SUBS = [
@@ -91,7 +91,7 @@ const VC_SECTEURS = [
   'Deep tech', 'Consumer / D2C', 'Marketplace / Plateforme', 'Impact / ESG',
 ];
 
-const COL_CLI = ['hsl(0, 0%, 8%)', 'hsl(220, 45%, 18%)', 'hsl(0, 0%, 28%)', 'hsl(350, 45%, 28%)', 'hsl(20, 75%, 32%)', 'hsl(0, 0%, 48%)'];
+const COL_CLI = ['hsl(0, 0%, 8%)', 'hsl(220, 45%, 22%)', 'hsl(0, 0%, 32%)', 'hsl(30, 12%, 50%)', 'hsl(210, 35%, 58%)', 'hsl(35, 22%, 72%)'];
 
 const tooltipStyle = {
   fontSize: '11px', fontFamily: 'Inter',
@@ -324,7 +324,6 @@ const MaActivityPanel = () => {
                     key={c.key}
                     value={store.pourcentages[c.key] || 10}
                     onChange={v => handlePct(c.key, v)}
-                    activeColor={c.color}
                     label={`${c.label} (${pct}%)`}
                   />
                 );
@@ -353,7 +352,7 @@ const MaActivityPanel = () => {
                   const total = PE_SUBS.reduce((s, ss) => s + (vals[ss.key] ?? 25), 0);
                   const pct = total > 0 ? Math.round((raw / total) * 100) : 0;
                   return (
-                    <SquareGauge key={sub.key} value={raw} onChange={v => handleSub('ma_pe', sub.key, v)} activeColor={sub.color} label={`${sub.label} (${pct}%)`} />
+                    <SquareGauge key={sub.key} value={raw} onChange={v => handleSub('ma_pe', sub.key, v)} label={`${sub.label} (${pct}%)`} />
                   );
                 })}
               </div>
@@ -363,7 +362,7 @@ const MaActivityPanel = () => {
             <div className="space-y-2">
               <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">Clientèle</p>
               <div className="pl-3 border-l-2 border-border space-y-2">
-                <SquareGauge value={peFonds} onChange={v => store.setField('maPeFonds', v)} activeColor={COL_PE} label="Côté fonds" />
+                <SquareGauge value={peFonds} onChange={v => store.setField('maPeFonds', v)} label="Côté fonds" />
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-sans text-foreground">Côté management</span>
                   <span className="text-xs font-sans font-bold text-foreground tabular-nums">{100 - peFonds}%</span>
@@ -393,7 +392,7 @@ const MaActivityPanel = () => {
                   const total = MA_TYPES.reduce((s, ss) => s + (vals[ss.key] ?? 50), 0);
                   const pct = total > 0 ? Math.round((raw / total) * 100) : 0;
                   return (
-                    <SquareGauge key={sub.key} value={raw} onChange={v => handleSub('ma_ma', sub.key, v)} activeColor={sub.color} label={`${sub.label} (${pct}%)`} />
+                    <SquareGauge key={sub.key} value={raw} onChange={v => handleSub('ma_ma', sub.key, v)} label={`${sub.label} (${pct}%)`} />
                   );
                 })}
               </div>
@@ -431,7 +430,7 @@ const MaActivityPanel = () => {
             <div className="space-y-2">
               <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">Positionnement M&A</p>
               <div className="pl-3 border-l-2 border-border space-y-2">
-                <SquareGauge value={maSanteVendeur} onChange={v => store.setField('maSanteVendeur', v)} activeColor={COL_MA} label="Côté vendeur / cédant" />
+                <SquareGauge value={maSanteVendeur} onChange={v => store.setField('maSanteVendeur', v)} label="Côté vendeur / cédant" />
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-sans text-foreground">Côté acquéreur</span>
                   <span className="text-xs font-sans font-bold text-foreground tabular-nums">{100 - maSanteVendeur}%</span>
@@ -473,7 +472,7 @@ const MaActivityPanel = () => {
                   const total = VC_SUBS.reduce((s, ss) => s + (vals[ss.key] ?? Math.round(100 / VC_SUBS.length)), 0);
                   const pct = total > 0 ? Math.round((raw / total) * 100) : 0;
                   return (
-                    <SquareGauge key={sub.key} value={raw} onChange={v => handleSub('ma_vc', sub.key, v)} activeColor={sub.color} label={`${sub.label} (${pct}%)`} />
+                    <SquareGauge key={sub.key} value={raw} onChange={v => handleSub('ma_vc', sub.key, v)} label={`${sub.label} (${pct}%)`} />
                   );
                 })}
               </div>
@@ -483,7 +482,7 @@ const MaActivityPanel = () => {
             <div className="space-y-2">
               <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">Positionnement</p>
               <div className="pl-3 border-l-2 border-border space-y-2">
-                <SquareGauge value={vcFonds} onChange={v => store.setField('maVcFonds', v)} activeColor={COL_VC} label="Côté investisseurs / fonds" />
+                <SquareGauge value={vcFonds} onChange={v => store.setField('maVcFonds', v)} label="Côté investisseurs / fonds" />
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-sans text-foreground">Côté fondateurs / management</span>
                   <span className="text-xs font-sans font-bold text-foreground tabular-nums">{100 - vcFonds}%</span>
@@ -517,7 +516,7 @@ const MaActivityPanel = () => {
         <div className="border-t border-border pt-5 space-y-2.5">
           <p className="text-sm font-sans font-medium text-foreground">Origine de la clientèle</p>
           <div className="pl-3 border-l-2 border-border space-y-2">
-            <SquareGauge value={store.clienteleFrancaise} onChange={v => store.setField('clienteleFrancaise', v)} activeColor={COL_PE} label="Française" />
+            <SquareGauge value={store.clienteleFrancaise} onChange={v => store.setField('clienteleFrancaise', v)} label="Française" />
             <div className="flex items-center justify-between">
               <span className="text-xs font-sans text-foreground">Étrangère</span>
               <span className="text-xs font-sans font-bold text-foreground tabular-nums">{100 - store.clienteleFrancaise}%</span>

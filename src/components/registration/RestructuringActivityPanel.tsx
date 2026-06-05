@@ -9,13 +9,13 @@ import { buildQuantizedChartData } from '@/lib/percentages';
 
 /* ── Palette ── */
 const COL_AMIABLE = 'hsl(0, 0%, 8%)';
-const COL_JUDICIAIRE = 'hsl(220, 45%, 18%)';
-const COL_FINANCIER = 'hsl(0, 0%, 28%)';
-const COL_DISTRESSED = 'hsl(350, 45%, 28%)';
-const COL_CONTENTIEUX = 'hsl(20, 75%, 32%)';
+const COL_JUDICIAIRE = 'hsl(220, 45%, 22%)';
+const COL_FINANCIER = 'hsl(0, 0%, 32%)';
+const COL_DISTRESSED = 'hsl(30, 12%, 50%)';
+const COL_CONTENTIEUX = 'hsl(210, 35%, 58%)';
 
-const COL_POS = ['hsl(0, 0%, 8%)', 'hsl(220, 45%, 18%)', 'hsl(0, 0%, 28%)'];
-const COL_CLI = ['hsl(0, 0%, 8%)', 'hsl(220, 45%, 18%)', 'hsl(0, 0%, 28%)', 'hsl(350, 45%, 28%)', 'hsl(20, 75%, 32%)', 'hsl(0, 0%, 48%)'];
+const COL_POS = ['hsl(0, 0%, 8%)', 'hsl(220, 45%, 22%)', 'hsl(0, 0%, 32%)'];
+const COL_CLI = ['hsl(0, 0%, 8%)', 'hsl(220, 45%, 22%)', 'hsl(0, 0%, 32%)', 'hsl(30, 12%, 50%)', 'hsl(210, 35%, 58%)', 'hsl(35, 22%, 72%)'];
 
 const POSITIONNEMENT_OPTIONS = ['Côté débiteur', 'Côté créancier', 'Côté repreneur / investisseur'];
 const CLIENTELE_OPTIONS = ['ETI', 'PME', 'Grands groupes', 'Banques', 'Fonds', 'AJ/MJ'];
@@ -238,7 +238,7 @@ const RestructuringActivityPanel = () => {
 
           <div className="space-y-2.5 pl-3 border-l-2 border-border">
             <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">Amiable vs Judiciaire</p>
-            <SquareGauge value={amiableVal} onChange={handleAmiableChange} activeColor={COL_AMIABLE} label="Amiable (mandat ad hoc, conciliation)" />
+            <SquareGauge value={amiableVal} onChange={handleAmiableChange} label="Amiable (mandat ad hoc, conciliation)" />
             <div className="flex items-center justify-between">
               <span className="text-xs font-sans text-foreground">Judiciaire <span className="text-muted-foreground">(sauvegarde, RJ, LJ)</span></span>
               <span className="text-xs font-sans font-bold text-foreground tabular-nums">{judiciaireVal}%</span>
@@ -247,20 +247,20 @@ const RestructuringActivityPanel = () => {
 
           <div className="space-y-2.5 pl-3 border-l-2 border-border">
             <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">Dont restructuring financier <span className="normal-case">(au sein de l'amiable)</span></p>
-            <SquareGauge value={restrFinancier} onChange={(v) => store.setField('restrFinancier', v)} activeColor={COL_FINANCIER} label={`Restructuring financier : ${financierPct}% de l'activité totale`} />
+            <SquareGauge value={restrFinancier} onChange={(v) => store.setField('restrFinancier', v)} label={`Restructuring financier : ${financierPct}% de l'activité totale`} />
           </div>
         </div>
 
         {/* ═══════ DISTRESSED M&A ═══════ */}
         <div className="border-t border-border pt-5 space-y-2.5">
           <p className="text-sm font-sans font-medium text-foreground">Distressed M&A / Reprises</p>
-          <SquareGauge value={distressedVal} onChange={handleDistressedChange} max={80} activeColor={COL_DISTRESSED} label="Part dans l'activité globale" />
+          <SquareGauge value={distressedVal} onChange={handleDistressedChange} max={80} label="Part dans l'activité globale" />
         </div>
 
         {/* ═══════ CONTENTIEUX ═══════ */}
         <div className="border-t border-border pt-5 space-y-2.5">
           <p className="text-sm font-sans font-medium text-foreground">Contentieux des affaires</p>
-          <SquareGauge value={contentieuxVal} onChange={handleContentieuxChange} max={80} activeColor={COL_CONTENTIEUX} label="Part dans l'activité globale" />
+          <SquareGauge value={contentieuxVal} onChange={handleContentieuxChange} max={80} label="Part dans l'activité globale" />
         </div>
 
         {/* ═══════ POSITIONNEMENT ═══════ */}

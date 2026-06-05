@@ -8,22 +8,22 @@ import { Check, TrendingUp, Gavel, FileCheck, Building2, Tag, BarChart3 } from '
 
 /* ── Palette ── */
 const COL_TRANSAC = 'hsl(0, 0%, 8%)';
-const COL_CONTENTIEUX = 'hsl(220, 45%, 18%)';
-const COL_CONSEIL = 'hsl(0, 0%, 28%)';
+const COL_CONTENTIEUX = 'hsl(220, 45%, 22%)';
+const COL_CONSEIL = 'hsl(0, 0%, 32%)';
 
-const COL_TR_PE = 'hsl(350, 45%, 28%)';
-const COL_TR_MA = 'hsl(20, 75%, 32%)';
-const COL_TR_RESTR = 'hsl(0, 0%, 48%)';
-const COL_TR_INTL = 'hsl(220, 35%, 35%)';
+const COL_TR_PE = 'hsl(30, 12%, 50%)';
+const COL_TR_MA = 'hsl(210, 35%, 58%)';
+const COL_TR_RESTR = 'hsl(35, 22%, 72%)';
+const COL_TR_INTL = 'hsl(0, 0%, 78%)';
 
-const COL_CTX_CTRL = 'hsl(350, 35%, 42%)';
-const COL_CTX_POST = 'hsl(15, 65%, 42%)';
-const COL_CTX_NEGO = 'hsl(0, 0%, 72%)';
+const COL_CTX_CTRL = 'hsl(40, 28%, 90%)';
+const COL_CTX_POST = 'hsl(0, 0%, 8%)';
+const COL_CTX_NEGO = 'hsl(220, 45%, 22%)';
 
-const COL_CON_STRUCT = 'hsl(220, 25%, 55%)';
-const COL_CON_OPS = 'hsl(40, 25%, 88%)';
-const COL_CON_INTL = 'hsl(0, 0%, 18%)';
-const COL_CON_PATRI = 'hsl(220, 50%, 12%)';
+const COL_CON_STRUCT = 'hsl(0, 0%, 32%)';
+const COL_CON_OPS = 'hsl(30, 12%, 50%)';
+const COL_CON_INTL = 'hsl(210, 35%, 58%)';
+const COL_CON_PATRI = 'hsl(35, 22%, 72%)';
 
 const MAIN_CATEGORIES = [
   { key: 'fisc_transac', label: 'Fiscalité transactionnelle', color: COL_TRANSAC },
@@ -311,7 +311,7 @@ const FiscalActivityPanel = () => {
                     <Slider value={[fiscInvestisseur]} onValueChange={([v]) => store.setField('fiscInvestisseur', v)} min={0} max={100} step={10} className="w-full" />
                     <div className="h-2.5 rounded-full overflow-hidden flex border border-border">
                       <div className="h-full transition-all duration-300" style={{ width: `${fiscInvestisseur}%`, backgroundColor: COL_TRANSAC }} />
-                      <div className="h-full transition-all duration-300" style={{ width: `${100 - fiscInvestisseur}%`, backgroundColor: 'hsl(0, 0%, 72%)' }} />
+                      <div className="h-full transition-all duration-300" style={{ width: `${100 - fiscInvestisseur}%`, backgroundColor: 'hsl(220, 45%, 22%)' }} />
                     </div>
                     <div className="flex justify-between">
                       <span className="text-[10px] font-sans text-muted-foreground">Investisseur {fiscInvestisseur}%</span>
@@ -380,7 +380,7 @@ const FiscalActivityPanel = () => {
                     <Slider value={[fiscCtxDefense]} onValueChange={([v]) => store.setField('fiscCtxDefense', v)} min={0} max={100} step={10} className="w-full" />
                     <div className="h-2.5 rounded-full overflow-hidden flex border border-border">
                       <div className="h-full transition-all duration-300" style={{ width: `${fiscCtxDefense}%`, backgroundColor: COL_CONTENTIEUX }} />
-                      <div className="h-full transition-all duration-300" style={{ width: `${100 - fiscCtxDefense}%`, backgroundColor: 'hsl(0, 0%, 72%)' }} />
+                      <div className="h-full transition-all duration-300" style={{ width: `${100 - fiscCtxDefense}%`, backgroundColor: 'hsl(220, 45%, 22%)' }} />
                     </div>
                     <div className="flex justify-between">
                       <span className="text-[10px] font-sans text-muted-foreground">Défense {fiscCtxDefense}%</span>

@@ -8,11 +8,11 @@ import SquareGauge from '@/components/shared/SquareGauge';
 
 /* ── Palette ── */
 const COL_CONSEIL = 'hsl(0, 0%, 8%)';
-const COL_CONTENTIEUX = 'hsl(220, 45%, 18%)';
-const COL_INDIV = 'hsl(0, 0%, 28%)';
-const COL_COLL = 'hsl(350, 45%, 28%)';
-const COL_EMPLOYEUR = 'hsl(20, 75%, 32%)';
-const COL_SALARIE = 'hsl(0, 0%, 48%)';
+const COL_CONTENTIEUX = 'hsl(220, 45%, 22%)';
+const COL_INDIV = 'hsl(0, 0%, 32%)';
+const COL_COLL = 'hsl(30, 12%, 50%)';
+const COL_EMPLOYEUR = 'hsl(210, 35%, 58%)';
+const COL_SALARIE = 'hsl(35, 22%, 72%)';
 
 const POSITIONNEMENT_CABINET = [
   { key: 'standalone', label: 'Stand alone' },
@@ -104,13 +104,13 @@ const SocialActivityPanel = () => {
       const cIndiv = Math.round(conseilPct * indivWeight);
       const cColl = conseilPct - cIndiv;
       if (cIndiv > 0) segments.push({ name: 'Conseil – Individuel', value: cIndiv, color: COL_CONSEIL });
-      if (cColl > 0) segments.push({ name: 'Conseil – Collectif', value: cColl, color: 'hsl(220, 35%, 35%)' });
+      if (cColl > 0) segments.push({ name: 'Conseil – Collectif', value: cColl, color: 'hsl(0, 0%, 78%)' });
     }
     if (contentieuxPct > 0) {
       const xIndiv = Math.round(contentieuxPct * indivWeight);
       const xColl = contentieuxPct - xIndiv;
       if (xIndiv > 0) segments.push({ name: 'Contentieux – Individuel', value: xIndiv, color: COL_CONTENTIEUX });
-      if (xColl > 0) segments.push({ name: 'Contentieux – Collectif', value: xColl, color: 'hsl(0, 0%, 72%)' });
+      if (xColl > 0) segments.push({ name: 'Contentieux – Collectif', value: xColl, color: 'hsl(40, 28%, 90%)' });
     }
     return segments;
   }, [conseilPct, contentieuxPct, relationType, indivPct, collPct]);
@@ -224,7 +224,7 @@ const SocialActivityPanel = () => {
         <div className="space-y-4">
           <p className="text-sm font-sans font-medium text-foreground">Conseil vs Contentieux</p>
           <div className="space-y-2.5 pl-3 border-l-2 border-border">
-            <SquareGauge value={conseilPct} onChange={v => store.setField('socialConseil', v)} activeColor={COL_CONSEIL} label="Conseil" />
+            <SquareGauge value={conseilPct} onChange={v => store.setField('socialConseil', v)} label="Conseil" />
             <div className="flex items-center justify-between">
               <span className="text-xs font-sans text-foreground">Contentieux</span>
               <span className="text-xs font-sans font-bold text-foreground tabular-nums">{contentieuxPct}%</span>
@@ -251,7 +251,7 @@ const SocialActivityPanel = () => {
             {relationType === 'les_deux' && (
               <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden">
                 <div className="pl-3 border-l-2 border-border mt-2 space-y-2">
-                  <SquareGauge value={indivPct} onChange={v => store.setField('socialIndividuel', v)} activeColor={COL_INDIV} label="Individuelles" />
+                  <SquareGauge value={indivPct} onChange={v => store.setField('socialIndividuel', v)} label="Individuelles" />
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-sans text-foreground">Collectives</span>
                     <span className="text-xs font-sans font-bold text-foreground tabular-nums">{collPct}%</span>
@@ -266,7 +266,7 @@ const SocialActivityPanel = () => {
         <div className="border-t border-border pt-5 space-y-2.5">
           <p className="text-sm font-sans font-medium text-foreground">Positionnement</p>
           <div className="pl-3 border-l-2 border-border space-y-2">
-            <SquareGauge value={employeurPct} onChange={v => store.setField('socialEmployeur', v)} activeColor={COL_EMPLOYEUR} label="Côté employeur" />
+            <SquareGauge value={employeurPct} onChange={v => store.setField('socialEmployeur', v)} label="Côté employeur" />
             <div className="flex items-center justify-between">
               <span className="text-xs font-sans text-foreground">Côté salarié / dirigeant</span>
               <span className="text-xs font-sans font-bold text-foreground tabular-nums">{salariePct}%</span>
@@ -286,7 +286,6 @@ const SocialActivityPanel = () => {
                   key={item.key}
                   value={raw}
                   onChange={v => handlePosCabinet(item.key, v)}
-                  activeColor={COL_CONSEIL}
                   label={`${item.label} (${pct}%)`}
                 />
               );
@@ -310,7 +309,7 @@ const SocialActivityPanel = () => {
         <div className="border-t border-border pt-5 space-y-2.5">
           <p className="text-sm font-sans font-medium text-foreground">Origine de la clientèle</p>
           <div className="pl-3 border-l-2 border-border space-y-2">
-            <SquareGauge value={store.clienteleFrancaise} onChange={v => store.setField('clienteleFrancaise', v)} activeColor={COL_CONSEIL} label="Française" />
+            <SquareGauge value={store.clienteleFrancaise} onChange={v => store.setField('clienteleFrancaise', v)} label="Française" />
             <div className="flex items-center justify-between">
               <span className="text-xs font-sans text-foreground">Étrangère</span>
               <span className="text-xs font-sans font-bold text-foreground tabular-nums">{100 - store.clienteleFrancaise}%</span>

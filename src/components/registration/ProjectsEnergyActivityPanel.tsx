@@ -8,10 +8,10 @@ import SquareGauge from '@/components/shared/SquareGauge';
 
 /* ── Palette ── */
 const COL_INFRA = 'hsl(0, 0%, 8%)';
-const COL_ENR = 'hsl(220, 45%, 18%)';
-const COL_CONCESSION = 'hsl(0, 0%, 28%)';
-const COL_FIN = 'hsl(350, 45%, 28%)';
-const COL_REGL = 'hsl(20, 75%, 32%)';
+const COL_ENR = 'hsl(220, 45%, 22%)';
+const COL_CONCESSION = 'hsl(0, 0%, 32%)';
+const COL_FIN = 'hsl(30, 12%, 50%)';
+const COL_REGL = 'hsl(210, 35%, 58%)';
 
 const TYPES_PROJETS = [
   { key: 'proj_infra', label: 'Infrastructures', color: COL_INFRA },

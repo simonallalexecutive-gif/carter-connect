@@ -8,9 +8,9 @@ import SquareGauge from '@/components/shared/SquareGauge';
 
 /* ── Palette ── */
 const COL_COMMERCIAL = 'hsl(0, 0%, 8%)';
-const COL_INVEST = 'hsl(220, 45%, 18%)';
-const COL_CONSTRUCTION = 'hsl(0, 0%, 28%)';
-const COL_SPORT = 'hsl(350, 45%, 28%)';
+const COL_INVEST = 'hsl(220, 45%, 22%)';
+const COL_CONSTRUCTION = 'hsl(0, 0%, 32%)';
+const COL_SPORT = 'hsl(30, 12%, 50%)';
 
 const TYPES_ARBITRAGE = [
   { key: 'arb_commercial', label: 'Arbitrage commercial', color: COL_COMMERCIAL },
