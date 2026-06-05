@@ -8,33 +8,33 @@ import SquareGauge from '@/components/shared/SquareGauge';
 import { buildQuantizedChartData } from '@/lib/percentages';
 
 /* ── Palette ── */
-const COL_PE = 'hsl(0, 0%, 11%)';
-const COL_MA = 'hsl(195, 50%, 28%)';
-const COL_VC = 'hsl(160, 35%, 32%)';
+const COL_PE = 'hsl(0, 0%, 8%)';
+const COL_MA = 'hsl(220, 45%, 18%)';
+const COL_VC = 'hsl(155, 35%, 22%)';
 
-const COL_PE_LBO = 'hsl(0, 0%, 11%)';
-const COL_PE_MBO = 'hsl(195, 50%, 28%)';
-const COL_PE_PTP = 'hsl(0, 0%, 30%)';
-const COL_PE_PIPE = 'hsl(0, 0%, 60%)';
+const COL_PE_LBO = 'hsl(0, 0%, 8%)';
+const COL_PE_MBO = 'hsl(220, 45%, 18%)';
+const COL_PE_PTP = 'hsl(0, 0%, 28%)';
+const COL_PE_PIPE = 'hsl(0, 0%, 72%)';
 
-const COL_MA_PRIVATE = 'hsl(0, 0%, 11%)';
-const COL_MA_PUBLIC = 'hsl(195, 50%, 28%)';
+const COL_MA_PRIVATE = 'hsl(0, 0%, 8%)';
+const COL_MA_PUBLIC = 'hsl(220, 45%, 18%)';
 
-const COL_MA_INDUS = 'hsl(0, 0%, 30%)';
-const COL_MA_TECH = 'hsl(0, 0%, 45%)';
-const COL_MA_SANTE = 'hsl(160, 35%, 32%)';
-const COL_MA_ENERGY = 'hsl(215, 55%, 22%)';
-const COL_MA_SERVICES = 'hsl(0, 0%, 60%)';
-const COL_MA_INFRA = 'hsl(200, 30%, 20%)';
+const COL_MA_INDUS = 'hsl(0, 0%, 28%)';
+const COL_MA_TECH = 'hsl(0, 0%, 48%)';
+const COL_MA_SANTE = 'hsl(155, 35%, 22%)';
+const COL_MA_ENERGY = 'hsl(220, 45%, 18%)';
+const COL_MA_SERVICES = 'hsl(0, 0%, 72%)';
+const COL_MA_INFRA = 'hsl(220, 45%, 18%)';
 
-const COL_MA_OPA = 'hsl(0, 0%, 11%)';
-const COL_MA_OPE = 'hsl(42, 28%, 52%)';
-const COL_MA_SQUEEZE = 'hsl(36, 25%, 58%)';
-const COL_MA_DUAL = 'hsl(44, 22%, 48%)';
+const COL_MA_OPA = 'hsl(0, 0%, 8%)';
+const COL_MA_OPE = 'hsl(40, 25%, 88%)';
+const COL_MA_SQUEEZE = 'hsl(40, 22%, 78%)';
+const COL_MA_DUAL = 'hsl(350, 30%, 45%)';
 
-const COL_VC_LEVEES = 'hsl(155, 35%, 35%)';
-const COL_VC_CORP = 'hsl(170, 30%, 48%)';
-const COL_VC_SECONDARY = 'hsl(145, 25%, 55%)';
+const COL_VC_LEVEES = 'hsl(155, 35%, 22%)';
+const COL_VC_CORP = 'hsl(155, 25%, 38%)';
+const COL_VC_SECONDARY = 'hsl(155, 25%, 38%)';
 
 /* ── PE sub-activities ── */
 const PE_SUBS = [
@@ -91,7 +91,7 @@ const VC_SECTEURS = [
   'Deep tech', 'Consumer / D2C', 'Marketplace / Plateforme', 'Impact / ESG',
 ];
 
-const COL_CLI = ['hsl(215, 55%, 22%)', 'hsl(210, 20%, 42%)', 'hsl(200, 12%, 55%)', 'hsl(220, 15%, 35%)', 'hsl(0, 0%, 11%)', 'hsl(210, 10%, 62%)'];
+const COL_CLI = ['hsl(220, 45%, 18%)', 'hsl(0, 0%, 48%)', 'hsl(0, 0%, 68%)', 'hsl(0, 0%, 28%)', 'hsl(0, 0%, 8%)', 'hsl(0, 0%, 72%)'];
 
 const tooltipStyle = {
   fontSize: '11px', fontFamily: 'Inter',

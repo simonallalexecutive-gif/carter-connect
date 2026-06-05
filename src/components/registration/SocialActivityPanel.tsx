@@ -7,12 +7,12 @@ import { Check } from 'lucide-react';
 import SquareGauge from '@/components/shared/SquareGauge';
 
 /* ── Palette ── */
-const COL_CONSEIL = 'hsl(0, 0%, 11%)';
-const COL_CONTENTIEUX = 'hsl(0, 0%, 30%)';
-const COL_INDIV = 'hsl(200, 50%, 45%)';
-const COL_COLL = 'hsl(215, 45%, 38%)';
-const COL_EMPLOYEUR = 'hsl(160, 35%, 40%)';
-const COL_SALARIE = 'hsl(45, 50%, 50%)';
+const COL_CONSEIL = 'hsl(0, 0%, 8%)';
+const COL_CONTENTIEUX = 'hsl(0, 0%, 28%)';
+const COL_INDIV = 'hsl(220, 35%, 32%)';
+const COL_COLL = 'hsl(220, 35%, 32%)';
+const COL_EMPLOYEUR = 'hsl(155, 30%, 30%)';
+const COL_SALARIE = 'hsl(40, 25%, 88%)';
 
 const POSITIONNEMENT_CABINET = [
   { key: 'standalone', label: 'Stand alone' },
@@ -104,13 +104,13 @@ const SocialActivityPanel = () => {
       const cIndiv = Math.round(conseilPct * indivWeight);
       const cColl = conseilPct - cIndiv;
       if (cIndiv > 0) segments.push({ name: 'Conseil – Individuel', value: cIndiv, color: COL_CONSEIL });
-      if (cColl > 0) segments.push({ name: 'Conseil – Collectif', value: cColl, color: 'hsl(195, 50%, 28%)' });
+      if (cColl > 0) segments.push({ name: 'Conseil – Collectif', value: cColl, color: 'hsl(220, 45%, 18%)' });
     }
     if (contentieuxPct > 0) {
       const xIndiv = Math.round(contentieuxPct * indivWeight);
       const xColl = contentieuxPct - xIndiv;
       if (xIndiv > 0) segments.push({ name: 'Contentieux – Individuel', value: xIndiv, color: COL_CONTENTIEUX });
-      if (xColl > 0) segments.push({ name: 'Contentieux – Collectif', value: xColl, color: 'hsl(0, 0%, 60%)' });
+      if (xColl > 0) segments.push({ name: 'Contentieux – Collectif', value: xColl, color: 'hsl(0, 0%, 72%)' });
     }
     return segments;
   }, [conseilPct, contentieuxPct, relationType, indivPct, collPct]);

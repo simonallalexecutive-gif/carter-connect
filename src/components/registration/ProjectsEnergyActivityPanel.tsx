@@ -7,11 +7,11 @@ import { Check } from 'lucide-react';
 import SquareGauge from '@/components/shared/SquareGauge';
 
 /* ── Palette ── */
-const COL_INFRA = 'hsl(0, 0%, 11%)';
-const COL_ENR = 'hsl(160, 35%, 32%)';
-const COL_CONCESSION = 'hsl(0, 0%, 30%)';
-const COL_FIN = 'hsl(0, 0%, 45%)';
-const COL_REGL = 'hsl(195, 50%, 28%)';
+const COL_INFRA = 'hsl(0, 0%, 8%)';
+const COL_ENR = 'hsl(155, 35%, 22%)';
+const COL_CONCESSION = 'hsl(0, 0%, 28%)';
+const COL_FIN = 'hsl(0, 0%, 48%)';
+const COL_REGL = 'hsl(220, 45%, 18%)';
 
 const TYPES_PROJETS = [
   { key: 'proj_infra', label: 'Infrastructures', color: COL_INFRA },
