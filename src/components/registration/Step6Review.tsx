@@ -72,13 +72,8 @@ const ARB_TYPES = [
   { key: 'arb_sport', label: 'Arbitrage sportif', color: PALETTE.pearl },
 ];
 
-const PROJ_TYPES = [
-  { key: 'proj_infra', label: 'Infrastructures', color: PALETTE.blue },
-  { key: 'proj_enr', label: 'Énergie renouvelable', color: PALETTE.emerald },
-  { key: 'proj_concession', label: 'Concessions / PPP', color: PALETTE.gold },
-  { key: 'proj_fin', label: 'Financement de projets', color: PALETTE.terra },
-  { key: 'proj_regl', label: 'Réglementaire / permitting', color: PALETTE.mauve },
-];
+
+
 
 const RESTRUCTURING_COLORS = {
   amiable: PALETTE.blue,
@@ -136,8 +131,6 @@ const DEPT_TO_CHAMBERS: Record<string, string> = {
   'Public Law': 'public',
   // Arbitration
   'International Arbitration': 'arbitrage',
-  // Projets
-  'Projects & Energy': 'projets',
   // Immobilier
   'Immobilier': 'immo',
   'Real Estate': 'immo',
@@ -337,10 +330,6 @@ const Step6Review = ({ readOnly = false }: Step6ReviewProps = {}) => {
       return { chartData: buildCategoryChart(ARB_TYPES, store.activites, store.pourcentages), positionnement: [], clientele: [] };
     }
 
-    // ── Projects & Energy ──
-    if (dept === 'Projects & Energy') {
-      return { chartData: buildCategoryChart(PROJ_TYPES, store.activites, store.pourcentages), positionnement: [], clientele: [] };
-    }
 
     // ── Generic fallback ──
     return {
