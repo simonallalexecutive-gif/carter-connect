@@ -30,7 +30,7 @@ const FILTERS = [
   { key: 'restructuring', label: 'Restructuring/Insolvency' },
   { key: 'social', label: 'Employment' },
   { key: 'immo', label: 'Real Estate' },
-  
+  { key: 'projets', label: 'Projects & Energy' },
   { key: 'tax', label: 'Tax' },
   { key: 'new', label: 'New', icon: Star },
 ];
@@ -702,6 +702,12 @@ function getCoherentActivity(p: CabinetProfile): {
         split: { 'Transactions immobilières': 70, 'Baux commerciaux': 30 },
         positioning: 'Côté investisseur',
         clientele: 'Foncières & SCPI',
+      };
+    case 'projets':
+      return {
+        split: { 'Énergies renouvelables': 70, 'Infrastructures': 30 },
+        positioning: 'Côté sponsor',
+        clientele: 'Producteurs indépendants',
       };
     case 'tax':
       return {
