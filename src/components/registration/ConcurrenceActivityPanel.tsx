@@ -9,19 +9,19 @@ import { Check, Shield, Gavel, FileCheck, Building2, Scale } from 'lucide-react'
 /* ── Palette ── */
 const COL_CONCENTRATIONS = 'hsl(0, 0%, 8%)';
 const COL_CONTENTIEUX = 'hsl(220, 45%, 18%)';
-const COL_CONSEIL = 'hsl(155, 35%, 22%)';
+const COL_CONSEIL = 'hsl(0, 0%, 28%)';
 
-const COL_CONC_NAT = 'hsl(0, 0%, 8%)';
-const COL_CONC_EU = 'hsl(220, 45%, 18%)';
-const COL_CONC_MULTI = 'hsl(220, 30%, 45%)';
+const COL_CONC_NAT = 'hsl(155, 35%, 22%)';
+const COL_CONC_EU = 'hsl(350, 45%, 28%)';
+const COL_CONC_MULTI = 'hsl(0, 0%, 48%)';
 
-const COL_CTX_CARTELS = 'hsl(350, 45%, 28%)';
-const COL_CTX_ABUS = 'hsl(350, 35%, 38%)';
-const COL_CTX_PRATIQUES = 'hsl(350, 25%, 52%)';
+const COL_CTX_CARTELS = 'hsl(220, 35%, 35%)';
+const COL_CTX_ABUS = 'hsl(155, 25%, 40%)';
+const COL_CTX_PRATIQUES = 'hsl(350, 30%, 48%)';
 
-const COL_CONS_COMPLIANCE = 'hsl(155, 35%, 22%)';
-const COL_CONS_CONTRATS = 'hsl(155, 25%, 38%)';
-const COL_CONS_AUDIT = 'hsl(155, 22%, 48%)';
+const COL_CONS_COMPLIANCE = 'hsl(0, 0%, 72%)';
+const COL_CONS_CONTRATS = 'hsl(220, 25%, 55%)';
+const COL_CONS_AUDIT = 'hsl(40, 25%, 88%)';
 
 const MAIN_CATEGORIES = [
   { key: 'conc_concentrations', label: 'Contrôle des concentrations', color: COL_CONCENTRATIONS },
