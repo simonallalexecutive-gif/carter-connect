@@ -1,16 +1,9 @@
 import { useMemo } from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
+import { ACTIVITY_CHART_PALETTE } from '@/lib/activityPalette';
 
-const BLUE_PALETTE = [
-  'hsl(0, 0%, 11%)',       // Noir mat
-  'hsl(195, 50%, 28%)',    // Bleu pétrole
-  'hsl(0, 0%, 30%)',       // Gris anthracite
-  'hsl(160, 35%, 32%)',    // Vert green
-  'hsl(215, 55%, 22%)',    // Bleu foncé
-  'hsl(0, 0%, 60%)',       // Gris clair
-  'hsl(200, 30%, 20%)',    // Bleu pétrole foncé
-  'hsl(0, 0%, 45%)',       // Gris moyen
-];
+const BLUE_PALETTE = ACTIVITY_CHART_PALETTE;
+
 
 interface ActivityPieChartProps {
   data: Record<string, number>;

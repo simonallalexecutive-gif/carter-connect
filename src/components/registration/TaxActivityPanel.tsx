@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useRegistrationStore } from '@/stores/registrationStore';
 import { cn } from '@/lib/utils';
@@ -7,14 +8,14 @@ import { Check } from 'lucide-react';
 import SquareGauge from '@/components/shared/SquareGauge';
 
 /* ── Palette (cohérente avec RealEstate) ── */
-const COL_CORPORATE = 'hsl(0, 0%, 11%)';
-const COL_TRANSAC = 'hsl(195, 50%, 28%)';
-const COL_PATRI = 'hsl(215, 55%, 22%)';
-const COL_PXT = 'hsl(0, 0%, 30%)';
-const COL_TVA = 'hsl(160, 30%, 40%)';
-const COL_INTL = 'hsl(0, 0%, 45%)';
-const COL_CONSEIL = 'hsl(0, 0%, 11%)';
-const COL_CONTENTIEUX = 'hsl(0, 0%, 60%)';
+const COL_CORPORATE = 'hsl(0, 0%, 8%)';
+const COL_TRANSAC = 'hsl(220, 45%, 22%)';
+const COL_PATRI = 'hsl(0, 0%, 32%)';
+const COL_PXT = 'hsl(30, 12%, 50%)';
+const COL_TVA = 'hsl(210, 35%, 58%)';
+const COL_INTL = 'hsl(35, 22%, 72%)';
+const COL_CONSEIL = 'hsl(0, 0%, 78%)';
+const COL_CONTENTIEUX = 'hsl(40, 28%, 90%)';
 
 const CLIENT_TYPES = [
   'Fonds d\'investissement',
@@ -66,6 +67,17 @@ const ChipButton = ({ active, onClick, children }: { active: boolean; onClick: (
 
 const TaxActivityPanel = () => {
   const store = useRegistrationStore();
+  // ── Anglais (part d'activité en anglais) ──
+  const __anglaisPct = parseInt(store.anglais || '0', 10) || 0;
+  const [__anglaisInput, __setAnglaisInput] = useState(String(__anglaisPct));
+  const __handleAnglaisBlur = () => {
+    let v = parseInt(__anglaisInput, 10);
+    if (isNaN(v)) v = 0;
+    v = Math.max(0, Math.min(100, v));
+    __setAnglaisInput(String(v));
+    store.setField('anglais', String(v));
+  };
+
   const setField = store.setField;
 
   // ── Répartition générale conseil/contentieux ──
@@ -242,8 +254,8 @@ const TaxActivityPanel = () => {
           <p className="text-sm font-sans font-medium text-foreground">Nature des dossiers</p>
 
           <div className="space-y-2.5 pl-3 border-l-2 border-border">
-            <SquareGauge value={corporate} onChange={v => handleGauge('taxCorporatePct', v)} activeColor={COL_CORPORATE} label="Corporate Tax (fiscalité des entreprises et restructurations/réorganisations)" />
-            <SquareGauge value={transac} onChange={v => handleGauge('taxTransacPct', v)} activeColor={COL_TRANSAC} label="Transactionnel (fusions-acquisitions, LBO)" />
+            <SquareGauge value={corporate} onChange={v => handleGauge('taxCorporatePct', v)} label="Corporate Tax (fiscalité des entreprises et restructurations/réorganisations)" />
+            <SquareGauge value={transac} onChange={v => handleGauge('taxTransacPct', v)} label="Transactionnel (fusions-acquisitions, LBO)" />
           </div>
 
           {/* Patrimoniale Yes/No */}
@@ -260,7 +272,7 @@ const TaxActivityPanel = () => {
               {hasPatrimonial && (
                 <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden">
                   <div className="space-y-2.5 pt-2">
-                    <SquareGauge value={patri} onChange={v => handleGauge('taxPatrimonialPct', v)} activeColor={COL_PATRI} label="Part dans l'activité" />
+                    <SquareGauge value={patri} onChange={v => handleGauge('taxPatrimonialPct', v)} label="Part dans l'activité" />
                     <div className="space-y-1.5">
                       <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">Domaines</p>
                       <div className="flex flex-wrap gap-1.5">
@@ -296,7 +308,7 @@ const TaxActivityPanel = () => {
               {hasPrixTransfert && (
                 <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden">
                   <div className="pt-2">
-                    <SquareGauge value={pxt} onChange={v => handleGauge('taxPrixTransfertPct', v)} activeColor={COL_PXT} label="Part dans l'activité" />
+                    <SquareGauge value={pxt} onChange={v => handleGauge('taxPrixTransfertPct', v)} label="Part dans l'activité" />
                   </div>
                 </motion.div>
               )}
@@ -317,7 +329,7 @@ const TaxActivityPanel = () => {
               {hasTva && (
                 <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden">
                   <div className="pt-2">
-                    <SquareGauge value={tva} onChange={v => handleGauge('taxTvaPct', v)} activeColor={COL_TVA} label="Part dans l'activité" />
+                    <SquareGauge value={tva} onChange={v => handleGauge('taxTvaPct', v)} label="Part dans l'activité" />
                   </div>
                 </motion.div>
               )}
@@ -327,7 +339,7 @@ const TaxActivityPanel = () => {
           {/* International */}
           <div className="space-y-2.5 pl-3 border-l-2 border-border">
             <p className="text-xs font-sans text-foreground">Avez-vous une activité en fiscalité internationale ?</p>
-            <SquareGauge value={intl} onChange={v => handleGauge('taxInternationalPct', v)} activeColor={COL_INTL} label="Part dans l'activité" />
+            <SquareGauge value={intl} onChange={v => handleGauge('taxInternationalPct', v)} label="Part dans l'activité" />
           </div>
         </div>
 
@@ -337,7 +349,7 @@ const TaxActivityPanel = () => {
 
           <div className="space-y-2.5 pl-3 border-l-2 border-border">
             <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">Conseil vs Contentieux</p>
-            <SquareGauge value={conseilPct} onChange={v => setField('taxConseilPct', v)} activeColor={COL_CONSEIL} label="Part du conseil" />
+            <SquareGauge value={conseilPct} onChange={v => setField('taxConseilPct', v)} label="Part du conseil" />
             <div className="flex justify-between text-[10px] text-muted-foreground font-sans">
               <span>Conseil {conseilPct}%</span>
               <span>Contentieux {contentieuxPct}%</span>
@@ -353,6 +365,22 @@ const TaxActivityPanel = () => {
                 </ChipButton>
               ))}
             </div>
+          </div>
+        </div>
+
+        {/* ── Part d'activité en anglais ── */}
+        <div className="border-t border-border pt-5 space-y-2.5">
+          <p className="font-sans text-[11px] font-medium text-muted-foreground uppercase tracking-[0.15em]">Part d'activité en anglais</p>
+          <div className="flex items-center gap-2">
+            <input
+              type="text"
+              inputMode="numeric"
+              value={__anglaisInput}
+              onChange={e => __setAnglaisInput(e.target.value.replace(/\D/g, ''))}
+              onBlur={__handleAnglaisBlur}
+              className="w-16 text-center text-sm font-sans font-bold border border-border rounded-sm px-2 py-1 bg-transparent text-foreground"
+            />
+            <span className="text-xs font-sans text-muted-foreground">%</span>
           </div>
         </div>
 

@@ -14,7 +14,7 @@ const SquareGauge = ({
   onChange,
   step = 5,
   max = 100,
-  activeColor = 'hsl(215, 50%, 35%)',
+  activeColor = 'hsl(220, 8%, 38%)', // neutral graphite — dissociated from pie chart palette
   label,
 }: SquareGaugeProps) => {
   const totalSquares = max / step;
