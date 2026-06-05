@@ -100,7 +100,7 @@ const Step2Identity = () => {
     'Restructuring/Insolvency': 'restructuring',
     'Employment': 'social',
     'Real Estate': 'immo',
-    
+    'Projects & Energy': 'finproj',
     'Venture Capital': 'vc',
     'Tax': 'tax',
   };
@@ -579,10 +579,14 @@ const Step2Identity = () => {
           {/* Pratique — all Chambers departments */}
           <div>
             <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Votre pratique *</Label>
+            <p className="font-sans text-[11px] italic text-muted-foreground font-light mt-1.5 leading-relaxed">
+              Pour les candidats exerçant à la fois en M&A et en Private Equity, merci de sélectionner votre pratique en fonction de votre dominante.
+            </p>
             {store.cabinet ? (
               <>
                 <Select value={store.departement} onValueChange={handleDepartmentChange}>
                   <SelectTrigger className="mt-2"><SelectValue placeholder="Sélectionner votre pratique" /></SelectTrigger>
+
                   <SelectContent>
                     {allPractices.map(p => (
                       <SelectItem key={p.key} value={p.label}>

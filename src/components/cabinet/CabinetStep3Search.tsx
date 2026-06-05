@@ -237,7 +237,7 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
                 { key: 'restructuring', label: 'Restructuring/Insolvency' },
                 { key: 'social', label: 'Employment' },
                 { key: 'immo', label: 'Real Estate' },
-                
+                { key: 'projets', label: 'Projects & Energy' },
               ].map((dept) => (
                 <button
                   key={dept.key}

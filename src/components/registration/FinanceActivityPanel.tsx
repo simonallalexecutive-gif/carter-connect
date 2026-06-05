@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useRegistrationStore } from '@/stores/registrationStore';
 import { cn } from '@/lib/utils';
@@ -9,15 +10,8 @@ import { Checkbox } from '@/components/ui/checkbox';
 import SquareGauge from '@/components/shared/SquareGauge';
 import type { ActivityItem } from '@/lib/constants';
 
-const CHART_PALETTE = [
-  'hsl(0, 0%, 8%)',
-  'hsl(220, 45%, 18%)',
-  'hsl(0, 0%, 28%)',
-  'hsl(350, 45%, 28%)',
-  'hsl(220, 45%, 18%)',
-  'hsl(0, 0%, 72%)',
-  'hsl(0, 0%, 48%)',
-];
+import { ACTIVITY_CHART_PALETTE as CHART_PALETTE } from '@/lib/activityPalette';
+
 
 const TYPES_ACTIFS = [
   'Aéronautique', 'Ferroviaire', 'Maritime', 'Automobile',
@@ -67,6 +61,17 @@ interface FinanceActivityPanelProps {
 
 const FinanceActivityPanel = ({ items }: FinanceActivityPanelProps) => {
   const store = useRegistrationStore();
+  // ── Anglais (part d'activité en anglais) ──
+  const __anglaisPct = parseInt(store.anglais || '0', 10) || 0;
+  const [__anglaisInput, __setAnglaisInput] = useState(String(__anglaisPct));
+  const __handleAnglaisBlur = () => {
+    let v = parseInt(__anglaisInput, 10);
+    if (isNaN(v)) v = 0;
+    v = Math.max(0, Math.min(100, v));
+    __setAnglaisInput(String(v));
+    store.setField('anglais', String(v));
+  };
+
 
   const handleToggle = (key: string) => {
     const newActivites = { ...store.activites, [key]: !store.activites[key] };
@@ -221,7 +226,6 @@ const FinanceActivityPanel = ({ items }: FinanceActivityPanelProps) => {
                     key={item.key}
                     value={store.pourcentages[item.key] || 10}
                     onChange={v => handlePercentChange(item.key, v)}
-                    activeColor={CHART_PALETTE[i % CHART_PALETTE.length]}
                     label={`${item.label} (${displayPercent}%)`}
                   />
                 );
@@ -234,7 +238,7 @@ const FinanceActivityPanel = ({ items }: FinanceActivityPanelProps) => {
         <div className="border-t border-border pt-5 space-y-2.5">
           <p className="text-sm font-sans font-medium text-foreground">Positionnement</p>
           <div className="pl-3 border-l-2 border-border space-y-2">
-            <SquareGauge value={store.positionnementPreteur} onChange={v => store.setField('positionnementPreteur', v)} activeColor="hsl(220, 35%, 32%)" label="Côté prêteur" />
+            <SquareGauge value={store.positionnementPreteur} onChange={v => store.setField('positionnementPreteur', v)} label="Côté prêteur" />
             <div className="flex items-center justify-between">
               <span className="text-xs font-sans text-foreground">Côté sponsor</span>
               <span className="text-xs font-sans font-bold text-foreground tabular-nums">{100 - store.positionnementPreteur}%</span>
@@ -246,7 +250,7 @@ const FinanceActivityPanel = ({ items }: FinanceActivityPanelProps) => {
         <div className="border-t border-border pt-5 space-y-2.5">
           <p className="text-sm font-sans font-medium text-foreground">Clientèle</p>
           <div className="pl-3 border-l-2 border-border space-y-2">
-            <SquareGauge value={store.clienteleFrancaise} onChange={v => store.setField('clienteleFrancaise', v)} activeColor="hsl(220, 35%, 32%)" label="Clientèle française" />
+            <SquareGauge value={store.clienteleFrancaise} onChange={v => store.setField('clienteleFrancaise', v)} label="Clientèle française" />
             <div className="flex items-center justify-between">
               <span className="text-xs font-sans text-foreground">Clientèle étrangère</span>
               <span className="text-xs font-sans font-bold text-foreground tabular-nums">{100 - store.clienteleFrancaise}%</span>
@@ -294,6 +298,22 @@ const FinanceActivityPanel = ({ items }: FinanceActivityPanelProps) => {
             </div>
           </div>
         )}
+        {/* ── Part d'activité en anglais ── */}
+        <div className="border-t border-border pt-5 space-y-2.5">
+          <p className="font-sans text-[11px] font-medium text-muted-foreground uppercase tracking-[0.15em]">Part d'activité en anglais</p>
+          <div className="flex items-center gap-2">
+            <input
+              type="text"
+              inputMode="numeric"
+              value={__anglaisInput}
+              onChange={e => __setAnglaisInput(e.target.value.replace(/\D/g, ''))}
+              onBlur={__handleAnglaisBlur}
+              className="w-16 text-center text-sm font-sans font-bold border border-border rounded-sm px-2 py-1 bg-transparent text-foreground"
+            />
+            <span className="text-xs font-sans text-muted-foreground">%</span>
+          </div>
+        </div>
+
       </div>
     </div>
   );

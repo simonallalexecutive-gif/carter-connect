@@ -4,24 +4,25 @@ import { Slider } from '@/components/ui/slider';
 import { cn } from '@/lib/utils';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import { useMemo } from 'react';
+import { useState } from 'react';
 import { Check, Shield, Gavel, FileCheck, Building2, Scale } from 'lucide-react';
 
 /* ── Palette ── */
 const COL_CONCENTRATIONS = 'hsl(0, 0%, 8%)';
-const COL_CONTENTIEUX = 'hsl(220, 45%, 18%)';
-const COL_CONSEIL = 'hsl(0, 0%, 28%)';
+const COL_CONTENTIEUX = 'hsl(220, 45%, 22%)';
+const COL_CONSEIL = 'hsl(0, 0%, 32%)';
 
-const COL_CONC_NAT = 'hsl(350, 45%, 28%)';
-const COL_CONC_EU = 'hsl(20, 75%, 32%)';
-const COL_CONC_MULTI = 'hsl(0, 0%, 48%)';
+const COL_CONC_NAT = 'hsl(30, 12%, 50%)';
+const COL_CONC_EU = 'hsl(210, 35%, 58%)';
+const COL_CONC_MULTI = 'hsl(35, 22%, 72%)';
 
-const COL_CTX_CARTELS = 'hsl(220, 35%, 35%)';
-const COL_CTX_ABUS = 'hsl(350, 35%, 42%)';
-const COL_CTX_PRATIQUES = 'hsl(15, 65%, 42%)';
+const COL_CTX_CARTELS = 'hsl(0, 0%, 78%)';
+const COL_CTX_ABUS = 'hsl(40, 28%, 90%)';
+const COL_CTX_PRATIQUES = 'hsl(0, 0%, 8%)';
 
-const COL_CONS_COMPLIANCE = 'hsl(0, 0%, 72%)';
-const COL_CONS_CONTRATS = 'hsl(220, 25%, 55%)';
-const COL_CONS_AUDIT = 'hsl(40, 25%, 88%)';
+const COL_CONS_COMPLIANCE = 'hsl(220, 45%, 22%)';
+const COL_CONS_CONTRATS = 'hsl(0, 0%, 32%)';
+const COL_CONS_AUDIT = 'hsl(30, 12%, 50%)';
 
 const MAIN_CATEGORIES = [
   { key: 'conc_concentrations', label: 'Contrôle des concentrations', color: COL_CONCENTRATIONS },
@@ -110,6 +111,17 @@ const MiniLegend = ({ data }: { data: { name: string; value: number; color: stri
 
 const ConcurrenceActivityPanel = () => {
   const store = useRegistrationStore();
+  // ── Anglais (part d'activité en anglais) ──
+  const __anglaisPct = parseInt(store.anglais || '0', 10) || 0;
+  const [__anglaisInput, __setAnglaisInput] = useState(String(__anglaisPct));
+  const __handleAnglaisBlur = () => {
+    let v = parseInt(__anglaisInput, 10);
+    if (isNaN(v)) v = 0;
+    v = Math.max(0, Math.min(100, v));
+    __setAnglaisInput(String(v));
+    store.setField('anglais', String(v));
+  };
+
 
   const handleToggle = (key: string) => {
     const next = { ...store.activites, [key]: !store.activites[key] };
@@ -301,7 +313,7 @@ const ConcurrenceActivityPanel = () => {
                     <Slider value={[concAcquereur]} onValueChange={([v]) => store.setField('concAcquereur', v)} min={0} max={100} step={10} className="w-full" />
                     <div className="h-2.5 rounded-full overflow-hidden flex border border-border">
                       <div className="h-full transition-all duration-300" style={{ width: `${concAcquereur}%`, backgroundColor: COL_CONCENTRATIONS }} />
-                      <div className="h-full transition-all duration-300" style={{ width: `${100 - concAcquereur}%`, backgroundColor: 'hsl(0, 0%, 72%)' }} />
+                      <div className="h-full transition-all duration-300" style={{ width: `${100 - concAcquereur}%`, backgroundColor: 'hsl(220, 45%, 22%)' }} />
                     </div>
                     <div className="flex justify-between">
                       <span className="text-[10px] font-sans text-muted-foreground">Acquéreur {concAcquereur}%</span>
@@ -373,7 +385,7 @@ const ConcurrenceActivityPanel = () => {
                     <Slider value={[ctxDefense]} onValueChange={([v]) => store.setField('concCtxDefense', v)} min={0} max={100} step={10} className="w-full" />
                     <div className="h-2.5 rounded-full overflow-hidden flex border border-border">
                       <div className="h-full transition-all duration-300" style={{ width: `${ctxDefense}%`, backgroundColor: COL_CONTENTIEUX }} />
-                      <div className="h-full transition-all duration-300" style={{ width: `${100 - ctxDefense}%`, backgroundColor: 'hsl(0, 0%, 72%)' }} />
+                      <div className="h-full transition-all duration-300" style={{ width: `${100 - ctxDefense}%`, backgroundColor: 'hsl(220, 45%, 22%)' }} />
                     </div>
                     <div className="flex justify-between">
                       <span className="text-[10px] font-sans text-muted-foreground">Défense {ctxDefense}%</span>
@@ -432,6 +444,22 @@ const ConcurrenceActivityPanel = () => {
           </div>
         </motion.div>
       )}
+          {/* ── Part d'activité en anglais ── */}
+          <div className="border-t border-border pt-5 space-y-2.5">
+            <p className="font-sans text-[11px] font-medium text-muted-foreground uppercase tracking-[0.15em]">Part d'activité en anglais</p>
+            <div className="flex items-center gap-2">
+              <input
+                type="text"
+                inputMode="numeric"
+                value={__anglaisInput}
+                onChange={e => __setAnglaisInput(e.target.value.replace(/\D/g, ''))}
+                onBlur={__handleAnglaisBlur}
+                className="w-16 text-center text-sm font-sans font-bold border border-border rounded-sm px-2 py-1 bg-transparent text-foreground"
+              />
+              <span className="text-xs font-sans text-muted-foreground">%</span>
+            </div>
+          </div>
+
     </div>
   );
 };

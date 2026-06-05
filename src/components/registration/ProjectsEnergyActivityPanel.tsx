@@ -7,29 +7,36 @@ import { Check } from 'lucide-react';
 import SquareGauge from '@/components/shared/SquareGauge';
 
 /* ── Palette ── */
-const COL_COMMERCIAL = 'hsl(0, 0%, 8%)';
-const COL_INVEST = 'hsl(220, 45%, 22%)';
-const COL_CONSTRUCTION = 'hsl(0, 0%, 32%)';
-const COL_SPORT = 'hsl(30, 12%, 50%)';
+const COL_INFRA = 'hsl(0, 0%, 8%)';
+const COL_ENR = 'hsl(220, 45%, 22%)';
+const COL_CONCESSION = 'hsl(0, 0%, 32%)';
+const COL_FIN = 'hsl(30, 12%, 50%)';
+const COL_REGL = 'hsl(210, 35%, 58%)';
 
-const TYPES_ARBITRAGE = [
-  { key: 'arb_commercial', label: 'Arbitrage commercial', color: COL_COMMERCIAL },
-  { key: 'arb_invest', label: 'Arbitrage d\'investissement', color: COL_INVEST },
-  { key: 'arb_construction', label: 'Arbitrage construction', color: COL_CONSTRUCTION },
-  { key: 'arb_sport', label: 'Arbitrage sportif', color: COL_SPORT },
+const TYPES_PROJETS = [
+  { key: 'proj_infra', label: 'Infrastructures', color: COL_INFRA },
+  { key: 'proj_enr', label: 'Énergie renouvelable', color: COL_ENR },
+  { key: 'proj_concession', label: 'Concessions / PPP', color: COL_CONCESSION },
+  { key: 'proj_fin', label: 'Financement de projets', color: COL_FIN },
+  { key: 'proj_regl', label: 'Réglementaire / permitting', color: COL_REGL },
 ] as const;
 
-const INSTITUTIONS = [
-  'ICC (CCI Paris)', 'LCIA', 'ICSID (CIRDI)', 'SCC', 'SIAC',
-  'HKIAC', 'Ad hoc (CNUDCI/UNCITRAL)', 'Autre',
+const SECTEURS_ENERGIE = [
+  'Solaire', 'Éolien (onshore)', 'Éolien (offshore)', 'Hydraulique',
+  'Hydrogène', 'Biomasse / Biogaz', 'Nucléaire', 'Stockage / batteries',
 ] as const;
 
-const SECTEURS = [
-  'Énergie', 'Construction / Infrastructure', 'M&A / Post-acquisition',
-  'Télécoms', 'Pharma / Santé', 'Distribution', 'Tech / IP', 'Minier',
+const TYPES_INFRA = [
+  'Transport (routes, rail, ports)', 'Télécom / data centers',
+  'Eau / assainissement', 'Immobilier public', 'Social (hôpitaux, écoles)',
 ] as const;
 
-const POSITIONNEMENTS = ['Demandeur', 'Défendeur', 'Arbitre / Tribunal'] as const;
+const POSITIONNEMENTS = [
+  'Sponsors / développeurs', 'Prêteurs / institutions financières',
+  'Autorités concédantes', 'Investisseurs infrastructure',
+] as const;
+
+const TAILLE_PROJETS = ['< 50 M€', '50 – 200 M€', '200 M€ – 1 Md€', '> 1 Md€'] as const;
 
 const tooltipStyle = {
   fontSize: '11px', fontFamily: 'Inter',
@@ -61,28 +68,25 @@ const ChipButton = ({ active, onClick, children }: { active: boolean; onClick: (
   </button>
 );
 
-const ArbitrationActivityPanel = () => {
+const ProjectsEnergyActivityPanel = () => {
   const store = useRegistrationStore();
   const setField = store.setField;
 
-  // Percentages for each type
-  const getPct = (key: string) => store.pourcentages[key] ?? 25;
+  const getPct = (key: string) => store.pourcentages[key] ?? 20;
   const handlePct = (key: string, v: number) => {
     setField('pourcentages', { ...store.pourcentages, [key]: v });
   };
 
-  // Toggle type
   const toggleType = (key: string) => {
     setField('activites', { ...store.activites, [key]: !store.activites[key] });
     if (!store.activites[key]) {
-      setField('pourcentages', { ...store.pourcentages, [key]: 25 });
+      setField('pourcentages', { ...store.pourcentages, [key]: 20 });
     }
   };
 
-  const selectedTypes = TYPES_ARBITRAGE.filter(t => store.activites[t.key]);
+  const selectedTypes = TYPES_PROJETS.filter(t => store.activites[t.key]);
 
-  // Toggle arrays
-  const toggleArr = (field: 'arbInstitutions' | 'arbSecteurs' | 'arbPositionnements', val: string) => {
+  const toggleArr = (field: string, val: string) => {
     const cur = (store as any)[field] || [];
     setField(field as any, cur.includes(val) ? cur.filter((v: string) => v !== val) : [...cur, val]);
   };
@@ -98,8 +102,7 @@ const ArbitrationActivityPanel = () => {
     setField('anglais', String(v));
   };
 
-  // Domestic vs international
-  const arbDomestique = (store as any).arbDomestique ?? 30;
+  const projDomestique = (store as any).projDomestique ?? 40;
 
   // Chart
   const chartData = useMemo(() => {
@@ -137,9 +140,8 @@ const ArbitrationActivityPanel = () => {
                 </ResponsiveContainer>
               </div>
 
-              {/* Legend */}
               <div className="space-y-1.5">
-                <p className="text-[10px] font-sans font-medium text-muted-foreground uppercase tracking-[0.12em]">Types d'arbitrage</p>
+                <p className="text-[10px] font-sans font-medium text-muted-foreground uppercase tracking-[0.12em]">Répartition</p>
                 {chartData.map(seg => (
                   <div key={seg.name} className="flex items-center gap-2">
                     <span className="w-2.5 h-2.5 rounded-sm flex-shrink-0" style={{ background: seg.color }} />
@@ -149,20 +151,18 @@ const ArbitrationActivityPanel = () => {
                 ))}
               </div>
 
-              {/* Dimension */}
               <div className="pt-3 border-t border-border space-y-1">
                 <p className="text-[10px] font-sans font-medium text-muted-foreground uppercase tracking-[0.12em]">Dimension</p>
                 <div className="flex justify-between text-[11px] font-sans">
                   <span className="text-foreground/80">FR Domestique</span>
-                  <span className="font-semibold text-foreground">{arbDomestique}%</span>
+                  <span className="font-semibold text-foreground">{projDomestique}%</span>
                 </div>
                 <div className="flex justify-between text-[11px] font-sans">
                   <span className="text-foreground/80">International International</span>
-                  <span className="font-semibold text-foreground">{100 - arbDomestique}%</span>
+                  <span className="font-semibold text-foreground">{100 - projDomestique}%</span>
                 </div>
               </div>
 
-              {/* Anglais */}
               <div className="pt-3 border-t border-border space-y-1">
                 <p className="text-[10px] font-sans font-medium text-muted-foreground uppercase tracking-[0.12em]">Activité en anglais</p>
                 <p className="text-[11px] font-sans font-semibold text-foreground">{anglaisPct}%</p>
@@ -175,11 +175,11 @@ const ArbitrationActivityPanel = () => {
       {/* ══════════ RIGHT: QUESTIONNAIRE ══════════ */}
       <div className="carter-card p-5 md:p-7 space-y-6 flex-1 min-w-0">
 
-        {/* Types d'arbitrage */}
+        {/* Types de projets */}
         <div className="space-y-2.5">
-          <p className="font-sans text-[11px] font-medium text-muted-foreground uppercase tracking-[0.15em]">Type d'arbitrage</p>
+          <p className="font-sans text-[11px] font-medium text-muted-foreground uppercase tracking-[0.15em]">Nature de l'activité</p>
           <div className="flex flex-wrap gap-2">
-            {TYPES_ARBITRAGE.map(t => (
+            {TYPES_PROJETS.map(t => (
               <ChipButton key={t.key} active={!!store.activites[t.key]} onClick={() => toggleType(t.key)}>
                 {t.label}
               </ChipButton>
@@ -203,13 +203,25 @@ const ArbitrationActivityPanel = () => {
           </div>
         )}
 
-        {/* Institutions */}
+        {/* Secteurs énergie */}
         <div className="space-y-2.5">
-          <p className="font-sans text-[11px] font-medium text-muted-foreground uppercase tracking-[0.15em]">Institutions de référence</p>
+          <p className="font-sans text-[11px] font-medium text-muted-foreground uppercase tracking-[0.15em]">Secteurs énergie</p>
           <div className="flex flex-wrap gap-2">
-            {INSTITUTIONS.map(inst => (
-              <ChipButton key={inst} active={((store as any).arbInstitutions || []).includes(inst)} onClick={() => toggleArr('arbInstitutions', inst)}>
-                {inst}
+            {SECTEURS_ENERGIE.map(s => (
+              <ChipButton key={s} active={((store as any).projSecteursEnergie || []).includes(s)} onClick={() => toggleArr('projSecteursEnergie', s)}>
+                {s}
+              </ChipButton>
+            ))}
+          </div>
+        </div>
+
+        {/* Types d'infrastructures */}
+        <div className="space-y-2.5">
+          <p className="font-sans text-[11px] font-medium text-muted-foreground uppercase tracking-[0.15em]">Types d'infrastructures</p>
+          <div className="flex flex-wrap gap-2">
+            {TYPES_INFRA.map(s => (
+              <ChipButton key={s} active={((store as any).projTypesInfra || []).includes(s)} onClick={() => toggleArr('projTypesInfra', s)}>
+                {s}
               </ChipButton>
             ))}
           </div>
@@ -220,20 +232,20 @@ const ArbitrationActivityPanel = () => {
           <p className="font-sans text-[11px] font-medium text-muted-foreground uppercase tracking-[0.15em]">Positionnement</p>
           <div className="flex flex-wrap gap-2">
             {POSITIONNEMENTS.map(p => (
-              <ChipButton key={p} active={((store as any).arbPositionnements || []).includes(p)} onClick={() => toggleArr('arbPositionnements', p)}>
+              <ChipButton key={p} active={((store as any).projPositionnements || []).includes(p)} onClick={() => toggleArr('projPositionnements', p)}>
                 {p}
               </ChipButton>
             ))}
           </div>
         </div>
 
-        {/* Secteurs */}
+        {/* Taille des projets */}
         <div className="space-y-2.5">
-          <p className="font-sans text-[11px] font-medium text-muted-foreground uppercase tracking-[0.15em]">Secteurs d'intervention</p>
+          <p className="font-sans text-[11px] font-medium text-muted-foreground uppercase tracking-[0.15em]">Taille des projets</p>
           <div className="flex flex-wrap gap-2">
-            {SECTEURS.map(s => (
-              <ChipButton key={s} active={((store as any).arbSecteurs || []).includes(s)} onClick={() => toggleArr('arbSecteurs', s)}>
-                {s}
+            {TAILLE_PROJETS.map(t => (
+              <ChipButton key={t} active={((store as any).projTaille || []).includes(t)} onClick={() => toggleArr('projTaille', t)}>
+                {t}
               </ChipButton>
             ))}
           </div>
@@ -243,14 +255,14 @@ const ArbitrationActivityPanel = () => {
         <div className="space-y-2.5">
           <p className="font-sans text-[11px] font-medium text-muted-foreground uppercase tracking-[0.15em]">Dimension internationale</p>
           <SquareGauge
-            value={arbDomestique}
-            onChange={(v) => setField('arbDomestique' as any, v)}
+            value={projDomestique}
+            onChange={(v) => setField('projDomestique' as any, v)}
             label="Dossiers domestiques"
             step={5}
           />
           <div className="flex justify-between text-[11px] font-sans text-muted-foreground">
-            <span>FR Domestique {arbDomestique}%</span>
-            <span>International International {100 - arbDomestique}%</span>
+            <span>FR Domestique {projDomestique}%</span>
+            <span>International International {100 - projDomestique}%</span>
           </div>
         </div>
 
@@ -274,4 +286,4 @@ const ArbitrationActivityPanel = () => {
   );
 };
 
-export default ArbitrationActivityPanel;
+export default ProjectsEnergyActivityPanel;
