@@ -77,6 +77,18 @@ const CandidateBooking = ({ userType = 'candidat' }: CandidateBookingProps) => {
 
       if (error) throw error;
 
+      // Notif admin
+      supabase.functions.invoke('notify-booking', {
+        body: {
+          name: candidateName,
+          email: user?.email || '',
+          cabinet: candidateCabinet,
+          date: format(selectedDate, 'dd/MM/yyyy'),
+          time: selectedSlot,
+          source: userType,
+        },
+      }).catch(() => {});
+
       setConfirmed(true);
       toast.success('Créneau réservé avec succès.');
     } catch (e) {

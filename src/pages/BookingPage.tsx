@@ -40,6 +40,17 @@ const BookingPage = () => {
         notes: `RDV depuis landing — tel ${contact.phone}`,
       } as any);
       if (error) throw error;
+      // Notif admin
+      supabase.functions.invoke('notify-booking', {
+        body: {
+          name: `${contact.firstName} ${contact.lastName}`.trim(),
+          email: contact.email,
+          cabinet: contact.cabinet,
+          date: format(selectedDate, 'dd/MM/yyyy'),
+          time: selectedSlot,
+          source: 'landing',
+        },
+      }).catch(() => {});
       setStep('done');
       toast.success('Créneau réservé avec succès.');
     } catch (e) {
