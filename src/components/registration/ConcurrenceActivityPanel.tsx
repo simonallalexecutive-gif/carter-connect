@@ -182,7 +182,7 @@ const ConcurrenceActivityPanel = () => {
           <div className="flex gap-8 items-start flex-col lg:flex-row">
 
             {/* ── LEFT: Main pie + sliders ── */}
-            <div className="lg:w-[45%] space-y-5">
+            <div className="lg:w-[45%] space-y-5 bg-white border border-gray-200 rounded-sm p-5">
               <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium">Structure de l'activité concurrence</p>
               <MiniPie data={mainChartData} size={240} />
               <MiniLegend data={mainChartData} />
