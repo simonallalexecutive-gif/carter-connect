@@ -69,7 +69,7 @@ const LandingPage = () => (
             </motion.h1>
           </div>
           <motion.p variants={fadeUp} className="text-[0.86rem] sm:text-[1.14rem] md:text-[1.16rem] text-white font-sans font-[480] leading-[1.65] max-w-[72rem]">
-            Un cercle privé d'excellence, structuré et piloté par des chasseurs spécialisés, dédié aux profils<br />et cabinets d'affaires les plus exigeants du marché.
+            Un cercle privé d'excellence, structuré et piloté par des consultants spécialisés, dédié aux profils<br />et cabinets d'affaires les plus exigeants du marché.
           </motion.p>
 
           <motion.div variants={fadeUp} className="mt-8 sm:mt-20">
