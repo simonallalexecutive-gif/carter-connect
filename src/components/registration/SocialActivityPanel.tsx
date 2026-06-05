@@ -104,7 +104,7 @@ const SocialActivityPanel = () => {
       const cIndiv = Math.round(conseilPct * indivWeight);
       const cColl = conseilPct - cIndiv;
       if (cIndiv > 0) segments.push({ name: 'Conseil – Individuel', value: cIndiv, color: COL_CONSEIL });
-      if (cColl > 0) segments.push({ name: 'Conseil – Collectif', value: cColl, color: 'hsl(220, 45%, 18%)' });
+      if (cColl > 0) segments.push({ name: 'Conseil – Collectif', value: cColl, color: 'hsl(220, 35%, 35%)' });
     }
     if (contentieuxPct > 0) {
       const xIndiv = Math.round(contentieuxPct * indivWeight);
