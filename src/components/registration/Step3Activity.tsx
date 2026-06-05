@@ -80,8 +80,8 @@ const Step3Activity = () => {
 
   const isSpecialized = SPECIALIZED_DEPTS.includes(store.departement);
 
-  // Validation: specialized panels are always valid (they have their own controls), generic needs at least one activity selected
-  const canProceedStep3 = isSpecialized || hasActivites;
+  // Validation bypassed for testing — all panels are always valid
+  const canProceedStep3 = true;
 
   return (
     <motion.div
@@ -394,7 +394,7 @@ const Step3Activity = () => {
             <ArrowLeft className="w-4 h-4" />
             Retour
           </Button>
-          <Button onClick={store.nextStep} disabled={!canProceedStep3} className="bg-foreground text-background hover:bg-foreground/90 font-sans font-medium rounded-sm gap-2">
+          <Button onClick={store.nextStep} className="bg-foreground text-background hover:bg-foreground/90 font-sans font-medium rounded-sm gap-2">
             Continuer
             <ArrowRight className="w-4 h-4" />
           </Button>
