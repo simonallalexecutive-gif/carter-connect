@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { useState as __unused_useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useRegistrationStore } from '@/stores/registrationStore';
 import { cn } from '@/lib/utils';
@@ -55,6 +56,17 @@ const ChipButton = ({ active, onClick, children }: { active: boolean; onClick: (
 
 const RestructuringActivityPanel = () => {
   const store = useRegistrationStore();
+  // ── Anglais (part d'activité en anglais) ──
+  const __anglaisPct = parseInt(store.anglais || '0', 10) || 0;
+  const [__anglaisInput, __setAnglaisInput] = useState(String(__anglaisPct));
+  const __handleAnglaisBlur = () => {
+    let v = parseInt(__anglaisInput, 10);
+    if (isNaN(v)) v = 0;
+    v = Math.max(0, Math.min(100, v));
+    __setAnglaisInput(String(v));
+    store.setField('anglais', String(v));
+  };
+
 
   // ── Store fields ──
   const restrSubs = store.sousActivites['restr_restructuring'] || {};
@@ -333,6 +345,22 @@ const RestructuringActivityPanel = () => {
           </AnimatePresence>
         </div>
       </div>
+          {/* ── Part d'activité en anglais ── */}
+          <div className="border-t border-border pt-5 space-y-2.5">
+            <p className="font-sans text-[11px] font-medium text-muted-foreground uppercase tracking-[0.15em]">Part d'activité en anglais</p>
+            <div className="flex items-center gap-2">
+              <input
+                type="text"
+                inputMode="numeric"
+                value={__anglaisInput}
+                onChange={e => __setAnglaisInput(e.target.value.replace(/\D/g, ''))}
+                onBlur={__handleAnglaisBlur}
+                className="w-16 text-center text-sm font-sans font-bold border border-border rounded-sm px-2 py-1 bg-transparent text-foreground"
+              />
+              <span className="text-xs font-sans text-muted-foreground">%</span>
+            </div>
+          </div>
+
     </div>
   );
 };

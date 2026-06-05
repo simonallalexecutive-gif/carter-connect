@@ -4,6 +4,7 @@ import { Slider } from '@/components/ui/slider';
 import { cn } from '@/lib/utils';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import { useMemo } from 'react';
+import { useState as __unused_useState } from 'react';
 import { Check, Landmark, Gavel, FileCheck, Building2, Tag, BarChart3 } from 'lucide-react';
 import { buildQuantizedChartData } from '@/lib/percentages';
 
@@ -93,6 +94,17 @@ const MiniLegend = ({ data }: { data: { name: string; value: number; color: stri
 
 const DroitPublicActivityPanel = () => {
   const store = useRegistrationStore();
+  // ── Anglais (part d'activité en anglais) ──
+  const __anglaisPct = parseInt(store.anglais || '0', 10) || 0;
+  const [__anglaisInput, __setAnglaisInput] = useState(String(__anglaisPct));
+  const __handleAnglaisBlur = () => {
+    let v = parseInt(__anglaisInput, 10);
+    if (isNaN(v)) v = 0;
+    v = Math.max(0, Math.min(100, v));
+    __setAnglaisInput(String(v));
+    store.setField('anglais', String(v));
+  };
+
 
   const handleToggle = (key: string) => {
     const next = { ...store.activites, [key]: !store.activites[key] };
@@ -391,6 +403,22 @@ const DroitPublicActivityPanel = () => {
           </div>
         </motion.div>
       )}
+          {/* ── Part d'activité en anglais ── */}
+          <div className="border-t border-border pt-5 space-y-2.5">
+            <p className="font-sans text-[11px] font-medium text-muted-foreground uppercase tracking-[0.15em]">Part d'activité en anglais</p>
+            <div className="flex items-center gap-2">
+              <input
+                type="text"
+                inputMode="numeric"
+                value={__anglaisInput}
+                onChange={e => __setAnglaisInput(e.target.value.replace(/\D/g, ''))}
+                onBlur={__handleAnglaisBlur}
+                className="w-16 text-center text-sm font-sans font-bold border border-border rounded-sm px-2 py-1 bg-transparent text-foreground"
+              />
+              <span className="text-xs font-sans text-muted-foreground">%</span>
+            </div>
+          </div>
+
     </div>
   );
 };
