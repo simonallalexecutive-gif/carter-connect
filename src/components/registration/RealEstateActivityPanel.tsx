@@ -7,12 +7,12 @@ import { Check } from 'lucide-react';
 import SquareGauge from '@/components/shared/SquareGauge';
 
 /* ── Palette ── */
-const COL_BAUX = 'hsl(0, 0%, 11%)';
-const COL_SHARE = 'hsl(195, 50%, 28%)';
-const COL_ASSET = 'hsl(0, 0%, 30%)';
-const COL_CONSTRUCTION = 'hsl(215, 55%, 22%)';
-const COL_FINANCEMENT = 'hsl(0, 0%, 45%)';
-const COL_CONTENTIEUX = 'hsl(0, 0%, 60%)';
+const COL_BAUX = 'hsl(0, 0%, 8%)';
+const COL_SHARE = 'hsl(220, 45%, 18%)';
+const COL_ASSET = 'hsl(0, 0%, 28%)';
+const COL_CONSTRUCTION = 'hsl(220, 45%, 18%)';
+const COL_FINANCEMENT = 'hsl(0, 0%, 48%)';
+const COL_CONTENTIEUX = 'hsl(0, 0%, 72%)';
 
 const ASSET_TYPES = [
   'Bureaux', 'Retail / Commerces', 'Logistique / Entrepôts',
@@ -21,7 +21,7 @@ const ASSET_TYPES = [
 
 const CONTENTIEUX_DOMAINES = ['Baux commerciaux', 'Construction', 'Post-acquisition/cession', 'Autre'] as const;
 
-const COL_URBANISME = 'hsl(160, 30%, 40%)';
+const COL_URBANISME = 'hsl(155, 30%, 30%)';
 
 const SHARE_DEAL_MODES = [
   { key: 'corporate_real_estate', label: 'Corporate Real Estate' },

@@ -7,10 +7,10 @@ import { Check } from 'lucide-react';
 import SquareGauge from '@/components/shared/SquareGauge';
 
 /* ── Palette ── */
-const COL_COMMERCIAL = 'hsl(0, 0%, 11%)';
-const COL_INVEST = 'hsl(195, 50%, 28%)';
-const COL_CONSTRUCTION = 'hsl(0, 0%, 30%)';
-const COL_SPORT = 'hsl(215, 55%, 22%)';
+const COL_COMMERCIAL = 'hsl(0, 0%, 8%)';
+const COL_INVEST = 'hsl(220, 45%, 18%)';
+const COL_CONSTRUCTION = 'hsl(0, 0%, 28%)';
+const COL_SPORT = 'hsl(220, 45%, 18%)';
 
 const TYPES_ARBITRAGE = [
   { key: 'arb_commercial', label: 'Arbitrage commercial', color: COL_COMMERCIAL },

@@ -7,14 +7,14 @@ import { Check } from 'lucide-react';
 import SquareGauge from '@/components/shared/SquareGauge';
 
 /* ── Palette (cohérente avec RealEstate) ── */
-const COL_CORPORATE = 'hsl(0, 0%, 11%)';
-const COL_TRANSAC = 'hsl(195, 50%, 28%)';
-const COL_PATRI = 'hsl(215, 55%, 22%)';
-const COL_PXT = 'hsl(0, 0%, 30%)';
-const COL_TVA = 'hsl(160, 30%, 40%)';
-const COL_INTL = 'hsl(0, 0%, 45%)';
-const COL_CONSEIL = 'hsl(0, 0%, 11%)';
-const COL_CONTENTIEUX = 'hsl(0, 0%, 60%)';
+const COL_CORPORATE = 'hsl(0, 0%, 8%)';
+const COL_TRANSAC = 'hsl(220, 45%, 18%)';
+const COL_PATRI = 'hsl(220, 45%, 18%)';
+const COL_PXT = 'hsl(0, 0%, 28%)';
+const COL_TVA = 'hsl(155, 30%, 30%)';
+const COL_INTL = 'hsl(0, 0%, 48%)';
+const COL_CONSEIL = 'hsl(0, 0%, 8%)';
+const COL_CONTENTIEUX = 'hsl(0, 0%, 72%)';
 
 const CLIENT_TYPES = [
   'Fonds d\'investissement',

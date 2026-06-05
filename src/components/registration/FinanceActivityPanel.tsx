@@ -10,13 +10,13 @@ import SquareGauge from '@/components/shared/SquareGauge';
 import type { ActivityItem } from '@/lib/constants';
 
 const CHART_PALETTE = [
-  'hsl(0, 0%, 11%)',
-  'hsl(195, 50%, 28%)',
-  'hsl(0, 0%, 30%)',
-  'hsl(160, 35%, 32%)',
-  'hsl(215, 55%, 22%)',
-  'hsl(0, 0%, 60%)',
-  'hsl(0, 0%, 45%)',
+  'hsl(0, 0%, 8%)',
+  'hsl(220, 45%, 18%)',
+  'hsl(0, 0%, 28%)',
+  'hsl(155, 35%, 22%)',
+  'hsl(220, 45%, 18%)',
+  'hsl(0, 0%, 72%)',
+  'hsl(0, 0%, 48%)',
 ];
 
 const TYPES_ACTIFS = [
@@ -234,7 +234,7 @@ const FinanceActivityPanel = ({ items }: FinanceActivityPanelProps) => {
         <div className="border-t border-border pt-5 space-y-2.5">
           <p className="text-sm font-sans font-medium text-foreground">Positionnement</p>
           <div className="pl-3 border-l-2 border-border space-y-2">
-            <SquareGauge value={store.positionnementPreteur} onChange={v => store.setField('positionnementPreteur', v)} activeColor="hsl(215, 55%, 28%)" label="Côté prêteur" />
+            <SquareGauge value={store.positionnementPreteur} onChange={v => store.setField('positionnementPreteur', v)} activeColor="hsl(220, 35%, 32%)" label="Côté prêteur" />
             <div className="flex items-center justify-between">
               <span className="text-xs font-sans text-foreground">Côté sponsor</span>
               <span className="text-xs font-sans font-bold text-foreground tabular-nums">{100 - store.positionnementPreteur}%</span>
@@ -246,7 +246,7 @@ const FinanceActivityPanel = ({ items }: FinanceActivityPanelProps) => {
         <div className="border-t border-border pt-5 space-y-2.5">
           <p className="text-sm font-sans font-medium text-foreground">Clientèle</p>
           <div className="pl-3 border-l-2 border-border space-y-2">
-            <SquareGauge value={store.clienteleFrancaise} onChange={v => store.setField('clienteleFrancaise', v)} activeColor="hsl(215, 55%, 28%)" label="Clientèle française" />
+            <SquareGauge value={store.clienteleFrancaise} onChange={v => store.setField('clienteleFrancaise', v)} activeColor="hsl(220, 35%, 32%)" label="Clientèle française" />
             <div className="flex items-center justify-between">
               <span className="text-xs font-sans text-foreground">Clientèle étrangère</span>
               <span className="text-xs font-sans font-bold text-foreground tabular-nums">{100 - store.clienteleFrancaise}%</span>

@@ -8,14 +8,14 @@ import SquareGauge from '@/components/shared/SquareGauge';
 import { buildQuantizedChartData } from '@/lib/percentages';
 
 /* ── Palette ── */
-const COL_AMIABLE = 'hsl(195, 50%, 28%)';
-const COL_JUDICIAIRE = 'hsl(215, 55%, 22%)';
-const COL_FINANCIER = 'hsl(0, 0%, 30%)';
-const COL_DISTRESSED = 'hsl(0, 0%, 45%)';
-const COL_CONTENTIEUX = 'hsl(0, 0%, 60%)';
+const COL_AMIABLE = 'hsl(220, 45%, 18%)';
+const COL_JUDICIAIRE = 'hsl(220, 45%, 18%)';
+const COL_FINANCIER = 'hsl(0, 0%, 28%)';
+const COL_DISTRESSED = 'hsl(0, 0%, 48%)';
+const COL_CONTENTIEUX = 'hsl(0, 0%, 72%)';
 
-const COL_POS = ['hsl(195, 50%, 28%)', 'hsl(0, 0%, 30%)', 'hsl(160, 35%, 32%)'];
-const COL_CLI = ['hsl(215, 55%, 22%)', 'hsl(0, 0%, 30%)', 'hsl(0, 0%, 45%)', 'hsl(0, 0%, 60%)', 'hsl(195, 50%, 28%)', 'hsl(160, 35%, 32%)'];
+const COL_POS = ['hsl(220, 45%, 18%)', 'hsl(0, 0%, 28%)', 'hsl(155, 35%, 22%)'];
+const COL_CLI = ['hsl(220, 45%, 18%)', 'hsl(0, 0%, 28%)', 'hsl(0, 0%, 48%)', 'hsl(0, 0%, 72%)', 'hsl(220, 45%, 18%)', 'hsl(155, 35%, 22%)'];
 
 const POSITIONNEMENT_OPTIONS = ['Côté débiteur', 'Côté créancier', 'Côté repreneur / investisseur'];
 const CLIENTELE_OPTIONS = ['ETI', 'PME', 'Grands groupes', 'Banques', 'Fonds', 'AJ/MJ'];
