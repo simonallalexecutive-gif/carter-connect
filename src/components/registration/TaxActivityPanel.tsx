@@ -10,11 +10,11 @@ import SquareGauge from '@/components/shared/SquareGauge';
 const COL_CORPORATE = 'hsl(0, 0%, 8%)';
 const COL_TRANSAC = 'hsl(220, 45%, 18%)';
 const COL_PATRI = 'hsl(0, 0%, 28%)';
-const COL_PXT = 'hsl(155, 35%, 22%)';
-const COL_TVA = 'hsl(350, 45%, 28%)';
+const COL_PXT = 'hsl(350, 45%, 28%)';
+const COL_TVA = 'hsl(20, 75%, 32%)';
 const COL_INTL = 'hsl(0, 0%, 48%)';
 const COL_CONSEIL = 'hsl(220, 35%, 35%)';
-const COL_CONTENTIEUX = 'hsl(155, 25%, 40%)';
+const COL_CONTENTIEUX = 'hsl(350, 35%, 42%)';
 
 const CLIENT_TYPES = [
   'Fonds d\'investissement',

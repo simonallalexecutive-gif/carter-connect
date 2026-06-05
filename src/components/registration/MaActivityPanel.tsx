@@ -12,27 +12,27 @@ const COL_PE = 'hsl(0, 0%, 8%)';
 const COL_MA = 'hsl(220, 45%, 18%)';
 const COL_VC = 'hsl(0, 0%, 28%)';
 
-const COL_PE_LBO = 'hsl(155, 35%, 22%)';
-const COL_PE_MBO = 'hsl(350, 45%, 28%)';
+const COL_PE_LBO = 'hsl(350, 45%, 28%)';
+const COL_PE_MBO = 'hsl(20, 75%, 32%)';
 const COL_PE_PTP = 'hsl(0, 0%, 48%)';
 const COL_PE_PIPE = 'hsl(220, 35%, 35%)';
 
-const COL_MA_PRIVATE = 'hsl(155, 25%, 40%)';
-const COL_MA_PUBLIC = 'hsl(350, 30%, 48%)';
+const COL_MA_PRIVATE = 'hsl(350, 35%, 42%)';
+const COL_MA_PUBLIC = 'hsl(15, 65%, 42%)';
 
 const COL_MA_INDUS = 'hsl(0, 0%, 72%)';
 const COL_MA_TECH = 'hsl(220, 25%, 55%)';
 const COL_MA_SANTE = 'hsl(40, 25%, 88%)';
 const COL_MA_ENERGY = 'hsl(0, 0%, 18%)';
 const COL_MA_SERVICES = 'hsl(220, 50%, 12%)';
-const COL_MA_INFRA = 'hsl(155, 40%, 15%)';
+const COL_MA_INFRA = 'hsl(350, 55%, 18%)';
 
-const COL_MA_OPA = 'hsl(350, 50%, 20%)';
+const COL_MA_OPA = 'hsl(25, 70%, 50%)';
 const COL_MA_OPE = 'hsl(0, 0%, 38%)';
 const COL_MA_SQUEEZE = 'hsl(220, 30%, 28%)';
-const COL_MA_DUAL = 'hsl(155, 30%, 50%)';
+const COL_MA_DUAL = 'hsl(350, 30%, 55%)';
 
-const COL_VC_LEVEES = 'hsl(350, 25%, 62%)';
+const COL_VC_LEVEES = 'hsl(30, 60%, 55%)';
 const COL_VC_CORP = 'hsl(0, 0%, 8%)';
 const COL_VC_SECONDARY = 'hsl(220, 45%, 18%)';
 
@@ -91,7 +91,7 @@ const VC_SECTEURS = [
   'Deep tech', 'Consumer / D2C', 'Marketplace / Plateforme', 'Impact / ESG',
 ];
 
-const COL_CLI = ['hsl(0, 0%, 8%)', 'hsl(220, 45%, 18%)', 'hsl(0, 0%, 28%)', 'hsl(155, 35%, 22%)', 'hsl(350, 45%, 28%)', 'hsl(0, 0%, 48%)'];
+const COL_CLI = ['hsl(0, 0%, 8%)', 'hsl(220, 45%, 18%)', 'hsl(0, 0%, 28%)', 'hsl(350, 45%, 28%)', 'hsl(20, 75%, 32%)', 'hsl(0, 0%, 48%)'];
 
 const tooltipStyle = {
   fontSize: '11px', fontFamily: 'Inter',

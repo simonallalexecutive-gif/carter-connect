@@ -11,13 +11,13 @@ const COL_CONTRATS = 'hsl(0, 0%, 8%)';
 const COL_CONTENTIEUX = 'hsl(220, 45%, 18%)';
 const COL_CONSEIL = 'hsl(0, 0%, 28%)';
 
-const COL_CT_CMD = 'hsl(155, 35%, 22%)';
-const COL_CT_CONC = 'hsl(350, 45%, 28%)';
+const COL_CT_CMD = 'hsl(350, 45%, 28%)';
+const COL_CT_CONC = 'hsl(20, 75%, 32%)';
 const COL_CT_PPP = 'hsl(0, 0%, 48%)';
 
 const COL_CTX_CONTRATS = 'hsl(220, 35%, 35%)';
-const COL_CTX_RESP = 'hsl(155, 25%, 40%)';
-const COL_CTX_REGL = 'hsl(350, 30%, 48%)';
+const COL_CTX_RESP = 'hsl(350, 35%, 42%)';
+const COL_CTX_REGL = 'hsl(15, 65%, 42%)';
 
 const COL_CON_URB = 'hsl(0, 0%, 72%)';
 const COL_CON_REG = 'hsl(220, 25%, 55%)';
