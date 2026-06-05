@@ -123,8 +123,14 @@ const RealEstateActivityPanel = () => {
   const hasContentieux = store.reHasContentieux === true;
   const contentieuxPct = store.reContentieuxPct ?? 20;
 
-  // ── Share Deal Mode ──
-  const shareDealMode = store.reShareDealMode || '';
+  // ── Share Deal Modes (multi-select, stored as comma-joined string for backwards compat) ──
+  const shareDealModes = (store.reShareDealMode || '').split(',').map(s => s.trim()).filter(Boolean);
+  const toggleShareDealMode = (key: string) => {
+    const next = shareDealModes.includes(key)
+      ? shareDealModes.filter(m => m !== key)
+      : [...shareDealModes, key];
+    setField('reShareDealMode', next.join(','));
+  };
 
   // ── Anglais (free input) ──
   const anglaisPct = parseInt(store.anglais || '0', 10) || 0;
@@ -145,7 +151,10 @@ const RealEstateActivityPanel = () => {
   const effAsset = Math.round(advisoryPct * assetVal / 100);
   const effConstruction = Math.max(0, advisoryPct - effBaux - effShare - effAsset);
 
-  const shareLabel = shareDealMode ? (SHARE_DEAL_MODE_SHORT[shareDealMode] || 'Share Deal') : 'Share Deal';
+  const shareLabel = shareDealModes.length
+    ? `Share Deal (${shareDealModes.map(m => SHARE_DEAL_MODES.find(d => d.key === m)?.label).filter(Boolean).join(' + ')})`
+    : 'Share Deal';
+
 
   const chartData = useMemo(() => {
     const segments: { name: string; value: number; color: string }[] = [];
