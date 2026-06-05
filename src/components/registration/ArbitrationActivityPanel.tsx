@@ -123,7 +123,7 @@ const ArbitrationActivityPanel = () => {
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
             className="md:sticky md:top-8 md:w-[320px] flex-shrink-0 w-full"
           >
-            <div className="synthesis-dark p-5 space-y-4">
+            <div className="bg-white border border-gray-200 rounded-sm p-5 space-y-4">
               <p className="text-sm font-sans font-medium text-foreground">Synthèse</p>
 
               <div className="self-center mx-auto" style={{ width: 200, height: 200 }}>
