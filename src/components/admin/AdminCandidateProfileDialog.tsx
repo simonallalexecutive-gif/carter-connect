@@ -94,7 +94,7 @@ const AdminCandidateProfileDialog = ({ open, onOpenChange, candidate, onUpdated 
     return 'En attente de validation';
   }, [candidate]);
 
-  const isPending = candidate?.status === 'pending_admin_approval';
+  const isPending = candidate?.status !== 'approved' && candidate?.status !== 'rejected';
 
   if (!open || !candidate) return null;
 
