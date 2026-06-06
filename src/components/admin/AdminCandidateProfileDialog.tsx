@@ -129,6 +129,7 @@ const AdminCandidateProfileDialog = ({ open, onOpenChange, candidate, onUpdated 
       {/* Profile content */}
       <div className="flex-1 overflow-y-auto">
         {hydrated && <Step6Review readOnly />}
+        <div className="h-8" />
       </div>
 
       {/* Action footer */}
