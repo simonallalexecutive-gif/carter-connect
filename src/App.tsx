@@ -10,7 +10,6 @@ import DemoPage from "./pages/DemoPage";
 
 import AuthPage from "./pages/AuthPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
-import VideoPreview from "./pages/VideoPreview";
 import AdminPage from "./pages/AdminPage";
 import CandidateDashboard from "./pages/CandidateDashboard";
 import NotFound from "./pages/NotFound";
@@ -45,7 +44,6 @@ const App = () => (
           
           <Route path="/auth" element={<AuthPage />} />
           <Route path="/reset-password" element={<ResetPasswordPage />} />
-          <Route path="/video-preview" element={<VideoPreview />} />
           <Route path="/espace-candidat" element={<CandidateDashboard />} />
           <Route path="/admin/*" element={<AdminPage />} />
           <Route path="/logan-admin" element={<AdminLoginPage />} />
