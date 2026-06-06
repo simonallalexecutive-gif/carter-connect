@@ -19,16 +19,18 @@ serve(async (req) => {
     ? "Votre profil a été approuvé — Logan"
     : "Mise à jour de votre candidature — Logan";
 
+  const FONT = `<html><head><link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,300;6..96,400&display=swap" rel="stylesheet"></head>`;
+
   const html = approved
-    ? `
+    ? FONT + `
       <div style="background:#0a0a0a;padding:48px 0;font-family:sans-serif;">
         <div style="max-width:520px;margin:0 auto;background:#111;border:1px solid #222;border-radius:2px;overflow:hidden;">
           <div style="padding:40px 48px 32px;border-bottom:1px solid #1e1e1e;text-align:center;">
-            <p style="font-family:'Georgia',serif;font-size:36px;font-weight:300;color:#fff;margin:0;letter-spacing:0.06em;">Logan</p>
+            <p style="font-family:'Bodoni Moda','Georgia',serif;font-size:36px;font-weight:300;color:#fff;margin:0;letter-spacing:0.06em;">Logan</p>
             <p style="font-size:10px;color:#555;letter-spacing:0.18em;text-transform:uppercase;margin:8px 0 0;font-family:sans-serif;">Réseau confidentiel d'avocats d'affaires</p>
           </div>
           <div style="padding:40px 48px;">
-            <h2 style="font-family:'Georgia',serif;font-size:22px;font-weight:300;color:#fff;margin:0 0 16px;line-height:1.4;">Profil approuvé</h2>
+            <h2 style="font-family:'Bodoni Moda','Georgia',serif;font-size:22px;font-weight:300;color:#fff;margin:0 0 16px;line-height:1.4;">Profil approuvé</h2>
             <p style="font-size:14px;color:#999;line-height:1.7;margin:0 0 8px;font-family:sans-serif;font-weight:300;">
               Bonjour ${candidateName},
             </p>
@@ -50,15 +52,15 @@ serve(async (req) => {
         </div>
       </div>
     `
-    : `
+    : FONT + `
       <div style="background:#0a0a0a;padding:48px 0;font-family:sans-serif;">
         <div style="max-width:520px;margin:0 auto;background:#111;border:1px solid #222;border-radius:2px;overflow:hidden;">
           <div style="padding:40px 48px 32px;border-bottom:1px solid #1e1e1e;text-align:center;">
-            <p style="font-family:'Georgia',serif;font-size:36px;font-weight:300;color:#fff;margin:0;letter-spacing:0.06em;">Logan</p>
+            <p style="font-family:'Bodoni Moda','Georgia',serif;font-size:36px;font-weight:300;color:#fff;margin:0;letter-spacing:0.06em;">Logan</p>
             <p style="font-size:10px;color:#555;letter-spacing:0.18em;text-transform:uppercase;margin:8px 0 0;font-family:sans-serif;">Réseau confidentiel d'avocats d'affaires</p>
           </div>
           <div style="padding:40px 48px;">
-            <h2 style="font-family:'Georgia',serif;font-size:22px;font-weight:300;color:#fff;margin:0 0 16px;line-height:1.4;">Mise à jour de votre candidature</h2>
+            <h2 style="font-family:'Bodoni Moda','Georgia',serif;font-size:22px;font-weight:300;color:#fff;margin:0 0 16px;line-height:1.4;">Mise à jour de votre candidature</h2>
             <p style="font-size:14px;color:#999;line-height:1.7;margin:0 0 8px;font-family:sans-serif;font-weight:300;">Bonjour ${candidateName},</p>
             <p style="font-size:14px;color:#999;line-height:1.7;margin:0 0 32px;font-family:sans-serif;font-weight:300;">
               Après examen attentif de votre profil, nous ne sommes pas en mesure de donner suite à votre candidature pour le moment. Nous conservons vos informations et reviendrons vers vous si une opportunité correspondante se présente.

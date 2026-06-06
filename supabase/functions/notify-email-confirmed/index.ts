@@ -28,9 +28,10 @@ serve(async (req) => {
       to: ADMIN_EMAIL,
       subject: `Candidat à valider — ${candidateName}`,
       html: `
+        <html><head><link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,300;6..96,400&display=swap" rel="stylesheet"></head>
         <div style="font-family:sans-serif;max-width:560px;margin:0 auto;color:#1a1a1a;">
-          <p style="font-family:'Georgia',serif;font-size:28px;font-weight:300;margin:0 0 24px;letter-spacing:0.04em;">Logan</p>
-          <h2 style="font-weight:400;font-size:18px;margin:0 0 16px;">Nouveau profil à valider</h2>
+          <p style="font-family:'Bodoni Moda','Georgia',serif;font-size:32px;font-weight:300;margin:0 0 24px;letter-spacing:0.06em;">Logan</p>
+          <h2 style="font-family:'Bodoni Moda','Georgia',serif;font-weight:400;font-size:20px;margin:0 0 16px;">Nouveau profil à valider</h2>
           <p><strong>Nom :</strong> ${candidateName}</p>
           <p><strong>Email :</strong> ${candidateEmail}</p>
           <p style="margin-top:8px;">Le candidat a confirmé son adresse email. Son profil est en attente de votre validation.</p>
