@@ -688,12 +688,15 @@ const Step6Review = ({ readOnly = false }: Step6ReviewProps = {}) => {
         });
 
         try {
-          await supabase.from('candidate_registrations').insert({
-            user_id: userId,
-            submission_data: submissionData as any,
-            visibility: store.visibilite || 'confidentiel',
-            no_go_cabinets: store.noGoCabinets || [],
-          } as any);
+          const { error: regError } = await supabase.functions.invoke('save-registration', {
+            body: {
+              userId,
+              submissionData,
+              visibility: store.visibilite || 'confidentiel',
+              noGoCabinets: store.noGoCabinets || [],
+            },
+          });
+          if (regError) console.error('Failed to save registration:', regError);
         } catch (regError) {
           console.error('Failed to save registration:', regError);
         }
