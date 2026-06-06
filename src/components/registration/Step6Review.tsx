@@ -441,9 +441,9 @@ const Step6Review = ({ readOnly = false }: Step6ReviewProps = {}) => {
                   innerRadius="48%"
                   outerRadius="86%"
                   dataKey="value"
-                  paddingAngle={1.5}
+                  paddingAngle={activitySummary.chartData.length === 1 ? 0 : 1.5}
                   stroke="hsl(0, 0%, 7%)"
-                  strokeWidth={2}
+                  strokeWidth={activitySummary.chartData.length === 1 ? 0 : 2}
                   label={({ cx, cy, midAngle, innerRadius: ir, outerRadius: or, value, fill }) => {
                     const RADIAN = Math.PI / 180;
                     const isSmall = value < 8;
