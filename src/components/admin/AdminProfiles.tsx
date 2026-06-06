@@ -85,14 +85,29 @@ const AdminProfiles = () => {
 
   const load = async () => {
     setLoading(true);
-    const [{ data: c, error: cErr }, { data: cb, error: cbErr }] = await Promise.all([
-      (supabase.rpc as any)('admin_list_candidate_registrations'),
-      (supabase.rpc as any)('admin_list_cabinet_accounts'),
-    ]);
-    if (cErr) console.error(cErr);
-    if (cbErr) console.error(cbErr);
-    setCandidates((c as CandidateRow[]) || []);
+
+    // Requête directe sur candidate_registrations (RLS autorise les admins)
+    const { data: c, error: cErr } = await supabase
+      .from('candidate_registrations')
+      .select('id, user_id, status, visibility, email_verified_at, created_at, submission_data')
+      .order('created_at', { ascending: false });
+
+    if (cErr) console.error('candidates error:', cErr);
+
+    // Récupère les emails depuis auth via la RPC (fallback sur les données submission_data)
+    const candidates: CandidateRow[] = (c || []).map((row: any) => ({
+      ...row,
+      auth_email: row.submission_data?.email || null,
+      full_name: `${row.submission_data?.prenom || ''} ${row.submission_data?.nom || ''}`.trim() || null,
+    }));
+
+    setCandidates(candidates);
+
+    // Cabinets via RPC (moins critique)
+    const { data: cb, error: cbErr } = await (supabase.rpc as any)('admin_list_cabinet_accounts');
+    if (cbErr) console.error('cabinets error:', cbErr);
     setCabinets((cb as CabinetRow[]) || []);
+
     setLoading(false);
   };
 
