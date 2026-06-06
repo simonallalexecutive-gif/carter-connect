@@ -35,11 +35,11 @@ const Step4Project = () => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-      className="max-w-5xl mx-auto px-6 py-10"
+      className="max-w-[780px] mx-auto"
     >
       
 
-      <h2 className="text-3xl font-serif text-foreground mb-2 font-normal tracking-[-0.02em]">
+      <h2 className="font-sans text-3xl md:text-4xl font-normal text-foreground leading-tight mb-2.5">
         Vos priorités, vos exigences.
       </h2>
       <p className="text-muted-foreground font-sans text-sm font-light mb-8">
