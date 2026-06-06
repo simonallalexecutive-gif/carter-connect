@@ -83,7 +83,7 @@ const RegisterPage = () => {
   const showProgress = !showConfIntro && !showCabinetIntro && currentStep >= 2 && currentStep <= 6;
 
   return (
-    <div className={(isDarkStep || showConfIntro || showCabinetIntro) ? '' : 'min-h-screen'}>
+    <div className={`min-h-screen flex flex-col ${isStepContent && !showConfIntro && !showCabinetIntro ? 'theme-light-registration' : isDarkStep ? '' : ''} bg-background text-foreground`}>
       {showProgress && (
         <>
           <LogoBanner subtitle="Inscription candidat" variant="default" />
@@ -92,9 +92,9 @@ const RegisterPage = () => {
           </div>
         </>
       )}
-      <div className={isStepContent && !showConfIntro && !showCabinetIntro ? 'bg-white min-h-[calc(100vh-140px)]' : ''}>
+      <main className={isStepContent && !showConfIntro && !showCabinetIntro ? 'flex-1 py-11 px-6 md:px-12' : ''}>
         {renderStep()}
-      </div>
+      </main>
     </div>
   );
 };

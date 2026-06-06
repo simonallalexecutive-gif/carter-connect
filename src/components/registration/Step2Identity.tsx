@@ -211,7 +211,7 @@ const Step2Identity = () => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-      className="max-w-5xl mx-auto px-6 py-10"
+      className="max-w-[780px] mx-auto"
     >
       <div className="text-[9px] font-bold text-muted-foreground tracking-[0.16em] uppercase mb-3 flex items-center gap-2">
         <span className="w-5 h-[1.5px] bg-foreground rounded-sm" />
@@ -222,11 +222,8 @@ const Step2Identity = () => {
 
       <div className="space-y-10">
         {/* ── Identité & contact ───────────────────────────────── */}
-        <div className="rounded-sm p-8 space-y-7 border border-border bg-card">
-          <div>
-            <p className="text-[10px] font-sans font-medium tracking-[0.15em] uppercase text-muted-foreground mb-2">Confidentiel</p>
-            <h3 className="font-serif text-xl text-foreground font-normal">Identité & contact</h3>
-          </div>
+        <div className="space-y-7 py-8 border-b border-border">
+          <div className="text-[9px] font-bold tracking-[0.16em] uppercase text-muted-foreground mb-1 flex items-center gap-2"><span className="w-5 h-[1.5px] bg-foreground rounded-sm" />IDENTITÉ & CONTACT</div>
 
           {/* Photo + LinkedIn — alignés horizontalement */}
           <div className="grid grid-cols-1 md:grid-cols-[auto_1fr] gap-6 items-start">
@@ -253,7 +250,7 @@ const Step2Identity = () => {
             </div>
 
             <div>
-              <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Profil LinkedIn</Label>
+              <Label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground">Profil LinkedIn</Label>
               <div className="relative mt-2">
                 {linkedinLoading && (
                   <Loader2 className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground animate-spin" />
@@ -279,11 +276,11 @@ const Step2Identity = () => {
           {/* Nom / Prénom */}
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Prénom *</Label>
+              <Label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground">Prénom *</Label>
               <Input value={store.prenom} onChange={e => store.setField('prenom', e.target.value)} placeholder="Jean" className="mt-2" />
             </div>
             <div>
-              <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Nom *</Label>
+              <Label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground">Nom *</Label>
               <Input value={store.nom} onChange={e => store.setField('nom', e.target.value)} placeholder="Dupont" className="mt-2" />
             </div>
           </div>
@@ -291,17 +288,17 @@ const Step2Identity = () => {
           {/* Email / Tel */}
           {isAdmin ? (
             <div>
-              <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Téléphone *</Label>
+              <Label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground">Téléphone *</Label>
               <Input value={store.telephone} onChange={e => store.setField('telephone', formatPhoneWithDots(e.target.value))} placeholder="06.50.10.20.30" className="mt-2" />
             </div>
           ) : (
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Email *</Label>
+                <Label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground">Email *</Label>
                 <Input type="email" value={store.email} onChange={e => store.setField('email', e.target.value)} placeholder="jean@cabinet.com" className="mt-2" />
               </div>
               <div>
-                <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Téléphone *</Label>
+                <Label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground">Téléphone *</Label>
                 <Input value={store.telephone} onChange={e => store.setField('telephone', formatPhoneWithDots(e.target.value))} placeholder="06.50.10.20.30" className="mt-2" />
               </div>
             </div>
@@ -310,14 +307,11 @@ const Step2Identity = () => {
 
         {/* ── Sécurité du compte ───────────────────────────────── */}
         {!isAdmin && (
-        <div className="rounded-sm p-8 space-y-6 border border-border bg-card">
-          <div>
-            <p className="text-[10px] font-sans font-medium tracking-[0.15em] uppercase text-muted-foreground mb-2">Confidentiel</p>
-            <h3 className="font-serif text-xl text-foreground font-normal">Sécurité du compte</h3>
-          </div>
+        <div className="space-y-6 py-8 border-b border-border">
+          <div className="text-[9px] font-bold tracking-[0.16em] uppercase text-muted-foreground mb-1 flex items-center gap-2"><span className="w-5 h-[1.5px] bg-foreground rounded-sm" />SÉCURITÉ DU COMPTE</div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Mot de passe *</Label>
+              <Label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground">Mot de passe *</Label>
               <div className="relative mt-2">
                 <Input
                   type={showPassword ? 'text' : 'password'}
@@ -336,7 +330,7 @@ const Step2Identity = () => {
               </div>
             </div>
             <div>
-              <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Confirmer le mot de passe *</Label>
+              <Label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground">Confirmer le mot de passe *</Label>
               <div className="relative mt-2">
                 <Input
                   type={showConfirm ? 'text' : 'password'}
@@ -392,13 +386,10 @@ const Step2Identity = () => {
         )}
 
         {/* ── Barreau ──────────────────────────────────────────── */}
-        <div className="rounded-sm p-8 space-y-6 border border-border bg-card">
+        <div className="space-y-6 py-8 border-b border-border">
+          <div className="text-[9px] font-bold tracking-[0.16em] uppercase text-muted-foreground mb-1 flex items-center gap-2"><span className="w-5 h-[1.5px] bg-foreground rounded-sm" />BARREAU</div>
           <div>
-            <p className="text-[10px] font-sans font-medium tracking-[0.15em] uppercase text-muted-foreground mb-2">Confidentiel</p>
-            <h3 className="font-serif text-xl text-foreground font-normal">Barreau</h3>
-          </div>
-          <div>
-            <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Date de prestation de serment *</Label>
+            <Label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground">Date de prestation de serment *</Label>
             <div className="grid grid-cols-2 gap-4 mt-2">
               <Select value={store.sermentMois?.toString() || ''} onValueChange={v => store.setField('sermentMois', parseInt(v))}>
                 <SelectTrigger><SelectValue placeholder="Mois" /></SelectTrigger>
@@ -472,7 +463,7 @@ const Step2Identity = () => {
               <div className="space-y-8 border-t border-border pt-6 animate-fade-in">
                 {/* CA Portable with gauge */}
                 <div>
-                  <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Chiffre d'affaires portable</Label>
+                  <Label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground">Chiffre d'affaires portable</Label>
                   <div className="mt-3 space-y-3">
                     <div className="flex items-center justify-between">
                       <span className="text-xs text-muted-foreground font-sans">0 K€</span>
@@ -506,7 +497,7 @@ const Step2Identity = () => {
 
                 {/* Expertise summary */}
                 <div>
-                  <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Résumé de votre expertise</Label>
+                  <Label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground">Résumé de votre expertise</Label>
                   <Textarea
                     value={store.assocExpertiseSummary}
                     onChange={e => store.setField('assocExpertiseSummary', e.target.value)}
@@ -518,7 +509,7 @@ const Step2Identity = () => {
 
                 {/* Projet & attentes */}
                 <div>
-                  <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Votre projet</Label>
+                  <Label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground">Votre projet</Label>
                   <Textarea
                     value={store.assocProjet}
                     onChange={e => store.setField('assocProjet', e.target.value)}
@@ -528,7 +519,7 @@ const Step2Identity = () => {
                 </div>
 
                 <div>
-                  <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-3 block">Vos attentes principales</Label>
+                  <Label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-3 block">Vos attentes principales</Label>
                   <ChipSelector
                     options={ASSOC_ATTENTES}
                     selected={store.assocAttentes}
@@ -540,7 +531,7 @@ const Step2Identity = () => {
 
                 {/* Type de cabinets qui intéressent */}
                 <div>
-                  <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-3 block">Quel type de cabinet vous intéresserait ?</Label>
+                  <Label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-3 block">Quel type de cabinet vous intéresserait ?</Label>
                   <ChipSelector
                     options={ASSOC_CAB_TYPES}
                     selected={store.assocCabTypes}
@@ -550,7 +541,7 @@ const Step2Identity = () => {
 
                 {/* BP Upload */}
                 <div>
-                  <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider mb-2 block">Business plan (optionnel)</Label>
+                  <Label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2 block">Business plan (optionnel)</Label>
                   <FileDropzone file={store.businessPlanFile} onFileChange={f => store.setField('businessPlanFile', f)} />
                   <p className="text-xs text-muted-foreground font-sans font-light mt-1.5">PDF, Word ou Excel · max 10 Mo</p>
                 </div>
@@ -560,16 +551,13 @@ const Step2Identity = () => {
         )}
 
         {/* Bloc Parcours professionnel */}
-        <div className="rounded-sm p-8 space-y-6 border border-border relative z-0 bg-card">
-          <div>
-            <p className="text-[10px] font-sans font-medium tracking-[0.15em] uppercase text-muted-foreground mb-2">Confidentiel</p>
-            <h3 className="font-serif text-xl text-foreground font-normal">Parcours professionnel</h3>
-          </div>
+        <div className="space-y-6 py-8 border-b border-border">
+          <div className="text-[9px] font-bold tracking-[0.16em] uppercase text-muted-foreground mb-1 flex items-center gap-2"><span className="w-5 h-[1.5px] bg-foreground rounded-sm" />PARCOURS PROFESSIONNEL</div>
 
           {/* Cabinet — FIRST */}
           <div>
             <div className="flex items-center gap-2">
-              <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Cabinet actuel *</Label>
+              <Label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground">Cabinet actuel *</Label>
             </div>
             <AutocompleteInput
               data={allCabinets}
@@ -582,7 +570,7 @@ const Step2Identity = () => {
 
           {/* Pratique — all Chambers departments */}
           <div>
-            <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Votre pratique *</Label>
+            <Label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground">Votre pratique *</Label>
             <p className="font-sans text-[11px] italic text-muted-foreground font-light mt-1.5 leading-relaxed">
               Pour les candidats exerçant à la fois en M&A et en Private Equity, merci de sélectionner votre pratique en fonction de votre dominante.
             </p>
@@ -649,7 +637,7 @@ const Step2Identity = () => {
           {store.cabinet && (
             <div className="space-y-4">
               <div className="flex items-center justify-between">
-                <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Cabinets précédents</Label>
+                <Label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground">Cabinets précédents</Label>
                 {store.previousCabinets.length < 3 && (
                   <button
                     type="button"
@@ -734,18 +722,15 @@ const Step2Identity = () => {
 
 
         {/* Rémunération */}
-        <div className="rounded-sm p-8 space-y-6 border border-border relative z-0 bg-card">
-          <div>
-            <p className="text-[10px] font-sans font-medium tracking-[0.15em] uppercase text-muted-foreground mb-2">Confidentiel</p>
-            <h3 className="font-serif text-xl text-foreground font-normal">Rémunération</h3>
-          </div>
+        <div className="space-y-6 py-8 border-b border-border">
+          <div className="text-[9px] font-bold tracking-[0.16em] uppercase text-muted-foreground mb-1 flex items-center gap-2"><span className="w-5 h-[1.5px] bg-foreground rounded-sm" />RÉMUNÉRATION</div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Rétrocession brute annuelle (€) *</Label>
+              <Label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground">Rétrocession brute annuelle (€) *</Label>
               <Input value={store.retrocession} onChange={e => store.setField('retrocession', formatNumberWithDots(e.target.value))} placeholder="80.000" className="mt-2" />
             </div>
             <div>
-              <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Bonus (€) *</Label>
+              <Label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground">Bonus (€) *</Label>
               <Input value={store.bonus} onChange={e => store.setField('bonus', formatNumberWithDots(e.target.value))} placeholder="10.000" className="mt-2" />
             </div>
           </div>
@@ -762,11 +747,11 @@ const Step2Identity = () => {
           {store.hasObjectifFacturable && (
             <div className="grid grid-cols-2 gap-4">
               <div>
-              <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Objectif (heures/an)</Label>
+              <Label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground">Objectif (heures/an)</Label>
                 <Input value={store.objectifFacturable} onChange={e => store.setField('objectifFacturable', formatNumberWithDots(e.target.value))} placeholder="1.800" className="mt-2" />
               </div>
               <div>
-                <Label className="font-sans text-xs font-light text-muted-foreground uppercase tracking-wider">Réalisé en pratique (heures/an)</Label>
+                <Label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground">Réalisé en pratique (heures/an)</Label>
                 <Input value={store.objectifFacturableReel} onChange={e => store.setField('objectifFacturableReel', formatNumberWithDots(e.target.value))} placeholder="1.650" className="mt-2" />
               </div>
             </div>
