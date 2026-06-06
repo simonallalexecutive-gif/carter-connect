@@ -362,6 +362,9 @@ const Step6Review = ({ readOnly = false }: Step6ReviewProps = {}) => {
     store.socialConseil, store.socialRelationType, store.socialIndividuel,
     store.reBauxAM, store.reShareDeal, store.reAssetDealPct, store.reConstructionPct,
     store.reHasFinancement, store.reFinancementPct, store.reHasContentieux, store.reContentieuxPct,
+    store.taxConseilPct, store.taxCorporatePct, store.taxTransacPct, store.taxHasPatrimonial,
+    store.taxPatrimonialPct, store.taxHasPrixTransfert, store.taxPrixTransfertPct, store.taxHasTva,
+    store.taxTvaPct, store.taxInternationalPct,
     activeActivites,
   ]);
   const totalPercent = activitySummary.chartData.reduce((sum, d) => sum + d.value, 0);
@@ -599,6 +602,98 @@ const Step6Review = ({ readOnly = false }: Step6ReviewProps = {}) => {
               </div>
             )}
 
+            {/* Sous-détail M&A — Private M&A / Public M&A + clientèle */}
+            {(store.departement === 'Corporate/M&A' || store.departement === 'M&A (dominante)') && store.activites['ma_ma'] && (() => {
+              const subs = [
+                { key: 'private', label: 'Private M&A' },
+                { key: 'public', label: 'Public M&A' },
+              ].filter(s => store.pourcentages[s.key] !== undefined);
+              if (subs.length === 0) return null;
+              const total = subs.reduce((s, i) => s + (store.pourcentages[i.key] ?? 0), 0);
+              return (
+                <div className="pt-4 border-t border-white/10 space-y-2">
+                  <p className="text-[9px] uppercase tracking-[0.22em] text-white/45 font-sans font-semibold mb-2">Détail M&A</p>
+                  {subs.map(s => (
+                    <div key={s.key} className="flex items-baseline gap-3 text-[12px] font-sans">
+                      <span className="text-white/90 flex-1">{s.label}</span>
+                      <span className="text-white font-mono font-semibold tabular-nums">{total > 0 ? Math.round((store.pourcentages[s.key] ?? 0) / total * 100) : 0}%</span>
+                    </div>
+                  ))}
+                  {(store.maClientele || []).length > 0 && (
+                    <div className="flex flex-wrap gap-1.5 pt-1">
+                      {(store.maClientele || []).map(c => (
+                        <span key={c} className="inline-flex items-center px-2.5 py-1 rounded-sm text-[10px] font-sans bg-white/10 text-white border border-white/20">{c}</span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              );
+            })()}
+
+            {/* Sous-détail Private Equity — LBO / MBO / PTP / PIPE + Fonds/Management */}
+            {(store.departement === 'Corporate/M&A' || store.departement === 'Private Equity' || store.departement === 'Private Equity (dominante)') && store.activites['ma_pe'] && (() => {
+              const subs = [
+                { key: 'lbo', label: 'LBO' },
+                { key: 'mbo', label: 'MBO / Management' },
+                { key: 'ptp', label: 'Public-to-Private' },
+                { key: 'pipe', label: 'PIPE' },
+              ].filter(s => store.pourcentages[s.key] !== undefined);
+              if (subs.length === 0) return null;
+              const total = subs.reduce((s, i) => s + (store.pourcentages[i.key] ?? 0), 0);
+              const peFonds = store.maPeFonds ?? 50;
+              return (
+                <div className="pt-4 border-t border-white/10 space-y-2">
+                  <p className="text-[9px] uppercase tracking-[0.22em] text-white/45 font-sans font-semibold mb-2">Détail Private Equity</p>
+                  {subs.map(s => (
+                    <div key={s.key} className="flex items-baseline gap-3 text-[12px] font-sans">
+                      <span className="text-white/90 flex-1">{s.label}</span>
+                      <span className="text-white font-mono font-semibold tabular-nums">{total > 0 ? Math.round((store.pourcentages[s.key] ?? 0) / total * 100) : 0}%</span>
+                    </div>
+                  ))}
+                  <div className="flex items-center gap-2 pt-1 text-[10px] font-sans text-white/45">
+                    <span>Fonds {peFonds}%</span>
+                    <span>·</span>
+                    <span>Management {100 - peFonds}%</span>
+                  </div>
+                </div>
+              );
+            })()}
+
+            {/* Sous-détail Venture Capital + secteurs */}
+            {store.activites['ma_vc'] && (() => {
+              const subs = [
+                { key: 'levees', label: 'Levées de fonds' },
+                { key: 'corporate', label: 'Corporate venture' },
+                { key: 'secondary', label: 'Secondary / Cessions' },
+              ].filter(s => store.pourcentages[s.key] !== undefined);
+              if (subs.length === 0) return null;
+              const total = subs.reduce((s, i) => s + (store.pourcentages[i.key] ?? 0), 0);
+              const vcFonds = store.maVcFonds ?? 50;
+              return (
+                <div className="pt-4 border-t border-white/10 space-y-2">
+                  <p className="text-[9px] uppercase tracking-[0.22em] text-white/45 font-sans font-semibold mb-2">Détail Venture Capital</p>
+                  {subs.map(s => (
+                    <div key={s.key} className="flex items-baseline gap-3 text-[12px] font-sans">
+                      <span className="text-white/90 flex-1">{s.label}</span>
+                      <span className="text-white font-mono font-semibold tabular-nums">{total > 0 ? Math.round((store.pourcentages[s.key] ?? 0) / total * 100) : 0}%</span>
+                    </div>
+                  ))}
+                  <div className="flex items-center gap-2 pt-1 text-[10px] font-sans text-white/45">
+                    <span>Fonds {vcFonds}%</span>
+                    <span>·</span>
+                    <span>Management {100 - vcFonds}%</span>
+                  </div>
+                  {(store.vcSecteurs || []).length > 0 && (
+                    <div className="flex flex-wrap gap-1.5 pt-1">
+                      {(store.vcSecteurs || []).map(s => (
+                        <span key={s} className="inline-flex items-center px-2.5 py-1 rounded-sm text-[10px] font-sans bg-white/10 text-white border border-white/20">{s}</span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              );
+            })()}
+
             {/* Social expertises */}
             {(store.departement === 'Droit Social' || store.departement === 'Employment') && (store.socialExpertises || []).length > 0 && (
               <div className="pt-4 border-t border-white/10 space-y-2">
@@ -606,6 +701,84 @@ const Step6Review = ({ readOnly = false }: Step6ReviewProps = {}) => {
                 <div className="flex flex-wrap gap-1.5">
                   {(store.socialExpertises || []).map(e => (
                     <span key={e} className="inline-flex items-center px-2.5 py-1 rounded-sm text-[10px] font-sans bg-white/10 text-white border border-white/20">{e}</span>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Social — Positionnement cabinet (standalone / corporate / restructuring) */}
+            {(store.departement === 'Droit Social' || store.departement === 'Employment') && (() => {
+              const posCabinet = store.socialPosCabinet || {};
+              const entries = [
+                { key: 'standalone', label: 'Stand alone' },
+                { key: 'corporate', label: 'En support Corporate / M&A' },
+                { key: 'restructuring', label: 'En support Restructuring' },
+              ].filter(e => (posCabinet[e.key as keyof typeof posCabinet] ?? 0) > 0);
+              if (entries.length === 0) return null;
+              const total = entries.reduce((s, e) => s + (posCabinet[e.key as keyof typeof posCabinet] ?? 0), 0);
+              return (
+                <div className="pt-4 border-t border-white/10 space-y-2">
+                  <p className="text-[9px] uppercase tracking-[0.22em] text-white/45 font-sans font-semibold mb-2">Positionnement cabinet</p>
+                  {entries.map(e => (
+                    <div key={e.key} className="flex items-baseline gap-3 text-[12px] font-sans">
+                      <span className="text-white/90 flex-1">{e.label}</span>
+                      <span className="text-white font-mono font-semibold tabular-nums">{total > 0 ? Math.round((posCabinet[e.key as keyof typeof posCabinet] ?? 0) / total * 100) : 0}%</span>
+                    </div>
+                  ))}
+                </div>
+              );
+            })()}
+
+            {/* Tax — Conseil / Contentieux ratio */}
+            {store.departement === 'Tax' && (() => {
+              const conseilPct = store.taxConseilPct ?? 70;
+              const contentieuxPct = 100 - conseilPct;
+              return (
+                <div className="pt-4 border-t border-white/10 space-y-2">
+                  <p className="text-[9px] uppercase tracking-[0.22em] text-white/45 font-sans font-semibold mb-2">Activité</p>
+                  <div className="flex items-baseline gap-3 text-[12px] font-sans">
+                    <span className="text-white/90 flex-1">Conseil</span>
+                    <span className="text-white font-mono font-semibold tabular-nums">{conseilPct}%</span>
+                  </div>
+                  <div className="flex items-baseline gap-3 text-[12px] font-sans">
+                    <span className="text-white/90 flex-1">Contentieux</span>
+                    <span className="text-white font-mono font-semibold tabular-nums">{contentieuxPct}%</span>
+                  </div>
+                </div>
+              );
+            })()}
+
+            {/* Tax — Clientèle */}
+            {store.departement === 'Tax' && (store.taxClients || []).length > 0 && (
+              <div className="pt-4 border-t border-white/10 space-y-2">
+                <p className="text-[9px] uppercase tracking-[0.22em] text-white/45 font-sans font-semibold mb-2">Clientèle</p>
+                <div className="flex flex-wrap gap-1.5">
+                  {(store.taxClients || []).map(c => (
+                    <span key={c} className="inline-flex items-center px-2.5 py-1 rounded-sm text-[10px] font-sans bg-white/10 text-white border border-white/20">{c}</span>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Real Estate — Types d'actifs */}
+            {(store.departement === 'Immobilier' || store.departement === 'Real Estate') && (store.reAssetTypes || []).length > 0 && (
+              <div className="pt-4 border-t border-white/10 space-y-2">
+                <p className="text-[9px] uppercase tracking-[0.22em] text-white/45 font-sans font-semibold mb-2">Actifs</p>
+                <div className="flex flex-wrap gap-1.5">
+                  {(store.reAssetTypes || []).map(a => (
+                    <span key={a} className="inline-flex items-center px-2.5 py-1 rounded-sm text-[10px] font-sans bg-white/10 text-white border border-white/20">{a}</span>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Real Estate — Domaines de contentieux */}
+            {(store.departement === 'Immobilier' || store.departement === 'Real Estate') && (store.reContentieuxDomaines || []).length > 0 && (
+              <div className="pt-4 border-t border-white/10 space-y-2">
+                <p className="text-[9px] uppercase tracking-[0.22em] text-white/45 font-sans font-semibold mb-2">Domaines de contentieux</p>
+                <div className="flex flex-wrap gap-1.5">
+                  {(store.reContentieuxDomaines || []).map(d => (
+                    <span key={d} className="inline-flex items-center px-2.5 py-1 rounded-sm text-[10px] font-sans bg-white/10 text-white border border-white/20">{d}</span>
                   ))}
                 </div>
               </div>
