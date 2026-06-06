@@ -214,11 +214,21 @@ const CabinetPage = () => {
 
   useEffect(() => {
     const checkSession = async () => {
+      // Ne pas rediriger vers le dashboard si l'utilisateur est en train de s'inscrire
+      if (searchParams.get('start') === '2') return;
       const { data: { session } } = await (supabase.auth as any).getSession();
       if (session?.user) {
-        const name = session.user.user_metadata?.full_name || '';
-        if (name) setField('cabinetName', name);
-        setStep(6);
+        // Vérifie qu'il a bien un compte cabinet avant de rediriger
+        const { data: cabinet } = await supabase
+          .from('cabinet_accounts')
+          .select('id')
+          .eq('user_id', session.user.id)
+          .single();
+        if (cabinet) {
+          const name = session.user.user_metadata?.full_name || '';
+          if (name) setField('cabinetName', name);
+          setStep(6);
+        }
       }
     };
     if (step === 1) checkSession();
