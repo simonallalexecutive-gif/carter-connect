@@ -941,11 +941,11 @@ const Step6Review = ({ readOnly = false }: Step6ReviewProps = {}) => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-      className="max-w-[780px] mx-auto"
+      className="max-w-[780px] mx-auto pt-10 px-4"
     >
-      
-      <h2 className="font-sans text-3xl md:text-4xl font-normal text-foreground leading-tight mb-2.5">Récapitulatif</h2>
-      <p className="text-muted-foreground font-sans text-xs font-light mb-8">Vérifiez vos informations avant de soumettre votre profil.</p>
+
+      <h2 className="font-sans text-3xl md:text-4xl font-normal text-white leading-tight mb-2.5">Récapitulatif</h2>
+      <p className="text-white/50 font-sans text-xs font-light mb-8">Vérifiez vos informations avant de soumettre votre profil.</p>
 
       {/* Tabs — habillage sombre, élégant */}
       <div className="inline-flex gap-1 mb-6 p-1 bg-[hsl(0,0%,11%)] rounded-md">
