@@ -86,9 +86,9 @@ const RegisterPage = () => {
     <div className={(isDarkStep || showConfIntro || showCabinetIntro) ? '' : 'min-h-screen'}>
       {showProgress && (
         <>
-          <LogoBanner subtitle="Inscription candidat" variant="light" />
-          <div className="sticky top-0 z-40 bg-white border-b border-border shadow-[0_8px_24px_-12px_rgba(0,0,0,0.08)]">
-            <StepProgress currentStep={currentStep} />
+          <LogoBanner subtitle="Inscription candidat" variant="default" />
+          <div className="sticky top-0 z-40 bg-black border-b border-white/10 shadow-[0_8px_24px_-12px_rgba(0,0,0,0.6)]">
+            <StepProgress currentStep={currentStep} dark />
           </div>
         </>
       )}

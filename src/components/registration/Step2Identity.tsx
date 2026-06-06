@@ -213,8 +213,12 @@ const Step2Identity = () => {
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
       className="max-w-5xl mx-auto px-6 py-10"
     >
-      <h2 className="text-3xl font-serif text-foreground mb-2 font-normal tracking-[-0.02em]">Votre profil</h2>
-      <p className="text-muted-foreground font-sans text-sm font-light mb-10">Ces informations restent strictement confidentielles.</p>
+      <div className="text-[9px] font-bold text-muted-foreground tracking-[0.16em] uppercase mb-3 flex items-center gap-2">
+        <span className="w-5 h-[1.5px] bg-foreground rounded-sm" />
+        Étape 1 / 5
+      </div>
+      <h2 className="font-sans text-3xl md:text-4xl font-normal text-foreground leading-tight mb-2.5">Votre identité</h2>
+      <p className="text-sm text-muted-foreground font-light leading-relaxed mb-10 max-w-xl">Ces informations restent strictement confidentielles et ne sont jamais transmises sans votre accord explicite.</p>
 
       <div className="space-y-10">
         {/* ── Identité & contact ───────────────────────────────── */}
