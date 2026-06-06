@@ -21,7 +21,7 @@ const Step7Confirm = () => {
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
         className="text-center max-w-lg"
       >
-        <span className="font-display text-xl tracking-[-0.02em] text-foreground block mb-12">Logan</span>
+        <span className="font-serif text-3xl font-light tracking-[0.06em] text-foreground block mb-12">Logan</span>
 
         <motion.div
           initial={{ scale: 0 }}
