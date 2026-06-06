@@ -12,7 +12,7 @@ import { cn } from '@/lib/utils';
 
 
 import { Calendar } from '@/components/ui/calendar';
-import { format, addDays, isBefore, startOfDay } from 'date-fns';
+import { format, parse, addDays, isBefore, startOfDay } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import { toast } from 'sonner';
@@ -701,10 +701,15 @@ const Step6Review = ({ readOnly = false }: Step6ReviewProps = {}) => {
 
       if (store.souhaitePrendreRdv && store.creneauPrefere) {
         try {
+          // creneauPrefere format: "lundi 9 juin 2025 à 14:00"
           const timeMatch = store.creneauPrefere.match(/à (\d{2}:\d{2})$/);
           const bookingTime = timeMatch?.[1] || '';
-          const today = new Date();
-          const bookingDate = today.toISOString().split('T')[0];
+          // Parse the date from the French label using date-fns
+          const dateStr = store.creneauPrefere.replace(/à \d{2}:\d{2}$/, '').trim();
+          const parsed = parse(dateStr, 'EEEE d MMMM yyyy', new Date(), { locale: fr });
+          const bookingDate = !isNaN(parsed.getTime())
+            ? format(parsed, 'yyyy-MM-dd')
+            : format(new Date(), 'yyyy-MM-dd');
           await supabase.from('logan_bookings').insert({
             candidate_name: `${store.prenom} ${store.nom}`.trim(),
             candidate_email: store.email,
@@ -714,7 +719,20 @@ const Step6Review = ({ readOnly = false }: Step6ReviewProps = {}) => {
             booking_date: bookingDate,
             booking_time: bookingTime,
             user_id: signUpData?.user?.id || null,
+            status: 'confirmed',
+            notes: 'RDV depuis parcours inscription',
           } as any);
+          // Notif admin
+          supabase.functions.invoke('notify-booking', {
+            body: {
+              name: `${store.prenom} ${store.nom}`.trim(),
+              email: store.email,
+              cabinet: store.cabinet || '',
+              date: bookingDate,
+              time: bookingTime,
+              source: 'inscription',
+            },
+          }).catch(() => {});
         } catch (bookingError) {
           console.error('Failed to save booking:', bookingError);
         }
