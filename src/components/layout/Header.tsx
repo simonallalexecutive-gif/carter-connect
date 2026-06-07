@@ -72,9 +72,9 @@ const Header = () => {
           {!minimalNav && (
             <nav className="hidden md:flex items-center gap-1 ml-4">
               <Link to="/#notre-approche" className={navLinkBase}>Notre approche</Link>
-              <Link to="/demo" className={navLinkBase}>Demo</Link>
               <Link to="/notre-offre" className={navLinkBase}>Qui sommes-nous</Link>
               <Link to="/#faq" className={navLinkBase}>FAQ</Link>
+              <span className={navLinkBase} style={{cursor:"default"}}>Demo</span>
             </nav>
           )}
         </div>
