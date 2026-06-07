@@ -237,9 +237,20 @@ const CabinetPage = () => {
   useEffect(() => {
     const { data: { subscription } } = (supabase.auth as any).onAuthStateChange((event: any, session: any) => {
       if (event === 'SIGNED_IN' && session?.user) {
-        const name = session.user.user_metadata?.full_name || '';
-        if (name) setField('cabinetName', name);
-        setStep(6);
+        if (searchParams.get('start') === '2') return;
+        const checkCabinet = async () => {
+          const { data: cabinet } = await supabase
+            .from('cabinet_accounts')
+            .select('id')
+            .eq('user_id', session.user.id)
+            .single();
+          if (cabinet) {
+            const name = session.user.user_metadata?.full_name || '';
+            if (name) setField('cabinetName', name);
+            setStep(6);
+          }
+        };
+        checkCabinet();
       }
     });
     return () => subscription.unsubscribe();
