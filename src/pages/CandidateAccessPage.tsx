@@ -67,7 +67,7 @@ const CandidateAccessPage = () => (
               Rejoignez le réseau Logan et laissez les meilleures opportunités venir à vous — dans la plus grande discrétion.
             </motion.p>
             <motion.div variants={fadeUp} className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-              <Link to="/inscription">
+              <Link to="/inscription?start=2">
                 <Button className="bg-white text-black hover:bg-white/90 font-sans text-[12.3px] font-normal px-7 py-2.5 rounded-sm tracking-wide">
                   Rejoindre Logan
                 </Button>
