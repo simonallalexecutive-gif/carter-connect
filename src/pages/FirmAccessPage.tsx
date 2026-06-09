@@ -404,11 +404,10 @@ const FirmAccessPage = () => (
               Piloter un recrutement<br />avec un consultant dédié.
             </h3>
             <p className="text-white/55 font-sans font-light text-[0.93rem] leading-[1.8]">
-              Confiez votre recherche à un consultant Logan spécialisé dans votre pratique.
-              Il prend en main le process de A à Z : identification des candidats, mise en
-              relation, accompagnement des parties jusqu'à la finalisation. Logan est à la
-              disposition de chacun de vos départements et coordonne les échanges dans le
-              respect le plus strict de la confidentialité de toutes les parties.
+              Confiez votre recherche à un consultant Logan spécialisé sur le marché des avocats
+              qui vous accompagne de A à Z tout au long du processus. Logan est à la disposition
+              de chacun de vos départements et coordonne, avec justesse et efficacité, les échanges
+              dans le respect le plus strict de la confidentialité des parties.
             </p>
           </motion.div>
         </div>
