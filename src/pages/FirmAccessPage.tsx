@@ -60,10 +60,7 @@ const FirmAccessPage = () => (
             Accédez aux profils les plus<br /><em className="italic">qualifiés du marché.</em>
           </motion.h1>
           <motion.p variants={fadeUp} className="text-white/60 font-sans font-light text-[1rem] sm:text-[1.08rem] leading-[1.75] max-w-2xl mb-10">
-            Logan est un réseau confidentiel d'avocats d'affaires, constitué et enrichi chaque jour
-            par des consultants spécialisés qui chassent, rencontrent et qualifient les meilleurs candidats
-            du marché. Chaque cabinet partenaire accède au réseau sur une base absolument confidentielle,
-            structurée et sécurisée.
+            Logan est un réseau confidentiel d'avocats d'affaires, <strong className="text-white font-medium">constitué et enrichi chaque jour</strong> par des consultants spécialisés qui chassent, rencontrent et qualifient les <strong className="text-white font-medium">meilleurs candidats du marché</strong>. Chaque cabinet partenaire accède au réseau sur une base absolument <strong className="text-white font-medium">confidentielle, structurée et sécurisée</strong>.
           </motion.p>
           <motion.div variants={fadeUp} className="flex flex-wrap items-center gap-4">
             <Link to="/cabinet-start">
