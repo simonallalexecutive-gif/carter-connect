@@ -131,7 +131,7 @@ const MissionSection = () => (
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: '-40px' }}
-        className="mt-20 md:mt-24 flex flex-wrap gap-x-10 gap-y-4"
+        className="mt-20 md:mt-24 flex flex-wrap justify-center gap-x-10 gap-y-4"
       >
         {['Confidentialité', 'Réactivité', 'Anonymat', 'Accompagnement', 'Transparence'].map((word) => (
           <motion.span
