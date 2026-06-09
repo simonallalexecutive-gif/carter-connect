@@ -506,11 +506,10 @@ const FirmAccessPage = () => (
             Logan protège chaque partie,<br />à chaque étape.
           </h2>
           <p className="text-white/55 font-sans font-light text-[0.93rem] leading-[1.85]">
-            Logan est très attaché à ce que candidats et cabinets bénéficient d'une confidentialité
-            absolue tout au long du processus. Aucune mise en relation ne peut avoir lieu en dehors
-            de notre intermédiation. L'identité du candidat, celle du cabinet et les termes des
-            échanges restent strictement confidentiels jusqu'à ce que les deux parties aient
-            explicitement consenti à progresser ensemble.
+            La confidentialité est au cœur de chaque échange. Aucune mise en relation ne peut
+            avoir lieu en dehors de notre intermédiation — l'identité des parties et les termes
+            des échanges restent strictement confidentiels jusqu'au consentement mutuel explicite
+            de progresser ensemble.
           </p>
         </motion.div>
 
