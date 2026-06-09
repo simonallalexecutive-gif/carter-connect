@@ -36,6 +36,7 @@ import ScrollToHash from "./components/ScrollToHash";
 import AdminLoginPage from "./pages/AdminLoginPage";
 import ConfirmationPage from "./pages/ConfirmationPage";
 import BookingPage from "./pages/BookingPage";
+import FirmAccessPage from "./pages/FirmAccessPage";
 
 
 const queryClient = new QueryClient();
@@ -64,6 +65,7 @@ const App = () => (
           <Route path="/admin/*" element={<AdminPage />} />
           <Route path="/logan-admin" element={<AdminLoginPage />} />
           <Route path="/confirmation" element={<ConfirmationPage />} />
+          <Route path="/acces-cabinet" element={<FirmAccessPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

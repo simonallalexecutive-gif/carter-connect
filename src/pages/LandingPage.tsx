@@ -72,12 +72,20 @@ const LandingPage = () => (
             Un cercle privé d'excellence, structuré et piloté par des consultants spécialisés, dédié aux profils<br />et cabinets d'affaires les plus exigeants du marché.
           </motion.p>
 
-          <motion.div variants={fadeUp} className="mt-8 sm:mt-20">
+          <motion.div variants={fadeUp} className="mt-8 sm:mt-20 flex flex-wrap items-center gap-3">
             <Link to="/demander-acces">
               <Button
                 className="bg-white text-black hover:bg-white/90 font-sans text-[12.3px] font-normal px-3.5 py-1.5 rounded-sm border border-white transition-colors duration-200 tracking-wide"
               >
                 Request access
+              </Button>
+            </Link>
+            <Link to="/acces-cabinet">
+              <Button
+                variant="ghost"
+                className="text-white/70 hover:text-white hover:bg-white/8 font-sans text-[12.3px] font-normal px-3.5 py-1.5 rounded-sm border border-white/30 hover:border-white/60 transition-colors duration-200 tracking-wide"
+              >
+                Request access for my firm →
               </Button>
             </Link>
           </motion.div>
