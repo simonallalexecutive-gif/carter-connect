@@ -149,9 +149,6 @@ const ConnexionPage = () => {
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.4 }}
               >
-                <p className="text-[11px] font-sans tracking-[0.22em] uppercase text-white/30 mb-5">
-                  Espace candidat
-                </p>
                 <h1 className="font-serif font-[300] text-[2rem] text-white leading-[1.1] mb-2">
                   Connexion.
                 </h1>
