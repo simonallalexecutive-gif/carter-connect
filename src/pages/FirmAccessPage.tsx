@@ -448,7 +448,7 @@ const FirmAccessPage = () => (
               Logan réinvente les conditions<br /><em className="italic">d'intervention.</em>
             </h2>
             <p className="text-white/55 font-sans font-light text-[0.93rem] leading-[1.85] mb-10">
-              Logan innove sur les conditions d'intervention traditionnellement pratiquées sur le marché.
+              Logan innove également sur les conditions d'intervention traditionnellement pratiquées sur le marché.
             </p>
             {/* Quatre piliers */}
             <div className="grid grid-cols-2 gap-px bg-white/8">
