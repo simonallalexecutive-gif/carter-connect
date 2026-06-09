@@ -131,7 +131,7 @@ const CandidateDashboardContent = () => {
 
   if (loading || !user || !profileLoaded || statusLoading) return null;
 
-  if (candidateStatus !== null && candidateStatus !== 'approved') {
+  if (candidateStatus !== 'approved') {
     return (
       <div className="min-h-screen w-screen bg-black flex items-center justify-center px-6" style={{position:'fixed',top:0,left:0,right:0,bottom:0,zIndex:9999}}>
         <div className="text-center max-w-md">

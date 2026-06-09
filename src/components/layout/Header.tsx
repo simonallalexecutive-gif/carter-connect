@@ -80,14 +80,6 @@ const Header = () => {
         </div>
 
         <div className="hidden md:flex items-center gap-2">
-          {!minimalNav && (
-            <Link
-              to="/prendre-rdv"
-              className={`text-[12.3px] font-sans font-normal px-3.5 py-1.5 rounded-sm border transition-colors duration-200 tracking-wide ${textColor} ${onLight && !menuOpen ? 'border-black/40 hover:bg-black/5' : 'border-white/50 hover:bg-white/10'}`}
-            >
-              Prendre RDV
-            </Link>
-          )}
           <Link
             to="/connexion"
             className="text-[12.3px] font-sans font-normal px-3.5 py-1.5 rounded-sm bg-white text-black border border-white hover:bg-white/90 transition-colors duration-200 tracking-wide"
@@ -108,9 +100,6 @@ const Header = () => {
       {menuOpen && (
         <div className="md:hidden bg-black min-h-[calc(100dvh-4rem)] flex flex-col px-6 pt-8 pb-12 gap-5 animate-in fade-in slide-in-from-top-2 duration-200">
 
-          {!minimalNav && (
-            <Link to="/prendre-rdv" onClick={() => setMenuOpen(false)} className="font-sans text-base font-normal text-white border border-white/40 rounded-sm px-5 py-2.5 transition-colors tracking-wide inline-flex w-fit">Prendre RDV</Link>
-          )}
           <Link to="/connexion" onClick={() => setMenuOpen(false)} className="font-sans text-base font-medium text-black bg-white border border-white rounded-sm px-5 py-2.5 transition-colors tracking-wide inline-flex w-fit">Connexion</Link>
           <Link to="/demander-acces" onClick={() => setMenuOpen(false)} className="font-sans text-sm font-normal text-white border border-white/30 rounded-sm px-6 py-3 transition-colors tracking-wide inline-flex items-center gap-2 mt-2 w-fit">Demander un accès</Link>
         </div>

@@ -59,7 +59,7 @@ const CabinetStartPage = () => {
         email,
         password,
         options: {
-          emailRedirectTo: window.location.origin + '/cabinet',
+          emailRedirectTo: window.location.origin + '/connexion',
           data: {
             full_name: `${firstName} ${lastName}`.trim(),
             cabinet_name: cabinet,
