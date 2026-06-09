@@ -10,24 +10,6 @@ const stagger = {
   visible: { transition: { staggerChildren: 0.13 } },
 };
 
-const COLS = [
-  {
-    num: '01',
-    title: 'Pour les cabinets',
-    body: 'Accédez à un vivier de profils qualifiés et pré-sélectionnés par des consultants spécialisés — en toute confidentialité, sans jamais exposer l\'identité de votre cabinet.',
-  },
-  {
-    num: '02',
-    title: 'Pour les candidats',
-    body: 'Restez visible des cabinets qui vous intéressent, étudiez chaque opportunité en amont avec un consultant dédié — sans jamais sacrifier votre anonymat.',
-  },
-  {
-    num: '03',
-    title: 'Un seul intermédiaire',
-    body: 'Logan orchestre chaque rapprochement de l\'intention à la signature, dans un cadre structuré, sécurisé et strictement confidentiel.',
-  },
-];
-
 const MissionSection = () => (
   <section id="notre-approche" className="bg-black relative overflow-hidden">
     {/* Ambient glow */}
@@ -59,37 +41,82 @@ const MissionSection = () => (
         </motion.p>
         <motion.h2
           variants={fadeUp}
-          className="font-serif font-[300] text-[2rem] sm:text-[2.8rem] md:text-[3.4rem] text-white leading-[1.06] tracking-normal max-w-2xl"
+          className="font-serif font-[300] text-[2rem] sm:text-[2.8rem] md:text-[3.4rem] text-white leading-[1.06] tracking-normal max-w-3xl"
         >
-          Deux perspectives,<br />
-          <em className="italic">un seul intermédiaire.</em>
+          Deux perspectives, un seul intermédiaire&nbsp;: <em className="italic">Logan.</em>
         </motion.h2>
       </motion.div>
 
-      {/* 3 colonnes */}
+      {/* 3 colonnes : Firms | Logan | Candidates */}
       <motion.div
         variants={stagger}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: '-40px' }}
-        className="grid grid-cols-1 md:grid-cols-3 gap-px bg-white/8"
+        className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-px bg-white/8"
       >
-        {COLS.map((c) => (
+        {/* Firms */}
+        <motion.div variants={fadeUp} className="bg-black px-8 py-10 flex flex-col gap-6">
+          <span className="text-[10px] font-sans font-semibold tracking-[0.22em] uppercase text-white/25">Firms</span>
+          <h3 className="font-serif font-[300] text-[1.25rem] text-white leading-snug">
+            Vivez votre marché.
+          </h3>
+          <div className="w-6 h-px bg-white/15" />
+          <div className="flex flex-col gap-5">
+            <div className="flex flex-col gap-2">
+              <p className="font-sans font-light text-[0.88rem] leading-[1.8] text-white/45">
+                <span className="text-white/65 font-normal">Option 1 —</span> Déposez votre recherche à titre strictement confidentiel, en préservant — ou non — l'identité de votre cabinet.
+              </p>
+            </div>
+            <div className="w-4 h-px bg-white/10" />
+            <div className="flex flex-col gap-2">
+              <p className="font-sans font-light text-[0.88rem] leading-[1.8] text-white/45">
+                <span className="text-white/65 font-normal">Option 2 —</span> Explorez le marché et soyez opportuniste. Anticipez vos recrutements stratégiques pour chacun de vos départements.
+              </p>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Logan — centre */}
+        <motion.div
+          variants={fadeUp}
+          className="bg-black px-8 md:px-10 py-10 flex flex-col items-center justify-center gap-5 text-center min-w-[160px]"
+        >
           <motion.div
-            key={c.num}
-            variants={fadeUp}
-            className="bg-black px-8 py-10 flex flex-col gap-6"
-          >
-            <span className="font-serif text-[11px] text-white/20 tracking-widest">{c.num}</span>
-            <h3 className="font-serif font-[300] text-[1.25rem] text-white leading-snug">
-              {c.title}
-            </h3>
-            <div className="w-6 h-px bg-white/15" />
+            initial={{ scaleY: 0 }}
+            whileInView={{ scaleY: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
+            style={{ transformOrigin: 'top' }}
+            className="hidden md:block w-px flex-1 bg-gradient-to-b from-transparent via-white/15 to-transparent min-h-[40px]"
+          />
+          <span className="font-serif text-[1.5rem] tracking-[0.02em] text-white font-[300]">Logan</span>
+          <p className="font-sans font-light text-[0.82rem] leading-[1.75] text-white/35 max-w-[160px]">
+            Un seul intermédiaire, de l'intention à la signature.
+          </p>
+          <motion.div
+            initial={{ scaleY: 0 }}
+            whileInView={{ scaleY: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.4, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            style={{ transformOrigin: 'top' }}
+            className="hidden md:block w-px flex-1 bg-gradient-to-b from-transparent via-white/15 to-transparent min-h-[40px]"
+          />
+        </motion.div>
+
+        {/* Candidates */}
+        <motion.div variants={fadeUp} className="bg-black px-8 py-10 flex flex-col gap-6">
+          <span className="text-[10px] font-sans font-semibold tracking-[0.22em] uppercase text-white/25">Candidates</span>
+          <h3 className="font-serif font-[300] text-[1.25rem] text-white leading-snug">
+            Préservez votre identité.
+          </h3>
+          <div className="w-6 h-px bg-white/15" />
+          <div className="flex flex-col gap-5">
             <p className="font-sans font-light text-[0.88rem] leading-[1.8] text-white/45">
-              {c.body}
+              Restez visible des cabinets qui vous intéressent. Étudiez chaque opportunité en amont avec un consultant dédié — sans jamais sacrifier votre anonymat.
             </p>
-          </motion.div>
-        ))}
+          </div>
+        </motion.div>
       </motion.div>
 
       {/* Ligne de valeurs */}
@@ -100,7 +127,7 @@ const MissionSection = () => (
         viewport={{ once: true, margin: '-40px' }}
         className="mt-20 md:mt-24 flex flex-wrap gap-x-10 gap-y-4"
       >
-        {['Confidentialité', 'Réactivité', 'Exclusivité', 'Anonymat', 'Accompagnement', 'Transparence'].map((word, i) => (
+        {['Confidentialité', 'Réactivité', 'Exclusivité', 'Anonymat', 'Accompagnement', 'Transparence'].map((word) => (
           <motion.span
             key={word}
             variants={fadeUp}
