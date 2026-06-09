@@ -232,10 +232,27 @@ const FirmAccessPage = () => (
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.1 }}
-          className="text-white/55 font-sans font-light text-[0.93rem] leading-[1.85] max-w-2xl"
+          className="text-white/55 font-sans font-light text-[0.93rem] leading-[1.85] max-w-2xl mb-10"
         >
           Logan innove sur les conditions d'intervention traditionnellement pratiquées sur le marché.
         </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="flex flex-col sm:flex-row items-start sm:items-center gap-5"
+        >
+          <Link to="/prendre-rdv">
+            <Button className="bg-white text-black hover:bg-white/90 font-sans text-[12.3px] font-normal px-5 py-2 rounded-sm tracking-wide">
+              Prendre un rendez-vous
+            </Button>
+          </Link>
+          <p className="text-white/30 font-sans font-light text-[0.82rem]">
+            Un échange de 30 minutes pour vous présenter Logan et répondre à vos questions.
+          </p>
+        </motion.div>
       </div>
     </section>
 
