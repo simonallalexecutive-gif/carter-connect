@@ -218,8 +218,7 @@ const LandingPage = () => (
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.8, delay: 1.4 + i * 0.15, ease: [0.16, 1, 0.3, 1] }}
-                  className="font-serif text-base sm:text-2xl md:text-[1.85rem] text-white tracking-[0.16em] sm:tracking-[0.22em] font-medium"
-                  style={{ fontVariant: 'small-caps', wordSpacing: '0.15em', textShadow: '0 2px 24px rgba(255,255,255,0.18)' }}
+                  className="font-serif text-2xl sm:text-3xl md:text-4xl text-white tracking-[0.04em]"
                 >
                   {word}
                 </motion.span>
