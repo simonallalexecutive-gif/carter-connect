@@ -1,8 +1,23 @@
-import { motion } from 'motion/react';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+import { Calendar } from '@/components/ui/calendar';
+import { cn } from '@/lib/utils';
+import { format } from 'date-fns';
+import { CheckCircle2, Phone } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
+import { toast } from 'sonner';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
+import { CABINETS } from '@/lib/constants';
+
+const TIME_SLOTS = [
+  '09:00', '09:30', '10:00', '10:30', '11:00', '11:30',
+  '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00',
+];
+
+const STATUSES = ['Associé(e)', 'Managing Partner', 'RH'] as const;
 
 const fadeUp = {
   hidden: { opacity: 0, y: 28 },
@@ -31,6 +46,197 @@ const PROFILE_ITEMS = [
   { label: 'Projet du candidat', desc: 'Ce qu\'il rechercherait s\'il devait quitter son cabinet actuel.' },
   { label: 'Statut d\'écoute', desc: 'Actif — en recherche ouverte — ou Opportuniste — à l\'écoute d\'opportunités ciblées.' },
 ];
+
+const FirmBooking = () => {
+  const [step, setStep] = useState<'contact' | 'slot' | 'done'>('contact');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [cabinet, setCabinet] = useState('');
+  const [cabinetSearch, setCabinetSearch] = useState('');
+  const [cabinetOpen, setCabinetOpen] = useState(false);
+  const [status, setStatus] = useState('');
+  const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>();
+  const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
+
+  const filteredCabinets = CABINETS.filter(c =>
+    c.toLowerCase().includes(cabinetSearch.toLowerCase())
+  );
+
+  const isContactValid =
+    firstName.trim() && lastName.trim() && cabinet.trim() &&
+    status && phone.trim().length >= 10 && email.includes('@');
+
+  const handleConfirm = async () => {
+    if (!selectedDate || !selectedSlot) return;
+    setSubmitting(true);
+    try {
+      const { error } = await supabase.from('logan_bookings').insert({
+        candidate_name: `${firstName} ${lastName}`.trim(),
+        candidate_email: email,
+        candidate_cabinet: cabinet,
+        candidate_department: status,
+        candidate_seniority: '',
+        booking_date: format(selectedDate, 'yyyy-MM-dd'),
+        booking_time: selectedSlot,
+        user_id: null,
+        status: 'confirmed',
+        notes: `RDV cabinet depuis /acces-cabinet — tel ${phone}`,
+      } as any);
+      if (error) throw error;
+      supabase.functions.invoke('notify-booking', {
+        body: {
+          name: `${firstName} ${lastName}`.trim(),
+          email,
+          cabinet,
+          date: format(selectedDate, 'dd/MM/yyyy'),
+          time: selectedSlot,
+          source: 'acces-cabinet',
+        },
+      }).catch(() => {});
+      setStep('done');
+    } catch (e) {
+      console.error(e);
+      toast.error('Erreur lors de la réservation. Veuillez réessayer.');
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const inputCls = 'w-full bg-white/5 border border-white/15 text-white placeholder:text-white/25 rounded-sm px-3 py-2.5 text-sm focus:border-white/40 focus:outline-none transition-colors';
+  const labelCls = 'text-[9px] font-sans font-semibold tracking-[0.16em] uppercase text-white/35 mb-1.5 block';
+
+  return (
+    <AnimatePresence mode="wait">
+      {step === 'contact' && (
+        <motion.div key="contact" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.5 }} className="space-y-4">
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <label className={labelCls}>Prénom</label>
+              <input value={firstName} onChange={e => setFirstName(e.target.value)} placeholder="Jean" className={inputCls} />
+            </div>
+            <div>
+              <label className={labelCls}>Nom</label>
+              <input value={lastName} onChange={e => setLastName(e.target.value)} placeholder="Dupont" className={inputCls} />
+            </div>
+          </div>
+
+          {/* Cabinet autocomplete */}
+          <div className="relative">
+            <label className={labelCls}>Cabinet</label>
+            <input
+              value={cabinetOpen ? cabinetSearch : cabinet}
+              onChange={e => { setCabinetSearch(e.target.value); setCabinet(''); if (!cabinetOpen) setCabinetOpen(true); }}
+              onFocus={() => { setCabinetOpen(true); setCabinetSearch(cabinet); }}
+              onBlur={() => setTimeout(() => setCabinetOpen(false), 150)}
+              placeholder="Rechercher un cabinet…"
+              className={inputCls}
+            />
+            {cabinetOpen && filteredCabinets.length > 0 && (
+              <div className="absolute z-50 top-full left-0 right-0 mt-1 bg-[#111] border border-white/15 rounded-sm max-h-44 overflow-y-auto">
+                {filteredCabinets.map(c => (
+                  <button key={c} onMouseDown={e => e.preventDefault()} onClick={() => { setCabinet(c); setCabinetSearch(c); setCabinetOpen(false); }}
+                    className="w-full text-left px-3 py-2 text-sm text-white/70 hover:bg-white/8 hover:text-white transition-colors">
+                    {c}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Statut */}
+          <div>
+            <label className={labelCls}>Statut</label>
+            <div className="grid grid-cols-3 gap-2">
+              {STATUSES.map(s => (
+                <button key={s} onClick={() => setStatus(s)}
+                  className={cn('py-2 rounded-sm text-[12px] font-sans transition-all border',
+                    status === s ? 'bg-white text-black border-white' : 'bg-transparent text-white/50 border-white/15 hover:border-white/35 hover:text-white/80')}>
+                  {s}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <label className={labelCls}>Téléphone</label>
+              <input value={phone} onChange={e => setPhone(e.target.value.replace(/\D/g, '').slice(0, 10))} type="tel" placeholder="06 12 34 56 78" className={inputCls} />
+            </div>
+            <div>
+              <label className={labelCls}>Email</label>
+              <input value={email} onChange={e => setEmail(e.target.value)} type="email" placeholder="votre@cabinet.com" className={inputCls} />
+            </div>
+          </div>
+
+          <Button onClick={() => setStep('slot')} disabled={!isContactValid}
+            className="w-full bg-white text-black hover:bg-white/90 font-sans text-[12.3px] font-normal rounded-sm py-5 mt-2 tracking-wide disabled:opacity-30">
+            Choisir un créneau →
+          </Button>
+        </motion.div>
+      )}
+
+      {step === 'slot' && (
+        <motion.div key="slot" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.5 }}>
+          <button onClick={() => setStep('contact')} className="text-[11px] text-white/35 hover:text-white/70 mb-5 font-sans transition-colors">
+            ← Modifier mes coordonnées
+          </button>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div>
+              <p className={labelCls}>Choisir une date</p>
+              <div className="border border-white/12 rounded-sm p-2 inline-block bg-white/3">
+                <Calendar
+                  mode="single"
+                  selected={selectedDate}
+                  onSelect={(date) => { setSelectedDate(date); setSelectedSlot(null); }}
+                  disabled={(date) => date.getDay() === 0 || date.getDay() === 6 || date < new Date()}
+                  className={cn('p-2 pointer-events-auto [&_*]:text-white [&_.rdp-day_button:hover]:bg-white/10 [&_.rdp-day_button.rdp-day_selected]:bg-white [&_.rdp-day_button.rdp-day_selected]:text-black')}
+                />
+              </div>
+            </div>
+            <div>
+              <p className={labelCls}>{selectedDate ? `Créneaux — ${selectedDate.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' })}` : 'Sélectionnez une date'}</p>
+              {selectedDate ? (
+                <div className="space-y-1.5">
+                  {TIME_SLOTS.map(slot => (
+                    <button key={slot} onClick={() => setSelectedSlot(slot)}
+                      className={cn('w-full text-left px-3.5 py-2.5 rounded-sm border text-[13px] font-sans transition-all duration-150 flex items-center gap-2',
+                        selectedSlot === slot ? 'bg-white text-black border-white' : 'border-white/15 text-white/60 hover:border-white/35 hover:text-white/90')}>
+                      <Phone className="w-3 h-3" /> {slot}
+                    </button>
+                  ))}
+                  {selectedSlot && (
+                    <Button onClick={handleConfirm} disabled={submitting}
+                      className="w-full mt-3 bg-white text-black hover:bg-white/90 font-sans text-[12.3px] tracking-wide rounded-sm py-5">
+                      {submitting ? 'Confirmation…' : `Confirmer — ${selectedSlot}`}
+                    </Button>
+                  )}
+                </div>
+              ) : (
+                <div className="flex items-center h-24 text-white/25 text-sm font-sans gap-2">
+                  <Phone className="w-4 h-4" /> Choisissez d'abord une date
+                </div>
+              )}
+            </div>
+          </div>
+        </motion.div>
+      )}
+
+      {step === 'done' && (
+        <motion.div key="done" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="text-center py-10">
+          <CheckCircle2 className="w-8 h-8 text-white/60 mx-auto mb-4" />
+          <p className="font-serif text-xl text-white mb-2">Créneau confirmé</p>
+          <p className="text-white/45 font-sans text-sm">
+            {selectedDate?.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' })} à {selectedSlot}
+          </p>
+          <p className="text-white/30 font-sans text-xs mt-3">Votre consultant Logan vous contactera à l'heure convenue.</p>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+};
 
 const FirmAccessPage = () => (
   <div className="min-h-screen bg-black">
@@ -209,50 +415,41 @@ const FirmAccessPage = () => (
       <div className="h-px bg-white/10" />
     </div>
 
-    {/* Honoraires */}
+    {/* Honoraires + Booking */}
     <section className="py-24 px-6 sm:px-10 lg:px-16">
       <div className="max-w-5xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="mb-14"
-        >
-          <p className="text-[11px] font-sans tracking-[0.22em] uppercase text-white/35 mb-4">
-            Conditions d'intervention
-          </p>
-          <h2 className="font-serif font-[300] text-[1.8rem] sm:text-[2.5rem] text-white leading-[1.1] mb-8">
-            Une approche tarifaire<br /><em className="italic">résolument différente.</em>
-          </h2>
-        </motion.div>
+        <div className="grid md:grid-cols-2 gap-16 md:gap-24 items-start">
+          {/* Texte */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <p className="text-[11px] font-sans tracking-[0.22em] uppercase text-white/35 mb-4">
+              Conditions d'intervention
+            </p>
+            <h2 className="font-serif font-[300] text-[1.8rem] sm:text-[2.4rem] text-white leading-[1.1] mb-7">
+              Une approche tarifaire<br /><em className="italic">résolument différente.</em>
+            </h2>
+            <p className="text-white/55 font-sans font-light text-[0.93rem] leading-[1.85]">
+              Logan innove sur les conditions d'intervention traditionnellement pratiquées sur le marché.
+            </p>
+          </motion.div>
 
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.1 }}
-          className="text-white/55 font-sans font-light text-[0.93rem] leading-[1.85] max-w-2xl mb-10"
-        >
-          Logan innove sur les conditions d'intervention traditionnellement pratiquées sur le marché.
-        </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="flex flex-col sm:flex-row items-start sm:items-center gap-5"
-        >
-          <Link to="/prendre-rdv">
-            <Button className="bg-white text-black hover:bg-white/90 font-sans text-[12.3px] font-normal px-5 py-2 rounded-sm tracking-wide">
-              Prendre un rendez-vous
-            </Button>
-          </Link>
-          <p className="text-white/30 font-sans font-light text-[0.82rem]">
-            Un échange de 30 minutes pour vous présenter Logan et répondre à vos questions.
-          </p>
-        </motion.div>
+          {/* Booking inline */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.15 }}
+          >
+            <p className="text-[11px] font-sans tracking-[0.22em] uppercase text-white/35 mb-6">
+              Fixer un échange
+            </p>
+            <FirmBooking />
+          </motion.div>
+        </div>
       </div>
     </section>
 
