@@ -72,7 +72,7 @@ const CandidateAccessPage = () => (
                   Rejoindre Logan
                 </Button>
               </Link>
-              <Link to="/connexion" className="text-white/35 hover:text-white/65 font-sans text-[12px] tracking-wide transition-colors border-b border-white/15 hover:border-white/40 pb-px">
+              <Link to="/connexion-candidat" className="text-white/35 hover:text-white/65 font-sans text-[12px] tracking-wide transition-colors border-b border-white/15 hover:border-white/40 pb-px">
                 Déjà inscrit ? Se connecter →
               </Link>
             </motion.div>
