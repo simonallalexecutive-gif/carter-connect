@@ -7,7 +7,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useCabinetStore } from '@/stores/cabinetStore';
 import { CABINETS } from '@/lib/constants';
 import { toast } from 'sonner';
-import { Eye, EyeOff } from 'lucide-react';
+import { Eye, EyeOff, CheckCircle2 } from 'lucide-react';
 
 const STATUSES = ['Associé(e)', 'Managing Partner', 'RH'] as const;
 
@@ -27,6 +27,7 @@ const CabinetStartPage = () => {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [done, setDone] = useState(false);
 
   const filteredCabinets = CABINETS.filter(c =>
     c.toLowerCase().includes(cabinetSearch.toLowerCase())
@@ -72,13 +73,13 @@ const CabinetStartPage = () => {
 
       if (updErr) console.warn('cabinet_accounts update:', updErr);
 
-      // 3. Hydrater le store pour affichage immédiat
+      // 3. Pré-hydrater le store (utilisé si la session s'établit après confirmation)
       setField('cabinetName', cabinet);
       setField('email', email);
       setField('contacts', [contactRow] as any);
-      setStep(6);
 
-      navigate('/cabinet');
+      // 4. Afficher l'écran de confirmation — l'utilisateur doit valider son email
+      setDone(true);
     } catch (err: any) {
       console.error(err);
       toast.error(err.message || 'Erreur lors de la création du compte.');
@@ -100,6 +101,28 @@ const CabinetStartPage = () => {
       </header>
 
       <main className="flex-1 flex items-center justify-center px-6 py-16">
+        {done ? (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            className="w-full max-w-md text-center"
+          >
+            <CheckCircle2 className="w-9 h-9 text-white/40 mx-auto mb-6" />
+            <h2 className="font-serif font-[300] text-[1.8rem] text-white mb-4">Vérifiez votre email.</h2>
+            <p className="text-white/45 font-sans font-light text-[0.9rem] leading-[1.8] mb-8">
+              Un email de confirmation a été envoyé à{' '}
+              <span className="text-white/70">{email}</span>.<br />
+              Cliquez sur le lien pour activer votre compte, puis connectez-vous via la page de connexion.
+            </p>
+            <button
+              onClick={() => navigate('/connexion')}
+              className="text-white/50 hover:text-white font-sans text-[12.3px] tracking-wide transition-colors border-b border-white/20 hover:border-white/50 pb-px"
+            >
+              Se connecter →
+            </button>
+          </motion.div>
+        ) : (
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
@@ -174,10 +197,13 @@ const CabinetStartPage = () => {
                 <input value={phone} onChange={e => setPhone(e.target.value.replace(/\D/g, '').slice(0, 10))} type="tel" placeholder="06 12 34 56 78" className={inputCls} />
               </div>
               <div>
-                <label className={labelCls}>Email</label>
+                <label className={labelCls}>Email professionnel</label>
                 <input value={email} onChange={e => setEmail(e.target.value)} type="email" placeholder="votre@cabinet.com" className={inputCls} />
               </div>
             </div>
+            <p className="text-white/20 font-sans text-[10.5px] leading-relaxed -mt-1">
+              Renseignez votre adresse email professionnelle — elle sera utilisée pour vous connecter à votre espace.
+            </p>
 
             {/* Mot de passe */}
             <div>
@@ -216,6 +242,7 @@ const CabinetStartPage = () => {
             </button>
           </p>
         </motion.div>
+        )}
       </main>
     </div>
   );
