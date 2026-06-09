@@ -209,6 +209,69 @@ const FirmAccessPage = () => (
       <div className="h-px bg-white/10" />
     </div>
 
+    {/* Honoraires */}
+    <section className="py-24 px-6 sm:px-10 lg:px-16">
+      <div className="max-w-5xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="mb-14"
+        >
+          <p className="text-[11px] font-sans tracking-[0.22em] uppercase text-white/35 mb-4">
+            Conditions d'intervention
+          </p>
+          <h2 className="font-serif font-[300] text-[1.8rem] sm:text-[2.5rem] text-white leading-[1.1] mb-8">
+            Une approche tarifaire<br /><em className="italic">résolument différente.</em>
+          </h2>
+        </motion.div>
+
+        <div className="grid md:grid-cols-2 gap-16 md:gap-24 items-start">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.1 }}
+          >
+            <p className="text-white/55 font-sans font-light text-[0.93rem] leading-[1.85]">
+              Logan innove sur les conditions d'intervention traditionnellement pratiquées sur le marché.
+              En cas de placement par notre intermédiaire, nous pratiquons exclusivement un{' '}
+              <span className="text-white font-normal">honoraire de résultat</span> — aucun frais
+              de recherche, aucun engagement financier préalable.
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="border border-white/12 rounded-sm p-8 md:p-10"
+          >
+            <p className="text-[11px] font-sans tracking-[0.22em] uppercase text-white/30 mb-6">
+              Base de calcul
+            </p>
+            <p className="font-serif font-[300] text-[1.15rem] text-white leading-[1.5] mb-5">
+              Honoraire de résultat, calculé sur la rétrocession annuelle brute HT du candidat
+              telle qu'elle figure dans l'offre qui lui est formulée.
+            </p>
+            <div className="h-px bg-white/10 mb-5" />
+            <p className="text-white/40 font-sans font-light text-[0.84rem] leading-[1.75]">
+              Notre taux est réduit par rapport aux pratiques du marché — une condition que nous
+              considérons essentielle pour bâtir des partenariats durables avec les cabinets
+              qui nous font confiance.
+            </p>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+
+    {/* Séparateur */}
+    <div className="max-w-5xl mx-auto px-6 sm:px-10 lg:px-16">
+      <div className="h-px bg-white/10" />
+    </div>
+
     {/* Confidentialité */}
     <section className="py-24 px-6 sm:px-10 lg:px-16">
       <div className="max-w-5xl mx-auto flex flex-col md:flex-row gap-16 md:gap-24 items-start">
