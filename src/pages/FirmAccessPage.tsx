@@ -368,11 +368,23 @@ const FirmAccessPage = () => (
             <h3 className="font-serif font-[300] text-[1.45rem] text-white mb-5 leading-snug">
               Explorer le marché<br />en toute autonomie.
             </h3>
-            <p className="text-white/55 font-sans font-light text-[0.93rem] leading-[1.8]">
-              Accédez librement à la base Logan quand bon vous semble. Parcourez les profils
-              disponibles, filtrez par pratique, séniorité ou statut d'écoute, et identifiez
-              les candidats qui correspondent à vos besoins du moment. Aucun engagement,
-              aucune contrainte — Logan vous donne une visibilité continue sur le marché
+            <p className="text-white/60 font-sans font-light text-[0.93rem] leading-[1.8] mb-7">
+              Accédez librement à la base Logan quand bon vous semble.
+            </p>
+            <div className="space-y-3 mb-7">
+              {[
+                'Parcourez les profils disponibles.',
+                'Filtrez par pratique, séniorité ou statut d\'écoute.',
+                'Identifiez les candidats qui correspondent à vos besoins du moment.',
+              ].map((line) => (
+                <div key={line} className="flex items-start gap-3">
+                  <span className="mt-[0.4rem] w-1 h-1 rounded-full bg-white/25 flex-shrink-0" />
+                  <p className="text-white/50 font-sans font-light text-[0.9rem] leading-[1.75]">{line}</p>
+                </div>
+              ))}
+            </div>
+            <p className="text-white/35 font-sans font-light text-[0.85rem] leading-[1.8] border-t border-white/10 pt-6">
+              Aucun engagement, aucune contrainte — Logan vous donne une visibilité continue sur le marché
               pour vous permettre d'être opportuniste sur le bon profil, au bon moment.
             </p>
           </motion.div>
