@@ -209,7 +209,7 @@ const LandingPage = () => (
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 1.2, delay: 1.2 }}
-              className="mt-24 flex flex-row flex-wrap items-center justify-center gap-x-6 gap-y-3 sm:gap-x-16 md:gap-x-24"
+              className="mt-24 flex flex-row flex-wrap items-center justify-center text-center gap-x-6 gap-y-3 sm:gap-x-16 md:gap-x-24 w-full"
             >
               {['confidentiel', 'structuré', 'décisif'].map((word, i) => (
                 <motion.span
