@@ -80,7 +80,7 @@ const LandingPage = () => (
                 Request access
               </Button>
             </Link>
-            <Link to="/acces-cabinet">
+            <Link to="/cabinet-start">
               <Button
                 variant="ghost"
                 className="text-white/70 hover:text-white hover:bg-white/8 font-sans text-[12.3px] font-normal px-3.5 py-1.5 rounded-sm border border-white/30 hover:border-white/60 transition-colors duration-200 tracking-wide"

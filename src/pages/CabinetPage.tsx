@@ -139,6 +139,11 @@ const CabinetDashboardLayout = () => {
   const s = useCabinetStore();
   const { user } = useAuth();
   useLoadCabinetProfile(user);
+
+  const contact = s.contacts?.[0];
+  const fullName = [contact?.prenom, contact?.nom].filter(Boolean).join(' ') || s.cabinetName || '';
+  const contactStatus = contact?.role || '';
+  const cabinetLabel = s.cabinetName || '';
   const [showAlerts, setShowAlerts] = useState(false);
   const [showAccount, setShowAccount] = useState(false);
   const [showBooking, setShowBooking] = useState(false);
@@ -185,7 +190,23 @@ const CabinetDashboardLayout = () => {
                 <SidebarTrigger />
                 <span className="text-[10px] font-semibold tracking-[0.18em] uppercase text-muted-foreground">Espace cabinet</span>
               </div>
-              
+              {fullName && (
+                <div className="flex items-center gap-2 text-[11px] font-sans text-muted-foreground">
+                  <span className="text-foreground font-medium">Bienvenue, {fullName}</span>
+                  {contactStatus && (
+                    <>
+                      <span className="text-muted-foreground/40">·</span>
+                      <span>{contactStatus}</span>
+                    </>
+                  )}
+                  {cabinetLabel && (
+                    <>
+                      <span className="text-muted-foreground/40">·</span>
+                      <span>{cabinetLabel}</span>
+                    </>
+                  )}
+                </div>
+              )}
             </header>
             <main className="flex-1 p-8 lg:p-12 overflow-y-auto bg-background">
               {showBooking ? <CandidateBooking userType="cabinet" /> : showAccount ? <CabinetAccount /> : <CabinetDashboard />}

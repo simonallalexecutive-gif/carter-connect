@@ -286,9 +286,9 @@ const FirmAccessPage = () => (
           </motion.p>
 
           <motion.div variants={fadeUp} className="flex flex-wrap items-center gap-4">
-            <Link to="/demander-acces">
+            <Link to="/cabinet-start">
               <Button className="bg-white text-black hover:bg-white/90 font-sans text-[12.3px] font-normal px-6 py-2.5 rounded-sm tracking-wide">
-                Rejoindre Logan
+                Start
               </Button>
             </Link>
             <a href="#booking" className="text-white/50 hover:text-white font-sans text-[12.3px] tracking-wide transition-colors duration-200 border-b border-white/20 hover:border-white/50 pb-px">

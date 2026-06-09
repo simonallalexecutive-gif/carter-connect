@@ -37,6 +37,7 @@ import AdminLoginPage from "./pages/AdminLoginPage";
 import ConfirmationPage from "./pages/ConfirmationPage";
 import BookingPage from "./pages/BookingPage";
 import FirmAccessPage from "./pages/FirmAccessPage";
+import CabinetStartPage from "./pages/CabinetStartPage";
 
 
 const queryClient = new QueryClient();
@@ -66,6 +67,7 @@ const App = () => (
           <Route path="/logan-admin" element={<AdminLoginPage />} />
           <Route path="/confirmation" element={<ConfirmationPage />} />
           <Route path="/acces-cabinet" element={<FirmAccessPage />} />
+          <Route path="/cabinet-start" element={<CabinetStartPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
