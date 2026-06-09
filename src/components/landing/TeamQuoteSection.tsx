@@ -19,19 +19,15 @@ const TeamQuoteSection = () => {
       ref={ref}
       className="relative min-h-[100svh] flex items-center justify-center overflow-hidden bg-black"
     >
-      {/* Background — skyscrapers */}
+      {/* Background */}
       <motion.img
         src={bgAsset.url}
         alt=""
         aria-hidden
         style={{ y: bgY, willChange: 'transform' }}
-        initial={{ scale: 1.1 }}
-        animate={{ scale: [1.1, 1.05, 1.08] }}
-        transition={{ duration: 28, ease: 'easeInOut', repeat: Infinity, repeatType: 'reverse' }}
-        className="absolute inset-0 w-full h-full object-cover opacity-90"
+        className="absolute inset-0 w-full h-full object-cover object-center opacity-100"
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/45 to-black/75" />
-      <div className="absolute inset-0 bg-black/25" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/50" />
 
       {/* Giant decorative quote mark */}
       <motion.div
