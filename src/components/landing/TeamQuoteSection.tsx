@@ -37,8 +37,7 @@ const TeamQuoteSection = () => {
           transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
           className="font-serif font-[300] text-[1.9rem] sm:text-[2.5rem] md:text-[3rem] text-white leading-[1.08] tracking-normal"
         >
-          Logan est la nouvelle infrastructure privilégiée et confidentielle du marché des avocats —{' '}
-          <em className="italic">un écosystème exigeant, où chaque rapprochement est orchestré de l'intention à la signature.</em>
+          Logan est la nouvelle infrastructure privilégiée et confidentielle du marché des avocats.
         </motion.p>
 
         {/* Séparateur */}
@@ -56,7 +55,7 @@ const TeamQuoteSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 1.1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          className="font-sans font-light text-[0.95rem] sm:text-[1.05rem] leading-[1.75] text-white/55 max-w-xl mx-auto"
+          className="font-serif italic font-light text-[0.95rem] sm:text-[1.05rem] leading-[1.75] text-white/55 max-w-xl mx-auto"
         >
           <span className="font-serif text-white/25 text-2xl align-top mr-1 leading-none">"</span>
           Logan se positionne comme l'infrastructure la plus exigeante et structurée du marché, offrant un accompagnement sur mesure, résolument confidentiel et parfaitement ciblé.
