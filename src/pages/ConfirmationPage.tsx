@@ -7,17 +7,25 @@ const ConfirmationPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const redirect = () => {
+    const confirmAndRedirect = async (userId: string) => {
       setStatus('Email confirmé. Redirection vers votre espace...');
+      // Passe le statut à pending_admin_approval pour que l'admin puisse valider
+      await supabase
+        .from('candidate_registrations')
+        .update({ status: 'pending_admin_approval' })
+        .eq('user_id', userId)
+        .eq('status', 'pending_email_verification');
       setTimeout(() => navigate('/espace-candidat'), 2000);
     };
 
     supabase.auth.getSession().then(({ data: { session } }) => {
-      if (session) redirect();
+      if (session?.user) confirmAndRedirect(session.user.id);
     });
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event) => {
-      if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') redirect();
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      if ((event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') && session?.user) {
+        confirmAndRedirect(session.user.id);
+      }
     });
 
     return () => subscription.unsubscribe();

@@ -1,8 +1,14 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
 const ADMIN_EMAIL = "simonallal.executive@gmail.com";
 const APP_URL = "https://carter-connect.vercel.app";
+
+const supabaseAdmin = createClient(
+  Deno.env.get("SUPABASE_URL")!,
+  Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
+);
 
 serve(async (req) => {
   const payload = await req.json();
@@ -16,9 +22,17 @@ serve(async (req) => {
     });
   }
 
+  const userId = record.id;
   const candidateEmail = record.email;
   const meta = record.raw_user_meta_data || {};
   const candidateName = `${meta.prenom || ""} ${meta.nom || ""}`.trim() || meta.full_name || candidateEmail;
+
+  // Passe le statut à pending_admin_approval pour que l'admin puisse valider
+  await supabaseAdmin
+    .from("candidate_registrations")
+    .update({ status: "pending_admin_approval" })
+    .eq("user_id", userId)
+    .eq("status", "pending_email_verification");
 
   await fetch("https://api.resend.com/emails", {
     method: "POST",
