@@ -279,17 +279,21 @@ const FirmAccessPage = () => (
             variants={fadeUp}
             className="text-white/60 font-sans font-light text-[1rem] sm:text-[1.08rem] leading-[1.75] max-w-2xl mb-10"
           >
-            Logan est un réseau confidentiel d'avocats d'affaires, constitué par des consultants spécialisés
-            qui chassent, rencontrent et qualifient les meilleurs candidats du marché au day to day.
-            Chaque cabinet partenaire accède à cette base de manière sécurisée et structurée.
+            Logan est un réseau confidentiel d'avocats d'affaires, constitué et enrichi chaque jour
+            par des consultants spécialisés qui chassent, rencontrent et qualifient les meilleurs candidats
+            du marché. Chaque cabinet partenaire accède au réseau sur une base absolument confidentielle,
+            structurée et sécurisée.
           </motion.p>
 
-          <motion.div variants={fadeUp}>
+          <motion.div variants={fadeUp} className="flex flex-wrap items-center gap-4">
             <Link to="/demander-acces">
               <Button className="bg-white text-black hover:bg-white/90 font-sans text-[12.3px] font-normal px-6 py-2.5 rounded-sm tracking-wide">
                 Rejoindre Logan
               </Button>
             </Link>
+            <a href="#booking" className="text-white/50 hover:text-white font-sans text-[12.3px] tracking-wide transition-colors duration-200 border-b border-white/20 hover:border-white/50 pb-px">
+              Fixer un échange →
+            </a>
           </motion.div>
         </motion.div>
       </div>
@@ -416,7 +420,7 @@ const FirmAccessPage = () => (
     </div>
 
     {/* Honoraires + Booking */}
-    <section className="py-24 px-6 sm:px-10 lg:px-16">
+    <section id="booking" className="py-24 px-6 sm:px-10 lg:px-16">
       <div className="max-w-5xl mx-auto">
         <div className="grid md:grid-cols-2 gap-16 md:gap-24 items-start">
           {/* Texte */}
@@ -430,11 +434,25 @@ const FirmAccessPage = () => (
               Conditions d'intervention
             </p>
             <h2 className="font-serif font-[300] text-[1.8rem] sm:text-[2.4rem] text-white leading-[1.1] mb-7">
-              Une approche tarifaire<br /><em className="italic">résolument différente.</em>
+              Logan réinvente les conditions<br /><em className="italic">d'intervention.</em>
             </h2>
-            <p className="text-white/55 font-sans font-light text-[0.93rem] leading-[1.85]">
+            <p className="text-white/55 font-sans font-light text-[0.93rem] leading-[1.85] mb-10">
               Logan innove sur les conditions d'intervention traditionnellement pratiquées sur le marché.
             </p>
+            {/* Quatre piliers */}
+            <div className="grid grid-cols-2 gap-px bg-white/8">
+              {[
+                { label: 'Plus rapide', desc: 'Un réseau constitué en amont, prêt à activer.' },
+                { label: 'Plus confidentiel', desc: 'Aucune mise en relation hors intermédiation.' },
+                { label: 'Plus transparent', desc: 'Un honoraire de résultat, clair et réduit.' },
+                { label: 'Plus premium', desc: 'Des profils qualifiés, rencontrés, validés.' },
+              ].map((p) => (
+                <div key={p.label} className="bg-black p-5">
+                  <p className="text-white font-sans text-[0.82rem] font-medium tracking-wide mb-1.5">{p.label}</p>
+                  <p className="text-white/35 font-sans font-light text-[0.78rem] leading-[1.6]">{p.desc}</p>
+                </div>
+              ))}
+            </div>
           </motion.div>
 
           {/* Booking inline */}
