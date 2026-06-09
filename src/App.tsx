@@ -1,9 +1,25 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Navigate, useLocation } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import LandingPage from "./pages/LandingPage";
+
+// Redirige vers /confirmation si Supabase a déposé des tokens auth dans l'URL
+const AuthTokenRedirect = () => {
+  const location = useLocation();
+  const hash = location.hash;
+  const search = location.search;
+  const hasAuthToken =
+    hash.includes('access_token=') ||
+    hash.includes('type=signup') ||
+    search.includes('code=') ||
+    search.includes('token_hash=');
+  if (hasAuthToken) {
+    return <Navigate to={`/confirmation${search}${hash}`} replace />;
+  }
+  return <LandingPage />;
+};
 import RegisterPage from "./pages/RegisterPage";
 import CabinetPage from "./pages/CabinetPage";
 import DemoPage from "./pages/DemoPage";
@@ -32,7 +48,7 @@ const App = () => (
       <BrowserRouter>
         <ScrollToHash />
         <Routes>
-          <Route path="/" element={<LandingPage />} />
+          <Route path="/" element={<AuthTokenRedirect />} />
           <Route path="/inscription" element={<RegisterPage />} />
           <Route path="/cabinet" element={<CabinetPage />} />
           <Route path="/demo" element={<DemoPage />} />
