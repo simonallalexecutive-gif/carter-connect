@@ -35,7 +35,7 @@ const CabinetStartPage = () => {
 
   const isValid =
     firstName.trim() && lastName.trim() && cabinet.trim() &&
-    status && phone.trim().length >= 10 && email.includes('@') &&
+    status && phone.replace(/\D/g, '').length >= 10 && email.includes('@') &&
     password.length >= 8;
 
   const handleSubmit = async () => {
@@ -194,7 +194,17 @@ const CabinetStartPage = () => {
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <label className={labelCls}>Téléphone</label>
-                <input value={phone} onChange={e => setPhone(e.target.value.replace(/\D/g, '').slice(0, 10))} type="tel" placeholder="06 12 34 56 78" className={inputCls} />
+                <input
+                  value={phone}
+                  onChange={e => {
+                    const digits = e.target.value.replace(/\D/g, '').slice(0, 10);
+                    const formatted = digits.replace(/(\d{2})(?=\d)/g, '$1.');
+                    setPhone(formatted);
+                  }}
+                  type="tel"
+                  placeholder="06.12.34.56.78"
+                  className={inputCls}
+                />
               </div>
               <div>
                 <label className={labelCls}>Email professionnel</label>
