@@ -108,7 +108,7 @@ const MissionSection = () => (
         <motion.div variants={fadeUp} className="bg-black px-8 py-10 flex flex-col gap-6">
           <span className="text-[10px] font-sans font-semibold tracking-[0.22em] uppercase text-white/25">Candidates</span>
           <h3 className="font-serif font-[300] text-[1.25rem] text-white leading-snug">
-            Votre carrière mérite mieux que le hasard.
+            Reprenez le contrôle.
           </h3>
           <div className="w-6 h-px bg-white/15" />
           <div className="flex flex-col gap-4">
