@@ -65,13 +65,13 @@ const MissionSection = () => (
           <div className="flex flex-col gap-5">
             <div className="flex flex-col gap-2">
               <p className="font-sans font-light text-[0.88rem] leading-[1.8] text-white/45">
-                <span className="text-white/65 font-normal">Option 1 —</span> Déposez votre recherche à titre strictement confidentiel, en préservant — ou non — l'identité de votre cabinet.
+                <span className="text-white/65 font-normal">Recherche ciblée —</span> Déposez votre recherche à titre strictement confidentiel, en préservant — ou non — l'identité de votre cabinet.
               </p>
             </div>
             <div className="w-4 h-px bg-white/10" />
             <div className="flex flex-col gap-2">
               <p className="font-sans font-light text-[0.88rem] leading-[1.8] text-white/45">
-                <span className="text-white/65 font-normal">Option 2 —</span> Explorez le marché et soyez opportuniste. Anticipez vos recrutements stratégiques pour chacun de vos départements.
+                <span className="text-white/65 font-normal">Veille active —</span> Explorez le marché et soyez opportuniste. Anticipez vos recrutements stratégiques pour chacun de vos départements.
               </p>
             </div>
           </div>
@@ -108,12 +108,18 @@ const MissionSection = () => (
         <motion.div variants={fadeUp} className="bg-black px-8 py-10 flex flex-col gap-6">
           <span className="text-[10px] font-sans font-semibold tracking-[0.22em] uppercase text-white/25">Candidates</span>
           <h3 className="font-serif font-[300] text-[1.25rem] text-white leading-snug">
-            Préservez votre identité.
+            Votre carrière mérite mieux que le hasard.
           </h3>
           <div className="w-6 h-px bg-white/15" />
-          <div className="flex flex-col gap-5">
+          <div className="flex flex-col gap-4">
             <p className="font-sans font-light text-[0.88rem] leading-[1.8] text-white/45">
-              Restez visible des cabinets qui vous intéressent. Étudiez chaque opportunité en amont avec un consultant dédié — sans jamais sacrifier votre anonymat.
+              Restez visible des cabinets qui vous intéressent — sans jamais exposer votre identité.
+            </p>
+            <p className="font-sans font-light text-[0.88rem] leading-[1.8] text-white/45">
+              Étudiez chaque opportunité en amont avec un consultant dédié, à votre rythme et selon votre projet.
+            </p>
+            <p className="font-sans font-light text-[0.88rem] leading-[1.8] text-white/45">
+              Votre anonymat est absolu. Jusqu'à ce que vous décidiez.
             </p>
           </div>
         </motion.div>
@@ -127,7 +133,7 @@ const MissionSection = () => (
         viewport={{ once: true, margin: '-40px' }}
         className="mt-20 md:mt-24 flex flex-wrap gap-x-10 gap-y-4"
       >
-        {['Confidentialité', 'Réactivité', 'Exclusivité', 'Anonymat', 'Accompagnement', 'Transparence'].map((word) => (
+        {['Confidentialité', 'Réactivité', 'Anonymat', 'Accompagnement', 'Transparence'].map((word) => (
           <motion.span
             key={word}
             variants={fadeUp}
