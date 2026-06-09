@@ -403,11 +403,13 @@ const FirmAccessPage = () => (
             <h3 className="font-serif font-[300] text-[1.45rem] text-white mb-5 leading-snug">
               Piloter un recrutement<br />avec un consultant dédié.
             </h3>
-            <p className="text-white/55 font-sans font-light text-[0.93rem] leading-[1.8]">
-              Confiez votre recherche à un consultant Logan spécialisé sur le marché des avocats
-              qui vous accompagne de A à Z tout au long du processus. Logan est à la disposition
-              de chacun de vos départements et coordonne, avec justesse et efficacité, les échanges
-              dans le respect le plus strict de la confidentialité des parties.
+            <p className="text-white/60 font-sans font-light text-[0.93rem] leading-[1.8] mb-7">
+              Confiez votre recherche à un consultant Logan spécialisé sur le marché des avocats,
+              qui vous accompagne de A à Z tout au long du processus.
+            </p>
+            <p className="text-white/35 font-sans font-light text-[0.85rem] leading-[1.8] border-t border-white/10 pt-6">
+              Logan est à la disposition de chacun de vos départements et coordonne, avec justesse
+              et efficacité, les échanges dans le respect le plus strict de la confidentialité des parties.
             </p>
           </motion.div>
         </div>
