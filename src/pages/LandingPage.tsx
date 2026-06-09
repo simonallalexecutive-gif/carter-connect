@@ -73,7 +73,7 @@ const LandingPage = () => (
           </motion.p>
 
           <motion.div variants={fadeUp} className="mt-8 sm:mt-20 flex flex-wrap items-center gap-3">
-            <Link to="/demander-acces">
+            <Link to="/candidat">
               <Button
                 className="bg-white text-black hover:bg-white/90 font-sans text-[12.3px] font-normal px-3.5 py-1.5 rounded-sm border border-white transition-colors duration-200 tracking-wide"
               >
@@ -194,7 +194,7 @@ const LandingPage = () => (
               viewport={{ once: true }}
               transition={{ duration: 1, delay: 0.8 }}
             >
-              <Link to="/demander-acces">
+              <Link to="/candidat">
                 <Button
                   size="lg"
                   className="bg-white text-black hover:bg-white/90 font-sans text-sm font-normal px-8 py-5 rounded-sm tracking-wide mt-4"
