@@ -25,7 +25,9 @@ const CabinetStartPage = () => {
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
 
@@ -33,10 +35,20 @@ const CabinetStartPage = () => {
     c.toLowerCase().includes(cabinetSearch.toLowerCase())
   );
 
+  const pwdRules = {
+    length:    password.length >= 8,
+    upper:     /[A-Z]/.test(password),
+    lower:     /[a-z]/.test(password),
+    number:    /[0-9]/.test(password),
+    special:   /[^A-Za-z0-9]/.test(password),
+  };
+  const pwdValid   = Object.values(pwdRules).every(Boolean);
+  const pwdMatch   = confirmPassword.length > 0 && password === confirmPassword;
+
   const isValid =
     firstName.trim() && lastName.trim() && cabinet.trim() &&
     status && phone.replace(/\D/g, '').length >= 10 && email.includes('@') &&
-    password.length >= 8;
+    pwdValid && pwdMatch;
 
   const handleSubmit = async () => {
     if (!isValid || submitting) return;
@@ -223,17 +235,58 @@ const CabinetStartPage = () => {
                   value={password}
                   onChange={e => setPassword(e.target.value)}
                   type={showPassword ? 'text' : 'password'}
-                  placeholder="8 caractères minimum"
+                  placeholder="Créer un mot de passe"
                   className={cn(inputCls, 'pr-10')}
                 />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(v => !v)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-white/25 hover:text-white/60 transition-colors"
-                >
+                <button type="button" onClick={() => setShowPassword(v => !v)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-white/25 hover:text-white/60 transition-colors">
                   {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
               </div>
+              {/* Règles */}
+              {password.length > 0 && (
+                <div className="mt-2.5 grid grid-cols-2 gap-x-4 gap-y-1">
+                  {[
+                    { key: 'length',  label: '8 caractères minimum' },
+                    { key: 'upper',   label: '1 majuscule' },
+                    { key: 'lower',   label: '1 minuscule' },
+                    { key: 'number',  label: '1 chiffre' },
+                    { key: 'special', label: '1 caractère spécial' },
+                  ].map(r => (
+                    <span key={r.key} className={cn('flex items-center gap-1.5 text-[10.5px] font-sans transition-colors',
+                      pwdRules[r.key as keyof typeof pwdRules] ? 'text-white/55' : 'text-white/20')}>
+                      <span className={cn('w-1 h-1 rounded-full flex-shrink-0',
+                        pwdRules[r.key as keyof typeof pwdRules] ? 'bg-white/55' : 'bg-white/15')} />
+                      {r.label}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Confirmer le mot de passe */}
+            <div>
+              <label className={labelCls}>Confirmer le mot de passe</label>
+              <div className="relative">
+                <input
+                  value={confirmPassword}
+                  onChange={e => setConfirmPassword(e.target.value)}
+                  type={showConfirm ? 'text' : 'password'}
+                  placeholder="Répéter le mot de passe"
+                  className={cn(inputCls, 'pr-10',
+                    confirmPassword.length > 0 && !pwdMatch ? 'border-red-500/50' : '')}
+                />
+                <button type="button" onClick={() => setShowConfirm(v => !v)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-white/25 hover:text-white/60 transition-colors">
+                  {showConfirm ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
+              </div>
+              {confirmPassword.length > 0 && !pwdMatch && (
+                <p className="text-[10.5px] font-sans text-red-400/70 mt-1.5">Les mots de passe ne correspondent pas.</p>
+              )}
+              {pwdMatch && (
+                <p className="text-[10.5px] font-sans text-white/40 mt-1.5">Les mots de passe correspondent.</p>
+              )}
             </div>
 
             <Button
