@@ -65,11 +65,14 @@ const FirmAccessPage = () => (
             du marché. Chaque cabinet partenaire accède au réseau sur une base absolument confidentielle,
             structurée et sécurisée.
           </motion.p>
-          <motion.div variants={fadeUp}>
+          <motion.div variants={fadeUp} className="flex flex-wrap items-center gap-4">
             <Link to="/cabinet-start">
               <Button className="bg-white text-black hover:bg-white/90 font-sans text-[12.3px] font-normal px-6 py-2.5 rounded-sm tracking-wide">
                 Start
               </Button>
+            </Link>
+            <Link to="/cabinet-rdv" className="text-white/50 hover:text-white font-sans text-[12.3px] tracking-wide transition-colors duration-200 border-b border-white/20 hover:border-white/50 pb-px">
+              Fixer un échange →
             </Link>
           </motion.div>
         </motion.div>
@@ -240,11 +243,15 @@ const FirmAccessPage = () => (
           Rejoignez le réseau Logan et accédez aux profils les plus qualifiés du marché,
           en toute confidentialité.
         </motion.p>
-        <motion.div initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.4 }}>
+        <motion.div initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.4 }}
+          className="flex flex-wrap items-center justify-center gap-5">
           <Link to="/cabinet-start">
             <Button size="lg" className="bg-white text-black hover:bg-white/90 font-sans text-sm font-normal px-10 py-5 rounded-sm tracking-wide">
               Start
             </Button>
+          </Link>
+          <Link to="/cabinet-rdv" className="text-white/50 hover:text-white font-sans text-[12.3px] tracking-wide transition-colors duration-200 border-b border-white/20 hover:border-white/50 pb-px">
+            Fixer un échange →
           </Link>
         </motion.div>
       </div>

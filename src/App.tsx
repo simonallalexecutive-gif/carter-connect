@@ -38,6 +38,7 @@ import ConfirmationPage from "./pages/ConfirmationPage";
 import BookingPage from "./pages/BookingPage";
 import FirmAccessPage from "./pages/FirmAccessPage";
 import CabinetStartPage from "./pages/CabinetStartPage";
+import FirmBookingPage from "./pages/FirmBookingPage";
 
 
 const queryClient = new QueryClient();
@@ -68,6 +69,7 @@ const App = () => (
           <Route path="/confirmation" element={<ConfirmationPage />} />
           <Route path="/acces-cabinet" element={<FirmAccessPage />} />
           <Route path="/cabinet-start" element={<CabinetStartPage />} />
+          <Route path="/cabinet-rdv" element={<FirmBookingPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
