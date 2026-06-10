@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, ArrowLeft, Play, Shield, Eye, EyeOff, Users, Search, Handshake, Building2, UserCheck, Bell, BarChart3, Clock, CheckCircle2 } from 'lucide-react';
+import { ArrowRight, ArrowLeft, Play, Shield, Eye, EyeOff, Users, Search, Handshake, Building2, UserCheck, Bell, BarChart3, Clock, CheckCircle2, LayoutDashboard, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
-type Perspective = 'candidat' | 'cabinet';
+type Perspective = 'candidat' | 'cabinet' | 'dashboard';
 
 interface Slide {
   icon: React.ReactNode;
@@ -14,6 +14,183 @@ interface Slide {
   points: { icon: React.ReactNode; text: string }[];
   visual?: React.ReactNode;
 }
+
+// ── Mockups espace cabinet ────────────────────────────────────────────────────
+
+const SearchFormMockup = () => (
+  <div className="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden w-full max-w-lg mx-auto text-[11px]">
+    {/* Top bar */}
+    <div className="bg-gray-50 border-b border-gray-100 px-4 py-2 flex items-center gap-3">
+      <div className="flex gap-1.5">
+        <div className="w-2.5 h-2.5 rounded-full bg-red-400" />
+        <div className="w-2.5 h-2.5 rounded-full bg-yellow-400" />
+        <div className="w-2.5 h-2.5 rounded-full bg-green-400" />
+      </div>
+      <span className="text-gray-400 text-[10px] tracking-wide">loganexecutive.com · Espace cabinet</span>
+    </div>
+    <div className="flex">
+      {/* Sidebar mini */}
+      <div className="w-28 bg-white border-r border-gray-100 py-4 flex flex-col gap-1 px-3 flex-shrink-0">
+        <div className="font-serif text-[16px] text-gray-900 mb-4 px-1">Logan</div>
+        {['Tableau de bord', 'Mes recherches', 'Alertes', 'Fixer un call'].map((item, i) => (
+          <div key={item} className={cn('px-2 py-1.5 rounded text-[9px] text-gray-500 cursor-default', i === 1 && 'bg-gray-100 text-gray-800 font-medium')}>{item}</div>
+        ))}
+      </div>
+      {/* Content */}
+      <div className="flex-1 p-4">
+        <div className="text-[8px] tracking-[0.14em] uppercase text-gray-400 mb-1">Étape 2 / 4</div>
+        <div className="font-serif text-[17px] text-gray-900 mb-3">Ma recherche</div>
+
+        <div className="mb-3">
+          <div className="text-[8px] tracking-[0.12em] uppercase text-gray-400 mb-1.5">Type de profil recherché</div>
+          <div className="flex gap-1.5">
+            {['Collaborateur', 'Counsel', 'Associé'].map((t, i) => (
+              <div key={t} className={cn('flex-1 text-center py-1.5 rounded border text-[9px]', i === 0 ? 'border-gray-900 text-gray-900 font-medium' : 'border-gray-200 text-gray-400')}>{t}</div>
+            ))}
+          </div>
+        </div>
+
+        <div className="mb-3">
+          <div className="text-[8px] tracking-[0.12em] uppercase text-gray-400 mb-1.5">Séniorité recherchée</div>
+          <div className="flex gap-1.5">
+            {[['0–3 ans', 'Junior'], ['3–6 ans', 'Mid Level'], ['+6 ans', 'Sénior']].map(([yr, lvl], i) => (
+              <div key={yr} className={cn('flex-1 text-center py-1.5 rounded border', i === 1 ? 'border-gray-900 bg-gray-900 text-white' : 'border-gray-200 text-gray-500')}>
+                <div className="text-[9px] font-medium">{yr}</div>
+                <div className="text-[7px] opacity-60">{lvl}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="mb-3">
+          <div className="text-[8px] tracking-[0.12em] uppercase text-gray-400 mb-1.5">Département</div>
+          <div className="flex flex-wrap gap-1">
+            {['Corporate/M&A/PE', 'Banking & Finance', 'Employment'].map((d, i) => (
+              <div key={d} className={cn('px-2 py-1 rounded-full border text-[8px]', i < 2 ? 'border-gray-900 text-gray-900 font-medium' : 'border-gray-200 text-gray-400')}>{d}</div>
+            ))}
+          </div>
+        </div>
+
+        <div className="flex justify-end mt-3">
+          <div className="bg-gray-900 text-white px-4 py-1.5 rounded text-[9px] font-medium">Suivant →</div>
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
+const MarketMockup = () => (
+  <div className="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden w-full max-w-lg mx-auto text-[11px]">
+    <div className="bg-gray-50 border-b border-gray-100 px-4 py-2 flex items-center gap-3">
+      <div className="flex gap-1.5">
+        <div className="w-2.5 h-2.5 rounded-full bg-red-400" />
+        <div className="w-2.5 h-2.5 rounded-full bg-yellow-400" />
+        <div className="w-2.5 h-2.5 rounded-full bg-green-400" />
+      </div>
+      <span className="text-gray-400 text-[10px] tracking-wide">loganexecutive.com · Explorer le marché</span>
+    </div>
+    <div className="flex">
+      <div className="w-28 bg-white border-r border-gray-100 py-4 flex flex-col gap-1 px-3 flex-shrink-0">
+        <div className="font-serif text-[16px] text-gray-900 mb-4 px-1">Logan</div>
+        {['Tableau de bord', 'Mes recherches', 'Explorer', 'Alertes'].map((item, i) => (
+          <div key={item} className={cn('px-2 py-1.5 rounded text-[9px] text-gray-500 cursor-default', i === 2 && 'bg-gray-100 text-gray-800 font-medium')}>{item}</div>
+        ))}
+      </div>
+      <div className="flex-1 p-4">
+        <div className="font-serif text-[16px] text-gray-900 mb-1">Explorer le marché</div>
+        <div className="text-[9px] text-gray-400 mb-3">Profils anonymisés — cliquez pour consulter le détail</div>
+        <div className="flex gap-1 mb-3 flex-wrap">
+          {['Tous', 'Corporate/M&A', 'B&F', 'Employment'].map((f, i) => (
+            <div key={f} className={cn('px-2 py-0.5 rounded-full text-[8px] border', i === 0 ? 'bg-gray-900 text-white border-gray-900' : 'border-gray-200 text-gray-500')}>{f}</div>
+          ))}
+        </div>
+        <div className="space-y-1.5">
+          {[
+            { id: 'C-2024-042', level: 'Senior', domain: 'Banking & Finance · 5 ans', status: 'À L\'ÉCOUTE', tags: ['Cabinet Français', 'Chambers', 'Legal 500'], active: false },
+            { id: 'C-2024-057', level: 'Mid Level', domain: 'Corporate/M&A · 4 ans', status: 'À L\'ÉCOUTE', tags: ['Cabinet Français', 'Chambers'], active: false },
+            { id: 'C-2024-071', level: 'Mid Level', domain: 'Banking & Finance · 3 ans', status: 'ACTIVE', tags: ['Cabinet Anglais', 'Chambers'], active: true },
+          ].map(p => (
+            <div key={p.id} className="border border-gray-100 rounded p-2.5 flex items-center justify-between hover:bg-gray-50 cursor-default">
+              <div>
+                <div className="flex items-center gap-2 mb-0.5">
+                  <span className="text-[8px] text-gray-400">{p.id}</span>
+                  <span className={cn('text-[7px] font-semibold tracking-wide', p.active ? 'text-blue-500' : 'text-gray-400')}>● {p.status}</span>
+                </div>
+                <div className="font-medium text-[10px] text-gray-900">{p.level}</div>
+                <div className="text-[8px] text-gray-500">{p.domain}</div>
+                <div className="flex gap-1 mt-1">
+                  {p.tags.map(t => <span key={t} className="text-[7px] px-1.5 py-0.5 rounded border border-gray-200 text-gray-500">{t}</span>)}
+                </div>
+              </div>
+              <div className="text-[8px] text-gray-400 font-medium">VOIR →</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
+const ProfileDrawerMockup = () => (
+  <div className="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden w-full max-w-lg mx-auto text-[11px]">
+    <div className="bg-gray-50 border-b border-gray-100 px-4 py-2 flex items-center gap-3">
+      <div className="flex gap-1.5">
+        <div className="w-2.5 h-2.5 rounded-full bg-red-400" />
+        <div className="w-2.5 h-2.5 rounded-full bg-yellow-400" />
+        <div className="w-2.5 h-2.5 rounded-full bg-green-400" />
+      </div>
+      <span className="text-gray-400 text-[10px] tracking-wide">Profil anonyme · C-2024-042</span>
+    </div>
+    <div className="p-4">
+      <div className="text-[8px] tracking-[0.14em] uppercase text-gray-400 mb-2">Profil anonymisé</div>
+      <div className="flex items-center gap-3 mb-4">
+        <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center">
+          <UserCheck className="w-5 h-5 text-gray-400" />
+        </div>
+        <div>
+          <div className="font-serif text-[13px] text-gray-900">Profil anonyme</div>
+          <div className="text-[9px] text-gray-400">C-2024-042 · Collaborateur — Senior · 5 ans</div>
+          <div className="flex gap-2 mt-0.5">
+            <span className="text-[8px] px-1.5 py-0.5 bg-gray-100 rounded text-gray-600">Chambers</span>
+            <span className="text-[8px] px-1.5 py-0.5 bg-gray-100 rounded text-gray-600">Legal 500</span>
+          </div>
+        </div>
+      </div>
+      <div className="grid grid-cols-2 gap-x-4 gap-y-2.5 mb-3">
+        {[
+          ['Pratique', 'Banque & Finance'],
+          ['Cabinet d\'origine', 'Cabinet français'],
+          ['Chambers', 'Band 1/Band 2 — B&F'],
+          ['Anglais', 'Bilingue'],
+        ].map(([label, val]) => (
+          <div key={label}>
+            <div className="text-[7px] tracking-[0.12em] uppercase text-gray-400 mb-0.5">{label}</div>
+            <div className="text-[10px] font-medium text-gray-900">{val}</div>
+          </div>
+        ))}
+      </div>
+      <div className="border-t border-gray-100 pt-3 mb-3">
+        <div className="text-[7px] tracking-[0.12em] uppercase text-gray-400 mb-2">Rémunération</div>
+        <div className="grid grid-cols-2 gap-3">
+          <div>
+            <div className="text-[8px] text-gray-400 mb-0.5">Rétrocession actuelle</div>
+            <div className="font-serif text-[13px] text-gray-900 font-semibold">65–72 K€ fixe</div>
+          </div>
+          <div>
+            <div className="text-[8px] text-gray-400 mb-0.5">Rétrocession suggérée Logan</div>
+            <div className="font-serif text-[13px] text-gray-900 font-semibold">165 K€</div>
+          </div>
+        </div>
+      </div>
+      <div className="flex gap-2 mt-3">
+        <div className="flex-1 text-center py-1.5 bg-gray-900 text-white rounded text-[9px] font-medium cursor-default">Manifester l'intérêt →</div>
+        <div className="px-3 py-1.5 border border-gray-200 rounded text-[9px] text-gray-500 cursor-default">Passer</div>
+      </div>
+    </div>
+  </div>
+);
+
+// ── Slides ────────────────────────────────────────────────────────────────────
 
 const candidatSlides: Slide[] = [
   {
@@ -208,18 +385,68 @@ const cabinetSlides: Slide[] = [
   },
 ];
 
+const dashboardSlides: Slide[] = [
+  {
+    icon: <LayoutDashboard className="w-8 h-8" />,
+    title: 'Votre recherche, structurée en 4 étapes',
+    subtitle: 'Un formulaire guidé pour définir précisément le profil que vous recherchez — séniorité, département, rémunération, confidentialité.',
+    points: [
+      { icon: <CheckCircle2 className="w-4 h-4" />, text: 'Choisissez le type de profil : Collaborateur, Counsel ou Associé.' },
+      { icon: <Search className="w-4 h-4" />, text: 'Précisez le niveau de séniorité, le département et les expertises requises.' },
+      { icon: <Shield className="w-4 h-4" />, text: 'Définissez le niveau de confidentialité de votre recherche en toute autonomie.' },
+    ],
+    visual: <SearchFormMockup />,
+  },
+  {
+    icon: <Eye className="w-8 h-8" />,
+    title: 'Un vivier de profils en temps réel',
+    subtitle: 'Parcourez l\'ensemble des avocats inscrits sur Logan — profils entièrement anonymisés, filtrables par pratique, classement et séniorité.',
+    points: [
+      { icon: <EyeOff className="w-4 h-4" />, text: 'Chaque profil est anonymisé : aucun nom, aucun cabinet d\'origine visible.' },
+      { icon: <Bell className="w-4 h-4" />, text: 'Les profils "Active" sont prioritairement à l\'écoute du marché — à traiter en premier.' },
+      { icon: <BarChart3 className="w-4 h-4" />, text: 'Filtrez par pratique (M&A, B&F, Employment…), classements Chambers / Legal 500, séniorité.' },
+    ],
+    visual: <MarketMockup />,
+  },
+  {
+    icon: <UserCheck className="w-8 h-8" />,
+    title: 'Une fiche détaillée par profil',
+    subtitle: 'Cliquez sur un profil pour accéder à l\'intégralité de sa fiche : expertise, rémunération actuelle, activité, positionnement — et manifestez votre intérêt en un clic.',
+    points: [
+      { icon: <BarChart3 className="w-4 h-4" />, text: 'Rétrocession actuelle et rétrocession suggérée Logan — calibrée au marché.' },
+      { icon: <Search className="w-4 h-4" />, text: 'Répartition de l\'activité, positionnement, clientèle et pratique de l\'anglais.' },
+      { icon: <Handshake className="w-4 h-4" />, text: 'Manifestez votre intérêt : Logan orchestre la mise en relation de manière confidentielle.' },
+    ],
+    visual: <ProfileDrawerMockup />,
+  },
+];
+
+// ── Slide variants ────────────────────────────────────────────────────────────
+
 const slideVariants = {
   enter: (dir: number) => ({ x: dir > 0 ? 300 : -300, opacity: 0 }),
   center: { x: 0, opacity: 1 },
   exit: (dir: number) => ({ x: dir > 0 ? -300 : 300, opacity: 0 }),
 };
 
+const TAB_LABELS: { key: Perspective; label: string }[] = [
+  { key: 'candidat', label: 'Focus candidat' },
+  { key: 'cabinet', label: 'Focus cabinet' },
+  { key: 'dashboard', label: 'Espace cabinet' },
+];
+
+// ── Component ─────────────────────────────────────────────────────────────────
+
 const DemoPage = () => {
   const [perspective, setPerspective] = useState<Perspective>('candidat');
   const [currentSlide, setCurrentSlide] = useState(0);
   const [direction, setDirection] = useState(0);
 
-  const slides = perspective === 'candidat' ? candidatSlides : cabinetSlides;
+  const slides =
+    perspective === 'candidat' ? candidatSlides :
+    perspective === 'cabinet' ? cabinetSlides :
+    dashboardSlides;
+
   const slide = slides[currentSlide];
 
   const switchPerspective = (p: Perspective) => {
@@ -241,6 +468,8 @@ const DemoPage = () => {
       setCurrentSlide(c => c - 1);
     }
   };
+
+  const isDashboard = perspective === 'dashboard';
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
@@ -269,7 +498,7 @@ const DemoPage = () => {
           transition={{ delay: 0.2 }}
           className="text-sm text-muted-foreground font-light max-w-md mx-auto leading-relaxed"
         >
-          Explorez le parcours Logan selon votre perspective — candidat ou cabinet.
+          Explorez le parcours Logan selon votre perspective — candidat, cabinet, ou découvrez l'espace cabinet en détail.
         </motion.p>
       </div>
 
@@ -281,22 +510,47 @@ const DemoPage = () => {
           transition={{ delay: 0.3 }}
           className="inline-flex bg-secondary rounded-sm p-1 border border-border"
         >
-          {(['candidat', 'cabinet'] as Perspective[]).map(p => (
+          {TAB_LABELS.map(({ key, label }) => (
             <button
-              key={p}
-              onClick={() => switchPerspective(p)}
+              key={key}
+              onClick={() => switchPerspective(key)}
               className={cn(
-                'px-6 py-2.5 text-xs font-medium rounded-sm transition-all',
-                perspective === p
+                'px-5 py-2.5 text-xs font-medium rounded-sm transition-all',
+                perspective === key
                   ? 'bg-foreground text-background shadow-sm'
                   : 'text-muted-foreground hover:text-foreground'
               )}
             >
-              {p === 'candidat' ? 'Focus candidat' : 'Focus cabinet'}
+              {key === 'dashboard' && <LayoutDashboard className="w-3 h-3 inline-block mr-1.5 -mt-0.5" />}
+              {label}
             </button>
           ))}
         </motion.div>
       </div>
+
+      {/* Dashboard intro banner */}
+      <AnimatePresence>
+        {isDashboard && (
+          <motion.div
+            key="dashboard-banner"
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.4 }}
+            className="mx-auto max-w-5xl w-full px-6 mb-6"
+          >
+            <div className="bg-foreground/[0.04] border border-border rounded-sm px-6 py-4 flex items-start gap-4">
+              <LayoutDashboard className="w-5 h-5 text-muted-foreground flex-shrink-0 mt-0.5" />
+              <div>
+                <p className="text-[11px] font-semibold tracking-[0.1em] uppercase text-foreground mb-1">Aperçu de l'espace cabinet</p>
+                <p className="text-[12px] text-muted-foreground font-light leading-relaxed">
+                  Voici ce à quoi ressemble votre espace personnel Logan dès votre inscription. Chaque cabinet dispose d'un tableau de bord dédié pour piloter ses recherches, accéder au vivier de profils et orchestrer ses mises en relation — en toute confidentialité.
+                </p>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Slide area */}
       <div className="flex-1 px-6 pb-12 max-w-5xl mx-auto w-full">
@@ -324,7 +578,10 @@ const DemoPage = () => {
             exit="exit"
             transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
           >
-            <div className="grid md:grid-cols-2 gap-10 items-center min-h-[400px]">
+            <div className={cn(
+              'grid gap-10 items-center min-h-[400px]',
+              isDashboard ? 'md:grid-cols-[1fr_1.3fr]' : 'md:grid-cols-2'
+            )}>
               {/* Left: Content */}
               <div>
                 <div className="flex items-center gap-3 mb-6">
@@ -332,7 +589,7 @@ const DemoPage = () => {
                     {slide.icon}
                   </div>
                   <div className="text-[9px] font-bold tracking-[0.14em] uppercase text-muted-foreground">
-                    Étape {currentSlide + 1} / {slides.length}
+                    {isDashboard ? 'Espace cabinet' : `Étape ${currentSlide + 1} / ${slides.length}`}
                   </div>
                 </div>
 
@@ -363,7 +620,7 @@ const DemoPage = () => {
 
               {/* Right: Visual */}
               <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
+                initial={{ opacity: 0, scale: 0.97 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.3, duration: 0.5 }}
                 className="flex items-center justify-center"
@@ -386,9 +643,15 @@ const DemoPage = () => {
           </Button>
 
           {currentSlide === slides.length - 1 ? (
-            <Link to={perspective === 'candidat' ? '/inscription?start=2' : '/cabinet?start=2'}>
+            <Link to={
+              perspective === 'candidat' ? '/inscription?start=2' :
+              perspective === 'dashboard' ? '/cabinet/start' :
+              '/cabinet?start=2'
+            }>
               <Button className="bg-foreground text-background hover:bg-foreground/90 text-sm font-bold rounded-sm px-8">
-                {perspective === 'candidat' ? 'Créer mon profil' : 'Inscrire mon cabinet'} <ArrowRight className="w-4 h-4 ml-2" />
+                {perspective === 'candidat' ? 'Créer mon profil' :
+                 perspective === 'dashboard' ? 'Inscrire mon cabinet' :
+                 'Inscrire mon cabinet'} <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </Link>
           ) : (
