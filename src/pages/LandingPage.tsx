@@ -127,8 +127,53 @@ const LandingPage = () => (
       <MissionSection />
     </div>
 
-    {/* Citation équipe Logan — visuel cinématique */}
-    <TeamQuoteSection />
+    {/* Citation + Qui sommes-nous */}
+    <div id="qui-sommes-nous">
+      <TeamQuoteSection />
+
+      {/* Description équipe */}
+      <section className="bg-black px-6 sm:px-10 py-28 md:py-36">
+        <div className="max-w-2xl mx-auto">
+          <motion.p
+            initial={{ opacity: 0, y: 14 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+            className="text-[9px] font-sans font-semibold tracking-[0.28em] uppercase text-white/25 mb-10"
+          >
+            Qui sommes-nous
+          </motion.p>
+
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            className="font-serif font-[300] text-[1.9rem] sm:text-[2.4rem] text-white leading-[1.12] mb-12"
+          >
+            Pensé par des spécialistes<br className="hidden sm:block" /> du marché.
+          </motion.h2>
+
+          <motion.div
+            initial={{ opacity: 0, scaleX: 0 }}
+            whileInView={{ opacity: 1, scaleX: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="w-8 h-px bg-white/20 origin-left mb-12"
+          />
+
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-60px' }}
+            transition={{ duration: 1, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+            className="font-sans font-light text-[1rem] sm:text-[1.05rem] text-white/50 leading-[1.9]"
+          >
+            Logan a été pensé et conçu par des consultants et chasseurs de têtes spécialisés sur le marché des avocats. Notre objectif est de repenser différemment notre rôle et notre collaboration, tant côté candidats que cabinets d'avocats — en proposant à chacun un espace confidentiel, structuré et qualifié pour accélérer leur recrutement, tout en conservant une intermédiation premium capable de les accompagner à chaque étape de leur processus.
+          </motion.p>
+        </div>
+      </section>
+    </div>
 
     {/* FAQ */}
     <div id="faq">

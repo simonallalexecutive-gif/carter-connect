@@ -115,7 +115,7 @@ const Header = () => {
                 )}
               </div>
 
-              <Link to="/notre-offre" className={navLinkBase}>Qui sommes-nous</Link>
+              <Link to="/#qui-sommes-nous" className={navLinkBase}>Qui sommes-nous</Link>
               <Link to="/#faq" className={navLinkBase}>FAQ</Link>
             </nav>
           )}
