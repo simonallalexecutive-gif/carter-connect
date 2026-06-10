@@ -1,201 +1,154 @@
-import { motion } from 'motion/react';
+import { motion, useScroll, useTransform } from 'motion/react';
+import { useRef } from 'react';
 import { Link } from 'react-router-dom';
-import Header from '@/components/layout/Header';
-import Footer from '@/components/layout/Footer';
-import { Button } from '@/components/ui/button';
-import { ArrowRight } from 'lucide-react';
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 16 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] as const } },
-};
+const NotreOffrePage = () => {
+  const heroRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ['start start', 'end start'],
+  });
+  const bgY = useTransform(scrollYProgress, [0, 1], ['0%', '12%']);
 
-const stagger = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.08 } },
-};
+  return (
+    <div className="bg-black min-h-screen">
 
-const plans = [
-  {
-    name: 'Logan Access',
-    tagline: 'Accéder au marché, en continu.',
-    price: '2 500',
-    engagement: '3 mois',
-    successFee: '5 %',
-    featured: false,
-  },
-  {
-    name: 'Logan Select',
-    tagline: 'Accélérer et sécuriser ses recrutements.',
-    price: '4 000',
-    engagement: '3 mois',
-    successFee: '7 %',
-    featured: true,
-  },
-  {
-    name: 'Logan Exclusive',
-    tagline: 'Mandats stratégiques et profils sensibles.',
-    price: '6 000',
-    engagement: '3 mois',
-    successFee: '10 %',
-    featured: false,
-  },
-];
+      {/* Header minimal */}
+      <header className="fixed top-0 left-0 right-0 z-50 px-8 h-16 flex items-center justify-between">
+        <Link to="/" className="font-serif text-[28px] tracking-[0.04em] text-white hover:opacity-70 transition-opacity">
+          Logan
+        </Link>
+        <Link
+          to="/connexion"
+          className="text-[12px] font-sans font-normal px-3.5 py-1.5 rounded-sm bg-white text-black hover:bg-white/90 transition-colors tracking-wide"
+        >
+          Connexion
+        </Link>
+      </header>
 
-const advantages = [
-  { num: '01', title: 'Vivier qualifié', text: 'Un accès continu à un vivier ultra qualifié d\'avocats du marché des affaires.' },
-  { num: '02', title: 'Confidentialité', text: 'Une approche strictement confidentielle, adaptée aux enjeux des cabinets d\'affaires.' },
-  { num: '03', title: 'Technologie & humain', text: 'Une combinaison rare entre infrastructure technologique et accompagnement consultant.' },
-  { num: '04', title: 'Modèle lisible', text: 'Un modèle économique transparent, plus efficient que les approches classiques.' },
-];
+      {/* ── Hero : citation ──────────────────────────────────────────────── */}
+      <section
+        ref={heroRef}
+        className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      >
+        <motion.img
+          src="/quote-bg.jpg"
+          alt=""
+          aria-hidden
+          style={{ y: bgY, willChange: 'transform' }}
+          className="absolute inset-0 w-full h-full object-cover object-center"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/30 to-black/70" />
 
-const NotreOffrePage = () => (
-  <div className="min-h-screen bg-white text-black">
-    <Header />
+        <div className="relative z-10 max-w-3xl mx-auto px-6 sm:px-10 text-center flex flex-col items-center gap-12">
 
-    {/* Hero — left aligned, sobre */}
-    <section className="pt-32 pb-14 md:pt-40 md:pb-16">
-      <div className="max-w-5xl mx-auto px-6 sm:px-10">
-        <motion.div variants={stagger} initial="hidden" animate="visible" className="max-w-2xl">
           <motion.p
-            variants={fadeUp}
-            className="text-[10px] font-sans font-medium tracking-[0.22em] uppercase text-black/45 mb-5"
+            initial={{ opacity: 0, y: 32 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+            className="font-serif font-[300] text-[1.85rem] sm:text-[2.4rem] md:text-[2.9rem] text-white leading-[1.1] tracking-normal"
           >
-            Modalités d'intervention
+            Logan est la nouvelle infrastructure privilégiée et confidentielle du marché des avocats.
           </motion.p>
-          <motion.h1
-            variants={fadeUp}
-            className="font-serif text-[2rem] md:text-[2.4rem] leading-[1.15] text-black mb-5 tracking-[-0.01em] font-normal"
+
+          <motion.div
+            initial={{ opacity: 0, scaleX: 0 }}
+            animate={{ opacity: 1, scaleX: 1 }}
+            transition={{ duration: 1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            className="w-10 h-px bg-white/30 origin-center"
+          />
+
+          <motion.blockquote
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.1, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
+            className="font-serif italic font-light text-[0.93rem] sm:text-[1.02rem] leading-[1.8] text-white/50 max-w-xl mx-auto"
           >
-            Notre approche
-          </motion.h1>
+            <span className="font-serif text-white/20 text-2xl align-top mr-1 leading-none">"</span>
+            Logan se positionne comme l'infrastructure la plus exigeante et structurée du marché, offrant un accompagnement sur mesure, résolument confidentiel et parfaitement ciblé.
+            <span className="font-serif text-white/20 text-2xl align-bottom ml-1 leading-none">"</span>
+          </motion.blockquote>
+
+          <motion.span
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 0.9 }}
+            className="text-[9px] font-sans tracking-[0.32em] uppercase text-white/25"
+          >
+            L'équipe Logan
+          </motion.span>
+
+        </div>
+
+        {/* Scroll hint */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.4, duration: 1 }}
+          className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+        >
+          <div className="w-px h-10 bg-white/20 animate-[pulse_2s_ease-in-out_infinite]" />
+        </motion.div>
+      </section>
+
+      {/* ── Section : qui sommes-nous ────────────────────────────────────── */}
+      <section className="bg-black px-6 sm:px-10 py-32 md:py-40">
+        <div className="max-w-2xl mx-auto">
+
           <motion.p
-            variants={fadeUp}
-            className="font-sans text-[13px] leading-[1.75] text-black/60 max-w-xl"
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+            className="text-[9px] font-sans font-semibold tracking-[0.28em] uppercase text-white/25 mb-10"
           >
-            Un accès continu au marché, associé à un accompagnement adapté à la nature et à la sensibilité des recherches. Les modalités sont définies en fonction des enjeux propres à chaque cabinet.
-          </motion.p>
-          <motion.div variants={fadeUp} className="w-10 h-px bg-black/20 mt-8" />
-        </motion.div>
-      </div>
-    </section>
-
-    {/* Plans */}
-    <section className="pb-20 md:pb-24">
-      <div className="max-w-5xl mx-auto px-6 sm:px-10">
-        <p className="text-[10px] font-sans font-medium tracking-[0.22em] uppercase text-black/45 mb-8">
-          Formules
-        </p>
-
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="grid grid-cols-1 md:grid-cols-3 border-t border-b border-black/10"
-        >
-          {plans.map((plan, idx) => (
-            <div
-              key={plan.name}
-              className={`relative p-7 md:p-8 flex flex-col ${idx < plans.length - 1 ? 'md:border-r border-black/10' : ''} ${idx > 0 ? 'border-t md:border-t-0 border-black/10' : ''}`}
-            >
-              {plan.featured && (
-                <span className="text-[9px] font-sans font-medium tracking-[0.18em] uppercase text-black/50 mb-3">
-                  · Recommandé
-                </span>
-              )}
-              {!plan.featured && <span className="text-[9px] mb-3 invisible">·</span>}
-
-              <h3 className="font-serif text-[1.2rem] text-black mb-1 font-normal">{plan.name}</h3>
-              <p className="font-sans text-[12px] leading-[1.55] text-black/55 mb-7">{plan.tagline}</p>
-
-              <div className="flex items-baseline gap-1 mb-6">
-                <span className="font-serif text-[26px] font-light text-black tabular-nums">{plan.price}</span>
-                <span className="font-sans text-[12px] text-black/45">€ / mois</span>
-              </div>
-
-              <div className="space-y-2.5 mb-7 text-[12px] font-sans">
-                <div className="flex items-center justify-between border-b border-black/[0.07] pb-2.5">
-                  <span className="text-[10px] tracking-[0.14em] uppercase text-black/45">Engagement</span>
-                  <span className="text-black/75">{plan.engagement}</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-[10px] tracking-[0.14em] uppercase text-black/45">Success fee</span>
-                  <span className="text-black/75">{plan.successFee}</span>
-                </div>
-              </div>
-
-              <Link to="/demander-acces" className="mt-auto">
-                <Button
-                  variant="outline"
-                  className="w-full font-sans text-[11px] font-medium py-3 rounded-sm tracking-wide border-black/30 text-black hover:bg-black hover:text-white hover:border-black"
-                >
-                  Demander un accès
-                </Button>
-              </Link>
-            </div>
-          ))}
-        </motion.div>
-      </div>
-    </section>
-
-    {/* Pourquoi Logan — sober list */}
-    <section className="pb-20 md:pb-28">
-      <div className="max-w-5xl mx-auto px-6 sm:px-10">
-        <motion.div
-          variants={stagger}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-60px' }}
-        >
-          <motion.p variants={fadeUp} className="text-[10px] font-sans font-medium tracking-[0.22em] uppercase text-black/45 mb-8">
-            Pourquoi Logan
+            Qui sommes-nous
           </motion.p>
 
-          <div className="grid sm:grid-cols-2 gap-x-12 gap-y-10 max-w-3xl">
-            {advantages.map((a) => (
-              <motion.div key={a.num} variants={fadeUp} className="flex flex-col gap-1.5">
-                <div className="flex items-baseline gap-3">
-                  <span className="font-serif text-[0.7rem] text-black/35 tabular-nums">{a.num}</span>
-                  <h4 className="font-serif text-[0.98rem] text-black font-normal tracking-[-0.005em]">{a.title}</h4>
-                </div>
-                <p className="font-sans text-[12.5px] leading-[1.65] text-black/60 pl-7">
-                  {a.text}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-      </div>
-    </section>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            className="font-serif font-[300] text-[2rem] sm:text-[2.5rem] text-white leading-[1.12] mb-14"
+          >
+            Pensé par des spécialistes<br className="hidden sm:block" /> du marché juridique.
+          </motion.h2>
 
-    {/* CTA — left aligned, sober */}
-    <section className="pb-24 md:pb-32">
-      <div className="max-w-5xl mx-auto px-6 sm:px-10">
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="border-t border-black/10 pt-10 max-w-2xl"
+          <motion.div
+            initial={{ opacity: 0, scaleX: 0 }}
+            whileInView={{ opacity: 1, scaleX: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="w-8 h-px bg-white/20 origin-left mb-14"
+          />
+
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-60px' }}
+            transition={{ duration: 1, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+            className="font-sans font-light text-[1rem] sm:text-[1.05rem] text-white/55 leading-[1.85]"
+          >
+            Logan a été pensé et conçu par des consultants et chasseurs de têtes spécialisés sur le marché des avocats. Notre objectif est de repenser différemment notre rôle et notre collaboration, tant côté candidats que cabinets d'avocats — en proposant à chacun un espace confidentiel, structuré et qualifié pour accélérer leur recrutement, tout en conservant une intermédiation premium capable de les accompagner à chaque étape de leur processus.
+          </motion.p>
+
+        </div>
+      </section>
+
+      {/* ── Footer minimal ───────────────────────────────────────────────── */}
+      <footer className="border-t border-white/8 px-8 py-10 flex items-center justify-between">
+        <span className="font-serif text-[22px] tracking-[0.04em] text-white/30">Logan</span>
+        <Link
+          to="/cabinet-start"
+          className="text-[11px] font-sans tracking-[0.14em] uppercase text-white/30 hover:text-white/60 transition-colors"
         >
-          <p className="font-serif text-[1.3rem] md:text-[1.5rem] leading-[1.35] text-black/85 mb-6 font-normal">
-            <em className="italic">Prêt</em> à accéder au marché des meilleurs talents&nbsp;?
-          </p>
-          <Link to="/demander-acces">
-            <Button
-              className="bg-black text-white hover:bg-black/90 font-sans text-[12px] font-medium px-6 py-3 rounded-sm tracking-wide gap-2"
-            >
-              Demander un accès
-              <ArrowRight className="w-3.5 h-3.5" />
-            </Button>
-          </Link>
-        </motion.div>
-      </div>
-    </section>
+          Inscrire mon cabinet →
+        </Link>
+      </footer>
 
-    <Footer />
-  </div>
-);
+    </div>
+  );
+};
 
 export default NotreOffrePage;
