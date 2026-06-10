@@ -238,13 +238,23 @@ const LandingPage = () => (
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 1, delay: 0.8 }}
+              className="flex flex-col sm:flex-row items-center gap-3 mt-4"
             >
               <Link to="/candidat">
                 <Button
                   size="lg"
-                  className="bg-white text-black hover:bg-white/90 font-sans text-sm font-normal px-8 py-5 rounded-sm tracking-wide mt-4"
+                  className="bg-white text-black hover:bg-white/90 font-sans text-[12.3px] font-normal px-8 py-5 rounded-sm tracking-wide"
                 >
                   Request access
+                </Button>
+              </Link>
+              <Link to="/acces-cabinet">
+                <Button
+                  variant="ghost"
+                  size="lg"
+                  className="text-white/70 hover:text-white hover:bg-white/8 font-sans text-[12.3px] font-normal px-8 py-5 rounded-sm border border-white/30 hover:border-white/60 transition-colors tracking-wide"
+                >
+                  Request access for my firm →
                 </Button>
               </Link>
             </motion.div>

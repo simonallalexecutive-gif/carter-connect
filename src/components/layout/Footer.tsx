@@ -20,8 +20,7 @@ const Footer = () => (
           <ul className="space-y-3">
             {[
               { label: 'Accueil', to: '/' },
-              { label: 'Espace candidat', to: '/inscription?espace=candidat' },
-              { label: 'Espace cabinet', to: '/inscription?espace=cabinet' },
+              { label: 'Connexion', to: '/connexion' },
             ].map((link) => (
               <li key={link.label}>
                 <Link to={link.to} className="font-sans text-sm text-white/70 hover:text-white transition-colors duration-300 font-light">

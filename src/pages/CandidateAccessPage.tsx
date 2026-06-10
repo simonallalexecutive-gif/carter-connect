@@ -58,7 +58,7 @@ const CandidateAccessPage = () => (
           {/* Gauche — texte + CTA */}
           <motion.div variants={stagger} initial="hidden" animate="visible">
             <motion.p variants={fadeUp} className="text-[11px] font-sans tracking-[0.22em] uppercase text-white/35 mb-6">
-              Espace candidat
+              Inscription candidat
             </motion.p>
             <motion.h1 variants={fadeUp} className="font-serif font-[300] text-[2.2rem] sm:text-[3rem] md:text-[3.6rem] text-white leading-[1.06] tracking-normal mb-8">
               Créez votre profil.<br /><em className="italic">Accédez à votre espace.</em>
