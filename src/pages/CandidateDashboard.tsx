@@ -116,17 +116,33 @@ const CandidateDashboardContent = () => {
   const [statusLoading, setStatusLoading] = React.useState(true);
 
   React.useEffect(() => {
-    if (user) {
-      supabase
-        .from('candidate_registrations')
-        .select('status')
-        .eq('user_id', user.id)
-        .single()
-        .then(({ data }) => {
-          setCandidateStatus(data?.status || null);
-          setStatusLoading(false);
-        });
+    if (!user) return;
+
+    // Si c'est un utilisateur cabinet, le renvoyer sur son espace
+    const userType = (user as any).user_metadata?.user_type;
+    if (userType === 'cabinet') {
+      navigate('/cabinet');
+      return;
     }
+
+    // Sinon vérifier en base (double sécurité)
+    supabase
+      .from('cabinet_accounts')
+      .select('id')
+      .eq('user_id', user.id)
+      .maybeSingle()
+      .then(({ data: cab }) => {
+        if (cab) { navigate('/cabinet'); return; }
+        supabase
+          .from('candidate_registrations')
+          .select('status')
+          .eq('user_id', user.id)
+          .single()
+          .then(({ data }) => {
+            setCandidateStatus(data?.status || null);
+            setStatusLoading(false);
+          });
+      });
   }, [user]);
 
   if (loading || !user || !profileLoaded || statusLoading) return null;
