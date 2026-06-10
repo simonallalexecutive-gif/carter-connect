@@ -109,7 +109,7 @@ const Header = () => {
                       onClick={() => setDemoOpen(false)}
                       className="block px-4 py-2.5 text-[11.5px] font-sans text-white/60 hover:text-white hover:bg-white/5 transition-colors tracking-wide"
                     >
-                      Espace cabinet
+                      Focus cabinet
                     </Link>
                   </div>
                 )}
