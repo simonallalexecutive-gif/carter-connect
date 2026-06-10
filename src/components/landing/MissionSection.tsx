@@ -43,7 +43,7 @@ const MissionSection = () => (
           variants={fadeUp}
           className="font-serif font-[300] text-[2rem] sm:text-[2.8rem] md:text-[3.4rem] text-white leading-[1.06] tracking-normal max-w-3xl"
         >
-          Deux perspectives, un seul intermédiaire&nbsp;: <em className="italic">Logan.</em>
+          Deux perspectives, un intermédiaire&nbsp;: <em className="italic">Logan.</em>
         </motion.h2>
       </motion.div>
 
