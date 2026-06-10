@@ -5,7 +5,7 @@ import { ArrowRight, ArrowLeft, Play, Shield, Eye, EyeOff, Users, Search, Handsh
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
-type Perspective = 'candidat' | 'cabinet' | 'dashboard';
+type Perspective = 'candidat' | 'dashboard';
 
 interface Slide {
   icon: React.ReactNode;
@@ -282,109 +282,6 @@ const candidatSlides: Slide[] = [
   },
 ];
 
-const cabinetSlides: Slide[] = [
-  {
-    icon: <Building2 className="w-8 h-8" />,
-    title: 'Publiez votre recherche',
-    subtitle: 'Décrivez le profil idéal — Logan cible les candidats pertinents.',
-    points: [
-      { icon: <Search className="w-4 h-4" />, text: 'Séniorité, expertise, taille d\'opérations, anglais, cabinet d\'origine…' },
-      { icon: <Shield className="w-4 h-4" />, text: '3 niveaux de confidentialité : confidentielle, semi-confidentielle, ouverte.' },
-      { icon: <Users className="w-4 h-4" />, text: 'Précisez vos cabinets prioritaires pour des alertes ciblées.' },
-    ],
-    visual: (
-      <div className="bg-secondary rounded-lg p-6 max-w-sm mx-auto">
-        <div className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-4">Votre recherche</div>
-        <div className="space-y-3">
-          {[
-            { label: 'Séniorité', value: 'Mid Level · Sénior' },
-            { label: 'Expertise', value: 'M&A Industriel, PE / LBO' },
-            { label: 'Anglais', value: 'Courant / Bilingue' },
-            { label: 'Confidentialité', value: '🔒 Confidentielle' },
-          ].map(r => (
-            <div key={r.label} className="flex justify-between items-baseline py-1.5 border-b border-border last:border-b-0">
-              <span className="text-[11px] text-muted-foreground">{r.label}</span>
-              <span className="text-xs font-medium text-foreground">{r.value}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-    ),
-  },
-  {
-    icon: <Eye className="w-8 h-8" />,
-    title: 'Consultez le vivier premium',
-    subtitle: 'Accédez en temps réel aux profils anonymisés à l\'écoute du marché.',
-    points: [
-      { icon: <BarChart3 className="w-4 h-4" />, text: 'Score de matching intelligent : expertise, séniorité, motivations.' },
-      { icon: <Bell className="w-4 h-4" />, text: 'Alertes prioritaires dès qu\'un profil correspond à vos critères.' },
-      { icon: <Clock className="w-4 h-4" />, text: 'Recrutement stratégique : identifiez les talents avant vos concurrents.' },
-    ],
-    visual: (
-      <div className="max-w-sm mx-auto space-y-2.5">
-        {[
-          { id: 'C-042', title: 'Senior Associate Finance · 5 ans', match: 92, tags: ['Financement', 'PE'], tier: 'Cabinet US Tier 1' },
-          { id: 'C-057', title: 'Collaborateur M&A · 4 ans', match: 88, tags: ['M&A', 'PE'], tier: 'Cabinet FR Tier 1' },
-          { id: 'C-071', title: 'Collaborateur Finance · 3 ans', match: 79, tags: ['Financement', 'Restructuring'], tier: 'Cabinet UK Tier 2' },
-        ].map(p => (
-          <div key={p.id} className="bg-foreground rounded-lg p-4 flex items-center gap-4">
-            <div className="w-12 h-12 rounded-full bg-background/10 flex items-center justify-center text-background font-serif text-sm font-bold flex-shrink-0">
-              {p.match}%
-            </div>
-            <div className="flex-1 min-w-0">
-              <div className="text-xs font-medium text-background truncate">{p.title}</div>
-              <div className="text-[10px] text-background/40 mt-0.5">{p.tier}</div>
-              <div className="flex gap-1 mt-1.5">
-                {p.tags.map(t => (
-                  <span key={t} className="text-[9px] px-2 py-0.5 rounded-full border border-background/15 text-background/50">{t}</span>
-                ))}
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-    ),
-  },
-  {
-    icon: <Handshake className="w-8 h-8" />,
-    title: 'Un modèle hybride gagnant',
-    subtitle: 'Abonnement mensuel + fee de placement réduit vs chasseurs traditionnels.',
-    points: [
-      { icon: <CheckCircle2 className="w-4 h-4" />, text: 'Starter à 1.500€/mois (fee 18%) — Business à 3.000€/mois (fee 15%) — Enterprise sur devis (fee 12%).' },
-      { icon: <BarChart3 className="w-4 h-4" />, text: 'Jusqu\'à 50% d\'économie vs un chasseur classique (20–25% de fee).' },
-      { icon: <Clock className="w-4 h-4" />, text: 'Accès permanent au vivier : recrutez quand l\'opportunité se présente, pas dans l\'urgence.' },
-    ],
-    visual: (
-      <div className="max-w-sm mx-auto">
-        <div className="grid grid-cols-3 gap-2">
-          {[
-            { name: 'Starter', price: '1.500€', fee: '18%' },
-            { name: 'Business', price: '3.000€', fee: '15%', badge: true },
-            { name: 'Enterprise', price: 'Devis', fee: '12%' },
-          ].map(p => (
-            <div key={p.name} className={cn(
-              'rounded-lg p-4 text-center border',
-              p.badge ? 'bg-foreground text-background border-foreground' : 'bg-secondary border-border'
-            )}>
-              <div className="text-[9px] font-bold tracking-[0.1em] uppercase mb-2" style={{ opacity: 0.5 }}>{p.name}</div>
-              <div className="font-serif text-base font-bold mb-1">{p.price}</div>
-              <div className="text-[10px]" style={{ opacity: 0.5 }}>/mois</div>
-              <div className="mt-3 pt-3 border-t" style={{ borderColor: p.badge ? 'rgba(255,255,255,0.1)' : undefined }}>
-                <div className="font-serif text-lg font-bold">{p.fee}</div>
-                <div className="text-[9px]" style={{ opacity: 0.4 }}>fee placement</div>
-              </div>
-            </div>
-          ))}
-        </div>
-        <div className="mt-4 p-3 rounded bg-secondary border border-border text-center">
-          <span className="text-[11px] text-muted-foreground">Chasseur classique : </span>
-          <span className="text-[11px] font-bold text-foreground line-through">20–25% fee</span>
-        </div>
-      </div>
-    ),
-  },
-];
-
 const dashboardSlides: Slide[] = [
   {
     icon: <LayoutDashboard className="w-8 h-8" />,
@@ -431,7 +328,6 @@ const slideVariants = {
 
 const TAB_LABELS: { key: Perspective; label: string }[] = [
   { key: 'candidat', label: 'Focus candidat' },
-  { key: 'cabinet', label: 'Focus cabinet' },
   { key: 'dashboard', label: 'Espace cabinet' },
 ];
 
@@ -441,7 +337,7 @@ const DemoPage = () => {
   const [searchParams] = useSearchParams();
   const [perspective, setPerspective] = useState<Perspective>(() => {
     const tab = searchParams.get('tab');
-    if (tab === 'cabinet' || tab === 'dashboard') return tab;
+    if (tab === 'dashboard') return 'dashboard';
     return 'candidat';
   });
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -449,16 +345,13 @@ const DemoPage = () => {
 
   useEffect(() => {
     const tab = searchParams.get('tab');
-    if (tab === 'candidat' || tab === 'cabinet' || tab === 'dashboard') {
+    if (tab === 'candidat' || tab === 'dashboard') {
       setPerspective(tab);
       setCurrentSlide(0);
     }
   }, [searchParams]);
 
-  const slides =
-    perspective === 'candidat' ? candidatSlides :
-    perspective === 'cabinet' ? cabinetSlides :
-    dashboardSlides;
+  const slides = perspective === 'candidat' ? candidatSlides : dashboardSlides;
 
   const slide = slides[currentSlide];
 
@@ -656,15 +549,9 @@ const DemoPage = () => {
           </Button>
 
           {currentSlide === slides.length - 1 ? (
-            <Link to={
-              perspective === 'candidat' ? '/inscription?start=2' :
-              perspective === 'dashboard' ? '/cabinet/start' :
-              '/cabinet?start=2'
-            }>
+            <Link to={perspective === 'candidat' ? '/inscription?start=2' : '/cabinet/start'}>
               <Button className="bg-foreground text-background hover:bg-foreground/90 text-sm font-bold rounded-sm px-8">
-                {perspective === 'candidat' ? 'Créer mon profil' :
-                 perspective === 'dashboard' ? 'Inscrire mon cabinet' :
-                 'Inscrire mon cabinet'} <ArrowRight className="w-4 h-4 ml-2" />
+                {perspective === 'candidat' ? 'Créer mon profil' : 'Inscrire mon cabinet'} <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </Link>
           ) : (

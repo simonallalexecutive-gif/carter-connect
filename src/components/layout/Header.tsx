@@ -103,13 +103,6 @@ const Header = () => {
                     >
                       Focus candidat
                     </Link>
-                    <Link
-                      to="/demo?tab=cabinet"
-                      onClick={() => setDemoOpen(false)}
-                      className="block px-4 py-2.5 text-[11.5px] font-sans text-white/60 hover:text-white hover:bg-white/5 transition-colors tracking-wide"
-                    >
-                      Focus cabinet
-                    </Link>
                     <div className="mx-4 my-1 border-t border-white/8" />
                     <Link
                       to="/demo?tab=dashboard"
