@@ -1,11 +1,23 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, ChevronDown } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 
 const Header = () => {
   const { user, loading, signOut } = useAuth();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [demoOpen, setDemoOpen] = useState(false);
+  const demoRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClick = (e: MouseEvent) => {
+      if (demoRef.current && !demoRef.current.contains(e.target as Node)) {
+        setDemoOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClick);
+    return () => document.removeEventListener('mousedown', handleClick);
+  }, []);
 
   const [hidden, setHidden] = useState(false);
   const [onLight, setOnLight] = useState(false);
@@ -72,7 +84,44 @@ const Header = () => {
           {!minimalNav && (
             <nav className="hidden md:flex items-center gap-1 ml-4">
               <Link to="/#notre-approche" className={navLinkBase}>Notre approche</Link>
-              <span className={navLinkBase} style={{cursor:"default"}}>Demo</span>
+
+              {/* Demo dropdown */}
+              <div ref={demoRef} className="relative">
+                <button
+                  onClick={() => setDemoOpen(v => !v)}
+                  className={`${navLinkBase} flex items-center gap-1`}
+                >
+                  Demo
+                  <ChevronDown className={`w-3 h-3 transition-transform duration-200 ${demoOpen ? 'rotate-180' : ''}`} />
+                </button>
+                {demoOpen && (
+                  <div className="absolute top-full left-0 mt-2 w-48 bg-black/95 backdrop-blur-sm border border-white/10 rounded-sm shadow-xl py-1 z-50">
+                    <Link
+                      to="/demo?tab=candidat"
+                      onClick={() => setDemoOpen(false)}
+                      className="block px-4 py-2.5 text-[11.5px] font-sans text-white/60 hover:text-white hover:bg-white/5 transition-colors tracking-wide"
+                    >
+                      Focus candidat
+                    </Link>
+                    <Link
+                      to="/demo?tab=cabinet"
+                      onClick={() => setDemoOpen(false)}
+                      className="block px-4 py-2.5 text-[11.5px] font-sans text-white/60 hover:text-white hover:bg-white/5 transition-colors tracking-wide"
+                    >
+                      Focus cabinet
+                    </Link>
+                    <div className="mx-4 my-1 border-t border-white/8" />
+                    <Link
+                      to="/demo?tab=dashboard"
+                      onClick={() => setDemoOpen(false)}
+                      className="block px-4 py-2.5 text-[11.5px] font-sans text-white/60 hover:text-white hover:bg-white/5 transition-colors tracking-wide"
+                    >
+                      Espace cabinet
+                    </Link>
+                  </div>
+                )}
+              </div>
+
               <Link to="/notre-offre" className={navLinkBase}>Qui sommes-nous</Link>
               <Link to="/#faq" className={navLinkBase}>FAQ</Link>
             </nav>

@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { ArrowRight, ArrowLeft, Play, Shield, Eye, EyeOff, Users, Search, Handshake, Building2, UserCheck, Bell, BarChart3, Clock, CheckCircle2, LayoutDashboard, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -438,9 +438,22 @@ const TAB_LABELS: { key: Perspective; label: string }[] = [
 // ── Component ─────────────────────────────────────────────────────────────────
 
 const DemoPage = () => {
-  const [perspective, setPerspective] = useState<Perspective>('candidat');
+  const [searchParams] = useSearchParams();
+  const [perspective, setPerspective] = useState<Perspective>(() => {
+    const tab = searchParams.get('tab');
+    if (tab === 'cabinet' || tab === 'dashboard') return tab;
+    return 'candidat';
+  });
   const [currentSlide, setCurrentSlide] = useState(0);
   const [direction, setDirection] = useState(0);
+
+  useEffect(() => {
+    const tab = searchParams.get('tab');
+    if (tab === 'candidat' || tab === 'cabinet' || tab === 'dashboard') {
+      setPerspective(tab);
+      setCurrentSlide(0);
+    }
+  }, [searchParams]);
 
   const slides =
     perspective === 'candidat' ? candidatSlides :
