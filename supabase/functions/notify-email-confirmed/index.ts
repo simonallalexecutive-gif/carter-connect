@@ -29,28 +29,21 @@ serve(async (req) => {
 
   // ── CAS CABINET ──────────────────────────────────────────────────────────────
   if (userType === "cabinet") {
-    // Récupérer les données du cabinet
-    const { data: cab } = await supabaseAdmin
-      .from("cabinet_accounts")
-      .select("cabinet_name, contacts, palier")
-      .eq("user_id", userId)
-      .maybeSingle();
+    // Lire depuis les métadonnées (toujours disponibles, pas de pb RLS)
+    const prenom  = meta.contact_prenom  || meta.full_name?.split(" ")[0] || "";
+    const nom     = meta.contact_nom     || meta.full_name?.split(" ").slice(1).join(" ") || "";
+    const cabinet = meta.cabinet_name    || "—";
+    const statut  = meta.contact_role    || "—";
+    const tel     = meta.contact_mobile  || "—";
 
-    const contact = Array.isArray(cab?.contacts) ? cab.contacts[0] : null;
-    const prenom   = contact?.prenom || meta.full_name?.split(" ")[0] || "";
-    const nom      = contact?.nom    || meta.full_name?.split(" ").slice(1).join(" ") || "";
-    const fullName = [prenom, nom].filter(Boolean).join(" ") || userEmail;
-    const cabinet  = cab?.cabinet_name || meta.cabinet_name || "—";
-    const statut   = contact?.role  || "—";
-    const tel      = contact?.mobile || "—";
-
+    // Notifier l'admin
     await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: { "Authorization": `Bearer ${RESEND_API_KEY}`, "Content-Type": "application/json" },
       body: JSON.stringify({
         from: "Logan <noreply@loganexecutive.com>",
         to: ADMIN_EMAIL,
-        subject: `Nouveau cabinet inscrit — ${cabinet} (${fullName})`,
+        subject: `Nouveau cabinet inscrit — ${cabinet} (${prenom} ${nom})`,
         html: `
           <div style="font-family:sans-serif;max-width:560px;margin:0 auto;color:#1a1a1a;">
             <p style="font-family:'Georgia',serif;font-size:32px;font-weight:300;margin:0 0 28px;letter-spacing:0.06em;">Logan</p>

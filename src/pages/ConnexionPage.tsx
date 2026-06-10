@@ -64,7 +64,14 @@ const ConnexionPage = () => {
 
       const userId = data.user.id;
 
-      // Détecter le type d'utilisateur : cabinet ou candidat
+      // Détecter le type via métadonnées (fiable, pas de RLS)
+      const userType = data.user.user_metadata?.user_type;
+      if (userType === 'cabinet') {
+        navigate('/cabinet');
+        return;
+      }
+
+      // Fallback : vérifier en base
       const { data: cabinet } = await (supabase as any)
         .from('cabinet_accounts')
         .select('id')
@@ -87,7 +94,7 @@ const ConnexionPage = () => {
         return;
       }
 
-      // Admin ou autre → espace candidat par défaut
+      // Admin → espace candidat par défaut
       navigate('/espace-candidat');
     } catch (err: any) {
       toast.error(err.message || 'Identifiants incorrects.');

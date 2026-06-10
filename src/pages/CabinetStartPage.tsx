@@ -54,7 +54,9 @@ const CabinetStartPage = () => {
     if (!isValid || submitting) return;
     setSubmitting(true);
     try {
-      // 1. Créer le compte
+      const contactRow = { prenom: firstName, nom: lastName, role: status, email, mobile: phone };
+
+      // 1. Créer le compte — toutes les données dans les métadonnées
       const { data: signUpData, error } = await (supabase.auth as any).signUp({
         email,
         password,
@@ -64,6 +66,11 @@ const CabinetStartPage = () => {
             full_name: `${firstName} ${lastName}`.trim(),
             cabinet_name: cabinet,
             user_type: 'cabinet',
+            contact_prenom: firstName,
+            contact_nom: lastName,
+            contact_role: status,
+            contact_mobile: phone,
+            contact_email: email,
           },
         },
       });
@@ -72,25 +79,12 @@ const CabinetStartPage = () => {
       const userId = signUpData?.user?.id;
       if (!userId) throw new Error('Aucun utilisateur créé.');
 
-      // 2. Mettre à jour cabinet_accounts (créé par le trigger handle_new_user)
-      const contactRow = { prenom: firstName, nom: lastName, role: status, email, mobile: phone };
-      const { error: updErr } = await supabase
-        .from('cabinet_accounts')
-        .update({
-          cabinet_name: cabinet,
-          contacts: [contactRow] as any,
-          palier: 'business',
-        } as any)
-        .eq('user_id', userId);
-
-      if (updErr) console.warn('cabinet_accounts update:', updErr);
-
-      // 3. Pré-hydrater le store (utilisé si la session s'établit après confirmation)
+      // 2. Pré-hydrater le store
       setField('cabinetName', cabinet);
       setField('email', email);
       setField('contacts', [contactRow] as any);
 
-      // 4. Afficher l'écran de confirmation — l'utilisateur doit valider son email
+      // 3. Afficher l'écran de confirmation
       setDone(true);
     } catch (err: any) {
       console.error(err);
