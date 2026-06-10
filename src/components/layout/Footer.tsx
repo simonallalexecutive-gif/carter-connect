@@ -18,16 +18,16 @@ const Footer = () => (
         <div className="md:col-span-3">
           <p className="text-[10px] font-sans font-medium tracking-[0.2em] uppercase text-white/50 mb-6">Navigation</p>
           <ul className="space-y-3">
-            {[
-              { label: 'Accueil', to: '/' },
-              { label: 'Connexion', to: '/connexion' },
-            ].map((link) => (
-              <li key={link.label}>
-                <Link to={link.to} className="font-sans text-sm text-white/70 hover:text-white transition-colors duration-300 font-light">
-                  {link.label}
+            <li>
+                <a href="/" className="font-sans text-sm text-white/70 hover:text-white transition-colors duration-300 font-light">
+                  Accueil
+                </a>
+              </li>
+              <li>
+                <Link to="/connexion" className="font-sans text-sm text-white/70 hover:text-white transition-colors duration-300 font-light">
+                  Connexion
                 </Link>
               </li>
-            ))}
           </ul>
         </div>
 
