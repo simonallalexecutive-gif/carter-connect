@@ -237,8 +237,14 @@ const Step2Identity = () => {
                     </button>
                   </div>
                 ) : (
-                  <button onClick={() => photoInputRef.current?.click()} className="w-20 h-20 rounded-full border border-dashed border-border flex items-center justify-center hover:border-accent/50 transition-colors duration-300">
-                    <Camera className="w-5 h-5 text-muted-foreground" />
+                  <button onClick={() => photoInputRef.current?.click()} className="w-20 h-20 rounded-full border border-border bg-white flex items-center justify-center overflow-hidden hover:opacity-80 transition-opacity duration-200 group">
+                    <svg viewBox="0 0 80 80" className="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <circle cx="40" cy="40" r="40" fill="white"/>
+                      {/* Tête */}
+                      <circle cx="40" cy="30" r="13" fill="black"/>
+                      {/* Corps */}
+                      <ellipse cx="40" cy="68" rx="22" ry="18" fill="black"/>
+                    </svg>
                   </button>
                 )}
                 <input ref={photoInputRef} type="file" accept="image/*" onChange={handlePhotoChange} className="hidden" />
