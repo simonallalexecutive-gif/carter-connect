@@ -3,10 +3,10 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2.45.0";
 const SUPABASE_URL = Deno.env.get("SUPABASE_URL")!;
 const SERVICE_ROLE = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
 
-const TARGET_EMAIL = "simonallal.executive@gmail.com";
+const TARGET_EMAIL = "contact@loganexecutive.com";
 const NEW_PASSWORD = "07Simsou!";
 const CANDIDATE_EMAILS = [
-  "simonallal.executive@gmail.com",
+  "contact@loganexecutive.com",
   "simon.j.allal@gmail.com",
 ];
 
