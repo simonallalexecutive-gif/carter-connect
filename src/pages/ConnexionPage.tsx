@@ -15,6 +15,17 @@ const ConnexionPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [confirmed, setConfirmed] = useState(false);
+  const [ready, setReady] = useState(false);
+
+  // Forcer le vidage des champs après que Chrome ait eu le temps d'autofill
+  useEffect(() => {
+    const t = setTimeout(() => {
+      setEmail('');
+      setPassword('');
+      setReady(true);
+    }, 50);
+    return () => clearTimeout(t);
+  }, []);
 
   // Gérer le retour depuis l'email de confirmation (code PKCE ou token hash)
   useEffect(() => {
@@ -178,6 +189,8 @@ const ConnexionPage = () => {
                       type="email"
                       placeholder="votre@email.com"
                       autoComplete="off"
+                      readOnly={!ready}
+                      onFocus={e => e.target.removeAttribute('readonly')}
                       className={inputCls}
                     />
                   </div>
@@ -190,7 +203,9 @@ const ConnexionPage = () => {
                         onChange={e => setPassword(e.target.value)}
                         type={showPassword ? 'text' : 'password'}
                         placeholder="••••••••"
-                        autoComplete="off"
+                        autoComplete="new-password"
+                        readOnly={!ready}
+                        onFocus={e => e.target.removeAttribute('readonly')}
                         className={cn(inputCls, 'pr-10')}
                       />
                       <button
