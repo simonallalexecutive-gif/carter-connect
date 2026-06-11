@@ -125,7 +125,7 @@ const CandidateHeader = () => {
 
   return (
     <header
-      className="flex items-center justify-between border-b border-white/10 px-10 gap-6 flex-shrink-0 py-10"
+      className="flex items-center justify-between border-b border-white/10 px-10 gap-6 flex-shrink-0 py-[52px]"
       style={{ background: '#0a0a0a' }}
     >
       <div className="flex items-center gap-5">
@@ -134,7 +134,7 @@ const CandidateHeader = () => {
         {(store.prenom || store.nom) && (
           <div>
             <p className="text-[10px] font-sans font-semibold tracking-[0.18em] uppercase text-white/30 mb-1">Espace candidat</p>
-            <p className="text-2xl font-sans font-medium text-white leading-none">
+            <p className="text-[31px] font-sans font-medium text-white leading-none">
               {store.prenom} {store.nom}
             </p>
           </div>
@@ -142,7 +142,7 @@ const CandidateHeader = () => {
       </div>
       <div className="flex items-center gap-2 flex-wrap justify-end">
         {pills.map(p => (
-          <span key={p} className="text-[12px] font-sans font-normal tracking-wide px-4 py-2 rounded-sm bg-white/10 text-white/80 border border-white/10 whitespace-nowrap">
+          <span key={p} className="text-[15px] font-sans font-normal tracking-wide px-5 py-2.5 rounded-sm bg-white/10 text-white/80 border border-white/10 whitespace-nowrap">
             {p}
           </span>
         ))}
