@@ -1,7 +1,7 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 
 const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
-const APP_URL = "https://carter-connect.vercel.app";
+const APP_URL = "https://loganexecutive.com";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -15,63 +15,48 @@ serve(async (req) => {
 
   const { candidateName, candidateEmail, approved } = await req.json();
 
-  const subject = approved
-    ? "Votre profil a été approuvé — Logan"
-    : "Mise à jour de votre candidature — Logan";
+  if (!approved) {
+    return new Response(JSON.stringify({ skipped: true }), {
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
+  }
 
-  const FONT = `<html><head><link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,300;6..96,400&display=swap" rel="stylesheet"></head>`;
+  const html = `
+<html>
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@300;400&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet" />
+</head>
+<body style="margin:0;padding:0;background:#ffffff;font-family:'DM Sans',sans-serif;">
+  <div style="max-width:520px;padding:48px 32px;">
 
-  const html = approved
-    ? FONT + `
-      <div style="background:#0a0a0a;padding:48px 0;font-family:sans-serif;">
-        <div style="max-width:520px;margin:0 auto;background:#111;border:1px solid #222;border-radius:2px;overflow:hidden;">
-          <div style="padding:40px 48px 32px;border-bottom:1px solid #1e1e1e;text-align:center;">
-            <p style="font-family:'Bodoni Moda','Georgia',serif;font-size:36px;font-weight:300;color:#fff;margin:0;letter-spacing:0.06em;">Logan</p>
-            <p style="font-size:10px;color:#555;letter-spacing:0.18em;text-transform:uppercase;margin:8px 0 0;font-family:sans-serif;">Réseau confidentiel d'avocats d'affaires</p>
-          </div>
-          <div style="padding:40px 48px;">
-            <h2 style="font-family:'Bodoni Moda','Georgia',serif;font-size:22px;font-weight:300;color:#fff;margin:0 0 16px;line-height:1.4;">Profil approuvé</h2>
-            <p style="font-size:14px;color:#999;line-height:1.7;margin:0 0 8px;font-family:sans-serif;font-weight:300;">
-              Bonjour ${candidateName},
-            </p>
-            <p style="font-size:14px;color:#999;line-height:1.7;margin:0 0 32px;font-family:sans-serif;font-weight:300;">
-              Votre profil a été <strong style="color:#fff;">approuvé</strong> par l'équipe Logan. Vous pouvez dès maintenant accéder à votre espace candidat et découvrir les opportunités disponibles.
-            </p>
-            <div style="text-align:center;margin:32px 0;">
-              <a href="${APP_URL}/espace-candidat" style="display:inline-block;background:#fff;color:#000;text-decoration:none;padding:14px 36px;font-family:sans-serif;font-size:12px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;border-radius:1px;">
-                Accéder à mon espace
-              </a>
-            </div>
-            <p style="font-size:12px;color:#555;line-height:1.6;margin:24px 0 0;font-family:sans-serif;font-weight:300;">
-              Bienvenue dans le réseau Logan.
-            </p>
-          </div>
-          <div style="padding:24px 48px;border-top:1px solid #1e1e1e;text-align:center;">
-            <p style="font-size:11px;color:#444;margin:0;font-family:sans-serif;letter-spacing:0.06em;">— L'équipe Logan · loganexecutive.com</p>
-          </div>
-        </div>
-      </div>
-    `
-    : FONT + `
-      <div style="background:#0a0a0a;padding:48px 0;font-family:sans-serif;">
-        <div style="max-width:520px;margin:0 auto;background:#111;border:1px solid #222;border-radius:2px;overflow:hidden;">
-          <div style="padding:40px 48px 32px;border-bottom:1px solid #1e1e1e;text-align:center;">
-            <p style="font-family:'Bodoni Moda','Georgia',serif;font-size:36px;font-weight:300;color:#fff;margin:0;letter-spacing:0.06em;">Logan</p>
-            <p style="font-size:10px;color:#555;letter-spacing:0.18em;text-transform:uppercase;margin:8px 0 0;font-family:sans-serif;">Réseau confidentiel d'avocats d'affaires</p>
-          </div>
-          <div style="padding:40px 48px;">
-            <h2 style="font-family:'Bodoni Moda','Georgia',serif;font-size:22px;font-weight:300;color:#fff;margin:0 0 16px;line-height:1.4;">Mise à jour de votre candidature</h2>
-            <p style="font-size:14px;color:#999;line-height:1.7;margin:0 0 8px;font-family:sans-serif;font-weight:300;">Bonjour ${candidateName},</p>
-            <p style="font-size:14px;color:#999;line-height:1.7;margin:0 0 32px;font-family:sans-serif;font-weight:300;">
-              Après examen attentif de votre profil, nous ne sommes pas en mesure de donner suite à votre candidature pour le moment. Nous conservons vos informations et reviendrons vers vous si une opportunité correspondante se présente.
-            </p>
-          </div>
-          <div style="padding:24px 48px;border-top:1px solid #1e1e1e;text-align:center;">
-            <p style="font-size:11px;color:#444;margin:0;font-family:sans-serif;letter-spacing:0.06em;">— L'équipe Logan · loganexecutive.com</p>
-          </div>
-        </div>
-      </div>
-    `;
+    <p style="font-family:'Cormorant',Georgia,serif;font-size:36px;font-weight:300;letter-spacing:0.06em;color:#0a0a0a;margin:0 0 4px;">Logan</p>
+    <p style="font-family:'DM Sans',sans-serif;font-size:9px;font-weight:400;letter-spacing:0.28em;text-transform:uppercase;color:#999;margin:0 0 48px;">Réseau confidentiel d'avocats d'affaires</p>
+
+    <h1 style="font-family:'Cormorant',Georgia,serif;font-size:26px;font-weight:400;color:#0a0a0a;margin:0 0 20px;letter-spacing:0.01em;">Votre accès est activé.</h1>
+
+    <p style="font-family:'DM Sans',sans-serif;font-size:13px;font-weight:300;line-height:1.8;color:#555;margin:0 0 8px;">
+      Bonjour ${candidateName},
+    </p>
+    <p style="font-family:'DM Sans',sans-serif;font-size:13px;font-weight:300;line-height:1.8;color:#555;margin:0 0 32px;">
+      Votre profil a été validé par l'équipe Logan. Vous pouvez dès maintenant vous connecter à votre espace candidat avec votre email et votre mot de passe.
+    </p>
+
+    <a href="${APP_URL}/connexion" style="display:inline-block;background:#0a0a0a;color:#ffffff;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:400;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;padding:14px 28px;">
+      Accéder à mon espace →
+    </a>
+
+    <p style="font-family:'DM Sans',sans-serif;font-size:11px;color:#bbb;margin:40px 0 0;line-height:1.6;">
+      Connectez-vous sur <a href="${APP_URL}/connexion" style="color:#bbb;">${APP_URL}/connexion</a> avec l'email et le mot de passe choisis lors de votre inscription.
+    </p>
+
+    <p style="font-family:'DM Sans',sans-serif;font-size:11px;color:#bbb;margin:24px 0 0;">
+      — L'équipe Logan · <a href="mailto:contact@loganexecutive.com" style="color:#bbb;">contact@loganexecutive.com</a>
+    </p>
+
+  </div>
+</body>
+</html>
+  `;
 
   await fetch("https://api.resend.com/emails", {
     method: "POST",
@@ -79,7 +64,7 @@ serve(async (req) => {
     body: JSON.stringify({
       from: "Logan <noreply@loganexecutive.com>",
       to: candidateEmail,
-      subject,
+      subject: "Votre accès Logan est activé",
       html,
     }),
   });
