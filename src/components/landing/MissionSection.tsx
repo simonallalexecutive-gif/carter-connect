@@ -62,35 +62,39 @@ const MissionSection = () => (
         {/* Logan — centre */}
         <motion.div
           variants={fadeUp}
-          className="px-10 md:px-14 py-10 flex flex-col items-center justify-center gap-6 text-center min-w-[180px] relative"
+          className="px-10 md:px-14 py-10 flex flex-col items-center justify-center gap-6 text-center min-w-[180px]"
         >
-          {/* Flèche convergente gauche */}
-          <div className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 items-center w-10">
-            <motion.div
-              initial={{ scaleX: 0, opacity: 0 }}
-              whileInView={{ scaleX: 1, opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1.2, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-              style={{ transformOrigin: 'left' }}
-              className="w-full h-px bg-gradient-to-r from-transparent to-black/20"
-            />
-            <span className="text-black/20 text-[8px] -ml-0.5">›</span>
+          {/* Logan + flèches alignées */}
+          <div className="relative flex items-center justify-center w-full">
+            {/* Flèche gauche */}
+            <div className="hidden md:flex absolute left-0 items-center w-10">
+              <motion.div
+                initial={{ scaleX: 0, opacity: 0 }}
+                whileInView={{ scaleX: 1, opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1.2, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                style={{ transformOrigin: 'left' }}
+                className="w-full h-px bg-gradient-to-r from-transparent to-black/20"
+              />
+              <span className="text-black/20 text-[8px] -ml-0.5">›</span>
+            </div>
+
+            <span className="font-serif text-[1.5rem] tracking-[0.02em] text-black font-[300]">Logan</span>
+
+            {/* Flèche droite */}
+            <div className="hidden md:flex absolute right-0 items-center w-10 flex-row-reverse">
+              <motion.div
+                initial={{ scaleX: 0, opacity: 0 }}
+                whileInView={{ scaleX: 1, opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1.2, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                style={{ transformOrigin: 'right' }}
+                className="w-full h-px bg-gradient-to-l from-transparent to-black/20"
+              />
+              <span className="text-black/20 text-[8px] -mr-0.5">‹</span>
+            </div>
           </div>
 
-          {/* Flèche convergente droite */}
-          <div className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 items-center w-10 flex-row-reverse">
-            <motion.div
-              initial={{ scaleX: 0, opacity: 0 }}
-              whileInView={{ scaleX: 1, opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1.2, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-              style={{ transformOrigin: 'right' }}
-              className="w-full h-px bg-gradient-to-l from-transparent to-black/20"
-            />
-            <span className="text-black/20 text-[8px] -mr-0.5">‹</span>
-          </div>
-
-          <span className="font-serif text-[1.5rem] tracking-[0.02em] text-black font-[300]">Logan</span>
           <p className="font-sans font-light text-[0.78rem] leading-[1.75] text-black/35 max-w-[140px]">
             Un seul intermédiaire, de l'intention à la signature.
           </p>
