@@ -125,7 +125,7 @@ const CandidateHeader = () => {
 
   return (
     <header
-      className="flex items-center justify-between border-b border-white/10 px-10 gap-6 flex-shrink-0 py-[47px]"
+      className="flex items-center justify-between border-b border-white/10 px-10 gap-6 flex-shrink-0 py-[40px]"
       style={{ background: '#0a0a0a' }}
     >
       <div className="flex items-center gap-5">
