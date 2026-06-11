@@ -6,7 +6,7 @@ import { usePQE } from '@/hooks/usePQE';
 import SeniorityBadge from '@/components/shared/SeniorityBadge';
 import { ACTIVITES_BY_PRACTICE, ACTIVITES_DEFAULT, CABINET_META } from '@/lib/constants';
 import { CHAMBERS_DB, CHAMBERS_DEPARTMENTS } from '@/lib/chambersRankings';
-import { Eye, ArrowLeft, ArrowRight, Check, User, CalendarIcon } from 'lucide-react';
+import { Eye, ArrowLeft, ArrowRight, Check, User, CalendarIcon, ChevronDown } from 'lucide-react';
 import { useState, useMemo } from 'react';
 import { cn } from '@/lib/utils';
 
@@ -1232,10 +1232,13 @@ const Step6Review = ({ readOnly = false }: Step6ReviewProps = {}) => {
               <div className="flex items-center gap-2 flex-shrink-0">
                 <CalendarIcon className="w-4 h-4 text-muted-foreground" />
                 <span className={cn(
-                  "text-[10px] font-sans font-semibold tracking-[0.12em] uppercase transition-colors",
-                  showBooking ? "text-foreground" : "text-muted-foreground"
+                  "w-6 h-6 rounded-full border border-border flex items-center justify-center transition-all duration-300",
+                  showBooking ? "bg-foreground border-foreground" : "bg-transparent"
                 )}>
-                  {showBooking ? 'Réduire' : 'Ouvrir'}
+                  <ChevronDown className={cn(
+                    "w-3 h-3 transition-all duration-300",
+                    showBooking ? "rotate-180 text-background" : "text-muted-foreground"
+                  )} />
                 </span>
               </div>
             </button>
