@@ -941,15 +941,15 @@ const Step6Review = ({ readOnly = false }: Step6ReviewProps = {}) => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-      className="max-w-[780px] mx-auto pt-4 px-4"
+      className="max-w-[780px] mx-auto px-4"
     >
 
-      <div className="text-[9px] font-bold text-white/50 tracking-[0.16em] uppercase mb-3 flex items-center gap-2">
-        <span className="w-5 h-[1.5px] bg-white rounded-sm" />
+      <div className="text-[9px] font-bold text-foreground/40 tracking-[0.16em] uppercase mb-3 flex items-center gap-2">
+        <span className="w-5 h-[1.5px] bg-foreground rounded-sm" />
         Étape 5 / 5
       </div>
-      <h2 className="font-sans text-3xl md:text-4xl font-normal text-white leading-tight mb-2.5">Récapitulatif</h2>
-      <p className="text-white/50 font-sans text-xs font-light mb-8">Vérifiez vos informations avant de soumettre votre profil.</p>
+      <h2 className="font-sans text-3xl md:text-4xl font-normal text-foreground leading-tight mb-2.5">Récapitulatif</h2>
+      <p className="text-foreground/50 font-sans text-xs font-light mb-8">Vérifiez vos informations avant de soumettre votre profil.</p>
 
       {/* Tabs — habillage sombre, élégant */}
       <div className="inline-flex gap-1 mb-6 p-1 bg-[hsl(0,0%,11%)] rounded-md">

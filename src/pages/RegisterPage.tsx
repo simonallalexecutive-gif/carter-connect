@@ -92,7 +92,7 @@ const RegisterPage = () => {
           </div>
         </>
       )}
-      <main className={isStepContent && !showConfIntro && !showCabinetIntro ? 'flex-1 py-11 px-6 md:px-12' : ''}>
+      <main className={isStepContent && !showConfIntro && !showCabinetIntro ? `flex-1 ${currentStep === 6 ? 'py-6' : 'py-11'} px-6 md:px-12` : ''}>
         {renderStep()}
       </main>
     </div>
