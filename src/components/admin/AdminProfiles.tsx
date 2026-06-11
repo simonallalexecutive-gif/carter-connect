@@ -77,11 +77,12 @@ const AdminProfiles = () => {
           },
         });
         toast.success('Candidat validé — email envoyé.');
+        await load();
       } else {
+        // Retrait immédiat du state local sans attendre un rechargement
+        setCandidates(prev => prev.filter(c => c.user_id !== candidate.user_id));
         toast.success('Candidat refusé.');
       }
-
-      load();
     } catch (e) {
       toast.error('Erreur lors de la validation');
       console.error(e);
