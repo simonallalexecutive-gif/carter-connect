@@ -8,6 +8,7 @@ import { ACTIVITES_BY_PRACTICE, ACTIVITES_DEFAULT, CABINET_META } from '@/lib/co
 import { CHAMBERS_DB, CHAMBERS_DEPARTMENTS } from '@/lib/chambersRankings';
 import { Eye, ArrowLeft, ArrowRight, Check, User, CalendarIcon, ChevronDown } from 'lucide-react';
 import { useState, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 
 
@@ -168,6 +169,8 @@ interface Step6ReviewProps {
 const Step6Review = ({ readOnly = false }: Step6ReviewProps = {}) => {
   const store = useRegistrationStore();
   const isAdmin = store.isAdminMode;
+  const isEditMode = store.isEditMode;
+  const navigate = useNavigate();
   const pqe = usePQE(store.sermentMois, store.sermentAnnee);
   const [previewMode, setPreviewMode] = useState<PreviewMode>('recap');
   const [submitting, setSubmitting] = useState(false);
@@ -833,6 +836,59 @@ const Step6Review = ({ readOnly = false }: Step6ReviewProps = {}) => {
       return;
     }
 
+    // ── MODE ÉDITION : mise à jour du profil existant ──────────────
+    if (isEditMode) {
+      setSubmitting(true);
+      try {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) throw new Error('Non authentifié');
+
+        // Upload photo si changée
+        let photoStoragePath: string | undefined;
+        try {
+          if (store.photo) {
+            const ext = store.photo.name.split('.').pop() || 'jpg';
+            const path = `${user.id}/photo-${Date.now()}.${ext}`;
+            const { error: upErr } = await supabase.storage
+              .from('candidate-files')
+              .upload(path, store.photo, { upsert: true, contentType: store.photo.type });
+            if (!upErr) photoStoragePath = path;
+          }
+        } catch (e) { console.warn('Photo upload failed', e); }
+
+        // Upload CV si changé
+        let cvStoragePath: string | undefined;
+        try {
+          if (store.cvFile) {
+            const ext = store.cvFile.name.split('.').pop() || 'pdf';
+            const path = `${user.id}/cv-${Date.now()}.${ext}`;
+            const { error: upErr } = await supabase.storage
+              .from('candidate-files')
+              .upload(path, store.cvFile, { upsert: true, contentType: store.cvFile.type });
+            if (!upErr) cvStoragePath = path;
+          }
+        } catch (e) { console.warn('CV upload failed', e); }
+
+        const submissionData = serializeRegistration(store, { photoStoragePath, cvStoragePath });
+
+        const { error: updateError } = await supabase
+          .from('candidate_registrations')
+          .update({ submission_data: submissionData })
+          .eq('user_id', user.id);
+
+        if (updateError) throw updateError;
+
+        toast.success('Profil mis à jour avec succès.');
+        store.setField('isEditMode', false);
+        navigate('/espace-candidat');
+      } catch (error: any) {
+        toast.error(error.message || 'Impossible de mettre à jour votre profil');
+      } finally {
+        setSubmitting(false);
+      }
+      return;
+    }
+
     setSubmitting(true);
     try {
       const { data: signUpData, error } = await (supabase.auth as any).signUp({
@@ -1239,7 +1295,7 @@ const Step6Review = ({ readOnly = false }: Step6ReviewProps = {}) => {
               Retour
             </Button>
             <Button onClick={handleSubmit} disabled={submitting} className="bg-accent text-accent-foreground hover:bg-accent/90 font-sans font-medium px-8 rounded-sm">
-              {submitting ? 'Envoi...' : isAdmin ? 'Générer le lien d\'invitation →' : 'Soumettre mon profil'}
+              {submitting ? 'Enregistrement...' : isAdmin ? 'Générer le lien d\'invitation →' : isEditMode ? 'Enregistrer les modifications' : 'Soumettre mon profil'}
             </Button>
           </div>
         </>

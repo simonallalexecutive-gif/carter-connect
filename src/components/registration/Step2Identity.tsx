@@ -29,6 +29,7 @@ const YEARS = Array.from({ length: currentYear - 1980 + 1 }, (_, i) => currentYe
 const Step2Identity = () => {
   const store = useRegistrationStore();
   const isAdmin = store.isAdminMode;
+  const isEditMode = store.isEditMode;
   const pqe = usePQE(store.sermentMois, store.sermentAnnee);
   const photoInputRef = useRef<HTMLInputElement>(null);
   const [showPassword, setShowPassword] = useState(false);
@@ -61,19 +62,19 @@ const Step2Identity = () => {
 
   const missingFields = useMemo(() => {
     const missing: string[] = [];
-    if (store.prenom.length < 2) missing.push('Prénom');
-    if (store.nom.length < 2) missing.push('Nom');
-    if (!isAdmin && !store.email.includes('@')) missing.push('Email');
-    if (store.telephone.length < 10) missing.push('Téléphone');
-    if (!isAdmin && !isPasswordValid) missing.push('Mot de passe');
-    if (!isAdmin && !passwordsMatch) missing.push('Confirmation mot de passe');
-    if (!store.sermentMois || !store.sermentAnnee) missing.push('Date de serment');
+    if (!isEditMode && store.prenom.length < 2) missing.push('Prénom');
+    if (!isEditMode && store.nom.length < 2) missing.push('Nom');
+    if (!isEditMode && !isAdmin && !store.email.includes('@')) missing.push('Email');
+    if (!isEditMode && store.telephone.length < 10) missing.push('Téléphone');
+    if (!isEditMode && !isAdmin && !isPasswordValid) missing.push('Mot de passe');
+    if (!isEditMode && !isAdmin && !passwordsMatch) missing.push('Confirmation mot de passe');
+    if (!isEditMode && (!store.sermentMois || !store.sermentAnnee)) missing.push('Date de serment');
     if (store.departement.length < 2) missing.push('Département');
     if (store.cabinet.length < 2) missing.push('Cabinet');
     if (store.retrocession.length < 1) missing.push('Rétrocession');
     if (store.conserverRetrocession === null) missing.push('Flexibilité rétrocession');
     return missing;
-  }, [store.prenom, store.nom, store.email, store.telephone, isPasswordValid, passwordsMatch, store.sermentMois, store.sermentAnnee, store.departement, store.cabinet, store.retrocession, store.conserverRetrocession, isAdmin]);
+  }, [store.prenom, store.nom, store.email, store.telephone, isPasswordValid, passwordsMatch, store.sermentMois, store.sermentAnnee, store.departement, store.cabinet, store.retrocession, store.conserverRetrocession, isAdmin, isEditMode]);
 
   const handleCabinetSelect = (v: string | string[]) => {
     const cabinetName = typeof v === 'string' ? v : v[0];
@@ -246,9 +247,10 @@ const Step2Identity = () => {
             </div>
           </div>
 
-          <div className="h-px bg-border" />
+          {!isEditMode && <div className="h-px bg-border" />}
 
-          {/* Nom / Prénom */}
+          {/* Nom / Prénom — masqué en mode édition */}
+          {!isEditMode && (
           <div className="grid grid-cols-2 gap-4">
             <div>
               <Label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground">Prénom *</Label>
@@ -259,9 +261,10 @@ const Step2Identity = () => {
               <Input value={store.nom} onChange={e => store.setField('nom', e.target.value)} placeholder="Dupont" className="mt-2" />
             </div>
           </div>
+          )}
 
-          {/* Email / Tel */}
-          {isAdmin ? (
+          {/* Email / Tel — masqué en mode édition */}
+          {!isEditMode && (isAdmin ? (
             <div>
               <Label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground">Téléphone *</Label>
               <Input value={store.telephone} onChange={e => store.setField('telephone', formatPhoneWithDots(e.target.value))} placeholder="06.50.10.20.30" className="mt-2" />
@@ -277,11 +280,11 @@ const Step2Identity = () => {
                 <Input value={store.telephone} onChange={e => store.setField('telephone', formatPhoneWithDots(e.target.value))} placeholder="06.50.10.20.30" className="mt-2" />
               </div>
             </div>
-          )}
+          ))}
         </div>
 
-        {/* ── Sécurité du compte ───────────────────────────────── */}
-        {!isAdmin && (
+        {/* ── Sécurité du compte — masqué en mode édition ──────── */}
+        {!isAdmin && !isEditMode && (
         <div className="space-y-6 py-8 border-b border-border">
           <div className="text-[12px] font-bold tracking-[0.16em] uppercase text-foreground mb-1 flex items-center gap-2"><span className="w-5 h-[1.5px] bg-foreground rounded-sm" />SÉCURITÉ DU COMPTE</div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -362,8 +365,8 @@ const Step2Identity = () => {
         </div>
         )}
 
-        {/* ── Barreau ──────────────────────────────────────────── */}
-        <div className="space-y-6 py-8 border-b border-border">
+        {/* ── Barreau — masqué en mode édition ────────────────── */}
+        {!isEditMode && <div className="space-y-6 py-8 border-b border-border">
           <div className="text-[12px] font-bold tracking-[0.16em] uppercase text-foreground mb-1 flex items-center gap-2"><span className="w-5 h-[1.5px] bg-foreground rounded-sm" />BARREAU</div>
           <div>
             <Label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground">Date de prestation de serment *</Label>
@@ -383,7 +386,7 @@ const Step2Identity = () => {
             </div>
             {pqe && <div className="mt-3"><SeniorityBadge info={pqe} /></div>}
           </div>
-        </div>
+        </div>}
 
         {/* Statut Counsel / Associé — visible si PQE > 6 ans */}
         {hasSerment && pqe && pqe.years > 6 && (
