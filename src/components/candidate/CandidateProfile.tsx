@@ -3,12 +3,14 @@ import { usePQE } from '@/hooks/usePQE';
 import { useAuth } from '@/hooks/useAuth';
 import { FileText, X, ShieldCheck, Plus, Check, Pencil, Save, Loader2 } from 'lucide-react';
 import SeniorityBadge from '@/components/shared/SeniorityBadge';
+import AutocompleteInput from '@/components/shared/AutocompleteInput';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useRef, useMemo, useState } from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import { buildQuantizedChartData } from '@/lib/percentages';
 import { ACTIVITES_BY_PRACTICE, ACTIVITES_DEFAULT, CABINET_META, CABINETS } from '@/lib/constants';
-import { CHAMBERS_DB, getAllChambersFirmNames, getChambersRankingByPractice, formatChambersBand, CHAMBERS_DEPARTMENTS, CHAMBERS_KEY_TO_PRACTICE } from '@/lib/chambersRankings';
-import { LEGAL500_DB, getFirmTierForDept as getLegal500TierForDept, formatTier as formatLegal500Tier } from '@/lib/legal500Rankings';
+import { CHAMBERS_DB, getAllChambersFirmNames, getChambersRankingByPractice, CHAMBERS_DEPARTMENTS, CHAMBERS_KEY_TO_PRACTICE } from '@/lib/chambersRankings';
+import { getFirmTierForDept as getLegal500TierForDept, formatTier as formatLegal500Tier } from '@/lib/legal500Rankings';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
@@ -23,20 +25,21 @@ const CHART_COLORS = [
 ];
 
 const PRIORITIES_OPTIONS = [
-  'Qualité du management',
-  'Formation et encadrement',
-  'Équilibre pro/perso',
-  'Rémunération',
-  'Notoriété du cabinet',
-  'Taille de la structure',
-  'Internationalité',
-  "Secteur d'activité",
-  'Pratique transactionnelle',
-  'Pratique contentieuse',
+  'Qualité du management', 'Formation et encadrement', 'Équilibre pro/perso',
+  'Rémunération', 'Notoriété du cabinet', 'Taille de la structure',
+  'Internationalité', "Secteur d'activité", 'Pratique transactionnelle', 'Pratique contentieuse',
 ];
 
-const inputCls = 'w-full border border-border rounded-sm px-3 py-2 text-sm font-sans bg-background text-foreground focus:outline-none focus:ring-1 focus:ring-foreground/30';
+const PRACTICE_TO_LEGAL500_KEY: Record<string, string> = {
+  'Corporate/M&A': 'ma', 'Private Equity': 'pe', 'Financement / Banking': 'banking',
+  'Restructuring': 'restructuring', 'Droit Social': 'social', 'Immobilier': 'immo',
+  'Fiscal': 'fiscal', 'IP / Technologies': 'ip', 'Concurrence': 'competition',
+  'Droit public': 'public', 'Compliance': 'compliance', 'M&A (dominante)': 'ma',
+  'Private Equity (dominante)': 'pe', 'Financement LBO': 'banking',
+};
+
 const labelCls = 'text-[9px] uppercase tracking-[0.15em] text-muted-foreground font-sans font-light mb-1 block';
+const inputCls = 'w-full border border-border rounded-sm px-3 py-2 text-sm font-sans bg-background text-foreground focus:outline-none focus:ring-1 focus:ring-foreground/30';
 
 const CandidateProfile = () => {
   const { user } = useAuth();
@@ -58,67 +61,48 @@ const CandidateProfile = () => {
   const [editing, setEditing] = useState(false);
   const [saving, setSaving] = useState(false);
 
-  // Draft state
-  const [draft, setDraft] = useState({
-    retrocession: '',
-    bonus: '',
-    statutEcoute: 'passif',
-    cabinet: '',
-    departement: '',
-    movePriorities: [] as string[],
-  });
-
-  // Cabinet autocomplete
-  const [cabinetQuery, setCabinetQuery] = useState('');
-  const [showCabinetSuggestions, setShowCabinetSuggestions] = useState(false);
+  const [draftCabinet, setDraftCabinet] = useState('');
+  const [draftDept, setDraftDept] = useState('');
+  const [draftRetro, setDraftRetro] = useState('');
+  const [draftBonus, setDraftBonus] = useState('');
+  const [draftStatut, setDraftStatut] = useState('passif');
+  const [draftPriorities, setDraftPriorities] = useState<string[]>([]);
 
   const allCabinets = useMemo(() => {
     const set = new Set([...CABINETS, ...getAllChambersFirmNames()]);
-    return Array.from(set).sort();
+    return [...set].sort((a, b) => a.localeCompare(b));
   }, []);
 
-  const cabinetSuggestions = useMemo(() => {
-    if (!cabinetQuery || cabinetQuery.length < 1) return [];
-    const q = cabinetQuery.toLowerCase();
-    return allCabinets.filter(c => c.toLowerCase().includes(q)).slice(0, 8);
-  }, [cabinetQuery, allCabinets]);
+  const allPractices = useMemo(() => {
+    const practices = CHAMBERS_DEPARTMENTS.map(d => ({
+      key: d.key,
+      label: CHAMBERS_KEY_TO_PRACTICE[d.key] || d.label,
+    }));
+    if (!practices.some(p => p.label === 'Venture Capital')) {
+      practices.push({ key: 'vc', label: 'Venture Capital' });
+    }
+    return practices.sort((a, b) => a.label.localeCompare(b.label, 'fr'));
+  }, []);
 
-  // Rankings based on draft cabinet + departement
   const draftChambersRanking = useMemo(() => {
-    if (!draft.cabinet || !draft.departement) return undefined;
-    return getChambersRankingByPractice(draft.cabinet, draft.departement);
-  }, [draft.cabinet, draft.departement]);
+    if (!draftCabinet || !draftDept) return undefined;
+    return getChambersRankingByPractice(draftCabinet, draftDept);
+  }, [draftCabinet, draftDept]);
 
   const draftLegal500Tier = useMemo(() => {
-    if (!draft.cabinet || !draft.departement) return undefined;
-    const keyMap: Record<string, string> = {
-      'Corporate': 'corporate', 'M&A (dominante)': 'ma', 'Private Equity (dominante)': 'pe',
-      'Financement LBO': 'lbo', 'Financement de projets': 'projets', 'Restructuring': 'restructuring',
-      'Droit Social': 'social', 'Immobilier': 'immo', 'Droit fiscal': 'fiscal',
-    };
-    const key = keyMap[draft.departement];
+    if (!draftCabinet || !draftDept) return undefined;
+    const key = PRACTICE_TO_LEGAL500_KEY[draftDept];
     if (!key) return undefined;
-    return getLegal500TierForDept(draft.cabinet, key);
-  }, [draft.cabinet, draft.departement]);
-
-  // Available practices for selected cabinet
-  const availablePractices = useMemo(() => {
-    if (!draft.cabinet) return CHAMBERS_DEPARTMENTS.map(d => ({ key: d.key, label: CHAMBERS_KEY_TO_PRACTICE[d.key] || d.key }));
-    const firm = CHAMBERS_DB[draft.cabinet];
-    if (!firm) return CHAMBERS_DEPARTMENTS.map(d => ({ key: d.key, label: CHAMBERS_KEY_TO_PRACTICE[d.key] || d.key }));
-    return CHAMBERS_DEPARTMENTS.map(d => ({ key: d.key, label: CHAMBERS_KEY_TO_PRACTICE[d.key] || d.key }));
-  }, [draft.cabinet]);
+    return getLegal500TierForDept(draftCabinet, key);
+  }, [draftCabinet, draftDept]);
 
   const startEdit = () => {
-    setDraft({
-      retrocession: String(retrocession || ''),
-      bonus: String(bonus || ''),
-      statutEcoute: statutEcoute || 'passif',
-      cabinet: cabinet || '',
-      departement: departement || '',
-      movePriorities: [...movePriorities],
-    });
-    setCabinetQuery(cabinet || '');
+    setDraftCabinet(cabinet || '');
+    setDraftDept(departement || '');
+    setDraftRetro(String(retrocession || ''));
+    setDraftBonus(String(bonus || ''));
+    setDraftStatut(statutEcoute || 'passif');
+    setDraftPriorities([...movePriorities]);
     setEditing(true);
   };
 
@@ -127,12 +111,12 @@ const CandidateProfile = () => {
   const saveEdit = async () => {
     setSaving(true);
     try {
-      store.setField('retrocession', draft.retrocession as any);
-      store.setField('bonus', draft.bonus as any);
-      store.setField('statutEcoute', draft.statutEcoute as any);
-      store.setField('cabinet', draft.cabinet);
-      store.setField('departement', draft.departement);
-      store.setField('movePriorities', draft.movePriorities);
+      store.setField('cabinet', draftCabinet);
+      store.setField('departement', draftDept);
+      store.setField('retrocession', draftRetro as any);
+      store.setField('bonus', draftBonus as any);
+      store.setField('statutEcoute', draftStatut as any);
+      store.setField('movePriorities', draftPriorities);
 
       const { data: existing } = await supabase
         .from('candidate_registrations')
@@ -142,12 +126,12 @@ const CandidateProfile = () => {
 
       const updated = {
         ...(existing?.submission_data || {}),
-        retrocession: draft.retrocession,
-        bonus: draft.bonus,
-        statutEcoute: draft.statutEcoute,
-        cabinet: draft.cabinet,
-        departement: draft.departement,
-        movePriorities: draft.movePriorities,
+        cabinet: draftCabinet,
+        departement: draftDept,
+        retrocession: draftRetro,
+        bonus: draftBonus,
+        statutEcoute: draftStatut,
+        movePriorities: draftPriorities,
       };
 
       const { error } = await supabase
@@ -166,51 +150,28 @@ const CandidateProfile = () => {
   };
 
   const togglePriority = (p: string) => {
-    setDraft(prev => {
-      if (prev.movePriorities.includes(p)) {
-        return { ...prev, movePriorities: prev.movePriorities.filter(x => x !== p) };
-      }
-      if (prev.movePriorities.length >= 3) {
-        toast.error('Maximum 3 priorités.');
-        return prev;
-      }
-      return { ...prev, movePriorities: [...prev.movePriorities, p] };
+    setDraftPriorities(prev => {
+      if (prev.includes(p)) return prev.filter(x => x !== p);
+      if (prev.length >= 3) { toast.error('Maximum 3 priorités.'); return prev; }
+      return [...prev, p];
     });
   };
 
-  const practiceActivities = departement
-    ? (ACTIVITES_BY_PRACTICE[departement] || ACTIVITES_DEFAULT)
-    : ACTIVITES_DEFAULT;
+  const practiceActivities = departement ? (ACTIVITES_BY_PRACTICE[departement] || ACTIVITES_DEFAULT) : ACTIVITES_DEFAULT;
   const allActivites = practiceActivities.sections.flatMap(s => s.items);
   const activeActivites = allActivites.filter(a => activites[a.key]);
 
   const chartData = useMemo(() => buildQuantizedChartData(
-    activeActivites.map((item, index) => ({
-      key: item.key,
-      name: item.label,
-      raw: pourcentages[item.key] || 10,
-      color: CHART_COLORS[index % CHART_COLORS.length],
-    })),
+    activeActivites.map((item, i) => ({ key: item.key, name: item.label, raw: pourcentages[item.key] || 10, color: CHART_COLORS[i % CHART_COLORS.length] })),
   ), [activeActivites, pourcentages]);
 
   const chambersInfo = useMemo(() => {
     if (!cabinet || !departement) return null;
     const firm = CHAMBERS_DB[cabinet];
-    const keyMap: Record<string, string> = {
-      'Corporate': 'ma', 'M&A (dominante)': 'ma', 'Private Equity (dominante)': 'pe',
-      'Financement LBO': 'banque', 'Financement de projets': 'projets',
-      'Restructuring': 'restructuring', 'Droit Social': 'social', 'Immobilier': 'immo',
-    };
-    const chambersKey = keyMap[departement];
     if (!firm) return { isIntegrated: false };
-    const band = chambersKey ? firm.rankings[chambersKey] : undefined;
-    return { isIntegrated: true, band: band ?? null };
+    const ranking = getChambersRankingByPractice(cabinet, departement);
+    return { isIntegrated: true, band: ranking ?? null };
   }, [cabinet, departement]);
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0] || null;
-    store.setField('cvFile', file);
-  };
 
   const SectionBlock = ({ title, children }: { title: string; children: React.ReactNode }) => (
     <div className="bg-card p-5">
@@ -232,9 +193,7 @@ const CandidateProfile = () => {
       <div>
         {label && <p className="text-[9px] uppercase tracking-wider text-muted-foreground mb-1.5">{label}</p>}
         <div className="flex flex-wrap gap-1.5">
-          {items.map(t => (
-            <span key={t} className="text-[10px] px-2 py-0.5 rounded-sm bg-secondary text-foreground border border-border">{t}</span>
-          ))}
+          {items.map(t => <span key={t} className="text-[10px] px-2 py-0.5 rounded-sm bg-secondary text-foreground border border-border">{t}</span>)}
         </div>
       </div>
     );
@@ -246,23 +205,13 @@ const CandidateProfile = () => {
       <div className="flex items-center justify-between">
         <h2 className="text-base font-sans font-medium text-foreground">Mon profil</h2>
         {!editing ? (
-          <button
-            onClick={startEdit}
-            className="inline-flex items-center gap-1.5 text-xs font-sans font-normal text-muted-foreground hover:text-foreground border border-border px-3 py-1.5 rounded-sm transition-colors"
-          >
-            <Pencil className="w-3.5 h-3.5" />
-            Modifier
+          <button onClick={startEdit} className="inline-flex items-center gap-1.5 text-xs font-sans text-muted-foreground hover:text-foreground border border-border px-3 py-1.5 rounded-sm transition-colors">
+            <Pencil className="w-3.5 h-3.5" />Modifier
           </button>
         ) : (
           <div className="flex items-center gap-2">
-            <button onClick={cancelEdit} className="text-xs font-sans text-muted-foreground hover:text-foreground transition-colors px-3 py-1.5">
-              Annuler
-            </button>
-            <button
-              onClick={saveEdit}
-              disabled={saving}
-              className="inline-flex items-center gap-1.5 text-xs font-sans font-normal bg-foreground text-background px-3 py-1.5 rounded-sm hover:bg-foreground/90 transition-colors disabled:opacity-50"
-            >
+            <button onClick={cancelEdit} className="text-xs font-sans text-muted-foreground hover:text-foreground transition-colors px-3 py-1.5">Annuler</button>
+            <button onClick={saveEdit} disabled={saving} className="inline-flex items-center gap-1.5 text-xs bg-foreground text-background px-3 py-1.5 rounded-sm hover:bg-foreground/90 disabled:opacity-50">
               {saving ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Save className="w-3.5 h-3.5" />}
               Sauvegarder
             </button>
@@ -272,16 +221,13 @@ const CandidateProfile = () => {
 
       <div className="border border-border rounded-sm overflow-hidden">
 
-        {/* Identité — lecture seule */}
+        {/* Identité */}
         <SectionBlock title="Identité">
           <div className="flex items-start gap-5 mb-5">
-            {photoPreviewUrl ? (
-              <img src={photoPreviewUrl} alt="" className="w-14 h-14 rounded-full object-cover border border-border flex-shrink-0" />
-            ) : (
-              <div className="w-14 h-14 rounded-full bg-secondary flex items-center justify-center font-serif text-lg text-foreground flex-shrink-0">
-                {prenom?.[0]}{nom?.[0]}
-              </div>
-            )}
+            {photoPreviewUrl
+              ? <img src={photoPreviewUrl} alt="" className="w-14 h-14 rounded-full object-cover border border-border flex-shrink-0" />
+              : <div className="w-14 h-14 rounded-full bg-secondary flex items-center justify-center font-serif text-lg text-foreground flex-shrink-0">{prenom?.[0]}{nom?.[0]}</div>
+            }
             <div>
               <p className="font-serif text-lg text-foreground">{prenom} {nom}</p>
               <p className="text-sm font-sans font-light text-muted-foreground">{email || user?.email}</p>
@@ -292,115 +238,48 @@ const CandidateProfile = () => {
 
           {editing ? (
             <div className="space-y-4">
-              {/* Cabinet autocomplete */}
-              <div className="relative">
-                <label className={labelCls}>Cabinet</label>
-                <input
-                  type="text"
-                  value={cabinetQuery}
-                  onChange={e => {
-                    setCabinetQuery(e.target.value);
-                    setDraft(p => ({ ...p, cabinet: e.target.value, departement: '' }));
-                    setShowCabinetSuggestions(true);
-                  }}
-                  onFocus={() => setShowCabinetSuggestions(true)}
-                  onBlur={() => setTimeout(() => setShowCabinetSuggestions(false), 150)}
-                  className={inputCls}
+              {/* Cabinet — même composant qu'à l'inscription */}
+              <div>
+                <label className={labelCls}>Cabinet actuel</label>
+                <AutocompleteInput
+                  data={allCabinets}
+                  value={draftCabinet}
+                  onChange={v => { setDraftCabinet(typeof v === 'string' ? v : v[0] || ''); setDraftDept(''); }}
                   placeholder="Rechercher un cabinet..."
-                  autoComplete="off"
+                  single
                 />
-                {showCabinetSuggestions && cabinetSuggestions.length > 0 && (
-                  <ul className="absolute z-30 mt-1 w-full bg-background border border-border rounded-sm shadow-lg max-h-48 overflow-y-auto">
-                    {cabinetSuggestions.map(c => (
-                      <li key={c}>
-                        <button
-                          type="button"
-                          onMouseDown={() => {
-                            setDraft(p => ({ ...p, cabinet: c, departement: '' }));
-                            setCabinetQuery(c);
-                            setShowCabinetSuggestions(false);
-                          }}
-                          className="w-full text-left px-3 py-2 text-xs font-sans hover:bg-secondary transition-colors flex items-center justify-between"
-                        >
-                          <span>{c}</span>
-                          {CABINET_META[c]?.nat && (
-                            <span className="text-[9px] text-muted-foreground ml-2">{CABINET_META[c].nat}</span>
-                          )}
-                        </button>
-                      </li>
-                    ))}
-                  </ul>
-                )}
               </div>
 
-              {/* Pratique chips */}
-              {draft.cabinet && (
-                <div>
-                  <label className={labelCls}>Pratique</label>
-                  <div className="flex flex-wrap gap-1.5 mt-1">
-                    {availablePractices.map(p => (
-                      <button
-                        key={p.key}
-                        type="button"
-                        onClick={() => setDraft(prev => ({ ...prev, departement: p.label }))}
-                        className={cn(
-                          'px-2.5 py-1 rounded-sm text-[10px] font-sans border transition-all',
-                          draft.departement === p.label
-                            ? 'bg-foreground text-background border-foreground'
-                            : 'bg-transparent text-muted-foreground border-border hover:border-foreground/40'
-                        )}
-                      >{p.label}</button>
-                    ))}
-                  </div>
-                </div>
-              )}
+              {/* Pratique — même Select qu'à l'inscription */}
+              <div>
+                <label className={labelCls}>Pratique</label>
+                <Select value={draftDept} onValueChange={setDraftDept}>
+                  <SelectTrigger><SelectValue placeholder="Sélectionner votre pratique" /></SelectTrigger>
+                  <SelectContent>
+                    {allPractices.map(p => <SelectItem key={p.key} value={p.label}>{p.label}</SelectItem>)}
+                  </SelectContent>
+                </Select>
+              </div>
 
-              {/* Rankings */}
-              {draft.cabinet && draft.departement && (
-                <div className="space-y-2 pt-1">
+              {/* Badges classements */}
+              {draftCabinet && draftDept && (
+                <div className="space-y-2">
                   {draftChambersRanking !== undefined && (
-                    <div className="flex items-center gap-2">
-                      {draftChambersRanking !== null ? (
-                        <>
-                          <span className="inline-flex items-center px-3 py-1 rounded-sm bg-foreground text-background text-[11px] font-sans font-medium">
-                            Chambers Band {draftChambersRanking}
-                          </span>
-                          <span className="text-[11px] text-muted-foreground font-sans font-light">{draft.cabinet} · {draft.departement}</span>
-                        </>
-                      ) : (
-                        <span className="text-[11px] text-muted-foreground font-sans font-light italic">
-                          {draft.cabinet} n'est pas classé Chambers pour {draft.departement}
-                        </span>
-                      )}
-                    </div>
+                    draftChambersRanking !== null
+                      ? <div className="flex items-center gap-2"><span className="px-3 py-1 rounded-sm bg-foreground text-background text-[11px] font-sans font-medium">Chambers Band {draftChambersRanking}</span><span className="text-[11px] text-muted-foreground">{draftCabinet} · {draftDept}</span></div>
+                      : <p className="text-[11px] text-muted-foreground italic">{draftCabinet} n'est pas classé Chambers pour {draftDept}</p>
                   )}
                   {draftLegal500Tier !== undefined && (
-                    <div className="flex items-center gap-2">
-                      {draftLegal500Tier !== null ? (
-                        <>
-                          <span className="inline-flex items-center px-3 py-1 rounded-sm border border-foreground bg-background text-foreground text-[11px] font-sans font-medium">
-                            Legal 500 · {formatLegal500Tier(draftLegal500Tier)}
-                          </span>
-                          <span className="text-[11px] text-muted-foreground font-sans font-light">{draft.cabinet} · {draft.departement}</span>
-                        </>
-                      ) : (
-                        <span className="text-[11px] text-muted-foreground font-sans font-light italic">
-                          {draft.cabinet} n'est pas classé Legal 500 pour {draft.departement}
-                        </span>
-                      )}
-                    </div>
+                    draftLegal500Tier !== null
+                      ? <div className="flex items-center gap-2"><span className="px-3 py-1 rounded-sm border border-foreground text-foreground text-[11px] font-sans font-medium">Legal 500 · {formatLegal500Tier(draftLegal500Tier)}</span><span className="text-[11px] text-muted-foreground">{draftCabinet} · {draftDept}</span></div>
+                      : <p className="text-[11px] text-muted-foreground italic">{draftCabinet} n'est pas classé Legal 500 pour {draftDept}</p>
                   )}
                 </div>
               )}
             </div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              {seniorityInfo && (
-                <div>
-                  <span className="text-[10px] text-muted-foreground font-sans font-light">Séniorité</span>
-                  <div className="mt-1"><SeniorityBadge info={seniorityInfo} /></div>
-                </div>
-              )}
+              {seniorityInfo && <div><span className="text-[10px] text-muted-foreground font-sans font-light">Séniorité</span><div className="mt-1"><SeniorityBadge info={seniorityInfo} /></div></div>}
               <DataRow label="Cabinet" value={cabinet} />
               <DataRow label="Répertorié Chambers" value={chambersInfo?.isIntegrated ? 'Oui' : 'Non'} />
               <DataRow label="Pratique" value={departement} />
@@ -417,11 +296,8 @@ const CandidateProfile = () => {
                 <input
                   type="text"
                   inputMode="numeric"
-                  value={draft.retrocession}
-                  onChange={e => {
-                    const v = e.target.value.replace(/[^0-9]/g, '');
-                    setDraft(p => ({ ...p, retrocession: v }));
-                  }}
+                  value={draftRetro}
+                  onChange={e => setDraftRetro(e.target.value.replace(/[^0-9]/g, ''))}
                   className={inputCls}
                   placeholder="ex : 120000"
                 />
@@ -431,11 +307,8 @@ const CandidateProfile = () => {
                 <input
                   type="text"
                   inputMode="numeric"
-                  value={draft.bonus}
-                  onChange={e => {
-                    const v = e.target.value.replace(/[^0-9]/g, '');
-                    setDraft(p => ({ ...p, bonus: v }));
-                  }}
+                  value={draftBonus}
+                  onChange={e => setDraftBonus(e.target.value.replace(/[^0-9]/g, ''))}
                   className={inputCls}
                   placeholder="ex : 15000"
                 />
@@ -457,7 +330,7 @@ const CandidateProfile = () => {
           )}
         </SectionBlock>
 
-        {/* Activité */}
+        {/* Activité — lecture seule */}
         <SectionBlock title="Activité">
           {chartData.length > 0 && (
             <div className="flex flex-col md:flex-row gap-6 items-start mb-4">
@@ -467,7 +340,7 @@ const CandidateProfile = () => {
                     <Pie data={chartData} cx="50%" cy="50%" innerRadius={32} outerRadius={60} dataKey="value" paddingAngle={2} stroke="hsl(var(--background))" strokeWidth={2} labelLine={false}>
                       {chartData.map((item, i) => <Cell key={item.name} fill={CHART_COLORS[i % CHART_COLORS.length]} />)}
                     </Pie>
-                    <Tooltip formatter={(value: number) => [`${value}%`, '']} contentStyle={{ fontSize: '11px', borderRadius: '4px' }} />
+                    <Tooltip formatter={(v: number) => [`${v}%`, '']} contentStyle={{ fontSize: '11px', borderRadius: '4px' }} />
                   </PieChart>
                 </ResponsiveContainer>
               </div>
@@ -501,29 +374,22 @@ const CandidateProfile = () => {
           </SectionBlock>
         )}
 
-        {/* Projet */}
+        {/* Projet — priorités éditables */}
         <SectionBlock title="Projet">
           {editing ? (
-            <div className="space-y-3">
-              <div className="flex items-center justify-between mb-1">
-                <p className={labelCls}>Priorités <span className="normal-case">(max 3)</span></p>
-                <span className={cn(
-                  'text-[10px] font-sans',
-                  draft.movePriorities.length === 3 ? 'text-foreground font-medium' : 'text-muted-foreground'
-                )}>
-                  {draft.movePriorities.length} / 3
+            <div>
+              <div className="flex items-center justify-between mb-2">
+                <label className={labelCls}>Priorités <span className="normal-case font-sans">(max 3)</span></label>
+                <span className={cn('text-[10px] font-sans', draftPriorities.length === 3 ? 'text-foreground font-semibold' : 'text-muted-foreground')}>
+                  {draftPriorities.length} / 3
                 </span>
               </div>
               <div className="flex flex-wrap gap-2">
                 {PRIORITIES_OPTIONS.map(p => {
-                  const active = draft.movePriorities.includes(p);
-                  const disabled = !active && draft.movePriorities.length >= 3;
+                  const active = draftPriorities.includes(p);
+                  const disabled = !active && draftPriorities.length >= 3;
                   return (
-                    <button
-                      key={p}
-                      type="button"
-                      onClick={() => togglePriority(p)}
-                      disabled={disabled}
+                    <button key={p} type="button" onClick={() => togglePriority(p)} disabled={disabled}
                       className={cn(
                         'inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-sans border transition-all',
                         active ? 'bg-foreground text-background border-foreground'
@@ -531,8 +397,7 @@ const CandidateProfile = () => {
                           : 'bg-transparent text-muted-foreground border-border hover:border-foreground/40'
                       )}
                     >
-                      {active && <Check className="w-2.5 h-2.5" />}
-                      {p}
+                      {active && <Check className="w-2.5 h-2.5" />}{p}
                     </button>
                   );
                 })}
@@ -564,32 +429,21 @@ const CandidateProfile = () => {
         {/* Statut */}
         <SectionBlock title="Statut">
           {editing ? (
-            <div className="space-y-2">
-              <p className={labelCls}>Disponibilité</p>
-              <div className="flex gap-3">
-                {[
-                  { value: 'actif', label: 'En recherche active' },
-                  { value: 'passif', label: 'À l\'écoute' },
-                ].map(opt => (
-                  <button
-                    key={opt.value}
-                    type="button"
-                    onClick={() => setDraft(p => ({ ...p, statutEcoute: opt.value }))}
-                    className={cn(
-                      'px-4 py-2 rounded-sm text-xs font-sans border transition-all',
-                      draft.statutEcoute === opt.value
-                        ? 'bg-foreground text-background border-foreground'
-                        : 'bg-transparent text-muted-foreground border-border hover:border-foreground/40'
+            <div>
+              <label className={labelCls}>Disponibilité</label>
+              <div className="flex gap-3 mt-1">
+                {[{ value: 'actif', label: 'En recherche active' }, { value: 'passif', label: "À l'écoute" }].map(opt => (
+                  <button key={opt.value} type="button" onClick={() => setDraftStatut(opt.value)}
+                    className={cn('px-4 py-2 rounded-sm text-xs font-sans border transition-all',
+                      draftStatut === opt.value ? 'bg-foreground text-background border-foreground' : 'bg-transparent text-muted-foreground border-border hover:border-foreground/40'
                     )}
-                  >
-                    {opt.label}
-                  </button>
+                  >{opt.label}</button>
                 ))}
               </div>
             </div>
           ) : (
             <div className="grid grid-cols-2 gap-4">
-              <DataRow label="Écoute" value={statutEcoute === 'actif' ? 'En recherche active' : statutEcoute === 'passif' ? 'À l\'écoute' : '—'} />
+              <DataRow label="Écoute" value={statutEcoute === 'actif' ? 'En recherche active' : statutEcoute === 'passif' ? "À l'écoute" : '—'} />
               <DataRow label="Visibilité" value={visibilite === 'confidentiel' ? 'Confidentiel – fermé' : visibilite === 'semi-confidentiel' ? 'Confidentiel – ouvert' : '—'} />
               {disponibilite && <DataRow label="Disponibilité" value={disponibilite} />}
             </div>
@@ -597,7 +451,7 @@ const CandidateProfile = () => {
         </SectionBlock>
       </div>
 
-      {/* CV upload */}
+      {/* CV */}
       <div className="border border-border rounded-lg p-5">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -610,21 +464,17 @@ const CandidateProfile = () => {
             </button>
           )}
         </div>
-        <input ref={fileInputRef} type="file" accept=".pdf,.doc,.docx" onChange={handleFileChange} className="hidden" />
+        <input ref={fileInputRef} type="file" accept=".pdf,.doc,.docx" onChange={e => store.setField('cvFile', e.target.files?.[0] || null)} className="hidden" />
         {cvFile && (
           <div className="flex items-center gap-2 mt-2 px-3 py-2 rounded-sm border border-border bg-card">
             <FileText className="w-3.5 h-3.5 text-muted-foreground" />
             <span className="text-xs font-sans font-light text-foreground truncate flex-1">{cvFile.name}</span>
-            <button type="button" onClick={() => store.setField('cvFile', null)} className="text-muted-foreground hover:text-foreground">
-              <X className="w-3.5 h-3.5" />
-            </button>
+            <button type="button" onClick={() => store.setField('cvFile', null)} className="text-muted-foreground hover:text-foreground"><X className="w-3.5 h-3.5" /></button>
           </div>
         )}
         <div className="flex items-start gap-1.5 mt-2">
           <ShieldCheck className="w-3 h-3 text-muted-foreground/50 mt-0.5 shrink-0" />
-          <p className="text-[10px] text-muted-foreground/60 font-sans font-light leading-relaxed">
-            Logan s'engage à ne jamais transmettre votre CV sans votre accord explicite.
-          </p>
+          <p className="text-[10px] text-muted-foreground/60 font-sans font-light leading-relaxed">Logan s'engage à ne jamais transmettre votre CV sans votre accord explicite.</p>
         </div>
       </div>
     </div>
