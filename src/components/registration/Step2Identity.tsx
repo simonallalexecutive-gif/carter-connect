@@ -294,6 +294,7 @@ const Step2Identity = () => {
                   onChange={e => store.setField('password', e.target.value)}
                   placeholder="Créez votre mot de passe"
                   className="pr-10"
+                  autoComplete="new-password"
                 />
                 <button
                   type="button"
@@ -313,6 +314,7 @@ const Step2Identity = () => {
                   onChange={e => store.setField('passwordConfirm', e.target.value)}
                   placeholder="Confirmez votre mot de passe"
                   className="pr-10"
+                  autoComplete="new-password"
                 />
                 <button
                   type="button"
