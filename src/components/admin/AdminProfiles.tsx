@@ -67,15 +67,20 @@ const AdminProfiles = () => {
         .update({ status: newStatus })
         .eq('user_id', candidate.user_id);
 
-      await supabase.functions.invoke('notify-validation', {
-        body: {
-          candidateName: candidate.full_name || candidate.auth_email || 'Candidat',
-          candidateEmail: candidate.auth_email || '',
-          approved,
-        },
-      });
+      // Email uniquement en cas de validation — pas de notification pour le refus
+      if (approved) {
+        await supabase.functions.invoke('notify-validation', {
+          body: {
+            candidateName: candidate.full_name || candidate.auth_email || 'Candidat',
+            candidateEmail: candidate.auth_email || '',
+            approved: true,
+          },
+        });
+        toast.success('Candidat validé — email envoyé.');
+      } else {
+        toast.success('Candidat refusé.');
+      }
 
-      toast.success(approved ? 'Candidat validé — email envoyé.' : 'Candidat refusé — email envoyé.');
       load();
     } catch (e) {
       toast.error('Erreur lors de la validation');

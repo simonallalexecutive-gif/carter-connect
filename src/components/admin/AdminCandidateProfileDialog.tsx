@@ -69,14 +69,18 @@ const AdminCandidateProfileDialog = ({ open, onOpenChange, candidate, onUpdated 
         .update({ status: approved ? 'approved' : 'rejected' })
         .eq('user_id', candidate.user_id);
       if (error) throw error;
-      await supabase.functions.invoke('notify-validation', {
-        body: {
-          candidateName: candidate.full_name || candidate.auth_email || 'Candidat',
-          candidateEmail: candidate.auth_email || '',
-          approved,
-        },
-      });
-      toast.success(approved ? 'Profil validé — email envoyé.' : 'Profil refusé — email envoyé.');
+      if (approved) {
+        await supabase.functions.invoke('notify-validation', {
+          body: {
+            candidateName: candidate.full_name || candidate.auth_email || 'Candidat',
+            candidateEmail: candidate.auth_email || '',
+            approved: true,
+          },
+        });
+        toast.success('Profil validé — email envoyé.');
+      } else {
+        toast.success('Profil refusé.');
+      }
       onUpdated?.();
       onOpenChange(false);
     } catch (e: any) {
