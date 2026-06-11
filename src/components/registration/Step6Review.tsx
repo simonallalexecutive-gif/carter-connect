@@ -784,6 +784,27 @@ const Step6Review = ({ readOnly = false }: Step6ReviewProps = {}) => {
                 </div>
               </div>
             )}
+
+            {/* Types de clients (tags) */}
+            {(store.typesClients || []).length > 0 && (
+              <div className="pt-4 border-t border-white/10 space-y-2">
+                <p className="text-[9px] uppercase tracking-[0.22em] text-white/45 font-sans font-semibold mb-2">Clientèle</p>
+                <div className="flex flex-wrap gap-1.5">
+                  {(store.typesClients || []).map(c => (
+                    <span key={c} className="inline-flex items-center px-2.5 py-1 rounded-sm text-[10px] font-sans bg-white/10 text-white border border-white/20">{c}</span>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Anglais */}
+            {store.anglais && (
+              <div className="pt-4 border-t border-white/10">
+                <p className="text-xs font-sans font-light text-white/85">
+                  <span className="text-white/50">Anglais : </span>{store.anglais}{/^\d+$/.test(String(store.anglais).trim()) ? ' %' : ''}
+                </p>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -942,7 +963,7 @@ const Step6Review = ({ readOnly = false }: Step6ReviewProps = {}) => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-      className="max-w-[780px] mx-auto px-4"
+      className="max-w-5xl mx-auto px-4"
     >
 
       <div className="text-[9px] font-bold text-foreground/40 tracking-[0.16em] uppercase mb-3 flex items-center gap-2">
@@ -1052,10 +1073,6 @@ const Step6Review = ({ readOnly = false }: Step6ReviewProps = {}) => {
               {/* Activité */}
               <SectionCard title="Activité">
                 <ActivitySummaryCard />
-                <div className="mt-5">
-                  <TagList items={store.typesClients} label="Clientèle" />
-                </div>
-                {store.anglais && <p className="text-xs font-sans font-light mt-4 text-white/85"><span className="text-white/50">Anglais : </span>{store.anglais}{/^\d+$/.test(String(store.anglais).trim()) ? ' %' : ''}</p>}
               </SectionCard>
 
               {/* Associé / Counsel */}
@@ -1155,10 +1172,6 @@ const Step6Review = ({ readOnly = false }: Step6ReviewProps = {}) => {
               {/* Activité */}
               <SectionCard title="Activité">
                 <ActivitySummaryCard />
-                <div className="mt-5">
-                  <TagList items={store.typesClients} label="Clientèle" />
-                </div>
-                {store.anglais && <p className="text-xs font-sans font-light mt-4 text-white/85"><span className="text-white/50">Anglais : </span>{store.anglais}{/^\d+$/.test(String(store.anglais).trim()) ? ' %' : ''}</p>}
               </SectionCard>
 
               {/* Associé / Counsel */}
