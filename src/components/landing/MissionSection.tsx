@@ -52,7 +52,7 @@ const MissionSection = () => (
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: '-40px' }}
-        className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-px bg-black/10"
+        className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr]"
       >
         {/* Firms */}
         <motion.div variants={fadeUp} className="bg-white px-8 py-10 flex flex-col gap-6">
@@ -81,26 +81,10 @@ const MissionSection = () => (
           variants={fadeUp}
           className="bg-white px-8 md:px-10 py-10 flex flex-col items-center justify-center gap-5 text-center min-w-[160px]"
         >
-          <motion.div
-            initial={{ scaleY: 0 }}
-            whileInView={{ scaleY: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
-            style={{ transformOrigin: 'top' }}
-            className="hidden md:block w-px flex-1 bg-gradient-to-b from-transparent via-black/15 to-transparent min-h-[40px]"
-          />
           <span className="font-serif text-[1.5rem] tracking-[0.02em] text-black font-[300]">Logan</span>
           <p className="font-sans font-light text-[0.82rem] leading-[1.75] text-black/40 max-w-[160px]">
             Un seul intermédiaire, de l'intention à la signature.
           </p>
-          <motion.div
-            initial={{ scaleY: 0 }}
-            whileInView={{ scaleY: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1.4, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            style={{ transformOrigin: 'top' }}
-            className="hidden md:block w-px flex-1 bg-gradient-to-b from-transparent via-black/15 to-transparent min-h-[40px]"
-          />
         </motion.div>
 
         {/* Candidats */}
