@@ -90,15 +90,6 @@ const MissionSection = () => (
             <span className="text-black/20 text-[8px] -mr-0.5">‹</span>
           </div>
 
-          {/* Point central discret */}
-          <motion.div
-            initial={{ scale: 0, opacity: 0 }}
-            whileInView={{ scale: 1, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="w-1 h-1 rounded-full bg-black/20"
-          />
-
           <span className="font-serif text-[1.5rem] tracking-[0.02em] text-black font-[300]">Logan</span>
           <p className="font-sans font-light text-[0.78rem] leading-[1.75] text-black/35 max-w-[140px]">
             Un seul intermédiaire, de l'intention à la signature.
