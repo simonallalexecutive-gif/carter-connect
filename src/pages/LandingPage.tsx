@@ -176,9 +176,10 @@ const LandingPage = () => (
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-40px' }}
             transition={{ duration: 0.9, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
+            className="text-right"
           >
-            <p className="font-serif text-[1.6rem] sm:text-[2rem] text-black font-[400] leading-tight mb-1">Simon Allal</p>
-            <p className="font-sans text-[0.9rem] text-black/50 font-light">Founder & Managing Director</p>
+            <p className="font-serif text-[1.1rem] text-black font-[400] leading-tight mb-1">Simon Allal</p>
+            <p className="font-sans text-[0.78rem] text-black/45 font-light tracking-wide">Founder & Managing Director</p>
           </motion.div>
         </div>
       </section>
