@@ -171,6 +171,7 @@ const Step6Review = ({ readOnly = false }: Step6ReviewProps = {}) => {
   const pqe = usePQE(store.sermentMois, store.sermentAnnee);
   const [previewMode, setPreviewMode] = useState<PreviewMode>('recap');
   const [submitting, setSubmitting] = useState(false);
+  const [showBooking, setShowBooking] = useState(false);
 
   const practiceActivities = store.departement
     ? (ACTIVITES_BY_PRACTICE[store.departement] || ACTIVITES_DEFAULT)
@@ -1217,23 +1218,46 @@ const Step6Review = ({ readOnly = false }: Step6ReviewProps = {}) => {
             />
           </div>
 
-          {/* RDV inline */}
-          <div className="rounded-sm border border-border bg-card px-5 py-5 mt-4">
-            <div className="flex items-center justify-between gap-4 mb-4">
+          {/* RDV inline — collapsed by default */}
+          <div className="rounded-sm border border-border bg-card mt-4 overflow-hidden">
+            {/* Toggle header */}
+            <button
+              onClick={() => setShowBooking(v => !v)}
+              className="w-full flex items-center justify-between gap-4 px-5 py-4 text-left transition-colors hover:bg-black/[0.02]"
+            >
               <div>
                 <p className="text-sm font-sans font-medium text-foreground">Souhaitez-vous échanger avec un consultant Logan ?</p>
-                <p className="text-xs font-sans font-light text-muted-foreground mt-1">Sélectionnez directement un créneau ci-dessous.</p>
+                <p className="text-xs font-sans font-light text-muted-foreground mt-0.5">Sélectionnez directement un créneau ci-dessous.</p>
               </div>
-              <CalendarIcon className="w-4 h-4 text-muted-foreground flex-shrink-0" />
-            </div>
-            <InlineBookingCalendar
-              onConfirm={(slot) => {
-                store.setField('souhaitePrendreRdv', true);
-                store.setField('creneauPrefere', slot);
-                toast.success(`Créneau enregistré : ${slot}`);
-              }}
-              selected={store.souhaitePrendreRdv ? store.creneauPrefere : ''}
-            />
+              <div className="flex items-center gap-2 flex-shrink-0">
+                <CalendarIcon className="w-4 h-4 text-muted-foreground" />
+                <span className={cn(
+                  "text-[10px] font-sans font-semibold tracking-[0.12em] uppercase transition-colors",
+                  showBooking ? "text-foreground" : "text-muted-foreground"
+                )}>
+                  {showBooking ? 'Réduire' : 'Ouvrir'}
+                </span>
+              </div>
+            </button>
+
+            {/* Calendrier — visible uniquement si ouvert */}
+            <motion.div
+              initial={false}
+              animate={{ height: showBooking ? 'auto' : 0, opacity: showBooking ? 1 : 0 }}
+              transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+              className="overflow-hidden"
+            >
+              <div className="px-5 pb-5">
+                <InlineBookingCalendar
+                  onConfirm={(slot) => {
+                    store.setField('souhaitePrendreRdv', true);
+                    store.setField('creneauPrefere', slot);
+                    toast.success(`Créneau enregistré : ${slot}`);
+                  }}
+                  selected={store.souhaitePrendreRdv ? store.creneauPrefere : ''}
+                />
+              </div>
+            </motion.div>
           </div>
 
           {/* Navigation */}
