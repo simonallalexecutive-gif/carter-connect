@@ -153,39 +153,8 @@ const Step2Identity = () => {
     }
   };
 
-  const fetchLinkedinPhoto = useCallback(async (url: string) => {
-    if (!url.includes('linkedin.com/in/') || linkedinLoading) return;
-    if (store.photo) return;
-    
-    const match = url.match(/linkedin\.com\/in\/([^/?#]+)/);
-    if (!match?.[1]) return;
-    
-    const username = match[1];
-    setLinkedinLoading(true);
-    setLinkedinError('');
-    
-    // Try unavatar.io directly as an image URL (no edge function needed)
-    const unavatarUrl = `https://unavatar.io/linkedin/${username}?fallback=false`;
-    
-    try {
-      const img = new Image();
-      const loaded = await new Promise<boolean>((resolve) => {
-        img.onload = () => resolve(img.naturalWidth > 1 && img.naturalHeight > 1);
-        img.onerror = () => resolve(false);
-        img.src = unavatarUrl;
-      });
-      
-      if (loaded) {
-        store.setField('photoPreviewUrl', unavatarUrl);
-      } else {
-        setLinkedinError('Photo non trouvée — vous pouvez l\'ajouter manuellement.');
-      }
-    } catch {
-      setLinkedinError('Impossible de récupérer la photo LinkedIn.');
-    } finally {
-      setLinkedinLoading(false);
-    }
-  }, [linkedinLoading, store]);
+  // LinkedIn photo auto-fetch disabled — silhouette kept until manual upload
+  const fetchLinkedinPhoto = useCallback((_url: string) => {}, []);
 
   const handleLinkedinChange = (value: string) => {
     store.setField('linkedinUrl', value);
