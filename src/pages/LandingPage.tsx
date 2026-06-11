@@ -131,7 +131,7 @@ const LandingPage = () => (
       <TeamQuoteSection />
 
       {/* Description équipe */}
-      <section className="bg-white px-6 sm:px-10 py-28 md:py-36">
+      <section className="bg-[#f4f0eb] px-6 sm:px-10 py-28 md:py-36">
         <div className="max-w-2xl mx-auto">
           <motion.p
             initial={{ opacity: 0, y: 14 }}
