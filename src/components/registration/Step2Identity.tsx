@@ -57,7 +57,7 @@ const Step2Identity = () => {
     return [...set].sort((a, b) => a.localeCompare(b));
   }, []);
 
-  const canProceed = true;
+  const canProceed = false; // replaced by missingFields check below
 
   const missingFields = useMemo(() => {
     const missing: string[] = [];
@@ -798,7 +798,12 @@ const Step2Identity = () => {
               <ArrowLeft className="w-4 h-4" />
               Retour
             </Button>
-            <Button onClick={store.nextStep} className="bg-foreground text-background hover:bg-foreground/90 font-sans font-medium rounded-sm gap-2">
+            <Button
+              onClick={store.nextStep}
+              disabled={missingFields.length > 0}
+              title={missingFields.length > 0 ? `Champs manquants : ${missingFields.join(', ')}` : undefined}
+              className="bg-foreground text-background hover:bg-foreground/90 font-sans font-medium rounded-sm gap-2 disabled:opacity-30"
+            >
               Continuer
               <ArrowRight className="w-4 h-4" />
             </Button>
