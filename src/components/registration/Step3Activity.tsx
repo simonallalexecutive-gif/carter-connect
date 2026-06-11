@@ -90,6 +90,10 @@ const Step3Activity = () => {
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
       className="max-w-[780px] mx-auto"
     >
+      <div className="text-[9px] font-bold text-muted-foreground tracking-[0.16em] uppercase mb-3 flex items-center gap-2">
+        <span className="w-5 h-[1.5px] bg-foreground rounded-sm" />
+        Étape 2 / 5
+      </div>
       <h2 className="font-sans text-3xl md:text-4xl font-normal text-foreground leading-tight mb-2.5">Votre activité</h2>
       <p className="text-muted-foreground font-sans text-sm font-light mb-10">
         {store.departement

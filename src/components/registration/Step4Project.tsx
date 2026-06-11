@@ -39,6 +39,10 @@ const Step4Project = () => {
     >
       
 
+      <div className="text-[9px] font-bold text-muted-foreground tracking-[0.16em] uppercase mb-3 flex items-center gap-2">
+        <span className="w-5 h-[1.5px] bg-foreground rounded-sm" />
+        Étape 3 / 5
+      </div>
       <h2 className="font-sans text-3xl md:text-4xl font-normal text-foreground leading-tight mb-2.5">
         Vos priorités, vos exigences.
       </h2>
