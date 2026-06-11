@@ -95,6 +95,7 @@ const AdminProfiles = () => {
     const { data: c, error: cErr } = await supabase
       .from('candidate_registrations')
       .select('id, user_id, status, visibility, email_verified_at, created_at, submission_data')
+      .neq('status', 'rejected')
       .order('created_at', { ascending: false });
 
     if (cErr) console.error('candidates error:', cErr);
