@@ -223,7 +223,7 @@ const Step2Identity = () => {
       <div className="space-y-10">
         {/* ── Identité & contact ───────────────────────────────── */}
         <div className="space-y-7 py-8 border-b border-border">
-          <div className="text-[9px] font-bold tracking-[0.16em] uppercase text-muted-foreground mb-1 flex items-center gap-2"><span className="w-5 h-[1.5px] bg-foreground rounded-sm" />IDENTITÉ & CONTACT</div>
+          <div className="text-[10px] font-bold tracking-[0.16em] uppercase text-foreground mb-1 flex items-center gap-2"><span className="w-5 h-[1.5px] bg-foreground rounded-sm" />IDENTITÉ & CONTACT</div>
 
           {/* Photo + LinkedIn — alignés horizontalement */}
           <div className="grid grid-cols-1 md:grid-cols-[auto_1fr] gap-6 items-start">
@@ -308,7 +308,7 @@ const Step2Identity = () => {
         {/* ── Sécurité du compte ───────────────────────────────── */}
         {!isAdmin && (
         <div className="space-y-6 py-8 border-b border-border">
-          <div className="text-[9px] font-bold tracking-[0.16em] uppercase text-muted-foreground mb-1 flex items-center gap-2"><span className="w-5 h-[1.5px] bg-foreground rounded-sm" />SÉCURITÉ DU COMPTE</div>
+          <div className="text-[10px] font-bold tracking-[0.16em] uppercase text-foreground mb-1 flex items-center gap-2"><span className="w-5 h-[1.5px] bg-foreground rounded-sm" />SÉCURITÉ DU COMPTE</div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <Label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground">Mot de passe *</Label>
@@ -387,7 +387,7 @@ const Step2Identity = () => {
 
         {/* ── Barreau ──────────────────────────────────────────── */}
         <div className="space-y-6 py-8 border-b border-border">
-          <div className="text-[9px] font-bold tracking-[0.16em] uppercase text-muted-foreground mb-1 flex items-center gap-2"><span className="w-5 h-[1.5px] bg-foreground rounded-sm" />BARREAU</div>
+          <div className="text-[10px] font-bold tracking-[0.16em] uppercase text-foreground mb-1 flex items-center gap-2"><span className="w-5 h-[1.5px] bg-foreground rounded-sm" />BARREAU</div>
           <div>
             <Label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground">Date de prestation de serment *</Label>
             <div className="grid grid-cols-2 gap-4 mt-2">
@@ -552,7 +552,7 @@ const Step2Identity = () => {
 
         {/* Bloc Parcours professionnel */}
         <div className="space-y-6 py-8 border-b border-border">
-          <div className="text-[9px] font-bold tracking-[0.16em] uppercase text-muted-foreground mb-1 flex items-center gap-2"><span className="w-5 h-[1.5px] bg-foreground rounded-sm" />PARCOURS PROFESSIONNEL</div>
+          <div className="text-[10px] font-bold tracking-[0.16em] uppercase text-foreground mb-1 flex items-center gap-2"><span className="w-5 h-[1.5px] bg-foreground rounded-sm" />PARCOURS PROFESSIONNEL</div>
 
           {/* Cabinet — FIRST */}
           <div>
@@ -723,7 +723,7 @@ const Step2Identity = () => {
 
         {/* Rémunération */}
         <div className="space-y-6 py-8 border-b border-border">
-          <div className="text-[9px] font-bold tracking-[0.16em] uppercase text-muted-foreground mb-1 flex items-center gap-2"><span className="w-5 h-[1.5px] bg-foreground rounded-sm" />RÉMUNÉRATION</div>
+          <div className="text-[10px] font-bold tracking-[0.16em] uppercase text-foreground mb-1 flex items-center gap-2"><span className="w-5 h-[1.5px] bg-foreground rounded-sm" />RÉMUNÉRATION</div>
           <div className="grid grid-cols-2 gap-4">
             <div>
               <Label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground">Rétrocession brute annuelle (€) *</Label>
