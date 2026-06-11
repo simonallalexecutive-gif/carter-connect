@@ -76,25 +76,25 @@ const CandidateSidebar = ({
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
+              <SidebarMenuItem>
+                <SidebarMenuButton
+                  onClick={() => setActiveTab('profil')}
+                  isActive={activeTab === 'profil'}
+                  tooltip="Mon profil"
+                  className={`rounded-sm transition-colors text-white/60 hover:text-white hover:bg-white/10 ${
+                    activeTab === 'profil' ? 'bg-white/15 text-white font-medium' : ''
+                  }`}
+                >
+                  <FileText className="mr-2 h-4 w-4" />
+                  {!collapsed && <span className="text-[13px]">Mon profil</span>}
+                </SidebarMenuButton>
+              </SidebarMenuItem>
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter style={{ background: '#0a0a0a' }}>
         <SidebarMenu>
-          <SidebarMenuItem>
-            <SidebarMenuButton
-              onClick={() => setActiveTab('profil')}
-              isActive={activeTab === 'profil'}
-              tooltip="Mon profil"
-              className={`rounded-sm transition-colors text-white/60 hover:text-white hover:bg-white/10 ${
-                activeTab === 'profil' ? 'bg-white/15 text-white font-medium' : ''
-              }`}
-            >
-              <FileText className="mr-2 h-4 w-4" />
-              {!collapsed && <span className="text-[13px]">Mon profil</span>}
-            </SidebarMenuButton>
-          </SidebarMenuItem>
         </SidebarMenu>
         <button
           onClick={signOut}
