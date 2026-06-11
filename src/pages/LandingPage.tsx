@@ -7,7 +7,6 @@ import Footer from '@/components/layout/Footer';
 import MissionSection from '@/components/landing/MissionSection';
 
 import FAQSection from '@/components/landing/FAQSection';
-import StatsTickerSection from '@/components/landing/StatsTickerSection';
 import TeamQuoteSection from '@/components/landing/TeamQuoteSection';
 const heroBoardroom = { url: '/hero-bg.jpg' };
 
@@ -56,7 +55,7 @@ const LandingPage = () => (
         {/* Overlays pour assombrir et donner du relief */}
         <div className="absolute inset-0 bg-black/55" />
         <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/20 to-black/50" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/35" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/20 to-black/35" />
       </div>
       <div className="px-4 sm:px-8 lg:px-10 max-w-6xl relative z-10 pt-20 sm:pt-24 flex-1 flex items-center pb-4">
         <motion.div variants={stagger} initial="hidden" animate="visible" className="max-w-[min(95vw,72rem)]">
@@ -132,14 +131,14 @@ const LandingPage = () => (
       <TeamQuoteSection />
 
       {/* Description équipe */}
-      <section className="bg-black px-6 sm:px-10 py-28 md:py-36">
+      <section className="bg-white px-6 sm:px-10 py-28 md:py-36">
         <div className="max-w-2xl mx-auto">
           <motion.p
             initial={{ opacity: 0, y: 14 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-            className="text-[9px] font-sans font-semibold tracking-[0.28em] uppercase text-white/25 mb-10"
+            className="text-[9px] font-sans font-semibold tracking-[0.28em] uppercase text-black/30 mb-10"
           >
             Qui sommes-nous
           </motion.p>
@@ -149,7 +148,7 @@ const LandingPage = () => (
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="font-serif font-[300] text-[1.9rem] sm:text-[2.4rem] text-white leading-[1.12] mb-12"
+            className="font-serif font-[300] text-[1.9rem] sm:text-[2.4rem] text-black leading-[1.12] mb-12"
           >
             Pensé par des spécialistes<br className="hidden sm:block" /> du marché.
           </motion.h2>
@@ -159,7 +158,7 @@ const LandingPage = () => (
             whileInView={{ opacity: 1, scaleX: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="w-8 h-px bg-white/20 origin-left mb-12"
+            className="w-8 h-px bg-black/20 origin-left mb-12"
           />
 
           <motion.p
@@ -167,7 +166,7 @@ const LandingPage = () => (
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 1, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-            className="font-sans font-light text-[1rem] sm:text-[1.05rem] text-white/50 leading-[1.9]"
+            className="font-sans font-light text-[1rem] sm:text-[1.05rem] text-black/60 leading-[1.9]"
           >
             Logan a été pensé et conçu par des consultants et chasseurs de têtes spécialisés sur le marché des avocats. Notre objectif est de repenser différemment notre rôle et notre collaboration, tant côté candidats que cabinets d'avocats — en proposant à chacun un espace confidentiel, structuré et qualifié pour accélérer leur recrutement, tout en conservant une intermédiation premium capable de les accompagner à chaque étape de leur processus.
           </motion.p>
@@ -179,9 +178,6 @@ const LandingPage = () => (
     <div id="faq">
       <FAQSection />
     </div>
-
-    {/* Stats ticker */}
-    <StatsTickerSection />
 
     {/* CTA — fond totalement noir, intègre la citation Logan repositionnée */}
     <div className="relative overflow-hidden bg-black">
@@ -273,7 +269,7 @@ const LandingPage = () => (
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.8, delay: 1.4 + i * 0.15, ease: [0.16, 1, 0.3, 1] }}
-                  className="font-serif italic text-base sm:text-2xl md:text-[1.85rem] text-white tracking-[0.16em] sm:tracking-[0.22em] font-medium"
+                  className="font-serif italic text-[0.75rem] sm:text-lg md:text-[1.39rem] text-white tracking-[0.16em] sm:tracking-[0.22em] font-medium"
                   style={{ fontVariant: 'small-caps', wordSpacing: '0.15em', textShadow: '0 2px 24px rgba(255,255,255,0.18)' }}
                 >
                   {word}

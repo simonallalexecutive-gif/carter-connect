@@ -14,7 +14,7 @@ const candidatFAQ: FAQItem[] = [
   {
     question: 'Mon profil est-il strictement protégé ?',
     answer:
-      'Oui. Votre identité — nom, prénom et cabinet d\'origine — n\'est jamais accessible aux cabinets recruteurs. Seul Logan peut, avec votre accord explicite, organiser un rapprochement. Les informations visibles sont volontairement généralisées.',
+      'Oui. Votre identité — nom, prénom et cabinet d\'origine — n\'est jamais accessible aux cabinets recruteurs. Seul Logan peut, avec votre accord exprès, organiser un rapprochement. Les informations visibles sont volontairement généralisées.',
   },
   {
     question: 'Mon cabinet actuel peut-il avoir connaissance de ma présence sur Logan ?',
@@ -24,7 +24,7 @@ const candidatFAQ: FAQItem[] = [
   {
     question: 'Mon CV peut-il être partagé sans mon accord ?',
     answer:
-      'Jamais. Votre CV n\'est transmis à un cabinet qu\'après votre autorisation explicite, dans le cadre d\'une mise en relation validée par Logan. De même, les cabinets ne peuvent jamais vous contacter directement — Logan est l\'unique intermédiaire à chaque étape.',
+      'Jamais. Votre CV n\'est transmis à un cabinet qu\'après votre autorisation exprès, dans le cadre d\'une mise en relation validée par Logan. De même, les cabinets ne peuvent jamais vous contacter directement — Logan est l\'unique intermédiaire à chaque étape.',
   },
   {
     question: 'Quel est l\'intérêt de rejoindre Logan ?',
@@ -82,7 +82,7 @@ const cabinetFAQ: FAQItem[] = [
   {
     question: 'Quel est le modèle tarifaire de Logan ?',
     answer:
-      'Logan repose sur un modèle hybride : un abonnement donnant un accès permanent au vivier de candidats qualifiés, associé à un fee de placement significativement réduit par rapport aux standards du marché. Ce modèle vous permet de recruter de manière proactive, au bon moment, avec une parfaite maîtrise budgétaire.',
+      'Logan n\'exige ni abonnement ni acompte pour accéder à son réseau. Seul un honoraire de résultat est facturé au cabinet.',
   },
 ];
 
