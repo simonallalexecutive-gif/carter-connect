@@ -177,7 +177,7 @@ const ConnexionPage = () => {
                       onChange={e => setEmail(e.target.value)}
                       type="email"
                       placeholder="votre@email.com"
-                      autoComplete="email"
+                      autoComplete="off"
                       className={inputCls}
                     />
                   </div>
@@ -190,7 +190,7 @@ const ConnexionPage = () => {
                         onChange={e => setPassword(e.target.value)}
                         type={showPassword ? 'text' : 'password'}
                         placeholder="••••••••"
-                        autoComplete="current-password"
+                        autoComplete="off"
                         className={cn(inputCls, 'pr-10')}
                       />
                       <button
