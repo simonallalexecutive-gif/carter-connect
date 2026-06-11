@@ -48,6 +48,7 @@ export const NAT_FLAGS: Record<string, string> = {
 };
 
 export const DEPT_KEY_MAP: Record<string, string> = {
+  // Labels français (espace cabinet)
   'Banque & Finance': 'banque',
   'Corporate / M&A & PE': 'ma',
   'Droit Social': 'social',
@@ -55,6 +56,23 @@ export const DEPT_KEY_MAP: Record<string, string> = {
   'Restructuring': 'restructuring',
   'Fiscal': 'fiscal',
   'Contentieux': 'contentieux',
+  // Labels Chambers / inscription candidat (anglais)
+  'Banking & Finance': 'banque',
+  'Financement LBO': 'banque',
+  'Financement de projets': 'banque',
+  'Projects & Energy': 'banque',
+  'Corporate/M&A': 'ma',
+  'Private Equity': 'ma',
+  'Private Equity (dominante)': 'ma',
+  'M&A (dominante)': 'ma',
+  'Venture Capital': 'ma',
+  'Employment': 'social',
+  'Real Estate': 'immo',
+  'Restructuring/Insolvency': 'restructuring',
+  'Tax': 'fiscal',
+  'Competition/European Law': 'contentieux',
+  'International Arbitration': 'contentieux',
+  'Public Law': 'contentieux',
 };
 
 export const DEPARTMENTS = [
