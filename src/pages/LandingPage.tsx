@@ -168,7 +168,7 @@ const LandingPage = () => (
             transition={{ duration: 1, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
             className="font-sans font-light text-[1rem] sm:text-[1.05rem] text-black/60 leading-[1.9] mb-16 text-justify"
           >
-            Logan a été pensé et conçu par des consultants et chasseurs de têtes spécialisés sur le marché des avocats. Notre objectif est de <span className="underline underline-offset-2">repenser différemment notre rôle</span> et notre collaboration, tant côté candidats que cabinets d'avocats — en proposant à chacun un <span className="font-semibold text-black/80">espace confidentiel, structuré et qualifié</span> pour accélérer leur recrutement, tout en continuant de leur proposer une intermédiation et un accompagnement sur-mesure.
+            Logan a été pensé et conçu par des consultants et chasseurs de têtes spécialisés sur le marché des avocats. Notre objectif est de <span className="underline decoration-[0.5px] underline-offset-3">repenser différemment notre rôle</span> et notre collaboration, tant côté candidats que cabinets d'avocats — en proposant à chacun un <span className="font-semibold text-black/80">espace confidentiel, structuré et qualifié</span> pour accélérer leur recrutement, tout en continuant de leur proposer une intermédiation et un accompagnement sur-mesure.
           </motion.p>
 
           <motion.div
