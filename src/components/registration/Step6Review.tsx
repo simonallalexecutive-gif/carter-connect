@@ -1231,50 +1231,6 @@ const Step6Review = ({ readOnly = false }: Step6ReviewProps = {}) => {
             />
           </div>
 
-          {/* RDV inline — collapsed by default */}
-          <div className="rounded-sm border border-border bg-card mt-4 overflow-hidden">
-            {/* Toggle header */}
-            <button
-              onClick={() => setShowBooking(v => !v)}
-              className="w-full flex items-center justify-between gap-4 px-5 py-4 text-left transition-colors hover:bg-black/[0.02]"
-            >
-              <div>
-                <p className="text-sm font-sans font-medium text-foreground">Souhaitez-vous échanger avec un consultant Logan ?</p>
-                <p className="text-xs font-sans font-light text-muted-foreground mt-0.5">Sélectionnez directement un créneau ci-dessous.</p>
-              </div>
-              <div className="flex items-center gap-2 flex-shrink-0">
-                <CalendarIcon className="w-4 h-4 text-muted-foreground" />
-                <span className={cn(
-                  "w-6 h-6 rounded-full border border-border flex items-center justify-center transition-all duration-300",
-                  showBooking ? "bg-foreground border-foreground" : "bg-transparent"
-                )}>
-                  <ChevronDown className={cn(
-                    "w-3 h-3 transition-all duration-300",
-                    showBooking ? "rotate-180 text-background" : "text-muted-foreground"
-                  )} />
-                </span>
-              </div>
-            </button>
-
-            {/* Calendrier — visible uniquement si ouvert */}
-            <motion.div
-              initial={false}
-              animate={{ height: showBooking ? 'auto' : 0, opacity: showBooking ? 1 : 0 }}
-              transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-              className="overflow-hidden"
-            >
-              <div className="px-5 pb-5">
-                <InlineBookingCalendar
-                  onConfirm={(slot) => {
-                    store.setField('souhaitePrendreRdv', true);
-                    store.setField('creneauPrefere', slot);
-                    toast.success(`Créneau enregistré : ${slot}`);
-                  }}
-                  selected={store.souhaitePrendreRdv ? store.creneauPrefere : ''}
-                />
-              </div>
-            </motion.div>
-          </div>
 
           {/* Navigation */}
           <div className="flex justify-between pt-10">
