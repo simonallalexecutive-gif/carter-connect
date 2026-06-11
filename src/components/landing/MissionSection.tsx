@@ -12,19 +12,6 @@ const stagger = {
 
 const MissionSection = () => (
   <section id="notre-approche" className="bg-white relative overflow-hidden">
-    <motion.div
-      aria-hidden
-      className="absolute inset-0 pointer-events-none"
-      animate={{
-        background: [
-          'radial-gradient(ellipse 70% 50% at 50% 60%, rgba(0,0,0,0.02) 0%, transparent 70%)',
-          'radial-gradient(ellipse 80% 55% at 48% 55%, rgba(0,0,0,0.03) 0%, transparent 70%)',
-          'radial-gradient(ellipse 70% 50% at 52% 60%, rgba(0,0,0,0.02) 0%, transparent 70%)',
-        ],
-      }}
-      transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut' }}
-    />
-
     <div className="relative z-10 max-w-5xl mx-auto px-6 sm:px-10 lg:px-16 py-28 md:py-40">
 
       {/* Header */}
@@ -55,40 +42,71 @@ const MissionSection = () => (
         className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr]"
       >
         {/* Firms */}
-        <motion.div variants={fadeUp} className="bg-white px-8 py-10 flex flex-col gap-6">
+        <motion.div variants={fadeUp} className="px-0 md:pr-12 py-10 flex flex-col gap-6">
           <span className="text-[10px] font-sans font-semibold tracking-[0.22em] uppercase text-black/30">Firms</span>
           <h3 className="font-serif font-[300] text-[1.25rem] text-black leading-snug">
             Vivez votre marché.
           </h3>
           <div className="w-6 h-px bg-black/15" />
           <div className="flex flex-col gap-5">
-            <div className="flex flex-col gap-2">
-              <p className="font-sans font-light text-[0.88rem] leading-[1.8] text-black/55">
-                <span className="text-black/75 font-normal">Recherche ciblée —</span> Déposez votre recherche à titre strictement confidentiel, en préservant — ou non — l'identité de votre cabinet.
-              </p>
-            </div>
+            <p className="font-sans font-light text-[0.88rem] leading-[1.8] text-black/55">
+              <span className="text-black/75 font-normal">Recherche ciblée —</span> Déposez votre recherche à titre strictement confidentiel, en préservant — ou non — l'identité de votre cabinet.
+            </p>
             <div className="w-4 h-px bg-black/10" />
-            <div className="flex flex-col gap-2">
-              <p className="font-sans font-light text-[0.88rem] leading-[1.8] text-black/55">
-                <span className="text-black/75 font-normal">Veille active —</span> Explorez le marché et soyez opportuniste. Anticipez vos recrutements stratégiques pour chacun de vos départements.
-              </p>
-            </div>
+            <p className="font-sans font-light text-[0.88rem] leading-[1.8] text-black/55">
+              <span className="text-black/75 font-normal">Veille active —</span> Explorez le marché et soyez opportuniste. Anticipez vos recrutements stratégiques pour chacun de vos départements.
+            </p>
           </div>
         </motion.div>
 
         {/* Logan — centre */}
         <motion.div
           variants={fadeUp}
-          className="bg-white px-8 md:px-10 py-10 flex flex-col items-center justify-center gap-5 text-center min-w-[160px]"
+          className="px-10 md:px-14 py-10 flex flex-col items-center justify-center gap-6 text-center min-w-[180px] relative"
         >
+          {/* Flèche convergente gauche */}
+          <div className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 items-center w-10">
+            <motion.div
+              initial={{ scaleX: 0, opacity: 0 }}
+              whileInView={{ scaleX: 1, opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1.2, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              style={{ transformOrigin: 'left' }}
+              className="w-full h-px bg-gradient-to-r from-transparent to-black/20"
+            />
+            <span className="text-black/20 text-[8px] -ml-0.5">›</span>
+          </div>
+
+          {/* Flèche convergente droite */}
+          <div className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 items-center w-10 flex-row-reverse">
+            <motion.div
+              initial={{ scaleX: 0, opacity: 0 }}
+              whileInView={{ scaleX: 1, opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1.2, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              style={{ transformOrigin: 'right' }}
+              className="w-full h-px bg-gradient-to-l from-transparent to-black/20"
+            />
+            <span className="text-black/20 text-[8px] -mr-0.5">‹</span>
+          </div>
+
+          {/* Point central discret */}
+          <motion.div
+            initial={{ scale: 0, opacity: 0 }}
+            whileInView={{ scale: 1, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            className="w-1 h-1 rounded-full bg-black/20"
+          />
+
           <span className="font-serif text-[1.5rem] tracking-[0.02em] text-black font-[300]">Logan</span>
-          <p className="font-sans font-light text-[0.82rem] leading-[1.75] text-black/40 max-w-[160px]">
+          <p className="font-sans font-light text-[0.78rem] leading-[1.75] text-black/35 max-w-[140px]">
             Un seul intermédiaire, de l'intention à la signature.
           </p>
         </motion.div>
 
         {/* Candidats */}
-        <motion.div variants={fadeUp} className="bg-white px-8 py-10 flex flex-col gap-6">
+        <motion.div variants={fadeUp} className="px-0 md:pl-12 py-10 flex flex-col gap-6">
           <span className="text-[10px] font-sans font-semibold tracking-[0.22em] uppercase text-black/30">Candidats</span>
           <h3 className="font-serif font-[300] text-[1.25rem] text-black leading-snug">
             Reprenez le contrôle.
