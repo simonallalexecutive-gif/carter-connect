@@ -192,7 +192,7 @@ const FAQSection = () => {
                     transition={{ type: 'spring', stiffness: 500, damping: 38 }}
                   />
                 )}
-                <span className="relative z-10">{t === 'candidat' ? 'Candidats' : 'Cabinets'}</span>
+                <span className="relative z-10">{t === 'candidat' ? 'Candidats' : 'Firms'}</span>
               </button>
             ))}
           </div>
