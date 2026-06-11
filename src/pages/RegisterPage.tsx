@@ -16,6 +16,7 @@ import LogoBanner from '@/components/layout/LogoBanner';
 const RegisterPage = () => {
   const currentStep = useRegistrationStore(s => s.currentStep);
   const goToStep = useRegistrationStore(s => s.goToStep);
+  const resetStore = useRegistrationStore(s => s.reset);
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const espaceParam = searchParams.get('espace');
@@ -52,6 +53,8 @@ const RegisterPage = () => {
   }, [isDarkStep, isStepContent, currentStep, showConfIntro, showCabinetIntro]);
 
   const handleConfIntroComplete = () => {
+    // Reset complet du store pour garantir une inscription vierge
+    resetStore();
     setShowConfIntro(false);
     goToStep(2);
   };
