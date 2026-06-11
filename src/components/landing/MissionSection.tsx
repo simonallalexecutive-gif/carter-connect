@@ -64,36 +64,38 @@ const MissionSection = () => (
           variants={fadeUp}
           className="px-10 md:px-14 py-10 flex flex-col items-center justify-center gap-6 text-center min-w-[180px]"
         >
-          {/* Logan + flèches alignées */}
-          <div className="relative flex items-center justify-center w-full">
+          {/* Logan + flèches sur la même ligne */}
+          <div className="hidden md:flex items-center gap-4 w-full justify-center">
             {/* Flèche gauche */}
-            <div className="hidden md:flex absolute left-0 items-center w-20">
+            <div className="flex items-center gap-0.5">
               <motion.div
                 initial={{ scaleX: 0, opacity: 0 }}
                 whileInView={{ scaleX: 1, opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 1.2, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
                 style={{ transformOrigin: 'left' }}
-                className="w-full h-px bg-gradient-to-r from-transparent to-black/20"
+                className="w-10 h-px bg-gradient-to-r from-transparent to-black/20"
               />
-              <span className="text-black/20 text-[8px] -ml-0.5">›</span>
+              <span className="text-black/20 text-[8px]">›</span>
             </div>
 
-            <span className="font-serif text-[1.5rem] tracking-[0.02em] text-black font-[300]">Logan</span>
+            <span className="font-serif text-[1.5rem] tracking-[0.02em] text-black font-[300] shrink-0">Logan</span>
 
             {/* Flèche droite */}
-            <div className="hidden md:flex absolute right-0 items-center w-20 flex-row-reverse">
+            <div className="flex items-center gap-0.5 flex-row-reverse">
               <motion.div
                 initial={{ scaleX: 0, opacity: 0 }}
                 whileInView={{ scaleX: 1, opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 1.2, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
                 style={{ transformOrigin: 'right' }}
-                className="w-full h-px bg-gradient-to-l from-transparent to-black/20"
+                className="w-10 h-px bg-gradient-to-l from-transparent to-black/20"
               />
-              <span className="text-black/20 text-[8px] -mr-0.5">‹</span>
+              <span className="text-black/20 text-[8px]">‹</span>
             </div>
           </div>
+          {/* Mobile : juste Logan */}
+          <span className="md:hidden font-serif text-[1.5rem] tracking-[0.02em] text-black font-[300]">Logan</span>
 
           <p className="font-sans font-light text-[0.78rem] leading-[1.75] text-black/35 max-w-[140px]">
             Un seul intermédiaire, de l'intention à la signature.
