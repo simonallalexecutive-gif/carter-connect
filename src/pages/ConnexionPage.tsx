@@ -62,6 +62,13 @@ const ConnexionPage = () => {
         return;
       }
 
+      // Admin en premier (priorité absolue)
+      const role = data.user.app_metadata?.role;
+      if (role === 'admin') {
+        navigate('/admin');
+        return;
+      }
+
       const userId = data.user.id;
 
       // Détecter le type via métadonnées (fiable, pas de RLS)
@@ -91,13 +98,6 @@ const ConnexionPage = () => {
 
       if (candidate) {
         navigate('/espace-candidat');
-        return;
-      }
-
-      // Admin → espace admin
-      const role = data.user.app_metadata?.role;
-      if (role === 'admin') {
-        navigate('/admin');
         return;
       }
 
