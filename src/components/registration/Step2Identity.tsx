@@ -800,9 +800,7 @@ const Step2Identity = () => {
             </Button>
             <Button
               onClick={store.nextStep}
-              disabled={missingFields.length > 0}
-              title={missingFields.length > 0 ? `Champs manquants : ${missingFields.join(', ')}` : undefined}
-              className="bg-foreground text-background hover:bg-foreground/90 font-sans font-medium rounded-sm gap-2 disabled:opacity-30"
+              className="bg-foreground text-background hover:bg-foreground/90 font-sans font-medium rounded-sm gap-2"
             >
               Continuer
               <ArrowRight className="w-4 h-4" />
