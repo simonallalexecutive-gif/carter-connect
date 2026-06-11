@@ -94,7 +94,13 @@ const ConnexionPage = () => {
         return;
       }
 
-      // Admin → espace candidat par défaut
+      // Admin → espace admin
+      const role = data.user.app_metadata?.role;
+      if (role === 'admin') {
+        navigate('/admin');
+        return;
+      }
+
       navigate('/espace-candidat');
     } catch (err: any) {
       toast.error(err.message || 'Identifiants incorrects.');
