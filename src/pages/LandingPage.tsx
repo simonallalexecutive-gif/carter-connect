@@ -166,10 +166,24 @@ const LandingPage = () => (
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 1, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-            className="font-sans font-light text-[1rem] sm:text-[1.05rem] text-black/60 leading-[1.9]"
+            className="font-sans font-light text-[1rem] sm:text-[1.05rem] text-black/60 leading-[1.9] mb-16"
           >
             Logan a été pensé et conçu par des consultants et chasseurs de têtes spécialisés sur le marché des avocats. Notre objectif est de repenser différemment notre rôle et notre collaboration, tant côté candidats que cabinets d'avocats — en proposant à chacun un espace confidentiel, structuré et qualifié pour accélérer leur recrutement, tout en conservant une intermédiation premium capable de les accompagner à chaque étape de leur processus.
           </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-40px' }}
+            transition={{ duration: 0.9, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
+            className="flex items-center gap-5"
+          >
+            <div className="w-8 h-px bg-black/15 flex-shrink-0" />
+            <div>
+              <p className="font-serif text-[1.05rem] text-black font-[300] tracking-wide">Simon Allal</p>
+              <p className="text-[10px] font-sans tracking-[0.2em] uppercase text-black/35 mt-1">Founder & Managing Director</p>
+            </div>
+          </motion.div>
         </div>
       </section>
     </div>
