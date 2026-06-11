@@ -97,7 +97,7 @@ const CabinetStartPage = () => {
   return (
     <div className="min-h-screen bg-white flex flex-col">
       {/* Header minimal */}
-      <header className="px-8 h-16 flex items-center border-b border-black/8">
+      <header className="px-8 h-16 flex items-center">
         <button onClick={() => navigate(-1)} className="font-serif text-[28px] tracking-[0.04em] text-black hover:opacity-60 transition-opacity">
           Logan
         </button>
