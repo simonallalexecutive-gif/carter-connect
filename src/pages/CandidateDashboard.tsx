@@ -122,19 +122,22 @@ const CandidateHeader = () => {
   ].filter(Boolean) as string[];
 
   return (
-    <header className="h-14 flex items-center justify-between border-b border-border bg-background px-6 gap-4 flex-shrink-0">
-      <div className="flex items-center gap-3">
+    <header className="flex items-center justify-between border-b border-border bg-background px-8 gap-6 flex-shrink-0 py-5">
+      <div className="flex items-center gap-4">
         <SidebarTrigger />
-        <div className="w-px h-4 bg-border" />
+        <div className="w-px h-6 bg-border" />
         {(store.prenom || store.nom) && (
-          <span className="text-sm font-sans font-medium text-foreground">
-            {store.prenom} {store.nom}
-          </span>
+          <div>
+            <p className="text-[9px] font-sans font-semibold tracking-[0.18em] uppercase text-muted-foreground mb-0.5">Espace candidat</p>
+            <p className="text-base font-sans font-medium text-foreground leading-none">
+              {store.prenom} {store.nom}
+            </p>
+          </div>
         )}
       </div>
       <div className="flex items-center gap-2 flex-wrap justify-end">
         {pills.map(p => (
-          <span key={p} className="text-[10px] font-sans font-normal tracking-wide px-2.5 py-1 rounded-sm bg-secondary text-foreground border border-border whitespace-nowrap">
+          <span key={p} className="text-[11px] font-sans font-normal tracking-wide px-3 py-1.5 rounded-sm bg-secondary text-foreground border border-border whitespace-nowrap">
             {p}
           </span>
         ))}

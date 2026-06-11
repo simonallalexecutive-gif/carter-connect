@@ -3,7 +3,7 @@ import { usePQE } from '@/hooks/usePQE';
 import { useAuth } from '@/hooks/useAuth';
 import { FileText, X, ShieldCheck, Plus, Check, Pencil, Save, Loader2 } from 'lucide-react';
 import SeniorityBadge from '@/components/shared/SeniorityBadge';
-import { useRef, useMemo, useState } from 'react';
+import { useRef, useMemo, useState, useCallback } from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import { buildQuantizedChartData } from '@/lib/percentages';
 import { ACTIVITES_BY_PRACTICE, ACTIVITES_DEFAULT, CABINET_META, CABINETS } from '@/lib/constants';
@@ -74,6 +74,8 @@ const CandidateProfile = () => {
 
   const [editing, setEditing] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [cabinetQuery, setCabinetQuery] = useState('');
+  const [showCabinetSuggestions, setShowCabinetSuggestions] = useState(false);
 
   // Draft state for editable fields
   const [draft, setDraft] = useState({
@@ -85,6 +87,12 @@ const CandidateProfile = () => {
     movePriorities: [...movePriorities],
   });
 
+  const cabinetSuggestions = useMemo(() => {
+    if (!cabinetQuery || cabinetQuery.length < 1) return [];
+    const q = cabinetQuery.toLowerCase();
+    return CABINETS.filter(c => c.toLowerCase().includes(q)).slice(0, 8);
+  }, [cabinetQuery]);
+
   const startEdit = () => {
     setDraft({
       retrocession: retrocession || '',
@@ -94,6 +102,7 @@ const CandidateProfile = () => {
       departement: departement || '',
       movePriorities: [...movePriorities],
     });
+    setCabinetQuery(cabinet || '');
     setEditing(true);
   };
 
@@ -267,10 +276,31 @@ const CandidateProfile = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {seniorityInfo && <div><span className="text-[10px] text-muted-foreground font-sans font-light">Séniorité</span><div className="mt-1"><SeniorityBadge info={seniorityInfo} /></div></div>}
             {editing ? (
-              <div>
+              <div className="relative">
                 <label className={labelCls}>Cabinet</label>
-                <input list="cabinets-list" value={draft.cabinet} onChange={e => setDraft(p => ({ ...p, cabinet: e.target.value }))} className={inputCls} />
-                <datalist id="cabinets-list">{CABINETS.map(c => <option key={c} value={c} />)}</datalist>
+                <input
+                  type="text"
+                  value={cabinetQuery}
+                  onChange={e => { setCabinetQuery(e.target.value); setDraft(p => ({ ...p, cabinet: e.target.value })); setShowCabinetSuggestions(true); }}
+                  onFocus={() => setShowCabinetSuggestions(true)}
+                  onBlur={() => setTimeout(() => setShowCabinetSuggestions(false), 150)}
+                  className={inputCls}
+                  placeholder="Nom du cabinet"
+                  autoComplete="off"
+                />
+                {showCabinetSuggestions && cabinetSuggestions.length > 0 && (
+                  <ul className="absolute z-20 mt-1 w-full bg-background border border-border rounded-sm shadow-lg max-h-48 overflow-y-auto">
+                    {cabinetSuggestions.map(c => (
+                      <li key={c}>
+                        <button
+                          type="button"
+                          onMouseDown={() => { setDraft(p => ({ ...p, cabinet: c })); setCabinetQuery(c); setShowCabinetSuggestions(false); }}
+                          className="w-full text-left px-3 py-2 text-xs font-sans hover:bg-secondary transition-colors"
+                        >{c}</button>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </div>
             ) : (
               <DataRow label="Cabinet" value={cabinet} />
@@ -279,10 +309,21 @@ const CandidateProfile = () => {
             {editing ? (
               <div>
                 <label className={labelCls}>Pratique</label>
-                <select value={draft.departement} onChange={e => setDraft(p => ({ ...p, departement: e.target.value }))} className={inputCls}>
-                  <option value="">—</option>
-                  {PRATIQUES.map(p => <option key={p} value={p}>{p}</option>)}
-                </select>
+                <div className="flex flex-wrap gap-1.5 mt-1">
+                  {PRATIQUES.map(p => (
+                    <button
+                      key={p}
+                      type="button"
+                      onClick={() => setDraft(prev => ({ ...prev, departement: p }))}
+                      className={cn(
+                        'px-2.5 py-1 rounded-sm text-[10px] font-sans border transition-all',
+                        draft.departement === p
+                          ? 'bg-foreground text-background border-foreground'
+                          : 'bg-transparent text-muted-foreground border-border hover:border-foreground/40'
+                      )}
+                    >{p}</button>
+                  ))}
+                </div>
               </div>
             ) : (
               <DataRow label="Pratique" value={departement} />
