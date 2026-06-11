@@ -3,11 +3,12 @@ import { usePQE } from '@/hooks/usePQE';
 import { useAuth } from '@/hooks/useAuth';
 import { FileText, X, ShieldCheck, Plus, Check, Pencil, Save, Loader2 } from 'lucide-react';
 import SeniorityBadge from '@/components/shared/SeniorityBadge';
-import { useRef, useMemo, useState, useCallback } from 'react';
+import { useRef, useMemo, useState } from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import { buildQuantizedChartData } from '@/lib/percentages';
 import { ACTIVITES_BY_PRACTICE, ACTIVITES_DEFAULT, CABINET_META, CABINETS } from '@/lib/constants';
-import { CHAMBERS_DB } from '@/lib/chambersRankings';
+import { CHAMBERS_DB, getAllChambersFirmNames, getChambersRankingByPractice, formatChambersBand, CHAMBERS_DEPARTMENTS, CHAMBERS_KEY_TO_PRACTICE } from '@/lib/chambersRankings';
+import { LEGAL500_DB, getFirmTierForDept as getLegal500TierForDept, formatTier as formatLegal500Tier } from '@/lib/legal500Rankings';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
@@ -21,17 +22,6 @@ const CHART_COLORS = [
   'hsl(222, 50%, 28%)',
 ];
 
-const DEPT_TO_CHAMBERS: Record<string, string> = {
-  'Corporate': 'ma',
-  'M&A (dominante)': 'ma',
-  'Private Equity (dominante)': 'pe',
-  'Financement LBO': 'banque',
-  'Financement de projets': 'projets',
-  'Restructuring': 'restructuring',
-  'Droit Social': 'social',
-  'Immobilier': 'immo',
-};
-
 const PRIORITIES_OPTIONS = [
   'Qualité du management',
   'Formation et encadrement',
@@ -40,16 +30,9 @@ const PRIORITIES_OPTIONS = [
   'Notoriété du cabinet',
   'Taille de la structure',
   'Internationalité',
-  'Secteur d\'activité',
+  "Secteur d'activité",
   'Pratique transactionnelle',
   'Pratique contentieuse',
-];
-
-const PRATIQUES = [
-  'Corporate', 'M&A (dominante)', 'Private Equity (dominante)',
-  'Financement LBO', 'Financement de projets', 'Restructuring',
-  'Droit Social', 'Immobilier', 'Droit fiscal', 'Propriété intellectuelle',
-  'Droit public', 'Concurrence & Distribution', 'Compliance',
 ];
 
 const inputCls = 'w-full border border-border rounded-sm px-3 py-2 text-sm font-sans bg-background text-foreground focus:outline-none focus:ring-1 focus:ring-foreground/30';
@@ -74,29 +57,62 @@ const CandidateProfile = () => {
 
   const [editing, setEditing] = useState(false);
   const [saving, setSaving] = useState(false);
+
+  // Draft state
+  const [draft, setDraft] = useState({
+    retrocession: '',
+    bonus: '',
+    statutEcoute: 'passif',
+    cabinet: '',
+    departement: '',
+    movePriorities: [] as string[],
+  });
+
+  // Cabinet autocomplete
   const [cabinetQuery, setCabinetQuery] = useState('');
   const [showCabinetSuggestions, setShowCabinetSuggestions] = useState(false);
 
-  // Draft state for editable fields
-  const [draft, setDraft] = useState({
-    retrocession: retrocession || '',
-    bonus: bonus || '',
-    statutEcoute: statutEcoute || 'passif',
-    cabinet: cabinet || '',
-    departement: departement || '',
-    movePriorities: [...movePriorities],
-  });
+  const allCabinets = useMemo(() => {
+    const set = new Set([...CABINETS, ...getAllChambersFirmNames()]);
+    return Array.from(set).sort();
+  }, []);
 
   const cabinetSuggestions = useMemo(() => {
     if (!cabinetQuery || cabinetQuery.length < 1) return [];
     const q = cabinetQuery.toLowerCase();
-    return CABINETS.filter(c => c.toLowerCase().includes(q)).slice(0, 8);
-  }, [cabinetQuery]);
+    return allCabinets.filter(c => c.toLowerCase().includes(q)).slice(0, 8);
+  }, [cabinetQuery, allCabinets]);
+
+  // Rankings based on draft cabinet + departement
+  const draftChambersRanking = useMemo(() => {
+    if (!draft.cabinet || !draft.departement) return undefined;
+    return getChambersRankingByPractice(draft.cabinet, draft.departement);
+  }, [draft.cabinet, draft.departement]);
+
+  const draftLegal500Tier = useMemo(() => {
+    if (!draft.cabinet || !draft.departement) return undefined;
+    const keyMap: Record<string, string> = {
+      'Corporate': 'corporate', 'M&A (dominante)': 'ma', 'Private Equity (dominante)': 'pe',
+      'Financement LBO': 'lbo', 'Financement de projets': 'projets', 'Restructuring': 'restructuring',
+      'Droit Social': 'social', 'Immobilier': 'immo', 'Droit fiscal': 'fiscal',
+    };
+    const key = keyMap[draft.departement];
+    if (!key) return undefined;
+    return getLegal500TierForDept(draft.cabinet, key);
+  }, [draft.cabinet, draft.departement]);
+
+  // Available practices for selected cabinet
+  const availablePractices = useMemo(() => {
+    if (!draft.cabinet) return CHAMBERS_DEPARTMENTS.map(d => ({ key: d.key, label: CHAMBERS_KEY_TO_PRACTICE[d.key] || d.key }));
+    const firm = CHAMBERS_DB[draft.cabinet];
+    if (!firm) return CHAMBERS_DEPARTMENTS.map(d => ({ key: d.key, label: CHAMBERS_KEY_TO_PRACTICE[d.key] || d.key }));
+    return CHAMBERS_DEPARTMENTS.map(d => ({ key: d.key, label: CHAMBERS_KEY_TO_PRACTICE[d.key] || d.key }));
+  }, [draft.cabinet]);
 
   const startEdit = () => {
     setDraft({
-      retrocession: retrocession || '',
-      bonus: bonus || '',
+      retrocession: String(retrocession || ''),
+      bonus: String(bonus || ''),
       statutEcoute: statutEcoute || 'passif',
       cabinet: cabinet || '',
       departement: departement || '',
@@ -111,7 +127,6 @@ const CandidateProfile = () => {
   const saveEdit = async () => {
     setSaving(true);
     try {
-      // Update local store
       store.setField('retrocession', draft.retrocession as any);
       store.setField('bonus', draft.bonus as any);
       store.setField('statutEcoute', draft.statutEcoute as any);
@@ -119,7 +134,6 @@ const CandidateProfile = () => {
       store.setField('departement', draft.departement);
       store.setField('movePriorities', draft.movePriorities);
 
-      // Build updated submission_data patch
       const { data: existing } = await supabase
         .from('candidate_registrations')
         .select('submission_data')
@@ -152,12 +166,16 @@ const CandidateProfile = () => {
   };
 
   const togglePriority = (p: string) => {
-    setDraft(prev => ({
-      ...prev,
-      movePriorities: prev.movePriorities.includes(p)
-        ? prev.movePriorities.filter(x => x !== p)
-        : [...prev.movePriorities, p],
-    }));
+    setDraft(prev => {
+      if (prev.movePriorities.includes(p)) {
+        return { ...prev, movePriorities: prev.movePriorities.filter(x => x !== p) };
+      }
+      if (prev.movePriorities.length >= 3) {
+        toast.error('Maximum 3 priorités.');
+        return prev;
+      }
+      return { ...prev, movePriorities: [...prev.movePriorities, p] };
+    });
   };
 
   const practiceActivities = departement
@@ -166,25 +184,25 @@ const CandidateProfile = () => {
   const allActivites = practiceActivities.sections.flatMap(s => s.items);
   const activeActivites = allActivites.filter(a => activites[a.key]);
 
-  const chartData = useMemo(() => {
-    return buildQuantizedChartData(
-      activeActivites.map((item, index) => ({
-        key: item.key,
-        name: item.label,
-        raw: pourcentages[item.key] || 10,
-        color: CHART_COLORS[index % CHART_COLORS.length],
-      })),
-    );
-  }, [activeActivites, pourcentages]);
+  const chartData = useMemo(() => buildQuantizedChartData(
+    activeActivites.map((item, index) => ({
+      key: item.key,
+      name: item.label,
+      raw: pourcentages[item.key] || 10,
+      color: CHART_COLORS[index % CHART_COLORS.length],
+    })),
+  ), [activeActivites, pourcentages]);
 
   const chambersInfo = useMemo(() => {
     if (!cabinet || !departement) return null;
     const firm = CHAMBERS_DB[cabinet];
-    const chambersKey = DEPT_TO_CHAMBERS[departement];
-    if (!firm) {
-      const fallbackNat = CABINET_META[cabinet]?.nat;
-      return { isIntegrated: false, nat: fallbackNat || null };
-    }
+    const keyMap: Record<string, string> = {
+      'Corporate': 'ma', 'M&A (dominante)': 'ma', 'Private Equity (dominante)': 'pe',
+      'Financement LBO': 'banque', 'Financement de projets': 'projets',
+      'Restructuring': 'restructuring', 'Droit Social': 'social', 'Immobilier': 'immo',
+    };
+    const chambersKey = keyMap[departement];
+    if (!firm) return { isIntegrated: false };
     const band = chambersKey ? firm.rankings[chambersKey] : undefined;
     return { isIntegrated: true, band: band ?? null };
   }, [cabinet, departement]);
@@ -209,7 +227,7 @@ const CandidateProfile = () => {
   );
 
   const TagList = ({ items, label }: { items: string[]; label?: string }) => {
-    if (items.length === 0) return null;
+    if (!items || items.length === 0) return null;
     return (
       <div>
         {label && <p className="text-[9px] uppercase tracking-wider text-muted-foreground mb-1.5">{label}</p>}
@@ -237,10 +255,7 @@ const CandidateProfile = () => {
           </button>
         ) : (
           <div className="flex items-center gap-2">
-            <button
-              onClick={cancelEdit}
-              className="text-xs font-sans text-muted-foreground hover:text-foreground transition-colors px-3 py-1.5"
-            >
+            <button onClick={cancelEdit} className="text-xs font-sans text-muted-foreground hover:text-foreground transition-colors px-3 py-1.5">
               Annuler
             </button>
             <button
@@ -256,7 +271,8 @@ const CandidateProfile = () => {
       </div>
 
       <div className="border border-border rounded-sm overflow-hidden">
-        {/* Identity — lecture seule */}
+
+        {/* Identité — lecture seule */}
         <SectionBlock title="Identité">
           <div className="flex items-start gap-5 mb-5">
             {photoPreviewUrl ? (
@@ -273,75 +289,156 @@ const CandidateProfile = () => {
               {linkedinUrl && <p className="text-xs font-sans font-light text-muted-foreground mt-0.5 truncate max-w-xs">{linkedinUrl}</p>}
             </div>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {seniorityInfo && <div><span className="text-[10px] text-muted-foreground font-sans font-light">Séniorité</span><div className="mt-1"><SeniorityBadge info={seniorityInfo} /></div></div>}
-            {editing ? (
+
+          {editing ? (
+            <div className="space-y-4">
+              {/* Cabinet autocomplete */}
               <div className="relative">
                 <label className={labelCls}>Cabinet</label>
                 <input
                   type="text"
                   value={cabinetQuery}
-                  onChange={e => { setCabinetQuery(e.target.value); setDraft(p => ({ ...p, cabinet: e.target.value })); setShowCabinetSuggestions(true); }}
+                  onChange={e => {
+                    setCabinetQuery(e.target.value);
+                    setDraft(p => ({ ...p, cabinet: e.target.value, departement: '' }));
+                    setShowCabinetSuggestions(true);
+                  }}
                   onFocus={() => setShowCabinetSuggestions(true)}
                   onBlur={() => setTimeout(() => setShowCabinetSuggestions(false), 150)}
                   className={inputCls}
-                  placeholder="Nom du cabinet"
+                  placeholder="Rechercher un cabinet..."
                   autoComplete="off"
                 />
                 {showCabinetSuggestions && cabinetSuggestions.length > 0 && (
-                  <ul className="absolute z-20 mt-1 w-full bg-background border border-border rounded-sm shadow-lg max-h-48 overflow-y-auto">
+                  <ul className="absolute z-30 mt-1 w-full bg-background border border-border rounded-sm shadow-lg max-h-48 overflow-y-auto">
                     {cabinetSuggestions.map(c => (
                       <li key={c}>
                         <button
                           type="button"
-                          onMouseDown={() => { setDraft(p => ({ ...p, cabinet: c })); setCabinetQuery(c); setShowCabinetSuggestions(false); }}
-                          className="w-full text-left px-3 py-2 text-xs font-sans hover:bg-secondary transition-colors"
-                        >{c}</button>
+                          onMouseDown={() => {
+                            setDraft(p => ({ ...p, cabinet: c, departement: '' }));
+                            setCabinetQuery(c);
+                            setShowCabinetSuggestions(false);
+                          }}
+                          className="w-full text-left px-3 py-2 text-xs font-sans hover:bg-secondary transition-colors flex items-center justify-between"
+                        >
+                          <span>{c}</span>
+                          {CABINET_META[c]?.nat && (
+                            <span className="text-[9px] text-muted-foreground ml-2">{CABINET_META[c].nat}</span>
+                          )}
+                        </button>
                       </li>
                     ))}
                   </ul>
                 )}
               </div>
-            ) : (
-              <DataRow label="Cabinet" value={cabinet} />
-            )}
-            <DataRow label="Répertorié Chambers" value={chambersInfo?.isIntegrated ? 'Oui' : 'Non'} />
-            {editing ? (
-              <div>
-                <label className={labelCls}>Pratique</label>
-                <div className="flex flex-wrap gap-1.5 mt-1">
-                  {PRATIQUES.map(p => (
-                    <button
-                      key={p}
-                      type="button"
-                      onClick={() => setDraft(prev => ({ ...prev, departement: p }))}
-                      className={cn(
-                        'px-2.5 py-1 rounded-sm text-[10px] font-sans border transition-all',
-                        draft.departement === p
-                          ? 'bg-foreground text-background border-foreground'
-                          : 'bg-transparent text-muted-foreground border-border hover:border-foreground/40'
-                      )}
-                    >{p}</button>
-                  ))}
+
+              {/* Pratique chips */}
+              {draft.cabinet && (
+                <div>
+                  <label className={labelCls}>Pratique</label>
+                  <div className="flex flex-wrap gap-1.5 mt-1">
+                    {availablePractices.map(p => (
+                      <button
+                        key={p.key}
+                        type="button"
+                        onClick={() => setDraft(prev => ({ ...prev, departement: p.label }))}
+                        className={cn(
+                          'px-2.5 py-1 rounded-sm text-[10px] font-sans border transition-all',
+                          draft.departement === p.label
+                            ? 'bg-foreground text-background border-foreground'
+                            : 'bg-transparent text-muted-foreground border-border hover:border-foreground/40'
+                        )}
+                      >{p.label}</button>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            ) : (
+              )}
+
+              {/* Rankings */}
+              {draft.cabinet && draft.departement && (
+                <div className="space-y-2 pt-1">
+                  {draftChambersRanking !== undefined && (
+                    <div className="flex items-center gap-2">
+                      {draftChambersRanking !== null ? (
+                        <>
+                          <span className="inline-flex items-center px-3 py-1 rounded-sm bg-foreground text-background text-[11px] font-sans font-medium">
+                            Chambers Band {draftChambersRanking}
+                          </span>
+                          <span className="text-[11px] text-muted-foreground font-sans font-light">{draft.cabinet} · {draft.departement}</span>
+                        </>
+                      ) : (
+                        <span className="text-[11px] text-muted-foreground font-sans font-light italic">
+                          {draft.cabinet} n'est pas classé Chambers pour {draft.departement}
+                        </span>
+                      )}
+                    </div>
+                  )}
+                  {draftLegal500Tier !== undefined && (
+                    <div className="flex items-center gap-2">
+                      {draftLegal500Tier !== null ? (
+                        <>
+                          <span className="inline-flex items-center px-3 py-1 rounded-sm border border-foreground bg-background text-foreground text-[11px] font-sans font-medium">
+                            Legal 500 · {formatLegal500Tier(draftLegal500Tier)}
+                          </span>
+                          <span className="text-[11px] text-muted-foreground font-sans font-light">{draft.cabinet} · {draft.departement}</span>
+                        </>
+                      ) : (
+                        <span className="text-[11px] text-muted-foreground font-sans font-light italic">
+                          {draft.cabinet} n'est pas classé Legal 500 pour {draft.departement}
+                        </span>
+                      )}
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {seniorityInfo && (
+                <div>
+                  <span className="text-[10px] text-muted-foreground font-sans font-light">Séniorité</span>
+                  <div className="mt-1"><SeniorityBadge info={seniorityInfo} /></div>
+                </div>
+              )}
+              <DataRow label="Cabinet" value={cabinet} />
+              <DataRow label="Répertorié Chambers" value={chambersInfo?.isIntegrated ? 'Oui' : 'Non'} />
               <DataRow label="Pratique" value={departement} />
-            )}
-          </div>
+            </div>
+          )}
         </SectionBlock>
 
         {/* Rémunération */}
         <SectionBlock title="Rémunération">
           {editing ? (
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className={labelCls}>Rétrocession (€)</label>
-                <input type="number" value={draft.retrocession} onChange={e => setDraft(p => ({ ...p, retrocession: e.target.value }))} className={inputCls} placeholder="ex: 120000" />
+                <input
+                  type="text"
+                  inputMode="numeric"
+                  value={draft.retrocession}
+                  onChange={e => {
+                    const v = e.target.value.replace(/[^0-9]/g, '');
+                    setDraft(p => ({ ...p, retrocession: v }));
+                  }}
+                  className={inputCls}
+                  placeholder="ex : 120000"
+                />
               </div>
               <div>
                 <label className={labelCls}>Bonus (€)</label>
-                <input type="number" value={draft.bonus} onChange={e => setDraft(p => ({ ...p, bonus: e.target.value }))} className={inputCls} placeholder="ex: 15000" />
+                <input
+                  type="text"
+                  inputMode="numeric"
+                  value={draft.bonus}
+                  onChange={e => {
+                    const v = e.target.value.replace(/[^0-9]/g, '');
+                    setDraft(p => ({ ...p, bonus: v }));
+                  }}
+                  className={inputCls}
+                  placeholder="ex : 15000"
+                />
               </div>
             </div>
           ) : (
@@ -404,23 +501,33 @@ const CandidateProfile = () => {
           </SectionBlock>
         )}
 
-        {/* Projet — priorités éditables */}
+        {/* Projet */}
         <SectionBlock title="Projet">
           {editing ? (
             <div className="space-y-3">
-              <p className={labelCls}>Priorités</p>
+              <div className="flex items-center justify-between mb-1">
+                <p className={labelCls}>Priorités <span className="normal-case">(max 3)</span></p>
+                <span className={cn(
+                  'text-[10px] font-sans',
+                  draft.movePriorities.length === 3 ? 'text-foreground font-medium' : 'text-muted-foreground'
+                )}>
+                  {draft.movePriorities.length} / 3
+                </span>
+              </div>
               <div className="flex flex-wrap gap-2">
                 {PRIORITIES_OPTIONS.map(p => {
                   const active = draft.movePriorities.includes(p);
+                  const disabled = !active && draft.movePriorities.length >= 3;
                   return (
                     <button
                       key={p}
                       type="button"
                       onClick={() => togglePriority(p)}
+                      disabled={disabled}
                       className={cn(
                         'inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-sans border transition-all',
-                        active
-                          ? 'bg-foreground text-background border-foreground'
+                        active ? 'bg-foreground text-background border-foreground'
+                          : disabled ? 'opacity-30 cursor-not-allowed border-border text-muted-foreground'
                           : 'bg-transparent text-muted-foreground border-border hover:border-foreground/40'
                       )}
                     >
@@ -454,10 +561,10 @@ const CandidateProfile = () => {
           )}
         </SectionBlock>
 
-        {/* Statut — éditable */}
+        {/* Statut */}
         <SectionBlock title="Statut">
           {editing ? (
-            <div className="space-y-3">
+            <div className="space-y-2">
               <p className={labelCls}>Disponibilité</p>
               <div className="flex gap-3">
                 {[
@@ -498,13 +605,8 @@ const CandidateProfile = () => {
             <span className="text-[10px] text-muted-foreground/60 font-sans font-light">optionnel</span>
           </div>
           {!cvFile && (
-            <button
-              type="button"
-              onClick={() => fileInputRef.current?.click()}
-              className="flex items-center gap-1.5 text-xs font-sans font-light text-muted-foreground hover:text-foreground transition-colors"
-            >
-              <Plus className="w-3.5 h-3.5" />
-              Ajouter
+            <button type="button" onClick={() => fileInputRef.current?.click()} className="flex items-center gap-1.5 text-xs font-sans font-light text-muted-foreground hover:text-foreground transition-colors">
+              <Plus className="w-3.5 h-3.5" />Ajouter
             </button>
           )}
         </div>

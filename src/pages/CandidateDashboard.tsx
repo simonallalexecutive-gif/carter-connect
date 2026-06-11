@@ -6,7 +6,7 @@ import React from 'react';
 import { useLoadCandidateProfile } from '@/hooks/useLoadCandidateProfile';
 import { useRegistrationStore } from '@/stores/registrationStore';
 import { usePQE } from '@/hooks/usePQE';
-import { Briefcase, FileText, LogOut, Home, Phone } from 'lucide-react';
+import { FileText, LogOut, Home, Phone, ChevronLeft, ChevronRight } from 'lucide-react';
 import {
   SidebarProvider,
   Sidebar,
@@ -28,7 +28,7 @@ import CandidateDashboardOverview from '@/components/candidate/CandidateDashboar
 
 type TabKey = 'dashboard' | 'profil' | 'booking';
 
-const TABS: { key: TabKey; label: string; icon: typeof Briefcase }[] = [
+const TABS: { key: TabKey; label: string; icon: typeof Home }[] = [
   { key: 'dashboard', label: 'Tableau de bord', icon: Home },
   { key: 'booking', label: 'Fixer un call', icon: Phone },
 ];
@@ -45,17 +45,21 @@ const CandidateSidebar = ({
   const { signOut } = useAuth();
 
   return (
-    <Sidebar collapsible="icon" className="border-r border-sidebar-border bg-sidebar">
-      <SidebarContent>
+    <Sidebar
+      collapsible="icon"
+      className="border-r border-white/10"
+      style={{ background: '#0a0a0a' }}
+    >
+      <SidebarContent style={{ background: '#0a0a0a' }}>
         <SidebarGroup>
-          <SidebarGroupLabel className="py-6 h-auto">
+          <SidebarGroupLabel className="py-7 h-auto">
             <Link to="/" className="hover:opacity-70 transition-opacity">
-              <span className="font-serif text-[32px] leading-none tracking-[0.04em] text-foreground">
+              <span className="font-serif text-[34px] leading-none tracking-[0.04em] text-white">
                 {collapsed ? 'L' : 'Logan'}
               </span>
             </Link>
           </SidebarGroupLabel>
-          <SidebarGroupContent className="mt-6">
+          <SidebarGroupContent className="mt-4">
             <SidebarMenu>
               {TABS.map((tab) => (
                 <SidebarMenuItem key={tab.key}>
@@ -63,8 +67,8 @@ const CandidateSidebar = ({
                     onClick={() => setActiveTab(tab.key)}
                     isActive={activeTab === tab.key}
                     tooltip={tab.label}
-                    className={`text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground rounded-sm transition-colors ${
-                      activeTab === tab.key ? 'bg-sidebar-accent text-sidebar-accent-foreground font-semibold' : ''
+                    className={`rounded-sm transition-colors text-white/60 hover:text-white hover:bg-white/10 ${
+                      activeTab === tab.key ? 'bg-white/15 text-white font-medium' : ''
                     }`}
                   >
                     <tab.icon className="mr-2 h-4 w-4" />
@@ -76,15 +80,15 @@ const CandidateSidebar = ({
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter>
+      <SidebarFooter style={{ background: '#0a0a0a' }}>
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton
               onClick={() => setActiveTab('profil')}
               isActive={activeTab === 'profil'}
               tooltip="Mon profil"
-              className={`text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground rounded-sm transition-colors ${
-                activeTab === 'profil' ? 'bg-sidebar-accent text-sidebar-accent-foreground font-semibold' : ''
+              className={`rounded-sm transition-colors text-white/60 hover:text-white hover:bg-white/10 ${
+                activeTab === 'profil' ? 'bg-white/15 text-white font-medium' : ''
               }`}
             >
               <FileText className="mr-2 h-4 w-4" />
@@ -94,7 +98,7 @@ const CandidateSidebar = ({
         </SidebarMenu>
         <button
           onClick={signOut}
-          className="flex items-center gap-2 px-3 py-2 text-[12px] text-sidebar-foreground/60 hover:text-foreground transition-colors w-full"
+          className="flex items-center gap-2 px-3 py-2 text-[12px] text-white/30 hover:text-white/70 transition-colors w-full"
         >
           <LogOut className="h-3.5 w-3.5" />
           {!collapsed && 'Déconnexion'}
@@ -112,24 +116,25 @@ const CandidateHeader = () => {
     : store.statutEcoute === 'passif' ? 'À l\'écoute'
     : null;
 
-  const sermentYear = store.sermentAnnee || null;
-
   const pills = [
     store.cabinet,
     store.departement,
-    sermentYear ? `Serment ${sermentYear}` : null,
+    store.sermentAnnee ? `Serment ${store.sermentAnnee}` : null,
     statutLabel,
   ].filter(Boolean) as string[];
 
   return (
-    <header className="flex items-center justify-between border-b border-border bg-background px-8 gap-6 flex-shrink-0 py-5">
+    <header
+      className="flex items-center justify-between border-b border-white/10 px-8 gap-6 flex-shrink-0 py-5"
+      style={{ background: '#0a0a0a' }}
+    >
       <div className="flex items-center gap-4">
-        <SidebarTrigger />
-        <div className="w-px h-6 bg-border" />
+        <SidebarTrigger className="text-white/50 hover:text-white" />
+        <div className="w-px h-6 bg-white/10" />
         {(store.prenom || store.nom) && (
           <div>
-            <p className="text-[9px] font-sans font-semibold tracking-[0.18em] uppercase text-muted-foreground mb-0.5">Espace candidat</p>
-            <p className="text-base font-sans font-medium text-foreground leading-none">
+            <p className="text-[9px] font-sans font-semibold tracking-[0.18em] uppercase text-white/30 mb-0.5">Espace candidat</p>
+            <p className="text-base font-sans font-medium text-white leading-none">
               {store.prenom} {store.nom}
             </p>
           </div>
@@ -137,7 +142,7 @@ const CandidateHeader = () => {
       </div>
       <div className="flex items-center gap-2 flex-wrap justify-end">
         {pills.map(p => (
-          <span key={p} className="text-[11px] font-sans font-normal tracking-wide px-3 py-1.5 rounded-sm bg-secondary text-foreground border border-border whitespace-nowrap">
+          <span key={p} className="text-[11px] font-sans font-normal tracking-wide px-3 py-1.5 rounded-sm bg-white/10 text-white/80 border border-white/10 whitespace-nowrap">
             {p}
           </span>
         ))}
@@ -162,14 +167,12 @@ const CandidateDashboardContent = () => {
   React.useEffect(() => {
     if (!user) return;
 
-    // Si c'est un utilisateur cabinet, le renvoyer sur son espace
     const userType = (user as any).user_metadata?.user_type;
     if (userType === 'cabinet') {
       navigate('/cabinet');
       return;
     }
 
-    // Sinon vérifier en base (double sécurité)
     supabase
       .from('cabinet_accounts')
       .select('id')
@@ -208,8 +211,7 @@ const CandidateDashboardContent = () => {
   return (
     <>
       <CandidateSidebar activeTab={activeTab} setActiveTab={setActiveTab} />
-
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 flex flex-col min-w-0">
         <CandidateHeader />
         <main className="flex-1 p-8 lg:p-12 overflow-y-auto bg-background">
           {activeTab === 'dashboard' && <CandidateDashboardOverview />}
