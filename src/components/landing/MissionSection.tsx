@@ -67,7 +67,7 @@ const MissionSection = () => (
           {/* Logan + flèches alignées */}
           <div className="relative flex items-center justify-center w-full">
             {/* Flèche gauche */}
-            <div className="hidden md:flex absolute left-0 items-center w-10">
+            <div className="hidden md:flex absolute left-0 items-center w-20">
               <motion.div
                 initial={{ scaleX: 0, opacity: 0 }}
                 whileInView={{ scaleX: 1, opacity: 1 }}
@@ -82,7 +82,7 @@ const MissionSection = () => (
             <span className="font-serif text-[1.5rem] tracking-[0.02em] text-black font-[300]">Logan</span>
 
             {/* Flèche droite */}
-            <div className="hidden md:flex absolute right-0 items-center w-10 flex-row-reverse">
+            <div className="hidden md:flex absolute right-0 items-center w-20 flex-row-reverse">
               <motion.div
                 initial={{ scaleX: 0, opacity: 0 }}
                 whileInView={{ scaleX: 1, opacity: 1 }}
