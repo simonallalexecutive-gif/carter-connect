@@ -43,6 +43,7 @@ const CandidateSidebar = ({
   const { state } = useSidebar();
   const collapsed = state === 'collapsed';
   const { signOut } = useAuth();
+  const prenom = useRegistrationStore(s => s.prenom);
 
   return (
     <Sidebar
@@ -53,11 +54,18 @@ const CandidateSidebar = ({
       <SidebarContent style={{ background: '#0a0a0a' }}>
         <SidebarGroup>
           <SidebarGroupLabel className="py-7 h-auto">
-            <Link to="/" className="hover:opacity-70 transition-opacity">
-              <span className="font-serif text-[34px] leading-none tracking-[0.04em] text-white">
-                {collapsed ? 'L' : 'Logan'}
-              </span>
-            </Link>
+            <div className="flex flex-col gap-1">
+              <Link to="/" className="hover:opacity-70 transition-opacity">
+                <span className="font-serif text-[34px] leading-none tracking-[0.04em] text-white">
+                  {collapsed ? 'L' : 'Logan'}
+                </span>
+              </Link>
+              {!collapsed && prenom && (
+                <span className="font-serif text-[34px] leading-none tracking-[0.04em] text-white/60">
+                  {prenom}
+                </span>
+              )}
+            </div>
           </SidebarGroupLabel>
           <SidebarGroupContent className="mt-4">
             <SidebarMenu>
@@ -125,7 +133,7 @@ const CandidateHeader = () => {
 
   return (
     <header
-      className="flex items-center justify-between border-b border-white/10 px-10 gap-6 flex-shrink-0 py-[52px]"
+      className="flex items-center justify-between border-b border-white/10 px-10 gap-6 flex-shrink-0 py-[47px]"
       style={{ background: '#0a0a0a' }}
     >
       <div className="flex items-center gap-5">
