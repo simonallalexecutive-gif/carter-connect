@@ -4,6 +4,8 @@ import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
 import React from 'react';
 import { useLoadCandidateProfile } from '@/hooks/useLoadCandidateProfile';
+import { useRegistrationStore } from '@/stores/registrationStore';
+import { usePQE } from '@/hooks/usePQE';
 import { Briefcase, FileText, LogOut, Home, Phone } from 'lucide-react';
 import {
   SidebarProvider,
@@ -102,6 +104,45 @@ const CandidateSidebar = ({
   );
 };
 
+const CandidateHeader = () => {
+  const store = useRegistrationStore();
+  const pqe = usePQE(store.sermentMois, store.sermentAnnee);
+
+  const statutLabel = store.statutEcoute === 'actif' ? 'En recherche active'
+    : store.statutEcoute === 'passif' ? 'À l\'écoute'
+    : null;
+
+  const sermentYear = store.sermentAnnee || null;
+
+  const pills = [
+    store.cabinet,
+    store.departement,
+    sermentYear ? `Serment ${sermentYear}` : null,
+    statutLabel,
+  ].filter(Boolean) as string[];
+
+  return (
+    <header className="h-14 flex items-center justify-between border-b border-border bg-background px-6 gap-4 flex-shrink-0">
+      <div className="flex items-center gap-3">
+        <SidebarTrigger />
+        <div className="w-px h-4 bg-border" />
+        {(store.prenom || store.nom) && (
+          <span className="text-sm font-sans font-medium text-foreground">
+            {store.prenom} {store.nom}
+          </span>
+        )}
+      </div>
+      <div className="flex items-center gap-2 flex-wrap justify-end">
+        {pills.map(p => (
+          <span key={p} className="text-[10px] font-sans font-normal tracking-wide px-2.5 py-1 rounded-sm bg-secondary text-foreground border border-border whitespace-nowrap">
+            {p}
+          </span>
+        ))}
+      </div>
+    </header>
+  );
+};
+
 const CandidateDashboardContent = () => {
   const { user, loading } = useAuth();
   const navigate = useNavigate();
@@ -166,13 +207,7 @@ const CandidateDashboardContent = () => {
       <CandidateSidebar activeTab={activeTab} setActiveTab={setActiveTab} />
 
       <div className="flex-1 flex flex-col">
-        <header className="h-16 flex items-center justify-between border-b border-border bg-background px-6 gap-3">
-          <div className="flex items-center gap-3">
-            <SidebarTrigger />
-            <span className="text-[10px] font-semibold tracking-[0.18em] uppercase text-muted-foreground">Espace candidat</span>
-          </div>
-          
-        </header>
+        <CandidateHeader />
         <main className="flex-1 p-8 lg:p-12 overflow-y-auto bg-background">
           {activeTab === 'dashboard' && <CandidateDashboardOverview />}
           {activeTab === 'profil' && <CandidateProfile />}

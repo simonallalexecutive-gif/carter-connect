@@ -1,15 +1,16 @@
 import { useRegistrationStore } from '@/stores/registrationStore';
 import { usePQE } from '@/hooks/usePQE';
 import { useAuth } from '@/hooks/useAuth';
-import { User, Building2, Star, Mail, Phone, Pencil, Plus, FileText, X, ShieldCheck, Check, Eye } from 'lucide-react';
-import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
+import { FileText, X, ShieldCheck, Plus, Check, Pencil, Save, Loader2 } from 'lucide-react';
 import SeniorityBadge from '@/components/shared/SeniorityBadge';
-import { useNavigate } from 'react-router-dom';
-import { useRef, useMemo } from 'react';
+import { useRef, useMemo, useState } from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import { buildQuantizedChartData } from '@/lib/percentages';
-import { ACTIVITES_BY_PRACTICE, ACTIVITES_DEFAULT, CABINET_META } from '@/lib/constants';
-import { CHAMBERS_DB, CHAMBERS_DEPARTMENTS } from '@/lib/chambersRankings';
+import { ACTIVITES_BY_PRACTICE, ACTIVITES_DEFAULT, CABINET_META, CABINETS } from '@/lib/constants';
+import { CHAMBERS_DB } from '@/lib/chambersRankings';
+import { supabase } from '@/integrations/supabase/client';
+import { toast } from 'sonner';
+import { cn } from '@/lib/utils';
 
 const CHART_COLORS = [
   'hsl(215, 60%, 30%)',
@@ -31,24 +32,124 @@ const DEPT_TO_CHAMBERS: Record<string, string> = {
   'Immobilier': 'immo',
 };
 
+const PRIORITIES_OPTIONS = [
+  'Qualité du management',
+  'Formation et encadrement',
+  'Équilibre pro/perso',
+  'Rémunération',
+  'Notoriété du cabinet',
+  'Taille de la structure',
+  'Internationalité',
+  'Secteur d\'activité',
+  'Pratique transactionnelle',
+  'Pratique contentieuse',
+];
+
+const PRATIQUES = [
+  'Corporate', 'M&A (dominante)', 'Private Equity (dominante)',
+  'Financement LBO', 'Financement de projets', 'Restructuring',
+  'Droit Social', 'Immobilier', 'Droit fiscal', 'Propriété intellectuelle',
+  'Droit public', 'Concurrence & Distribution', 'Compliance',
+];
+
+const inputCls = 'w-full border border-border rounded-sm px-3 py-2 text-sm font-sans bg-background text-foreground focus:outline-none focus:ring-1 focus:ring-foreground/30';
+const labelCls = 'text-[9px] uppercase tracking-[0.15em] text-muted-foreground font-sans font-light mb-1 block';
+
 const CandidateProfile = () => {
   const { user } = useAuth();
-  const navigate = useNavigate();
   const store = useRegistrationStore();
   const {
     photoPreviewUrl, prenom, nom, email, telephone,
     departement, cabinet, sermentMois, sermentAnnee,
     activites, pourcentages, statutEcoute, visibilite,
-    qualitesAppreciees, axesAmelioration, motivation,
     movePriorities, cabinetsCibles, noGoCabinets,
     retrocession, bonus, anglais, typesClients,
     tailleOperations, conserverRetrocession, cvFile,
     linkedinUrl, hasObjectifFacturable, objectifFacturable, objectifFacturableReel,
     isAssocieOrCounsel, statutAssoc, chiffreAffairesPortable, assocExpertiseSummary,
-    assocAttentes, assocCabTypes, disponibilite, raisonsBaisseRetro,
+    assocAttentes, assocCabTypes, disponibilite, raisonsBaisseRetro, motivation,
   } = store;
   const seniorityInfo = usePQE(sermentMois, sermentAnnee);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const [editing, setEditing] = useState(false);
+  const [saving, setSaving] = useState(false);
+
+  // Draft state for editable fields
+  const [draft, setDraft] = useState({
+    retrocession: retrocession || '',
+    bonus: bonus || '',
+    statutEcoute: statutEcoute || 'passif',
+    cabinet: cabinet || '',
+    departement: departement || '',
+    movePriorities: [...movePriorities],
+  });
+
+  const startEdit = () => {
+    setDraft({
+      retrocession: retrocession || '',
+      bonus: bonus || '',
+      statutEcoute: statutEcoute || 'passif',
+      cabinet: cabinet || '',
+      departement: departement || '',
+      movePriorities: [...movePriorities],
+    });
+    setEditing(true);
+  };
+
+  const cancelEdit = () => setEditing(false);
+
+  const saveEdit = async () => {
+    setSaving(true);
+    try {
+      // Update local store
+      store.setField('retrocession', draft.retrocession as any);
+      store.setField('bonus', draft.bonus as any);
+      store.setField('statutEcoute', draft.statutEcoute as any);
+      store.setField('cabinet', draft.cabinet);
+      store.setField('departement', draft.departement);
+      store.setField('movePriorities', draft.movePriorities);
+
+      // Build updated submission_data patch
+      const { data: existing } = await supabase
+        .from('candidate_registrations')
+        .select('submission_data')
+        .eq('user_id', user!.id)
+        .single();
+
+      const updated = {
+        ...(existing?.submission_data || {}),
+        retrocession: draft.retrocession,
+        bonus: draft.bonus,
+        statutEcoute: draft.statutEcoute,
+        cabinet: draft.cabinet,
+        departement: draft.departement,
+        movePriorities: draft.movePriorities,
+      };
+
+      const { error } = await supabase
+        .from('candidate_registrations')
+        .update({ submission_data: updated })
+        .eq('user_id', user!.id);
+
+      if (error) throw error;
+      toast.success('Profil mis à jour.');
+      setEditing(false);
+    } catch (e: any) {
+      toast.error(e.message || 'Erreur lors de la sauvegarde.');
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const togglePriority = (p: string) => {
+    setDraft(prev => ({
+      ...prev,
+      movePriorities: prev.movePriorities.includes(p)
+        ? prev.movePriorities.filter(x => x !== p)
+        : [...prev.movePriorities, p],
+    }));
+  };
 
   const practiceActivities = departement
     ? (ACTIVITES_BY_PRACTICE[departement] || ACTIVITES_DEFAULT)
@@ -114,9 +215,39 @@ const CandidateProfile = () => {
 
   return (
     <div className="space-y-8">
-      {/* Full profile recap - single block */}
+      {/* Action bar */}
+      <div className="flex items-center justify-between">
+        <h2 className="text-base font-sans font-medium text-foreground">Mon profil</h2>
+        {!editing ? (
+          <button
+            onClick={startEdit}
+            className="inline-flex items-center gap-1.5 text-xs font-sans font-normal text-muted-foreground hover:text-foreground border border-border px-3 py-1.5 rounded-sm transition-colors"
+          >
+            <Pencil className="w-3.5 h-3.5" />
+            Modifier
+          </button>
+        ) : (
+          <div className="flex items-center gap-2">
+            <button
+              onClick={cancelEdit}
+              className="text-xs font-sans text-muted-foreground hover:text-foreground transition-colors px-3 py-1.5"
+            >
+              Annuler
+            </button>
+            <button
+              onClick={saveEdit}
+              disabled={saving}
+              className="inline-flex items-center gap-1.5 text-xs font-sans font-normal bg-foreground text-background px-3 py-1.5 rounded-sm hover:bg-foreground/90 transition-colors disabled:opacity-50"
+            >
+              {saving ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Save className="w-3.5 h-3.5" />}
+              Sauvegarder
+            </button>
+          </div>
+        )}
+      </div>
+
       <div className="border border-border rounded-sm overflow-hidden">
-        {/* Identity */}
+        {/* Identity — lecture seule */}
         <SectionBlock title="Identité">
           <div className="flex items-start gap-5 mb-5">
             {photoPreviewUrl ? (
@@ -135,29 +266,58 @@ const CandidateProfile = () => {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {seniorityInfo && <div><span className="text-[10px] text-muted-foreground font-sans font-light">Séniorité</span><div className="mt-1"><SeniorityBadge info={seniorityInfo} /></div></div>}
-            <DataRow label="Cabinet" value={cabinet} />
+            {editing ? (
+              <div>
+                <label className={labelCls}>Cabinet</label>
+                <input list="cabinets-list" value={draft.cabinet} onChange={e => setDraft(p => ({ ...p, cabinet: e.target.value }))} className={inputCls} />
+                <datalist id="cabinets-list">{CABINETS.map(c => <option key={c} value={c} />)}</datalist>
+              </div>
+            ) : (
+              <DataRow label="Cabinet" value={cabinet} />
+            )}
             <DataRow label="Répertorié Chambers" value={chambersInfo?.isIntegrated ? 'Oui' : 'Non'} />
-            <DataRow label="Pratique" value={departement} />
+            {editing ? (
+              <div>
+                <label className={labelCls}>Pratique</label>
+                <select value={draft.departement} onChange={e => setDraft(p => ({ ...p, departement: e.target.value }))} className={inputCls}>
+                  <option value="">—</option>
+                  {PRATIQUES.map(p => <option key={p} value={p}>{p}</option>)}
+                </select>
+              </div>
+            ) : (
+              <DataRow label="Pratique" value={departement} />
+            )}
           </div>
         </SectionBlock>
 
         {/* Rémunération */}
-        {(retrocession || bonus) && (
-          <SectionBlock title="Rémunération">
+        <SectionBlock title="Rémunération">
+          {editing ? (
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+              <div>
+                <label className={labelCls}>Rétrocession (€)</label>
+                <input type="number" value={draft.retrocession} onChange={e => setDraft(p => ({ ...p, retrocession: e.target.value }))} className={inputCls} placeholder="ex: 120000" />
+              </div>
+              <div>
+                <label className={labelCls}>Bonus (€)</label>
+                <input type="number" value={draft.bonus} onChange={e => setDraft(p => ({ ...p, bonus: e.target.value }))} className={inputCls} placeholder="ex: 15000" />
+              </div>
+            </div>
+          ) : (
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
               {retrocession && <DataRow label="Rétrocession" value={`${retrocession} €`} />}
               {bonus && <DataRow label="Bonus" value={`${bonus} €`} />}
               {hasObjectifFacturable && objectifFacturable && <DataRow label="Objectif heures" value={`${objectifFacturable}h`} />}
               {hasObjectifFacturable && objectifFacturableReel && <DataRow label="Réalisé" value={`${objectifFacturableReel}h`} />}
             </div>
-            {conserverRetrocession !== null && (
-              <p className="mt-4 pt-3 border-t border-border text-xs font-sans text-muted-foreground font-light">
-                {conserverRetrocession ? 'Souhaite conserver sa rétrocession' : 'Ouvert à une baisse de rétrocession'}
-                {!conserverRetrocession && raisonsBaisseRetro.length > 0 && ` — ${raisonsBaisseRetro.join(', ')}`}
-              </p>
-            )}
-          </SectionBlock>
-        )}
+          )}
+          {conserverRetrocession !== null && !editing && (
+            <p className="mt-4 pt-3 border-t border-border text-xs font-sans text-muted-foreground font-light">
+              {conserverRetrocession ? 'Souhaite conserver sa rétrocession' : 'Ouvert à une baisse de rétrocession'}
+              {!conserverRetrocession && raisonsBaisseRetro.length > 0 && ` — ${raisonsBaisseRetro.join(', ')}`}
+            </p>
+          )}
+        </SectionBlock>
 
         {/* Activité */}
         <SectionBlock title="Activité">
@@ -203,40 +363,93 @@ const CandidateProfile = () => {
           </SectionBlock>
         )}
 
-        {/* Projet */}
+        {/* Projet — priorités éditables */}
         <SectionBlock title="Projet">
-          <div className="space-y-3">
-            {movePriorities.length > 0 && (
-              <div>
-                <p className="text-[9px] uppercase tracking-wider text-muted-foreground mb-1.5">Priorités</p>
-                <div className="flex flex-wrap gap-1.5">
-                  {movePriorities.map(p => (
-                    <span key={p} className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-foreground text-background text-[10px] font-sans font-light">
-                      <Check className="w-2.5 h-2.5" />{p}
-                    </span>
-                  ))}
-                </div>
+          {editing ? (
+            <div className="space-y-3">
+              <p className={labelCls}>Priorités</p>
+              <div className="flex flex-wrap gap-2">
+                {PRIORITIES_OPTIONS.map(p => {
+                  const active = draft.movePriorities.includes(p);
+                  return (
+                    <button
+                      key={p}
+                      type="button"
+                      onClick={() => togglePriority(p)}
+                      className={cn(
+                        'inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-sans border transition-all',
+                        active
+                          ? 'bg-foreground text-background border-foreground'
+                          : 'bg-transparent text-muted-foreground border-border hover:border-foreground/40'
+                      )}
+                    >
+                      {active && <Check className="w-2.5 h-2.5" />}
+                      {p}
+                    </button>
+                  );
+                })}
               </div>
-            )}
-            {motivation && <div><p className="text-[9px] uppercase tracking-wider text-muted-foreground mb-1">Motivation</p><p className="text-sm font-sans font-light">{motivation}</p></div>}
-            <div className="grid grid-cols-2 gap-3">
-              <TagList items={cabinetsCibles} label="Cabinets cibles" />
-              <TagList items={noGoCabinets} label="Cabinets exclus" />
             </div>
-          </div>
+          ) : (
+            <div className="space-y-3">
+              {movePriorities.length > 0 && (
+                <div>
+                  <p className="text-[9px] uppercase tracking-wider text-muted-foreground mb-1.5">Priorités</p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {movePriorities.map(p => (
+                      <span key={p} className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-foreground text-background text-[10px] font-sans font-light">
+                        <Check className="w-2.5 h-2.5" />{p}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+              {motivation && <div><p className="text-[9px] uppercase tracking-wider text-muted-foreground mb-1">Motivation</p><p className="text-sm font-sans font-light">{motivation}</p></div>}
+              <div className="grid grid-cols-2 gap-3">
+                <TagList items={cabinetsCibles} label="Cabinets cibles" />
+                <TagList items={noGoCabinets} label="Cabinets exclus" />
+              </div>
+            </div>
+          )}
         </SectionBlock>
 
-        {/* Statut */}
+        {/* Statut — éditable */}
         <SectionBlock title="Statut">
-          <div className="grid grid-cols-2 gap-4">
-            <DataRow label="Écoute" value={statutEcoute === 'actif' ? 'En recherche active' : statutEcoute === 'passif' ? 'À l\'écoute' : '—'} />
-            <DataRow label="Visibilité" value={visibilite === 'confidentiel' ? 'Confidentiel – fermé' : visibilite === 'semi-confidentiel' ? 'Confidentiel – ouvert' : '—'} />
-            {disponibilite && <DataRow label="Disponibilité" value={disponibilite} />}
-          </div>
+          {editing ? (
+            <div className="space-y-3">
+              <p className={labelCls}>Disponibilité</p>
+              <div className="flex gap-3">
+                {[
+                  { value: 'actif', label: 'En recherche active' },
+                  { value: 'passif', label: 'À l\'écoute' },
+                ].map(opt => (
+                  <button
+                    key={opt.value}
+                    type="button"
+                    onClick={() => setDraft(p => ({ ...p, statutEcoute: opt.value }))}
+                    className={cn(
+                      'px-4 py-2 rounded-sm text-xs font-sans border transition-all',
+                      draft.statutEcoute === opt.value
+                        ? 'bg-foreground text-background border-foreground'
+                        : 'bg-transparent text-muted-foreground border-border hover:border-foreground/40'
+                    )}
+                  >
+                    {opt.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <div className="grid grid-cols-2 gap-4">
+              <DataRow label="Écoute" value={statutEcoute === 'actif' ? 'En recherche active' : statutEcoute === 'passif' ? 'À l\'écoute' : '—'} />
+              <DataRow label="Visibilité" value={visibilite === 'confidentiel' ? 'Confidentiel – fermé' : visibilite === 'semi-confidentiel' ? 'Confidentiel – ouvert' : '—'} />
+              {disponibilite && <DataRow label="Disponibilité" value={disponibilite} />}
+            </div>
+          )}
         </SectionBlock>
       </div>
 
-      {/* CV upload - discreet */}
+      {/* CV upload */}
       <div className="border border-border rounded-lg p-5">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -254,13 +467,7 @@ const CandidateProfile = () => {
             </button>
           )}
         </div>
-        <input
-          ref={fileInputRef}
-          type="file"
-          accept=".pdf,.doc,.docx"
-          onChange={handleFileChange}
-          className="hidden"
-        />
+        <input ref={fileInputRef} type="file" accept=".pdf,.doc,.docx" onChange={handleFileChange} className="hidden" />
         {cvFile && (
           <div className="flex items-center gap-2 mt-2 px-3 py-2 rounded-sm border border-border bg-card">
             <FileText className="w-3.5 h-3.5 text-muted-foreground" />
@@ -276,17 +483,6 @@ const CandidateProfile = () => {
             Logan s'engage à ne jamais transmettre votre CV sans votre accord explicite.
           </p>
         </div>
-      </div>
-
-      <div className="text-center space-y-3">
-        <button
-          onClick={() => navigate('/demander-acces')}
-          className="inline-flex items-center gap-2 bg-foreground text-background px-6 py-3 rounded-sm text-sm font-sans font-medium hover:bg-foreground/90 transition-colors"
-        >
-          <Pencil className="w-4 h-4" />
-          Modifier mon profil
-        </button>
-        <p className="text-[10px] text-muted-foreground font-sans font-light">Vous serez redirigé vers le formulaire pré-rempli avec vos informations actuelles.</p>
       </div>
     </div>
   );
