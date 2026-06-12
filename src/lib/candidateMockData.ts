@@ -59,7 +59,7 @@ export const CANDIDATE_OFFERS: CandidateOffer[] = [
     location: 'Paris / Londres',
     postedAt: '2026-03-07',
     tags: ['Fonds', 'Capital-investissement', 'Structuration'],
-    activitySplit: { 'Private Equity': 70, 'Banking & Finance': 30 },
+    activitySplit: { 'Private Equity': 70, 'Financement LBO': 30 },
     contexte: 'Départ à remplacer',
     equipe: '2 associé(s), 2 counsel(s), 4 collaborateur(s)',
     retroStr: '150.000€ — 200.000€',
@@ -72,7 +72,7 @@ export const CANDIDATE_OFFERS: CandidateOffer[] = [
   {
     id: 'OFF-C-003',
     reference: 'LGN-2026-043',
-    dept: 'Banking & Finance',
+    dept: 'Financement LBO',
     seniority: 'Collaborateur (3-5 ans)',
     description: 'Cabinet français indépendant reconnu recherche un collaborateur en financement d\'acquisition et financements structurés. Belle courbe de progression.',
     location: 'Paris',

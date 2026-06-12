@@ -2,8 +2,8 @@
 // Source: Legal 500 Paris — données 2025/2026
 // Pratiques couvertes par Logan :
 //   ma = Corporate/M&A (Fusions-acquisitions)
-//   pe = Private Equity / LBO
-//   banque = Banking & Finance
+//   pe = Private Equity
+//   banque = Financement LBO (Legal 500: Banque et Finance - Transactions)
 //   projets = Financement de projets / Projects & Energy
 //   social = Droit Social / Employment
 //   immo = Immobilier / Real Estate
@@ -233,7 +233,7 @@ export function resolveCanonicalName(name: string): string {
 export const LEGAL500_DEPARTMENTS: { key: string; label: string }[] = [
   { key: 'ma',            label: 'Corporate/M&A' },
   { key: 'pe',            label: 'Private Equity' },
-  { key: 'banque',        label: 'Banking & Finance' },
+  { key: 'banque',        label: 'Financement LBO' },
   { key: 'projets',       label: 'Projects & Energy' },
   { key: 'social',        label: 'Employment' },
   { key: 'immo',          label: 'Real Estate' },

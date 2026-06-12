@@ -30,7 +30,7 @@ const CHART_COLORS = [
 
 // Practices selectable at Step 2 (Identity) that have a specialized panel
 const SPECIALIZED_DEPTS = [
-  'Banking & Finance',
+  'Financement LBO',
   'Restructuring/Insolvency',
   'Employment',
   'Corporate/M&A',
@@ -103,13 +103,13 @@ const Step3Activity = () => {
 
       <div className="space-y-8">
         {/* Specialized panels */}
-        {(store.departement === 'Banking & Finance') && practiceActivities.sections.filter(s => s.title === 'Type de financement').length > 0 ? (
+        {(store.departement === 'Financement LBO') && practiceActivities.sections.filter(s => s.title === 'Type de financement').length > 0 ? (
           practiceActivities.sections.filter(s => s.title === 'Type de financement').map(section => (
             <div key={section.title}>
               <FinanceActivityPanel items={section.items} />
             </div>
           ))
-        ) : (store.departement === 'Banking & Finance') ? (
+        ) : (store.departement === 'Financement LBO') ? (
           <FinanceActivityPanel items={[
             { key: 'fin_obligataire', label: 'Financement obligataire' }, { key: 'fin_acq', label: "Financement d'acquisition" },
             { key: 'fin_lbo', label: 'Financement LBO' }, { key: 'fin_immo', label: 'Financement immobilier' },

@@ -65,7 +65,7 @@ const SearchFormMockup = () => (
         <div className="mb-3">
           <div className="text-[8px] tracking-[0.12em] uppercase text-gray-400 mb-1.5">Département</div>
           <div className="flex flex-wrap gap-1">
-            {['Corporate/M&A/PE', 'Banking & Finance', 'Employment'].map((d, i) => (
+            {['Corporate/M&A/PE', 'Financement LBO', 'Employment'].map((d, i) => (
               <div key={d} className={cn('px-2 py-1 rounded-full border text-[8px]', i < 2 ? 'border-gray-900 text-gray-900 font-medium' : 'border-gray-200 text-gray-400')}>{d}</div>
             ))}
           </div>

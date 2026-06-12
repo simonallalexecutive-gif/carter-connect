@@ -345,7 +345,7 @@ export interface CabinetProfile {
 
 export const PROFILES: CabinetProfile[] = [
   {
-    id: 'C-2024-042', dept: 'banque', deptLabel: 'Banque & Finance',
+    id: 'C-2024-042', dept: 'banque', deptLabel: 'Financement LBO',
     title: 'Senior Associate Finance — 5 ans PQE',
     pqe: '5 ans', nat: 'FR', natFlag: 'FR',
     origin: 'Cabinet US Tier 1', originTier: 'Tier 1',
@@ -375,7 +375,7 @@ export const PROFILES: CabinetProfile[] = [
     match: 88,
   },
   {
-    id: 'C-2024-071', dept: 'banque', deptLabel: 'Banque & Finance',
+    id: 'C-2024-071', dept: 'banque', deptLabel: 'Financement LBO',
     title: 'Collaborateur Finance — 3 ans PQE',
     pqe: '3 ans', nat: 'UK', natFlag: 'GB',
     origin: 'Cabinet UK Tier 2', originTier: 'Tier 2',
@@ -436,7 +436,7 @@ export const PROFILES: CabinetProfile[] = [
     match: 74,
   },
   {
-    id: 'C-2024-102', dept: 'banque', deptLabel: 'Banque & Finance',
+    id: 'C-2024-102', dept: 'banque', deptLabel: 'Financement LBO',
     title: 'Senior Associate Finance — 7 ans PQE',
     pqe: '7 ans', nat: 'US', natFlag: 'US',
     origin: 'Cabinet US Tier 1', originTier: 'Tier 1',
@@ -496,7 +496,7 @@ export const PROFILES: CabinetProfile[] = [
     match: 77,
   },
   {
-    id: 'C-2024-119', dept: 'banque', deptLabel: 'Banque & Finance',
+    id: 'C-2024-119', dept: 'banque', deptLabel: 'Financement LBO',
     title: 'Counsel Finance — 9 ans PQE',
     pqe: '9 ans', nat: 'FR', natFlag: 'FR',
     origin: 'Cabinet UK Tier 2', originTier: 'Tier 2',

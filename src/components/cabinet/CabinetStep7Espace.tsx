@@ -15,7 +15,7 @@ const FILTERS = [
   { key: 'all', label: 'Tous' },
   { key: 'ma', label: 'M&A' },
   { key: 'pe', label: 'Private Equity' },
-  { key: 'banque', label: 'Banque & Finance' },
+  { key: 'banque', label: 'Financement LBO' },
   { key: 'social', label: 'Droit Social' },
   { key: 'fiscal', label: 'Fiscal' },
   { key: 'new', label: '✦ New' },

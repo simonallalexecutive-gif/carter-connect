@@ -12,7 +12,7 @@ const FILTERS = [
   { key: 'all', label: 'Tous' },
   { key: 'ma', label: 'Corporate/M&A' },
   { key: 'pe', label: 'Private Equity' },
-  { key: 'banque', label: 'Banking & Finance' },
+  { key: 'banque', label: 'Financement LBO' },
   { key: 'restructuring', label: 'Restructuring/Insolvency' },
   { key: 'social', label: 'Employment' },
   { key: 'immo', label: 'Real Estate' },

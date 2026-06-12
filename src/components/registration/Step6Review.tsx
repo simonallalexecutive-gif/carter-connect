@@ -264,7 +264,7 @@ const Step6Review = ({ readOnly = false, cabinetView = false, hideStepHeader = f
     }
 
     // ── Finance ──
-    if (dept === 'Financement LBO' || dept === 'Financement de projets' || dept === 'Banking & Finance') {
+    if (dept === 'Financement LBO' || dept === 'Financement de projets' || dept === 'Financement LBO') {
       const finKeys = Object.keys(store.activites).filter(k => (k.startsWith('fin_') || k.startsWith('finp_')) && store.activites[k]);
       if (finKeys.length > 0) {
         const items = finKeys.map((k, i) => ({
@@ -492,7 +492,7 @@ const Step6Review = ({ readOnly = false, cabinetView = false, hideStepHeader = f
             )}
 
             {/* Positionnement prêteur/sponsor (Finance) */}
-            {(store.departement === 'Financement LBO' || store.departement === 'Financement de projets' || store.departement === 'Banking & Finance') && (
+            {(store.departement === 'Financement LBO' || store.departement === 'Financement de projets' || store.departement === 'Financement LBO') && (
               <div className="pt-4 border-t border-white/20 space-y-2">
                 <p className="text-[9px] uppercase tracking-[0.22em] text-white/65 font-sans font-semibold mb-2">Positionnement</p>
                 <div className="flex items-baseline gap-3 text-[12px] font-sans">
