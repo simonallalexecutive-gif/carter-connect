@@ -59,21 +59,6 @@ const CabinetDashboard = () => {
   const [filter, setFilter] = useState('all');
   const [sort, setSort] = useState('date');
   const [drawerProfile, setDrawerProfile] = useState<CabinetProfile | null>(null);
-  const [candidateViewData, setCandidateViewData] = useState<{ submissionData: any; id: string } | null>(null);
-
-  // Fetch real candidates here (before any early returns) so submissionDataMap is always available
-  const [submissionDataMap, setSubmissionDataMap] = useState<Record<string, any>>({});
-  useEffect(() => {
-    supabase
-      .from('candidate_registrations')
-      .select('id, submission_data')
-      .eq('status', 'approved')
-      .then(({ data }) => {
-        const map: Record<string, any> = {};
-        (data || []).forEach(row => { map[row.id] = row.submission_data; });
-        setSubmissionDataMap(map);
-      });
-  }, []);
 
   // New search: skip dept selection, go directly to search form
   if (s.dashboardView === 'newSearch') {
@@ -127,34 +112,14 @@ const CabinetDashboard = () => {
   // Explorer le marché
   if (s.dashboardView === 'explore') {
     return (
-      <>
-        <ExploreView
-          filter={filter}
-          setFilter={setFilter}
-          sort={sort}
-          setSort={setSort}
-          drawerProfile={drawerProfile}
-          setDrawerProfile={(p) => {
-            if (p && submissionDataMap[p.id]) {
-              // Vrai candidat → vue plein écran Step6Review
-              setCandidateViewData({ submissionData: submissionDataMap[p.id], id: p.id });
-              setDrawerProfile(null);
-            } else {
-              // Profil démo → ancien drawer
-              setCandidateViewData(null);
-              setDrawerProfile(p);
-            }
-          }}
-        />
-        {candidateViewData && (
-          <CabinetCandidateView
-            open={true}
-            onClose={() => { setDrawerProfile(null); setCandidateViewData(null); }}
-            submissionData={candidateViewData.submissionData}
-            candidateId={candidateViewData.id}
-          />
-        )}
-      </>
+      <ExploreView
+        filter={filter}
+        setFilter={setFilter}
+        sort={sort}
+        setSort={setSort}
+        drawerProfile={drawerProfile}
+        setDrawerProfile={setDrawerProfile}
+      />
     );
   }
 
@@ -861,6 +826,7 @@ const ExploreView = ({
   const [legal500Only, setLegal500Only] = useState(false);
   const [seniorityFilter, setSeniorityFilter] = useState<string>('all');
   const [realProfiles, setRealProfiles] = useState<CabinetProfile[]>([]);
+  const [candidateViewData, setCandidateViewData] = useState<{ submissionData: any; id: string } | null>(null);
 
   const [profilesLoaded, setProfilesLoaded] = useState(false);
   const [submissionDataMap, setSubmissionDataMap] = useState<Record<string, any>>({});
@@ -1004,7 +970,13 @@ const ExploreView = ({
           return (
             <div
               key={p.id}
-              onClick={() => setDrawerProfile(p)}
+              onClick={() => {
+                if (submissionDataMap[p.id]) {
+                  setCandidateViewData({ submissionData: submissionDataMap[p.id], id: p.id });
+                } else {
+                  setDrawerProfile(p);
+                }
+              }}
               className="group relative rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 border border-border bg-card cursor-pointer flex flex-col"
             >
               {/* Top strip: ID + status */}
@@ -1065,9 +1037,19 @@ const ExploreView = ({
         })}
       </div>
 
-      {/* Drawer */}
+      {/* Drawer — profils démo */}
       {drawerProfile && (
         <ProfileDrawer profile={drawerProfile} onClose={() => setDrawerProfile(null)} />
+      )}
+
+      {/* Vue plein écran — vrais candidats */}
+      {candidateViewData && (
+        <CabinetCandidateView
+          open={true}
+          onClose={() => setCandidateViewData(null)}
+          submissionData={candidateViewData.submissionData}
+          candidateId={candidateViewData.id}
+        />
       )}
     </div>
   );
