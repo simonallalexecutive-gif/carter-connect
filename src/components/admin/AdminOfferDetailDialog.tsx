@@ -34,7 +34,6 @@ const AdminOfferDetailDialog = ({ offer, cabinetName, open, onOpenChange }: Prop
   const hasMultipleExpertises = offer.activitySplit && Object.keys(offer.activitySplit).length >= 2;
   const parsed = parseOfferSeniority(offer.seniority);
   const natLabel = offer.nat ? `Cabinet ${offer.nat}` : '';
-  const hasChambers = !!offer.chambersBand;
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -58,7 +57,6 @@ const AdminOfferDetailDialog = ({ offer, cabinetName, open, onOpenChange }: Prop
             {natLabel && (
               <span className="text-[10px] font-sans font-bold text-foreground/70 leading-none border border-border rounded px-2 py-1">{natLabel}</span>
             )}
-            <span className="text-[10px] font-sans font-bold text-foreground/70 leading-none border border-border rounded px-2 py-1">Chambers : {hasChambers ? 'Oui' : 'Non'}</span>
           </div>
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground font-sans">

@@ -50,7 +50,6 @@ const CandidateRequests = () => (
                         </div>
                         <div className="flex items-center gap-2 mb-3 flex-wrap">
                           {offer.nat && <span className="text-[10px] font-sans font-bold text-foreground/70 leading-none border border-border rounded px-2 py-1">Cabinet {offer.nat}</span>}
-                          <span className="text-[10px] font-sans font-bold text-foreground/70 leading-none border border-border rounded px-2 py-1">Chambers : {offer.chambersBand ? 'Oui' : 'Non'}</span>
                         </div>
                       </>
                     )}

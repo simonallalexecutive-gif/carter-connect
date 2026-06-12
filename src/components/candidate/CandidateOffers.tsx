@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import { CANDIDATE_OFFERS, type CandidateOffer, getOfferNatFlag } from '@/lib/candidateMockData';
-import { CHAMBERS_DEPARTMENTS } from '@/lib/chambersRankings';
+import { LEGAL500_DEPARTMENTS } from '@/lib/legal500Rankings';
 import { Calendar, CheckCircle2, ChevronDown, Filter, Star } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { toast } from 'sonner';
@@ -34,7 +34,7 @@ const parseOfferSeniority = (s: string) => {
 
 const PRACTICE_FILTERS = [
   { key: 'all', label: 'Toutes' },
-  ...CHAMBERS_DEPARTMENTS.map(d => ({ key: d.key, label: d.label })),
+  ...LEGAL500_DEPARTMENTS.map(d => ({ key: d.key, label: d.label })),
 ];
 
 const NAT_FILTERS = [
@@ -51,13 +51,6 @@ const SENIORITY_FILTERS = [
   { key: 'associe', label: 'Associé' },
 ];
 
-const CHAMBERS_FILTERS = [
-  { key: 'all', label: 'Tous' },
-  { key: 'ranked', label: 'Classé Chambers' },
-  { key: 'band1', label: 'Band 1' },
-  { key: 'band2', label: 'Band 2' },
-  { key: 'band3', label: 'Band 3+' },
-];
 
 const CandidateOffers = () => {
   const [interestedOffers, setInterestedOffers] = useState<Set<string>>(new Set());
@@ -68,8 +61,6 @@ const CandidateOffers = () => {
   const [practiceFilter, setPracticeFilter] = useState('all');
   const [natFilter, setNatFilter] = useState('all');
   const [seniorityFilter, setSeniorityFilter] = useState('all');
-  const [chambersFilter, setChambersFilter] = useState('all');
-
   // Get candidate's active practices for relevance filtering
   const candidatePractices = useMemo(() => {
     const active = Object.entries(activites).filter(([, v]) => v).map(([k]) => k);
@@ -102,8 +93,6 @@ const CandidateOffers = () => {
       offers = offers.filter(o => {
         if (relatedDepts.some(d => o.dept === d || o.dept.includes(d))) return true;
         if (o.activitySplit && Object.keys(o.activitySplit).some(k => relatedDepts.some(d => k === d || k.includes(d)))) return true;
-        const chambersDept = CHAMBERS_DEPARTMENTS.find(d => d.label === departement);
-        if (chambersDept && o.chambersDeptKey === chambersDept.key) return true;
         return false;
       });
     }
@@ -111,10 +100,10 @@ const CandidateOffers = () => {
     // Practice filter
     if (practiceFilter !== 'all') {
       offers = offers.filter(o => {
-        if (o.chambersDeptKey === practiceFilter) return true;
-        const label = CHAMBERS_DEPARTMENTS.find(d => d.key === practiceFilter)?.label;
-        if (label && o.dept === label) return true;
-        if (label && o.activitySplit && Object.keys(o.activitySplit).some(k => k === label)) return true;
+        const dept = LEGAL500_DEPARTMENTS.find(d => d.key === practiceFilter);
+        if (!dept) return false;
+        if (o.dept === dept.label) return true;
+        if (o.activitySplit && Object.keys(o.activitySplit).some(k => k === dept.label)) return true;
         return false;
       });
     }
@@ -135,20 +124,8 @@ const CandidateOffers = () => {
       });
     }
 
-    // Chambers filter
-    if (chambersFilter !== 'all') {
-      offers = offers.filter(o => {
-        if (!o.chambersBand) return chambersFilter === 'all';
-        if (chambersFilter === 'ranked') return true;
-        if (chambersFilter === 'band1') return o.chambersBand === 1;
-        if (chambersFilter === 'band2') return o.chambersBand === 2;
-        if (chambersFilter === 'band3') return o.chambersBand >= 3;
-        return true;
-      });
-    }
-
     return offers;
-  }, [practiceFilter, natFilter, seniorityFilter, chambersFilter, departement, activites]);
+  }, [practiceFilter, natFilter, seniorityFilter, departement, activites]);
 
   const handleInterest = (offer: CandidateOffer) => {
     if (interestedOffers.has(offer.id)) return;
@@ -156,7 +133,7 @@ const CandidateOffers = () => {
     toast.success(`Votre intérêt pour l'opportunité ${offer.reference} a été transmis à Logan.`, { duration: 5000 });
   };
 
-  const activeFilterCount = [practiceFilter, natFilter, seniorityFilter, chambersFilter].filter(f => f !== 'all').length;
+  const activeFilterCount = [practiceFilter, natFilter, seniorityFilter].filter(f => f !== 'all').length;
 
   return (
     <div>
@@ -236,25 +213,9 @@ const CandidateOffers = () => {
                 </div>
               </div>
 
-              {/* Chambers */}
-              <div>
-                <div className="text-[8px] font-bold tracking-[0.14em] uppercase text-muted-foreground mb-2">Classement Chambers</div>
-                <div className="flex flex-wrap gap-1.5">
-                  {CHAMBERS_FILTERS.map(f => (
-                    <button
-                      key={f.key}
-                      onClick={() => setChambersFilter(f.key)}
-                      className={`text-[10px] font-sans px-2.5 py-1 rounded-full border transition-colors ${chambersFilter === f.key ? 'bg-foreground text-background border-foreground' : 'border-border text-foreground/60 hover:border-foreground/30'}`}
-                    >
-                      {f.label}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
               {activeFilterCount > 0 && (
                 <button
-                  onClick={() => { setPracticeFilter('all'); setNatFilter('all'); setSeniorityFilter('all'); setChambersFilter('all'); }}
+                  onClick={() => { setPracticeFilter('all'); setNatFilter('all'); setSeniorityFilter('all'); }}
                   className="text-[10px] text-muted-foreground hover:text-foreground font-sans underline underline-offset-2"
                 >
                   Réinitialiser les filtres
@@ -291,7 +252,6 @@ const CandidateOffers = () => {
                         {(() => {
                           const parsed = parseOfferSeniority(offer.seniority);
                           const natLabel = offer.nat ? `Cabinet ${offer.nat}` : '';
-                          const hasChambers = !!offer.chambersBand;
                           return (
                             <>
                               <div className="flex items-center gap-0 mb-2 flex-wrap">
@@ -314,7 +274,6 @@ const CandidateOffers = () => {
                                 {natLabel && (
                                   <span className="text-[10px] font-sans font-bold text-foreground/70 leading-none border border-border rounded px-2 py-1">{natLabel}</span>
                                 )}
-                                <span className="text-[10px] font-sans font-bold text-foreground/70 leading-none border border-border rounded px-2 py-1">Chambers : {hasChambers ? 'Oui' : 'Non'}</span>
                               </div>
                             </>
                           );

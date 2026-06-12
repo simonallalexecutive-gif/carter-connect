@@ -104,10 +104,6 @@ function getNatLabel(nat: string): string {
   return map[nat] || nat;
 }
 
-function isChambersRanked(p: CabinetProfile): boolean {
-  return p.originTier === 'Tier 1' || p.originTier === 'Tier 2';
-}
-
 function isLegal500Ranked(p: CabinetProfile): boolean {
   return !!(p.originTier && p.originTier.startsWith('Tier'));
 }
@@ -120,7 +116,6 @@ const AdminApprovedCandidates = () => {
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState('all');
   const [sort, setSort] = useState('date');
-  const [chambersOnly, setChambersOnly] = useState(false);
   const [legal500Only, setLegal500Only] = useState(false);
   const [seniorityFilter, setSeniorityFilter] = useState('all');
   const [candidateViewData, setCandidateViewData] = useState<{ submissionData: any; id: string; user_id: string; status: string; auth_email: string | null; full_name: string | null } | null>(null);
@@ -145,12 +140,11 @@ const AdminApprovedCandidates = () => {
     let list = [...profiles];
     if (filter === 'new') list = list.filter(p => p.isNew);
     else if (filter !== 'all') list = list.filter(p => p.dept === filter);
-    if (chambersOnly) list = list.filter(isChambersRanked);
     if (legal500Only) list = list.filter(isLegal500Ranked);
     if (seniorityFilter !== 'all') list = list.filter(p => getSeniorityLabel(p) === seniorityFilter);
     if (sort === 'pqe') list.sort((a, b) => parseInt(b.pqe) - parseInt(a.pqe));
     return list;
-  }, [profiles, filter, sort, chambersOnly, legal500Only, seniorityFilter]);
+  }, [profiles, filter, sort, legal500Only, seniorityFilter]);
 
   return (
     <div>
@@ -187,17 +181,11 @@ const AdminApprovedCandidates = () => {
       {/* Filters — Classements + Séniorité + Tri */}
       <div className="flex items-center gap-3 mb-6 flex-wrap">
         <span className="text-[11px] font-semibold text-foreground mr-1">Classements :</span>
-        {(['Chambers', 'Legal 500'] as const).map((label) => {
-          const active = label === 'Chambers' ? chambersOnly : legal500Only;
-          const toggle = label === 'Chambers' ? () => setChambersOnly(v => !v) : () => setLegal500Only(v => !v);
-          return (
-            <button key={label} onClick={toggle}
-              className={cn('text-[10px] font-medium px-3 py-1.5 border rounded-full transition-all',
-                active ? 'bg-foreground text-background border-foreground' : 'bg-background text-muted-foreground border-border hover:border-foreground'
-              )}
-            >{label}</button>
-          );
-        })}
+        <button onClick={() => setLegal500Only(v => !v)}
+          className={cn('text-[10px] font-medium px-3 py-1.5 border rounded-full transition-all',
+            legal500Only ? 'bg-foreground text-background border-foreground' : 'bg-background text-muted-foreground border-border hover:border-foreground'
+          )}
+        >Legal 500</button>
         <span className="text-[11px] font-semibold text-foreground ml-3 mr-1">Séniorité :</span>
         <select
           value={seniorityFilter}
@@ -229,7 +217,6 @@ const AdminApprovedCandidates = () => {
           {filtered.map((p) => {
             const seniorityLabel = getSeniorityLabel(p);
             const practiceLabel = p.deptLabel || p.dept;
-            const chambers = isChambersRanked(p);
             const legal500 = isLegal500Ranked(p);
             const isActive = p.statutEcoute === 'actif';
             const natLabel = p.nat ? `Cabinet ${getNatLabel(p.nat)}` : '';
@@ -292,7 +279,6 @@ const AdminApprovedCandidates = () => {
                   <div className="flex flex-wrap gap-1.5">
                     <span className="text-[10px] font-sans font-medium text-foreground leading-none border border-foreground/20 rounded-full px-2.5 py-1">{practiceLabel}</span>
                     {natLabel && <span className="text-[10px] font-sans font-medium text-foreground/70 leading-none border border-border rounded-full px-2.5 py-1">{natLabel}</span>}
-                    {chambers && <span className="text-[10px] font-sans font-medium text-foreground/70 leading-none border border-border rounded-full px-2.5 py-1">Chambers</span>}
                     {legal500 && <span className="text-[10px] font-sans font-medium text-foreground/70 leading-none border border-border rounded-full px-2.5 py-1">Legal 500</span>}
                   </div>
                 </div>

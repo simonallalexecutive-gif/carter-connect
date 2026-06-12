@@ -1,39 +1,23 @@
-// ══ FIRMS DATABASE (Legal 500 Paris) ══
-export const FIRMS_DB: Record<string, { nat: string; p: Record<string, string> }> = {
-  'A&O Shearman':{nat:'UK',p:{'banque':'Tier 1','restructuring':'Tier 3','ma':'Tier 3','social':'Tier 2','pe':'Tier 2','immo':'Tier 2','fiscal':'Tier 2'}},
-  'Ashurst':{nat:'UK',p:{'banque':'Tier 2','restructuring':'Tier 2','ma':'Tier 5','social':'Tier 4','pe':'Tier 3','immo':'Tier 3','fiscal':'Tier 4'}},
-  'Baker McKenzie':{nat:'US',p:{'banque':'Tier 3','ma':'Tier 3','social':'Tier 3','immo':'Tier 3','fiscal':'Tier 1'}},
-  'BDGS Associés':{nat:'FR',p:{'restructuring':'Tier 2','ma':'Tier 2','social':'Tier 2','pe':'Tier 2'}},
-  'Bredin Prat':{nat:'FR',p:{'banque':'Tier 2','restructuring':'Tier 2','ma':'Tier 1','social':'Tier 1','pe':'Tier 2','fiscal':'Tier 1'}},
-  'Cleary Gottlieb Steen & Hamilton':{nat:'US',p:{'banque':'Tier 2','ma':'Tier 1','pe':'Tier 3','fiscal':'Tier 2'}},
-  'Clifford Chance':{nat:'UK',p:{'banque':'Tier 1','restructuring':'Tier 2','ma':'Tier 3','social':'Tier 3','pe':'Tier 2','immo':'Tier 1','fiscal':'Tier 2'}},
-  'Darrois Villey Maillot Brochier':{nat:'FR',p:{'ma':'Tier 1','fiscal':'Tier 2'}},
-  'De Pardieu Brocas Maffei':{nat:'FR',p:{'banque':'Tier 2','restructuring':'Tier 1','ma':'Tier 3','social':'Tier 3','pe':'Tier 2','immo':'Tier 1','fiscal':'Tier 2'}},
-  'DLA Piper':{nat:'UK',p:{'banque':'Tier 3','restructuring':'Tier 4','ma':'Tier 4','social':'Tier 2','pe':'Tier 3','immo':'Tier 2','fiscal':'Tier 3'}},
-  'Freshfields Bruckhaus Deringer':{nat:'UK',p:{'banque':'Tier 2','restructuring':'Tier 2','ma':'Tier 2','social':'Tier 2','pe':'Tier 2','fiscal':'Tier 2'}},
-  'Gibson Dunn & Crutcher':{nat:'US',p:{'banque':'Tier 3','restructuring':'Tier 1','ma':'Tier 4','social':'Tier 3','pe':'Tier 3','fiscal':'Tier 3'}},
-  'Gide Loyrette Nouel':{nat:'FR',p:{'banque':'Tier 2','restructuring':'Tier 4','ma':'Tier 2','social':'Tier 1','pe':'Tier 2','immo':'Tier 1','fiscal':'Tier 2'}},
-  'Goodwin Procter':{nat:'US',p:{'banque':'Tier 3','ma':'Tier 4','pe':'Tier 2','fiscal':'Tier 3'}},
-  'Herbert Smith Freehills':{nat:'UK',p:{'banque':'Tier 2','restructuring':'Tier 3','ma':'Tier 4','social':'Tier 3','immo':'Tier 3','fiscal':'Tier 4'}},
-  'Hogan Lovells':{nat:'US',p:{'banque':'Tier 2','restructuring':'Tier 1','ma':'Tier 4','social':'Tier 2','pe':'Tier 2','immo':'Tier 5','fiscal':'Tier 3'}},
-  'Jones Day':{nat:'US',p:{'banque':'Tier 4','restructuring':'Tier 2','ma':'Tier 4','social':'Tier 3','immo':'Tier 3','fiscal':'Tier 4'}},
-  'King & Spalding':{nat:'US',p:{'banque':'Tier 3','ma':'Tier 4','pe':'Tier 3'}},
-  'Kirkland & Ellis':{nat:'US',p:{'banque':'Tier 3','pe':'Tier 1','fiscal':'Tier 3'}},
-  'Latham & Watkins':{nat:'US',p:{'banque':'Tier 1','restructuring':'Tier 1','ma':'Tier 3','social':'Tier 3','pe':'Tier 1','fiscal':'Tier 1'}},
-  'Linklaters':{nat:'UK',p:{'banque':'Tier 1','restructuring':'Tier 2','ma':'Tier 3','social':'Tier 2','pe':'Tier 2','immo':'Tier 2','fiscal':'Tier 2'}},
-  'Mayer Brown':{nat:'US',p:{'banque':'Tier 3','restructuring':'Tier 2','ma':'Tier 4','social':'Tier 3','pe':'Tier 2','immo':'Tier 2','fiscal':'Tier 2'}},
-  'McDermott Will & Emery':{nat:'US',p:{'banque':'Tier 3','ma':'Tier 4','fiscal':'Tier 2'}},
-  'Moncey Avocats':{nat:'FR',p:{'ma':'Tier 3','social':'Tier 3'}},
-  'Orrick Herrington & Sutcliffe':{nat:'US',p:{'restructuring':'Tier 3','ma':'Tier 4','social':'Tier 2','pe':'Tier 3','immo':'Tier 5','fiscal':'Tier 5'}},
-  'Paul Hastings':{nat:'US',p:{'banque':'Tier 3','restructuring':'Tier 3','ma':'Tier 4','social':'Tier 4','pe':'Tier 2','immo':'Tier 4','fiscal':'Tier 4'}},
-  'Proskauer Rose':{nat:'US',p:{'banque':'Tier 3','pe':'Tier 2','social':'Tier 3'}},
-  'Ropes & Gray':{nat:'US',p:{'pe':'Tier 1','ma':'Tier 3'}},
-  'Skadden Arps Slate Meagher & Flom':{nat:'US',p:{'banque':'Tier 2','ma':'Tier 3','pe':'Tier 2'}},
-  'Sullivan & Cromwell':{nat:'US',p:{'banque':'Tier 2','ma':'Tier 2','fiscal':'Tier 3'}},
-  'Weil Gotshal & Manges':{nat:'US',p:{'banque':'Tier 2','restructuring':'Tier 1','ma':'Tier 3','pe':'Tier 2','fiscal':'Tier 3'}},
-  'White & Case':{nat:'US',p:{'banque':'Tier 1','restructuring':'Tier 2','ma':'Tier 3','social':'Tier 3','pe':'Tier 2','fiscal':'Tier 2'}},
-  'Willkie Farr & Gallagher':{nat:'US',p:{'banque':'Tier 3','restructuring':'Tier 2','ma':'Tier 3','pe':'Tier 1','fiscal':'Tier 3'}},
-};
+// ══ FIRMS DATABASE — Legal 500 Paris ══
+// Source canonical : legal500Rankings.ts
+// Ce mapping est utilisé pour la détection rapide nat + tier principal
+import { LEGAL500_DB, resolveCanonicalName } from '@/lib/legal500Rankings';
+
+export type FirmsDBEntry = { nat: string; p: Record<string, string> };
+
+function buildFirmsDB(): Record<string, FirmsDBEntry> {
+  const db: Record<string, FirmsDBEntry> = {};
+  for (const [name, entry] of Object.entries(LEGAL500_DB)) {
+    const p: Record<string, string> = {};
+    for (const [key, tier] of Object.entries(entry.rankings)) {
+      p[key] = tier === 0 ? 'Firms to Watch' : `Tier ${tier}`;
+    }
+    db[name] = { nat: entry.nat, p };
+  }
+  return db;
+}
+
+export const FIRMS_DB: Record<string, FirmsDBEntry> = buildFirmsDB();
 
 export const NAT_LABELS: Record<string, string> = {
   FR: 'Cabinet français',
@@ -48,31 +32,31 @@ export const NAT_FLAGS: Record<string, string> = {
 };
 
 export const DEPT_KEY_MAP: Record<string, string> = {
-  // Labels français (espace cabinet)
+  // Labels anglais (filtres UI)
+  'Corporate/M&A': 'ma',
+  'Private Equity': 'pe',
+  'Banking & Finance': 'banque',
+  'Projects & Energy': 'projets',
+  'Employment': 'social',
+  'Real Estate': 'immo',
+  'Tax': 'fiscal',
+  'Restructuring/Insolvency': 'restructuring',
+  // Variantes inscription candidat
+  'M&A': 'ma',
+  'M&A (dominante)': 'ma',
+  'Private Equity (dominante)': 'pe',
+  'Venture Capital': 'pe',
+  'Financement LBO': 'banque',
+  'Financement de projets': 'projets',
+  'Financement de Projets': 'projets',
+  // Labels français
   'Banque & Finance': 'banque',
   'Corporate / M&A & PE': 'ma',
   'Droit Social': 'social',
+  'Droit fiscal': 'fiscal',
   'Immobilier': 'immo',
   'Restructuring': 'restructuring',
   'Fiscal': 'fiscal',
-  'Contentieux': 'contentieux',
-  // Labels Chambers / inscription candidat (anglais)
-  'Banking & Finance': 'banque',
-  'Financement LBO': 'banque',
-  'Financement de projets': 'banque',
-  'Projects & Energy': 'banque',
-  'Corporate/M&A': 'ma',
-  'Private Equity': 'pe',
-  'Private Equity (dominante)': 'pe',
-  'M&A (dominante)': 'ma',
-  'Venture Capital': 'pe',
-  'Employment': 'social',
-  'Real Estate': 'immo',
-  'Restructuring/Insolvency': 'restructuring',
-  'Tax': 'fiscal',
-  'Competition/European Law': 'contentieux',
-  'International Arbitration': 'contentieux',
-  'Public Law': 'contentieux',
 };
 
 export const DEPARTMENTS = [
@@ -338,7 +322,8 @@ export interface CabinetProfile {
   nat: string;
   natFlag: string;
   origin: string;
-  originTier: string;
+  originTier: string; // Legal 500 tier string ex: "Tier 1", "Firms to Watch"
+  legal500Tier?: number | null; // Tier numérique Legal 500
   english: string;
   seniority: string;
   isNew: boolean;

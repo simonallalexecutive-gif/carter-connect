@@ -72,7 +72,7 @@ const cabinetFAQ: FAQItem[] = [
   {
     question: 'Quels types de profils sont disponibles ?',
     answer:
-      'Logan réunit des avocats d\'affaires à tous les stades de leur carrière — collaborateurs juniors, mid-levels, seniors, counsels et associés — issus des cabinets les plus reconnus du marché (Chambers, Legal 500). Chaque profil est scrupuleusement analysé et validé par Logan.',
+      'Logan réunit des avocats d\'affaires à tous les stades de leur carrière — collaborateurs juniors, mid-levels, seniors, counsels et associés — issus des cabinets les plus reconnus du marché (Legal 500). Chaque profil est scrupuleusement analysé et validé par Logan.',
   },
   {
     question: 'Quel accompagnement Logan propose-t-il ?',

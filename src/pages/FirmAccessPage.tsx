@@ -22,7 +22,7 @@ const PRACTICES = [
 const PROFILE_ITEMS = [
   { label: 'Séniorité', desc: 'Années d\'expérience et niveau de qualification post-qualification.' },
   { label: 'Expertise', desc: 'Pratique principale et éventuelles spécialités secondaires.' },
-  { label: 'Cabinet d\'origine', desc: 'Nationalité et présence aux classements Legal 500 & Chambers.' },
+  { label: 'Cabinet d\'origine', desc: 'Nationalité et présence au classement Legal 500.' },
   { label: 'Projet du candidat', desc: 'Ce qu\'il rechercherait s\'il devait quitter son cabinet actuel.' },
   { label: 'Statut d\'écoute', desc: 'Actif — en recherche ouverte — ou Opportuniste — à l\'écoute d\'opportunités ciblées.' },
 ];

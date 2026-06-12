@@ -2,8 +2,7 @@ import { useState, useMemo, useEffect } from 'react';
 import { useCabinetStore } from '@/stores/cabinetStore';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { CHAMBERS_DB, getFirmChambersRankings, formatChambersBand, CHAMBERS_DEPARTMENTS } from '@/lib/chambersRankings';
-import { NAT_FLAGS, NAT_LABELS, getFirmRankings as getLegal500Rankings, formatTier as formatLegal500Tier } from '@/lib/legal500Rankings';
+import { NAT_FLAGS, NAT_LABELS, getAllFirmNames, LEGAL500_DEPARTMENTS, getFirmTierForDept, formatTier, getLegal500Summary, getFirmRankings, LEGAL500_DB, resolveCanonicalName } from '@/lib/legal500Rankings';
 import { cn } from '@/lib/utils';
 import { formatPhoneWithDots } from '@/lib/formatters';
 import { Plus, Minus, Shield, Building2, Eye, EyeOff } from 'lucide-react';
@@ -25,7 +24,7 @@ const CabinetStep2Identity = () => {
   };
   const passwordValid = Object.values(passwordChecks).every(Boolean);
 
-  const firmNames = Object.keys(CHAMBERS_DB);
+  const firmNames = getAllFirmNames();
   const filtered = useMemo(() => {
     if (!acQuery || acQuery.length < 2) return [];
     const q = acQuery.toLowerCase();
@@ -35,10 +34,11 @@ const CabinetStep2Identity = () => {
   const selectFirm = (name: string) => {
     s.setField('cabinetName', name);
     s.setField('selectedFirm', name);
-    const firm = CHAMBERS_DB[name];
-    if (firm) s.setField('detectedNat', firm.nat);
-    const rankings = getFirmChambersRankings(name);
-    s.setField('detectedRankings', rankings.map(r => ({ key: r.key, label: r.label, tier: r.band })));
+    const canonical = resolveCanonicalName(name);
+    const firmEntry = LEGAL500_DB[canonical];
+    if (firmEntry) s.setField('detectedNat', firmEntry.nat);
+    const rankings = getFirmRankings(name);
+    s.setField('detectedRankings', rankings.map(r => ({ key: r.key, label: r.label, tier: r.tier })));
     setAcQuery(name);
     setAcOpen(false);
     // Try to load cabinet logo
@@ -94,7 +94,7 @@ const CabinetStep2Identity = () => {
       </div>
       <h2 className="font-sans text-3xl md:text-4xl font-normal text-foreground leading-tight mb-2.5">Votre cabinet</h2>
       <p className="text-sm text-muted-foreground font-light leading-relaxed mb-10 max-w-xl">
-        Renseignez le nom de votre cabinet. LOGAN identifiera automatiquement votre nationalité ainsi que vos classements Chambers et Legal 500 pour chaque département.
+        Renseignez le nom de votre cabinet. LOGAN identifiera automatiquement votre nationalité ainsi que vos classements Legal 500 pour chaque département.
       </p>
 
       {/* Cabinet name with autocomplete */}
@@ -111,8 +111,9 @@ const CabinetStep2Identity = () => {
           {acOpen && filtered.length > 0 && (
             <div className="absolute top-full left-0 right-0 bg-background border border-foreground border-t-0 rounded-b z-50 max-h-64 overflow-y-auto shadow-lg">
               {filtered.map((name) => {
-                const firm = CHAMBERS_DB[name];
-                const nat = firm?.nat ?? null;
+                const canonical = resolveCanonicalName(name);
+                const firmEntry = LEGAL500_DB[canonical];
+                const nat = firmEntry?.nat ?? null;
                 return (
                   <div
                     key={name}
@@ -151,7 +152,7 @@ const CabinetStep2Identity = () => {
 
           {s.detectedRankings.length > 0 && (
             <div>
-              <div className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2">Classements Chambers</div>
+              <div className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2">Legal 500</div>
               <div className="grid grid-cols-2 gap-2">
                 {s.detectedRankings.map((r) => (
                   <div key={r.key} className="flex items-center justify-between p-2.5 rounded border border-border bg-background">
@@ -160,7 +161,7 @@ const CabinetStep2Identity = () => {
                       'text-[10px] font-bold px-2 py-0.5 rounded-sm',
                       r.tier <= 2 ? 'bg-foreground text-background' : 'bg-secondary text-foreground'
                     )}>
-                      Band {r.tier}
+                      {formatTier(r.tier)}
                     </span>
                   </div>
                 ))}
@@ -168,32 +169,8 @@ const CabinetStep2Identity = () => {
             </div>
           )}
 
-          {/* Legal 500 rankings — auto-detected */}
-          {(() => {
-            const l500 = getLegal500Rankings(s.cabinetName);
-            if (l500.length === 0) return null;
-            return (
-              <div className="mt-4">
-                <div className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2">Classements Legal 500</div>
-                <div className="grid grid-cols-2 gap-2">
-                  {l500.map((r) => (
-                    <div key={`l500-${r.key}`} className="flex items-center justify-between p-2.5 rounded border border-border bg-background">
-                      <span className="text-xs text-foreground">{r.label}</span>
-                      <span className={cn(
-                        'text-[10px] font-bold px-2 py-0.5 rounded-sm',
-                        r.tier <= 2 ? 'bg-foreground text-background' : 'bg-secondary text-foreground'
-                      )}>
-                        {formatLegal500Tier(r.tier)}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            );
-          })()}
-
-          {s.detectedRankings.length === 0 && getLegal500Rankings(s.cabinetName).length === 0 && (
-            <p className="text-xs text-muted-foreground italic">Aucun classement Chambers ni Legal 500 détecté pour ce cabinet.</p>
+          {s.detectedRankings.length === 0 && (
+            <p className="text-xs text-muted-foreground italic">Aucun classement Legal 500 détecté pour ce cabinet.</p>
           )}
         </div>
       )}
@@ -203,7 +180,7 @@ const CabinetStep2Identity = () => {
         <div className="mb-6 p-4 rounded border border-border bg-secondary/20">
           <div className="flex items-center gap-2">
             <Building2 className="w-4 h-4 text-muted-foreground" />
-            <span className="text-xs text-muted-foreground">Cabinet non répertorié dans Chambers ni Legal 500 — votre inscription sera traitée manuellement par l'équipe LOGAN.</span>
+            <span className="text-xs text-muted-foreground">Cabinet non répertorié dans Legal 500 — votre inscription sera traitée manuellement par l'équipe LOGAN.</span>
           </div>
         </div>
       )}

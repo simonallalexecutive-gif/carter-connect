@@ -7,7 +7,8 @@ import { useRef, useMemo } from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import { buildQuantizedChartData } from '@/lib/percentages';
 import { ACTIVITES_BY_PRACTICE, ACTIVITES_DEFAULT, CABINET_META } from '@/lib/constants';
-import { CHAMBERS_DB, getChambersRankingByPractice } from '@/lib/chambersRankings';
+import { getFirmTierForDept, formatTier } from '@/lib/legal500Rankings';
+import { DEPT_KEY_MAP } from '@/lib/cabinetConstants';
 import { useNavigate } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 
@@ -43,12 +44,11 @@ const CandidateProfile = () => {
     }))
   ), [activeActivites, store.pourcentages]);
 
-  const chambersInfo = useMemo(() => {
+  const legal500Info = useMemo(() => {
     if (!store.cabinet || !store.departement) return null;
-    const firm = CHAMBERS_DB[store.cabinet];
-    if (!firm) return { isIntegrated: false };
-    const ranking = getChambersRankingByPractice(store.cabinet, store.departement);
-    return { isIntegrated: true, band: ranking ?? null };
+    const deptKey = DEPT_KEY_MAP[store.departement] || store.departement;
+    const tier = getFirmTierForDept(store.cabinet, deptKey);
+    return { tier, isRanked: tier !== null };
   }, [store.cabinet, store.departement]);
 
   const SectionBlock = ({ title, children }: { title: string; children: React.ReactNode }) => (
@@ -101,7 +101,7 @@ const CandidateProfile = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {seniorityInfo && <div><span className="text-[10px] text-muted-foreground font-sans font-light">Séniorité</span><div className="mt-1"><SeniorityBadge info={seniorityInfo} /></div></div>}
             <DataRow label="Cabinet" value={store.cabinet} />
-            <DataRow label="Répertorié Chambers" value={chambersInfo?.isIntegrated ? 'Oui' : 'Non'} />
+            <DataRow label="Legal 500" value={legal500Info?.tier !== null && legal500Info?.tier !== undefined ? formatTier(legal500Info.tier) : 'Non classé'} />
             <DataRow label="Pratique" value={store.departement} />
           </div>
         </SectionBlock>

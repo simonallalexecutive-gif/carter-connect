@@ -4,8 +4,9 @@ import { useRegistrationStore } from '@/stores/registrationStore';
 import { Button } from '@/components/ui/button';
 import { usePQE } from '@/hooks/usePQE';
 import SeniorityBadge from '@/components/shared/SeniorityBadge';
-import { ACTIVITES_BY_PRACTICE, ACTIVITES_DEFAULT, CABINET_META } from '@/lib/constants';
-import { CHAMBERS_DB, CHAMBERS_DEPARTMENTS } from '@/lib/chambersRankings';
+import { ACTIVITES_BY_PRACTICE, ACTIVITES_DEFAULT } from '@/lib/constants';
+import { getFirmTierForDept, formatTier, getLegal500Summary } from '@/lib/legal500Rankings';
+import { DEPT_KEY_MAP } from '@/lib/cabinetConstants';
 import { Eye, ArrowLeft, ArrowRight, Check, User, CalendarIcon, ChevronDown } from 'lucide-react';
 import { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -110,39 +111,6 @@ const RESTRUCTURING_CLIENTELE_COLORS = [PALETTE.blue, PALETTE.emerald, PALETTE.g
 
 type PreviewMode = 'recap' | 'cabinet';
 
-// Map departement labels → chambers keys (couvre toutes les pratiques)
-const DEPT_TO_CHAMBERS: Record<string, string> = {
-  // Corporate / M&A / PE / VC
-  'Corporate': 'ma',
-  'Corporate/M&A': 'ma',
-  'M&A (dominante)': 'ma',
-  'Private Equity': 'pe',
-  'Private Equity (dominante)': 'pe',
-  'Venture Capital': 'pe',
-  // Finance
-  'Banking & Finance': 'banque',
-  'Financement LBO': 'banque',
-  'Financement de projets': 'projets',
-  // Restructuring
-  'Restructuring': 'restructuring',
-  'Restructuring/Insolvency': 'restructuring',
-  // Social
-  'Droit Social': 'social',
-  'Employment': 'social',
-  // Concurrence
-  'Competition/European Law': 'concurrence',
-  // Fiscal
-  'Tax': 'tax',
-  // Public
-  'Public Law': 'public',
-  // Arbitration
-  'International Arbitration': 'arbitrage',
-  // Projets
-  'Projects & Energy': 'projets',
-  // Immobilier
-  'Immobilier': 'immo',
-  'Real Estate': 'immo',
-};
 
 const getNatLabel = (nat: string) => {
   const map: Record<string, string> = { FR: 'français', US: 'américain', UK: 'anglais' };
@@ -375,36 +343,13 @@ const Step6Review = ({ readOnly = false, cabinetView = false, hideStepHeader = f
   ]);
   const totalPercent = activitySummary.chartData.reduce((sum, d) => sum + d.value, 0);
 
-  const chambersInfo = useMemo(() => {
+  const legal500Info = useMemo(() => {
     if (!store.cabinet || !store.departement) return null;
-    const firm = CHAMBERS_DB[store.cabinet];
-    const chambersKey = DEPT_TO_CHAMBERS[store.departement];
-    const deptLabel = chambersKey
-      ? CHAMBERS_DEPARTMENTS.find(d => d.key === chambersKey)?.label || store.departement
-      : store.departement;
-
-    if (!firm) {
-      const fallbackNat = CABINET_META[store.cabinet]?.nat;
-      return {
-        isIntegrated: false,
-        nat: fallbackNat ? fallbackNat.toLowerCase() : null,
-        band: null,
-        deptLabel,
-        cabinetValue: fallbackNat ? `Cabinet ${fallbackNat.toLowerCase()}` : 'Cabinet non renseigné',
-        chambersValue: 'Cabinet non intégré au classement Chambers',
-      };
-    }
-
-    const band = chambersKey ? firm.rankings[chambersKey] : undefined;
+    const deptKey = DEPT_KEY_MAP[store.departement] || store.departement;
+    const tier = getFirmTierForDept(store.cabinet, deptKey);
     return {
-      isIntegrated: true,
-      nat: getNatLabel(firm.nat),
-      band: band ?? null,
-      deptLabel,
-      cabinetValue: `Cabinet ${getNatLabel(firm.nat)}`,
-      chambersValue: band
-        ? `Cabinet intégré au classement Chambers — Band ${band} en ${deptLabel}`
-        : `Cabinet intégré au classement Chambers — non classé en ${deptLabel}`,
+      tier,
+      summary: tier !== null ? getLegal500Summary(store.cabinet, deptKey) : null,
     };
   }, [store.cabinet, store.departement]);
 
@@ -1111,7 +1056,7 @@ const Step6Review = ({ readOnly = false, cabinetView = false, hideStepHeader = f
                   )}
                   <DataRow label="Pratique" value={store.departement} />
                   <DataRow label="Cabinet" value={store.cabinet} />
-                  <DataRow label="Chambers" value={chambersInfo?.band ? `Band ${chambersInfo.band}` : chambersInfo?.isIntegrated ? 'Cabinet classé (hors pratique)' : 'Non classé'} />
+                  <DataRow label="Legal 500" value={legal500Info?.tier !== null && legal500Info?.tier !== undefined ? formatTier(legal500Info.tier) : 'Non classé'} />
                 </div>
                 {store.previousCabinets.length > 0 && (
                   <div className="mt-5 pt-4 border-t border-white/10">
@@ -1241,14 +1186,7 @@ const Step6Review = ({ readOnly = false, cabinetView = false, hideStepHeader = f
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                   <DataRow label="Pratique" value={store.departement} />
-                  {chambersInfo && <DataRow label="Cabinet d'origine" value={chambersInfo.cabinetValue} />}
-                  <DataRow label="Chambers" value={
-                    chambersInfo?.band
-                      ? (chambersInfo.band > 1
-                          ? `Band ${chambersInfo.band - 1}/Band ${chambersInfo.band} — ${chambersInfo.deptLabel}`
-                          : `Band ${chambersInfo.band} — ${chambersInfo.deptLabel}`)
-                      : chambersInfo?.isIntegrated ? 'Classé (hors pratique)' : 'Non classé'
-                  } />
+                  <DataRow label="Legal 500" value={legal500Info?.summary || (legal500Info?.tier !== null && legal500Info?.tier !== undefined ? formatTier(legal500Info.tier) : 'Non classé')} />
                 </div>
                 {store.previousCabinets && store.previousCabinets.length > 0 && (
                   <div className="mt-5 pt-4 border-t border-white/10">

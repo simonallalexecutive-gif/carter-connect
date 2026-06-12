@@ -106,9 +106,9 @@ const MarketMockup = () => (
         </div>
         <div className="space-y-1.5">
           {[
-            { id: 'C-2024-042', level: 'Senior', domain: 'Banking & Finance · 5 ans', status: 'À L\'ÉCOUTE', tags: ['Cabinet Français', 'Chambers', 'Legal 500'], active: false },
-            { id: 'C-2024-057', level: 'Mid Level', domain: 'Corporate/M&A · 4 ans', status: 'À L\'ÉCOUTE', tags: ['Cabinet Français', 'Chambers'], active: false },
-            { id: 'C-2024-071', level: 'Mid Level', domain: 'Banking & Finance · 3 ans', status: 'ACTIVE', tags: ['Cabinet Anglais', 'Chambers'], active: true },
+            { id: 'C-2024-042', level: 'Senior', domain: 'Banking & Finance · 5 ans', status: 'À L\'ÉCOUTE', tags: ['Cabinet Français', 'Legal 500'], active: false },
+            { id: 'C-2024-057', level: 'Mid Level', domain: 'Corporate/M&A · 4 ans', status: 'À L\'ÉCOUTE', tags: ['Cabinet Français', 'Legal 500'], active: false },
+            { id: 'C-2024-071', level: 'Mid Level', domain: 'Banking & Finance · 3 ans', status: 'ACTIVE', tags: ['Cabinet Anglais', 'Legal 500'], active: true },
           ].map(p => (
             <div key={p.id} className="border border-gray-100 rounded p-2.5 flex items-center justify-between hover:bg-gray-50 cursor-default">
               <div>
@@ -151,7 +151,6 @@ const ProfileDrawerMockup = () => (
           <div className="font-serif text-[13px] text-gray-900">Profil anonyme</div>
           <div className="text-[9px] text-gray-400">C-2024-042 · Collaborateur — Senior · 5 ans</div>
           <div className="flex gap-2 mt-0.5">
-            <span className="text-[8px] px-1.5 py-0.5 bg-gray-100 rounded text-gray-600">Chambers</span>
             <span className="text-[8px] px-1.5 py-0.5 bg-gray-100 rounded text-gray-600">Legal 500</span>
           </div>
         </div>
@@ -160,7 +159,6 @@ const ProfileDrawerMockup = () => (
         {[
           ['Pratique', 'Banque & Finance'],
           ['Cabinet d\'origine', 'Cabinet français'],
-          ['Chambers', 'Band 1/Band 2 — B&F'],
           ['Anglais', 'Bilingue'],
         ].map(([label, val]) => (
           <div key={label}>
@@ -301,7 +299,7 @@ const dashboardSlides: Slide[] = [
     points: [
       { icon: <EyeOff className="w-4 h-4" />, text: 'Chaque profil est anonymisé : aucun nom, aucun cabinet d\'origine visible.' },
       { icon: <Bell className="w-4 h-4" />, text: 'Les profils "Active" sont prioritairement à l\'écoute du marché — à traiter en premier.' },
-      { icon: <BarChart3 className="w-4 h-4" />, text: 'Filtrez par pratique (M&A, B&F, Employment…), classements Chambers / Legal 500, séniorité.' },
+      { icon: <BarChart3 className="w-4 h-4" />, text: 'Filtrez par pratique (M&A, B&F, Employment…), classement Legal 500, séniorité.' },
     ],
     visual: <MarketMockup />,
   },

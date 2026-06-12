@@ -52,16 +52,9 @@ const CandidateProcesses = () => (
                       <span className="mx-2.5 w-px h-5 bg-border inline-block" />
                       <span className="text-[14px] font-sans font-semibold text-foreground leading-none">{offer.dept}</span>
                     </div>
-                    {offer.ranking && (
+                    {offer.nat && (
                       <div className="flex items-center gap-2 mb-3 flex-wrap">
-                        <span className="text-[10px] font-sans font-bold text-foreground/70 leading-none border border-border rounded px-2 py-1">Cabinet {offer.nat || ''}</span>
-                        <span className="text-[10px] font-sans font-bold text-foreground/70 leading-none border border-border rounded px-2 py-1">Chambers : Oui</span>
-                      </div>
-                    )}
-                    {!offer.ranking && (
-                      <div className="flex items-center gap-2 mb-3 flex-wrap">
-                        {offer.nat && <span className="text-[10px] font-sans font-bold text-foreground/70 leading-none border border-border rounded px-2 py-1">Cabinet {offer.nat}</span>}
-                        <span className="text-[10px] font-sans font-bold text-foreground/70 leading-none border border-border rounded px-2 py-1">Chambers : Non</span>
+                        <span className="text-[10px] font-sans font-bold text-foreground/70 leading-none border border-border rounded px-2 py-1">Cabinet {offer.nat}</span>
                       </div>
                     )}
                     <div className="flex items-center justify-between mt-3">

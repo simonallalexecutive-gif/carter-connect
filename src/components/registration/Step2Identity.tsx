@@ -16,8 +16,8 @@ import ChipSelector from '@/components/shared/ChipSelector';
 import { usePQE } from '@/hooks/usePQE';
 import { CABINETS, MOIS, RAISONS_BAISSE_RETRO, ASSOC_ATTENTES, ASSOC_CAB_TYPES } from '@/lib/constants';
 import { formatNumberWithDots, formatPhoneWithDots } from '@/lib/formatters';
-import { getAllChambersFirmNames, getFirmPractices, getChambersRankingByPractice, formatChambersBand, CHAMBERS_DEPARTMENTS, CHAMBERS_KEY_TO_PRACTICE } from '@/lib/chambersRankings';
-import { LEGAL500_DB, LEGAL500_DEPARTMENTS, getFirmTierForDept as getLegal500TierForDept, formatTier as formatLegal500Tier } from '@/lib/legal500Rankings';
+import { getAllFirmNames, LEGAL500_DEPARTMENTS, getFirmTierForDept, formatTier, getLegal500Summary } from '@/lib/legal500Rankings';
+import { DEPT_KEY_MAP } from '@/lib/cabinetConstants';
 import { Camera, X, ArrowLeft, ArrowRight, Linkedin, Eye, EyeOff, Check, AlertCircle, Loader2 } from 'lucide-react';
 import { useRef, useState, useMemo, useCallback, useEffect } from 'react';
 import { cn } from '@/lib/utils';
@@ -54,8 +54,8 @@ const Step2Identity = () => {
   const passwordsMatch = store.password === store.passwordConfirm && store.passwordConfirm.length > 0;
 
   const allCabinets = useMemo(() => {
-    const set = new Set([...CABINETS, ...getAllChambersFirmNames()]);
-    return [...set].sort((a, b) => a.localeCompare(b));
+    const set = new Set([...CABINETS, ...getAllFirmNames()]);
+    return [...set].sort((a, b) => a.localeCompare(b, 'fr'));
   }, []);
 
   const canProceed = false; // replaced by missingFields check below
@@ -81,43 +81,16 @@ const Step2Identity = () => {
     store.setField('cabinet', cabinetName as string);
   };
 
-  // All Chambers practices available for selection
+  // Pratiques Legal 500 couvertes par Logan
   const allPractices = useMemo(() => {
-    const practices = CHAMBERS_DEPARTMENTS.map(d => ({
-      key: d.key,
-      label: CHAMBERS_KEY_TO_PRACTICE[d.key] || d.label,
-    }));
-    if (!practices.some(p => p.label === 'Venture Capital')) {
-      practices.push({ key: 'vc', label: 'Venture Capital' });
-    }
-    return practices.sort((a, b) => a.label.localeCompare(b.label, 'fr'));
+    return LEGAL500_DEPARTMENTS.sort((a, b) => a.label.localeCompare(b.label, 'fr'));
   }, []);
 
-  // Map French/Chambers practice labels → Legal 500 dept keys
-  const PRACTICE_TO_LEGAL500_KEY: Record<string, string> = {
-    'Corporate/M&A': 'ma',
-    'Private Equity': 'pe',
-    'Banking & Finance': 'banque',
-    'Restructuring/Insolvency': 'restructuring',
-    'Employment': 'social',
-    'Real Estate': 'immo',
-    'Projects & Energy': 'finproj',
-    'Venture Capital': 'vc',
-    'Tax': 'tax',
-  };
-
-  // Get current Chambers band for selected practice (null = not ranked)
-  const currentChambersBand = useMemo(() => {
-    if (!store.cabinet || !store.departement) return undefined;
-    return getChambersRankingByPractice(store.cabinet, store.departement);
-  }, [store.cabinet, store.departement]);
-
-  // Get current Legal 500 tier for selected practice (null = not ranked)
+  // Tier Legal 500 auto-détecté pour cabinet + pratique sélectionnés
   const currentLegal500Tier = useMemo(() => {
     if (!store.cabinet || !store.departement) return undefined;
-    const key = PRACTICE_TO_LEGAL500_KEY[store.departement];
-    if (!key) return null;
-    return getLegal500TierForDept(store.cabinet, key);
+    const deptKey = DEPT_KEY_MAP[store.departement] || store.departement;
+    return getFirmTierForDept(store.cabinet, deptKey);
   }, [store.cabinet, store.departement]);
 
   const handleDepartmentChange = (dept: string) => {
@@ -461,7 +434,7 @@ const Step2Identity = () => {
             />
           </div>
 
-          {/* Pratique — all Chambers departments */}
+          {/* Pratique */}
           <div>
             <Label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground">Votre pratique *</Label>
             <p className="font-sans text-[11px] italic text-muted-foreground font-light mt-1.5 leading-relaxed">
@@ -471,7 +444,6 @@ const Step2Identity = () => {
               <>
                 <Select value={store.departement} onValueChange={handleDepartmentChange}>
                   <SelectTrigger className="mt-2"><SelectValue placeholder="Sélectionner votre pratique" /></SelectTrigger>
-
                   <SelectContent>
                     {allPractices.map(p => (
                       <SelectItem key={p.key} value={p.label}>
@@ -480,42 +452,22 @@ const Step2Identity = () => {
                     ))}
                   </SelectContent>
                 </Select>
-                {store.departement && (currentChambersBand !== undefined || currentLegal500Tier !== undefined) && (
-                  <div className="mt-3 space-y-2">
-                    {/* Chambers badge */}
-                    <div className="flex items-center gap-2">
-                      {currentChambersBand !== null && currentChambersBand !== undefined ? (
-                        <>
-                          <span className="inline-flex items-center justify-center px-3 py-1 rounded-sm bg-foreground text-background text-[11px] leading-tight font-sans font-medium min-w-[120px]">
-                            Chambers Band {currentChambersBand}
-                          </span>
-                          <span className="text-[11px] text-muted-foreground font-sans font-light">
-                            {store.cabinet} · {store.departement}
-                          </span>
-                        </>
-                      ) : (
-                        <span className="text-[11px] text-muted-foreground font-sans font-light italic">
-                          {store.cabinet} n'est pas classé dans Chambers pour la pratique {store.departement}
+                {store.departement && currentLegal500Tier !== undefined && (
+                  <div className="mt-3">
+                    {currentLegal500Tier !== null ? (
+                      <div className="flex items-center gap-2">
+                        <span className="inline-flex items-center justify-center px-3 py-1 rounded-sm border border-foreground bg-background text-foreground text-[11px] leading-tight font-sans font-medium">
+                          Legal 500 · {formatTier(currentLegal500Tier)}
                         </span>
-                      )}
-                    </div>
-                    {/* Legal 500 badge */}
-                    <div className="flex items-center gap-2">
-                      {currentLegal500Tier !== null && currentLegal500Tier !== undefined ? (
-                        <>
-                          <span className="inline-flex items-center justify-center px-3 py-1 rounded-sm border border-foreground bg-background text-foreground text-[11px] leading-tight font-sans font-medium min-w-[120px]">
-                            Legal 500 · {formatLegal500Tier(currentLegal500Tier)}
-                          </span>
-                          <span className="text-[11px] text-muted-foreground font-sans font-light">
-                            {store.cabinet} · {store.departement}
-                          </span>
-                        </>
-                      ) : (
-                        <span className="text-[11px] text-muted-foreground font-sans font-light italic">
-                          {store.cabinet} n'est pas classé dans Legal 500 pour la pratique {store.departement}
+                        <span className="text-[11px] text-muted-foreground font-sans font-light">
+                          {store.cabinet} · {store.departement}
                         </span>
-                      )}
-                    </div>
+                      </div>
+                    ) : (
+                      <span className="text-[11px] text-muted-foreground font-sans font-light italic">
+                        {store.cabinet} n'est pas classé dans Legal 500 pour {store.departement}
+                      </span>
+                    )}
                   </div>
                 )}
               </>

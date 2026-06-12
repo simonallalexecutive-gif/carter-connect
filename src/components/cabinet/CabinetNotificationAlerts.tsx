@@ -6,7 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Switch } from '@/components/ui/switch';
 import AutocompleteInput from '@/components/shared/AutocompleteInput';
 import { CABINETS } from '@/lib/constants';
-import { getAllChambersFirmNames } from '@/lib/chambersRankings';
+import { getAllFirmNames } from '@/lib/legal500Rankings';
 import { Bell, Plus, Trash2, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
@@ -38,7 +38,7 @@ const CabinetNotificationAlerts = ({ onClose }: CabinetNotificationAlertsProps) 
   const [originFirms, setOriginFirms] = useState<string[]>([]);
   const [currentFirm, setCurrentFirm] = useState('');
 
-  const allFirms = [...new Set([...CABINETS, ...getAllChambersFirmNames()])].sort();
+  const allFirms = [...new Set([...CABINETS, ...getAllFirmNames()])].sort();
 
   const toggleSeniority = (s: string) => {
     setSeniorities(prev => prev.includes(s) ? prev.filter(x => x !== s) : [...prev, s]);

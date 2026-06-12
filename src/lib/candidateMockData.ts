@@ -17,10 +17,6 @@ export interface CandidateOffer {
   ranking?: string;
   /** Nationality of the firm: FR, US, UK */
   nat?: 'FR' | 'US' | 'UK';
-  /** Chambers band number (1 = highest) */
-  chambersBand?: number;
-  /** Chambers department key matching CHAMBERS_DEPARTMENTS */
-  chambersDeptKey?: string;
   /** Nationality label for display */
   natFlag?: string;
 }
@@ -53,8 +49,6 @@ export const CANDIDATE_OFFERS: CandidateOffer[] = [
     profilCriteres: ['Autonome', 'Anglais courant', 'Gestion de dossiers complexes'],
     ranking: 'Band 1 · Corporate/M&A',
     nat: 'FR',
-    chambersBand: 1,
-    chambersDeptKey: 'ma',
   },
   {
     id: 'OFF-C-002',
@@ -74,8 +68,6 @@ export const CANDIDATE_OFFERS: CandidateOffer[] = [
     profilCriteres: ['Esprit entrepreneurial', 'Anglais courant', 'Capacité à encadrer'],
     ranking: 'Band 1 · Private Equity',
     nat: 'UK',
-    chambersBand: 1,
-    chambersDeptKey: 'pe',
   },
   {
     id: 'OFF-C-003',
@@ -94,8 +86,6 @@ export const CANDIDATE_OFFERS: CandidateOffer[] = [
     profilCriteres: ['Rigueur & organisation', 'Bon relationnel client'],
     ranking: 'Band 2 · Banking & Finance',
     nat: 'FR',
-    chambersBand: 2,
-    chambersDeptKey: 'banque',
   },
   {
     id: 'OFF-C-004',
@@ -113,8 +103,6 @@ export const CANDIDATE_OFFERS: CandidateOffer[] = [
     profilCriteres: ['Autonome', 'Anglais courant', 'Polyvalent'],
     ranking: 'Band 1 · Tax',
     nat: 'US',
-    chambersBand: 1,
-    chambersDeptKey: 'tax',
   },
   {
     id: 'OFF-C-005',
@@ -131,7 +119,5 @@ export const CANDIDATE_OFFERS: CandidateOffer[] = [
     profilCriteres: ['Esprit d\'équipe', 'Capacité rédactionnelle', 'Proactivité'],
     ranking: 'Band 3 · Employment',
     nat: 'FR',
-    chambersBand: 3,
-    chambersDeptKey: 'social',
   },
 ];

@@ -55,7 +55,7 @@ const FonctionnementCandidatsSection = () => (
         {/* Accent bar + body */}
         <motion.div variants={fadeUp} className="border-l-2 border-black/10 pl-8 md:pl-10 ml-1 mb-10 max-w-3xl">
           <p className="font-sans text-[0.98rem] leading-[1.85] text-black/55 mb-5">
-            Intégrez un espace structuré et confidentiel qui vous confère une visibilité totale sur votre marché. Votre identité et celle de votre cabinet actuel ne sont jamais révélées sans votre accord — seules votre séniorité, votre expertise et le positionnement de votre cabinet dans Chambers sont accessibles.
+            Intégrez un espace structuré et confidentiel qui vous confère une visibilité totale sur votre marché. Votre identité et celle de votre cabinet actuel ne sont jamais révélées sans votre accord — seules votre séniorité, votre expertise et le positionnement de votre cabinet dans Legal 500 sont accessibles.
           </p>
           <p className="font-sans text-[0.98rem] leading-[1.85] text-black/55 mb-5">
             Lorsqu'un cabinet manifeste un intérêt pour votre profil — dans le cadre d'un mandat ou de manière opportuniste — vous recevez une notification et pouvez échanger avec un consultant Logan avant tout rapprochement.

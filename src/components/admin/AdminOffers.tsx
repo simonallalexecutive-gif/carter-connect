@@ -40,7 +40,6 @@ const AdminOffers = () => {
               <TableHead className="text-[10px] font-semibold tracking-[0.08em] uppercase">Département</TableHead>
               <TableHead className="text-[10px] font-semibold tracking-[0.08em] uppercase">Séniorité</TableHead>
               <TableHead className="text-[10px] font-semibold tracking-[0.08em] uppercase">Nat.</TableHead>
-              <TableHead className="text-[10px] font-semibold tracking-[0.08em] uppercase">Chambers</TableHead>
               <TableHead className="text-[10px] font-semibold tracking-[0.08em] uppercase">Publiée le</TableHead>
             </TableRow>
           </TableHeader>
@@ -56,7 +55,6 @@ const AdminOffers = () => {
                 <TableCell className="text-[11px] text-foreground">{o.dept}</TableCell>
                 <TableCell className="text-[11px] text-foreground">{o.seniority}</TableCell>
                 <TableCell className="text-[11px] text-foreground">{o.nat || '—'}</TableCell>
-                <TableCell className="text-[11px] text-foreground">{o.chambersBand ? `Band ${o.chambersBand}` : '—'}</TableCell>
                 <TableCell className="text-[11px] text-foreground/70">
                   {new Date(o.postedAt).toLocaleDateString('fr-FR', { day: '2-digit', month: 'short', year: 'numeric' })}
                 </TableCell>

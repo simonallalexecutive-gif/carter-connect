@@ -2,7 +2,7 @@ import { useState, useMemo, useCallback, useEffect } from 'react';
 import { useCabinetStore } from '@/stores/cabinetStore';
 import { PROFILES, DEPT_KEY_MAP, FIRMS_DB, CABINET_EXPERTISE_DETAIL, type CabinetProfile } from '@/lib/cabinetConstants';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
-import { CHAMBERS_DEPARTMENTS, getChambersRanking, formatChambersBand } from '@/lib/chambersRankings';
+import { getFirmTierForDept, formatTier, getLegal500Summary } from '@/lib/legal500Rankings';
 import { NAT_FLAGS, NAT_LABELS } from '@/lib/legal500Rankings';
 import { cn } from '@/lib/utils';
 import { X, Search, Eye, Plus, FileText, Users, User, Sparkles, Award, BookMarked, Star, CircleDot } from 'lucide-react';
@@ -22,7 +22,6 @@ const PALIER_MAP: Record<string, string> = {
   enterprise: 'Enterprise · Sur devis',
 };
 
-// Aligned with CHAMBERS_DEPARTMENTS (now includes Tax)
 const FILTERS = [
   { key: 'all', label: 'Tous' },
   { key: 'ma', label: 'Corporate/M&A' },
@@ -32,7 +31,7 @@ const FILTERS = [
   { key: 'social', label: 'Employment' },
   { key: 'immo', label: 'Real Estate' },
   { key: 'projets', label: 'Projects & Energy' },
-  { key: 'tax', label: 'Tax' },
+  { key: 'fiscal', label: 'Tax' },
   { key: 'new', label: 'New', icon: Star },
 ];
 
@@ -293,7 +292,7 @@ const SearchValidation = () => {
   const profileLabel = profileTypes.includes('associe') ? 'Associé' : profileTypes.includes('counsel') ? 'Counsel' : 'Collaborateur';
   const senYears = s.seniorities.length ? s.seniorities.map((k) => SENIORITY_YEARS_MAP[k] || '').filter(Boolean).join(', ') : '';
   const natLabel = s.detectedNat ? (NAT_LABELS[s.detectedNat] || s.detectedNat) : '';
-  const hasChambersRanking = s.detectedRankings && s.detectedRankings.length > 0;
+  const hasLegal500Ranking = !!(s.detectedNat);
 
   // Get selected scope items
   const activeActivities = useMemo(() => {
@@ -372,7 +371,7 @@ const SearchValidation = () => {
             <div className="flex items-center gap-3 mt-2 text-[10px] text-white/40 font-sans">
               {natLabel && <span>{natLabel}</span>}
               {natLabel && <span className="text-white/15">·</span>}
-              <span>Pratique reconnue Chambers : {hasChambersRanking ? 'Oui' : 'Non'}</span>
+              {hasLegal500Ranking && <span>Cabinet référencé Legal 500</span>}
             </div>
             <div className="text-[10px] text-white/25 mt-2 font-sans">Identité protégée · Mise en relation via LOGAN uniquement</div>
           </div>
@@ -661,22 +660,8 @@ function getNatLabel(nat: string): string {
   return map[nat] || nat;
 }
 
-function isChambersRanked(p: CabinetProfile): boolean {
-  // Chambers reconnaît les pratiques top-tier (Tier 1 ou Tier 2)
-  return p.originTier === 'Tier 1' || p.originTier === 'Tier 2';
-}
-
 function isLegal500Ranked(p: CabinetProfile): boolean {
-  // Legal 500 couvre une plage plus large (Tier 1 à Tier 5)
-  return !!(p.originTier && p.originTier.startsWith('Tier'));
-}
-
-/** Renvoie un libellé compact ex: "Chambers", "Legal 500", "Chambers · Legal 500", ou "—" */
-function getRankingsLabel(p: CabinetProfile): string {
-  const parts: string[] = [];
-  if (isChambersRanked(p)) parts.push('Chambers');
-  if (isLegal500Ranked(p)) parts.push('Legal 500');
-  return parts.join(' · ');
+  return !!(p.originTier && (p.originTier.startsWith('Tier') || p.originTier === 'Firms to Watch'));
 }
 
 /** Rétrocession suggérée par LOGAN, calée sur la séniorité standardisée. */
@@ -791,9 +776,10 @@ function registrationToProfile(row: any): CabinetProfile {
   const pqeLabel = pqeYears <= 2 ? 'Junior' : pqeYears <= 5 ? 'Mid Level' : pqeYears <= 8 ? 'Senior' : d.statutAssoc === 'associe' ? 'Associé' : d.statutAssoc === 'counsel' ? 'Counsel' : 'Senior';
   const deptKey = DEPT_KEY_MAP[d.departement] || 'ma';
 
-  // Nat from FIRMS_DB
+  // Nat + Legal 500 tier from FIRMS_DB / legal500Rankings
   const firmData = FIRMS_DB[d.cabinet];
   const nat = firmData?.nat || d.cabNat || 'FR';
+  const legal500TierNum = getFirmTierForDept(d.cabinet || '', deptKey) ?? null;
 
   // English level from anglais percentage
   const anglaisPct = parseInt(d.anglais || '0', 10);
@@ -837,7 +823,8 @@ function registrationToProfile(row: any): CabinetProfile {
     nat,
     natFlag: nat,
     origin: d.cabinet || '—',
-    originTier: d.cabTier || FIRMS_DB[d.cabinet]?.p?.[deptKey] || '—',
+    originTier: legal500TierNum !== null ? (legal500TierNum === 0 ? 'Firms to Watch' : `Tier ${legal500TierNum}`) : (d.cabTier || FIRMS_DB[d.cabinet]?.p?.[deptKey] || '—'),
+    legal500Tier: legal500TierNum,
     english,
     seniority: pqeLabel,
     isNew: (() => { const c = new Date(row.created_at); const now = new Date(); return (now.getTime() - c.getTime()) < 7 * 24 * 3600 * 1000; })(),
@@ -868,7 +855,6 @@ const ExploreView = ({
   setDrawerProfile: (p: CabinetProfile | null) => void;
 }) => {
   const s = useCabinetStore();
-  const [chambersOnly, setChambersOnly] = useState(false);
   const [legal500Only, setLegal500Only] = useState(false);
   const [seniorityFilter, setSeniorityFilter] = useState<string>('all');
   const [realProfiles, setRealProfiles] = useState<CabinetProfile[]>([]);
@@ -906,13 +892,12 @@ const ExploreView = ({
     let profiles = [...allProfiles];
     if (filter === 'new') profiles = profiles.filter((p) => p.isNew);
     else if (filter !== 'all') profiles = profiles.filter((p) => p.dept === filter);
-    if (chambersOnly) profiles = profiles.filter((p) => isChambersRanked(p));
     if (legal500Only) profiles = profiles.filter((p) => isLegal500Ranked(p));
     if (seniorityFilter !== 'all') profiles = profiles.filter((p) => getSeniorityLabel(p) === seniorityFilter);
     if (sort === 'pqe') profiles.sort((a, b) => parseInt(b.pqe) - parseInt(a.pqe));
     else if (sort === 'match') profiles.sort((a, b) => b.match - a.match);
     return profiles;
-  }, [filter, sort, chambersOnly, legal500Only, seniorityFilter, realProfiles]);
+  }, [filter, sort, legal500Only, seniorityFilter, realProfiles]);
 
   return (
     <div>
@@ -954,17 +939,6 @@ const ExploreView = ({
       {/* Filters — Classements + Séniorité + Tri */}
       <div className="flex items-center gap-3 mb-6 flex-wrap">
         <span className="text-[11px] font-semibold text-foreground mr-1">Classements :</span>
-        <button
-          onClick={() => setChambersOnly(v => !v)}
-          className={cn(
-            'text-[10px] font-medium px-3 py-1.5 border rounded-full transition-all',
-            chambersOnly
-              ? 'bg-foreground text-background border-foreground'
-              : 'bg-background text-muted-foreground border-border hover:border-foreground'
-          )}
-        >
-          Chambers
-        </button>
         <button
           onClick={() => setLegal500Only(v => !v)}
           className={cn(
@@ -1008,10 +982,10 @@ const ExploreView = ({
         {filtered.map((p) => {
           const seniorityLabel = getSeniorityLabel(p);
           const practiceLabel = p.deptLabel || PRACTICE_LABEL_BY_KEY[p.dept] || p.dept;
-          const chambers = isChambersRanked(p);
           const legal500 = isLegal500Ranked(p);
           const isActive = p.statutEcoute === 'actif' || p.disponibilite === 'Immédiate';
           const natLabel = p.nat ? `Cabinet ${getNatLabel(p.nat)}` : '';
+          const tierLabel = p.originTier && p.originTier !== '—' ? p.originTier : null;
 
           return (
             <div
@@ -1065,11 +1039,8 @@ const ExploreView = ({
                   {natLabel && (
                     <span className="text-[10px] font-sans font-medium text-foreground/70 leading-none border border-border rounded-full px-2.5 py-1">{natLabel}</span>
                   )}
-                  {chambers && (
-                    <span className="text-[10px] font-sans font-medium text-foreground/70 leading-none border border-border rounded-full px-2.5 py-1">Chambers</span>
-                  )}
-                  {legal500 && (
-                    <span className="text-[10px] font-sans font-medium text-foreground/70 leading-none border border-border rounded-full px-2.5 py-1">Legal 500</span>
+                  {legal500 && tierLabel && (
+                    <span className="text-[10px] font-sans font-medium text-foreground/70 leading-none border border-border rounded-full px-2.5 py-1">Legal 500 · {tierLabel}</span>
                   )}
                 </div>
               </div>
@@ -1127,8 +1098,8 @@ const ProfileDrawer = ({ profile: p, onClose }: { profile: CabinetProfile; onClo
   const seniorityLabel = getSeniorityLabel(p);
   const senDetail = status === 'Collaborateur' ? seniorityLabel : null;
   const natLabel = getNatLabel(p.nat);
-  const chambers = isChambersRanked(p);
   const legal500 = isLegal500Ranked(p);
+  const tierLabel = p.originTier && p.originTier !== '—' ? p.originTier : null;
   const isActive = p.statutEcoute === 'actif' || p.disponibilite === 'Immédiate';
 
   // Coherent activity & retro overrides
@@ -1145,10 +1116,7 @@ const ProfileDrawer = ({ profile: p, onClose }: { profile: CabinetProfile; onClo
     ? ['Rémunération', 'Perspectives', 'Équilibre pro/perso']
     : ['Rémunération', 'Responsabilité et autonomie', 'Flexibilité et organisation'];
 
-  // Chambers band display (mirrors Step6Review grouping logic)
-  const chambersDisplay = chambers
-    ? `${p.originTier === 'Tier 1' ? 'Band 1/Band 2' : p.originTier === 'Tier 2' ? 'Band 2/Band 3' : 'Band 3/Band 4'} — ${p.deptLabel}`
-    : legal500 ? 'Classé (hors pratique)' : 'Non classé';
+  const legal500Display = legal500 && tierLabel ? `${tierLabel} — Legal 500 ${p.deptLabel}` : legal500 ? 'Legal 500 — classé' : 'Non classé';
 
   return (
     <>
@@ -1173,18 +1141,11 @@ const ProfileDrawer = ({ profile: p, onClose }: { profile: CabinetProfile; onClo
               <div>
                 <p className="font-serif text-lg text-foreground">Profil anonyme</p>
                 <p className="text-[11px] text-muted-foreground font-sans mt-0.5">{p.id} · {status}{senDetail ? ` — ${senDetail}` : ''} · {p.pqe}</p>
-                {(chambers || legal500) && (
+                {legal500 && (
                   <div className="flex items-center gap-3 mt-1.5">
-                    {chambers && (
-                      <span className="inline-flex items-center gap-1 text-[10px] font-medium text-foreground">
-                        <Award className="w-3 h-3" strokeWidth={1.6} /> Chambers
-                      </span>
-                    )}
-                    {legal500 && (
-                      <span className="inline-flex items-center gap-1 text-[10px] font-medium text-foreground">
-                        <BookMarked className="w-3 h-3" strokeWidth={1.6} /> Legal 500
-                      </span>
-                    )}
+                    <span className="inline-flex items-center gap-1 text-[10px] font-medium text-foreground">
+                      <BookMarked className="w-3 h-3" strokeWidth={1.6} /> {tierLabel ? `Legal 500 · ${tierLabel}` : 'Legal 500'}
+                    </span>
                   </div>
                 )}
               </div>
@@ -1193,7 +1154,7 @@ const ProfileDrawer = ({ profile: p, onClose }: { profile: CabinetProfile; onClo
               <DrawerDataRow label="Pratique" value={p.deptLabel} />
               <DrawerDataRow label="Cabinet d'origine" value={`Cabinet ${natLabel.toLowerCase()}`} />
               <div className="col-span-2">
-                <DrawerDataRow label="Chambers" value={chambersDisplay} />
+                <DrawerDataRow label="Legal 500" value={legal500Display} />
               </div>
             </div>
           </DrawerSection>
