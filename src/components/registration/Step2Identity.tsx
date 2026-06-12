@@ -164,6 +164,7 @@ const Step2Identity = () => {
   const handleLinkedinPaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
     const pasted = e.clipboardData.getData('text');
     if (pasted.includes('linkedin.com/in/')) {
+      e.preventDefault();
       store.setField('linkedinUrl', pasted);
       setTimeout(() => fetchLinkedinPhoto(pasted), 100);
     }

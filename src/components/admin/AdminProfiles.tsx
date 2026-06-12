@@ -223,17 +223,24 @@ const AdminProfiles = () => {
                       </TableCell>
                       <TableCell className="text-[11px] text-foreground/80">{formatDate(c.created_at)}</TableCell>
                       <TableCell>
-                        {data.linkedinUrl ? (
-                          <a
-                            href={data.linkedinUrl.startsWith('http') ? data.linkedinUrl : `https://${data.linkedinUrl}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1 text-[11px] text-foreground/70 hover:text-foreground transition-colors"
-                          >
-                            <Linkedin className="w-3.5 h-3.5" />
-                            <span className="hidden xl:inline">Voir</span>
-                          </a>
-                        ) : (
+                        {data.linkedinUrl ? (() => {
+                          // Nettoie les URLs doublées (bug de collage ancien)
+                          const raw = data.linkedinUrl as string;
+                          const secondHttps = raw.indexOf('https://', 8);
+                          const clean = secondHttps > 0 ? raw.substring(secondHttps) : raw;
+                          const href = clean.startsWith('http') ? clean : `https://${clean}`;
+                          return (
+                            <a
+                              href={href}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-1 text-[11px] text-foreground/70 hover:text-foreground transition-colors"
+                            >
+                              <Linkedin className="w-3.5 h-3.5" />
+                              <span className="hidden xl:inline">Voir</span>
+                            </a>
+                          );
+                        })() : (
                           <span className="text-[10px] text-muted-foreground/50">—</span>
                         )}
                       </TableCell>
