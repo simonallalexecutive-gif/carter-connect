@@ -43,10 +43,14 @@ const CabinetSidebar = ({
   activeTab,
   setActiveTab,
   onOpenAlerts,
+  headerOnly = false,
+  navOnly = false,
 }: {
   activeTab: CabinetTabKey;
   setActiveTab: (tab: CabinetTabKey) => void;
   onOpenAlerts: () => void;
+  headerOnly?: boolean;
+  navOnly?: boolean;
 }) => {
   const { state } = useSidebar();
   const collapsed = state === 'collapsed';
@@ -57,19 +61,23 @@ const CabinetSidebar = ({
       active ? 'bg-white/10 text-white font-semibold' : 'text-white/60 hover:bg-white/8 hover:text-white'
     }`;
 
-  return (
-    <div className={`flex flex-col h-screen bg-[hsl(0,0%,7%)] border-r border-black/[0.09] transition-all duration-200 ${collapsed ? 'w-14' : 'w-56'} flex-shrink-0`}>
-      {/* Logo + toggle */}
-      <div className="flex items-center justify-between px-4 py-5 border-b border-white/10">
-        <Link to="/" className="hover:opacity-70 transition-opacity">
-          <span className="font-serif text-[28px] leading-none tracking-[0.04em] text-white">
-            {collapsed ? 'L' : 'Logan'}
-          </span>
-        </Link>
-        <SidebarTrigger className="text-white/40 hover:text-white transition-colors ml-auto" />
-      </div>
+  const w = collapsed ? 'w-14' : 'w-56';
 
-      {/* Nav items */}
+  // Partie haute : logo + toggle (dans la ligne de header commune)
+  if (headerOnly) return (
+    <div className={`${w} flex-shrink-0 bg-[hsl(0,0%,7%)] flex items-center px-4 transition-all duration-200 ${collapsed ? 'justify-center' : 'justify-between'}`}>
+      <Link to="/" className="hover:opacity-70 transition-opacity">
+        <span className="font-serif text-[28px] leading-none tracking-[0.04em] text-white">
+          {collapsed ? 'L' : 'Logan'}
+        </span>
+      </Link>
+      {!collapsed && <SidebarTrigger className="text-white/40 hover:text-white transition-colors" />}
+    </div>
+  );
+
+  // Partie basse : nav + footer
+  if (navOnly) return (
+    <div className={`${w} flex-shrink-0 bg-[hsl(0,0%,7%)] flex flex-col transition-all duration-200 border-r border-black/[0.1]`}>
       <nav className="flex-1 px-2 py-4 space-y-0.5 overflow-y-auto">
         {CABINET_TABS.map((tab) => (
           <button key={tab.key} onClick={() => setActiveTab(tab.key)} className={itemCls(activeTab === tab.key)}>
@@ -86,8 +94,6 @@ const CabinetSidebar = ({
           {!collapsed && <span>Fixer un call</span>}
         </button>
       </nav>
-
-      {/* Footer */}
       <div className="px-2 py-3 border-t border-white/10 space-y-0.5">
         <button onClick={() => setActiveTab('account')} className={itemCls(activeTab === 'account')}>
           <Settings className="h-4 w-4 flex-shrink-0" />
@@ -100,6 +106,8 @@ const CabinetSidebar = ({
       </div>
     </div>
   );
+
+  return null;
 };
 
 const CabinetDashboardLayout = () => {
@@ -148,11 +156,14 @@ const CabinetDashboardLayout = () => {
   return (
     <div className="theme-admin">
       <SidebarProvider>
-        <div className="min-h-screen flex w-full bg-background">
-          <CabinetSidebar activeTab={getActiveTab()} setActiveTab={setActiveTab} onOpenAlerts={() => setShowAlerts(true)} />
+        <div className="h-screen flex flex-col w-full bg-background overflow-hidden">
 
-          <div className="flex-1 flex flex-col min-w-0">
-            <header className="h-16 flex items-center justify-between border-b border-black/[0.09] bg-background px-6 gap-3 flex-shrink-0">
+          {/* ── Ligne de tête : logo (sidebar) + header (contenu) — border-b commune ── */}
+          <div className="flex h-16 flex-shrink-0 border-b border-black/[0.1]">
+            {/* Partie sidebar du header */}
+            <CabinetSidebar activeTab={getActiveTab()} setActiveTab={setActiveTab} onOpenAlerts={() => setShowAlerts(true)} headerOnly />
+            {/* Partie contenu du header */}
+            <header className="flex-1 flex items-center justify-between bg-background px-6 gap-3">
               <span className="text-[10px] font-semibold tracking-[0.18em] uppercase text-muted-foreground">Espace cabinet</span>
               {fullName && (
                 <div className="flex items-center gap-2 text-[11px] font-sans text-muted-foreground">
@@ -162,10 +173,16 @@ const CabinetDashboardLayout = () => {
                 </div>
               )}
             </header>
+          </div>
+
+          {/* ── Ligne du bas : sidebar nav + contenu ── */}
+          <div className="flex flex-1 min-h-0">
+            <CabinetSidebar activeTab={getActiveTab()} setActiveTab={setActiveTab} onOpenAlerts={() => setShowAlerts(true)} navOnly />
             <main className="flex-1 p-8 lg:p-12 overflow-y-auto bg-background">
               {showBooking ? <CandidateBooking userType="cabinet" /> : showAccount ? <CabinetAccount /> : <CabinetDashboard />}
             </main>
           </div>
+
         </div>
         {showAlerts && <CabinetNotificationAlerts onClose={() => setShowAlerts(false)} />}
       </SidebarProvider>
