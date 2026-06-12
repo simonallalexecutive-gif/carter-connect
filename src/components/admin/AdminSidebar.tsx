@@ -1,4 +1,4 @@
-import { Users, Briefcase, GitPullRequest, BarChart3, LogOut, CalendarDays, UserPlus, Building2 } from 'lucide-react';
+import { Users, Briefcase, GitPullRequest, BarChart3, LogOut, CalendarDays, Building2, CheckCircle2, Bell } from 'lucide-react';
 import { NavLink } from '@/components/NavLink';
 import { useLocation, Link } from 'react-router-dom';
 import {
@@ -18,9 +18,10 @@ import { useAuth } from '@/hooks/useAuth';
 const NAV_ITEMS = [
   { title: 'Tableau de bord', url: '/admin', icon: BarChart3 },
   { title: 'Agenda', url: '/admin/agenda', icon: CalendarDays },
-  { title: 'Inscrire', url: '/admin/inscrire', icon: UserPlus },
   { title: 'Candidats inscrits', url: '/admin/profils', icon: Users },
   { title: 'Cabinets inscrits', url: '/admin/cabinets', icon: Building2 },
+  { title: 'Candidats approuvés', url: '/admin/approuves', icon: CheckCircle2 },
+  { title: 'Notifications', url: '/admin/notifications', icon: Bell },
   { title: 'Offres cabinets', url: '/admin/offres', icon: Briefcase },
   { title: 'Processus', url: '/admin/processus', icon: GitPullRequest },
 ];

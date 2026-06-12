@@ -3,7 +3,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
-import { Download, Eye, FileText, Linkedin, Loader2, RefreshCcw } from 'lucide-react';
+import { Eye, FileText, Linkedin, Loader2, RefreshCcw } from 'lucide-react';
 import { toast } from 'sonner';
 import AdminCandidateProfileDialog from './AdminCandidateProfileDialog';
 
@@ -201,7 +201,6 @@ const AdminProfiles = () => {
                   <TableHead className="text-[10px] font-semibold tracking-[0.08em] uppercase text-foreground">Statut</TableHead>
                   <TableHead className="text-[10px] font-semibold tracking-[0.08em] uppercase text-foreground">Inscrit le</TableHead>
                   <TableHead className="text-[10px] font-semibold tracking-[0.08em] uppercase text-foreground">LinkedIn</TableHead>
-                  <TableHead className="text-[10px] font-semibold tracking-[0.08em] uppercase text-foreground text-right">CV</TableHead>
                   <TableHead className="text-[10px] font-semibold tracking-[0.08em] uppercase text-foreground text-right">Actions</TableHead>
                 </TableRow>
               </TableHeader>
@@ -225,33 +224,17 @@ const AdminProfiles = () => {
                       <TableCell className="text-[11px] text-foreground/80">{formatDate(c.created_at)}</TableCell>
                       <TableCell>
                         {data.linkedinUrl ? (
-                          <a href={data.linkedinUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-[11px] text-foreground/70 hover:text-foreground transition-colors">
+                          <a
+                            href={data.linkedinUrl.startsWith('http') ? data.linkedinUrl : `https://${data.linkedinUrl}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1 text-[11px] text-foreground/70 hover:text-foreground transition-colors"
+                          >
                             <Linkedin className="w-3.5 h-3.5" />
                             <span className="hidden xl:inline">Voir</span>
                           </a>
                         ) : (
                           <span className="text-[10px] text-muted-foreground/50">—</span>
-                        )}
-                      </TableCell>
-                      <TableCell className="text-right">
-                        {hasCv ? (
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => handleDownloadCv(c)}
-                            disabled={downloadingCv === c.id}
-                            className="text-[11px] h-7 text-foreground"
-                          >
-                            {downloadingCv === c.id ? (
-                              <Loader2 className="w-3 h-3 animate-spin" />
-                            ) : (
-                              <>
-                                <Download className="w-3 h-3 mr-1" /> CV
-                              </>
-                            )}
-                          </Button>
-                        ) : (
-                          <span className="text-[10px] text-muted-foreground">—</span>
                         )}
                       </TableCell>
                       <TableCell className="text-right">

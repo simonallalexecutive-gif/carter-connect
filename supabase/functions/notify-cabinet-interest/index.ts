@@ -33,16 +33,35 @@ serve(async (req) => {
     const contactTel = meta.contact_mobile || "—";
     const contactRole = meta.contact_role || "—";
 
-    // Récupérer un minimum d'infos sur le candidat (anonymisé)
+    // Récupérer le compte cabinet
+    const { data: cabinetAccount } = await supabaseAdmin
+      .from("cabinet_accounts")
+      .select("id")
+      .eq("user_id", cabinetUserId)
+      .single();
+
+    // Récupérer le candidat
     const { data: regRow } = await supabaseAdmin
       .from("candidate_registrations")
-      .select("id, created_at, submission_data")
+      .select("id, user_id, created_at, submission_data")
       .eq("id", candidateId)
       .single();
 
     const sd = regRow?.submission_data || {};
     const pratique = sd.departement || "—";
     const seniority = sd.sermentAnnee ? `${new Date().getFullYear() - parseInt(sd.sermentAnnee)} ans de PQE` : "—";
+
+    // Enregistrer l'intérêt en base
+    if (cabinetAccount?.id && regRow?.user_id) {
+      await supabaseAdmin
+        .from("cabinet_candidate_interests")
+        .upsert({
+          cabinet_account_id: cabinetAccount.id,
+          candidate_user_id: regRow.user_id,
+          status: "pending",
+          logan_validated: false,
+        }, { onConflict: "cabinet_account_id,candidate_user_id" });
+    }
 
     // Envoyer un email à Logan
     const res = await fetch("https://api.resend.com/emails", {
@@ -77,8 +96,8 @@ serve(async (req) => {
               <tr style="border-top:1px solid #f0f0f0;"><td style="padding:8px 0;color:#666;">Séniorité</td><td style="padding:8px 0;">${seniority}</td></tr>
             </table>
 
-            <a href="${APP_URL}/admin/profils" style="display:inline-block;padding:14px 28px;background:#000;color:#fff;text-decoration:none;font-family:sans-serif;font-size:13px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;">
-              Voir le profil →
+            <a href="${APP_URL}/admin/notifications" style="display:inline-block;padding:14px 28px;background:#000;color:#fff;text-decoration:none;font-family:sans-serif;font-size:13px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;">
+              Voir dans l'espace admin →
             </a>
             <p style="color:#999;font-size:12px;margin-top:24px;">— L'équipe Logan</p>
           </div>
