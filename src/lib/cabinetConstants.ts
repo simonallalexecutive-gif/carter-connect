@@ -49,11 +49,14 @@ export const DEPT_KEY_MAP: Record<string, string> = {
   'Financement LBO': 'banque',
   'Financement de projets': 'projets',
   'Financement de Projets': 'projets',
-  // Labels français
+  // Nouveaux labels Logan (UI renommée)
+  'Droit social': 'social',
+  'Droit immobilier': 'immo',
+  'Droit fiscal': 'fiscal',
+  // Labels français legacy
   'Banque & Finance': 'banque',
   'Corporate / M&A & PE': 'ma',
   'Droit Social': 'social',
-  'Droit fiscal': 'fiscal',
   'Immobilier': 'immo',
   'Restructuring': 'restructuring',
   'Fiscal': 'fiscal',

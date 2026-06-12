@@ -74,16 +74,16 @@ const CandidateOffers = () => {
 
     // Filter by candidate's practice (relevance) - show related practices
     const RELATED_DEPTS: Record<string, string[]> = {
-      'M&A (dominante)': ['Corporate/M&A', 'Private Equity', 'Venture Capital', 'M&A'],
-      'Private Equity (dominante)': ['Private Equity', 'Corporate/M&A', 'Venture Capital', 'M&A'],
-      'Corporate': ['Corporate/M&A', 'Private Equity', 'M&A'],
+      'M&A (dominante)': ['M&A', 'Private Equity', 'Venture Capital', 'M&A'],
+      'Private Equity (dominante)': ['Private Equity', 'M&A', 'Venture Capital', 'M&A'],
+      'Corporate': ['M&A', 'Private Equity', 'M&A'],
       'Financement LBO': ['Financement LBO', 'Financement de projets'],
       'Financement de projets': ['Financement LBO', 'Financement de projets'],
-      'Restructuring': ['Restructuring', 'Restructuring/Insolvency'],
-      'Restructuring/Insolvency': ['Restructuring', 'Restructuring/Insolvency'],
-      'Droit Social': ['Employment', 'Droit Social'],
-      'Immobilier': ['Real Estate', 'Immobilier'],
-      'Tax': ['Tax'],
+      'Restructuring': ['Restructuring', 'Restructuring'],
+      'Restructuring': ['Restructuring', 'Restructuring'],
+      'Droit Social': ['Droit social', 'Droit Social'],
+      'Immobilier': ['Droit immobilier', 'Immobilier'],
+      'Droit fiscal': ['Droit fiscal'],
       'Concurrence': ['Concurrence', 'Competition/EU'],
       'Droit Public': ['Droit Public', 'Public Law'],
     };

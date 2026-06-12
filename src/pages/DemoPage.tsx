@@ -65,7 +65,7 @@ const SearchFormMockup = () => (
         <div className="mb-3">
           <div className="text-[8px] tracking-[0.12em] uppercase text-gray-400 mb-1.5">Département</div>
           <div className="flex flex-wrap gap-1">
-            {['Corporate/M&A/PE', 'Financement LBO', 'Employment'].map((d, i) => (
+            {['Corporate/M&A/PE', 'Financement LBO', 'Droit social'].map((d, i) => (
               <div key={d} className={cn('px-2 py-1 rounded-full border text-[8px]', i < 2 ? 'border-gray-900 text-gray-900 font-medium' : 'border-gray-200 text-gray-400')}>{d}</div>
             ))}
           </div>
@@ -100,7 +100,7 @@ const MarketMockup = () => (
         <div className="font-serif text-[16px] text-gray-900 mb-1">Explorer le marché</div>
         <div className="text-[9px] text-gray-400 mb-3">Profils anonymisés — cliquez pour consulter le détail</div>
         <div className="flex gap-1 mb-3 flex-wrap">
-          {['Tous', 'Corporate/M&A', 'B&F', 'Employment'].map((f, i) => (
+          {['Tous', 'M&A', 'B&F', 'Droit social'].map((f, i) => (
             <div key={f} className={cn('px-2 py-0.5 rounded-full text-[8px] border', i === 0 ? 'bg-gray-900 text-white border-gray-900' : 'border-gray-200 text-gray-500')}>{f}</div>
           ))}
         </div>

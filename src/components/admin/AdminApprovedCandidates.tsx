@@ -10,14 +10,14 @@ import { Sparkles } from 'lucide-react';
 
 const FILTERS = [
   { key: 'all', label: 'Tous' },
-  { key: 'ma', label: 'Corporate/M&A' },
+  { key: 'ma', label: 'M&A' },
   { key: 'pe', label: 'Private Equity' },
   { key: 'banque', label: 'Financement LBO' },
-  { key: 'restructuring', label: 'Restructuring/Insolvency' },
-  { key: 'social', label: 'Employment' },
-  { key: 'immo', label: 'Real Estate' },
-  { key: 'projets', label: 'Projects & Energy' },
-  { key: 'tax', label: 'Tax' },
+  { key: 'restructuring', label: 'Restructuring' },
+  { key: 'social', label: 'Droit social' },
+  { key: 'immo', label: 'Droit immobilier' },
+  { key: 'projets', label: 'Financement de projets' },
+  { key: 'tax', label: 'Droit fiscal' },
   { key: 'new', label: 'New', icon: Star },
 ];
 

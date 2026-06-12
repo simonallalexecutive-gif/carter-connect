@@ -231,14 +231,14 @@ export function resolveCanonicalName(name: string): string {
 
 /** Toutes les pratiques couvertes par Logan */
 export const LEGAL500_DEPARTMENTS: { key: string; label: string }[] = [
-  { key: 'ma',            label: 'Corporate/M&A' },
+  { key: 'ma',            label: 'M&A' },
   { key: 'pe',            label: 'Private Equity' },
   { key: 'banque',        label: 'Financement LBO' },
-  { key: 'projets',       label: 'Projects & Energy' },
-  { key: 'social',        label: 'Employment' },
-  { key: 'immo',          label: 'Real Estate' },
-  { key: 'fiscal',        label: 'Tax' },
-  { key: 'restructuring', label: 'Restructuring/Insolvency' },
+  { key: 'projets',       label: 'Financement de projets' },
+  { key: 'social',        label: 'Droit social' },
+  { key: 'immo',          label: 'Droit immobilier' },
+  { key: 'fiscal',        label: 'Droit fiscal' },
+  { key: 'restructuring', label: 'Restructuring' },
 ];
 
 /** Tier d'une firme pour une pratique donnée (résout les aliases) */

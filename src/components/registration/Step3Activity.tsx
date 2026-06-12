@@ -31,14 +31,14 @@ const CHART_COLORS = [
 // Practices selectable at Step 2 (Identity) that have a specialized panel
 const SPECIALIZED_DEPTS = [
   'Financement LBO',
-  'Restructuring/Insolvency',
-  'Employment',
-  'Corporate/M&A',
+  'Restructuring',
+  'Droit social',
+  'M&A',
   'Private Equity',
   'Venture Capital',
-  'Real Estate',
-  'Tax',
-  'Projects & Energy',
+  'Droit immobilier',
+  'Droit fiscal',
+  'Financement de projets',
 ];
 
 const Step3Activity = () => {
@@ -117,27 +117,27 @@ const Step3Activity = () => {
           ]} />
         ) : null}
 
-        {(store.departement === 'Restructuring/Insolvency') && (
+        {((store.departement === 'Restructuring' || store.departement === 'Restructuring/Insolvency')) && (
           <RestructuringActivityPanel />
         )}
 
-        {(store.departement === 'Employment') && (
+        {((store.departement === 'Droit social' || store.departement === 'Employment')) && (
           <SocialActivityPanel />
         )}
 
-        {(store.departement === 'Corporate/M&A' || store.departement === 'Private Equity' || store.departement === 'Venture Capital') && (
+        {((store.departement === 'M&A' || store.departement === 'Corporate/M&A') || store.departement === 'Private Equity' || store.departement === 'Venture Capital') && (
           <MaActivityPanel />
         )}
 
-        {(store.departement === 'Real Estate') && (
+        {((store.departement === 'Droit immobilier' || store.departement === 'Real Estate')) && (
           <RealEstateActivityPanel />
         )}
 
-        {(store.departement === 'Tax') && (
+        {((store.departement === 'Droit fiscal' || store.departement === 'Tax')) && (
           <TaxActivityPanel />
         )}
 
-        {(store.departement === 'Projects & Energy') && (
+        {((store.departement === 'Financement de projets' || store.departement === 'Projects & Energy')) && (
           <ProjectsEnergyActivityPanel />
         )}
 

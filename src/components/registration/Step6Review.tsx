@@ -169,7 +169,7 @@ const Step6Review = ({ readOnly = false, cabinetView = false, hideStepHeader = f
     const dept = store.departement;
 
     // ── Restructuring ──
-    if (dept === 'Restructuring' || dept === 'Restructuring/Insolvency') {
+    if ((dept === 'Restructuring' || dept === 'Restructuring/Insolvency') || (dept === 'Restructuring' || dept === 'Restructuring/Insolvency')) {
       const restrSubs = store.sousActivites['restr_restructuring'] || {};
       const amiableVal = restrSubs['amiable'] ?? 50;
       const distressedVal = store.pourcentages['restr_distressed'] ?? 10;
@@ -206,7 +206,7 @@ const Step6Review = ({ readOnly = false, cabinetView = false, hideStepHeader = f
     }
 
     // ── Social ──
-    if (dept === 'Droit Social' || dept === 'Employment') {
+    if (dept === 'Droit Social' || (dept === 'Droit social' || dept === 'Employment')) {
       const conseilPct = store.socialConseil ?? 50;
       const contentieuxPct = 100 - conseilPct;
       const relationType = store.socialRelationType ?? '';
@@ -234,7 +234,7 @@ const Step6Review = ({ readOnly = false, cabinetView = false, hideStepHeader = f
     }
 
     // ── Real Estate ──
-    if (dept === 'Immobilier' || dept === 'Real Estate') {
+    if (dept === 'Immobilier' || (dept === 'Droit immobilier' || dept === 'Real Estate')) {
       const bauxVal = store.reBauxAM ?? 20;
       const shareVal = store.reShareDeal ?? 20;
       const assetVal = store.reAssetDealPct ?? 20;
@@ -259,12 +259,12 @@ const Step6Review = ({ readOnly = false, cabinetView = false, hideStepHeader = f
     }
 
     // ── M&A / PE / Corporate ──
-    if (dept === 'M&A (dominante)' || dept === 'Private Equity (dominante)' || dept === 'Corporate/M&A' || dept === 'Private Equity') {
+    if (dept === 'M&A (dominante)' || dept === 'Private Equity (dominante)' || (dept === 'M&A' || dept === 'Corporate/M&A') || dept === 'Private Equity') {
       return { chartData: buildCategoryChart(MA_CATEGORIES, store.activites, store.pourcentages), positionnement: [], clientele: [] };
     }
 
     // ── Finance ──
-    if (dept === 'Financement LBO' || dept === 'Financement de projets' || dept === 'Financement LBO') {
+    if (dept === 'Financement LBO' || (dept === 'Financement de projets' || dept === 'Projects & Energy') || dept === 'Financement LBO') {
       const finKeys = Object.keys(store.activites).filter(k => (k.startsWith('fin_') || k.startsWith('finp_')) && store.activites[k]);
       if (finKeys.length > 0) {
         const items = finKeys.map((k, i) => ({
@@ -284,7 +284,7 @@ const Step6Review = ({ readOnly = false, cabinetView = false, hideStepHeader = f
     }
 
     // ── Tax (new questionnaire) ──
-    if (dept === 'Tax') {
+    if ((dept === 'Droit fiscal' || dept === 'Tax')) {
       const segs: { name: string; value: number; color: string }[] = [];
       const corp = store.taxCorporatePct ?? 0;
       const tr = store.taxTransacPct ?? 0;
@@ -312,7 +312,7 @@ const Step6Review = ({ readOnly = false, cabinetView = false, hideStepHeader = f
     }
 
     // ── Projects & Energy ──
-    if (dept === 'Projects & Energy') {
+    if ((dept === 'Financement de projets' || dept === 'Projects & Energy')) {
       return { chartData: buildCategoryChart(PROJ_TYPES, store.activites, store.pourcentages), positionnement: [], clientele: [] };
     }
 
@@ -492,7 +492,7 @@ const Step6Review = ({ readOnly = false, cabinetView = false, hideStepHeader = f
             )}
 
             {/* Positionnement prêteur/sponsor (Finance) */}
-            {(store.departement === 'Financement LBO' || store.departement === 'Financement de projets' || store.departement === 'Financement LBO') && (
+            {(store.departement === 'Financement LBO' || (store.departement === 'Financement de projets' || store.departement === 'Projects & Energy') || store.departement === 'Financement LBO') && (
               <div className="pt-4 border-t border-white/20 space-y-2">
                 <p className="text-[9px] uppercase tracking-[0.22em] text-white/65 font-sans font-semibold mb-2">Positionnement</p>
                 <div className="flex items-baseline gap-3 text-[12px] font-sans">
@@ -507,7 +507,7 @@ const Step6Review = ({ readOnly = false, cabinetView = false, hideStepHeader = f
             )}
 
             {/* Employeur / Salarié (Social) */}
-            {(store.departement === 'Droit Social' || store.departement === 'Employment') && (
+            {(store.departement === 'Droit Social' || (store.departement === 'Droit social' || store.departement === 'Employment')) && (
               <div className="pt-4 border-t border-white/20 space-y-2">
                 <p className="text-[9px] uppercase tracking-[0.22em] text-white/65 font-sans font-semibold mb-2">Positionnement</p>
                 <div className="flex items-baseline gap-3 text-[12px] font-sans">
@@ -547,7 +547,7 @@ const Step6Review = ({ readOnly = false, cabinetView = false, hideStepHeader = f
             )}
 
             {/* Social-specific tags */}
-            {(store.departement === 'Droit Social' || store.departement === 'Employment') && (store.socialClientele || []).length > 0 && (
+            {(store.departement === 'Droit Social' || (store.departement === 'Droit social' || store.departement === 'Employment')) && (store.socialClientele || []).length > 0 && (
               <div className="pt-4 border-t border-white/20 space-y-2">
                 <p className="text-[9px] uppercase tracking-[0.22em] text-white/65 font-sans font-semibold mb-2">Clientèle cible</p>
                 <div className="flex flex-wrap gap-1.5">
@@ -559,7 +559,7 @@ const Step6Review = ({ readOnly = false, cabinetView = false, hideStepHeader = f
             )}
 
             {/* Sous-détail M&A — Private M&A / Public M&A + clientèle */}
-            {(store.departement === 'Corporate/M&A' || store.departement === 'M&A (dominante)') && store.activites['ma_ma'] && (() => {
+            {((store.departement === 'M&A' || store.departement === 'Corporate/M&A') || store.departement === 'M&A (dominante)') && store.activites['ma_ma'] && (() => {
               const subs = [
                 { key: 'private', label: 'Private M&A' },
                 { key: 'public', label: 'Public M&A' },
@@ -587,7 +587,7 @@ const Step6Review = ({ readOnly = false, cabinetView = false, hideStepHeader = f
             })()}
 
             {/* Sous-détail Private Equity — LBO / MBO / PTP / PIPE + Fonds/Management */}
-            {(store.departement === 'Corporate/M&A' || store.departement === 'Private Equity' || store.departement === 'Private Equity (dominante)') && store.activites['ma_pe'] && (() => {
+            {((store.departement === 'M&A' || store.departement === 'Corporate/M&A') || store.departement === 'Private Equity' || store.departement === 'Private Equity (dominante)') && store.activites['ma_pe'] && (() => {
               const peVals = store.sousActivites?.['ma_pe'] || {};
               const PE_SUBS = [
                 { key: 'lbo', label: 'LBO' },
@@ -660,7 +660,7 @@ const Step6Review = ({ readOnly = false, cabinetView = false, hideStepHeader = f
             })()}
 
             {/* Social expertises */}
-            {(store.departement === 'Droit Social' || store.departement === 'Employment') && (store.socialExpertises || []).length > 0 && (
+            {(store.departement === 'Droit Social' || (store.departement === 'Droit social' || store.departement === 'Employment')) && (store.socialExpertises || []).length > 0 && (
               <div className="pt-4 border-t border-white/20 space-y-2">
                 <p className="text-[9px] uppercase tracking-[0.22em] text-white/65 font-sans font-semibold mb-2">Expertises</p>
                 <div className="flex flex-wrap gap-1.5">
@@ -672,7 +672,7 @@ const Step6Review = ({ readOnly = false, cabinetView = false, hideStepHeader = f
             )}
 
             {/* Social — Positionnement cabinet (standalone / corporate / restructuring) */}
-            {(store.departement === 'Droit Social' || store.departement === 'Employment') && (() => {
+            {(store.departement === 'Droit Social' || (store.departement === 'Droit social' || store.departement === 'Employment')) && (() => {
               const posCabinet = store.socialPosCabinet || {};
               const entries = [
                 { key: 'standalone', label: 'Stand alone' },
@@ -695,7 +695,7 @@ const Step6Review = ({ readOnly = false, cabinetView = false, hideStepHeader = f
             })()}
 
             {/* Tax — Conseil / Contentieux ratio */}
-            {store.departement === 'Tax' && (() => {
+            {(store.departement === 'Droit fiscal' || store.departement === 'Tax') && (() => {
               const conseilPct = store.taxConseilPct ?? 70;
               const contentieuxPct = 100 - conseilPct;
               return (
@@ -714,7 +714,7 @@ const Step6Review = ({ readOnly = false, cabinetView = false, hideStepHeader = f
             })()}
 
             {/* Tax — Clientèle */}
-            {store.departement === 'Tax' && (store.taxClients || []).length > 0 && (
+            {(store.departement === 'Droit fiscal' || store.departement === 'Tax') && (store.taxClients || []).length > 0 && (
               <div className="pt-4 border-t border-white/20 space-y-2">
                 <p className="text-[9px] uppercase tracking-[0.22em] text-white/65 font-sans font-semibold mb-2">Clientèle</p>
                 <div className="flex flex-wrap gap-1.5">
@@ -726,7 +726,7 @@ const Step6Review = ({ readOnly = false, cabinetView = false, hideStepHeader = f
             )}
 
             {/* Real Estate — Types d'actifs */}
-            {(store.departement === 'Immobilier' || store.departement === 'Real Estate') && (store.reAssetTypes || []).length > 0 && (
+            {(store.departement === 'Immobilier' || (store.departement === 'Droit immobilier' || store.departement === 'Real Estate')) && (store.reAssetTypes || []).length > 0 && (
               <div className="pt-4 border-t border-white/20 space-y-2">
                 <p className="text-[9px] uppercase tracking-[0.22em] text-white/65 font-sans font-semibold mb-2">Actifs</p>
                 <div className="flex flex-wrap gap-1.5">
@@ -738,7 +738,7 @@ const Step6Review = ({ readOnly = false, cabinetView = false, hideStepHeader = f
             )}
 
             {/* Real Estate — Domaines de contentieux */}
-            {(store.departement === 'Immobilier' || store.departement === 'Real Estate') && (store.reContentieuxDomaines || []).length > 0 && (
+            {(store.departement === 'Immobilier' || (store.departement === 'Droit immobilier' || store.departement === 'Real Estate')) && (store.reContentieuxDomaines || []).length > 0 && (
               <div className="pt-4 border-t border-white/20 space-y-2">
                 <p className="text-[9px] uppercase tracking-[0.22em] text-white/65 font-sans font-semibold mb-2">Domaines de contentieux</p>
                 <div className="flex flex-wrap gap-1.5">
