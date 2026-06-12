@@ -229,7 +229,7 @@ const FirmAccessPage = () => (
       <div className="max-w-5xl mx-auto flex flex-col items-center text-center">
         <motion.p initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }}
           className="font-serif italic text-[1.7rem] sm:text-[2.4rem] text-white tracking-[0.03em] mb-5">
-          Rejoignez le réseau Logan et accédez aux profils les plus qualifiés du marché, en toute confidentialité.
+          Rejoignez Logan et accédez aux profils les plus qualifiés du marché, en toute confidentialité.
         </motion.p>
         <motion.div initial={{ scaleX: 0 }} whileInView={{ scaleX: 1 }} viewport={{ once: true }} transition={{ duration: 0.9, delay: 0.2 }} className="w-14 h-px bg-white/25 mb-8" />
         <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 1, delay: 0.3 }}
