@@ -1287,22 +1287,22 @@ const Step6Review = ({ readOnly = false, cabinetView = false, hideStepHeader = f
       {!readOnly && (
         <>
           {/* Nota Bene */}
-          <div className="rounded-sm border border-border bg-card px-5 py-4 mt-6">
+          <div className="rounded-sm border border-white/20 bg-white/[0.06] px-5 py-4 mt-6">
             <div className="flex items-start justify-between gap-4 mb-1">
-              <p className="text-[9px] uppercase tracking-[0.15em] text-muted-foreground font-sans font-light">Nota bene (facultatif)</p>
-              <label className="flex items-center gap-1.5 cursor-pointer flex-shrink-0">
+              <p className="text-[9px] uppercase tracking-[0.15em] text-white/70 font-sans font-semibold">Nota bene (facultatif)</p>
+              <label className="flex items-center gap-2 cursor-pointer flex-shrink-0 bg-white/10 border border-white/20 rounded px-2.5 py-1.5 hover:bg-white/15 transition-colors">
                 <input
                   type="checkbox"
                   checked={!!store.notaBeneHidden}
                   onChange={e => store.setField('notaBeneHidden', e.target.checked)}
-                  className="w-3 h-3 accent-foreground"
+                  className="w-3.5 h-3.5 accent-white"
                 />
-                <span className="text-[9px] font-sans text-muted-foreground">Ne pas partager avec les cabinets</span>
+                <span className="text-[10px] font-sans font-medium text-white/80">Ne pas partager avec les cabinets</span>
               </label>
             </div>
-            <p className="text-[10px] font-sans text-muted-foreground/60 mb-3 leading-relaxed">
+            <p className="text-[10px] font-sans text-white/45 mb-3 leading-relaxed">
               Ce message sera transmis aux cabinets qui consultent votre profil{store.notaBeneHidden ? ' — ' : '.'}
-              {store.notaBeneHidden && <span className="text-amber-500/70">non partagé actuellement.</span>}
+              {store.notaBeneHidden && <span className="text-amber-400/80">non partagé actuellement.</span>}
             </p>
             <textarea
               value={store.notaBene || ''}
