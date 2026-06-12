@@ -201,9 +201,8 @@ const FirmAccessPage = () => (
             Logan protège chaque partie,<br />à chaque étape.
           </h2>
           <div className="text-white/55 font-sans font-light text-[0.93rem] leading-[1.85] space-y-4">
-            <p>La confidentialité est au cœur de chaque échange.</p>
-            <p>Aucune mise en relation ne peut avoir lieu en dehors de notre intermédiation.</p>
             <p>L'identité des parties et les termes des échanges sont strictement confidentiels en dehors de tout rapprochement.</p>
+            <p>Aucune mise en relation ne peut avoir lieu en dehors de notre intermédiation.</p>
           </div>
         </motion.div>
 
