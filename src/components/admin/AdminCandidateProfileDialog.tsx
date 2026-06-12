@@ -103,54 +103,52 @@ const AdminCandidateProfileDialog = ({ open, onOpenChange, candidate, onUpdated 
   if (!open || !candidate) return null;
 
   return (
-    <div className="fixed inset-0 z-50 bg-white flex flex-col overflow-hidden">
-      {/* Top bar */}
-      <div className="flex items-center justify-between px-6 py-4 border-b border-black/10 bg-white flex-shrink-0">
-        <div className="flex items-center gap-4">
-          <button
-            onClick={() => onOpenChange(false)}
-            className="flex items-center gap-1.5 text-black/40 hover:text-black transition-colors text-xs font-sans"
-          >
-            <ArrowLeft className="w-3.5 h-3.5" />
-            Retour
-          </button>
-          <div className="w-px h-4 bg-black/10" />
-          <div>
-            <p className="text-[9px] uppercase tracking-[0.18em] text-black/40 font-semibold font-sans">Fiche candidat</p>
-            <h2 className="text-[15px] font-sans font-semibold text-black mt-0.5">
-              {candidate.full_name || candidate.auth_email || '—'}
-            </h2>
+    <>
+      {/* Overlay */}
+      <div className="fixed inset-0 z-40 bg-black/40" onClick={() => onOpenChange(false)} />
+
+      {/* Drawer latéral */}
+      <div className="fixed top-0 right-0 bottom-0 z-50 w-full max-w-xl bg-white flex flex-col shadow-2xl border-l border-black/8">
+        {/* Top bar */}
+        <div className="flex items-center justify-between px-5 py-4 border-b border-black/10 bg-white flex-shrink-0">
+          <div className="flex items-center gap-3">
+            <div>
+              <p className="text-[9px] uppercase tracking-[0.18em] text-black/40 font-semibold font-sans">Fiche candidat</p>
+              <h2 className="text-[14px] font-sans font-semibold text-black mt-0.5">
+                {candidate.full_name || candidate.auth_email || '—'}
+              </h2>
+            </div>
+          </div>
+          <div className="flex items-center gap-3">
+            <span className={cn(
+              'text-[9px] font-semibold tracking-[0.1em] uppercase px-2.5 py-1 rounded-sm font-sans',
+              candidate.status === 'approved' ? 'bg-black text-white' :
+              candidate.status === 'rejected' ? 'bg-red-100 text-red-700 border border-red-200' :
+              'bg-black/5 text-black/60 border border-black/10',
+            )}>{statusLabel}</span>
+            <button
+              onClick={() => onOpenChange(false)}
+              className="p-1.5 text-black/40 hover:text-black transition-colors"
+            >
+              <X className="w-4 h-4" />
+            </button>
           </div>
         </div>
-        <span className={cn(
-          'text-[9px] font-semibold tracking-[0.1em] uppercase px-2.5 py-1 rounded-sm font-sans',
-          candidate.status === 'approved' ? 'bg-black text-white' :
-          candidate.status === 'rejected' ? 'bg-red-100 text-red-700 border border-red-200' :
-          'bg-black/5 text-black/60 border border-black/10',
-        )}>{statusLabel}</span>
-      </div>
 
-      {/* Profile content */}
-      <div className="flex-1 overflow-y-auto bg-white">
-        {hydrated && <Step6Review readOnly hideStepHeader />}
-        <div className="h-8" />
-      </div>
+        {/* Profile content */}
+        <div className="flex-1 overflow-y-auto bg-white">
+          {hydrated && <Step6Review readOnly hideStepHeader />}
+          <div className="h-8" />
+        </div>
 
-      {/* Action footer */}
-      <div className="flex items-center justify-between gap-3 px-6 py-4 border-t border-black/10 bg-white flex-shrink-0">
-        <button
-          onClick={() => onOpenChange(false)}
-          className="text-xs font-sans text-black/40 hover:text-black transition-colors"
-        >
-          Fermer
-        </button>
+        {/* Action footer */}
         {isPending && (
-          <div className="flex items-center gap-2">
+          <div className="flex items-center justify-end gap-2 px-5 py-4 border-t border-black/10 bg-white flex-shrink-0">
             <Button
               variant="outline"
               disabled={submitting !== null}
               onClick={() => handleDecision(false)}
-              className="rounded-sm text-xs bg-transparent text-red-400 border-red-700/40 hover:bg-red-900/20 hover:text-red-300 gap-1.5"
+              className="rounded-sm text-xs bg-transparent text-red-500 border-red-200 hover:bg-red-50 gap-1.5"
             >
               {submitting === 'reject' ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <X className="w-3.5 h-3.5" />}
               Refuser
@@ -158,7 +156,7 @@ const AdminCandidateProfileDialog = ({ open, onOpenChange, candidate, onUpdated 
             <Button
               disabled={submitting !== null}
               onClick={() => handleDecision(true)}
-              className="rounded-sm text-xs bg-white text-black hover:bg-white/90 gap-1.5"
+              className="rounded-sm text-xs bg-black text-white hover:bg-black/80 gap-1.5"
             >
               {submitting === 'approve' ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Check className="w-3.5 h-3.5" />}
               Valider le profil
@@ -166,7 +164,7 @@ const AdminCandidateProfileDialog = ({ open, onOpenChange, candidate, onUpdated 
           </div>
         )}
       </div>
-    </div>
+    </>
   );
 };
 
