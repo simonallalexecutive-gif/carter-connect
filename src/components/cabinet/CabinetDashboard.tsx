@@ -986,7 +986,7 @@ const ExploreView = ({
             >
               {/* Top strip — fond noir, statut uniquement */}
               <div className="flex items-center justify-between px-4 py-3 bg-[hsl(0,0%,9%)]">
-                <span className="text-[9px] tracking-[0.16em] uppercase text-white/30 font-sans font-medium">Statut</span>
+                <span className="text-[9px] tracking-[0.16em] uppercase text-white font-sans font-bold">Statut</span>
                 {isActive ? (
                   <span className="inline-flex items-center gap-1.5">
                     <span className="relative flex h-1.5 w-1.5">
@@ -998,7 +998,7 @@ const ExploreView = ({
                 ) : (
                   <span className="inline-flex items-center gap-1.5">
                     <span className="inline-block w-1.5 h-1.5 rounded-full bg-white/20" />
-                    <span className="text-[9px] uppercase tracking-[0.16em] text-white/45 font-medium">À l'écoute</span>
+                    <span className="text-[9px] uppercase tracking-[0.16em] text-white font-bold">À l'écoute</span>
                   </span>
                 )}
               </div>
@@ -1045,8 +1045,8 @@ const ExploreView = ({
 
               {/* Footer — fond noir */}
               <div className="flex items-center justify-between px-5 py-3 bg-[hsl(0,0%,9%)]">
-                <span className="text-[10px] font-sans font-semibold tracking-[0.12em] uppercase text-white/50 group-hover:text-white/80 transition-colors">Voir le profil</span>
-                <Eye className="w-3.5 h-3.5 text-white/30 group-hover:text-white/70 transition-colors" />
+                <span className="text-[10px] font-sans font-bold tracking-[0.12em] uppercase text-white group-hover:text-white/80 transition-colors">Voir le profil</span>
+                <Eye className="w-3.5 h-3.5 text-white group-hover:text-white/70 transition-colors" />
               </div>
             </div>
           );
