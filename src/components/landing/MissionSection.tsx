@@ -44,7 +44,7 @@ const MissionSection = () => (
         {/* Firms */}
         <motion.div variants={fadeUp} className="px-0 md:pr-12 py-10 flex flex-col gap-6">
           <span className="text-[13.1px] font-sans font-bold tracking-[0.22em] uppercase text-black/30">Firms</span>
-          <h3 className="font-serif font-[300] text-[1.37rem] text-black leading-snug italic">
+          <h3 className="font-serif font-[300] text-[1.16rem] text-black leading-snug italic">
             Vivez votre marché.
           </h3>
           <div className="w-6 h-px bg-black/15" />
@@ -105,7 +105,7 @@ const MissionSection = () => (
         {/* Candidats */}
         <motion.div variants={fadeUp} className="px-0 md:pl-12 py-10 flex flex-col gap-6">
           <span className="text-[13.1px] font-sans font-bold tracking-[0.22em] uppercase text-black/30">Candidats</span>
-          <h3 className="font-serif font-[300] text-[1.37rem] text-black leading-snug italic">
+          <h3 className="font-serif font-[300] text-[1.16rem] text-black leading-snug italic">
             Reprenez le contrôle.
           </h3>
           <div className="w-6 h-px bg-black/15" />
