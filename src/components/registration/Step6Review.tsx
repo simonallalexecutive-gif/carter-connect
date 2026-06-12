@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { usePQE } from '@/hooks/usePQE';
 import SeniorityBadge from '@/components/shared/SeniorityBadge';
 import { ACTIVITES_BY_PRACTICE, ACTIVITES_DEFAULT } from '@/lib/constants';
-import { getFirmTierForDept, formatTier, getLegal500Summary } from '@/lib/legal500Rankings';
+import { getFirmTierForDept, formatTier, getLegal500Summary, getFirmNationality } from '@/lib/legal500Rankings';
 import { DEPT_KEY_MAP } from '@/lib/cabinetConstants';
 import { Eye, ArrowLeft, ArrowRight, Check, User, CalendarIcon, ChevronDown } from 'lucide-react';
 import { useState, useMemo } from 'react';
@@ -1062,14 +1062,21 @@ const Step6Review = ({ readOnly = false, cabinetView = false, hideStepHeader = f
                   <div className="mt-5 pt-4 border-t border-white/10">
                     <p className="text-[9px] uppercase tracking-[0.22em] text-white/65 font-sans font-semibold mb-2.5">Cabinets précédents</p>
                     <div className="space-y-1.5">
-                      {store.previousCabinets.map((pc, i) => (
-                        <div key={i} className="text-xs font-sans text-white/85">
-                          <span className="font-medium text-white">{pc.name}</span>
-                          {pc.practices.length > 0 && (
-                            <span className="text-white/55"> — {pc.practices.join(', ')}</span>
-                          )}
-                        </div>
-                      ))}
+                      {store.previousCabinets.map((pc, i) => {
+                        const nat = getFirmNationality(pc.name);
+                        const practice = pc.practices[0];
+                        const deptKey = practice ? (DEPT_KEY_MAP[practice] || practice) : null;
+                        const tier = (nat && deptKey) ? getFirmTierForDept(pc.name, deptKey) : null;
+                        const parts: string[] = [];
+                        if (nat) parts.push(`Cabinet ${nat}`);
+                        if (tier !== null && tier !== undefined) parts.push(formatTier(tier));
+                        if (practice && !nat) parts.push(practice);
+                        return (
+                          <div key={i} className="text-xs font-sans text-white/85">
+                            <span className="text-white/55">{parts.length > 0 ? parts.join(' · ') : 'Cabinet'}</span>
+                          </div>
+                        );
+                      })}
                     </div>
                   </div>
                 )}
@@ -1192,14 +1199,21 @@ const Step6Review = ({ readOnly = false, cabinetView = false, hideStepHeader = f
                   <div className="mt-5 pt-4 border-t border-white/10">
                     <p className="text-[9px] uppercase tracking-[0.22em] text-white/65 font-sans font-semibold mb-2.5">Cabinets précédents</p>
                     <div className="space-y-1.5">
-                      {store.previousCabinets.map((pc: { name: string; practices: string[] }, i: number) => (
-                        <div key={i} className="text-xs font-sans text-white/85">
-                          <span className="font-medium text-white">{pc.name}</span>
-                          {pc.practices.length > 0 && (
-                            <span className="text-white/55"> — {pc.practices.join(', ')}</span>
-                          )}
-                        </div>
-                      ))}
+                      {store.previousCabinets.map((pc: { name: string; practices: string[] }, i: number) => {
+                        const nat = getFirmNationality(pc.name);
+                        const practice = pc.practices[0];
+                        const deptKey = practice ? (DEPT_KEY_MAP[practice] || practice) : null;
+                        const tier = (nat && deptKey) ? getFirmTierForDept(pc.name, deptKey) : null;
+                        const parts: string[] = [];
+                        if (nat) parts.push(`Cabinet ${nat}`);
+                        if (tier !== null && tier !== undefined) parts.push(formatTier(tier));
+                        if (practice && !nat) parts.push(practice);
+                        return (
+                          <div key={i} className="text-xs font-sans text-white/85">
+                            <span className="text-white/55">{parts.length > 0 ? parts.join(' · ') : 'Cabinet'}</span>
+                          </div>
+                        );
+                      })}
                     </div>
                   </div>
                 )}
