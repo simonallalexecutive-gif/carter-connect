@@ -538,9 +538,7 @@ const Step2Identity = () => {
                               type="button"
                               onClick={() => {
                                 const updated = [...store.previousCabinets];
-                                const practices = isSelected
-                                  ? prev.practices.filter(pr => pr !== p.label)
-                                  : [...prev.practices, p.label];
+                                const practices = isSelected ? [] : [p.label];
                                 updated[idx] = { ...updated[idx], practices };
                                 store.setField('previousCabinets', updated);
                               }}
