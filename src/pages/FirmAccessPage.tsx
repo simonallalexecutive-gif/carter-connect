@@ -201,12 +201,11 @@ const FirmAccessPage = () => (
           <h2 className="font-serif font-[300] text-[1.8rem] sm:text-[2.4rem] text-white leading-[1.1] mb-7">
             Logan protège chaque partie,<br />à chaque étape.
           </h2>
-          <p className="text-white/55 font-sans font-light text-[0.93rem] leading-[1.85]">
-            La confidentialité est au cœur de chaque échange. Aucune mise en relation ne peut
-            avoir lieu en dehors de notre intermédiation — l'identité des parties et les termes
-            des échanges restent strictement confidentiels jusqu'au consentement mutuel explicite
-            de progresser ensemble.
-          </p>
+          <div className="text-white/55 font-sans font-light text-[0.93rem] leading-[1.85] space-y-4">
+            <p>La confidentialité est au cœur de chaque échange.</p>
+            <p>Aucune mise en relation ne peut avoir lieu en dehors de notre intermédiation.</p>
+            <p>L'identité des parties et les termes des échanges sont strictement confidentiels en dehors de tout rapprochement.</p>
+          </div>
         </motion.div>
 
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.15 }} className="md:w-1/2 flex flex-col gap-1">
