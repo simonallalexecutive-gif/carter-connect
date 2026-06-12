@@ -636,14 +636,16 @@ const Step6Review = ({ readOnly = false }: Step6ReviewProps = {}) => {
 
             {/* Sous-détail Private Equity — LBO / MBO / PTP / PIPE + Fonds/Management */}
             {(store.departement === 'Corporate/M&A' || store.departement === 'Private Equity' || store.departement === 'Private Equity (dominante)') && store.activites['ma_pe'] && (() => {
-              const subs = [
+              const peVals = store.sousActivites?.['ma_pe'] || {};
+              const PE_SUBS = [
                 { key: 'lbo', label: 'LBO' },
                 { key: 'mbo', label: 'MBO / Management' },
                 { key: 'ptp', label: 'Public-to-Private' },
                 { key: 'pipe', label: 'PIPE' },
-              ].filter(s => store.pourcentages[s.key] !== undefined);
+              ];
+              const subs = PE_SUBS.filter(s => peVals[s.key] !== undefined);
               if (subs.length === 0) return null;
-              const total = subs.reduce((s, i) => s + (store.pourcentages[i.key] ?? 0), 0);
+              const total = subs.reduce((acc, s) => acc + (peVals[s.key] ?? 0), 0);
               const peFonds = store.maPeFonds ?? 50;
               return (
                 <div className="pt-4 border-t border-white/10 space-y-2">
@@ -651,7 +653,7 @@ const Step6Review = ({ readOnly = false }: Step6ReviewProps = {}) => {
                   {subs.map(s => (
                     <div key={s.key} className="flex items-baseline gap-3 text-[12px] font-sans">
                       <span className="text-white/90 flex-1">{s.label}</span>
-                      <span className="text-white font-mono font-semibold tabular-nums">{total > 0 ? Math.round((store.pourcentages[s.key] ?? 0) / total * 100) : 0}%</span>
+                      <span className="text-white font-mono font-semibold tabular-nums">{total > 0 ? Math.round((peVals[s.key] ?? 0) / total * 100) : 0}%</span>
                     </div>
                   ))}
                   <div className="flex items-center gap-2 pt-1 text-[10px] font-sans text-white/45">
@@ -665,13 +667,14 @@ const Step6Review = ({ readOnly = false }: Step6ReviewProps = {}) => {
 
             {/* Sous-détail Venture Capital + secteurs */}
             {store.activites['ma_vc'] && (() => {
-              const subs = [
+              const vcVals = store.sousActivites?.['ma_vc'] || {};
+              const VC_SUBS = [
                 { key: 'levees', label: 'Levées de fonds' },
-                { key: 'corporate', label: 'Corporate venture' },
+                { key: 'corporate', label: 'Corporate venture / Structuration' },
                 { key: 'secondary', label: 'Secondary / Cessions' },
-              ].filter(s => store.pourcentages[s.key] !== undefined);
-              if (subs.length === 0) return null;
-              const total = subs.reduce((s, i) => s + (store.pourcentages[i.key] ?? 0), 0);
+              ];
+              const subs = VC_SUBS.filter(s => vcVals[s.key] !== undefined);
+              const total = subs.reduce((acc, s) => acc + (vcVals[s.key] ?? 0), 0);
               const vcFonds = store.maVcFonds ?? 50;
               return (
                 <div className="pt-4 border-t border-white/10 space-y-2">
@@ -679,14 +682,21 @@ const Step6Review = ({ readOnly = false }: Step6ReviewProps = {}) => {
                   {subs.map(s => (
                     <div key={s.key} className="flex items-baseline gap-3 text-[12px] font-sans">
                       <span className="text-white/90 flex-1">{s.label}</span>
-                      <span className="text-white font-mono font-semibold tabular-nums">{total > 0 ? Math.round((store.pourcentages[s.key] ?? 0) / total * 100) : 0}%</span>
+                      <span className="text-white font-mono font-semibold tabular-nums">{total > 0 ? Math.round((vcVals[s.key] ?? 0) / total * 100) : 0}%</span>
                     </div>
                   ))}
                   <div className="flex items-center gap-2 pt-1 text-[10px] font-sans text-white/45">
                     <span>Fonds {vcFonds}%</span>
                     <span>·</span>
-                    <span>Management {100 - vcFonds}%</span>
+                    <span>Fondateurs {100 - vcFonds}%</span>
                   </div>
+                  {(store.maVcStades || []).length > 0 && (
+                    <div className="flex flex-wrap gap-1.5 pt-1">
+                      {(store.maVcStades || []).map(s => (
+                        <span key={s} className="inline-flex items-center px-2.5 py-1 rounded-sm text-[10px] font-sans bg-white/10 text-white border border-white/20">{s}</span>
+                      ))}
+                    </div>
+                  )}
                   {(store.vcSecteurs || []).length > 0 && (
                     <div className="flex flex-wrap gap-1.5 pt-1">
                       {(store.vcSecteurs || []).map(s => (
