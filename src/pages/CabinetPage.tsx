@@ -65,7 +65,7 @@ const CabinetSidebar = ({
 
   // Partie haute : logo + toggle (dans la ligne de header commune)
   if (headerOnly) return (
-    <div className={`${w} flex-shrink-0 bg-[hsl(0,0%,7%)] flex items-center px-4 transition-all duration-200 ${collapsed ? 'justify-center' : 'justify-between'}`}>
+    <div className={`${w} flex-shrink-0 bg-[hsl(0,0%,7%)] flex items-center px-4 transition-all duration-200 border-b border-[hsl(0,0%,18%)] ${collapsed ? 'justify-center' : 'justify-between'}`}>
       <Link to="/" className="hover:opacity-70 transition-opacity">
         <span className="font-serif text-[28px] leading-none tracking-[0.04em] text-white">
           {collapsed ? 'L' : 'Logan'}
@@ -158,12 +158,12 @@ const CabinetDashboardLayout = () => {
       <SidebarProvider>
         <div className="h-screen flex flex-col w-full bg-background overflow-hidden">
 
-          {/* ── Ligne de tête : logo (sidebar) + header (contenu) — border-b commune ── */}
-          <div className="flex h-16 flex-shrink-0 border-b border-black/[0.1]">
+          {/* ── Ligne de tête : logo (sidebar) + header (contenu) ── */}
+          <div className="flex h-16 flex-shrink-0">
             {/* Partie sidebar du header */}
             <CabinetSidebar activeTab={getActiveTab()} setActiveTab={setActiveTab} onOpenAlerts={() => setShowAlerts(true)} headerOnly />
             {/* Partie contenu du header */}
-            <header className="flex-1 flex items-center justify-between bg-background px-6 gap-3">
+            <header className="flex-1 flex items-center justify-between bg-background px-6 gap-3 border-b border-black/[0.1]">
               <span className="text-[10px] font-semibold tracking-[0.18em] uppercase text-muted-foreground">Espace cabinet</span>
               {fullName && (
                 <div className="flex items-center gap-2 text-[11px] font-sans text-muted-foreground">
