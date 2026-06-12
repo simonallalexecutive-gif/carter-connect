@@ -98,7 +98,7 @@ const MissionSection = () => (
           <span className="md:hidden text-[11.5px] font-sans font-semibold tracking-[0.22em] uppercase text-black/30">Logan</span>
 
           <p className="font-sans font-light text-[0.9rem] leading-[1.75] text-black/35 max-w-[160px]">
-            Votre unique intermédiaire, de la mise en relation à la finalisation de votre processus.
+            Votre seul intermédiaire, de l'intention à la signature.
           </p>
         </motion.div>
 
