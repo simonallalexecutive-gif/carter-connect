@@ -1250,6 +1250,21 @@ const Step6Review = ({ readOnly = false, cabinetView = false, hideStepHeader = f
                       : chambersInfo?.isIntegrated ? 'Classé (hors pratique)' : 'Non classé'
                   } />
                 </div>
+                {store.previousCabinets && store.previousCabinets.length > 0 && (
+                  <div className="mt-5 pt-4 border-t border-white/10">
+                    <p className="text-[9px] uppercase tracking-[0.22em] text-white/65 font-sans font-semibold mb-2.5">Cabinets précédents</p>
+                    <div className="space-y-1.5">
+                      {store.previousCabinets.map((pc: { name: string; practices: string[] }, i: number) => (
+                        <div key={i} className="text-xs font-sans text-white/85">
+                          <span className="font-medium text-white">{pc.name}</span>
+                          {pc.practices.length > 0 && (
+                            <span className="text-white/55"> — {pc.practices.join(', ')}</span>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </SectionCard>
 
               {/* Rémunération (anonymized) */}
@@ -1304,6 +1319,13 @@ const Step6Review = ({ readOnly = false, cabinetView = false, hideStepHeader = f
                 </div>
               </SectionCard>
 
+              {/* Message du candidat (nota bene) — affiché seulement si partagé */}
+              {store.notaBene && !store.notaBeneHidden && (
+                <SectionCard title="Message du candidat">
+                  <p className="text-sm font-sans font-light text-white/85 leading-relaxed">{store.notaBene}</p>
+                </SectionCard>
+              )}
+
             </>
           )}
         </div>
@@ -1314,7 +1336,22 @@ const Step6Review = ({ readOnly = false, cabinetView = false, hideStepHeader = f
         <>
           {/* Nota Bene */}
           <div className="rounded-sm border border-border bg-card px-5 py-4 mt-6">
-            <p className="text-[9px] uppercase tracking-[0.15em] text-muted-foreground font-sans font-light mb-3">Nota bene (facultatif)</p>
+            <div className="flex items-start justify-between gap-4 mb-1">
+              <p className="text-[9px] uppercase tracking-[0.15em] text-muted-foreground font-sans font-light">Nota bene (facultatif)</p>
+              <label className="flex items-center gap-1.5 cursor-pointer flex-shrink-0">
+                <input
+                  type="checkbox"
+                  checked={!!store.notaBeneHidden}
+                  onChange={e => store.setField('notaBeneHidden', e.target.checked)}
+                  className="w-3 h-3 accent-foreground"
+                />
+                <span className="text-[9px] font-sans text-muted-foreground">Ne pas partager avec les cabinets</span>
+              </label>
+            </div>
+            <p className="text-[10px] font-sans text-muted-foreground/60 mb-3 leading-relaxed">
+              Ce message sera transmis aux cabinets qui consultent votre profil{store.notaBeneHidden ? ' — ' : '.'}
+              {store.notaBeneHidden && <span className="text-amber-500/70">non partagé actuellement.</span>}
+            </p>
             <textarea
               value={store.notaBene || ''}
               onChange={e => store.setField('notaBene', e.target.value)}

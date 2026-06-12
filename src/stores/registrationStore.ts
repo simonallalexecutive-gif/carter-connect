@@ -159,6 +159,7 @@ const initialState = {
   axesAmelioration: [] as string[],
   motivation: '',
   notaBene: '',
+  notaBeneHidden: false,
   bullets: ['', '', ''],
   cabinetsCibles: [] as string[],
   noGo: [] as string[],

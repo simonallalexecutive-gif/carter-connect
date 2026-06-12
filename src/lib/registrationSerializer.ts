@@ -67,7 +67,7 @@ export const CANDIDATE_PERSISTED_KEYS = [
   // Step 4 — Next move
   'moveRemuneration', 'moveEvolution', 'moveManagement', 'moveExposition', 'moveCulture',
   'movePriorities', 'qualitesAppreciees', 'axesAmelioration',
-  'motivation', 'notaBene', 'bullets',
+  'motivation', 'notaBene', 'notaBeneHidden', 'bullets',
   'cabinetsCibles', 'noGo', 'noGoCabinets', 'processusCours',
   // Step 5 — Status
   'statutEcoute', 'visibilite', 'cvStoragePath',

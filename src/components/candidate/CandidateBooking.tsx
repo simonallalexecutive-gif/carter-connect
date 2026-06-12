@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { Calendar } from '@/components/ui/calendar';
-import { Phone, CheckCircle2 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Phone, CheckCircle2, Clock, MessageSquare, ChevronRight } from 'lucide-react';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
 import { format } from 'date-fns';
+import { fr } from 'date-fns/locale';
 
 const TIME_SLOTS = [
   '09:00', '09:30', '10:00', '10:30', '11:00', '11:30',
@@ -30,11 +30,9 @@ const CandidateBooking = ({ userType = 'candidat' }: CandidateBookingProps) => {
     try {
       const bookingDate = format(selectedDate, 'yyyy-MM-dd');
 
-      // Récupère les infos du profil selon le type
       let candidateName = user?.email || '';
       let candidateCabinet = '';
       let candidateDepartment = '';
-      let candidateSeniority = '';
 
       if (user) {
         if (userType === 'candidat') {
@@ -52,7 +50,7 @@ const CandidateBooking = ({ userType = 'candidat' }: CandidateBookingProps) => {
         } else {
           const { data } = await supabase
             .from('cabinet_accounts')
-            .select('cabinet_name, submission_data')
+            .select('cabinet_name')
             .eq('user_id', user.id)
             .single();
           if (data) {
@@ -67,7 +65,7 @@ const CandidateBooking = ({ userType = 'candidat' }: CandidateBookingProps) => {
         candidate_email: user?.email || '',
         candidate_cabinet: candidateCabinet,
         candidate_department: candidateDepartment,
-        candidate_seniority: candidateSeniority,
+        candidate_seniority: '',
         booking_date: bookingDate,
         booking_time: selectedSlot,
         user_id: user?.id || null,
@@ -77,7 +75,6 @@ const CandidateBooking = ({ userType = 'candidat' }: CandidateBookingProps) => {
 
       if (error) throw error;
 
-      // Notif admin
       supabase.functions.invoke('notify-booking', {
         body: {
           name: candidateName,
@@ -100,110 +97,164 @@ const CandidateBooking = ({ userType = 'candidat' }: CandidateBookingProps) => {
   };
 
   const formattedDate = selectedDate
-    ? selectedDate.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })
+    ? format(selectedDate, 'EEEE d MMMM yyyy', { locale: fr })
     : null;
 
+  if (confirmed) {
+    return (
+      <div className="max-w-xl mx-auto">
+        <div className="mb-8">
+          <p className="text-[10px] font-sans font-medium tracking-[0.2em] uppercase text-muted-foreground mb-2">Fixer un call</p>
+          <div className="w-8 h-px bg-foreground" />
+        </div>
+        <div className="rounded-lg border border-border bg-card overflow-hidden">
+          <div className="bg-[hsl(0,0%,10%)] px-8 py-10 text-center">
+            <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center mx-auto mb-5">
+              <CheckCircle2 className="w-6 h-6 text-white/70" />
+            </div>
+            <p className="font-serif text-[22px] text-white font-light mb-2">Créneau confirmé</p>
+            <p className="text-[13px] font-sans text-white/55">
+              {formattedDate} à {selectedSlot}
+            </p>
+          </div>
+          <div className="px-8 py-6 text-center">
+            <p className="text-[12px] font-sans text-muted-foreground leading-relaxed mb-6">
+              Votre consultant Logan vous contactera à l'heure convenue au numéro associé à votre compte.
+            </p>
+            <button
+              onClick={() => { setConfirmed(false); setSelectedDate(undefined); setSelectedSlot(null); }}
+              className="text-[11px] font-sans text-muted-foreground hover:text-foreground transition-colors border border-border rounded-sm px-4 py-2"
+            >
+              Modifier le créneau
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div>
-      <div className="mb-10">
-        <p className="text-[10px] font-sans font-medium tracking-[0.2em] uppercase text-muted-foreground mb-2">
-          Fixer un call avec Logan
-        </p>
-        <div className="w-8 h-px bg-foreground mb-6" />
-        <div className="rounded-lg border border-white/[0.08] p-6 mb-2 bg-card">
-          <p className="text-[15px] font-sans text-foreground leading-relaxed mb-3">
-            Votre consultant Logan est à votre disposition pour échanger sur votre carrière, votre projet professionnel et votre positionnement sur le marché.
+    <div className="max-w-4xl">
+      {/* Header */}
+      <div className="mb-8">
+        <p className="text-[10px] font-sans font-medium tracking-[0.2em] uppercase text-muted-foreground mb-2">Fixer un call</p>
+        <div className="w-8 h-px bg-foreground" />
+      </div>
+
+      {/* Intro card */}
+      <div className="rounded-lg border border-border overflow-hidden mb-8">
+        <div className="bg-[hsl(0,0%,10%)] px-7 py-6">
+          <Phone className="w-5 h-5 text-white/40 mb-3" />
+          <p className="font-serif text-[20px] text-white font-light leading-snug mb-1">
+            Un échange avec votre consultant Logan
           </p>
-          <p className="text-[13px] font-sans text-muted-foreground leading-relaxed mb-4">
-            Au-delà du recrutement, Logan vous accompagne dans une logique de conseil et de coaching : stratégie de carrière, préparation aux entretiens, analyse du marché, négociation — nous sommes là pour répondre à toutes vos interrogations en toute confidentialité.
+          <p className="text-[10px] font-sans font-semibold tracking-[0.16em] uppercase text-white/35">
+            30 minutes · Confidentiel
           </p>
-          <p className="text-[11px] font-sans text-muted-foreground">
-            Réservez un créneau ci-dessous pour un échange de 30 minutes avec votre consultant dédié.
-          </p>
+        </div>
+        <div className="bg-background px-7 py-5">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {[
+              { icon: Clock, label: 'Stratégie de carrière', desc: 'Positionnement, timing, ambitions' },
+              { icon: MessageSquare, label: 'Préparation entretiens', desc: 'Coaching, simulations, debriefs' },
+              { icon: Phone, label: 'Analyse du marché', desc: 'Opportunités, cabinets, tendances' },
+            ].map(({ icon: Icon, label, desc }) => (
+              <div key={label} className="flex items-start gap-3">
+                <div className="w-7 h-7 rounded-sm bg-foreground/[0.06] flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <Icon className="w-3.5 h-3.5 text-foreground/50" />
+                </div>
+                <div>
+                  <p className="text-[11px] font-sans font-medium text-foreground leading-tight">{label}</p>
+                  <p className="text-[10px] font-sans text-muted-foreground mt-0.5">{desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
-      {confirmed ? (
-        <div className="text-center py-16">
-          <CheckCircle2 className="w-10 h-10 text-foreground mx-auto mb-4" />
-          <p className="text-lg font-sans text-foreground mb-2">Créneau confirmé</p>
-          <p className="text-sm font-sans text-muted-foreground">
-            {formattedDate} à {selectedSlot}
-          </p>
-          <p className="text-xs text-muted-foreground mt-4 font-sans">
-            Votre consultant Logan vous contactera à l'heure convenue.
-          </p>
-          <Button
-            variant="outline"
-            className="mt-8 text-xs font-sans"
-            onClick={() => { setConfirmed(false); setSelectedDate(undefined); setSelectedSlot(null); }}
-          >
-            Modifier le créneau
-          </Button>
-        </div>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {/* Calendar */}
-          <div>
-            <p className="text-[11px] font-sans font-medium text-muted-foreground mb-4 uppercase tracking-wide">
+      {/* Booking grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+        {/* Calendar */}
+        <div className="rounded-lg border border-border overflow-hidden">
+          <div className="px-5 py-3.5 border-b border-border">
+            <p className="text-[10px] font-sans font-semibold tracking-[0.16em] uppercase text-muted-foreground">
               Choisir une date
             </p>
-            <div className="rounded-lg border border-white/[0.08] p-4 inline-block bg-card">
-              <Calendar
-                mode="single"
-                selected={selectedDate}
-                onSelect={(date) => { setSelectedDate(date); setSelectedSlot(null); }}
-                disabled={(date) => {
-                  const day = date.getDay();
-                  return day === 0 || day === 6 || date < new Date();
-                }}
-                className={cn("p-3 pointer-events-auto")}
-              />
-            </div>
           </div>
+          <div className="p-4 flex justify-center bg-card">
+            <Calendar
+              mode="single"
+              selected={selectedDate}
+              onSelect={(date) => { setSelectedDate(date); setSelectedSlot(null); }}
+              disabled={(date) => {
+                const day = date.getDay();
+                return day === 0 || day === 6 || date < new Date();
+              }}
+              className="pointer-events-auto"
+            />
+          </div>
+        </div>
 
-          {/* Time slots */}
-          <div>
-            <p className="text-[11px] font-sans font-medium text-muted-foreground mb-4 uppercase tracking-wide">
-              {selectedDate ? `Créneaux disponibles — ${selectedDate.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' })}` : 'Sélectionnez une date'}
+        {/* Slots */}
+        <div className="rounded-lg border border-border overflow-hidden">
+          <div className="px-5 py-3.5 border-b border-border">
+            <p className="text-[10px] font-sans font-semibold tracking-[0.16em] uppercase text-muted-foreground">
+              {selectedDate
+                ? format(selectedDate, 'd MMMM', { locale: fr })
+                : 'Sélectionnez une date'}
             </p>
-            {selectedDate ? (
-              <div className="space-y-2">
-                {TIME_SLOTS.map((slot) => (
-                  <button
-                    key={slot}
-                    onClick={() => setSelectedSlot(slot)}
-                    className={cn(
-                      'w-full text-left px-4 py-3 rounded-md border text-sm font-sans transition-all duration-200',
-                      selectedSlot === slot
-                        ? 'bg-white text-black border-white'
-                        : 'border-white/[0.08] hover:bg-white/[0.05] text-foreground'
-                    )}
-                  >
-                    <span className="flex items-center gap-2">
-                      <Phone className="w-3.5 h-3.5" />
-                      {slot}
-                    </span>
-                  </button>
-                ))}
-
-                {selectedSlot && (
-                  <Button
-                    onClick={handleConfirm}
-                    disabled={submitting}
-                    className="w-full mt-4 font-sans text-sm bg-white text-black hover:bg-white/90"
-                  >
-                    {submitting ? 'Confirmation…' : `Confirmer — ${selectedSlot}`}
-                  </Button>
-                )}
-              </div>
-            ) : (
-              <div className="flex items-center justify-center h-40 text-muted-foreground text-sm font-sans">
-                <Phone className="w-5 h-5 mr-2 opacity-30" />
-                Choisissez d'abord une date
-              </div>
-            )}
           </div>
+
+          {selectedDate ? (
+            <div className="p-4 bg-card space-y-1.5">
+              {TIME_SLOTS.map((slot) => (
+                <button
+                  key={slot}
+                  onClick={() => setSelectedSlot(slot)}
+                  className={cn(
+                    'w-full flex items-center justify-between px-4 py-2.5 rounded-sm border text-[12px] font-sans transition-all',
+                    selectedSlot === slot
+                      ? 'bg-foreground text-background border-foreground font-medium'
+                      : 'border-border hover:border-foreground/30 hover:bg-foreground/[0.04] text-foreground'
+                  )}
+                >
+                  <span className="flex items-center gap-2">
+                    <Clock className="w-3 h-3 opacity-40" />
+                    {slot}
+                  </span>
+                  {selectedSlot === slot && <ChevronRight className="w-3.5 h-3.5 opacity-60" />}
+                </button>
+              ))}
+            </div>
+          ) : (
+            <div className="flex flex-col items-center justify-center h-48 text-center px-6 bg-card">
+              <Phone className="w-6 h-6 text-muted-foreground/30 mb-3" />
+              <p className="text-[12px] font-sans text-muted-foreground">
+                Choisissez d'abord une date dans le calendrier
+              </p>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Confirmation */}
+      {selectedDate && selectedSlot && (
+        <div className="mt-5 rounded-lg border border-border bg-[hsl(0,0%,10%)] px-6 py-5 flex items-center justify-between gap-4">
+          <div>
+            <p className="text-[11px] font-sans text-white/50 mb-0.5">Créneau sélectionné</p>
+            <p className="text-[14px] font-sans font-medium text-white">
+              {formattedDate} · {selectedSlot}
+            </p>
+          </div>
+          <button
+            onClick={handleConfirm}
+            disabled={submitting}
+            className="flex-shrink-0 px-6 py-2.5 bg-white text-[hsl(0,0%,7%)] text-[11.5px] font-sans font-semibold tracking-[0.08em] uppercase rounded-sm hover:bg-white/90 transition-all disabled:opacity-50"
+          >
+            {submitting ? 'Confirmation…' : 'Confirmer →'}
+          </button>
         </div>
       )}
     </div>
