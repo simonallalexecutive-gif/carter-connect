@@ -153,8 +153,7 @@ const FirmAccessPage = () => (
 
         <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 1, delay: 0.3 }}
           className="mt-8 text-white/25 font-sans font-light text-[0.85rem] leading-relaxed text-center">
-          Quel que soit le mode retenu, Logan enrichit sa base de candidats au day to day — en chassant,
-          rencontrant et qualifiant les meilleurs profils du marché.
+          Quel que soit le mode retenu, Logan enrichit quotidiennement sa base de candidats en chassant, rencontrant et qualifiant les meilleurs profils du marché.
         </motion.p>
       </div>
     </section>
