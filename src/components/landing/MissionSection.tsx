@@ -111,7 +111,7 @@ const MissionSection = () => (
           <div className="w-6 h-px bg-black/15" />
           <div className="flex flex-col gap-5">
             <p className="font-sans font-light text-[1.01rem] leading-[1.8] text-black/55 text-justify">
-              <span className="text-black/75 font-bold">Restez attractif et en alerte sur les évolutions de votre marché</span> : accédez aux opportunités pertinentes et aux marques d'intérêt des cabinets pour votre profil, en toute confidentialité et dans l'anonymat le plus absolu.
+              <span className="text-black/75 font-bold">Restez attractif et en alerte sur la dynamique de votre marché</span> : notification en temps réel pour toute nouvelle opportunité ou pour tout intérêt manifesté par un cabinet pour votre profil accessible sur une base anonyme et strictement confidentielle.
             </p>
             <div className="w-4 h-px bg-black/10" />
             <p className="font-sans font-light text-[1.01rem] leading-[1.8] text-black/55 text-justify">
