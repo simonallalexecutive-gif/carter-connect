@@ -224,6 +224,7 @@ const CabinetPage = () => {
   const setStep = useCabinetStore((s) => s.setStep);
   const setField = useCabinetStore((s) => s.setField);
   const [searchParams] = useSearchParams();
+  const [authChecked, setAuthChecked] = useState(false);
 
   // Skip the confidentiality intro if user already saw it on RegisterPage
   useEffect(() => {
@@ -236,10 +237,12 @@ const CabinetPage = () => {
   useEffect(() => {
     const checkSession = async () => {
       // Ne pas rediriger vers le dashboard si l'utilisateur est en train de s'inscrire
-      if (searchParams.get('start') === '2') return;
+      if (searchParams.get('start') === '2') {
+        setAuthChecked(true);
+        return;
+      }
       const { data: { session } } = await (supabase.auth as any).getSession();
       if (session?.user) {
-        // Vérifie qu'il a bien un compte cabinet avant de rediriger
         const { data: cabinet } = await supabase
           .from('cabinet_accounts')
           .select('id')
@@ -251,8 +254,10 @@ const CabinetPage = () => {
           setStep(6);
         }
       }
+      setAuthChecked(true);
     };
     if (step === 1) checkSession();
+    else setAuthChecked(true);
   }, []);
 
   useEffect(() => {
@@ -280,6 +285,15 @@ const CabinetPage = () => {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [step]);
+
+  // Pendant la vérification de session — ne rien afficher pour éviter le flash
+  if (!authChecked) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <span className="font-serif text-[28px] tracking-[0.04em] text-foreground/30 animate-pulse">Logan</span>
+      </div>
+    );
+  }
 
   // Dashboard mode: full sidebar layout, no Footer
   if (step === 6) {
