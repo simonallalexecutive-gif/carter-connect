@@ -50,11 +50,11 @@ const MissionSection = () => (
           <div className="w-6 h-px bg-black/15" />
           <div className="flex flex-col gap-5">
             <p className="font-sans font-light text-[1.01rem] leading-[1.8] text-black/55">
-              <span className="text-black/75 font-normal">Recherche ciblée —</span> Déposez votre recherche à titre strictement confidentiel, en préservant — ou non — l'identité de votre cabinet.
+              <span className="text-black/75 font-normal">Publier votre recherche à titre strictement confidentiel —</span> Adressez vous à une audience qualifiée et préservez l'identité de votre cabinet.
             </p>
             <div className="w-4 h-px bg-black/10" />
             <p className="font-sans font-light text-[1.01rem] leading-[1.8] text-black/55">
-              <span className="text-black/75 font-normal">Veille active —</span> Explorez le marché et soyez opportuniste. Anticipez vos recrutements stratégiques pour chacun de vos départements.
+              <span className="text-black/75 font-normal">Explorer le marché et rester connecté à votre marché —</span> Soyez opportuniste et/ou anticipez vos recrutements stratégiques pour chacun de vos départements.
             </p>
           </div>
         </motion.div>
@@ -79,7 +79,7 @@ const MissionSection = () => (
               <span className="text-black/20 text-[9.2px]">›</span>
             </div>
 
-            <span className="font-serif text-[1.73rem] tracking-[0.02em] text-black font-[300] shrink-0">Logan</span>
+            <span className="text-[11.5px] font-sans font-semibold tracking-[0.22em] uppercase text-black/30 shrink-0">Logan</span>
 
             {/* Flèche droite */}
             <div className="flex items-center gap-0.5 flex-row-reverse">
@@ -95,10 +95,10 @@ const MissionSection = () => (
             </div>
           </div>
           {/* Mobile : juste Logan */}
-          <span className="md:hidden font-serif text-[1.73rem] tracking-[0.02em] text-black font-[300]">Logan</span>
+          <span className="md:hidden text-[11.5px] font-sans font-semibold tracking-[0.22em] uppercase text-black/30">Logan</span>
 
-          <p className="font-sans font-light text-[0.9rem] leading-[1.75] text-black/35 max-w-[140px]">
-            Un seul intermédiaire, de l'intention à la signature.
+          <p className="font-sans font-light text-[0.9rem] leading-[1.75] text-black/35 max-w-[160px]">
+            Votre unique intermédiaire, de la mise en relation à la finalisation de votre processus.
           </p>
         </motion.div>
 
