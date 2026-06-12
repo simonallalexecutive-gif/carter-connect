@@ -81,13 +81,6 @@ const CandidateProfile = () => {
     <div className="space-y-8">
       <div className="flex items-center justify-between">
         <h2 className="text-base font-sans font-medium text-foreground">Mon profil</h2>
-        <button
-          onClick={handleEditProfile}
-          className="inline-flex items-center gap-1.5 text-xs font-sans text-muted-foreground hover:text-foreground border border-border px-3 py-1.5 rounded-sm transition-colors"
-        >
-          <Pencil className="w-3.5 h-3.5" />
-          Modifier mon profil
-        </button>
       </div>
 
       <div className="border border-border rounded-sm overflow-hidden">
