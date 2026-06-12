@@ -211,7 +211,7 @@ const CabinetStartPage = () => {
               </div>
               <div>
                 <label className={labelCls}>Email professionnel</label>
-                <input value={email} onChange={e => setEmail(e.target.value)} type="email" placeholder="votre@cabinet.com" className={inputCls} />
+                <input value={email} onChange={e => setEmail(e.target.value)} type="email" placeholder="votre@cabinet.com" autoComplete="off" className={inputCls} />
               </div>
             </div>
             <p className="text-black/35 font-sans text-[10.5px] leading-relaxed -mt-1">
@@ -227,6 +227,7 @@ const CabinetStartPage = () => {
                   onChange={e => setPassword(e.target.value)}
                   type={showPassword ? 'text' : 'password'}
                   placeholder="Créer un mot de passe"
+                  autoComplete="new-password"
                   className={cn(inputCls, 'pr-10')}
                 />
                 <button type="button" onClick={() => setShowPassword(v => !v)}
@@ -263,6 +264,7 @@ const CabinetStartPage = () => {
                   onChange={e => setConfirmPassword(e.target.value)}
                   type={showConfirm ? 'text' : 'password'}
                   placeholder="Répéter le mot de passe"
+                  autoComplete="new-password"
                   className={cn(inputCls, 'pr-10',
                     confirmPassword.length > 0 && !pwdMatch ? 'border-red-500/60' : '')}
                 />
