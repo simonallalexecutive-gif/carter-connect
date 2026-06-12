@@ -43,24 +43,7 @@ const Footer = () => (
           </ul>
         </div>
 
-        {/* Légal */}
-        <div className="md:col-span-1">
-          <p className="text-[10px] font-sans font-medium tracking-[0.2em] uppercase text-white/50 mb-6">Légal</p>
-          <ul className="space-y-3">
-            <li>
-              <a href="#" className="font-sans text-sm text-white/70 hover:text-white transition-colors duration-300 font-light">
-                Mentions légales
-              </a>
-            </li>
-            <li>
-              <a href="#" className="font-sans text-sm text-white/70 hover:text-white transition-colors duration-300 font-light">
-                Conditions Générales d'Utilisation
-              </a>
-            </li>
-          </ul>
-        </div>
-
-        {/* CTA — à droite */}
+{/* CTA — à droite */}
         <div className="md:col-span-1 md:text-right">
           <p className="text-[10px] font-sans font-medium tracking-[0.2em] uppercase text-white/50 mb-6">Échangeons</p>
           <p className="font-sans text-sm text-white/70 font-light leading-relaxed">
