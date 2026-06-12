@@ -267,6 +267,25 @@ const MaActivityPanel = () => {
                       <span className="text-[11px] font-sans font-semibold text-foreground tabular-nums">{seg.value}%</span>
                     </div>
                   ))}
+                  {(store.maIndusSecteurs || []).length > 0 && (
+                    <div className="flex flex-wrap gap-1.5 pt-1">
+                      {(store.maIndusSecteurs || []).map(s => (
+                        <span key={s} className="inline-flex items-center px-2.5 py-0.5 rounded-sm text-[11px] font-sans bg-secondary text-foreground/80 border border-border">{MA_PRIVATE_SECTEURS.find(x => x.key === s)?.label || s}</span>
+                      ))}
+                    </div>
+                  )}
+                  {(store.maPublicOps || []).length > 0 && (
+                    <div className="flex flex-wrap gap-1.5 pt-1">
+                      {(store.maPublicOps || []).map(op => (
+                        <span key={op} className="inline-flex items-center px-2.5 py-0.5 rounded-sm text-[11px] font-sans bg-secondary text-foreground/80 border border-border">{op}</span>
+                      ))}
+                    </div>
+                  )}
+                  <div className="flex items-center gap-2 pt-1">
+                    <span className="text-[10px] font-sans text-muted-foreground">Vendeur {maSanteVendeur}%</span>
+                    <span className="text-[10px] text-muted-foreground">·</span>
+                    <span className="text-[10px] font-sans text-muted-foreground">Acquéreur {100 - maSanteVendeur}%</span>
+                  </div>
                   {(store.maClientele || []).length > 0 && (
                     <div className="flex flex-wrap gap-1.5 pt-1">
                       {(store.maClientele || []).map(c => (
@@ -288,6 +307,18 @@ const MaActivityPanel = () => {
                       <span className="text-[11px] font-sans font-semibold text-foreground tabular-nums">{seg.value}%</span>
                     </div>
                   ))}
+                  <div className="flex items-center gap-2 pt-1">
+                    <span className="text-[10px] font-sans text-muted-foreground">Fonds {vcFonds}%</span>
+                    <span className="text-[10px] text-muted-foreground">·</span>
+                    <span className="text-[10px] font-sans text-muted-foreground">Fondateurs {100 - vcFonds}%</span>
+                  </div>
+                  {(store.maVcStades || []).length > 0 && (
+                    <div className="flex flex-wrap gap-1.5 pt-1">
+                      {(store.maVcStades || []).map(s => (
+                        <span key={s} className="inline-flex items-center px-2.5 py-0.5 rounded-sm text-[11px] font-sans bg-secondary text-foreground/80 border border-border">{s}</span>
+                      ))}
+                    </div>
+                  )}
                   {(store.vcSecteurs || []).length > 0 && (
                     <div className="flex flex-wrap gap-1.5 pt-1">
                       {(store.vcSecteurs || []).map(s => (
@@ -303,6 +334,26 @@ const MaActivityPanel = () => {
                 <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium mb-1">Clientèle</p>
                 <span className="text-[11px] font-sans text-foreground/80">FR {store.clienteleFrancaise}% — International {100 - store.clienteleFrancaise}%</span>
               </div>
+
+              {/* Taille des opérations */}
+              {(store.tailleOperations || []).length > 0 && (
+                <div className="border-t border-border pt-3">
+                  <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium mb-1.5">Taille</p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {(store.tailleOperations || []).map(t => (
+                      <span key={t} className="inline-flex items-center px-2.5 py-0.5 rounded-sm text-[11px] font-sans bg-secondary text-foreground/80 border border-border">{t}</span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Anglais */}
+              {store.anglais && store.anglais !== '0' && (
+                <div className="border-t border-border pt-3">
+                  <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-sans font-medium mb-1">Anglais</p>
+                  <span className="text-[11px] font-sans text-foreground/80">{store.anglais}% de l'activité</span>
+                </div>
+              )}
             </div>
           </motion.div>
         )}
