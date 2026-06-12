@@ -5,22 +5,24 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { supabase } from '@/integrations/supabase/client';
 import { useCabinetStore } from '@/stores/cabinetStore';
-import { CABINETS } from '@/lib/constants';
+import { getAllFirmNames, LEGAL500_DEPARTMENTS } from '@/lib/legal500Rankings';
 import { toast } from 'sonner';
 import { Eye, EyeOff, CheckCircle2 } from 'lucide-react';
 
 const STATUSES = ['Associé(e)', 'Managing Partner', 'RH'] as const;
 
+const PRACTICES = LEGAL500_DEPARTMENTS.map(d => d.label).sort((a, b) => a.localeCompare(b, 'fr'));
+
 const CabinetStartPage = () => {
   const navigate = useNavigate();
   const setField = useCabinetStore((s) => s.setField);
-  const setStep = useCabinetStore((s) => s.setStep);
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [cabinet, setCabinet] = useState('');
   const [cabinetSearch, setCabinetSearch] = useState('');
   const [cabinetOpen, setCabinetOpen] = useState(false);
+  const [pratique, setPratique] = useState('');
   const [status, setStatus] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
@@ -31,7 +33,8 @@ const CabinetStartPage = () => {
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
 
-  const filteredCabinets = CABINETS.filter(c =>
+  const allFirms = getAllFirmNames();
+  const filteredCabinets = allFirms.filter(c =>
     c.toLowerCase().includes(cabinetSearch.toLowerCase())
   );
 
@@ -70,6 +73,7 @@ const CabinetStartPage = () => {
             contact_role: status,
             contact_mobile: phone,
             contact_email: email,
+            pratique_principale: pratique,
           },
         },
       });
@@ -98,7 +102,7 @@ const CabinetStartPage = () => {
     <div className="min-h-screen bg-white flex flex-col">
       {/* Header minimal */}
       <header className="px-8 h-16 flex items-center">
-        <button onClick={() => navigate(-1)} className="font-serif text-[28px] tracking-[0.04em] text-black hover:opacity-60 transition-opacity">
+        <button onClick={() => navigate('/')} className="font-serif text-[28px] tracking-[0.04em] text-black hover:opacity-60 transition-opacity">
           Logan
         </button>
       </header>
@@ -116,6 +120,7 @@ const CabinetStartPage = () => {
             <p className="text-black/55 font-sans font-light text-[0.9rem] leading-[1.8] mb-8">
               Un email de confirmation a été envoyé à{' '}
               <span className="text-black/80">{email}</span>.<br />
+              <br />
               Cliquez sur le lien pour activer votre compte, puis connectez-vous via la page de connexion.
             </p>
             <button
@@ -177,6 +182,21 @@ const CabinetStartPage = () => {
                   ))}
                 </div>
               )}
+            </div>
+
+            {/* Pratique */}
+            <div>
+              <label className={labelCls}>Pratique principale</label>
+              <select
+                value={pratique}
+                onChange={e => setPratique(e.target.value)}
+                className={cn(inputCls, 'appearance-none cursor-pointer', pratique === '' ? 'text-black/30' : 'text-black')}
+              >
+                <option value="" disabled>Sélectionner une pratique…</option>
+                {PRACTICES.map(p => (
+                  <option key={p} value={p}>{p}</option>
+                ))}
+              </select>
             </div>
 
             {/* Statut */}
