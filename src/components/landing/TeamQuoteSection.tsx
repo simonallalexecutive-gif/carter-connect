@@ -27,7 +27,7 @@ const TeamQuoteSection = () => {
       <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/60" />
 
       {/* Statement — centré verticalement et horizontalement */}
-      <div className="relative z-10 flex-1 flex items-end justify-center px-6 sm:px-10 pb-16">
+      <div className="relative z-10 flex-1 flex items-end justify-center px-6 sm:px-10 pb-28">
         <motion.p
           initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
