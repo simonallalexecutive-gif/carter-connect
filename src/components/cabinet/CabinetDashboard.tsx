@@ -61,6 +61,20 @@ const CabinetDashboard = () => {
   const [drawerProfile, setDrawerProfile] = useState<CabinetProfile | null>(null);
   const [candidateViewData, setCandidateViewData] = useState<{ submissionData: any; id: string } | null>(null);
 
+  // Fetch real candidates here (before any early returns) so submissionDataMap is always available
+  const [submissionDataMap, setSubmissionDataMap] = useState<Record<string, any>>({});
+  useEffect(() => {
+    supabase
+      .from('candidate_registrations')
+      .select('id, submission_data')
+      .eq('status', 'approved')
+      .then(({ data }) => {
+        const map: Record<string, any> = {};
+        (data || []).forEach(row => { map[row.id] = row.submission_data; });
+        setSubmissionDataMap(map);
+      });
+  }, []);
+
   // New search: skip dept selection, go directly to search form
   if (s.dashboardView === 'newSearch') {
     if (s.currentSearchStep === 0 || s.currentSearchStep === 1) {
