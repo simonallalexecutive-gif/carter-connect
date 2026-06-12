@@ -38,10 +38,10 @@ const AdminPage = () => {
         <div className="min-h-screen flex w-full bg-background">
           <AdminSidebar />
           <div className="flex-1 flex flex-col">
-            <header className="h-16 flex items-center justify-between border-b border-border bg-background px-6 gap-3">
+            <header className="h-16 flex items-center justify-between border-b border-border bg-[hsl(0,0%,7%)] px-6 gap-3">
               <div className="flex items-center gap-3">
-                <SidebarTrigger />
-                <span className="text-[10px] font-semibold tracking-[0.18em] uppercase text-muted-foreground">Espace administrateur</span>
+                <SidebarTrigger className="text-white/60 hover:text-white hover:bg-white/10" />
+                <span className="text-[10px] font-semibold tracking-[0.18em] uppercase text-white/60">Espace administrateur</span>
               </div>
               
             </header>
