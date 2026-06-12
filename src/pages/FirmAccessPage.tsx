@@ -108,7 +108,7 @@ const FirmAccessPage = () => (
 
         <div className="grid md:grid-cols-2 gap-px bg-white/10">
           {/* Mode I */}
-          <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.1 }} className="bg-black p-10 md:p-12">
+          <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.1 }} className="bg-black p-10 md:p-12 flex flex-col">
             <p className="text-[11px] font-sans tracking-[0.22em] uppercase text-white/30 mb-5">Mode I</p>
             <h3 className="font-serif font-[300] text-[1.45rem] text-white mb-7 leading-snug">
               Explorer le marché<br />en toute autonomie.
@@ -128,14 +128,14 @@ const FirmAccessPage = () => (
                 </div>
               ))}
             </div>
-            <p className="text-white/30 font-sans font-light text-[0.85rem] leading-[1.8] border-t border-white/10 pt-6">
+            <p className="text-white/30 font-sans font-light text-[0.85rem] leading-[1.8] border-t border-white/10 pt-6 mt-auto">
               Aucun engagement, aucune contrainte — Logan vous donne une visibilité continue sur le marché
               pour vous permettre d'être opportuniste sur le bon profil, au bon moment.
             </p>
           </motion.div>
 
           {/* Mode II */}
-          <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.22 }} className="bg-black p-10 md:p-12">
+          <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.22 }} className="bg-black p-10 md:p-12 flex flex-col">
             <p className="text-[11px] font-sans tracking-[0.22em] uppercase text-white/30 mb-5">Mode II</p>
             <h3 className="font-serif font-[300] text-[1.45rem] text-white mb-7 leading-snug">
               Piloter un recrutement<br />avec un consultant dédié.
@@ -144,7 +144,7 @@ const FirmAccessPage = () => (
               Confiez votre recherche à un consultant Logan spécialisé sur le marché des avocats,
               qui vous accompagne de A à Z tout au long du processus.
             </p>
-            <p className="text-white/30 font-sans font-light text-[0.85rem] leading-[1.8] border-t border-white/10 pt-6">
+            <p className="text-white/30 font-sans font-light text-[0.85rem] leading-[1.8] border-t border-white/10 pt-6 mt-auto">
               Logan est à la disposition de chacun de vos départements et coordonne, avec justesse
               et efficacité, les échanges dans le respect le plus strict de la confidentialité des parties.
             </p>
