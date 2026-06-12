@@ -52,80 +52,59 @@ const CabinetSidebar = ({
   const collapsed = state === 'collapsed';
   const { signOut } = useAuth();
 
+  const navItem = (
+    key: string,
+    label: string,
+    Icon: typeof Building2,
+    onClick: () => void,
+    isActive: boolean
+  ) => (
+    <SidebarMenuItem key={key}>
+      <SidebarMenuButton
+        onClick={onClick}
+        isActive={isActive}
+        tooltip={label}
+        className={`rounded-sm transition-colors ${
+          isActive
+            ? 'bg-white/10 text-white font-semibold'
+            : 'text-white/55 hover:bg-white/8 hover:text-white'
+        }`}
+      >
+        <Icon className="mr-2 h-4 w-4 flex-shrink-0" />
+        {!collapsed && <span className="text-[13px]">{label}</span>}
+      </SidebarMenuButton>
+    </SidebarMenuItem>
+  );
+
   return (
-    <Sidebar collapsible="icon" className="border-r border-sidebar-border bg-sidebar">
+    <Sidebar collapsible="icon" className="border-r border-white/10 bg-[hsl(0,0%,7%)]">
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel className="py-6 h-auto">
             <Link to="/" className="hover:opacity-70 transition-opacity">
-              <span className="font-serif text-[32px] leading-none tracking-[0.04em] text-foreground">
+              <span className="font-serif text-[32px] leading-none tracking-[0.04em] text-white">
                 {collapsed ? 'L' : 'Logan'}
               </span>
             </Link>
           </SidebarGroupLabel>
-          <SidebarGroupContent className="mt-6">
+          <SidebarGroupContent className="mt-4">
             <SidebarMenu>
-              {CABINET_TABS.map((tab) => (
-                <SidebarMenuItem key={tab.key}>
-                  <SidebarMenuButton
-                    onClick={() => setActiveTab(tab.key)}
-                    isActive={activeTab === tab.key}
-                    tooltip={tab.label}
-                    className={`text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground rounded-sm transition-colors ${
-                      activeTab === tab.key ? 'bg-sidebar-accent text-sidebar-accent-foreground font-semibold' : ''
-                    }`}
-                  >
-                    <tab.icon className="mr-2 h-4 w-4" />
-                    {!collapsed && <span className="text-[13px]">{tab.label}</span>}
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-              <SidebarMenuItem>
-                <SidebarMenuButton
-                  onClick={onOpenAlerts}
-                  tooltip="Alertes prioritaires"
-                  className="text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground rounded-sm transition-colors"
-                >
-                  <Bell className="mr-2 h-4 w-4" />
-                  {!collapsed && <span className="text-[13px]">Alertes prioritaires</span>}
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-              <SidebarMenuItem>
-                <SidebarMenuButton
-                  onClick={() => setActiveTab('booking')}
-                  isActive={activeTab === 'booking'}
-                  tooltip="Fixer un call"
-                  className={`text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground rounded-sm transition-colors ${
-                    activeTab === 'booking' ? 'bg-sidebar-accent text-sidebar-accent-foreground font-semibold' : ''
-                  }`}
-                >
-                  <Phone className="mr-2 h-4 w-4" />
-                  {!collapsed && <span className="text-[13px]">Fixer un call</span>}
-                </SidebarMenuButton>
-              </SidebarMenuItem>
+              {CABINET_TABS.map((tab) =>
+                navItem(tab.key, tab.label, tab.icon, () => setActiveTab(tab.key), activeTab === tab.key)
+              )}
+              {navItem('alerts', 'Alertes prioritaires', Bell, onOpenAlerts, false)}
+              {navItem('booking', 'Fixer un call', Phone, () => setActiveTab('booking'), activeTab === 'booking')}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter>
+      <SidebarFooter className="border-t border-white/10 pt-2">
         <SidebarMenu>
-          <SidebarMenuItem>
-            <SidebarMenuButton
-              onClick={() => setActiveTab('account')}
-              isActive={activeTab === 'account'}
-              tooltip="Mon compte"
-              className={`text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground rounded-sm transition-colors ${
-                activeTab === 'account' ? 'bg-sidebar-accent text-sidebar-accent-foreground font-semibold' : ''
-              }`}
-            >
-              <Settings className="mr-2 h-4 w-4" />
-              {!collapsed && <span className="text-[13px]">Mon compte</span>}
-            </SidebarMenuButton>
-          </SidebarMenuItem>
+          {navItem('account', 'Mon compte', Settings, () => setActiveTab('account'), activeTab === 'account')}
         </SidebarMenu>
         <button
           onClick={signOut}
-          className="flex items-center gap-2 px-3 py-2 text-[12px] text-sidebar-foreground/60 hover:text-foreground transition-colors w-full"
+          className="flex items-center gap-2 px-3 py-2 text-[12px] text-white/30 hover:text-white/70 transition-colors w-full"
         >
           <LogOut className="h-3.5 w-3.5" />
           {!collapsed && 'Déconnexion'}

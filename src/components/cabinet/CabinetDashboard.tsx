@@ -162,39 +162,76 @@ const CabinetDashboard = () => {
       )}
 
       {/* Two main CTAs */}
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+        {/* Explorer le marché */}
         <button
           onClick={() => s.setField('dashboardView', 'explore')}
-          className="group relative text-left rounded-lg border-2 border-border p-6 transition-all hover:border-foreground hover:shadow-lg bg-background flex flex-col"
+          className="group text-left rounded-lg overflow-hidden border border-border hover:shadow-xl transition-all duration-300 hover:-translate-y-0.5 flex flex-col"
         >
-          <Eye className="w-5 h-5 text-foreground mb-3" />
-          <div className="font-sans text-[11px] font-bold text-foreground tracking-wide mb-1">Explorer le marché des candidats</div>
-          <p className="text-[11px] text-muted-foreground leading-relaxed mb-4 flex-1">
-            Parcourez librement tous les profils à l'écoute du marché, toutes matières confondues.
-          </p>
-          <div className="flex items-center gap-2 text-[10px] font-semibold text-foreground mt-auto">
-            <Users className="w-3.5 h-3.5" />
-            {realProfileCount !== null ? realProfileCount : '—'} profil{realProfileCount !== 1 ? 's' : ''} disponible{realProfileCount !== 1 ? 's' : ''}
+          {/* Header noir */}
+          <div className="bg-[hsl(0,0%,9%)] px-6 pt-6 pb-5">
+            <Eye className="w-5 h-5 text-white/60 mb-3 group-hover:text-white transition-colors" />
+            <p className="font-serif text-[20px] font-light text-white leading-tight tracking-tight">Explorer le marché</p>
+            <p className="text-[10px] uppercase tracking-[0.18em] text-white/35 font-sans font-semibold mt-1">Accès libre</p>
+          </div>
+          {/* Corps blanc */}
+          <div className="bg-card px-6 py-5 flex-1 flex flex-col gap-4">
+            <p className="text-[12.5px] text-muted-foreground leading-relaxed font-sans font-light">
+              Consultez en autonomie tous les profils d'avocats en écoute active ou passive. Filtrez par pratique, séniorité et classements. Manifestez votre intérêt directement depuis la fiche.
+            </p>
+            <ul className="space-y-1.5">
+              {['Accès à tous les profils validés', 'Filtres par pratique et séniorité', 'Consultation anonymisée'].map(item => (
+                <li key={item} className="flex items-center gap-2 text-[11px] font-sans text-foreground/70">
+                  <span className="w-1 h-1 rounded-full bg-foreground/40 flex-shrink-0" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <div className="flex items-center justify-between mt-auto pt-3 border-t border-border">
+              <div className="flex items-center gap-1.5 text-[11px] font-semibold text-foreground">
+                <Users className="w-3.5 h-3.5" />
+                {realProfileCount !== null ? realProfileCount : '—'} profil{realProfileCount !== 1 ? 's' : ''} disponible{realProfileCount !== 1 ? 's' : ''}
+              </div>
+              <span className="text-[10px] font-sans font-bold tracking-[0.1em] uppercase text-foreground/40 group-hover:text-foreground transition-colors">Accéder →</span>
+            </div>
           </div>
         </button>
 
+        {/* Publier une recherche */}
         <button
-          onClick={() => {
-            s.resetSearch();
-            s.setField('dashboardView', 'newSearch');
-          }}
-          className="group relative text-left rounded-lg border-2 border-border p-6 transition-all hover:border-foreground hover:shadow-lg bg-background flex flex-col"
+          onClick={() => { s.resetSearch(); s.setField('dashboardView', 'newSearch'); }}
+          className="group text-left rounded-lg overflow-hidden border border-border hover:shadow-xl transition-all duration-300 hover:-translate-y-0.5 flex flex-col"
         >
-          <FileText className="w-5 h-5 text-foreground mb-3" />
-          <div className="font-sans text-[11px] font-bold text-foreground tracking-wide mb-1">Publier une nouvelle recherche</div>
-          <p className="text-[11px] text-muted-foreground leading-relaxed mb-4 flex-1">
-            Déposez un mandat confidentiel. LOGAN identifie et approche les meilleurs profils.
-          </p>
-          <div className="flex items-center gap-2 text-[10px] font-semibold text-foreground mt-auto">
-            <Plus className="w-3.5 h-3.5" />
-            Créer une recherche
+          {/* Header noir */}
+          <div className="bg-[hsl(0,0%,9%)] px-6 pt-6 pb-5">
+            <FileText className="w-5 h-5 text-white/60 mb-3 group-hover:text-white transition-colors" />
+            <p className="font-serif text-[20px] font-light text-white leading-tight tracking-tight">Publier une recherche</p>
+            <p className="text-[10px] uppercase tracking-[0.18em] text-white/35 font-sans font-semibold mt-1">Mandat confidentiel</p>
+          </div>
+          {/* Corps blanc */}
+          <div className="bg-card px-6 py-5 flex-1 flex flex-col gap-4">
+            <p className="text-[12.5px] text-muted-foreground leading-relaxed font-sans font-light">
+              Déposez un mandat de recrutement confidentiel. Logan identifie, approche et présélectionne les profils correspondant à vos critères — sans aucune diffusion publique.
+            </p>
+            <ul className="space-y-1.5">
+              {['Mandat 100% confidentiel', 'Approche directe par Logan', 'Présélection sur mesure'].map(item => (
+                <li key={item} className="flex items-center gap-2 text-[11px] font-sans text-foreground/70">
+                  <span className="w-1 h-1 rounded-full bg-foreground/40 flex-shrink-0" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <div className="flex items-center justify-between mt-auto pt-3 border-t border-border">
+              <div className="flex items-center gap-1.5 text-[11px] font-semibold text-foreground">
+                <Plus className="w-3.5 h-3.5" />
+                Créer une recherche
+              </div>
+              <span className="text-[10px] font-sans font-bold tracking-[0.1em] uppercase text-foreground/40 group-hover:text-foreground transition-colors">Déposer →</span>
+            </div>
           </div>
         </button>
+
       </div>
     </div>
   );
