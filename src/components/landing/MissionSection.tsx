@@ -139,7 +139,7 @@ const MissionSection = () => (
           <motion.span
             key={label}
             variants={fadeUp}
-            className={`text-[11.5px] font-sans tracking-[0.2em] uppercase ${bold ? 'font-bold text-black/60' : 'font-normal text-black/25'}`}
+            className={`text-[11.5px] font-sans tracking-[0.2em] uppercase ${bold ? 'font-bold text-black/60' : 'font-normal text-black/40'}`}
           >
             {label}
           </motion.span>
