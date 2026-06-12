@@ -109,15 +109,13 @@ const MissionSection = () => (
             Reprenez le contrôle.
           </h3>
           <div className="w-6 h-px bg-black/15" />
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-5">
             <p className="font-sans font-light text-[1.01rem] leading-[1.8] text-black/55 text-justify">
-              Restez visible des cabinets qui vous intéressent — sans jamais exposer votre identité.
+              <span className="text-black/75 font-bold">Restez attractif et en alerte sur les évolutions de votre marché</span> : accédez aux opportunités pertinentes et aux marques d'intérêt des cabinets pour votre profil, en toute confidentialité et dans l'anonymat le plus absolu.
             </p>
+            <div className="w-4 h-px bg-black/10" />
             <p className="font-sans font-light text-[1.01rem] leading-[1.8] text-black/55 text-justify">
-              Étudiez chaque opportunité en amont avec un consultant dédié, à votre rythme et selon votre projet.
-            </p>
-            <p className="font-sans font-light text-[1.01rem] leading-[1.8] text-black/55 text-justify">
-              Votre anonymat est absolu. Jusqu'à ce que vous décidiez.
+              <span className="text-black/75 font-bold">Bénéficiez d'un accompagnement personnalisé à chaque étape</span> : lorsqu'une opportunité s'inscrit dans votre projet, un consultant dédié vous accompagne afin de concilier vos aspirations et les attentes de votre futur cabinet.
             </p>
           </div>
         </motion.div>
