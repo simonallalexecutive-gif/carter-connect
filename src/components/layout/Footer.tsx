@@ -5,9 +5,9 @@ const Footer = () => (
   <footer className="bg-transparent pt-20 pb-0">
     <div className="w-full px-4 sm:px-8 md:px-16 lg:px-24">
       {/* Top grid */}
-      <div className="grid grid-cols-1 md:grid-cols-5 gap-12 md:gap-6 pb-16 border-b border-white/10 items-start">
+      <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr_2fr_1fr] gap-12 md:gap-8 pb-16 border-b border-white/10 items-start">
         {/* Brand */}
-        <div className="md:col-span-1">
+        <div>
           <img src={logoMonogram} alt="Logan" className="h-12 w-12 mb-1 -ml-4 -mt-1 opacity-80 brightness-0 invert" />
           <p className="font-sans text-xs text-white/50 font-light leading-relaxed max-w-xs pl-0">
             Réseau confidentiel de mise en relation entre avocats d'affaires et cabinets de premier plan.
@@ -15,24 +15,24 @@ const Footer = () => (
         </div>
 
         {/* Navigation */}
-        <div className="md:col-span-1">
+        <div>
           <p className="text-[10px] font-sans font-medium tracking-[0.2em] uppercase text-white/50 mb-6">Navigation</p>
           <ul className="space-y-3">
             <li>
-                <a href="/" className="font-sans text-sm text-white/70 hover:text-white transition-colors duration-300 font-light">
-                  Accueil
-                </a>
-              </li>
-              <li>
-                <Link to="/connexion" className="font-sans text-sm text-white/70 hover:text-white transition-colors duration-300 font-light">
-                  Connexion
-                </Link>
-              </li>
+              <a href="/" className="font-sans text-sm text-white/70 hover:text-white transition-colors duration-300 font-light">
+                Accueil
+              </a>
+            </li>
+            <li>
+              <Link to="/connexion" className="font-sans text-sm text-white/70 hover:text-white transition-colors duration-300 font-light">
+                Connexion
+              </Link>
+            </li>
           </ul>
         </div>
 
         {/* Contact */}
-        <div className="md:col-span-1">
+        <div>
           <p className="text-[10px] font-sans font-medium tracking-[0.2em] uppercase text-white/50 mb-6">Contact</p>
           <ul className="space-y-3">
             <li className="font-sans text-sm text-white/70 font-light">contact@loganexecutive.com</li>
@@ -43,8 +43,8 @@ const Footer = () => (
           </ul>
         </div>
 
-{/* CTA — à droite */}
-        <div className="md:col-span-1 md:text-right">
+        {/* Échangeons */}
+        <div>
           <p className="text-[10px] font-sans font-medium tracking-[0.2em] uppercase text-white/50 mb-6">Échangeons</p>
           <p className="font-sans text-sm text-white/70 font-light leading-relaxed">
             Vous souhaitez en savoir plus ?<br />Contactez-nous.
