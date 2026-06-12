@@ -439,10 +439,10 @@ const Step6Review = ({ readOnly = false, cabinetView = false, hideStepHeader = f
           "grid items-start",
           cabinetView
             ? "grid-cols-[200px_1fr] gap-2"
-            : "grid-cols-1 lg:grid-cols-[minmax(280px,340px)_1fr] gap-8"
+            : "grid-cols-2 gap-6"
         )}>
           {/* Donut */}
-          <div className={cn("relative", cabinetView ? "w-[200px] h-[200px]" : "w-full aspect-square max-w-[340px] mx-auto lg:mx-0")}>
+          <div className={cn("relative", cabinetView ? "w-[200px] h-[200px]" : "w-full aspect-square")}>
             <ResponsiveContainer width="100%" height="100%">
               <PieChart margin={{ top: 8, right: 8, bottom: 8, left: 8 }}>
                 <Pie
