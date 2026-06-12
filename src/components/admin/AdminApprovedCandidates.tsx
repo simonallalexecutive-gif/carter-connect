@@ -3,7 +3,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { cn } from '@/lib/utils';
 import { Eye, Star, Loader2 } from 'lucide-react';
 import { DEPT_KEY_MAP, FIRMS_DB, type CabinetProfile } from '@/lib/cabinetConstants';
-import CabinetCandidateView from '@/components/cabinet/CabinetCandidateView';
+import AdminCandidateProfileDialog from '@/components/admin/AdminCandidateProfileDialog';
 import { Sparkles } from 'lucide-react';
 
 // ── Helpers (miroir de CabinetDashboard) ──────────────────────────────────────
@@ -123,17 +123,17 @@ const AdminApprovedCandidates = () => {
   const [chambersOnly, setChambersOnly] = useState(false);
   const [legal500Only, setLegal500Only] = useState(false);
   const [seniorityFilter, setSeniorityFilter] = useState('all');
-  const [candidateViewData, setCandidateViewData] = useState<{ submissionData: any; id: string } | null>(null);
+  const [candidateViewData, setCandidateViewData] = useState<{ submissionData: any; id: string; user_id: string; status: string; auth_email: string | null; full_name: string | null } | null>(null);
 
   useEffect(() => {
     supabase
       .from('candidate_registrations')
-      .select('id, created_at, submission_data')
+      .select('id, user_id, created_at, submission_data')
       .eq('status', 'approved')
       .then(({ data }) => {
         setProfiles((data || []).map(registrationToProfile));
         const map: Record<string, any> = {};
-        (data || []).forEach(row => { map[row.id] = row.submission_data; });
+        (data || []).forEach(row => { map[row.id] = { submissionData: row.submission_data, user_id: row.user_id }; });
         setSubmissionDataMap(map);
         setLoading(false);
       });
@@ -238,8 +238,17 @@ const AdminApprovedCandidates = () => {
               <div
                 key={p.id}
                 onClick={() => {
-                  if (submissionDataMap[p.id]) {
-                    setCandidateViewData({ submissionData: submissionDataMap[p.id], id: p.id });
+                  const entry = submissionDataMap[p.id];
+                  if (entry) {
+                    const sd = entry.submissionData || {};
+                    setCandidateViewData({
+                      submissionData: sd,
+                      id: p.id,
+                      user_id: entry.user_id,
+                      status: 'approved',
+                      auth_email: sd.email || null,
+                      full_name: `${sd.prenom || ''} ${sd.nom || ''}`.trim() || null,
+                    });
                   }
                 }}
                 className="group relative rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 border border-border cursor-pointer flex flex-col"
@@ -293,14 +302,18 @@ const AdminApprovedCandidates = () => {
         </div>
       )}
 
-      {candidateViewData && (
-        <CabinetCandidateView
-          open={true}
-          onClose={() => setCandidateViewData(null)}
-          submissionData={candidateViewData.submissionData}
-          candidateId={candidateViewData.id}
-        />
-      )}
+      <AdminCandidateProfileDialog
+        open={!!candidateViewData}
+        onOpenChange={(o) => { if (!o) setCandidateViewData(null); }}
+        candidate={candidateViewData ? {
+          id: candidateViewData.id,
+          user_id: candidateViewData.user_id,
+          status: candidateViewData.status,
+          submission_data: candidateViewData.submissionData,
+          auth_email: candidateViewData.auth_email,
+          full_name: candidateViewData.full_name,
+        } : null}
+      />
     </div>
   );
 };
