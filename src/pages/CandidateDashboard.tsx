@@ -7,9 +7,9 @@ import { useLoadCandidateProfile } from '@/hooks/useLoadCandidateProfile';
 import { useRegistrationStore } from '@/stores/registrationStore';
 import { FileText, LogOut, Home, Phone, Settings, ChevronLeft, ChevronRight } from 'lucide-react';
 
-import CandidateProfile from '@/components/candidate/CandidateProfile';
 import CandidateBooking from '@/components/candidate/CandidateBooking';
 import CandidateDashboardOverview from '@/components/candidate/CandidateDashboardOverview';
+import Step6Review from '@/components/registration/Step6Review';
 
 type TabKey = 'dashboard' | 'profil' | 'booking';
 
@@ -166,9 +166,9 @@ const CandidateDashboardLayout = ({ candidateStatus }: { candidateStatus: string
           onToggle={() => setCollapsed(c => !c)}
           navOnly
         />
-        <main className="flex-1 p-8 lg:p-12 overflow-y-auto bg-background">
+        <main className={`flex-1 overflow-y-auto ${activeTab === 'profil' ? '' : 'p-8 lg:p-12 bg-background'}`}>
           {activeTab === 'dashboard' && <CandidateDashboardOverview />}
-          {activeTab === 'profil' && <CandidateProfile />}
+          {activeTab === 'profil' && <Step6Review readOnly />}
           {activeTab === 'booking' && <CandidateBooking />}
         </main>
       </div>
