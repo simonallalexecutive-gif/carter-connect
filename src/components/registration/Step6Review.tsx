@@ -1035,7 +1035,7 @@ const Step6Review = ({ readOnly = false, cabinetView = false, hideStepHeader = f
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-      className={cabinetView ? "px-0" : "max-w-5xl mx-auto px-4"}
+      className={cabinetView ? "px-0" : `max-w-5xl mx-auto px-4 ${hideStepHeader ? "pt-8" : ""}`}
     >
 
       {!cabinetView && !hideStepHeader && (
