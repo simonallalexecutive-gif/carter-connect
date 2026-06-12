@@ -129,13 +129,19 @@ const MissionSection = () => (
         viewport={{ once: true, margin: '-40px' }}
         className="mt-20 md:mt-24 flex flex-wrap justify-center gap-x-10 gap-y-4"
       >
-        {['Confidentialité', 'Réactivité', 'Anonymat', 'Accompagnement', 'Transparence'].map((word) => (
+        {[
+          { label: 'Confidentialité', bold: true },
+          { label: 'Réactivité', bold: false },
+          { label: 'Anonymat', bold: true },
+          { label: 'Accompagnement', bold: false },
+          { label: 'Transparence', bold: true },
+        ].map(({ label, bold }) => (
           <motion.span
-            key={word}
+            key={label}
             variants={fadeUp}
-            className="text-[11.5px] font-sans font-semibold tracking-[0.2em] uppercase text-black/25"
+            className={`text-[11.5px] font-sans tracking-[0.2em] uppercase text-black/25 ${bold ? 'font-bold' : 'font-semibold'}`}
           >
-            {word}
+            {label}
           </motion.span>
         ))}
       </motion.div>
