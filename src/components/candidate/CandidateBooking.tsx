@@ -183,16 +183,42 @@ const CandidateBooking = ({ userType = 'candidat' }: CandidateBookingProps) => {
               Choisir une date
             </p>
           </div>
-          <div className="p-4 flex justify-center bg-card">
+          <div className="p-4 flex justify-center bg-white">
             <Calendar
               mode="single"
               selected={selectedDate}
               onSelect={(date) => { setSelectedDate(date); setSelectedSlot(null); }}
+              locale={fr}
+              weekStartsOn={1}
               disabled={(date) => {
                 const day = date.getDay();
-                return day === 0 || day === 6 || date < new Date();
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+                return day === 0 || day === 6 || date < today;
               }}
               className="pointer-events-auto"
+              classNames={{
+                months: "flex flex-col",
+                month: "space-y-3",
+                caption: "flex justify-center pt-1 relative items-center mb-2",
+                caption_label: "text-sm font-medium text-gray-900 capitalize",
+                nav: "space-x-1 flex items-center",
+                nav_button: "h-7 w-7 bg-transparent p-0 border border-gray-200 rounded-md hover:bg-gray-50 flex items-center justify-center text-gray-600",
+                nav_button_previous: "absolute left-1",
+                nav_button_next: "absolute right-1",
+                table: "w-full border-collapse",
+                head_row: "flex",
+                head_cell: "text-gray-400 rounded-md w-9 font-normal text-[0.75rem] text-center",
+                row: "flex w-full mt-1.5",
+                cell: "h-9 w-9 text-center text-sm p-0 relative focus-within:relative focus-within:z-20",
+                day: "h-9 w-9 p-0 font-normal rounded-md text-[13px] text-gray-900 hover:bg-gray-100 transition-colors",
+                day_selected: "bg-gray-900 text-white hover:bg-gray-900 font-medium",
+                day_today: "border border-gray-300 font-semibold text-gray-900",
+                day_outside: "text-gray-300",
+                day_disabled: "text-gray-200 cursor-not-allowed hover:bg-transparent line-through",
+                day_range_middle: "",
+                day_hidden: "invisible",
+              }}
             />
           </div>
         </div>
