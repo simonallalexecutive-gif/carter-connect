@@ -967,6 +967,11 @@ const ExploreView = ({
           const isActive = p.statutEcoute === 'actif' || p.disponibilite === 'Immédiate';
           const natLabel = p.nat ? `Cabinet ${getNatLabel(p.nat)}` : '';
 
+          // Activités pour la carte (top 3 max)
+          const activityEntries = Object.entries(p.split || {})
+            .sort((a, b) => b[1] - a[1])
+            .slice(0, 3);
+
           return (
             <div
               key={p.id}
@@ -977,60 +982,71 @@ const ExploreView = ({
                   setDrawerProfile(p);
                 }
               }}
-              className="group relative rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 border border-border bg-card cursor-pointer flex flex-col"
+              className="group relative rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 border border-border cursor-pointer flex flex-col"
             >
-              {/* Top strip: ID + status */}
-              <div className="flex items-center justify-between px-5 pt-4 pb-3 border-b border-border/60">
-                <span className="text-[9px] tracking-[0.18em] uppercase text-muted-foreground/70 font-sans">{p.id}</span>
+              {/* Top strip — fond noir, statut uniquement */}
+              <div className="flex items-center justify-between px-4 py-3 bg-[hsl(0,0%,9%)]">
+                <span className="text-[9px] tracking-[0.16em] uppercase text-white/30 font-sans font-medium">Statut</span>
                 {isActive ? (
                   <span className="inline-flex items-center gap-1.5">
                     <span className="relative flex h-1.5 w-1.5">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-800 opacity-75" />
-                      <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-blue-800" />
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75" />
+                      <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-blue-400" />
                     </span>
-                    <span className="text-[9px] font-semibold uppercase tracking-[0.16em] text-blue-700">Active</span>
+                    <span className="text-[9px] font-bold uppercase tracking-[0.18em] text-blue-400">Recherche active</span>
                   </span>
                 ) : (
                   <span className="inline-flex items-center gap-1.5">
-                    <span className="inline-block w-1.5 h-1.5 rounded-full bg-muted-foreground/40" />
-                    <span className="text-[9px] uppercase tracking-[0.16em] text-muted-foreground">À l'écoute</span>
+                    <span className="inline-block w-1.5 h-1.5 rounded-full bg-white/20" />
+                    <span className="text-[9px] uppercase tracking-[0.16em] text-white/45 font-medium">À l'écoute</span>
                   </span>
                 )}
               </div>
 
-              {/* Main */}
-              <div className="px-5 py-5 flex-1 flex flex-col">
-                {p.isNew && (
-                  <span className="inline-flex items-center text-[8px] font-semibold tracking-[0.2em] uppercase text-muted-foreground mb-2">
-                    <Star className="w-2.5 h-2.5 mr-1 fill-foreground/70" strokeWidth={0} />
-                    new
-                  </span>
-                )}
-
-                {/* Title */}
-                <div className="mb-1">
+              {/* Corps — fond blanc */}
+              <div className="px-5 py-5 flex-1 flex flex-col bg-card">
+                {/* Séniorité + pratique */}
+                <div className="mb-4">
+                  {p.isNew && (
+                    <span className="inline-flex items-center text-[8px] font-semibold tracking-[0.2em] uppercase text-muted-foreground mb-1.5">
+                      <Star className="w-2.5 h-2.5 mr-1 fill-foreground/70" strokeWidth={0} />
+                      new
+                    </span>
+                  )}
                   <div className="text-[15px] font-sans font-semibold text-foreground leading-tight">{seniorityLabel}</div>
                   <div className="text-[12px] font-sans text-muted-foreground mt-0.5">{practiceLabel}{p.pqe ? ` · ${p.pqe}` : ''}</div>
                 </div>
 
-                {/* Tags */}
-                <div className="flex flex-wrap gap-1.5 mt-4">
+                {/* Répartition d'activité */}
+                {activityEntries.length > 0 && (
+                  <div className="mb-4 space-y-1">
+                    {activityEntries.map(([label, pct]) => (
+                      <div key={label} className="flex items-center justify-between">
+                        <span className="text-[11px] font-sans text-foreground/80">{label}</span>
+                        <span className="text-[11px] font-sans font-semibold text-foreground">{pct}%</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {/* Tags : nationalité + classements */}
+                <div className="flex flex-wrap gap-1.5 mt-auto">
                   {natLabel && (
-                    <span className="text-[10px] font-sans text-foreground/75 leading-none border border-border rounded px-2 py-1">{natLabel}</span>
+                    <span className="text-[10px] font-sans text-foreground/70 leading-none border border-border rounded-full px-2.5 py-1">{natLabel}</span>
                   )}
-                  <span className="text-[10px] font-sans text-foreground/75 leading-none border border-border rounded px-2 py-1">Chambers&nbsp;: {chambers ? 'Oui' : 'Non'}</span>
+                  {chambers && (
+                    <span className="text-[10px] font-sans text-foreground/70 leading-none border border-border rounded-full px-2.5 py-1">Chambers</span>
+                  )}
                   {legal500 && (
-                    <span className="text-[10px] font-sans text-foreground/75 leading-none border border-border rounded px-2 py-1">Legal 500</span>
+                    <span className="text-[10px] font-sans text-foreground/70 leading-none border border-border rounded-full px-2.5 py-1">Legal 500</span>
                   )}
                 </div>
               </div>
 
-              {/* Footer affordance */}
-              <div className="flex items-center justify-between px-5 py-3 border-t border-border/60 bg-secondary/30">
-                <span className="text-[10px] font-sans font-medium tracking-[0.08em] uppercase text-muted-foreground group-hover:text-foreground transition-colors">Voir le profil</span>
-                <div className="w-8 h-8 rounded-full flex items-center justify-center bg-background border border-border">
-                  <Eye className="w-3.5 h-3.5 text-muted-foreground group-hover:text-foreground transition-colors" />
-                </div>
+              {/* Footer — fond noir */}
+              <div className="flex items-center justify-between px-5 py-3 bg-[hsl(0,0%,9%)]">
+                <span className="text-[10px] font-sans font-semibold tracking-[0.12em] uppercase text-white/50 group-hover:text-white/80 transition-colors">Voir le profil</span>
+                <Eye className="w-3.5 h-3.5 text-white/30 group-hover:text-white/70 transition-colors" />
               </div>
             </div>
           );
