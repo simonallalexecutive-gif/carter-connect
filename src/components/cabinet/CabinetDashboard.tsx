@@ -837,7 +837,7 @@ function registrationToProfile(row: any): CabinetProfile {
     nat,
     natFlag: nat,
     origin: d.cabinet || '—',
-    originTier: d.cabTier || '—',
+    originTier: d.cabTier || FIRMS_DB[d.cabinet]?.p?.[deptKey] || '—',
     english,
     seniority: pqeLabel,
     isNew: (() => { const c = new Date(row.created_at); const now = new Date(); return (now.getTime() - c.getTime()) < 7 * 24 * 3600 * 1000; })(),
