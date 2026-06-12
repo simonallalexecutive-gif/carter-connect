@@ -16,7 +16,7 @@ const stagger = {
 
 const PRACTICES = [
   'M&A', 'Private Equity', 'Financement', 'Droit social',
-  'Droit immobilier', 'Fiscalité', 'Restructuring',
+  'Droit immobilier', 'Fiscalité', 'Restructuring', 'Venture Capital',
 ];
 
 const PROFILE_ITEMS = [
