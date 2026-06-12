@@ -41,6 +41,7 @@ import CabinetStartPage from "./pages/CabinetStartPage";
 import FirmBookingPage from "./pages/FirmBookingPage";
 import CandidateAccessPage from "./pages/CandidateAccessPage";
 import ConnexionCandidatPage from "./pages/ConnexionCandidatPage";
+import MentionsLegalesPage from "./pages/MentionsLegalesPage";
 
 
 const queryClient = new QueryClient();
@@ -74,6 +75,7 @@ const App = () => (
           <Route path="/cabinet-rdv" element={<FirmBookingPage />} />
           <Route path="/candidat" element={<CandidateAccessPage />} />
           <Route path="/connexion-candidat" element={<ConnexionCandidatPage />} />
+          <Route path="/mentions-legales" element={<MentionsLegalesPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

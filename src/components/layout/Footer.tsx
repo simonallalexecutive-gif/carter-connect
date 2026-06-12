@@ -57,12 +57,18 @@ const Footer = () => (
         <p className="text-[11px] font-sans font-light text-white/35 text-center">
           © {new Date().getFullYear()} Logan. Tous droits réservés.
         </p>
-        <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 md:gap-6">
-          {['Mentions légales', 'Politique de confidentialité', 'CGU'].map((item) => (
-            <a key={item} href="#" className="text-[11px] font-sans font-light text-white/35 hover:text-white/60 transition-colors duration-300">
-              {item}
-            </a>
-          ))}
+        <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+          <Link to="/mentions-legales" className="text-[11px] font-sans font-light text-white/35 hover:text-white/60 transition-colors duration-300">
+            Mentions légales
+          </Link>
+          <span className="text-white/15 text-[11px]">·</span>
+          <a href="#" className="text-[11px] font-sans font-light text-white/35 hover:text-white/60 transition-colors duration-300">
+            Politique de confidentialité
+          </a>
+          <span className="text-white/15 text-[11px]">·</span>
+          <a href="#" className="text-[11px] font-sans font-light text-white/35 hover:text-white/60 transition-colors duration-300">
+            CGU
+          </a>
         </div>
       </div>
     </div>
