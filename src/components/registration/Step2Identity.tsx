@@ -438,7 +438,7 @@ const Step2Identity = () => {
           <div>
             <Label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground">Votre pratique *</Label>
             <p className="font-sans text-[11px] italic text-muted-foreground font-light mt-1.5 leading-relaxed">
-              Pour les candidats exerçant à la fois en M&A et en Private Equity, merci de sélectionner votre pratique en fonction de votre dominante. Idem pour les candidats intervenant à la fois en financement LBO et financement de projets.
+              Pour les candidats exerçant à la fois en M&A, en Private Equity et/ou en Venture Capital, merci de sélectionner votre pratique en fonction de votre dominante. Idem pour les candidats intervenant à la fois en financement LBO et financement de projets.
             </p>
             {store.cabinet ? (
               <>
