@@ -1,4 +1,4 @@
-project_id = "syfluylekcaxlncospig"
+project_id = "zvgkzujycngerodmrflc"
 [functions.notify-registration]
 enabled = true
 verify_jwt = false
