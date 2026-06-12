@@ -352,6 +352,10 @@ export interface CabinetProfile {
   mobilite: string;
   motivation: string;
   match: number;
+  // Real data fields (populated from submission_data)
+  realPositioning?: string;
+  realClientele?: string;
+  statutEcoute?: string;
 }
 
 export const PROFILES: CabinetProfile[] = [

@@ -169,6 +169,7 @@ const initialState = {
   visibilite: '' as '' | 'confidentiel' | 'semi-confidentiel',
   cvFile: null as File | null,
   isAdminMode: false,
+  isEditMode: false,
   consentement: false,
   consentementExactitude: false,
   consentementMiseEnRelation: false,

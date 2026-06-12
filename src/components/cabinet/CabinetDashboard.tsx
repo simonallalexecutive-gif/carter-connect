@@ -654,83 +654,85 @@ function getCoherentActivity(p: CabinetProfile): {
   positioning: string;
   clientele: string;
 } {
-  switch (p.dept) {
-    case 'banque':
-      return {
-        split: { 'Financement LBO': 80, 'Financement immobilier': 20 },
-        positioning: 'Côté emprunteur',
-        clientele: "Fonds d'investissement",
-      };
-    case 'ma':
-      return {
-        split: { 'M&A industriel': 80, 'LBO': 20 },
-        positioning: 'Côté acquéreur',
-        clientele: 'Corporates & ETI',
-      };
-    case 'restructuring':
-      return {
-        split: { 'Restructuring opérationnel': 70, 'Restructuring financier': 30 },
-        positioning: 'Côté débiteur',
-        clientele: 'Corporates en retournement',
-      };
-    case 'public':
-      return {
-        split: { 'Droit public des affaires': 70, 'Contentieux administratif': 30 },
-        positioning: 'Côté opérateurs privés',
-        clientele: 'Concessionnaires & ETI',
-      };
-    case 'arbitrage':
-      return {
-        split: { 'Arbitrage commercial international': 70, 'Arbitrage d\'investissement': 30 },
-        positioning: 'Côté demandeur',
-        clientele: 'Groupes industriels',
-      };
-    case 'social':
-      return {
-        split: { 'Conseil RH stratégique': 65, 'Contentieux social': 35 },
-        positioning: 'Côté employeur',
-        clientele: 'Grands groupes & ETI',
-      };
-    case 'concurrence':
-      return {
-        split: { 'Contrôle des concentrations': 60, 'Pratiques anticoncurrentielles': 40 },
-        positioning: 'Côté notifiant',
-        clientele: 'Multinationales',
-      };
-    case 'immo':
-      return {
-        split: { 'Transactions immobilières': 70, 'Baux commerciaux': 30 },
-        positioning: 'Côté investisseur',
-        clientele: 'Foncières & SCPI',
-      };
-    case 'projets':
-      return {
-        split: { 'Énergies renouvelables': 70, 'Infrastructures': 30 },
-        positioning: 'Côté sponsor',
-        clientele: 'Producteurs indépendants',
-      };
-    case 'tax':
-      return {
-        split: { 'Fiscalité des transactions': 70, 'Prix de transfert': 30 },
-        positioning: 'Côté contribuable',
-        clientele: 'Groupes internationaux',
-      };
-    case 'fiscal':
-      return {
-        split: { 'Fiscalité des transactions': 70, 'Prix de transfert': 30 },
-        positioning: 'Côté contribuable',
-        clientele: 'Groupes internationaux',
-      };
-    default:
-      return {
-        split: p.split,
-        positioning: '',
-        clientele: '',
-      };
-  }
+  // If the profile has real data (from registrationToProfile), use it directly
+  const hasSplit = p.split && Object.keys(p.split).length > 0;
+  return {
+    split: hasSplit ? p.split : (() => {
+      switch (p.dept) {
+        case 'banque': return { 'Financement LBO': 80, 'Financement immobilier': 20 };
+        case 'ma': return { 'M&A industriel': 80, 'LBO': 20 };
+        case 'restructuring': return { 'Restructuring opérationnel': 70, 'Restructuring financier': 30 };
+        case 'public': return { 'Droit public des affaires': 70, 'Contentieux administratif': 30 };
+        case 'arbitrage': return { 'Arbitrage commercial international': 70, "Arbitrage d'investissement": 30 };
+        case 'social': return { 'Conseil RH stratégique': 65, 'Contentieux social': 35 };
+        case 'concurrence': return { 'Contrôle des concentrations': 60, 'Pratiques anticoncurrentielles': 40 };
+        case 'immo': return { 'Transactions immobilières': 70, 'Baux commerciaux': 30 };
+        case 'projets': return { 'Énergies renouvelables': 70, 'Infrastructures': 30 };
+        case 'fiscal': return { 'Fiscalité des transactions': 70, 'Prix de transfert': 30 };
+        default: return p.split || {};
+      }
+    })(),
+    positioning: p.realPositioning || (() => {
+      switch (p.dept) {
+        case 'banque': return 'Côté emprunteur';
+        case 'ma': return 'Côté acquéreur';
+        case 'restructuring': return 'Côté débiteur';
+        case 'public': return 'Côté opérateurs privés';
+        case 'arbitrage': return 'Côté demandeur';
+        case 'social': return 'Côté employeur';
+        case 'concurrence': return 'Côté notifiant';
+        case 'immo': return 'Côté investisseur';
+        case 'projets': return 'Côté sponsor';
+        case 'fiscal': return 'Côté contribuable';
+        default: return '';
+      }
+    })(),
+    clientele: p.realClientele || (() => {
+      switch (p.dept) {
+        case 'banque': return "Fonds d'investissement";
+        case 'ma': return 'Corporates & ETI';
+        case 'restructuring': return 'Corporates en retournement';
+        case 'public': return 'Concessionnaires & ETI';
+        case 'arbitrage': return 'Groupes industriels';
+        case 'social': return 'Grands groupes & ETI';
+        case 'concurrence': return 'Multinationales';
+        case 'immo': return 'Foncières & SCPI';
+        case 'projets': return 'Producteurs indépendants';
+        case 'fiscal': return 'Groupes internationaux';
+        default: return '';
+      }
+    })(),
+  };
 }
 
 // ── EXPLORE VIEW ──
+// Key → display label for activity keys from registration store
+const ACTIVITY_KEY_LABELS: Record<string, string> = {
+  // M&A / PE / VC
+  'ma_pe': 'Private Equity', 'ma_ma': 'M&A', 'ma_vc': 'Venture Capital',
+  // Finance
+  'fin_obligataire': 'Financement obligataire', 'fin_acq': "Financement d'acquisition",
+  'fin_lbo': 'Financement LBO', 'fin_immo': 'Financement immobilier',
+  'fin_actifs': "Financement d'actifs", 'fin_titrisation': 'Titrisation',
+  // Restructuring
+  'restr_restructuring': 'Restructuring', 'restr_distressed': 'Distressed M&A',
+  'restr_contentieux_affaires': 'Contentieux',
+  // Social
+  'soc_conseil': 'Conseil', 'soc_contentieux': 'Contentieux',
+  // Concurrence
+  'conc_concentrations': 'Contrôle des concentrations',
+  'conc_contentieux': 'Contentieux / enquêtes', 'conc_conseil': 'Conseil / compliance',
+  // Fiscal / Tax
+  'fisc_transac': 'Fiscalité transactionnelle', 'fisc_contentieux': 'Fiscalité contentieuse',
+  'fisc_conseil': 'Fiscalité conseil',
+  // Real Estate
+  're_conseil': 'Conseil transactionnel', 're_contentieux': 'Contentieux',
+  // Arbitrage
+  'arb_commercial': 'Arbitrage commercial', 'arb_invest': "Arbitrage d'investissement",
+  // Projets
+  'proj_infra': 'Infrastructures', 'proj_enr': 'Énergie renouvelable',
+};
+
 // Converts a candidate_registrations row to CabinetProfile
 function registrationToProfile(row: any): CabinetProfile {
   const d = row.submission_data || {};
@@ -741,21 +743,59 @@ function registrationToProfile(row: any): CabinetProfile {
   })();
   const pqeLabel = pqeYears <= 2 ? 'Junior' : pqeYears <= 5 ? 'Mid Level' : pqeYears <= 8 ? 'Senior' : d.statutAssoc === 'associe' ? 'Associé' : d.statutAssoc === 'counsel' ? 'Counsel' : 'Senior';
   const deptKey = DEPT_KEY_MAP[d.departement] || 'ma';
+
+  // Nat from FIRMS_DB
+  const firmData = FIRMS_DB[d.cabinet];
+  const nat = firmData?.nat || d.cabNat || 'FR';
+
+  // English level from anglais percentage
+  const anglaisPct = parseInt(d.anglais || '0', 10);
+  const english = anglaisPct >= 80 ? 'Bilingue' : anglaisPct >= 40 ? 'Courant' : anglaisPct > 0 ? 'Notions' : '—';
+
+  // Build split with display labels from activites + pourcentages
+  const activites: Record<string, boolean> = d.activites || {};
+  const pourcentages: Record<string, number> = d.pourcentages || {};
+  const activeKeys = Object.keys(activites).filter(k => activites[k]);
+  let split: Record<string, number> = {};
+  if (activeKeys.length > 0) {
+    const total = activeKeys.reduce((s, k) => s + (pourcentages[k] || 10), 0);
+    activeKeys.forEach(k => {
+      const label = ACTIVITY_KEY_LABELS[k] || k;
+      split[label] = total > 0 ? Math.round(((pourcentages[k] || 10) / total) * 100) : 0;
+    });
+  }
+
+  // Positioning from real data
+  const realPositioning = (() => {
+    if (d.maSanteVendeur !== undefined) return `Côté vendeur ${d.maSanteVendeur}% · Acquéreur ${100 - d.maSanteVendeur}%`;
+    if (d.positionnementPreteur !== undefined) return `Côté prêteur ${d.positionnementPreteur}% · Sponsor ${100 - d.positionnementPreteur}%`;
+    if (d.maPeFonds !== undefined) return `Côté fonds ${d.maPeFonds}% · Management ${100 - d.maPeFonds}%`;
+    return undefined;
+  })();
+
+  // Clientele from real data
+  const realClientele = (() => {
+    if (d.typesClients?.length > 0) return d.typesClients.join(', ');
+    if (d.maClientele?.length > 0) return d.maClientele.join(', ');
+    if (d.socialClientele?.length > 0) return d.socialClientele.join(', ');
+    return undefined;
+  })();
+
   return {
     id: row.id,
     dept: deptKey,
     deptLabel: d.departement || '—',
     title: `${pqeLabel} — ${d.departement || ''} · ${pqeYears} ans PQE`,
     pqe: `${pqeYears} ans`,
-    nat: 'FR',
-    natFlag: 'FR',
+    nat,
+    natFlag: nat,
     origin: d.cabinet || '—',
     originTier: d.cabTier || '—',
-    english: d.langues?.includes('Anglais') ? 'Bilingue' : 'Courant',
+    english,
     seniority: pqeLabel,
     isNew: (() => { const c = new Date(row.created_at); const now = new Date(); return (now.getTime() - c.getTime()) < 7 * 24 * 3600 * 1000; })(),
-    expertise: Object.keys(d.activites || {}).filter(k => d.activites[k]).slice(0, 4),
-    split: d.pourcentages || {},
+    expertise: activeKeys.slice(0, 4),
+    split,
     formation: d.formation || '—',
     droit_etranger: '—',
     langue2: '—',
@@ -764,6 +804,9 @@ function registrationToProfile(row: any): CabinetProfile {
     mobilite: d.mobilite || 'Paris',
     motivation: d.assocExpertiseSummary || d.notaBene || '—',
     match: Math.floor(70 + Math.random() * 25),
+    realPositioning,
+    realClientele,
+    statutEcoute: d.statutEcoute,
   };
 }
 
@@ -908,10 +951,10 @@ const ExploreView = ({
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {filtered.map((p) => {
           const seniorityLabel = getSeniorityLabel(p);
-          const practiceLabel = PRACTICE_LABEL_BY_KEY[p.dept] || p.deptLabel;
+          const practiceLabel = p.deptLabel || PRACTICE_LABEL_BY_KEY[p.dept] || p.dept;
           const chambers = isChambersRanked(p);
           const legal500 = isLegal500Ranked(p);
-          const isActive = p.disponibilite === 'Immédiate';
+          const isActive = p.statutEcoute === 'actif' || p.disponibilite === 'Immédiate';
           const natLabel = p.nat ? `Cabinet ${getNatLabel(p.nat)}` : '';
 
           return (
@@ -1013,7 +1056,7 @@ const ProfileDrawer = ({ profile: p, onClose }: { profile: CabinetProfile; onClo
   const natLabel = getNatLabel(p.nat);
   const chambers = isChambersRanked(p);
   const legal500 = isLegal500Ranked(p);
-  const isActive = p.disponibilite === 'Immédiate';
+  const isActive = p.statutEcoute === 'actif' || p.disponibilite === 'Immédiate';
 
   // Coherent activity & retro overrides
   const coherent = getCoherentActivity(p);

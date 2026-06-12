@@ -174,6 +174,7 @@ export interface RegistrationState {
   visibilite: 'confidentiel' | 'semi-confidentiel' | '';
   cvFile: File | null;
   isAdminMode: boolean;
+  isEditMode: boolean;
   consentement: boolean;
   consentementExactitude: boolean;
   consentementMiseEnRelation: boolean;

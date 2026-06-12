@@ -17,9 +17,11 @@ const RegisterPage = () => {
   const currentStep = useRegistrationStore(s => s.currentStep);
   const goToStep = useRegistrationStore(s => s.goToStep);
   const resetStore = useRegistrationStore(s => s.reset);
+  const isEditMode = useRegistrationStore(s => s.isEditMode);
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const espaceParam = searchParams.get('espace');
+  const modeParam = searchParams.get('mode');
   const isDarkStep = currentStep === 7;
   const isStepContent = currentStep >= 2 && currentStep <= 6;
 
@@ -28,10 +30,15 @@ const RegisterPage = () => {
 
   useEffect(() => {
     const startStep = searchParams.get('start');
+    // Mode édition : go directement à l'étape 2 sans reset
+    if (modeParam === 'edit' && startStep === '2') {
+      goToStep(2);
+      return;
+    }
     if (startStep === '2' && currentStep === 1) {
       goToStep(2);
     }
-  }, [searchParams, goToStep, currentStep]);
+  }, [searchParams, goToStep, currentStep, modeParam]);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -89,7 +96,7 @@ const RegisterPage = () => {
     <div className={`min-h-screen flex flex-col ${isStepContent && !showConfIntro && !showCabinetIntro ? 'theme-light-registration' : isDarkStep ? '' : ''} bg-background text-foreground`}>
       {showProgress && (
         <>
-          <LogoBanner subtitle="Inscription candidat" variant="default" />
+          <LogoBanner subtitle={isEditMode ? 'Modifier mon profil' : 'Inscription candidat'} variant="default" />
           <div className="sticky top-0 z-40 bg-black border-b border-white/10 shadow-[0_8px_24px_-12px_rgba(0,0,0,0.6)]">
             <StepProgress currentStep={currentStep} dark />
           </div>
