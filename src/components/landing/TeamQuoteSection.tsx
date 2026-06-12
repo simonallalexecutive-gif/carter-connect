@@ -14,7 +14,7 @@ const TeamQuoteSection = () => {
   return (
     <section
       ref={ref}
-      className="relative min-h-[100svh] flex items-center justify-center overflow-hidden bg-black"
+      className="relative min-h-[100svh] flex flex-col overflow-hidden bg-black"
     >
       {/* Background */}
       <motion.img
@@ -26,53 +26,44 @@ const TeamQuoteSection = () => {
       />
       <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/60" />
 
-      {/* Contenu */}
-      <div className="relative z-10 max-w-3xl mx-auto px-6 sm:px-10 text-center flex flex-col items-center gap-12">
-
-        {/* Statement */}
+      {/* Statement — centré verticalement et horizontalement */}
+      <div className="relative z-10 flex-1 flex items-center justify-center px-6 sm:px-10">
         <motion.p
           initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
-          className="font-serif font-[300] text-[1.9rem] sm:text-[2.5rem] md:text-[3rem] text-white leading-[1.08] tracking-normal"
+          className="font-serif font-[300] text-[1.9rem] sm:text-[2.5rem] md:text-[3rem] text-white leading-[1.08] tracking-normal text-center max-w-3xl"
         >
           Logan est la nouvelle infrastructure privilégiée et confidentielle du marché des avocats.
         </motion.p>
+      </div>
 
-        {/* Séparateur */}
+      {/* Citation — bas droite */}
+      <div className="relative z-10 flex justify-end px-10 sm:px-16 pb-14">
         <motion.div
-          initial={{ opacity: 0, scaleX: 0 }}
-          whileInView={{ opacity: 1, scaleX: 1 }}
-          viewport={{ once: true, margin: '-100px' }}
-          transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-          className="w-12 h-px bg-white/30 origin-center"
-        />
-
-        {/* Citation */}
-        <motion.blockquote
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-100px' }}
-          transition={{ duration: 1.1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          className="font-serif italic font-light text-[0.95rem] sm:text-[1.05rem] leading-[1.75] text-white/55 max-w-xl mx-auto"
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 1.1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+          className="max-w-sm text-right"
         >
-          <span className="font-serif text-white/25 text-2xl align-top mr-1 leading-none">"</span>
-          Logan se positionne comme l'infrastructure la plus exigeante et structurée du marché, offrant un accompagnement sur mesure, résolument confidentiel et parfaitement ciblé.
-          <span className="font-serif text-white/25 text-2xl align-bottom ml-1 leading-none">"</span>
-        </motion.blockquote>
-
-        {/* Attribution */}
-        <motion.span
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true, margin: '-100px' }}
-          transition={{ duration: 1, delay: 0.7 }}
-          className="text-[10px] font-sans tracking-[0.3em] uppercase text-white/30"
-        >
-          L'équipe Logan
-        </motion.span>
-
+          <div className="w-8 h-px bg-white/20 mb-5 ml-auto" />
+          <blockquote className="font-serif italic font-light text-[1.05rem] sm:text-[1.16rem] leading-[1.75] text-white/50">
+            <span className="font-serif text-white/20 text-2xl align-top mr-1 leading-none">"</span>
+            Logan se positionne comme l'infrastructure la plus exigeante et structurée du marché, offrant un accompagnement sur mesure, résolument confidentiel et parfaitement ciblé.
+            <span className="font-serif text-white/20 text-2xl align-bottom ml-1 leading-none">"</span>
+          </blockquote>
+          <motion.span
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, delay: 0.6 }}
+            className="text-[10px] font-sans tracking-[0.3em] uppercase text-white/25 mt-4 block"
+          >
+            L'équipe Logan
+          </motion.span>
+        </motion.div>
       </div>
     </section>
   );
