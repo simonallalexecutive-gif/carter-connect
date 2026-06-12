@@ -58,7 +58,7 @@ const CabinetSidebar = ({
     }`;
 
   return (
-    <div className={`flex flex-col h-screen bg-[hsl(0,0%,7%)] border-r border-white/10 transition-all duration-200 ${collapsed ? 'w-14' : 'w-56'} flex-shrink-0`}>
+    <div className={`flex flex-col h-screen bg-[hsl(0,0%,7%)] border-r border-black/[0.09] transition-all duration-200 ${collapsed ? 'w-14' : 'w-56'} flex-shrink-0`}>
       {/* Logo + toggle */}
       <div className="flex items-center justify-between px-4 py-5 border-b border-white/10">
         <Link to="/" className="hover:opacity-70 transition-opacity">
@@ -152,7 +152,7 @@ const CabinetDashboardLayout = () => {
           <CabinetSidebar activeTab={getActiveTab()} setActiveTab={setActiveTab} onOpenAlerts={() => setShowAlerts(true)} />
 
           <div className="flex-1 flex flex-col min-w-0">
-            <header className="h-16 flex items-center justify-between border-b border-border bg-background px-6 gap-3 flex-shrink-0">
+            <header className="h-16 flex items-center justify-between border-b border-black/[0.09] bg-background px-6 gap-3 flex-shrink-0">
               <span className="text-[10px] font-semibold tracking-[0.18em] uppercase text-muted-foreground">Espace cabinet</span>
               {fullName && (
                 <div className="flex items-center gap-2 text-[11px] font-sans text-muted-foreground">
