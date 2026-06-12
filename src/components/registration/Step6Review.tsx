@@ -1039,27 +1039,29 @@ const Step6Review = ({ readOnly = false, cabinetView = false }: Step6ReviewProps
       <h2 className="font-sans text-3xl md:text-4xl font-normal text-foreground leading-tight mb-2.5">Récapitulatif</h2>
       <p className="text-foreground/50 font-sans text-xs font-light mb-8">Vérifiez vos informations avant de soumettre votre profil.</p>
 
-      {/* Tabs — habillage sombre, élégant */}
-      <div className="inline-flex gap-1 mb-6 p-1 bg-[hsl(0,0%,11%)] rounded-md">
-        {[
-          { key: 'recap' as const, label: 'Mon profil complet', icon: User },
-          { key: 'cabinet' as const, label: 'Ce que voient les cabinets', icon: Eye },
-        ].map(tab => (
-          <button
-            key={tab.key}
-            onClick={() => setPreviewMode(tab.key)}
-            className={cn(
-              "flex items-center gap-2 px-4 py-2 font-sans text-[11px] tracking-[0.18em] uppercase transition-all duration-300 rounded-sm",
-              previewMode === tab.key
-                ? "bg-white text-[hsl(0,0%,7%)] font-semibold shadow-[0_2px_8px_rgba(0,0,0,0.3)]"
-                : "text-white/55 hover:text-white/80"
-            )}
-          >
-            <tab.icon className="w-3.5 h-3.5" />
-            {tab.label}
-          </button>
-        ))}
-      </div>
+      {/* Tabs — masqués en vue cabinet (le cabinet voit directement son aperçu) */}
+      {!cabinetView && (
+        <div className="inline-flex gap-1 mb-6 p-1 bg-[hsl(0,0%,11%)] rounded-md">
+          {[
+            { key: 'recap' as const, label: 'Mon profil complet', icon: User },
+            { key: 'cabinet' as const, label: 'Ce que voient les cabinets', icon: Eye },
+          ].map(tab => (
+            <button
+              key={tab.key}
+              onClick={() => setPreviewMode(tab.key)}
+              className={cn(
+                "flex items-center gap-2 px-4 py-2 font-sans text-[11px] tracking-[0.18em] uppercase transition-all duration-300 rounded-sm",
+                previewMode === tab.key
+                  ? "bg-white text-[hsl(0,0%,7%)] font-semibold shadow-[0_2px_8px_rgba(0,0,0,0.3)]"
+                  : "text-white/55 hover:text-white/80"
+              )}
+            >
+              <tab.icon className="w-3.5 h-3.5" />
+              {tab.label}
+            </button>
+          ))}
+        </div>
+      )}
 
       {/* ═══ BLOC MONOLITHIQUE DARK MATTE ═══ */}
       <div className="relative bg-[hsl(0,0%,7%)] rounded-md overflow-hidden border border-white/[0.06] shadow-[0_24px_60px_-20px_rgba(0,0,0,0.5)]">
