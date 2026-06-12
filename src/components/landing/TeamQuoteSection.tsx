@@ -46,7 +46,7 @@ const TeamQuoteSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
           transition={{ duration: 1.1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-          className="max-w-sm text-right"
+          className="max-w-lg text-right"
         >
           <div className="w-8 h-px bg-white/20 mb-5 ml-auto" />
           <blockquote className="font-serif italic font-light text-[1.05rem] sm:text-[1.16rem] leading-[1.75] text-white/50">
