@@ -1,6 +1,6 @@
 import { useState, useMemo, useCallback, useEffect } from 'react';
 import { useCabinetStore } from '@/stores/cabinetStore';
-import { PROFILES, DEPT_KEY_MAP, CABINET_EXPERTISE_DETAIL, type CabinetProfile } from '@/lib/cabinetConstants';
+import { PROFILES, DEPT_KEY_MAP, FIRMS_DB, CABINET_EXPERTISE_DETAIL, type CabinetProfile } from '@/lib/cabinetConstants';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import { CHAMBERS_DEPARTMENTS, getChambersRanking, formatChambersBand } from '@/lib/chambersRankings';
 import { NAT_FLAGS, NAT_LABELS } from '@/lib/legal500Rankings';
