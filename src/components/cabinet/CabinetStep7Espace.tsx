@@ -18,6 +18,7 @@ const FILTERS = [
   { key: 'banque', label: 'Financement LBO' },
   { key: 'social', label: 'Droit Social' },
   { key: 'fiscal', label: 'Fiscal' },
+  { key: 'vc', label: 'Venture Capital' },
   { key: 'new', label: '✦ New' },
 ];
 

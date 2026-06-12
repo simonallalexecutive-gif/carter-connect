@@ -32,6 +32,7 @@ const FILTERS = [
   { key: 'immo', label: 'Droit immobilier' },
   { key: 'projets', label: 'Financement de projets' },
   { key: 'fiscal', label: 'Droit fiscal' },
+  { key: 'vc', label: 'Venture Capital' },
   { key: 'new', label: 'New', icon: Star },
 ];
 

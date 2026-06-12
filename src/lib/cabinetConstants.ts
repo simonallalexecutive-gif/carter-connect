@@ -45,7 +45,7 @@ export const DEPT_KEY_MAP: Record<string, string> = {
   'M&A': 'ma',
   'M&A (dominante)': 'ma',
   'Private Equity (dominante)': 'pe',
-  'Venture Capital': 'pe',
+  'Venture Capital': 'vc',
   'Financement LBO': 'banque',
   'Financement de projets': 'projets',
   'Financement de Projets': 'projets',
