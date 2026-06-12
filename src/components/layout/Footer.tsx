@@ -63,9 +63,6 @@ const Footer = () => (
               {item}
             </a>
           ))}
-          <Link to="/admin" className="text-[11px] font-sans font-light text-white/20 hover:text-white/50 transition-colors duration-300">
-            Admin
-          </Link>
         </div>
       </div>
     </div>
