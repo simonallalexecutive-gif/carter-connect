@@ -976,11 +976,6 @@ const ExploreView = ({
           const isActive = p.statutEcoute === 'actif' || p.disponibilite === 'Immédiate';
           const natLabel = p.nat ? `Cabinet ${getNatLabel(p.nat)}` : '';
 
-          // Activités pour la carte (top 3 max)
-          const activityEntries = Object.entries(p.split || {})
-            .sort((a, b) => b[1] - a[1])
-            .slice(0, 3);
-
           return (
             <div
               key={p.id}
@@ -993,7 +988,7 @@ const ExploreView = ({
               }}
               className="group relative rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 border border-border cursor-pointer flex flex-col"
             >
-              {/* Top strip — fond noir, statut uniquement */}
+              {/* Top strip — fond noir, statut */}
               <div className="flex items-center justify-between px-4 py-3 bg-[hsl(0,0%,9%)]">
                 <span className="text-[9px] tracking-[0.16em] uppercase text-white font-sans font-bold">Statut</span>
                 {isActive ? (
@@ -1013,41 +1008,31 @@ const ExploreView = ({
               </div>
 
               {/* Corps — fond blanc */}
-              <div className="px-5 py-5 flex-1 flex flex-col bg-card">
-                {/* Séniorité + pratique */}
-                <div className="mb-4">
+              <div className="px-5 py-5 flex-1 flex flex-col bg-card gap-4">
+                {/* NEW + Séniorité */}
+                <div>
                   {p.isNew && (
                     <span className="inline-flex items-center text-[8px] font-semibold tracking-[0.2em] uppercase text-muted-foreground mb-1.5">
                       <Star className="w-2.5 h-2.5 mr-1 fill-foreground/70" strokeWidth={0} />
                       new
                     </span>
                   )}
-                  <div className="text-[15px] font-sans font-semibold text-foreground leading-tight">{seniorityLabel}</div>
-                  <div className="text-[12px] font-sans text-muted-foreground mt-0.5">{practiceLabel}{p.pqe ? ` · ${p.pqe}` : ''}</div>
+                  <div className="text-[17px] font-sans font-semibold text-foreground leading-tight">{seniorityLabel}</div>
                 </div>
 
-                {/* Répartition d'activité */}
-                {activityEntries.length > 0 && (
-                  <div className="mb-4 space-y-1">
-                    {activityEntries.map(([label, pct]) => (
-                      <div key={label} className="flex items-center justify-between">
-                        <span className="text-[11px] font-sans text-foreground/80">{label}</span>
-                        <span className="text-[11px] font-sans font-semibold text-foreground">{pct}%</span>
-                      </div>
-                    ))}
-                  </div>
-                )}
-
-                {/* Tags : nationalité + classements */}
-                <div className="flex flex-wrap gap-1.5 mt-auto">
+                {/* Pills : pratique + origine cabinet + classements */}
+                <div className="flex flex-wrap gap-1.5">
+                  <span className="text-[10px] font-sans font-medium text-foreground leading-none border border-foreground/20 rounded-full px-2.5 py-1">
+                    {practiceLabel}
+                  </span>
                   {natLabel && (
-                    <span className="text-[10px] font-sans text-foreground/70 leading-none border border-border rounded-full px-2.5 py-1">{natLabel}</span>
+                    <span className="text-[10px] font-sans font-medium text-foreground/70 leading-none border border-border rounded-full px-2.5 py-1">{natLabel}</span>
                   )}
                   {chambers && (
-                    <span className="text-[10px] font-sans text-foreground/70 leading-none border border-border rounded-full px-2.5 py-1">Chambers</span>
+                    <span className="text-[10px] font-sans font-medium text-foreground/70 leading-none border border-border rounded-full px-2.5 py-1">Chambers</span>
                   )}
                   {legal500 && (
-                    <span className="text-[10px] font-sans text-foreground/70 leading-none border border-border rounded-full px-2.5 py-1">Legal 500</span>
+                    <span className="text-[10px] font-sans font-medium text-foreground/70 leading-none border border-border rounded-full px-2.5 py-1">Legal 500</span>
                   )}
                 </div>
               </div>
