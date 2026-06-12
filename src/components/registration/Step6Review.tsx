@@ -409,13 +409,13 @@ const Step6Review = ({ readOnly = false }: Step6ReviewProps = {}) => {
   // Section as a panel inside the dark monolithic block — no card framing, only a top divider + accent
   const SectionCard = ({ title, children, className: cls, first }: { title: string; children: React.ReactNode; className?: string; noBorder?: boolean; first?: boolean }) => (
     <section className={cn(
-      "relative px-7 md:px-10 py-7",
-      !first && "border-t border-white/10",
+      "relative px-7 md:px-10 py-8",
+      !first && "border-t border-white/20",
       cls,
     )}>
-      <div className="flex items-center gap-3 mb-5">
-        <span className="block w-6 h-px bg-white/40" />
-        <p className="text-[10px] uppercase tracking-[0.28em] text-white/55 font-sans font-semibold">{title}</p>
+      <div className="flex items-center gap-3 mb-6">
+        <span className="block w-8 h-px bg-white/60" />
+        <p className="text-[10px] uppercase tracking-[0.28em] text-white/75 font-sans font-semibold">{title}</p>
       </div>
       <div className="text-white">{children}</div>
     </section>
@@ -423,7 +423,7 @@ const Step6Review = ({ readOnly = false }: Step6ReviewProps = {}) => {
 
   const DataRow = ({ label, value }: { label: string; value: string }) => (
     <div>
-      <span className="text-[9px] uppercase tracking-[0.18em] text-white/45 font-sans font-medium">{label}</span>
+      <span className="text-[9px] uppercase tracking-[0.18em] text-white/55 font-sans font-medium">{label}</span>
       <p className="text-[13px] font-sans font-medium mt-1.5 text-white">{value || '—'}</p>
     </div>
   );
@@ -501,7 +501,7 @@ const Step6Review = ({ readOnly = false }: Step6ReviewProps = {}) => {
           {/* Légende & métriques — texte clair sur fond sombre */}
           <div className="flex-1 space-y-5 w-full">
             <div>
-              <p className="text-[9px] uppercase tracking-[0.22em] text-white/45 font-sans font-semibold mb-3">Répartition d'activité</p>
+              <p className="text-[9px] uppercase tracking-[0.22em] text-white/65 font-sans font-semibold mb-3">Répartition d'activité</p>
               <div className="space-y-2">
                 {activitySummary.chartData.map((item) => (
                   <div key={item.name} className="flex items-baseline gap-3 text-[12px] font-sans">
@@ -514,8 +514,8 @@ const Step6Review = ({ readOnly = false }: Step6ReviewProps = {}) => {
             </div>
 
             {activitySummary.positionnement.length > 0 && (
-              <div className="pt-4 border-t border-white/10 space-y-2">
-                <p className="text-[9px] uppercase tracking-[0.22em] text-white/45 font-sans font-semibold mb-2">Positionnement</p>
+              <div className="pt-4 border-t border-white/20 space-y-2">
+                <p className="text-[9px] uppercase tracking-[0.22em] text-white/65 font-sans font-semibold mb-2">Positionnement</p>
                 {activitySummary.positionnement.map((item) => (
                   <div key={item.name} className="flex items-baseline gap-3 text-[12px] font-sans">
                     <span className="block w-2 h-2 rounded-full flex-shrink-0 translate-y-[2px]" style={{ backgroundColor: item.color }} />
@@ -527,8 +527,8 @@ const Step6Review = ({ readOnly = false }: Step6ReviewProps = {}) => {
             )}
 
             {activitySummary.clientele.length > 0 && (
-              <div className="pt-4 border-t border-white/10 space-y-2">
-                <p className="text-[9px] uppercase tracking-[0.22em] text-white/45 font-sans font-semibold mb-2">Clientèle</p>
+              <div className="pt-4 border-t border-white/20 space-y-2">
+                <p className="text-[9px] uppercase tracking-[0.22em] text-white/65 font-sans font-semibold mb-2">Clientèle</p>
                 {activitySummary.clientele.map((item) => (
                   <div key={item.name} className="flex items-baseline gap-3 text-[12px] font-sans">
                     <span className="block w-2 h-2 rounded-full flex-shrink-0 translate-y-[2px]" style={{ backgroundColor: item.color }} />
@@ -541,8 +541,8 @@ const Step6Review = ({ readOnly = false }: Step6ReviewProps = {}) => {
 
             {/* Positionnement prêteur/sponsor (Finance) */}
             {(store.departement === 'Financement LBO' || store.departement === 'Financement de projets' || store.departement === 'Banking & Finance') && (
-              <div className="pt-4 border-t border-white/10 space-y-2">
-                <p className="text-[9px] uppercase tracking-[0.22em] text-white/45 font-sans font-semibold mb-2">Positionnement</p>
+              <div className="pt-4 border-t border-white/20 space-y-2">
+                <p className="text-[9px] uppercase tracking-[0.22em] text-white/65 font-sans font-semibold mb-2">Positionnement</p>
                 <div className="flex items-baseline gap-3 text-[12px] font-sans">
                   <span className="text-white/90 flex-1">Prêteur</span>
                   <span className="text-white font-mono font-semibold tabular-nums">{store.positionnementPreteur}%</span>
@@ -556,8 +556,8 @@ const Step6Review = ({ readOnly = false }: Step6ReviewProps = {}) => {
 
             {/* Employeur / Salarié (Social) */}
             {(store.departement === 'Droit Social' || store.departement === 'Employment') && (
-              <div className="pt-4 border-t border-white/10 space-y-2">
-                <p className="text-[9px] uppercase tracking-[0.22em] text-white/45 font-sans font-semibold mb-2">Positionnement</p>
+              <div className="pt-4 border-t border-white/20 space-y-2">
+                <p className="text-[9px] uppercase tracking-[0.22em] text-white/65 font-sans font-semibold mb-2">Positionnement</p>
                 <div className="flex items-baseline gap-3 text-[12px] font-sans">
                   <span className="text-white/90 flex-1">Employeur</span>
                   <span className="text-white font-mono font-semibold tabular-nums">{store.socialEmployeur ?? 50}%</span>
@@ -570,8 +570,8 @@ const Step6Review = ({ readOnly = false }: Step6ReviewProps = {}) => {
             )}
 
             {/* Clientèle Française / Internationale */}
-            <div className="pt-4 border-t border-white/10 space-y-2">
-              <p className="text-[9px] uppercase tracking-[0.22em] text-white/45 font-sans font-semibold mb-2">Clientèle</p>
+            <div className="pt-4 border-t border-white/20 space-y-2">
+              <p className="text-[9px] uppercase tracking-[0.22em] text-white/65 font-sans font-semibold mb-2">Clientèle</p>
               <div className="flex items-baseline gap-3 text-[12px] font-sans">
                 <span className="text-white/90 flex-1">Française</span>
                 <span className="text-white font-mono font-semibold tabular-nums">{store.clienteleFrancaise}%</span>
@@ -584,8 +584,8 @@ const Step6Review = ({ readOnly = false }: Step6ReviewProps = {}) => {
 
             {/* OPÉRATIONS */}
             {(store.tailleOperations || []).length > 0 && (
-              <div className="pt-4 border-t border-white/10 space-y-2">
-                <p className="text-[9px] uppercase tracking-[0.22em] text-white/45 font-sans font-semibold mb-2">Opérations</p>
+              <div className="pt-4 border-t border-white/20 space-y-2">
+                <p className="text-[9px] uppercase tracking-[0.22em] text-white/65 font-sans font-semibold mb-2">Opérations</p>
                 <div className="flex flex-wrap gap-1.5">
                   {(store.tailleOperations || []).map(t => (
                     <span key={t} className="inline-flex items-center px-2.5 py-1 rounded-sm text-[10px] font-sans bg-white text-[hsl(0,0%,7%)] font-semibold tracking-wide">{t}</span>
@@ -596,8 +596,8 @@ const Step6Review = ({ readOnly = false }: Step6ReviewProps = {}) => {
 
             {/* Social-specific tags */}
             {(store.departement === 'Droit Social' || store.departement === 'Employment') && (store.socialClientele || []).length > 0 && (
-              <div className="pt-4 border-t border-white/10 space-y-2">
-                <p className="text-[9px] uppercase tracking-[0.22em] text-white/45 font-sans font-semibold mb-2">Clientèle cible</p>
+              <div className="pt-4 border-t border-white/20 space-y-2">
+                <p className="text-[9px] uppercase tracking-[0.22em] text-white/65 font-sans font-semibold mb-2">Clientèle cible</p>
                 <div className="flex flex-wrap gap-1.5">
                   {(store.socialClientele || []).map(c => (
                     <span key={c} className="inline-flex items-center px-2.5 py-1 rounded-sm text-[10px] font-sans bg-white/10 text-white border border-white/20">{c}</span>
@@ -615,8 +615,8 @@ const Step6Review = ({ readOnly = false }: Step6ReviewProps = {}) => {
               if (subs.length === 0) return null;
               const total = subs.reduce((s, i) => s + (store.pourcentages[i.key] ?? 0), 0);
               return (
-                <div className="pt-4 border-t border-white/10 space-y-2">
-                  <p className="text-[9px] uppercase tracking-[0.22em] text-white/45 font-sans font-semibold mb-2">Détail M&A</p>
+                <div className="pt-4 border-t border-white/20 space-y-2">
+                  <p className="text-[9px] uppercase tracking-[0.22em] text-white/65 font-sans font-semibold mb-2">Détail M&A</p>
                   {subs.map(s => (
                     <div key={s.key} className="flex items-baseline gap-3 text-[12px] font-sans">
                       <span className="text-white/90 flex-1">{s.label}</span>
@@ -647,15 +647,15 @@ const Step6Review = ({ readOnly = false }: Step6ReviewProps = {}) => {
               const total = PE_SUBS.reduce((acc, s) => acc + (peVals[s.key] ?? 25), 0);
               const peFonds = store.maPeFonds ?? 50;
               return (
-                <div className="pt-4 border-t border-white/10 space-y-2">
-                  <p className="text-[9px] uppercase tracking-[0.22em] text-white/45 font-sans font-semibold mb-2">Détail Private Equity</p>
+                <div className="pt-4 border-t border-white/20 space-y-2">
+                  <p className="text-[9px] uppercase tracking-[0.22em] text-white/65 font-sans font-semibold mb-2">Détail Private Equity</p>
                   {PE_SUBS.map(s => (
                     <div key={s.key} className="flex items-baseline gap-3 text-[12px] font-sans">
                       <span className="text-white/90 flex-1">{s.label}</span>
                       <span className="text-white font-mono font-semibold tabular-nums">{total > 0 ? Math.round((peVals[s.key] ?? 25) / total * 100) : 0}%</span>
                     </div>
                   ))}
-                  <div className="flex items-center gap-2 pt-1 text-[10px] font-sans text-white/45">
+                  <div className="flex items-center gap-2 pt-1 text-[10px] font-sans text-white/60">
                     <span>Fonds {peFonds}%</span>
                     <span>·</span>
                     <span>Management {100 - peFonds}%</span>
@@ -676,15 +676,15 @@ const Step6Review = ({ readOnly = false }: Step6ReviewProps = {}) => {
               const total = VC_SUBS.reduce((acc, s) => acc + (vcVals[s.key] ?? 33), 0);
               const vcFonds = store.maVcFonds ?? 50;
               return (
-                <div className="pt-4 border-t border-white/10 space-y-2">
-                  <p className="text-[9px] uppercase tracking-[0.22em] text-white/45 font-sans font-semibold mb-2">Détail Venture Capital</p>
+                <div className="pt-4 border-t border-white/20 space-y-2">
+                  <p className="text-[9px] uppercase tracking-[0.22em] text-white/65 font-sans font-semibold mb-2">Détail Venture Capital</p>
                   {VC_SUBS.map(s => (
                     <div key={s.key} className="flex items-baseline gap-3 text-[12px] font-sans">
                       <span className="text-white/90 flex-1">{s.label}</span>
                       <span className="text-white font-mono font-semibold tabular-nums">{total > 0 ? Math.round((vcVals[s.key] ?? 33) / total * 100) : 0}%</span>
                     </div>
                   ))}
-                  <div className="flex items-center gap-2 pt-1 text-[10px] font-sans text-white/45">
+                  <div className="flex items-center gap-2 pt-1 text-[10px] font-sans text-white/60">
                     <span>Fonds {vcFonds}%</span>
                     <span>·</span>
                     <span>Fondateurs {100 - vcFonds}%</span>
@@ -709,8 +709,8 @@ const Step6Review = ({ readOnly = false }: Step6ReviewProps = {}) => {
 
             {/* Social expertises */}
             {(store.departement === 'Droit Social' || store.departement === 'Employment') && (store.socialExpertises || []).length > 0 && (
-              <div className="pt-4 border-t border-white/10 space-y-2">
-                <p className="text-[9px] uppercase tracking-[0.22em] text-white/45 font-sans font-semibold mb-2">Expertises</p>
+              <div className="pt-4 border-t border-white/20 space-y-2">
+                <p className="text-[9px] uppercase tracking-[0.22em] text-white/65 font-sans font-semibold mb-2">Expertises</p>
                 <div className="flex flex-wrap gap-1.5">
                   {(store.socialExpertises || []).map(e => (
                     <span key={e} className="inline-flex items-center px-2.5 py-1 rounded-sm text-[10px] font-sans bg-white/10 text-white border border-white/20">{e}</span>
@@ -730,8 +730,8 @@ const Step6Review = ({ readOnly = false }: Step6ReviewProps = {}) => {
               if (entries.length === 0) return null;
               const total = entries.reduce((s, e) => s + (posCabinet[e.key as keyof typeof posCabinet] ?? 0), 0);
               return (
-                <div className="pt-4 border-t border-white/10 space-y-2">
-                  <p className="text-[9px] uppercase tracking-[0.22em] text-white/45 font-sans font-semibold mb-2">Positionnement cabinet</p>
+                <div className="pt-4 border-t border-white/20 space-y-2">
+                  <p className="text-[9px] uppercase tracking-[0.22em] text-white/65 font-sans font-semibold mb-2">Positionnement cabinet</p>
                   {entries.map(e => (
                     <div key={e.key} className="flex items-baseline gap-3 text-[12px] font-sans">
                       <span className="text-white/90 flex-1">{e.label}</span>
@@ -747,8 +747,8 @@ const Step6Review = ({ readOnly = false }: Step6ReviewProps = {}) => {
               const conseilPct = store.taxConseilPct ?? 70;
               const contentieuxPct = 100 - conseilPct;
               return (
-                <div className="pt-4 border-t border-white/10 space-y-2">
-                  <p className="text-[9px] uppercase tracking-[0.22em] text-white/45 font-sans font-semibold mb-2">Activité</p>
+                <div className="pt-4 border-t border-white/20 space-y-2">
+                  <p className="text-[9px] uppercase tracking-[0.22em] text-white/65 font-sans font-semibold mb-2">Activité</p>
                   <div className="flex items-baseline gap-3 text-[12px] font-sans">
                     <span className="text-white/90 flex-1">Conseil</span>
                     <span className="text-white font-mono font-semibold tabular-nums">{conseilPct}%</span>
@@ -763,8 +763,8 @@ const Step6Review = ({ readOnly = false }: Step6ReviewProps = {}) => {
 
             {/* Tax — Clientèle */}
             {store.departement === 'Tax' && (store.taxClients || []).length > 0 && (
-              <div className="pt-4 border-t border-white/10 space-y-2">
-                <p className="text-[9px] uppercase tracking-[0.22em] text-white/45 font-sans font-semibold mb-2">Clientèle</p>
+              <div className="pt-4 border-t border-white/20 space-y-2">
+                <p className="text-[9px] uppercase tracking-[0.22em] text-white/65 font-sans font-semibold mb-2">Clientèle</p>
                 <div className="flex flex-wrap gap-1.5">
                   {(store.taxClients || []).map(c => (
                     <span key={c} className="inline-flex items-center px-2.5 py-1 rounded-sm text-[10px] font-sans bg-white/10 text-white border border-white/20">{c}</span>
@@ -775,8 +775,8 @@ const Step6Review = ({ readOnly = false }: Step6ReviewProps = {}) => {
 
             {/* Real Estate — Types d'actifs */}
             {(store.departement === 'Immobilier' || store.departement === 'Real Estate') && (store.reAssetTypes || []).length > 0 && (
-              <div className="pt-4 border-t border-white/10 space-y-2">
-                <p className="text-[9px] uppercase tracking-[0.22em] text-white/45 font-sans font-semibold mb-2">Actifs</p>
+              <div className="pt-4 border-t border-white/20 space-y-2">
+                <p className="text-[9px] uppercase tracking-[0.22em] text-white/65 font-sans font-semibold mb-2">Actifs</p>
                 <div className="flex flex-wrap gap-1.5">
                   {(store.reAssetTypes || []).map(a => (
                     <span key={a} className="inline-flex items-center px-2.5 py-1 rounded-sm text-[10px] font-sans bg-white/10 text-white border border-white/20">{a}</span>
@@ -787,8 +787,8 @@ const Step6Review = ({ readOnly = false }: Step6ReviewProps = {}) => {
 
             {/* Real Estate — Domaines de contentieux */}
             {(store.departement === 'Immobilier' || store.departement === 'Real Estate') && (store.reContentieuxDomaines || []).length > 0 && (
-              <div className="pt-4 border-t border-white/10 space-y-2">
-                <p className="text-[9px] uppercase tracking-[0.22em] text-white/45 font-sans font-semibold mb-2">Domaines de contentieux</p>
+              <div className="pt-4 border-t border-white/20 space-y-2">
+                <p className="text-[9px] uppercase tracking-[0.22em] text-white/65 font-sans font-semibold mb-2">Domaines de contentieux</p>
                 <div className="flex flex-wrap gap-1.5">
                   {(store.reContentieuxDomaines || []).map(d => (
                     <span key={d} className="inline-flex items-center px-2.5 py-1 rounded-sm text-[10px] font-sans bg-white/10 text-white border border-white/20">{d}</span>
@@ -799,8 +799,8 @@ const Step6Review = ({ readOnly = false }: Step6ReviewProps = {}) => {
 
             {/* Types de clients (tags) */}
             {(store.typesClients || []).length > 0 && (
-              <div className="pt-4 border-t border-white/10 space-y-2">
-                <p className="text-[9px] uppercase tracking-[0.22em] text-white/45 font-sans font-semibold mb-2">Clientèle</p>
+              <div className="pt-4 border-t border-white/20 space-y-2">
+                <p className="text-[9px] uppercase tracking-[0.22em] text-white/65 font-sans font-semibold mb-2">Clientèle</p>
                 <div className="flex flex-wrap gap-1.5">
                   {(store.typesClients || []).map(c => (
                     <span key={c} className="inline-flex items-center px-2.5 py-1 rounded-sm text-[10px] font-sans bg-white/10 text-white border border-white/20">{c}</span>
@@ -827,7 +827,7 @@ const Step6Review = ({ readOnly = false }: Step6ReviewProps = {}) => {
     if (items.length === 0) return null;
     return (
       <div>
-        {label && <p className="text-[9px] uppercase tracking-[0.22em] text-white/45 font-sans font-semibold mb-2">{label}</p>}
+        {label && <p className="text-[9px] uppercase tracking-[0.22em] text-white/65 font-sans font-semibold mb-2">{label}</p>}
         <div className="flex flex-wrap gap-1.5">
           {items.map(t => (
             <span key={t} className="text-[10px] px-2.5 py-1 rounded-sm bg-white/10 text-white border border-white/15 font-sans">{t}</span>
@@ -1102,7 +1102,7 @@ const Step6Review = ({ readOnly = false }: Step6ReviewProps = {}) => {
                 </div>
                 {store.previousCabinets.length > 0 && (
                   <div className="mt-5 pt-4 border-t border-white/10">
-                    <p className="text-[9px] uppercase tracking-[0.22em] text-white/45 font-sans font-semibold mb-2.5">Cabinets précédents</p>
+                    <p className="text-[9px] uppercase tracking-[0.22em] text-white/65 font-sans font-semibold mb-2.5">Cabinets précédents</p>
                     <div className="space-y-1.5">
                       {store.previousCabinets.map((pc, i) => (
                         <div key={i} className="text-xs font-sans text-white/85">
@@ -1159,7 +1159,7 @@ const Step6Review = ({ readOnly = false }: Step6ReviewProps = {}) => {
                 <div className="space-y-4">
                   {store.movePriorities.length > 0 && (
                     <div>
-                      <p className="text-[9px] uppercase tracking-[0.22em] text-white/45 font-sans font-semibold mb-2">Priorités</p>
+                      <p className="text-[9px] uppercase tracking-[0.22em] text-white/65 font-sans font-semibold mb-2">Priorités</p>
                       <div className="flex flex-wrap gap-1.5">
                         {store.movePriorities.map(p => (
                           <span key={p} className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white text-[hsl(0,0%,7%)] text-[10px] font-sans font-semibold tracking-wide">
@@ -1256,7 +1256,7 @@ const Step6Review = ({ readOnly = false }: Step6ReviewProps = {}) => {
                 <div className="space-y-4">
                   {store.movePriorities.length > 0 && (
                     <div>
-                      <p className="text-[9px] uppercase tracking-[0.22em] text-white/45 font-sans font-semibold mb-2">Priorités</p>
+                      <p className="text-[9px] uppercase tracking-[0.22em] text-white/65 font-sans font-semibold mb-2">Priorités</p>
                       <div className="flex flex-wrap gap-1.5">
                         {store.movePriorities.map(p => (
                           <span key={p} className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white text-[hsl(0,0%,7%)] text-[10px] font-sans font-semibold tracking-wide">

@@ -105,7 +105,7 @@ const AdminCandidateProfileDialog = ({ open, onOpenChange, candidate, onUpdated 
   return (
     <div className="fixed inset-0 z-50 bg-[hsl(0,0%,7%)] flex flex-col overflow-hidden">
       {/* Top bar */}
-      <div className="flex items-center justify-between px-6 py-4 border-b border-white/10 bg-black/40 flex-shrink-0">
+      <div className="flex items-center justify-between px-6 py-4 border-b border-white/20 bg-black/60 flex-shrink-0">
         <div className="flex items-center gap-4">
           <button
             onClick={() => onOpenChange(false)}
@@ -116,8 +116,8 @@ const AdminCandidateProfileDialog = ({ open, onOpenChange, candidate, onUpdated 
           </button>
           <div className="w-px h-4 bg-white/15" />
           <div>
-            <p className="text-[9px] uppercase tracking-[0.18em] text-white/40 font-semibold font-sans">Fiche candidat</p>
-            <h2 className="text-sm font-sans font-medium text-white mt-0.5">
+            <p className="text-[9px] uppercase tracking-[0.18em] text-white/60 font-semibold font-sans">Fiche candidat</p>
+            <h2 className="text-[15px] font-sans font-semibold text-white mt-0.5">
               {candidate.full_name || candidate.auth_email || '—'}
             </h2>
           </div>
@@ -137,7 +137,7 @@ const AdminCandidateProfileDialog = ({ open, onOpenChange, candidate, onUpdated 
       </div>
 
       {/* Action footer */}
-      <div className="flex items-center justify-between gap-3 px-6 py-4 border-t border-white/10 bg-black/40 flex-shrink-0">
+      <div className="flex items-center justify-between gap-3 px-6 py-4 border-t border-white/20 bg-black/60 flex-shrink-0">
         <button
           onClick={() => onOpenChange(false)}
           className="text-xs font-sans text-white/40 hover:text-white transition-colors"
