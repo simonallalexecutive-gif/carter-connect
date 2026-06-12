@@ -43,15 +43,15 @@ const MissionSection = () => (
       >
         {/* Firms */}
         <motion.div variants={fadeUp} className="px-0 md:pr-12 py-10 flex flex-col gap-6">
-          <span className="text-[13.1px] font-sans font-bold tracking-[0.22em] uppercase text-black/30">Firms</span>
-          <h3 className="font-serif font-[300] text-[1.16rem] text-black leading-snug italic">
+          <span className="text-[12px] font-sans font-bold tracking-[0.22em] uppercase text-black/30">Firms</span>
+          <h3 className="font-serif font-[300] text-[1.07rem] text-black leading-snug italic">
             Vivez votre marché.
           </h3>
           <div className="flex flex-col gap-5">
-            <p className="font-sans font-light text-[1rem] sm:text-[1.05rem] leading-[1.9] text-black/60 text-justify">
+            <p className="font-sans font-light text-[0.92rem] sm:text-[0.97rem] leading-[1.9] text-black/60 text-justify">
               <span className="text-black/25 font-bold">Déposez votre recherche à titre confidentiel</span> et adressez-vous à une audience qualifiée tout en préservant l'identité de votre cabinet.
             </p>
-            <p className="font-sans font-light text-[1rem] sm:text-[1.05rem] leading-[1.9] text-black/60 text-justify">
+            <p className="font-sans font-light text-[0.92rem] sm:text-[0.97rem] leading-[1.9] text-black/60 text-justify">
               <span className="text-black/25 font-bold">Explorez le marché</span> : restez opportuniste et anticipez vos recrutements stratégiques pour chacun de vos départements.
             </p>
           </div>
@@ -74,10 +74,10 @@ const MissionSection = () => (
                 style={{ transformOrigin: 'left' }}
                 className="w-10 h-px bg-gradient-to-r from-transparent to-black/20"
               />
-              <span className="text-black/20 text-[9.2px]">›</span>
+              <span className="text-black/20 text-[8.5px]">›</span>
             </div>
 
-            <span className="text-[13.1px] font-sans font-bold tracking-[0.22em] uppercase text-black/60 shrink-0">Logan</span>
+            <span className="text-[12px] font-sans font-bold tracking-[0.22em] uppercase text-black/60 shrink-0">Logan</span>
 
             {/* Flèche droite */}
             <div className="flex items-center gap-0.5 flex-row-reverse">
@@ -89,28 +89,28 @@ const MissionSection = () => (
                 style={{ transformOrigin: 'right' }}
                 className="w-10 h-px bg-gradient-to-l from-transparent to-black/20"
               />
-              <span className="text-black/20 text-[9.2px]">‹</span>
+              <span className="text-black/20 text-[8.5px]">‹</span>
             </div>
           </div>
           {/* Mobile : juste Logan */}
-          <span className="md:hidden text-[13.1px] font-sans font-bold tracking-[0.22em] uppercase text-black/60">Logan</span>
+          <span className="md:hidden text-[12px] font-sans font-bold tracking-[0.22em] uppercase text-black/60">Logan</span>
 
-          <p className="font-sans font-light text-[1rem] sm:text-[1.05rem] leading-[1.9] text-black/60 text-center max-w-[200px]">
+          <p className="font-sans font-light text-[0.92rem] sm:text-[0.97rem] leading-[1.9] text-black/60 text-center max-w-[200px]">
             Votre seul intermédiaire, de l'intention à la signature.
           </p>
         </motion.div>
 
         {/* Candidats */}
         <motion.div variants={fadeUp} className="px-0 md:pl-12 py-10 flex flex-col gap-6">
-          <span className="text-[13.1px] font-sans font-bold tracking-[0.22em] uppercase text-black/30">Candidats</span>
-          <h3 className="font-serif font-[300] text-[1.16rem] text-black leading-snug italic">
+          <span className="text-[12px] font-sans font-bold tracking-[0.22em] uppercase text-black/30">Candidats</span>
+          <h3 className="font-serif font-[300] text-[1.07rem] text-black leading-snug italic">
             Reprenez le contrôle.
           </h3>
           <div className="flex flex-col gap-5">
-            <p className="font-sans font-light text-[1rem] sm:text-[1.05rem] leading-[1.9] text-black/60 text-justify">
+            <p className="font-sans font-light text-[0.92rem] sm:text-[0.97rem] leading-[1.9] text-black/60 text-justify">
               <span className="text-black/25 font-bold">Restez en alerte et attractif</span> : notification en temps réel des nouvelles opportunités ou marques d'intérêt des cabinets pour votre profil.
             </p>
-            <p className="font-sans font-light text-[1rem] sm:text-[1.05rem] leading-[1.9] text-black/60 text-justify">
+            <p className="font-sans font-light text-[0.92rem] sm:text-[0.97rem] leading-[1.9] text-black/60 text-justify">
               <span className="text-black/25 font-bold">Profitez d'un suivi personnalisé</span> : pour chaque opportunité, un consultant vous accompagne pour garantir la pertinence de chaque rencontre.
             </p>
           </div>
