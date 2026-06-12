@@ -49,10 +49,10 @@ const MissionSection = () => (
           </h3>
           <div className="flex flex-col gap-5">
             <p className="font-sans font-light text-[1rem] sm:text-[1.05rem] leading-[1.9] text-black/60 text-justify">
-              <span className="text-black/45 font-bold">Déposez votre recherche à titre confidentiel</span> et adressez-vous à une audience qualifiée tout en préservant l'identité de votre cabinet.
+              <span className="text-black/25 font-bold">Déposez votre recherche à titre confidentiel</span> et adressez-vous à une audience qualifiée tout en préservant l'identité de votre cabinet.
             </p>
             <p className="font-sans font-light text-[1rem] sm:text-[1.05rem] leading-[1.9] text-black/60 text-justify">
-              <span className="text-black/45 font-bold">Explorez le marché</span> : restez opportuniste et anticipez vos recrutements stratégiques pour chacun de vos départements.
+              <span className="text-black/25 font-bold">Explorez le marché</span> : restez opportuniste et anticipez vos recrutements stratégiques pour chacun de vos départements.
             </p>
           </div>
         </motion.div>
@@ -108,10 +108,10 @@ const MissionSection = () => (
           </h3>
           <div className="flex flex-col gap-5">
             <p className="font-sans font-light text-[1rem] sm:text-[1.05rem] leading-[1.9] text-black/60 text-justify">
-              <span className="text-black/45 font-bold">Restez en alerte et attractif</span> : notification en temps réel des nouvelles opportunités ou marques d'intérêt des cabinets pour votre profil.
+              <span className="text-black/25 font-bold">Restez en alerte et attractif</span> : notification en temps réel des nouvelles opportunités ou marques d'intérêt des cabinets pour votre profil.
             </p>
             <p className="font-sans font-light text-[1rem] sm:text-[1.05rem] leading-[1.9] text-black/60 text-justify">
-              <span className="text-black/45 font-bold">Profitez d'un accompagnement dédié</span> : pour chaque opportunité, un consultant est à vos côtés pour garantir la pertinence de chaque rencontre.
+              <span className="text-black/25 font-bold">Profitez d'un accompagnement dédié</span> : pour chaque opportunité, un consultant est à vos côtés pour garantir la pertinence de chaque rencontre.
             </p>
           </div>
         </motion.div>
