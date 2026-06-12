@@ -231,13 +231,8 @@ const FirmAccessPage = () => (
           className="font-serif italic text-[1.7rem] sm:text-[2.4rem] text-white tracking-[0.03em] mb-5">
           Rejoignez Logan et accédez aux profils les plus qualifiés du marché, <strong>en toute confidentialité.</strong>
         </motion.p>
-        <motion.div initial={{ scaleX: 0 }} whileInView={{ scaleX: 1 }} viewport={{ once: true }} transition={{ duration: 0.9, delay: 0.2 }} className="w-14 h-px bg-white/25 mb-8" />
-        <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 1, delay: 0.3 }}
-          className="text-white/45 font-sans font-light text-[0.9rem] leading-relaxed mb-10 max-w-sm">
-          Rejoignez le réseau Logan et accédez aux profils les plus qualifiés du marché,
-          en toute confidentialité.
-        </motion.p>
-        <motion.div initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.4 }}
+        <motion.div initial={{ scaleX: 0 }} whileInView={{ scaleX: 1 }} viewport={{ once: true }} transition={{ duration: 0.9, delay: 0.2 }} className="w-14 h-px bg-white/25 mb-6" />
+        <motion.div initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.3 }}
           className="flex flex-wrap items-center justify-center gap-5">
           <Link to="/cabinet-start">
             <Button size="lg" className="bg-white text-black hover:bg-white/90 font-sans text-sm font-normal px-10 py-5 rounded-sm tracking-wide">
