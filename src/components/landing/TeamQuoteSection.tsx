@@ -48,7 +48,6 @@ const TeamQuoteSection = () => {
           transition={{ duration: 1.1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
           className="max-w-lg text-right"
         >
-          <div className="w-8 h-px bg-white/20 mb-5 ml-auto" />
           <blockquote className="font-serif italic font-light text-[1rem] sm:text-[1.1rem] leading-[1.75] text-white/50">
             <span className="font-serif text-white/20 text-2xl align-top mr-1 leading-none">"</span>
             Logan se positionne comme l'infrastructure la plus exigeante et structurée du marché, offrant un accompagnement sur mesure, résolument confidentiel et parfaitement ciblé.
