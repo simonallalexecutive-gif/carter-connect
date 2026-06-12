@@ -856,7 +856,7 @@ const ExploreView = ({
   ];
 
   const filtered = useMemo(() => {
-    const allProfiles = profilesLoaded ? realProfiles : [...PROFILES];
+    const allProfiles = realProfiles;
     let profiles = [...allProfiles];
     if (filter === 'new') profiles = profiles.filter((p) => p.isNew);
     else if (filter !== 'all') profiles = profiles.filter((p) => p.dept === filter);
