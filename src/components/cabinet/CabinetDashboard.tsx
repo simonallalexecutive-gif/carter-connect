@@ -3,7 +3,7 @@ import { useCabinetStore } from '@/stores/cabinetStore';
 import { PROFILES, DEPT_KEY_MAP, FIRMS_DB, CABINET_EXPERTISE_DETAIL, type CabinetProfile } from '@/lib/cabinetConstants';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import { getFirmTierForDept, formatTier, getLegal500Summary } from '@/lib/legal500Rankings';
-import { NAT_FLAGS, NAT_LABELS } from '@/lib/legal500Rankings';
+import { NAT_FLAGS, NAT_LABELS } from '@/lib/cabinetConstants';
 import { cn } from '@/lib/utils';
 import { X, Search, Eye, Plus, FileText, Users, User, Sparkles, Award, BookMarked, Star, CircleDot } from 'lucide-react';
 import ActivityPieChart from '@/components/shared/ActivityPieChart';
