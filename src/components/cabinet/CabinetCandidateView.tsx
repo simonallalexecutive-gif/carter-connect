@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { X } from 'lucide-react';
+import { X, Heart, CheckCircle2 } from 'lucide-react';
 import { useRegistrationStore } from '@/stores/registrationStore';
 import { hydrateRegistration } from '@/lib/registrationSerializer';
 import { supabase } from '@/integrations/supabase/client';
@@ -16,6 +16,8 @@ const CabinetCandidateView = ({ open, onClose, submissionData, candidateId }: Pr
   const store = useRegistrationStore();
   const [hydrated, setHydrated] = useState(false);
   const [snapshot, setSnapshot] = useState<Record<string, any> | null>(null);
+  const [interestSent, setInterestSent] = useState(false);
+  const [sending, setSending] = useState(false);
 
   useEffect(() => {
     if (!open || !submissionData) return;
@@ -41,6 +43,7 @@ const CabinetCandidateView = ({ open, onClose, submissionData, candidateId }: Pr
     })();
 
     setHydrated(true);
+    setInterestSent(false);
 
     return () => {
       if (snap) Object.entries(snap).forEach(([k, v]) => store.setField(k as any, v));
@@ -48,6 +51,25 @@ const CabinetCandidateView = ({ open, onClose, submissionData, candidateId }: Pr
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, candidateId]);
+
+  const handleInterest = async () => {
+    if (sending || interestSent) return;
+    setSending(true);
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) throw new Error('Non authentifié');
+
+      const { error } = await supabase.functions.invoke('notify-cabinet-interest', {
+        body: { candidateId, cabinetUserId: user.id },
+      });
+      if (error) throw error;
+      setInterestSent(true);
+    } catch (err) {
+      console.error('Erreur envoi intérêt:', err);
+    } finally {
+      setSending(false);
+    }
+  };
 
   if (!open) return null;
 
@@ -79,6 +101,28 @@ const CabinetCandidateView = ({ open, onClose, submissionData, candidateId }: Pr
         <div className="flex-1 overflow-y-auto">
           {hydrated && <Step6Review readOnly cabinetView />}
           <div className="h-8" />
+        </div>
+
+        {/* Footer — bouton manifester intérêt */}
+        <div className="flex-shrink-0 px-6 py-5 border-t border-white/10 bg-black/40">
+          {interestSent ? (
+            <div className="flex items-center gap-3 px-5 py-3.5 rounded-sm bg-white/5 border border-white/10">
+              <CheckCircle2 className="w-4 h-4 text-white/60 flex-shrink-0" />
+              <div>
+                <p className="text-[12px] font-sans font-medium text-white/80">Intérêt transmis à l'équipe Logan</p>
+                <p className="text-[11px] font-sans text-white/40 mt-0.5">Nous vous recontacterons rapidement pour la suite.</p>
+              </div>
+            </div>
+          ) : (
+            <button
+              onClick={handleInterest}
+              disabled={sending}
+              className="w-full flex items-center justify-center gap-2.5 py-3.5 bg-white text-[hsl(0,0%,7%)] font-sans text-[12px] font-semibold tracking-[0.12em] uppercase rounded-sm hover:bg-white/90 transition-all disabled:opacity-50"
+            >
+              <Heart className="w-3.5 h-3.5" />
+              {sending ? 'Envoi en cours…' : 'Manifester mon intérêt pour ce profil'}
+            </button>
+          )}
         </div>
       </div>
     </>
