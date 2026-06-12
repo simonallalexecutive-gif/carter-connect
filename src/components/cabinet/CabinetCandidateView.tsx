@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { X, Heart, CheckCircle2 } from 'lucide-react';
+import { X, CheckCircle2 } from 'lucide-react';
 import { useRegistrationStore } from '@/stores/registrationStore';
 import { hydrateRegistration } from '@/lib/registrationSerializer';
 import { supabase } from '@/integrations/supabase/client';
@@ -22,7 +22,6 @@ const CabinetCandidateView = ({ open, onClose, submissionData, candidateId }: Pr
   useEffect(() => {
     if (!open || !submissionData) return;
 
-    // Snapshot current store state to restore on close
     const snap: Record<string, any> = {};
     Object.keys(store).forEach((k) => {
       const v = (store as any)[k];
@@ -58,7 +57,6 @@ const CabinetCandidateView = ({ open, onClose, submissionData, candidateId }: Pr
     try {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) throw new Error('Non authentifié');
-
       const { error } = await supabase.functions.invoke('notify-cabinet-interest', {
         body: { candidateId, cabinetUserId: user.id },
       });
@@ -75,53 +73,62 @@ const CabinetCandidateView = ({ open, onClose, submissionData, candidateId }: Pr
 
   return (
     <>
-      {/* Backdrop semi-transparent */}
-      <div
-        className="fixed inset-0 z-40 bg-black/50"
-        onClick={onClose}
-      />
+      {/* Backdrop */}
+      <div className="fixed inset-0 z-40 bg-black/40" onClick={onClose} />
 
-      {/* Panneau latéral droit */}
-      <div className="fixed top-0 right-0 bottom-0 z-50 w-full max-w-3xl bg-[hsl(0,0%,7%)] flex flex-col shadow-2xl border-l border-white/10">
-        {/* Top bar */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-white/15 flex-shrink-0">
-          <div>
-            <p className="text-[9px] uppercase tracking-[0.18em] text-white/50 font-semibold font-sans">Profil candidat</p>
-            <p className="text-[13px] font-sans font-medium text-white/80 mt-0.5">Anonymisé</p>
-          </div>
+      {/* Panneau latéral — fond blanc, plus étroit */}
+      <div className="fixed top-0 right-0 bottom-0 z-50 w-full max-w-xl bg-white flex flex-col shadow-2xl border-l border-black/8">
+
+        {/* Barre minimale : juste le bouton fermer */}
+        <div className="flex items-center justify-between px-5 pt-4 pb-2 flex-shrink-0">
+          <p className="text-[9px] uppercase tracking-[0.22em] text-black/35 font-semibold font-sans">Profil anonymisé</p>
           <button
             onClick={onClose}
-            className="w-8 h-8 rounded-full flex items-center justify-center bg-white/5 hover:bg-white/10 transition-colors text-white/50 hover:text-white"
+            className="w-7 h-7 rounded-full flex items-center justify-center bg-black/5 hover:bg-black/10 transition-colors text-black/40 hover:text-black/70"
           >
-            <X className="w-4 h-4" />
+            <X className="w-3.5 h-3.5" />
           </button>
         </div>
 
-        {/* Contenu — vue cabinet directement */}
+        {/* Contenu scrollable */}
         <div className="flex-1 overflow-y-auto">
-          {hydrated && <Step6Review readOnly cabinetView />}
-          <div className="h-8" />
+          {/* Dark card Step6Review — compact */}
+          {hydrated && (
+            <div className="mx-4 mt-2 rounded-md overflow-hidden">
+              <Step6Review readOnly cabinetView />
+            </div>
+          )}
+
+          {/* Disclaimer */}
+          <p className="text-[10px] font-sans text-black/35 px-5 mt-3 mb-4 leading-relaxed">
+            Non visible : nom, prénom, email, téléphone, nom du cabinet actuel.
+          </p>
         </div>
 
-        {/* Footer — bouton manifester intérêt */}
-        <div className="flex-shrink-0 px-6 py-5 border-t border-white/10 bg-black/40">
+        {/* Footer — bloc intérêt style dark card */}
+        <div className="flex-shrink-0 px-4 pb-5 pt-2">
           {interestSent ? (
-            <div className="flex items-center gap-3 px-5 py-3.5 rounded-sm bg-white/5 border border-white/10">
-              <CheckCircle2 className="w-4 h-4 text-white/60 flex-shrink-0" />
+            <div className="flex items-center gap-3 bg-[hsl(0,0%,10%)] rounded-md px-5 py-4">
+              <CheckCircle2 className="w-4 h-4 text-white/50 flex-shrink-0" />
               <div>
-                <p className="text-[12px] font-sans font-medium text-white/80">Intérêt transmis à l'équipe Logan</p>
-                <p className="text-[11px] font-sans text-white/40 mt-0.5">Nous vous recontacterons rapidement pour la suite.</p>
+                <p className="text-[12px] font-sans font-medium text-white/90">Intérêt transmis à l'équipe Logan</p>
+                <p className="text-[11px] font-sans text-white/45 mt-0.5">Nous vous recontacterons rapidement.</p>
               </div>
             </div>
           ) : (
-            <button
-              onClick={handleInterest}
-              disabled={sending}
-              className="w-full flex items-center justify-center gap-2.5 py-3.5 bg-white text-[hsl(0,0%,7%)] font-sans text-[12px] font-semibold tracking-[0.12em] uppercase rounded-sm hover:bg-white/90 transition-all disabled:opacity-50"
-            >
-              <Heart className="w-3.5 h-3.5" />
-              {sending ? 'Envoi en cours…' : 'Manifester mon intérêt pour ce profil'}
-            </button>
+            <div className="bg-[hsl(0,0%,10%)] rounded-md px-5 py-5">
+              <p className="font-serif text-[16px] text-white font-light mb-1">Ce candidat vous intéresse&nbsp;?</p>
+              <p className="text-[11px] font-sans text-white/45 leading-relaxed mb-4">
+                Manifestez votre intérêt pour ce candidat, Logan se charge du reste pour vous.
+              </p>
+              <button
+                onClick={handleInterest}
+                disabled={sending}
+                className="w-full py-3 bg-white text-[hsl(0,0%,7%)] font-sans text-[11.5px] font-semibold tracking-[0.1em] uppercase rounded-sm hover:bg-white/90 transition-all disabled:opacity-50"
+              >
+                {sending ? 'Envoi en cours…' : 'Ce candidat m\'intéresse →'}
+              </button>
+            </div>
           )}
         </div>
       </div>

@@ -410,12 +410,12 @@ const Step6Review = ({ readOnly = false, cabinetView = false }: Step6ReviewProps
   // Section as a panel inside the dark monolithic block — no card framing, only a top divider + accent
   const SectionCard = ({ title, children, className: cls, first }: { title: string; children: React.ReactNode; className?: string; noBorder?: boolean; first?: boolean }) => (
     <section className={cn(
-      "relative px-7 md:px-10 py-8",
+      cabinetView ? "relative px-5 py-5" : "relative px-7 md:px-10 py-8",
       !first && "border-t border-white/20",
       cls,
     )}>
-      <div className="flex items-center gap-3 mb-6">
-        <span className="block w-8 h-px bg-white/60" />
+      <div className={cn("flex items-center gap-3", cabinetView ? "mb-4" : "mb-6")}>
+        <span className="block w-6 h-px bg-white/60" />
         <p className="text-[10px] uppercase tracking-[0.28em] text-white/75 font-sans font-semibold">{title}</p>
       </div>
       <div className="text-white">{children}</div>
@@ -425,7 +425,7 @@ const Step6Review = ({ readOnly = false, cabinetView = false }: Step6ReviewProps
   const DataRow = ({ label, value }: { label: string; value: string }) => (
     <div>
       <span className="text-[9px] uppercase tracking-[0.18em] text-white/55 font-sans font-medium">{label}</span>
-      <p className="text-[13px] font-sans font-medium mt-1.5 text-white">{value || '—'}</p>
+      <p className="text-[13px] font-sans font-medium mt-1 text-white">{value || '—'}</p>
     </div>
   );
 
@@ -433,10 +433,15 @@ const Step6Review = ({ readOnly = false, cabinetView = false }: Step6ReviewProps
     if (activitySummary.chartData.length === 0) return null;
 
     return (
-      <div className="space-y-6">
-        <div className="grid grid-cols-1 lg:grid-cols-[minmax(280px,340px)_1fr] gap-8 items-start">
-          {/* Donut — espace agrandi */}
-          <div className="w-full aspect-square max-w-[340px] mx-auto lg:mx-0 relative">
+      <div className={cabinetView ? "space-y-4" : "space-y-6"}>
+        <div className={cn(
+          "grid items-start",
+          cabinetView
+            ? "grid-cols-[140px_1fr] gap-4"
+            : "grid-cols-1 lg:grid-cols-[minmax(280px,340px)_1fr] gap-8"
+        )}>
+          {/* Donut */}
+          <div className={cn("relative", cabinetView ? "w-[140px] h-[140px]" : "w-full aspect-square max-w-[340px] mx-auto lg:mx-0")}>
             <ResponsiveContainer width="100%" height="100%">
               <PieChart margin={{ top: 8, right: 8, bottom: 8, left: 8 }}>
                 <Pie
@@ -1029,15 +1034,19 @@ const Step6Review = ({ readOnly = false, cabinetView = false }: Step6ReviewProps
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-      className="max-w-5xl mx-auto px-4"
+      className={cabinetView ? "px-0" : "max-w-5xl mx-auto px-4"}
     >
 
-      <div className="text-[9px] font-bold text-foreground/40 tracking-[0.16em] uppercase mb-3 flex items-center gap-2">
-        <span className="w-5 h-[1.5px] bg-foreground rounded-sm" />
-        Étape 5 / 5
-      </div>
-      <h2 className="font-sans text-3xl md:text-4xl font-normal text-foreground leading-tight mb-2.5">Récapitulatif</h2>
-      <p className="text-foreground/50 font-sans text-xs font-light mb-8">Vérifiez vos informations avant de soumettre votre profil.</p>
+      {!cabinetView && (
+        <>
+          <div className="text-[9px] font-bold text-foreground/40 tracking-[0.16em] uppercase mb-3 flex items-center gap-2">
+            <span className="w-5 h-[1.5px] bg-foreground rounded-sm" />
+            Étape 5 / 5
+          </div>
+          <h2 className="font-sans text-3xl md:text-4xl font-normal text-foreground leading-tight mb-2.5">Récapitulatif</h2>
+          <p className="text-foreground/50 font-sans text-xs font-light mb-8">Vérifiez vos informations avant de soumettre votre profil.</p>
+        </>
+      )}
 
       {/* Tabs — masqués en vue cabinet (le cabinet voit directement son aperçu) */}
       {!cabinetView && (
