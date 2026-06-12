@@ -66,9 +66,9 @@ const Footer = () => (
             Politique de confidentialité
           </a>
           <span className="text-white/15 text-[11px]">·</span>
-          <a href="#" className="text-[11px] font-sans font-light text-white/35 hover:text-white/60 transition-colors duration-300">
+          <Link to="/cgu" className="text-[11px] font-sans font-light text-white/35 hover:text-white/60 transition-colors duration-300">
             CGU
-          </a>
+          </Link>
         </div>
       </div>
     </div>

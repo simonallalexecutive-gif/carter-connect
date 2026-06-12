@@ -42,6 +42,7 @@ import FirmBookingPage from "./pages/FirmBookingPage";
 import CandidateAccessPage from "./pages/CandidateAccessPage";
 import ConnexionCandidatPage from "./pages/ConnexionCandidatPage";
 import MentionsLegalesPage from "./pages/MentionsLegalesPage";
+import CGUPage from "./pages/CGUPage";
 
 
 const queryClient = new QueryClient();
@@ -76,6 +77,7 @@ const App = () => (
           <Route path="/candidat" element={<CandidateAccessPage />} />
           <Route path="/connexion-candidat" element={<ConnexionCandidatPage />} />
           <Route path="/mentions-legales" element={<MentionsLegalesPage />} />
+          <Route path="/cgu" element={<CGUPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
