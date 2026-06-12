@@ -44,17 +44,17 @@ const MissionSection = () => (
         {/* Firms */}
         <motion.div variants={fadeUp} className="px-0 md:pr-12 py-10 flex flex-col gap-6">
           <span className="text-[11.5px] font-sans font-semibold tracking-[0.22em] uppercase text-black/30">Firms</span>
-          <h3 className="font-serif font-[300] text-[1.44rem] text-black leading-snug">
+          <h3 className="font-serif font-[300] text-[1.44rem] text-black leading-snug italic">
             Vivez votre marché.
           </h3>
           <div className="w-6 h-px bg-black/15" />
           <div className="flex flex-col gap-5">
-            <p className="font-sans font-light text-[1.01rem] leading-[1.8] text-black/55">
-              <span className="text-black/75 font-normal">Publier votre recherche à titre strictement confidentiel —</span> Adressez vous à une audience qualifiée et préservez l'identité de votre cabinet.
+            <p className="font-sans font-light text-[1.01rem] leading-[1.8] text-black/55 text-justify">
+              <span className="text-black/75 font-bold">Déposez votre recherche à titre confidentiel</span> et adressez-vous à une audience qualifiée tout en préservant l'identité de votre cabinet.
             </p>
             <div className="w-4 h-px bg-black/10" />
-            <p className="font-sans font-light text-[1.01rem] leading-[1.8] text-black/55">
-              <span className="text-black/75 font-normal">Explorer le marché et rester connecté à votre marché —</span> Soyez opportuniste et/ou anticipez vos recrutements stratégiques pour chacun de vos départements.
+            <p className="font-sans font-light text-[1.01rem] leading-[1.8] text-black/55 text-justify">
+              <span className="text-black/75 font-bold">Explorez le marché</span> : restez opportuniste et anticipez vos recrutements stratégiques pour chacun de vos départements.
             </p>
           </div>
         </motion.div>
@@ -105,18 +105,18 @@ const MissionSection = () => (
         {/* Candidats */}
         <motion.div variants={fadeUp} className="px-0 md:pl-12 py-10 flex flex-col gap-6">
           <span className="text-[11.5px] font-sans font-semibold tracking-[0.22em] uppercase text-black/30">Candidats</span>
-          <h3 className="font-serif font-[300] text-[1.44rem] text-black leading-snug">
+          <h3 className="font-serif font-[300] text-[1.44rem] text-black leading-snug italic">
             Reprenez le contrôle.
           </h3>
           <div className="w-6 h-px bg-black/15" />
           <div className="flex flex-col gap-4">
-            <p className="font-sans font-light text-[1.01rem] leading-[1.8] text-black/55">
+            <p className="font-sans font-light text-[1.01rem] leading-[1.8] text-black/55 text-justify">
               Restez visible des cabinets qui vous intéressent — sans jamais exposer votre identité.
             </p>
-            <p className="font-sans font-light text-[1.01rem] leading-[1.8] text-black/55">
+            <p className="font-sans font-light text-[1.01rem] leading-[1.8] text-black/55 text-justify">
               Étudiez chaque opportunité en amont avec un consultant dédié, à votre rythme et selon votre projet.
             </p>
-            <p className="font-sans font-light text-[1.01rem] leading-[1.8] text-black/55">
+            <p className="font-sans font-light text-[1.01rem] leading-[1.8] text-black/55 text-justify">
               Votre anonymat est absolu. Jusqu'à ce que vous décidiez.
             </p>
           </div>
