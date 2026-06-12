@@ -225,7 +225,7 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
             ) : null;
           })()}
 
-          {/* Department — using Chambers nomenclature */}
+          {/* Department */}
           <div className="mb-6">
             <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2 block">
               Département concerné par la recherche
@@ -256,7 +256,7 @@ const CabinetStep3Search = ({ isEmbedded, onBack, onNext }: CabinetStep3SearchPr
             </div>
           </div>
 
-          {/* Expertise — using Chambers nomenclature */}
+          {/* Expertise */}
           <div className="mb-6">
             <label className="text-[9px] font-bold tracking-[0.12em] uppercase text-muted-foreground mb-2 block">
               Expertise recherchée <span className="font-normal normal-case tracking-normal text-[10px] text-border">plusieurs choix possibles</span>
