@@ -826,13 +826,18 @@ const ExploreView = ({
   const [seniorityFilter, setSeniorityFilter] = useState<string>('all');
   const [realProfiles, setRealProfiles] = useState<CabinetProfile[]>([]);
 
+  const [profilesLoaded, setProfilesLoaded] = useState(false);
+
   useEffect(() => {
     supabase
       .from('candidate_registrations')
       .select('id, created_at, submission_data')
       .eq('status', 'approved')
-      .then(({ data }) => {
-        if (data) setRealProfiles(data.map(registrationToProfile));
+      .then(({ data, error }) => {
+        if (error) console.error('CabinetDashboard fetch error:', error);
+        console.log('CabinetDashboard fetched candidates:', data);
+        setRealProfiles((data || []).map(registrationToProfile));
+        setProfilesLoaded(true);
       });
   }, []);
 
@@ -846,7 +851,7 @@ const ExploreView = ({
   ];
 
   const filtered = useMemo(() => {
-    const allProfiles = realProfiles.length > 0 ? realProfiles : [...PROFILES];
+    const allProfiles = profilesLoaded ? realProfiles : [...PROFILES];
     let profiles = [...allProfiles];
     if (filter === 'new') profiles = profiles.filter((p) => p.isNew);
     else if (filter !== 'all') profiles = profiles.filter((p) => p.dept === filter);
