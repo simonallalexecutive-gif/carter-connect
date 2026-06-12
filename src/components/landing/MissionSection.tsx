@@ -39,7 +39,7 @@ const MissionSection = () => (
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: '-40px' }}
-        className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr]"
+        className="grid grid-cols-1 md:grid-cols-[1fr_200px_1fr]"
       >
         {/* Firms */}
         <motion.div variants={fadeUp} className="px-0 md:pr-12 py-10 flex flex-col gap-6">
@@ -62,7 +62,7 @@ const MissionSection = () => (
         {/* Logan — centre */}
         <motion.div
           variants={fadeUp}
-          className="px-10 md:px-14 py-10 flex flex-col items-center justify-center gap-6 text-center min-w-[180px]"
+          className="py-10 flex flex-col items-center justify-center gap-6 text-center w-full"
         >
           {/* Logan + flèches sur la même ligne */}
           <div className="hidden md:flex items-center gap-4 w-full justify-center">
