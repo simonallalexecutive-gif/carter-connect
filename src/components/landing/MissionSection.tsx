@@ -47,12 +47,10 @@ const MissionSection = () => (
           <h3 className="font-serif font-[300] text-[1.16rem] text-black leading-snug italic">
             Vivez votre marché.
           </h3>
-          <div className="w-6 h-px bg-black/15" />
           <div className="flex flex-col gap-5">
             <p className="font-sans font-light text-[1rem] sm:text-[1.05rem] leading-[1.9] text-black/60 text-justify">
               <span className="text-black/75 font-bold">Déposez votre recherche à titre confidentiel</span> et adressez-vous à une audience qualifiée tout en préservant l'identité de votre cabinet.
             </p>
-            <div className="w-4 h-px bg-black/10" />
             <p className="font-sans font-light text-[1rem] sm:text-[1.05rem] leading-[1.9] text-black/60 text-justify">
               <span className="text-black/75 font-bold">Explorez le marché</span> : restez opportuniste et anticipez vos recrutements stratégiques pour chacun de vos départements.
             </p>
@@ -108,12 +106,10 @@ const MissionSection = () => (
           <h3 className="font-serif font-[300] text-[1.16rem] text-black leading-snug italic">
             Reprenez le contrôle.
           </h3>
-          <div className="w-6 h-px bg-black/15" />
           <div className="flex flex-col gap-5">
             <p className="font-sans font-light text-[1rem] sm:text-[1.05rem] leading-[1.9] text-black/60 text-justify">
               <span className="text-black/75 font-bold">Restez en alerte et attractif</span> : notification en temps réel des nouvelles opportunités ou marques d'intérêt des cabinets pour votre profil.
             </p>
-            <div className="w-4 h-px bg-black/10" />
             <p className="font-sans font-light text-[1rem] sm:text-[1.05rem] leading-[1.9] text-black/60 text-justify">
               <span className="text-black/75 font-bold">Profitez d'un accompagnement dédié</span> : pour chaque opportunité, un consultant est à vos côtés pour garantir la pertinence de chaque rencontre.
             </p>
