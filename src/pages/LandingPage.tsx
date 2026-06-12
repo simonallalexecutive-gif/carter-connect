@@ -190,22 +190,16 @@ const LandingPage = () => (
       <FAQSection />
     </div>
 
-    {/* CTA — fond totalement noir, intègre la citation Logan repositionnée */}
+    {/* CTA — texture cuir en fond */}
     <div className="relative overflow-hidden bg-black">
       <section className="min-h-[100svh] relative flex items-center">
-        {/* Soft ambient glow */}
-        <motion.div
-          aria-hidden
-          className="absolute inset-0 pointer-events-none"
-          animate={{
-            background: [
-              'radial-gradient(ellipse 60% 50% at 50% 40%, rgba(255,255,255,0.04) 0%, transparent 70%)',
-              'radial-gradient(ellipse 70% 60% at 48% 50%, rgba(255,255,255,0.06) 0%, transparent 70%)',
-              'radial-gradient(ellipse 60% 50% at 52% 45%, rgba(255,255,255,0.04) 0%, transparent 70%)',
-            ],
-          }}
-          transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut' }}
+        {/* Photo texture cuir */}
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: "url('/texture-cuir.jpg')" }}
         />
+        {/* Voile sombre pour lisibilité du texte */}
+        <div className="absolute inset-0 bg-black/55" />
 
         <div className="max-w-5xl mx-auto px-4 sm:px-8 lg:px-10 relative z-10 py-32 md:py-44 w-full">
           <div className="flex flex-col items-center text-center">
