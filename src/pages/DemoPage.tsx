@@ -15,64 +15,50 @@ interface Slide {
   visual?: React.ReactNode;
 }
 
-// ── Mockups espace cabinet ────────────────────────────────────────────────────
+// ── Mockups — fidèles au vrai UI, sans chrome navigateur ──────────────────────
+
+// Sidebar commune cabinet
+const CabinetSidebar = ({ active }: { active: number }) => (
+  <div className="w-32 bg-white border-r border-gray-100 py-5 flex flex-col px-3 flex-shrink-0">
+    <div className="font-serif text-[18px] text-gray-900 mb-5 px-2">Logan</div>
+    {['Tableau de bord', 'Mes recherches', 'Explorer', 'Alertes'].map((item, i) => (
+      <div key={item} className={cn(
+        'px-2 py-1.5 rounded-md text-[9px] cursor-default mb-0.5 font-sans',
+        i === active ? 'bg-gray-100 text-gray-900 font-semibold' : 'text-gray-400'
+      )}>{item}</div>
+    ))}
+  </div>
+);
 
 const SearchFormMockup = () => (
   <div className="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden w-full max-w-lg mx-auto text-[11px]">
-    {/* Top bar */}
-    <div className="bg-gray-50 border-b border-gray-100 px-4 py-2 flex items-center gap-3">
-      <div className="flex gap-1.5">
-        <div className="w-2.5 h-2.5 rounded-full bg-red-400" />
-        <div className="w-2.5 h-2.5 rounded-full bg-yellow-400" />
-        <div className="w-2.5 h-2.5 rounded-full bg-green-400" />
-      </div>
-      <span className="text-gray-400 text-[10px] tracking-wide">loganexecutive.com · Espace cabinet</span>
-    </div>
-    <div className="flex">
-      {/* Sidebar mini */}
-      <div className="w-28 bg-white border-r border-gray-100 py-4 flex flex-col gap-1 px-3 flex-shrink-0">
-        <div className="font-serif text-[16px] text-gray-900 mb-4 px-1">Logan</div>
-        {['Tableau de bord', 'Mes recherches', 'Alertes', 'Fixer un call'].map((item, i) => (
-          <div key={item} className={cn('px-2 py-1.5 rounded text-[9px] text-gray-500 cursor-default', i === 1 && 'bg-gray-100 text-gray-800 font-medium')}>{item}</div>
-        ))}
-      </div>
-      {/* Content */}
-      <div className="flex-1 p-4">
-        <div className="text-[8px] tracking-[0.14em] uppercase text-gray-400 mb-1">Étape 2 / 4</div>
-        <div className="font-serif text-[17px] text-gray-900 mb-3">Ma recherche</div>
-
+    <div className="flex min-h-[280px]">
+      <CabinetSidebar active={1} />
+      <div className="flex-1 p-5">
+        <div className="font-serif text-[17px] text-gray-900 mb-0.5">Nouvelle recherche</div>
+        <div className="text-[8px] text-gray-400 mb-4">Définissez le profil recherché</div>
         <div className="mb-3">
-          <div className="text-[8px] tracking-[0.12em] uppercase text-gray-400 mb-1.5">Type de profil recherché</div>
+          <div className="text-[7px] tracking-[0.14em] uppercase text-gray-400 mb-1.5">Séniorité</div>
           <div className="flex gap-1.5">
-            {['Collaborateur', 'Counsel', 'Associé'].map((t, i) => (
-              <div key={t} className={cn('flex-1 text-center py-1.5 rounded border text-[9px]', i === 0 ? 'border-gray-900 text-gray-900 font-medium' : 'border-gray-200 text-gray-400')}>{t}</div>
+            {['Junior', 'Mid Level', 'Senior'].map((t, i) => (
+              <div key={t} className={cn('flex-1 text-center py-1.5 rounded-sm border text-[8px] font-sans', i === 1 ? 'border-gray-900 bg-gray-900 text-white font-medium' : 'border-gray-200 text-gray-400')}>{t}</div>
             ))}
           </div>
         </div>
-
         <div className="mb-3">
-          <div className="text-[8px] tracking-[0.12em] uppercase text-gray-400 mb-1.5">Séniorité recherchée</div>
-          <div className="flex gap-1.5">
-            {[['0–3 ans', 'Junior'], ['3–6 ans', 'Mid Level'], ['+6 ans', 'Sénior']].map(([yr, lvl], i) => (
-              <div key={yr} className={cn('flex-1 text-center py-1.5 rounded border', i === 1 ? 'border-gray-900 bg-gray-900 text-white' : 'border-gray-200 text-gray-500')}>
-                <div className="text-[9px] font-medium">{yr}</div>
-                <div className="text-[7px] opacity-60">{lvl}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="mb-3">
-          <div className="text-[8px] tracking-[0.12em] uppercase text-gray-400 mb-1.5">Département</div>
+          <div className="text-[7px] tracking-[0.14em] uppercase text-gray-400 mb-1.5">Pratique</div>
           <div className="flex flex-wrap gap-1">
-            {['Corporate/M&A/PE', 'Financement LBO', 'Droit social'].map((d, i) => (
-              <div key={d} className={cn('px-2 py-1 rounded-full border text-[8px]', i < 2 ? 'border-gray-900 text-gray-900 font-medium' : 'border-gray-200 text-gray-400')}>{d}</div>
+            {['M&A', 'Financement LBO', 'Private Equity', 'Droit social'].map((d, i) => (
+              <div key={d} className={cn('px-2 py-1 rounded-full border text-[8px] font-sans', i < 2 ? 'border-gray-900 text-gray-900 font-medium' : 'border-gray-200 text-gray-400')}>{d}</div>
             ))}
           </div>
         </div>
-
-        <div className="flex justify-end mt-3">
-          <div className="bg-gray-900 text-white px-4 py-1.5 rounded text-[9px] font-medium">Suivant →</div>
+        <div className="mb-4">
+          <div className="text-[7px] tracking-[0.14em] uppercase text-gray-400 mb-1.5">Rémunération cible</div>
+          <div className="bg-gray-50 border border-gray-200 rounded-sm px-3 py-2 text-[9px] text-gray-500 font-sans">80 000 – 120 000 €</div>
+        </div>
+        <div className="flex justify-end">
+          <div className="bg-gray-900 text-white px-4 py-1.5 rounded-sm text-[9px] font-sans font-medium">Publier la recherche →</div>
         </div>
       </div>
     </div>
@@ -81,48 +67,34 @@ const SearchFormMockup = () => (
 
 const MarketMockup = () => (
   <div className="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden w-full max-w-lg mx-auto text-[11px]">
-    <div className="bg-gray-50 border-b border-gray-100 px-4 py-2 flex items-center gap-3">
-      <div className="flex gap-1.5">
-        <div className="w-2.5 h-2.5 rounded-full bg-red-400" />
-        <div className="w-2.5 h-2.5 rounded-full bg-yellow-400" />
-        <div className="w-2.5 h-2.5 rounded-full bg-green-400" />
-      </div>
-      <span className="text-gray-400 text-[10px] tracking-wide">loganexecutive.com · Explorer le marché</span>
-    </div>
-    <div className="flex">
-      <div className="w-28 bg-white border-r border-gray-100 py-4 flex flex-col gap-1 px-3 flex-shrink-0">
-        <div className="font-serif text-[16px] text-gray-900 mb-4 px-1">Logan</div>
-        {['Tableau de bord', 'Mes recherches', 'Explorer', 'Alertes'].map((item, i) => (
-          <div key={item} className={cn('px-2 py-1.5 rounded text-[9px] text-gray-500 cursor-default', i === 2 && 'bg-gray-100 text-gray-800 font-medium')}>{item}</div>
-        ))}
-      </div>
-      <div className="flex-1 p-4">
-        <div className="font-serif text-[16px] text-gray-900 mb-1">Explorer le marché</div>
-        <div className="text-[9px] text-gray-400 mb-3">Profils anonymisés — cliquez pour consulter le détail</div>
+    <div className="flex min-h-[280px]">
+      <CabinetSidebar active={2} />
+      <div className="flex-1 p-5">
+        <div className="font-serif text-[17px] text-gray-900 mb-0.5">Explorer le marché</div>
+        <div className="text-[8px] text-gray-400 mb-3">Profils anonymisés — cliquez pour consulter le détail</div>
         <div className="flex gap-1 mb-3 flex-wrap">
-          {['Tous', 'M&A', 'B&F', 'Droit social'].map((f, i) => (
-            <div key={f} className={cn('px-2 py-0.5 rounded-full text-[8px] border', i === 0 ? 'bg-gray-900 text-white border-gray-900' : 'border-gray-200 text-gray-500')}>{f}</div>
+          {['Tous', 'M&A', 'Financement LBO', 'Droit social'].map((f, i) => (
+            <div key={f} className={cn('px-2.5 py-1 rounded-full text-[8px] border font-sans', i === 0 ? 'bg-gray-900 text-white border-gray-900' : 'border-gray-200 text-gray-500')}>{f}</div>
           ))}
         </div>
-        <div className="space-y-1.5">
+        <div className="space-y-2">
           {[
-            { id: 'C-2024-042', level: 'Senior', domain: 'Banking & Finance · 5 ans', status: 'À L\'ÉCOUTE', tags: ['Cabinet Français', 'Legal 500'], active: false },
-            { id: 'C-2024-057', level: 'Mid Level', domain: 'Corporate/M&A · 4 ans', status: 'À L\'ÉCOUTE', tags: ['Cabinet Français', 'Legal 500'], active: false },
-            { id: 'C-2024-071', level: 'Mid Level', domain: 'Banking & Finance · 3 ans', status: 'ACTIVE', tags: ['Cabinet Anglais', 'Legal 500'], active: true },
+            { id: 'C-2024-042', level: 'Senior', domain: 'Financement LBO · 5 ans', status: 'À L\'ÉCOUTE', tags: ['Cabinet FR', 'Legal 500'], dot: 'bg-gray-400' },
+            { id: 'C-2024-057', level: 'Mid Level', domain: 'M&A · 4 ans', status: 'À L\'ÉCOUTE', tags: ['Cabinet FR', 'Legal 500'], dot: 'bg-gray-400' },
+            { id: 'C-2024-071', level: 'Mid Level', domain: 'Financement LBO · 3 ans', status: 'ACTIVE', tags: ['Cabinet UK', 'Legal 500'], dot: 'bg-emerald-400' },
           ].map(p => (
-            <div key={p.id} className="border border-gray-100 rounded p-2.5 flex items-center justify-between hover:bg-gray-50 cursor-default">
-              <div>
-                <div className="flex items-center gap-2 mb-0.5">
-                  <span className="text-[8px] text-gray-400">{p.id}</span>
-                  <span className={cn('text-[7px] font-semibold tracking-wide', p.active ? 'text-blue-500' : 'text-gray-400')}>● {p.status}</span>
-                </div>
-                <div className="font-medium text-[10px] text-gray-900">{p.level}</div>
-                <div className="text-[8px] text-gray-500">{p.domain}</div>
-                <div className="flex gap-1 mt-1">
-                  {p.tags.map(t => <span key={t} className="text-[7px] px-1.5 py-0.5 rounded border border-gray-200 text-gray-500">{t}</span>)}
-                </div>
+            <div key={p.id} className="border border-gray-100 rounded-lg p-3 cursor-default hover:border-gray-200 hover:shadow-sm transition-all">
+              <div className="flex items-center gap-1.5 mb-1">
+                <span className="text-[7px] text-gray-300 font-sans">{p.id}</span>
+                <span className="flex items-center gap-1 text-[7px] font-sans font-semibold text-gray-400">
+                  <span className={cn('w-1.5 h-1.5 rounded-full', p.dot)} />{p.status}
+                </span>
               </div>
-              <div className="text-[8px] text-gray-400 font-medium">VOIR →</div>
+              <div className="font-sans font-semibold text-[11px] text-gray-900 mb-0.5">{p.level}</div>
+              <div className="text-[8px] text-gray-400 font-sans mb-1.5">{p.domain}</div>
+              <div className="flex gap-1">
+                {p.tags.map(t => <span key={t} className="text-[7px] px-2 py-0.5 rounded-full border border-gray-200 text-gray-500 font-sans">{t}</span>)}
+              </div>
             </div>
           ))}
         </div>
@@ -133,56 +105,49 @@ const MarketMockup = () => (
 
 const ProfileDrawerMockup = () => (
   <div className="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden w-full max-w-lg mx-auto text-[11px]">
-    <div className="bg-gray-50 border-b border-gray-100 px-4 py-2 flex items-center gap-3">
-      <div className="flex gap-1.5">
-        <div className="w-2.5 h-2.5 rounded-full bg-red-400" />
-        <div className="w-2.5 h-2.5 rounded-full bg-yellow-400" />
-        <div className="w-2.5 h-2.5 rounded-full bg-green-400" />
-      </div>
-      <span className="text-gray-400 text-[10px] tracking-wide">Profil anonyme · C-2024-042</span>
-    </div>
-    <div className="p-4">
-      <div className="text-[8px] tracking-[0.14em] uppercase text-gray-400 mb-2">Profil anonymisé</div>
-      <div className="flex items-center gap-3 mb-4">
-        <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center">
-          <UserCheck className="w-5 h-5 text-gray-400" />
-        </div>
-        <div>
-          <div className="font-serif text-[13px] text-gray-900">Profil anonyme</div>
-          <div className="text-[9px] text-gray-400">C-2024-042 · Collaborateur — Senior · 5 ans</div>
-          <div className="flex gap-2 mt-0.5">
-            <span className="text-[8px] px-1.5 py-0.5 bg-gray-100 rounded text-gray-600">Legal 500</span>
+    <div className="flex min-h-[300px]">
+      <CabinetSidebar active={2} />
+      {/* Main dimmed */}
+      <div className="flex-1 bg-gray-50/60 relative">
+        {/* Drawer overlay */}
+        <div className="absolute inset-y-0 right-0 w-[72%] bg-white border-l border-gray-100 shadow-xl flex flex-col p-4">
+          <div className="text-[7px] tracking-[0.16em] uppercase text-gray-300 mb-3 font-sans">Profil anonymisé</div>
+          <div className="flex items-center gap-2.5 mb-4">
+            <div className="w-9 h-9 rounded-full bg-gray-100 flex items-center justify-center flex-shrink-0">
+              <UserCheck className="w-4 h-4 text-gray-300" />
+            </div>
+            <div>
+              <div className="font-serif text-[13px] text-gray-900 leading-tight">Profil anonyme</div>
+              <div className="text-[8px] text-gray-400 font-sans">Senior · 5 ans PQE</div>
+              <span className="text-[7px] px-1.5 py-0.5 bg-gray-100 rounded text-gray-500 font-sans">Legal 500 · Tier 1</span>
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-x-3 gap-y-2 mb-3 pb-3 border-b border-gray-100">
+            {[['Pratique', 'Financement LBO'], ['Origine', 'Cabinet FR'], ['Anglais', 'Bilingue']].map(([l, v]) => (
+              <div key={l}>
+                <div className="text-[7px] uppercase tracking-[0.1em] text-gray-300 mb-0.5 font-sans">{l}</div>
+                <div className="text-[9px] font-sans font-medium text-gray-800">{v}</div>
+              </div>
+            ))}
+          </div>
+          <div className="mb-3">
+            <div className="text-[7px] uppercase tracking-[0.1em] text-gray-300 mb-1.5 font-sans">Rémunération</div>
+            <div className="grid grid-cols-2 gap-2">
+              <div className="bg-gray-50 rounded p-1.5">
+                <div className="text-[7px] text-gray-400 font-sans">Actuelle</div>
+                <div className="font-serif text-[12px] text-gray-900">95 K€</div>
+              </div>
+              <div className="bg-gray-50 rounded p-1.5">
+                <div className="text-[7px] text-gray-400 font-sans">Cible Logan</div>
+                <div className="font-serif text-[12px] text-gray-900">130 K€</div>
+              </div>
+            </div>
+          </div>
+          <div className="mt-auto flex gap-1.5">
+            <div className="flex-1 text-center py-1.5 bg-gray-900 text-white rounded-sm text-[8px] font-sans font-medium">Manifester l'intérêt →</div>
+            <div className="px-2.5 py-1.5 border border-gray-200 rounded-sm text-[8px] text-gray-400 font-sans">Passer</div>
           </div>
         </div>
-      </div>
-      <div className="grid grid-cols-2 gap-x-4 gap-y-2.5 mb-3">
-        {[
-          ['Pratique', 'Banque & Finance'],
-          ['Cabinet d\'origine', 'Cabinet français'],
-          ['Anglais', 'Bilingue'],
-        ].map(([label, val]) => (
-          <div key={label}>
-            <div className="text-[7px] tracking-[0.12em] uppercase text-gray-400 mb-0.5">{label}</div>
-            <div className="text-[10px] font-medium text-gray-900">{val}</div>
-          </div>
-        ))}
-      </div>
-      <div className="border-t border-gray-100 pt-3 mb-3">
-        <div className="text-[7px] tracking-[0.12em] uppercase text-gray-400 mb-2">Rémunération</div>
-        <div className="grid grid-cols-2 gap-3">
-          <div>
-            <div className="text-[8px] text-gray-400 mb-0.5">Rétrocession actuelle</div>
-            <div className="font-serif text-[13px] text-gray-900 font-semibold">65–72 K€ fixe</div>
-          </div>
-          <div>
-            <div className="text-[8px] text-gray-400 mb-0.5">Rétrocession suggérée Logan</div>
-            <div className="font-serif text-[13px] text-gray-900 font-semibold">165 K€</div>
-          </div>
-        </div>
-      </div>
-      <div className="flex gap-2 mt-3">
-        <div className="flex-1 text-center py-1.5 bg-gray-900 text-white rounded text-[9px] font-medium cursor-default">Manifester l'intérêt →</div>
-        <div className="px-3 py-1.5 border border-gray-200 rounded text-[9px] text-gray-500 cursor-default">Passer</div>
       </div>
     </div>
   </div>
