@@ -1207,13 +1207,34 @@ const Step6Review = ({ readOnly = false, cabinetView = false }: Step6ReviewProps
             <>
               {/* Anonymized header */}
               <SectionCard title="Profil anonymisé" first>
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-white/15 to-white/[0.04] border border-white/10 flex items-center justify-center">
-                    <User className="w-7 h-7 text-white/40" />
+                <div className="flex items-start justify-between gap-4 mb-6">
+                  <div className="flex items-center gap-4">
+                    <div className="w-16 h-16 rounded-full bg-gradient-to-br from-white/15 to-white/[0.04] border border-white/10 flex items-center justify-center">
+                      <User className="w-7 h-7 text-white/40" />
+                    </div>
+                    <div>
+                      <p className="font-serif text-xl text-white tracking-tight">Profil anonyme</p>
+                      <div className="mt-1.5">{pqe && <SeniorityBadge info={pqe} hideExactPQE />}</div>
+                    </div>
                   </div>
-                  <div>
-                    <p className="font-serif text-xl text-white tracking-tight">Profil anonyme</p>
-                    <div className="mt-1.5">{pqe && <SeniorityBadge info={pqe} hideExactPQE />}</div>
+                  {/* Statut — affiché en haut à droite */}
+                  <div className="flex flex-col items-end gap-1.5 flex-shrink-0">
+                    {store.statutEcoute && (
+                      <span className={cn(
+                        "inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-sans font-semibold tracking-wide",
+                        store.statutEcoute === 'actif'
+                          ? "bg-white/10 text-white"
+                          : "bg-white/5 text-white/55"
+                      )}>
+                        <span className={cn("w-1.5 h-1.5 rounded-full flex-shrink-0", store.statutEcoute === 'actif' ? "bg-white animate-pulse" : "bg-white/30")} />
+                        {store.statutEcoute === 'actif' ? 'En recherche active' : 'À l\'écoute'}
+                      </span>
+                    )}
+                    {store.disponibilite && (
+                      <span className="text-[10px] font-sans text-white/40">
+                        Dispo. : {store.disponibilite}
+                      </span>
+                    )}
                   </div>
                 </div>
 
@@ -1282,13 +1303,6 @@ const Step6Review = ({ readOnly = false, cabinetView = false }: Step6ReviewProps
                 </div>
               </SectionCard>
 
-              {/* Statut */}
-              <SectionCard title="Statut">
-                <div className="grid grid-cols-2 gap-5">
-                  <DataRow label="Écoute" value={store.statutEcoute === 'actif' ? 'En recherche active' : store.statutEcoute === 'passif' ? 'À l\'écoute' : '—'} />
-                  {store.disponibilite && <DataRow label="Disponibilité" value={store.disponibilite} />}
-                </div>
-              </SectionCard>
             </>
           )}
         </div>
