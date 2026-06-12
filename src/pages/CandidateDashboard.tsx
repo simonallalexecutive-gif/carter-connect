@@ -115,13 +115,19 @@ const CandidateDashboardLayout = ({ candidateStatus }: { candidateStatus: string
 
   if (candidateStatus !== 'approved') {
     return (
-      <div className="min-h-screen w-screen bg-black flex items-center justify-center px-6" style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, zIndex: 9999 }}>
-        <div className="text-center max-w-md">
-          <p className="font-display text-xl text-white mb-8">Logan</p>
-          <h1 className="text-2xl font-serif text-white mb-4">Profil en cours de validation</h1>
-          <p className="text-white/60 font-sans font-light leading-relaxed">
-            Votre profil est en cours d'examen par l'équipe Logan. Vous recevrez un email dès que votre accès sera activé.
-          </p>
+      <div className="min-h-screen w-screen bg-black flex flex-col px-6" style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, zIndex: 9999 }}>
+        {/* Top-left Logan link */}
+        <div className="flex-shrink-0 pt-8 pl-2">
+          <a href="/" className="font-serif text-xl text-white hover:text-white/80 transition-colors">Logan</a>
+        </div>
+        {/* Centered content */}
+        <div className="flex-1 flex items-center justify-center">
+          <div className="text-center max-w-md">
+            <h1 className="text-2xl font-serif text-white mb-4">Profil en cours de validation</h1>
+            <p className="text-white/60 font-sans font-light leading-relaxed">
+              Votre profil est en cours d'examen par l'équipe Logan. Vous recevrez un email dès que votre accès sera activé.
+            </p>
+          </div>
         </div>
       </div>
     );
