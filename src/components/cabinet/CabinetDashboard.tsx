@@ -121,11 +121,14 @@ const CabinetDashboard = () => {
           setSort={setSort}
           drawerProfile={drawerProfile}
           setDrawerProfile={(p) => {
-            setDrawerProfile(p);
             if (p && submissionDataMap[p.id]) {
+              // Vrai candidat → vue plein écran Step6Review
               setCandidateViewData({ submissionData: submissionDataMap[p.id], id: p.id });
+              setDrawerProfile(null);
             } else {
+              // Profil démo → ancien drawer
               setCandidateViewData(null);
+              setDrawerProfile(p);
             }
           }}
         />
