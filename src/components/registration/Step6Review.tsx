@@ -643,17 +643,16 @@ const Step6Review = ({ readOnly = false }: Step6ReviewProps = {}) => {
                 { key: 'ptp', label: 'Public-to-Private' },
                 { key: 'pipe', label: 'PIPE' },
               ];
-              const subs = PE_SUBS.filter(s => peVals[s.key] !== undefined);
-              if (subs.length === 0) return null;
-              const total = subs.reduce((acc, s) => acc + (peVals[s.key] ?? 0), 0);
+              // use default 25 like MaActivityPanel does when slider untouched
+              const total = PE_SUBS.reduce((acc, s) => acc + (peVals[s.key] ?? 25), 0);
               const peFonds = store.maPeFonds ?? 50;
               return (
                 <div className="pt-4 border-t border-white/10 space-y-2">
                   <p className="text-[9px] uppercase tracking-[0.22em] text-white/45 font-sans font-semibold mb-2">Détail Private Equity</p>
-                  {subs.map(s => (
+                  {PE_SUBS.map(s => (
                     <div key={s.key} className="flex items-baseline gap-3 text-[12px] font-sans">
                       <span className="text-white/90 flex-1">{s.label}</span>
-                      <span className="text-white font-mono font-semibold tabular-nums">{total > 0 ? Math.round((peVals[s.key] ?? 0) / total * 100) : 0}%</span>
+                      <span className="text-white font-mono font-semibold tabular-nums">{total > 0 ? Math.round((peVals[s.key] ?? 25) / total * 100) : 0}%</span>
                     </div>
                   ))}
                   <div className="flex items-center gap-2 pt-1 text-[10px] font-sans text-white/45">
@@ -673,16 +672,16 @@ const Step6Review = ({ readOnly = false }: Step6ReviewProps = {}) => {
                 { key: 'corporate', label: 'Corporate venture / Structuration' },
                 { key: 'secondary', label: 'Secondary / Cessions' },
               ];
-              const subs = VC_SUBS.filter(s => vcVals[s.key] !== undefined);
-              const total = subs.reduce((acc, s) => acc + (vcVals[s.key] ?? 0), 0);
+              // use default 33 when slider untouched
+              const total = VC_SUBS.reduce((acc, s) => acc + (vcVals[s.key] ?? 33), 0);
               const vcFonds = store.maVcFonds ?? 50;
               return (
                 <div className="pt-4 border-t border-white/10 space-y-2">
                   <p className="text-[9px] uppercase tracking-[0.22em] text-white/45 font-sans font-semibold mb-2">Détail Venture Capital</p>
-                  {subs.map(s => (
+                  {VC_SUBS.map(s => (
                     <div key={s.key} className="flex items-baseline gap-3 text-[12px] font-sans">
                       <span className="text-white/90 flex-1">{s.label}</span>
-                      <span className="text-white font-mono font-semibold tabular-nums">{total > 0 ? Math.round((vcVals[s.key] ?? 0) / total * 100) : 0}%</span>
+                      <span className="text-white font-mono font-semibold tabular-nums">{total > 0 ? Math.round((vcVals[s.key] ?? 33) / total * 100) : 0}%</span>
                     </div>
                   ))}
                   <div className="flex items-center gap-2 pt-1 text-[10px] font-sans text-white/45">
