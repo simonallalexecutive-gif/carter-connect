@@ -59,6 +59,15 @@ const CabinetDashboard = () => {
   const [filter, setFilter] = useState('all');
   const [sort, setSort] = useState('date');
   const [drawerProfile, setDrawerProfile] = useState<CabinetProfile | null>(null);
+  const [realProfileCount, setRealProfileCount] = useState<number | null>(null);
+
+  useEffect(() => {
+    supabase
+      .from('candidate_registrations')
+      .select('id', { count: 'exact', head: true })
+      .eq('status', 'approved')
+      .then(({ count }) => setRealProfileCount(count ?? 0));
+  }, []);
 
   // New search: skip dept selection, go directly to search form
   if (s.dashboardView === 'newSearch') {
@@ -165,7 +174,7 @@ const CabinetDashboard = () => {
           </p>
           <div className="flex items-center gap-2 text-[10px] font-semibold text-foreground mt-auto">
             <Users className="w-3.5 h-3.5" />
-            {PROFILES.length} profils disponibles
+            {realProfileCount !== null ? realProfileCount : '—'} profil{realProfileCount !== 1 ? 's' : ''} disponible{realProfileCount !== 1 ? 's' : ''}
           </div>
         </button>
 
