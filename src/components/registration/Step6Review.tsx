@@ -164,15 +164,16 @@ const buildCategoryChart = (
 
 interface Step6ReviewProps {
   readOnly?: boolean;
+  cabinetView?: boolean;
 }
 
-const Step6Review = ({ readOnly = false }: Step6ReviewProps = {}) => {
+const Step6Review = ({ readOnly = false, cabinetView = false }: Step6ReviewProps = {}) => {
   const store = useRegistrationStore();
   const isAdmin = store.isAdminMode;
   const isEditMode = store.isEditMode;
   const navigate = useNavigate();
   const pqe = usePQE(store.sermentMois, store.sermentAnnee);
-  const [previewMode, setPreviewMode] = useState<PreviewMode>('recap');
+  const [previewMode, setPreviewMode] = useState<PreviewMode>(cabinetView ? 'cabinet' : 'recap');
   const [submitting, setSubmitting] = useState(false);
   const [showBooking, setShowBooking] = useState(false);
 

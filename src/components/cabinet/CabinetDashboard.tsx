@@ -14,6 +14,7 @@ import CabinetActivityPieSummary from '@/components/cabinet/CabinetActivityPieSu
 import CabinetRestructuringSynthesis from '@/components/cabinet/CabinetRestructuringSynthesis';
 import CabinetStep3Search from './CabinetStep3Search';
 import { supabase } from '@/integrations/supabase/client';
+import CabinetCandidateView from '@/components/cabinet/CabinetCandidateView';
 
 const PALIER_MAP: Record<string, string> = {
   starter: 'Starter · 1.500€/mois',
@@ -58,6 +59,7 @@ const CabinetDashboard = () => {
   const [filter, setFilter] = useState('all');
   const [sort, setSort] = useState('date');
   const [drawerProfile, setDrawerProfile] = useState<CabinetProfile | null>(null);
+  const [candidateViewData, setCandidateViewData] = useState<{ submissionData: any; id: string } | null>(null);
 
   // New search: skip dept selection, go directly to search form
   if (s.dashboardView === 'newSearch') {
@@ -111,14 +113,31 @@ const CabinetDashboard = () => {
   // Explorer le marché
   if (s.dashboardView === 'explore') {
     return (
-      <ExploreView
-        filter={filter}
-        setFilter={setFilter}
-        sort={sort}
-        setSort={setSort}
-        drawerProfile={drawerProfile}
-        setDrawerProfile={setDrawerProfile}
-      />
+      <>
+        <ExploreView
+          filter={filter}
+          setFilter={setFilter}
+          sort={sort}
+          setSort={setSort}
+          drawerProfile={drawerProfile}
+          setDrawerProfile={(p) => {
+            setDrawerProfile(p);
+            if (p && submissionDataMap[p.id]) {
+              setCandidateViewData({ submissionData: submissionDataMap[p.id], id: p.id });
+            } else {
+              setCandidateViewData(null);
+            }
+          }}
+        />
+        {candidateViewData && (
+          <CabinetCandidateView
+            open={true}
+            onClose={() => { setDrawerProfile(null); setCandidateViewData(null); }}
+            submissionData={candidateViewData.submissionData}
+            candidateId={candidateViewData.id}
+          />
+        )}
+      </>
     );
   }
 
@@ -827,6 +846,7 @@ const ExploreView = ({
   const [realProfiles, setRealProfiles] = useState<CabinetProfile[]>([]);
 
   const [profilesLoaded, setProfilesLoaded] = useState(false);
+  const [submissionDataMap, setSubmissionDataMap] = useState<Record<string, any>>({});
 
   useEffect(() => {
     supabase
@@ -835,8 +855,10 @@ const ExploreView = ({
       .eq('status', 'approved')
       .then(({ data, error }) => {
         if (error) console.error('CabinetDashboard fetch error:', error);
-        console.log('CabinetDashboard fetched candidates:', data);
         setRealProfiles((data || []).map(registrationToProfile));
+        const map: Record<string, any> = {};
+        (data || []).forEach(row => { map[row.id] = row.submission_data; });
+        setSubmissionDataMap(map);
         setProfilesLoaded(true);
       });
   }, []);
