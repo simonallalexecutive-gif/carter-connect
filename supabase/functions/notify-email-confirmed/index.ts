@@ -29,12 +29,46 @@ serve(async (req) => {
 
   // ── CAS CABINET ──────────────────────────────────────────────────────────────
   if (userType === "cabinet") {
-    // Lire depuis les métadonnées (toujours disponibles, pas de pb RLS)
     const prenom  = meta.contact_prenom  || meta.full_name?.split(" ")[0] || "";
     const nom     = meta.contact_nom     || meta.full_name?.split(" ").slice(1).join(" ") || "";
     const cabinet = meta.cabinet_name    || "—";
     const statut  = meta.contact_role    || "—";
     const tel     = meta.contact_mobile  || "—";
+
+    // Auto-vérifier le cabinet dès confirmation email (pas de validation admin requise)
+    await supabaseAdmin
+      .from("cabinet_accounts")
+      .update({ is_verified: true })
+      .eq("user_id", userId);
+
+    // Envoyer un email de bienvenue au cabinet
+    await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: { "Authorization": `Bearer ${RESEND_API_KEY}`, "Content-Type": "application/json" },
+      body: JSON.stringify({
+        from: "Logan <noreply@loganexecutive.com>",
+        to: userEmail,
+        subject: "Votre accès Logan est activé",
+        html: `
+          <html>
+          <body style="margin:0;padding:0;background:#ffffff;font-family:'DM Sans',sans-serif;">
+            <div style="max-width:520px;padding:48px 32px;">
+              <p style="font-family:'Georgia',serif;font-size:36px;font-weight:300;letter-spacing:0.06em;color:#0a0a0a;margin:0 0 4px;">Logan</p>
+              <p style="font-size:9px;font-weight:400;letter-spacing:0.28em;text-transform:uppercase;color:#999;margin:0 0 48px;">Réseau confidentiel d'avocats d'affaires</p>
+              <h1 style="font-family:'Georgia',serif;font-size:26px;font-weight:400;color:#0a0a0a;margin:0 0 20px;">Bienvenue, ${prenom}.</h1>
+              <p style="font-size:13px;font-weight:300;line-height:1.8;color:#555;margin:0 0 32px;">
+                Votre espace cabinet <strong>${cabinet}</strong> est prêt. Vous pouvez dès maintenant accéder à votre espace et explorer les profils disponibles.
+              </p>
+              <a href="${APP_URL}/connexion" style="display:inline-block;background:#0a0a0a;color:#ffffff;font-size:11px;font-weight:400;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;padding:14px 28px;">
+                Accéder à mon espace →
+              </a>
+              <p style="font-size:11px;color:#bbb;margin:40px 0 0;">— L'équipe Logan · <a href="mailto:contact@loganexecutive.com" style="color:#bbb;">contact@loganexecutive.com</a></p>
+            </div>
+          </body>
+          </html>
+        `,
+      }),
+    });
 
     // Notifier l'admin
     await fetch("https://api.resend.com/emails", {
