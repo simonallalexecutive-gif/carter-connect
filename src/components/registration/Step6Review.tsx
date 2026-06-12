@@ -165,9 +165,10 @@ const buildCategoryChart = (
 interface Step6ReviewProps {
   readOnly?: boolean;
   cabinetView?: boolean;
+  hideStepHeader?: boolean;
 }
 
-const Step6Review = ({ readOnly = false, cabinetView = false }: Step6ReviewProps = {}) => {
+const Step6Review = ({ readOnly = false, cabinetView = false, hideStepHeader = false }: Step6ReviewProps = {}) => {
   const store = useRegistrationStore();
   const isAdmin = store.isAdminMode;
   const isEditMode = store.isEditMode;
@@ -1037,7 +1038,7 @@ const Step6Review = ({ readOnly = false, cabinetView = false }: Step6ReviewProps
       className={cabinetView ? "px-0" : "max-w-5xl mx-auto px-4"}
     >
 
-      {!cabinetView && (
+      {!cabinetView && !hideStepHeader && (
         <>
           <div className="text-[9px] font-bold text-foreground/40 tracking-[0.16em] uppercase mb-3 flex items-center gap-2">
             <span className="w-5 h-[1.5px] bg-foreground rounded-sm" />

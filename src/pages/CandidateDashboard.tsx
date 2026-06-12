@@ -168,7 +168,7 @@ const CandidateDashboardLayout = ({ candidateStatus }: { candidateStatus: string
         />
         <main className={`flex-1 overflow-y-auto ${activeTab === 'profil' ? '' : 'p-8 lg:p-12 bg-background'}`}>
           {activeTab === 'dashboard' && <CandidateDashboardOverview />}
-          {activeTab === 'profil' && <Step6Review readOnly />}
+          {activeTab === 'profil' && <Step6Review readOnly hideStepHeader />}
           {activeTab === 'booking' && <CandidateBooking />}
         </main>
       </div>
