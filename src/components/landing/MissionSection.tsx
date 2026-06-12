@@ -115,7 +115,7 @@ const MissionSection = () => (
             </p>
             <div className="w-4 h-px bg-black/10" />
             <p className="font-sans font-light text-[1.01rem] leading-[1.8] text-black/55 text-justify">
-              <span className="text-black/75 font-bold">Un consultant dédié</span> : lorsqu'une opportunité s'inscrit dans votre projet, Logan vous accompagne de la mise en relation à la finalisation de votre processus.
+              <span className="text-black/75 font-bold">Soyez accompagné</span> : à chaque étape du processus, un consultant dédié est à vos côtés pour intégrer votre projet et échanger sur chaque opportunité.
             </p>
           </div>
         </motion.div>
