@@ -285,9 +285,9 @@ const AdminApprovedCandidates = () => {
                       </span>
                     )}
                     {fullName && (
-                      <div className="text-[15px] font-serif font-normal text-foreground leading-tight mb-0.5">{fullName}</div>
+                      <div className="text-[17px] font-sans font-semibold text-foreground leading-tight mb-0.5">{fullName}</div>
                     )}
-                    <div className="text-[12px] font-sans text-muted-foreground leading-tight">{seniorityLabel}</div>
+                    <div className="text-[12px] font-serif font-normal text-muted-foreground leading-tight">{seniorityLabel}</div>
                   </div>
                   <div className="flex flex-wrap gap-1.5">
                     <span className="text-[10px] font-sans font-medium text-foreground leading-none border border-foreground/20 rounded-full px-2.5 py-1">{practiceLabel}</span>
