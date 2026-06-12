@@ -60,7 +60,7 @@ const MissionSection = () => (
         {/* Logan — centre */}
         <motion.div
           variants={fadeUp}
-          className="py-10 flex flex-col items-center justify-center gap-6 text-center w-full"
+          className="py-10 flex flex-col items-center justify-center gap-6 text-center w-full pt-24"
         >
           {/* Logan + flèches sur la même ligne */}
           <div className="hidden md:flex items-center gap-4 w-full justify-center">
