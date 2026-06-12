@@ -52,65 +52,53 @@ const CabinetSidebar = ({
   const collapsed = state === 'collapsed';
   const { signOut } = useAuth();
 
-  const navItem = (
-    key: string,
-    label: string,
-    Icon: typeof Building2,
-    onClick: () => void,
-    isActive: boolean
-  ) => (
-    <SidebarMenuItem key={key}>
-      <SidebarMenuButton
-        onClick={onClick}
-        isActive={isActive}
-        tooltip={label}
-        className={`rounded-sm transition-colors ${
-          isActive
-            ? 'bg-white/10 text-white font-semibold'
-            : 'text-white/55 hover:bg-white/8 hover:text-white'
-        }`}
-      >
-        <Icon className="mr-2 h-4 w-4 flex-shrink-0" />
-        {!collapsed && <span className="text-[13px]">{label}</span>}
-      </SidebarMenuButton>
-    </SidebarMenuItem>
-  );
+  const itemCls = (active: boolean) =>
+    `flex items-center gap-3 w-full px-3 py-2.5 rounded-sm text-[13px] transition-colors ${
+      active ? 'bg-white/10 text-white font-semibold' : 'text-white/60 hover:bg-white/8 hover:text-white'
+    }`;
 
   return (
-    <Sidebar collapsible="icon" className="border-r border-white/10 bg-[hsl(0,0%,7%)]">
-      <SidebarContent>
-        <SidebarGroup>
-          <SidebarGroupLabel className="py-6 h-auto">
-            <Link to="/" className="hover:opacity-70 transition-opacity">
-              <span className="font-serif text-[32px] leading-none tracking-[0.04em] text-white">
-                {collapsed ? 'L' : 'Logan'}
-              </span>
-            </Link>
-          </SidebarGroupLabel>
-          <SidebarGroupContent className="mt-4">
-            <SidebarMenu>
-              {CABINET_TABS.map((tab) =>
-                navItem(tab.key, tab.label, tab.icon, () => setActiveTab(tab.key), activeTab === tab.key)
-              )}
-              {navItem('alerts', 'Alertes prioritaires', Bell, onOpenAlerts, false)}
-              {navItem('booking', 'Fixer un call', Phone, () => setActiveTab('booking'), activeTab === 'booking')}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
-      </SidebarContent>
-      <SidebarFooter className="border-t border-white/10 pt-2">
-        <SidebarMenu>
-          {navItem('account', 'Mon compte', Settings, () => setActiveTab('account'), activeTab === 'account')}
-        </SidebarMenu>
-        <button
-          onClick={signOut}
-          className="flex items-center gap-2 px-3 py-2 text-[12px] text-white/30 hover:text-white/70 transition-colors w-full"
-        >
-          <LogOut className="h-3.5 w-3.5" />
-          {!collapsed && 'Déconnexion'}
+    <div className={`flex flex-col h-screen bg-[hsl(0,0%,7%)] border-r border-white/10 transition-all duration-200 ${collapsed ? 'w-14' : 'w-56'} flex-shrink-0`}>
+      {/* Logo + toggle */}
+      <div className="flex items-center justify-between px-4 py-5 border-b border-white/10">
+        <Link to="/" className="hover:opacity-70 transition-opacity">
+          <span className="font-serif text-[28px] leading-none tracking-[0.04em] text-white">
+            {collapsed ? 'L' : 'Logan'}
+          </span>
+        </Link>
+        <SidebarTrigger className="text-white/40 hover:text-white transition-colors ml-auto" />
+      </div>
+
+      {/* Nav items */}
+      <nav className="flex-1 px-2 py-4 space-y-0.5 overflow-y-auto">
+        {CABINET_TABS.map((tab) => (
+          <button key={tab.key} onClick={() => setActiveTab(tab.key)} className={itemCls(activeTab === tab.key)}>
+            <tab.icon className="h-4 w-4 flex-shrink-0" />
+            {!collapsed && <span>{tab.label}</span>}
+          </button>
+        ))}
+        <button onClick={onOpenAlerts} className={itemCls(false)}>
+          <Bell className="h-4 w-4 flex-shrink-0" />
+          {!collapsed && <span>Alertes prioritaires</span>}
         </button>
-      </SidebarFooter>
-    </Sidebar>
+        <button onClick={() => setActiveTab('booking')} className={itemCls(activeTab === 'booking')}>
+          <Phone className="h-4 w-4 flex-shrink-0" />
+          {!collapsed && <span>Fixer un call</span>}
+        </button>
+      </nav>
+
+      {/* Footer */}
+      <div className="px-2 py-3 border-t border-white/10 space-y-0.5">
+        <button onClick={() => setActiveTab('account')} className={itemCls(activeTab === 'account')}>
+          <Settings className="h-4 w-4 flex-shrink-0" />
+          {!collapsed && <span>Mon compte</span>}
+        </button>
+        <button onClick={signOut} className="flex items-center gap-3 w-full px-3 py-2.5 text-[13px] text-white/30 hover:text-white/60 transition-colors rounded-sm">
+          <LogOut className="h-4 w-4 flex-shrink-0" />
+          {!collapsed && <span>Déconnexion</span>}
+        </button>
+      </div>
+    </div>
   );
 };
 
@@ -163,27 +151,14 @@ const CabinetDashboardLayout = () => {
         <div className="min-h-screen flex w-full bg-background">
           <CabinetSidebar activeTab={getActiveTab()} setActiveTab={setActiveTab} onOpenAlerts={() => setShowAlerts(true)} />
 
-          <div className="flex-1 flex flex-col">
-            <header className="h-16 flex items-center justify-between border-b border-border bg-background px-6 gap-3">
-              <div className="flex items-center gap-3">
-                <SidebarTrigger />
-                <span className="text-[10px] font-semibold tracking-[0.18em] uppercase text-muted-foreground">Espace cabinet</span>
-              </div>
+          <div className="flex-1 flex flex-col min-w-0">
+            <header className="h-16 flex items-center justify-between border-b border-border bg-background px-6 gap-3 flex-shrink-0">
+              <span className="text-[10px] font-semibold tracking-[0.18em] uppercase text-muted-foreground">Espace cabinet</span>
               {fullName && (
                 <div className="flex items-center gap-2 text-[11px] font-sans text-muted-foreground">
                   <span className="text-foreground font-medium">Bienvenue, {fullName}</span>
-                  {contactStatus && (
-                    <>
-                      <span className="text-muted-foreground/40">·</span>
-                      <span>{contactStatus}</span>
-                    </>
-                  )}
-                  {cabinetLabel && (
-                    <>
-                      <span className="text-muted-foreground/40">·</span>
-                      <span>{cabinetLabel}</span>
-                    </>
-                  )}
+                  {contactStatus && (<><span className="text-muted-foreground/40">·</span><span>{contactStatus}</span></>)}
+                  {cabinetLabel && (<><span className="text-muted-foreground/40">·</span><span>{cabinetLabel}</span></>)}
                 </div>
               )}
             </header>
