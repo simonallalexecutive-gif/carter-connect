@@ -79,7 +79,7 @@ const MissionSection = () => (
               <span className="text-black/20 text-[9.2px]">›</span>
             </div>
 
-            <span className="text-[11.5px] font-sans font-semibold tracking-[0.22em] uppercase text-black/30 shrink-0">Logan</span>
+            <span className="text-[13.8px] font-sans font-bold tracking-[0.22em] uppercase text-black/30 shrink-0">Logan</span>
 
             {/* Flèche droite */}
             <div className="flex items-center gap-0.5 flex-row-reverse">
@@ -95,7 +95,7 @@ const MissionSection = () => (
             </div>
           </div>
           {/* Mobile : juste Logan */}
-          <span className="md:hidden text-[11.5px] font-sans font-semibold tracking-[0.22em] uppercase text-black/30">Logan</span>
+          <span className="md:hidden text-[13.8px] font-sans font-bold tracking-[0.22em] uppercase text-black/30">Logan</span>
 
           <p className="font-sans font-light text-[0.9rem] leading-[1.75] text-black/35 max-w-[160px]">
             Votre seul intermédiaire, de l'intention à la signature.
