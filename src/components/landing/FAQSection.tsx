@@ -32,7 +32,7 @@ const candidatFAQ: FAQItem[] = [
       'Logan vous permet de rester visible et attractif - sans effort et sans exposition de votre identité - aux yeux du marché. Vous êtes alerté lorsqu\'un cabinet s\'intéresse à votre profil ou qu\'une nouvelle opportunité correspond à votre projet, sans avoir à multiplier les démarches : tout est désormais centralisé, accessible et encadré dans la plus grande confidentialité.',
   },
   {
-    question: 'Intégrer Logan, c\'est envoyer un signal au marché que je suis en recherche active ?',
+    question: 'Puis-je rejoindre Logan tout en restant discret vis-à-vis du marché ?',
     answer:
       'Absolument pas. Logan est là pour renforcer votre attractivité tout en vous conférant la discrétion la plus totale. Ainsi, vous restez connecté à votre marché et maître de décider quand l\'activer, tout en bénéficiant, en temps utiles, d\'un accompagnement sur-mesure et d\'une visibilité inégalée.',
   },
