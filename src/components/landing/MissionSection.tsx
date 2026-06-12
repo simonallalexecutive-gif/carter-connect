@@ -110,12 +110,15 @@ const MissionSection = () => (
           </h3>
           <div className="w-6 h-px bg-black/15" />
           <div className="flex flex-col gap-5">
-            <p className="font-sans font-light text-[1.01rem] leading-[1.8] text-black/55 text-justify">
-              <span className="text-black/75 font-bold">Restez attractif et en alerte sur la dynamique de votre marché</span> : notification en temps réel pour toute nouvelle opportunité ou pour tout intérêt manifesté par un cabinet pour votre profil accessible sur une base anonyme et strictement confidentielle.
-            </p>
+            <div>
+              <p className="font-sans text-[0.7rem] tracking-[0.12em] uppercase text-black/25 mb-1.5">Confidentiel · Anonymisé</p>
+              <p className="font-sans font-light text-[1.01rem] leading-[1.8] text-black/55 text-justify">
+                <span className="text-black/75 font-bold">Restez en alerte sur votre marché</span> : soyez notifié de toute nouvelle opportunité ou marque d'intérêt d'un cabinet pour votre profil.
+              </p>
+            </div>
             <div className="w-4 h-px bg-black/10" />
             <p className="font-sans font-light text-[1.01rem] leading-[1.8] text-black/55 text-justify">
-              <span className="text-black/75 font-bold">Bénéficiez d'un accompagnement personnalisé à chaque étape</span> : lorsqu'une opportunité s'inscrit dans votre projet, un consultant dédié vous accompagne afin de concilier vos aspirations et les attentes de votre futur cabinet.
+              <span className="text-black/75 font-bold">Accompagnement personnalisé</span> : lorsqu'une opportunité s'inscrit dans votre projet, un consultant dédié vous accompagne de la mise en relation à la finalisation de votre processus.
             </p>
           </div>
         </motion.div>
