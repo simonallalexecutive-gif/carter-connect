@@ -27,7 +27,12 @@ const AdminSidebar = () => {
     location.pathname.startsWith('/admin/profils') ||
     location.pathname.startsWith('/admin/approuves');
 
+  const cabinetsActive =
+    location.pathname.startsWith('/admin/cabinets') ||
+    location.pathname.startsWith('/admin/offres');
+
   const [candidatesOpen, setCandidatesOpen] = useState(candidatesActive);
+  const [cabinetsOpen, setCabinetsOpen] = useState(cabinetsActive);
 
   const TOP_ITEMS = [
     { title: 'Tableau de bord', url: '/admin', icon: BarChart3 },
@@ -39,10 +44,13 @@ const AdminSidebar = () => {
     { title: 'Approuvés', url: '/admin/approuves', icon: CheckCircle2 },
   ];
 
+  const CABINETS_SUB = [
+    { title: 'Inscrits', url: '/admin/cabinets', icon: Building2 },
+    { title: 'Offres', url: '/admin/offres', icon: Briefcase },
+  ];
+
   const BOTTOM_ITEMS = [
-    { title: 'Cabinets inscrits', url: '/admin/cabinets', icon: Building2 },
     { title: 'Notifications', url: '/admin/notifications', icon: Bell },
-    { title: 'Offres cabinets', url: '/admin/offres', icon: Briefcase },
     { title: 'Processus', url: '/admin/processus', icon: GitPullRequest },
   ];
 
@@ -116,6 +124,54 @@ const AdminSidebar = () => {
                     {candidatesOpen && (
                       <div className="ml-6 mt-0.5 space-y-0.5">
                         {CANDIDATES_SUB.map((sub) => (
+                          <NavLink
+                            key={sub.url}
+                            to={sub.url}
+                            className="flex items-center gap-2 px-2 py-1.5 rounded-sm text-[12px] text-sidebar-foreground/70 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-colors"
+                            activeClassName="bg-sidebar-accent/60 text-sidebar-accent-foreground font-semibold"
+                          >
+                            <sub.icon className="h-3.5 w-3.5 flex-shrink-0" />
+                            {sub.title}
+                          </NavLink>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                )}
+              </SidebarMenuItem>
+
+              {/* Cabinets group */}
+              <SidebarMenuItem>
+                {collapsed ? (
+                  <SidebarMenuButton asChild>
+                    <NavLink
+                      to="/admin/cabinets"
+                      className="text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground rounded-sm transition-colors"
+                      activeClassName="bg-sidebar-accent text-sidebar-accent-foreground font-semibold"
+                    >
+                      <Building2 className="h-4 w-4" />
+                    </NavLink>
+                  </SidebarMenuButton>
+                ) : (
+                  <div>
+                    <button
+                      onClick={() => setCabinetsOpen((v) => !v)}
+                      className={cn(
+                        'flex w-full items-center gap-2 px-2 py-1.5 rounded-sm text-[13px] transition-colors',
+                        cabinetsActive
+                          ? 'bg-sidebar-accent text-sidebar-accent-foreground font-semibold'
+                          : 'text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground'
+                      )}
+                    >
+                      <Building2 className="h-4 w-4 flex-shrink-0" />
+                      <span className="flex-1 text-left">Cabinets</span>
+                      <ChevronDown
+                        className={cn('h-3.5 w-3.5 transition-transform', cabinetsOpen && 'rotate-180')}
+                      />
+                    </button>
+                    {cabinetsOpen && (
+                      <div className="ml-6 mt-0.5 space-y-0.5">
+                        {CABINETS_SUB.map((sub) => (
                           <NavLink
                             key={sub.url}
                             to={sub.url}
