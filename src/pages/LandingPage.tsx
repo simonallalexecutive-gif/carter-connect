@@ -52,10 +52,10 @@ const LandingPage = () => (
         >
           <source src="/hero-bg.mp4" type="video/mp4" />
         </motion.video>
-        {/* Overlays pour assombrir et donner du relief */}
-        <div className="absolute inset-0 bg-black/55" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/20 to-black/50" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/20 to-black/35" />
+        {/* Overlays — allégés pour plus de luminosité et de contraste */}
+        <div className="absolute inset-0 bg-black/30" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/45 via-black/5 to-black/30" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/5 to-black/15" />
       </div>
       <div className="px-4 sm:px-8 lg:px-10 max-w-6xl relative z-10 pt-20 sm:pt-24 flex-1 flex items-center pb-4">
         <motion.div variants={stagger} initial="hidden" animate="visible" className="max-w-[min(95vw,72rem)]">
