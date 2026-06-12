@@ -132,7 +132,7 @@ const AdminCandidateProfileDialog = ({ open, onOpenChange, candidate, onUpdated 
 
       {/* Profile content */}
       <div className="flex-1 overflow-y-auto bg-white">
-        {hydrated && <Step6Review readOnly />}
+        {hydrated && <Step6Review readOnly hideStepHeader />}
         <div className="h-8" />
       </div>
 
