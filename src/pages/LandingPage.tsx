@@ -1,4 +1,5 @@
 import { motion } from 'motion/react';
+import { useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import Header from '@/components/layout/Header';
@@ -31,7 +32,17 @@ const fadeUp = {
 };
 
 
-const LandingPage = () => (
+const LandingPage = () => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    v.muted = true;
+    v.play().catch(() => {});
+  }, []);
+
+  return (
   <div className="min-h-screen bg-background">
     <Header />
 
@@ -47,12 +58,12 @@ const LandingPage = () => (
           style={{ willChange: 'opacity' }}
         >
           <video
+            ref={videoRef}
             autoPlay
             muted
             loop
             playsInline
-            webkit-playsinline="true"
-            x5-playsinline="true"
+            preload="auto"
             className="w-full h-full object-cover"
           >
             <source src="/hero-bg.mp4" type="video/mp4" />
@@ -295,6 +306,7 @@ const LandingPage = () => (
       </div>
     </div>
   </div>
-);
+  );
+};
 
 export default LandingPage;
