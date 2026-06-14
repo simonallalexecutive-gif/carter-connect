@@ -26,8 +26,8 @@ const TeamQuoteSection = () => {
       />
       <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/60" />
 
-      {/* Statement — centré verticalement et horizontalement */}
-      <div className="relative z-10 flex-1 flex items-end justify-center px-6 sm:px-10 pb-16">
+      {/* Bloc centré verticalement sur toute la page */}
+      <div className="relative z-10 flex-1 flex flex-col items-center justify-center gap-12 px-6 sm:px-10">
         <motion.p
           initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -37,10 +37,7 @@ const TeamQuoteSection = () => {
         >
           Logan est la nouvelle infrastructure privilégiée et confidentielle du marché des avocats.
         </motion.p>
-      </div>
 
-      {/* Citation — bas droite */}
-      <div className="relative z-10 flex justify-center px-10 sm:px-16 pb-20">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -48,7 +45,7 @@ const TeamQuoteSection = () => {
           transition={{ duration: 1.1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
           className="max-w-lg text-center"
         >
-          <blockquote className="font-serif italic font-light text-[1rem] sm:text-[1.1rem] leading-[1.75] text-white/50">
+          <blockquote className="font-serif italic font-light text-[0.9rem] sm:text-[0.99rem] leading-[1.75] text-white/50">
             <span className="font-serif text-white/20 text-2xl align-top mr-1 leading-none">"</span>
             Logan se positionne comme l'infrastructure la plus exigeante et structurée du marché, offrant un accompagnement sur mesure, résolument confidentiel et parfaitement ciblé.
             <span className="font-serif text-white/20 text-2xl align-bottom ml-1 leading-none">"</span>
@@ -65,6 +62,7 @@ const TeamQuoteSection = () => {
         </motion.div>
       </div>
     </section>
+
   );
 };
 
