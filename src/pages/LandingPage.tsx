@@ -78,7 +78,7 @@ const LandingPage = () => {
         <motion.div variants={stagger} initial="hidden" animate="visible" className="max-w-[min(95vw,72rem)]">
           <motion.h1
             variants={fadeUp}
-            className="text-[2rem] sm:text-[2.32rem] md:text-[3.09rem] lg:text-[3.94rem] font-serif font-[300] text-white leading-[1.1] mb-3 md:mb-5 tracking-normal"
+            className="text-[1.35rem] sm:text-[2.32rem] md:text-[3.09rem] lg:text-[3.94rem] font-serif font-[300] text-white leading-[1.1] mb-3 md:mb-5 tracking-normal whitespace-nowrap"
           >
             The Private Network for <em className="italic">Top-Tier</em> Lawyers
           </motion.h1>
