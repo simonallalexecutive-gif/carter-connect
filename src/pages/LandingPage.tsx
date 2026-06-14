@@ -62,7 +62,7 @@ const LandingPage = () => (
           <div className="inline-block">
           <motion.h1
             variants={fadeUp}
-            className="text-[1.66rem] sm:text-[2.76rem] md:text-[3.68rem] lg:text-[4.69rem] font-serif font-[300] text-white leading-[1.05] mb-3 md:mb-5 tracking-normal whitespace-nowrap"
+            className="text-[1.33rem] sm:text-[2.21rem] md:text-[2.94rem] lg:text-[3.75rem] font-serif font-[300] text-white leading-[1.05] mb-3 md:mb-5 tracking-normal whitespace-nowrap"
           >
               The Private Network for <em className="italic">Top-Tier</em> Lawyers
             </motion.h1>
