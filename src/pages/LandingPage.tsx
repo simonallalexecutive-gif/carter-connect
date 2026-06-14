@@ -59,16 +59,14 @@ const LandingPage = () => (
       </div>
       <div className="px-4 sm:px-8 lg:px-10 max-w-6xl relative z-10 pt-20 sm:pt-24 flex-1 flex items-center pb-4">
         <motion.div variants={stagger} initial="hidden" animate="visible" className="max-w-[min(95vw,72rem)]">
-          <div className="inline-block">
           <motion.h1
             variants={fadeUp}
-            className="text-[1.40rem] sm:text-[2.32rem] md:text-[3.09rem] lg:text-[3.94rem] font-serif font-[300] text-white leading-[1.05] mb-3 md:mb-5 tracking-normal whitespace-nowrap"
+            className="text-[2rem] sm:text-[2.32rem] md:text-[3.09rem] lg:text-[3.94rem] font-serif font-[300] text-white leading-[1.1] mb-3 md:mb-5 tracking-normal"
           >
-              The Private Network for <em className="italic">Top-Tier</em> Lawyers
-            </motion.h1>
-          </div>
+            The Private Network for <em className="italic">Top-Tier</em> Lawyers
+          </motion.h1>
           <motion.p variants={fadeUp} className="text-[0.86rem] sm:text-[1.14rem] md:text-[1.16rem] text-white font-sans font-[480] leading-[1.65] max-w-[72rem]">
-            Un cercle privé d'excellence, structuré et piloté par des consultants spécialisés, dédié aux profils<br />et cabinets d'affaires les plus qualifiés du marché.
+            Un cercle privé d'excellence, structuré et piloté par des consultants spécialisés, dédié aux profils et cabinets d'affaires les plus qualifiés du marché.
           </motion.p>
 
           <motion.div variants={fadeUp} className="mt-8 sm:mt-20 flex flex-wrap items-center gap-3">
