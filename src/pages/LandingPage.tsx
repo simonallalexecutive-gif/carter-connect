@@ -39,19 +39,25 @@ const LandingPage = () => (
     <section className="h-[100svh] flex flex-col relative overflow-hidden bg-black" style={{ paddingTop: 'env(safe-area-inset-top)', paddingBottom: 'env(safe-area-inset-bottom)' }}>
       {/* Background video — cinematic, sombre, premium */}
       <div className="absolute inset-0">
-        <motion.video
-          autoPlay
-          muted
-          loop
-          playsInline
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 2.5, ease: 'easeOut' }}
-          className="w-full h-full object-cover"
+          className="w-full h-full"
           style={{ willChange: 'opacity' }}
         >
-          <source src="/hero-bg.mp4" type="video/mp4" />
-        </motion.video>
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            webkit-playsinline="true"
+            x5-playsinline="true"
+            className="w-full h-full object-cover"
+          >
+            <source src="/hero-bg.mp4" type="video/mp4" />
+          </video>
+        </motion.div>
         {/* Overlays pour assombrir et donner du relief */}
         <div className="absolute inset-0 bg-black/40" />
         <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/10 to-black/30" />
