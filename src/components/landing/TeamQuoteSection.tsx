@@ -27,7 +27,7 @@ const TeamQuoteSection = () => {
       <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/60" />
 
       {/* Statement — centré verticalement et horizontalement */}
-      <div className="relative z-10 flex-1 flex items-end justify-center px-6 sm:px-10 pb-28">
+      <div className="relative z-10 flex-1 flex items-end justify-center px-6 sm:px-10 pb-16">
         <motion.p
           initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -40,13 +40,13 @@ const TeamQuoteSection = () => {
       </div>
 
       {/* Citation — bas droite */}
-      <div className="relative z-10 flex justify-end px-10 sm:px-16 pb-20">
+      <div className="relative z-10 flex justify-center px-10 sm:px-16 pb-20">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
           transition={{ duration: 1.1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-          className="max-w-lg text-right"
+          className="max-w-lg text-center"
         >
           <blockquote className="font-serif italic font-light text-[1rem] sm:text-[1.1rem] leading-[1.75] text-white/50">
             <span className="font-serif text-white/20 text-2xl align-top mr-1 leading-none">"</span>
