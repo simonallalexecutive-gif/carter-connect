@@ -27,7 +27,7 @@ const TeamQuoteSection = () => {
       <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/60" />
 
       {/* Bloc centré verticalement sur toute la page */}
-      <div className="relative z-10 flex-1 flex flex-col items-center justify-center gap-20 px-6 sm:px-10">
+      <div className="relative z-10 flex-1 flex flex-col items-center justify-center gap-28 px-6 sm:px-10">
         <motion.p
           initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
