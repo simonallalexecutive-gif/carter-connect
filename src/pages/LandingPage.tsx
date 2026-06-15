@@ -42,26 +42,24 @@ const LandingPage = () => {
       {/* ── HERO ── */}
       <section className="flex flex-col border-b border-black/8 mt-16">
 
-        {/* Photo + texte */}
-        <div className="relative overflow-hidden" style={{ height: 'calc(100svh - 64px - 52px)' }}>
-          {/* Photo Paris */}
-          <div
-            className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: "url('/hero-paris.jpg')" }}
+        {/* Photo pleine — texte superposé */}
+        <div className="relative w-full">
+          <img
+            src="/hero-paris.jpg"
+            alt="Paris"
+            className="w-full block object-contain"
           />
           {/* Overlays */}
-          <div className="absolute inset-0 bg-black/45" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/15 to-transparent" />
+          <div className="absolute inset-0 bg-black/40" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-black/20" />
 
-          {/* Contenu */}
-          <div className="relative z-10 h-full flex flex-col justify-between px-6 sm:px-10 lg:px-16 pt-10 sm:pt-14 pb-10 sm:pb-14">
-
-            {/* Titre */}
+          {/* Texte superposé */}
+          <div className="absolute inset-0 flex flex-col justify-between px-6 sm:px-10 lg:px-16 py-10 sm:py-14">
             <motion.h1
               variants={fadeUp}
               initial="hidden"
               animate="visible"
-              className="font-serif font-[300] text-[2.72rem] sm:text-[4.2rem] md:text-[5.5rem] lg:text-[6.8rem] text-white leading-[0.93] tracking-[-0.01em]"
+              className="font-serif font-[300] text-[2rem] sm:text-[3.2rem] md:text-[4.5rem] lg:text-[5.8rem] text-white leading-[0.93] tracking-[-0.01em]"
             >
               The Private<br />
               Network for<br />
@@ -69,14 +67,13 @@ const LandingPage = () => {
               Lawyers
             </motion.h1>
 
-            {/* Sous-titre + CTAs */}
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.7, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
               className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6"
             >
-              <p className="font-sans font-light text-[0.88rem] text-white/65 max-w-xs leading-[1.8]">
+              <p className="font-sans font-light text-[0.88rem] text-white/70 max-w-xs leading-[1.8]">
                 Un réseau confidentiel d'avocats d'affaires, constitué et enrichi chaque jour par des consultants spécialisés.
               </p>
               <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-10">
@@ -91,12 +88,12 @@ const LandingPage = () => {
           </div>
         </div>
 
-        {/* Marquee cabinets — en dehors de la photo */}
+        {/* Marquee cabinets — sous la photo */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1, duration: 1 }}
-          className="bg-white border-t border-black/8 py-5 relative overflow-hidden flex-shrink-0"
+          className="bg-white border-t border-black/8 py-5 relative overflow-hidden"
         >
           <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-24 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
           <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-24 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
