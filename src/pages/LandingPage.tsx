@@ -54,7 +54,7 @@ const LandingPage = () => {
 
           <motion.div
             variants={fadeUp}
-            className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6"
+            className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 pb-14 sm:pb-20"
           >
             <p className="font-sans font-light text-[0.88rem] text-black/50 max-w-xs leading-[1.8]">
               Un réseau confidentiel d'avocats d'affaires, constitué et enrichi chaque jour par des consultants spécialisés.
