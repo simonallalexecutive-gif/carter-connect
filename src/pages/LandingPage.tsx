@@ -97,7 +97,7 @@ const LandingPage = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1, duration: 1 }}
-                className="flex-shrink-0 pt-1 pb-5 relative overflow-hidden bg-black/30 backdrop-blur-[2px]"
+                className="flex-shrink-0 py-3 relative overflow-hidden bg-black/30 backdrop-blur-[2px]"
               >
                 <div className="absolute left-0 top-0 bottom-0 w-20 sm:w-32 bg-gradient-to-r from-black/40 to-transparent z-10 pointer-events-none" />
                 <div className="absolute right-0 top-0 bottom-0 w-20 sm:w-32 bg-gradient-to-l from-black/40 to-transparent z-10 pointer-events-none" />
