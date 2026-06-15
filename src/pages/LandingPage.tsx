@@ -143,28 +143,6 @@ const LandingPage = () => {
       {/* ── CANDIDATS / LOGAN / CABINETS ── */}
       <section className="border-b border-black/8">
 
-        {/* Header de section */}
-        <div className="px-6 sm:px-10 lg:px-16 pt-20 sm:pt-28 pb-14 border-b border-black/8">
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="font-sans text-[10px] tracking-[0.3em] uppercase text-black/25 mb-6"
-          >
-            Comment ça fonctionne
-          </motion.p>
-          <motion.h2
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.9 }}
-            className="font-serif font-[300] text-[2rem] sm:text-[2.8rem] text-black leading-[1.04] max-w-2xl"
-          >
-            Logan agit comme intermédiaire unique entre les avocats et les cabinets.
-          </motion.h2>
-        </div>
-
         {/* Trois colonnes */}
         <div className="grid md:grid-cols-3">
 
