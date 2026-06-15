@@ -20,9 +20,10 @@ const Header = () => {
   }, []);
 
   const [hidden, setHidden] = useState(false);
-  const [onLight, setOnLight] = useState(false);
-  const lastScrollY = useRef(0);
   const location = useLocation();
+  const isLightPage = location.pathname === '/';
+  const [onLight, setOnLight] = useState(isLightPage);
+  const lastScrollY = useRef(0);
 
   useEffect(() => {
     const heroH = window.innerHeight;
@@ -75,7 +76,7 @@ const Header = () => {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${menuOpen ? 'bg-black' : 'bg-transparent'} ${hidden && !menuOpen ? '-translate-y-full' : 'translate-y-0'}`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${menuOpen ? 'bg-black' : onLight ? 'bg-white border-b border-black/8' : 'bg-transparent'} ${hidden && !menuOpen ? '-translate-y-full' : 'translate-y-0'}`}
     >
       <div className="px-6 sm:px-8 lg:px-10 flex items-center justify-between h-16">
         <div className="flex items-center gap-6">
@@ -126,7 +127,7 @@ const Header = () => {
         <div className="hidden md:flex items-center gap-2">
           <Link
             to="/connexion"
-            className="text-[12.3px] font-sans font-normal px-3.5 py-1.5 rounded-sm bg-white text-black border border-white hover:bg-white/90 transition-colors duration-200 tracking-wide"
+            className={`text-[12.3px] font-sans font-normal px-3.5 py-1.5 rounded-sm transition-colors duration-200 tracking-wide border ${onLight ? 'bg-black text-white border-black hover:bg-black/80' : 'bg-white text-black border-white hover:bg-white/90'}`}
           >
             Connexion
           </Link>
