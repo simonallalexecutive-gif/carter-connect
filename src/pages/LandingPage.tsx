@@ -242,21 +242,22 @@ const LandingPage = () => {
             <div>
               <p className="font-sans text-[10px] tracking-[0.3em] uppercase text-black/25 mb-8">03 — Cabinets</p>
               <h3 className="font-serif font-[300] text-[1.8rem] sm:text-[2.2rem] text-black leading-[1.04] mb-8">
-                Accédez aux<br />profils que le<br />marché ignore.
+                Recrutez avec<br />précision et<br />discrétion.
               </h3>
-              <ul className="space-y-4 mb-10">
-                {[
-                  'Base de profils qualifiés, anonymisés et mis à jour en continu.',
-                  'Manifestez un intérêt sur un profil — Logan se charge du reste.',
-                  'Recrutement piloté ou exploration autonome, selon vos besoins.',
-                  'Confidentialité absolue à chaque étape.',
-                ].map((line) => (
-                  <li key={line} className="flex items-start gap-3">
-                    <span className="mt-2 w-1 h-1 rounded-full bg-black/25 flex-shrink-0" />
-                    <span className="font-sans font-light text-[0.88rem] text-black/50 leading-[1.8]">{line}</span>
-                  </li>
-                ))}
-              </ul>
+              <div className="space-y-6 mb-10">
+                <div>
+                  <p className="font-sans font-medium text-[0.78rem] text-black/70 tracking-wide uppercase mb-1.5">Recherche confidentielle</p>
+                  <p className="font-sans font-light text-[0.88rem] text-black/50 leading-[1.8]">
+                    Déposez une recherche en préservant l'identité de votre cabinet. Elle s'adresse à une audience qualifiée et pertinente. Les candidats consultent les éléments principaux et manifestent leur intérêt auprès de Logan, qui opère l'intermédiation.
+                  </p>
+                </div>
+                <div>
+                  <p className="font-sans font-medium text-[0.78rem] text-black/70 tracking-wide uppercase mb-1.5">Veille de marché</p>
+                  <p className="font-sans font-light text-[0.88rem] text-black/50 leading-[1.8]">
+                    Accédez en temps réel aux profils en recherche active ou à l'écoute. Anticipez vos recrutements stratégiques et consultez la dynamique du marché. Si un profil vous intéresse, manifestez-le auprès de Logan — qui se charge du rapprochement.
+                  </p>
+                </div>
+              </div>
             </div>
             <Link to="/acces-cabinet" className="font-sans text-[0.88rem] text-black border-b border-black pb-0.5 hover:text-black/40 transition-colors self-start">
               Accéder au réseau →
