@@ -84,7 +84,7 @@ const Header = () => {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${menuOpen ? 'bg-black' : onLight ? 'bg-white border-b border-black/8' : 'bg-transparent'} ${hidden && !menuOpen ? '-translate-y-full' : 'translate-y-0'}`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${menuOpen ? 'bg-black' : onLight ? 'bg-white' : 'bg-transparent'} ${hidden && !menuOpen ? '-translate-y-full' : 'translate-y-0'}`}
     >
       <div className="px-6 sm:px-8 lg:px-10 flex items-center justify-between h-16">
         <div className="flex items-center gap-6">
