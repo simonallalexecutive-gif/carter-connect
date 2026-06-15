@@ -140,69 +140,130 @@ const LandingPage = () => {
         </motion.div>
       </section>
 
-      {/* ── CANDIDATS / CABINETS ── */}
-      <section className="grid md:grid-cols-2 border-b border-black/8">
-        {/* Candidats */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.9 }}
-          className="px-6 sm:px-10 lg:px-16 py-20 sm:py-28 border-b md:border-b-0 md:border-r border-black/8 flex flex-col justify-between min-h-[420px]"
-        >
-          <div>
-            <p className="font-sans text-[10px] tracking-[0.3em] uppercase text-black/25 mb-10">01 — Candidats</p>
-            <h2 className="font-serif font-[300] text-[2.2rem] sm:text-[3rem] text-black leading-[1.02] mb-8">
-              Reprenez<br />le contrôle.
-            </h2>
-            <ul className="space-y-4 mb-10">
-              {[
-                'Déposez votre recherche à titre confidentiel.',
-                'Notification en temps réel des opportunités.',
-                'Un consultant dédié pour chaque rencontre.',
-              ].map((line) => (
-                <li key={line} className="flex items-start gap-3">
-                  <span className="mt-2 w-1 h-1 rounded-full bg-black/25 flex-shrink-0" />
-                  <span className="font-sans font-light text-[0.88rem] text-black/50 leading-[1.8]">{line}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <Link to="/candidat" className="font-sans text-[0.88rem] text-black border-b border-black pb-0.5 hover:text-black/40 transition-colors self-start">
-            Rejoindre le réseau →
-          </Link>
-        </motion.div>
+      {/* ── CANDIDATS / LOGAN / CABINETS ── */}
+      <section className="border-b border-black/8">
 
-        {/* Cabinets */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.9, delay: 0.15 }}
-          className="px-6 sm:px-10 lg:px-16 py-20 sm:py-28 flex flex-col justify-between min-h-[420px]"
-        >
-          <div>
-            <p className="font-sans text-[10px] tracking-[0.3em] uppercase text-black/25 mb-10">02 — Cabinets</p>
-            <h2 className="font-serif font-[300] text-[2.2rem] sm:text-[3rem] text-black leading-[1.02] mb-8">
-              Vivez<br />votre marché.
-            </h2>
-            <ul className="space-y-4 mb-10">
-              {[
-                'Accès à une base de profils qualifiés et anonymisés.',
-                'Exploration autonome ou recrutement piloté.',
-                'Confidentialité absolue à chaque étape.',
-              ].map((line) => (
-                <li key={line} className="flex items-start gap-3">
-                  <span className="mt-2 w-1 h-1 rounded-full bg-black/25 flex-shrink-0" />
-                  <span className="font-sans font-light text-[0.88rem] text-black/50 leading-[1.8]">{line}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <Link to="/acces-cabinet" className="font-sans text-[0.88rem] text-black border-b border-black pb-0.5 hover:text-black/40 transition-colors self-start">
-            Accéder au réseau →
-          </Link>
-        </motion.div>
+        {/* Header de section */}
+        <div className="px-6 sm:px-10 lg:px-16 pt-20 sm:pt-28 pb-14 border-b border-black/8">
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="font-sans text-[10px] tracking-[0.3em] uppercase text-black/25 mb-6"
+          >
+            Comment ça fonctionne
+          </motion.p>
+          <motion.h2
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.9 }}
+            className="font-serif font-[300] text-[2rem] sm:text-[2.8rem] text-black leading-[1.04] max-w-2xl"
+          >
+            Logan agit comme intermédiaire unique entre les avocats et les cabinets.
+          </motion.h2>
+        </div>
+
+        {/* Trois colonnes */}
+        <div className="grid md:grid-cols-3">
+
+          {/* Candidats */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.9 }}
+            className="px-6 sm:px-10 lg:px-12 py-16 sm:py-20 border-b md:border-b-0 md:border-r border-black/8 flex flex-col justify-between"
+          >
+            <div>
+              <p className="font-sans text-[10px] tracking-[0.3em] uppercase text-black/25 mb-8">01 — Candidats</p>
+              <h3 className="font-serif font-[300] text-[1.8rem] sm:text-[2.2rem] text-black leading-[1.04] mb-8">
+                Accédez aux<br />meilleures<br />opportunités.
+              </h3>
+              <div className="space-y-6 mb-10">
+                <div>
+                  <p className="font-sans font-medium text-[0.78rem] text-black/70 tracking-wide uppercase mb-1.5">Mode actif</p>
+                  <p className="font-sans font-light text-[0.88rem] text-black/50 leading-[1.8]">
+                    Accédez aux opportunités les plus premiums du marché et soyez notifié en temps réel de chaque nouvelle offre. Si une opportunité vous intéresse, Logan vous accompagne à chaque étape du processus.
+                  </p>
+                </div>
+                <div>
+                  <p className="font-sans font-medium text-[0.78rem] text-black/70 tracking-wide uppercase mb-1.5">Mode passif</p>
+                  <p className="font-sans font-light text-[0.88rem] text-black/50 leading-[1.8]">
+                    Soyez visible auprès des cabinets les plus prestigieux à travers votre séniorité, votre expertise et votre projet — en conservant votre anonymat. Si un cabinet manifeste un intérêt, Logan vous en informe.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <Link to="/candidat" className="font-sans text-[0.88rem] text-black border-b border-black pb-0.5 hover:text-black/40 transition-colors self-start">
+              Rejoindre le réseau →
+            </Link>
+          </motion.div>
+
+          {/* Logan — intermédiaire */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.9, delay: 0.12 }}
+            className="px-6 sm:px-10 lg:px-12 py-16 sm:py-20 border-b md:border-b-0 md:border-r border-black/8 bg-black flex flex-col justify-between"
+          >
+            <div>
+              <p className="font-sans text-[10px] tracking-[0.3em] uppercase text-white/30 mb-8">02 — Logan</p>
+              <h3 className="font-serif font-[300] text-[1.8rem] sm:text-[2.2rem] text-white leading-[1.04] mb-8">
+                Un seul<br />intermédiaire.<br />Confidentiel.
+              </h3>
+              <ul className="space-y-5 mb-10">
+                {[
+                  'Chaque mise en relation est pilotée par un consultant spécialisé.',
+                  'Les deux parties ne se contactent jamais directement.',
+                  'Logan valide, filtre et accompagne chaque échange.',
+                  'Gratuit pour les candidats. Toujours.',
+                ].map((line) => (
+                  <li key={line} className="flex items-start gap-3">
+                    <span className="mt-2 w-1 h-1 rounded-full bg-white/30 flex-shrink-0" />
+                    <span className="font-sans font-light text-[0.88rem] text-white/60 leading-[1.8]">{line}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <span className="font-sans text-[0.78rem] text-white/25 tracking-[0.15em] uppercase">L'intermédiaire de confiance</span>
+          </motion.div>
+
+          {/* Cabinets */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.9, delay: 0.24 }}
+            className="px-6 sm:px-10 lg:px-12 py-16 sm:py-20 flex flex-col justify-between"
+          >
+            <div>
+              <p className="font-sans text-[10px] tracking-[0.3em] uppercase text-black/25 mb-8">03 — Cabinets</p>
+              <h3 className="font-serif font-[300] text-[1.8rem] sm:text-[2.2rem] text-black leading-[1.04] mb-8">
+                Accédez aux<br />profils que le<br />marché ignore.
+              </h3>
+              <ul className="space-y-4 mb-10">
+                {[
+                  'Base de profils qualifiés, anonymisés et mis à jour en continu.',
+                  'Manifestez un intérêt sur un profil — Logan se charge du reste.',
+                  'Recrutement piloté ou exploration autonome, selon vos besoins.',
+                  'Confidentialité absolue à chaque étape.',
+                ].map((line) => (
+                  <li key={line} className="flex items-start gap-3">
+                    <span className="mt-2 w-1 h-1 rounded-full bg-black/25 flex-shrink-0" />
+                    <span className="font-sans font-light text-[0.88rem] text-black/50 leading-[1.8]">{line}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <Link to="/acces-cabinet" className="font-sans text-[0.88rem] text-black border-b border-black pb-0.5 hover:text-black/40 transition-colors self-start">
+              Accéder au réseau →
+            </Link>
+          </motion.div>
+
+        </div>
       </section>
 
       {/* ── CHIFFRES ── */}
