@@ -131,9 +131,9 @@ const LandingPage = () => {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 1, delay: 0.5 }}
-          className="mt-16 max-w-lg"
+          className="mt-16 max-w-xl"
         >
-          <p className="font-sans font-light text-[0.88rem] text-white/35 leading-[1.9] italic">
+          <p className="font-sans font-light text-[1rem] text-white/35 leading-[1.8] italic">
             "Logan se positionne comme l'infrastructure la plus exigeante et structurée du marché, offrant un accompagnement sur mesure, résolument confidentiel et parfaitement ciblé."
           </p>
           <p className="font-sans text-[10px] tracking-[0.3em] uppercase text-white/20 mt-4">L'équipe Logan</p>
