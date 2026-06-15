@@ -57,6 +57,8 @@ const Header = () => {
     };
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
+    // Détecte aussi au chargement initial après le rendu
+    setTimeout(detectBackground, 100);
     return () => window.removeEventListener('scroll', onScroll);
   }, [location.pathname]);
 
