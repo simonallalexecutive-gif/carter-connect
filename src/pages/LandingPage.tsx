@@ -48,7 +48,7 @@ const LandingPage = () => {
             <img
               src="/hero-paris.jpg"
               alt="Paris"
-              className="w-full h-full object-cover rounded-sm" style={{ objectPosition: '50% 20%' }}
+              className="w-full h-full object-cover object-center rounded-sm"
             />
             <div className="absolute inset-0 bg-black/40 rounded-sm" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-black/20 rounded-sm" />
