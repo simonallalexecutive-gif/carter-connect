@@ -40,9 +40,9 @@ const LandingPage = () => {
       <Header />
 
       {/* ── HERO ── */}
-      <section className="flex flex-col border-b border-black/8 mt-16">
+      <section className="flex flex-col border-b border-black/8 mt-16 bg-white px-4 sm:px-8 lg:px-12 pt-4 sm:pt-6">
 
-        {/* Photo pleine — texte superposé */}
+        {/* Photo encadrée — marges blanches sur les côtés */}
         <div className="relative w-full">
           <img
             src="/hero-paris.jpg"
