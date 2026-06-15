@@ -40,18 +40,18 @@ const LandingPage = () => {
       <Header />
 
       {/* ── HERO ── */}
-      <section className="flex flex-col border-b border-black/8">
+      <section className="flex flex-col border-b border-black/8 mt-16">
 
         {/* Photo + texte */}
-        <div className="relative overflow-hidden" style={{ height: 'calc(100svh - 56px)' }}>
+        <div className="relative overflow-hidden" style={{ height: 'calc(100svh - 64px - 52px)' }}>
           {/* Photo Paris */}
           <div
             className="absolute inset-0 bg-cover bg-center"
             style={{ backgroundImage: "url('/hero-paris.jpg')" }}
           />
           {/* Overlays */}
-          <div className="absolute inset-0 bg-black/50" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-black/30" />
+          <div className="absolute inset-0 bg-black/45" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/15 to-transparent" />
 
           {/* Contenu */}
           <div className="relative z-10 h-full flex flex-col justify-between px-6 sm:px-10 lg:px-16 pt-10 sm:pt-14 pb-10 sm:pb-14">
