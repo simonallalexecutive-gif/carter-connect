@@ -5,7 +5,7 @@ export type QuantizedPercentageItem<T extends string = string> = {
 
 export const quantizePercentages = <T extends string>(
   items: QuantizedPercentageItem<T>[],
-  step = 10,
+  step = 5,
 ): Record<T, number> => {
   const sanitized = items.map((item) => ({
     ...item,
@@ -57,7 +57,7 @@ export const quantizePercentages = <T extends string>(
 
 export const buildQuantizedChartData = <T extends string>(
   items: Array<{ key: T; name: string; raw: number; color: string }>,
-  step = 10,
+  step = 5,
 ) => {
   const percentages = quantizePercentages(
     items.map((item) => ({ key: item.key, raw: item.raw })),
