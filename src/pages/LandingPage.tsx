@@ -318,7 +318,7 @@ const LandingPage = () => {
       {/* ── CTA FINAL ── */}
       <section className="relative overflow-hidden bg-black min-h-[80svh] flex flex-col justify-between px-6 sm:px-10 lg:px-16 py-20 sm:py-28">
         <img
-          src="/hero-paris.jpg"
+          src="/quote-bg.jpg"
           alt=""
           className="absolute inset-0 w-full h-full object-cover opacity-30"
         />
