@@ -291,16 +291,6 @@ const LandingPage = () => {
         </video>
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/40" />
 
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="font-sans text-[10px] tracking-[0.3em] uppercase text-white/25 relative z-10"
-        >
-          Logan Executive
-        </motion.p>
-
         <div className="relative z-10">
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
