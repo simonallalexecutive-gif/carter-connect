@@ -79,9 +79,8 @@ const LandingPage = () => {
                   className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6"
                 >
                   <p style={{ fontSize: '20px', fontWeight: 400, lineHeight: 1.45, letterSpacing: '0.01em', color: 'rgba(255,255,255,0.72)', whiteSpace: 'nowrap' }}>
-                    Un réseau confidentiel d'avocats d'affaires,<br />
-                    structuré, piloté et enrichi chaque jour<br />
-                    par des consultants spécialisés.
+                    Confidential career opportunities and strategic hires,<br />
+                    facilitated by specialist legal recruiters.
                   </p>
                   <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-10">
                     <Link to="/candidat" className="font-sans text-[0.88rem] text-white border-b border-white pb-0.5 hover:text-white/50 transition-colors">
