@@ -97,13 +97,13 @@ const LandingPage = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1, duration: 1 }}
-                className="flex-shrink-0 py-3 relative overflow-hidden bg-black/30 backdrop-blur-[2px]"
+                className="flex-shrink-0 py-3 relative overflow-hidden bg-black/30 backdrop-blur-[2px] mb-5 sm:mb-7"
               >
                 <div className="absolute left-0 top-0 bottom-0 w-20 sm:w-32 bg-gradient-to-r from-black/40 to-transparent z-10 pointer-events-none" />
                 <div className="absolute right-0 top-0 bottom-0 w-20 sm:w-32 bg-gradient-to-l from-black/40 to-transparent z-10 pointer-events-none" />
                 <div className="flex animate-marquee whitespace-nowrap items-center">
                   {[...firmNames, ...firmNames].map((name, i) => (
-                    <span key={i} className="mx-8 sm:mx-14 text-[0.82rem] font-serif font-[300] text-white/60 select-none flex-shrink-0 tracking-[0.04em]">
+                    <span key={i} className="mx-8 sm:mx-14 text-[0.902rem] font-serif font-[300] text-white select-none flex-shrink-0 tracking-[0.04em]">
                       {name}
                     </span>
                   ))}
