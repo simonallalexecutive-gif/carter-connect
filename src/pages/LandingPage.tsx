@@ -78,7 +78,7 @@ const LandingPage = () => {
                   transition={{ delay: 0.7, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
                   className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6"
                 >
-                  <p style={{ fontSize: '20px', fontWeight: 400, lineHeight: 1.45, letterSpacing: '0.01em', color: 'rgba(255,255,255,0.72)' }} className="max-w-sm">
+                  <p style={{ fontSize: '20px', fontWeight: 400, lineHeight: 1.45, letterSpacing: '0.01em', color: 'rgba(255,255,255,0.72)', whiteSpace: 'nowrap' }}>
                     Un réseau confidentiel d'avocats d'affaires,<br />
                     structuré, piloté et enrichi chaque jour<br />
                     par des consultants spécialisés.
