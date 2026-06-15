@@ -78,16 +78,16 @@ const LandingPage = () => {
                   transition={{ delay: 0.7, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
                   className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6"
                 >
-                  <p style={{ fontSize: '20px', fontWeight: 400, lineHeight: 1.45, letterSpacing: '0.01em', color: 'rgba(255,255,255,0.72)', whiteSpace: 'nowrap' }}>
+                  <p style={{ fontWeight: 400, lineHeight: 1.45, letterSpacing: '0.01em', color: 'rgba(255,255,255,0.72)' }} className="max-w-lg text-[1rem] sm:text-[1.25rem]">
                     Connecting top-tier lawyers with leading firms<br />
                     through a confidential, consultant-led process.
                   </p>
                   <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-10">
                     <Link to="/candidat" className="font-sans text-[0.88rem] text-white border-b border-white pb-0.5 hover:text-white/50 transition-colors">
-                      Je suis candidat →
+                      Candidat →
                     </Link>
                     <Link to="/acces-cabinet" className="font-sans text-[0.88rem] text-white/45 border-b border-white/30 pb-0.5 hover:text-white hover:border-white transition-colors">
-                      Je représente un cabinet →
+                      Firm →
                     </Link>
                   </div>
                 </motion.div>
@@ -247,12 +247,11 @@ const LandingPage = () => {
 
       {/* ── CHIFFRES ── */}
       <section className="px-6 sm:px-10 lg:px-16 py-20 sm:py-28 border-b border-black/8">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-10 sm:gap-6">
+        <div className="grid grid-cols-3 gap-10 sm:gap-6">
           {[
             { value: '100%', label: 'Confidentiel' },
-            { value: '0€', label: 'Pour les candidats' },
-            { value: '1', label: 'Seul intermédiaire' },
-            { value: '48h', label: 'Validation du profil' },
+            { value: '100%', label: 'Anonyme' },
+            { value: '100%', label: 'Encadré' },
           ].map((stat, i) => (
             <motion.div
               key={stat.label}
@@ -317,17 +316,11 @@ const LandingPage = () => {
 
       {/* ── CTA FINAL ── */}
       <section className="relative overflow-hidden bg-black min-h-[80svh] flex flex-col justify-between px-6 sm:px-10 lg:px-16 py-20 sm:py-28">
-        <video
-          ref={videoRef}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-          className="absolute inset-0 w-full h-full object-cover opacity-25"
-        >
-          <source src="/hero-bg.mp4" type="video/mp4" />
-        </video>
+        <img
+          src="/hero-paris.jpg"
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover opacity-30"
+        />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/40" />
 
         <div className="relative z-10">
@@ -348,10 +341,10 @@ const LandingPage = () => {
             className="flex flex-col sm:flex-row items-start gap-6 sm:gap-12"
           >
             <Link to="/candidat" className="font-sans text-[0.9rem] text-white border-b border-white pb-0.5 hover:text-white/50 hover:border-white/50 transition-colors">
-              Je suis candidat →
+              Candidat →
             </Link>
             <Link to="/acces-cabinet" className="font-sans text-[0.9rem] text-white/35 border-b border-white/20 pb-0.5 hover:text-white hover:border-white transition-colors">
-              Je représente un cabinet →
+              Firm →
             </Link>
           </motion.div>
         </div>

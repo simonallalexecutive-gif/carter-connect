@@ -89,7 +89,7 @@ const Header = () => {
       <div className="px-6 sm:px-8 lg:px-10 flex items-center justify-between h-16">
         <div className="flex items-center gap-6">
           <Link to="/" className="flex items-center">
-            <span className={`font-serif text-[32px] tracking-[0.04em] transition-colors duration-500 ${textColor}`}>Logan</span>
+            <span className={`font-serif text-[32px] transition-colors duration-500 ${textColor}`} style={{ fontWeight: 400, fontStyle: 'normal', letterSpacing: '-0.02em' }}>Logan</span>
           </Link>
 
           {!minimalNav && (
@@ -151,10 +151,30 @@ const Header = () => {
       </div>
 
       {menuOpen && (
-        <div className="md:hidden bg-black min-h-[calc(100dvh-4rem)] flex flex-col px-6 pt-8 pb-12 gap-5 animate-in fade-in slide-in-from-top-2 duration-200">
-
-          <Link to="/connexion" onClick={() => setMenuOpen(false)} className="font-sans text-base font-medium text-black bg-white border border-white rounded-sm px-5 py-2.5 transition-colors tracking-wide inline-flex w-fit">Connexion</Link>
-          <Link to="/demander-acces" onClick={() => setMenuOpen(false)} className="font-sans text-sm font-normal text-white border border-white/30 rounded-sm px-6 py-3 transition-colors tracking-wide inline-flex items-center gap-2 mt-2 w-fit">Demander un accès</Link>
+        <div className="md:hidden bg-black min-h-[calc(100dvh-4rem)] flex flex-col px-6 pt-8 pb-12 animate-in fade-in slide-in-from-top-2 duration-200">
+          <nav className="flex flex-col gap-1 mb-10">
+            {[
+              { label: 'Notre approche', href: '/#notre-approche' },
+              { label: 'Qui sommes-nous', href: '/#qui-sommes-nous' },
+              { label: 'FAQ', href: '/#faq' },
+            ].map(({ label, href }) => (
+              <Link key={label} to={href} onClick={() => setMenuOpen(false)}
+                className="font-sans text-[1.1rem] font-light text-white/70 py-3 border-b border-white/8 hover:text-white transition-colors">
+                {label}
+              </Link>
+            ))}
+          </nav>
+          <div className="flex flex-col gap-3">
+            <Link to="/candidat" onClick={() => setMenuOpen(false)} className="font-sans text-sm font-normal text-white border border-white/30 rounded-sm px-6 py-3 transition-colors tracking-wide inline-flex items-center justify-center">
+              Je suis candidat
+            </Link>
+            <Link to="/acces-cabinet" onClick={() => setMenuOpen(false)} className="font-sans text-sm font-normal text-white/50 border border-white/15 rounded-sm px-6 py-3 transition-colors tracking-wide inline-flex items-center justify-center">
+              Je représente un cabinet
+            </Link>
+            <Link to="/connexion" onClick={() => setMenuOpen(false)} className="font-sans text-sm font-medium text-black bg-white border border-white rounded-sm px-5 py-3 transition-colors tracking-wide inline-flex items-center justify-center mt-2">
+              Connexion
+            </Link>
+          </div>
         </div>
       )}
 
