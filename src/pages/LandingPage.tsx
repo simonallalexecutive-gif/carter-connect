@@ -40,34 +40,38 @@ const LandingPage = () => {
       <Header />
 
       {/* ── HERO ── */}
-      <section className="h-[100svh] flex flex-col justify-between px-6 sm:px-10 lg:px-16 pt-24 sm:pt-28 pb-0 border-b border-black/8 overflow-hidden">
+      <section className="h-[100svh] flex flex-col px-6 sm:px-10 lg:px-16 pt-24 sm:pt-28 border-b border-black/8 overflow-hidden">
+        {/* Titre */}
         <motion.div variants={stagger} initial="hidden" animate="visible" className="flex-1 flex flex-col justify-center">
           <motion.h1
             variants={fadeUp}
-            className="font-serif font-[300] text-[2.72rem] sm:text-[4.68rem] md:text-[6.38rem] lg:text-[8.08rem] text-black leading-[0.93] tracking-[-0.01em] mb-8 sm:mb-12"
+            className="font-serif font-[300] text-[2.72rem] sm:text-[4.68rem] md:text-[6.38rem] lg:text-[8.08rem] text-black leading-[0.93] tracking-[-0.01em]"
           >
             The Private<br />
             Network for<br />
             <em className="italic">Top-Tier</em><br />
             Lawyers.
           </motion.h1>
+        </motion.div>
 
-          <motion.div
-            variants={fadeUp}
-            className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 pb-14 sm:pb-20"
-          >
-            <p className="font-sans font-light text-[0.88rem] text-black/50 max-w-xs leading-[1.8]">
-              Un réseau confidentiel d'avocats d'affaires, constitué et enrichi chaque jour par des consultants spécialisés.
-            </p>
-            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-10">
-              <Link to="/candidat" className="font-sans text-[0.88rem] text-black border-b border-black pb-0.5 hover:text-black/40 transition-colors">
-                Je suis candidat →
-              </Link>
-              <Link to="/acces-cabinet" className="font-sans text-[0.88rem] text-black/35 border-b border-black/20 pb-0.5 hover:text-black hover:border-black transition-colors">
-                Je représente un cabinet →
-              </Link>
-            </div>
-          </motion.div>
+        {/* Sous-titre + CTAs */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.7, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+          className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 py-8 sm:py-12"
+        >
+          <p className="font-sans font-light text-[0.88rem] text-black/50 max-w-xs leading-[1.8]">
+            Un réseau confidentiel d'avocats d'affaires, constitué et enrichi chaque jour par des consultants spécialisés.
+          </p>
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-10">
+            <Link to="/candidat" className="font-sans text-[0.88rem] text-black border-b border-black pb-0.5 hover:text-black/40 transition-colors">
+              Je suis candidat →
+            </Link>
+            <Link to="/acces-cabinet" className="font-sans text-[0.88rem] text-black/35 border-b border-black/20 pb-0.5 hover:text-black hover:border-black transition-colors">
+              Je représente un cabinet →
+            </Link>
+          </div>
         </motion.div>
 
         {/* Marquee cabinets */}
