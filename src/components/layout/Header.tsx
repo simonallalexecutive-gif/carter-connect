@@ -25,10 +25,20 @@ const Header = () => {
   const [onLight, setOnLight] = useState(isLightPage);
   const lastScrollY = useRef(0);
 
+  // Force white navbar on landing page immediately
+  useEffect(() => {
+    setOnLight(isLightPage);
+  }, [isLightPage]);
+
   useEffect(() => {
     const heroH = window.innerHeight;
 
     const detectBackground = () => {
+      // On the landing page, always use white navbar (the hero photo is inside the section, not behind the navbar)
+      if (isLightPage) {
+        setOnLight(true);
+        return;
+      }
       const y = 40;
       const els = document.elementsFromPoint(window.innerWidth / 2, y);
       for (const el of els) {
@@ -58,8 +68,6 @@ const Header = () => {
     };
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
-    // Détecte aussi au chargement initial après le rendu
-    setTimeout(detectBackground, 100);
     return () => window.removeEventListener('scroll', onScroll);
   }, [location.pathname]);
 
