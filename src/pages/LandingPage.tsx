@@ -40,39 +40,34 @@ const LandingPage = () => {
       <Header />
 
       {/* ── HERO ── */}
-      <section className="min-h-[100svh] flex flex-col justify-between px-6 sm:px-10 lg:px-16 pt-28 sm:pt-32 pb-0 border-b border-black/8">
-        <motion.div variants={stagger} initial="hidden" animate="visible">
-          <motion.p variants={fadeUp} className="font-sans text-[10px] tracking-[0.3em] uppercase text-black/30 mb-12 sm:mb-16">
-            Logan Executive — Paris, 2025
-          </motion.p>
+      <section className="h-[100svh] flex flex-col justify-between px-6 sm:px-10 lg:px-16 pt-24 sm:pt-28 pb-0 border-b border-black/8 overflow-hidden">
+        <motion.div variants={stagger} initial="hidden" animate="visible" className="flex-1 flex flex-col justify-center">
           <motion.h1
             variants={fadeUp}
-            className="font-serif font-[300] text-[3.2rem] sm:text-[5.5rem] md:text-[7.5rem] lg:text-[9.5rem] text-black leading-[0.93] tracking-[-0.01em] mb-12 sm:mb-20"
+            className="font-serif font-[300] text-[2.72rem] sm:text-[4.68rem] md:text-[6.38rem] lg:text-[8.08rem] text-black leading-[0.93] tracking-[-0.01em] mb-8 sm:mb-12"
           >
             The Private<br />
             Network for<br />
             <em className="italic">Top-Tier</em><br />
             Lawyers.
           </motion.h1>
-        </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.7, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-8 pb-10"
-        >
-          <p className="font-sans font-light text-[0.9rem] text-black/50 max-w-xs leading-[1.8]">
-            Un réseau confidentiel d'avocats d'affaires, constitué et enrichi chaque jour par des consultants spécialisés.
-          </p>
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-10">
-            <Link to="/candidat" className="font-sans text-[0.88rem] text-black border-b border-black pb-0.5 hover:text-black/40 transition-colors">
-              Je suis candidat →
-            </Link>
-            <Link to="/acces-cabinet" className="font-sans text-[0.88rem] text-black/35 border-b border-black/20 pb-0.5 hover:text-black hover:border-black transition-colors">
-              Je représente un cabinet →
-            </Link>
-          </div>
+          <motion.div
+            variants={fadeUp}
+            className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6"
+          >
+            <p className="font-sans font-light text-[0.88rem] text-black/50 max-w-xs leading-[1.8]">
+              Un réseau confidentiel d'avocats d'affaires, constitué et enrichi chaque jour par des consultants spécialisés.
+            </p>
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-10">
+              <Link to="/candidat" className="font-sans text-[0.88rem] text-black border-b border-black pb-0.5 hover:text-black/40 transition-colors">
+                Je suis candidat →
+              </Link>
+              <Link to="/acces-cabinet" className="font-sans text-[0.88rem] text-black/35 border-b border-black/20 pb-0.5 hover:text-black hover:border-black transition-colors">
+                Je représente un cabinet →
+              </Link>
+            </div>
+          </motion.div>
         </motion.div>
 
         {/* Marquee cabinets */}
@@ -80,11 +75,13 @@ const LandingPage = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1, duration: 1 }}
-          className="border-t border-black/8 py-5 overflow-hidden"
+          className="border-t border-black/8 py-5 relative overflow-hidden flex-shrink-0"
         >
+          <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-24 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-24 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
           <div className="flex animate-marquee whitespace-nowrap items-center">
             {[...firmNames, ...firmNames].map((name, i) => (
-              <span key={i} className="mx-8 sm:mx-14 text-[0.82rem] font-serif font-[400] text-black/25 select-none flex-shrink-0 tracking-[0.04em]">
+              <span key={i} className="mx-8 sm:mx-14 text-[0.82rem] font-serif font-[400] text-black/40 select-none flex-shrink-0 tracking-[0.04em]">
                 {name}
               </span>
             ))}
