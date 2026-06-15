@@ -48,7 +48,8 @@ const LandingPage = () => {
             <img
               src="/hero-paris.jpg"
               alt="Paris"
-              className="w-full h-full object-cover object-center rounded-sm"
+              className="w-full h-full object-cover rounded-sm"
+              style={{ objectPosition: 'center 60%' }}
             />
             <div className="absolute inset-0 bg-black/40 rounded-sm" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-black/20 rounded-sm" />
@@ -70,29 +71,7 @@ const LandingPage = () => {
                 </motion.h1>
               </div>
 
-              {/* CTA + sous-titre */}
-              <div className="px-8 sm:px-12 lg:px-16 pb-4 sm:pb-6">
-                <motion.div
-                  initial={{ opacity: 0, y: 16 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.7, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-                  className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6"
-                >
-                  <p className="font-sans font-light text-[0.88rem] text-white/70 max-w-xs leading-[1.8]">
-                    Un réseau confidentiel d'avocats d'affaires, constitué et enrichi chaque jour par des consultants spécialisés.
-                  </p>
-                  <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-10">
-                    <Link to="/candidat" className="font-sans text-[0.88rem] text-white border-b border-white pb-0.5 hover:text-white/50 transition-colors">
-                      Je suis candidat →
-                    </Link>
-                    <Link to="/acces-cabinet" className="font-sans text-[0.88rem] text-white/45 border-b border-white/30 pb-0.5 hover:text-white hover:border-white transition-colors">
-                      Je représente un cabinet →
-                    </Link>
-                  </div>
-                </motion.div>
-              </div>
-
-              {/* Marquee cabinets — dans la photo, fond foncé, texte blanc */}
+              {/* Marquee cabinets — dans la photo, au-dessus des CTA */}
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -109,6 +88,28 @@ const LandingPage = () => {
                   ))}
                 </div>
               </motion.div>
+
+              {/* CTA + sous-titre */}
+              <div className="px-8 sm:px-12 lg:px-16 pb-6 sm:pb-8 pt-4">
+                <motion.div
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.7, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+                  className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6"
+                >
+                  <p className="font-sans font-light text-[1.056rem] text-white/70 max-w-xs leading-[1.8]">
+                    Un réseau confidentiel d'avocats d'affaires, constitué et enrichi chaque jour par des consultants spécialisés.
+                  </p>
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-10">
+                    <Link to="/candidat" className="font-sans text-[0.88rem] text-white border-b border-white pb-0.5 hover:text-white/50 transition-colors">
+                      Je suis candidat →
+                    </Link>
+                    <Link to="/acces-cabinet" className="font-sans text-[0.88rem] text-white/45 border-b border-white/30 pb-0.5 hover:text-white hover:border-white transition-colors">
+                      Je représente un cabinet →
+                    </Link>
+                  </div>
+                </motion.div>
+              </div>
             </div>
           </div>
         </div>
