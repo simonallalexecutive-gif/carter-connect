@@ -40,47 +40,63 @@ const LandingPage = () => {
       <Header />
 
       {/* ── HERO ── */}
-      <section className="h-[100svh] flex flex-col justify-between px-6 sm:px-10 lg:px-16 pt-24 sm:pt-28 border-b border-black/8 overflow-hidden">
+      <section className="flex flex-col border-b border-black/8">
 
-        {/* Titre */}
-        <motion.h1
-          variants={fadeUp}
-          initial="hidden"
-          animate="visible"
-          className="font-serif font-[300] text-[2.72rem] sm:text-[4.2rem] md:text-[5.5rem] lg:text-[6.8rem] text-black leading-[0.93] tracking-[-0.01em] mt-auto mb-auto"
-        >
-          The Private<br />
-          Network for<br />
-          <em className="italic">Top-Tier</em><br />
-          Lawyers.
-        </motion.h1>
+        {/* Photo + texte */}
+        <div className="relative overflow-hidden" style={{ height: 'calc(100svh - 56px)' }}>
+          {/* Photo Paris */}
+          <div
+            className="absolute inset-0 bg-cover bg-center"
+            style={{ backgroundImage: "url('/hero-paris.jpg')" }}
+          />
+          {/* Overlays */}
+          <div className="absolute inset-0 bg-black/50" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-black/30" />
 
-        {/* Sous-titre + CTAs */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.7, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 pb-8 sm:pb-10"
-        >
-          <p className="font-sans font-light text-[0.88rem] text-black/50 max-w-xs leading-[1.8]">
-            Un réseau confidentiel d'avocats d'affaires, constitué et enrichi chaque jour par des consultants spécialisés.
-          </p>
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-10">
-            <Link to="/candidat" className="font-sans text-[0.88rem] text-black border-b border-black pb-0.5 hover:text-black/40 transition-colors">
-              Je suis candidat →
-            </Link>
-            <Link to="/acces-cabinet" className="font-sans text-[0.88rem] text-black/35 border-b border-black/20 pb-0.5 hover:text-black hover:border-black transition-colors">
-              Je représente un cabinet →
-            </Link>
+          {/* Contenu */}
+          <div className="relative z-10 h-full flex flex-col justify-between px-6 sm:px-10 lg:px-16 pt-10 sm:pt-14 pb-10 sm:pb-14">
+
+            {/* Titre */}
+            <motion.h1
+              variants={fadeUp}
+              initial="hidden"
+              animate="visible"
+              className="font-serif font-[300] text-[2.72rem] sm:text-[4.2rem] md:text-[5.5rem] lg:text-[6.8rem] text-white leading-[0.93] tracking-[-0.01em]"
+            >
+              The Private<br />
+              Network for<br />
+              <em className="italic">Top-Tier</em><br />
+              Lawyers
+            </motion.h1>
+
+            {/* Sous-titre + CTAs */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.7, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+              className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6"
+            >
+              <p className="font-sans font-light text-[0.88rem] text-white/65 max-w-xs leading-[1.8]">
+                Un réseau confidentiel d'avocats d'affaires, constitué et enrichi chaque jour par des consultants spécialisés.
+              </p>
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-10">
+                <Link to="/candidat" className="font-sans text-[0.88rem] text-white border-b border-white pb-0.5 hover:text-white/50 hover:border-white/50 transition-colors">
+                  Je suis candidat →
+                </Link>
+                <Link to="/acces-cabinet" className="font-sans text-[0.88rem] text-white/45 border-b border-white/30 pb-0.5 hover:text-white hover:border-white transition-colors">
+                  Je représente un cabinet →
+                </Link>
+              </div>
+            </motion.div>
           </div>
-        </motion.div>
+        </div>
 
-        {/* Marquee cabinets */}
+        {/* Marquee cabinets — en dehors de la photo */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1, duration: 1 }}
-          className="border-t border-black/8 py-5 relative overflow-hidden flex-shrink-0"
+          className="bg-white border-t border-black/8 py-5 relative overflow-hidden flex-shrink-0"
         >
           <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-24 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
           <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-24 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
