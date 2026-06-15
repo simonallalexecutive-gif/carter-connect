@@ -246,12 +246,12 @@ const LandingPage = () => {
       </section>
 
       {/* ── CHIFFRES ── */}
-      <section className="px-6 sm:px-10 lg:px-16 py-20 sm:py-28 border-b border-black/8">
-        <div className="grid grid-cols-3 gap-10 sm:gap-6">
+      <section className="border-b border-black/8">
+        <div className="grid md:grid-cols-3">
           {[
-            { value: '100%', label: 'Confidentiel' },
             { value: '100%', label: 'Anonyme' },
             { value: '100%', label: 'Encadré' },
+            { value: '100%', label: 'Confidentiel' },
           ].map((stat, i) => (
             <motion.div
               key={stat.label}
@@ -259,9 +259,10 @@ const LandingPage = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.08, duration: 0.8 }}
+              className={`px-6 sm:px-10 lg:px-12 py-14 sm:py-20 ${i < 2 ? 'border-b md:border-b-0 md:border-r border-black/8' : ''} ${i === 1 ? 'bg-black' : ''}`}
             >
-              <p className="font-serif font-[300] text-[3.5rem] sm:text-[4.5rem] text-black leading-none mb-2">{stat.value}</p>
-              <p className="font-sans font-light text-[0.75rem] text-black/35 tracking-[0.15em] uppercase">{stat.label}</p>
+              <p className={`font-serif font-[300] text-[3.5rem] sm:text-[4.5rem] leading-none mb-2 ${i === 1 ? 'text-white' : 'text-black'}`}>{stat.value}</p>
+              <p className={`font-sans font-light text-[0.75rem] tracking-[0.15em] uppercase ${i === 1 ? 'text-white/35' : 'text-black/35'}`}>{stat.label}</p>
             </motion.div>
           ))}
         </div>
