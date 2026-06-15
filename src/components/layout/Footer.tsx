@@ -5,7 +5,7 @@ const Footer = () => (
   <footer className="bg-transparent pt-20 pb-0">
     <div className="w-full px-4 sm:px-8 md:px-16 lg:px-24">
       {/* Top grid */}
-      <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr_2fr_1fr] gap-12 md:gap-8 pb-16 border-b border-white/10 items-start">
+      <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr_1fr] gap-12 md:gap-8 pb-16 border-b border-white/10 items-start">
         {/* Brand */}
         <div>
           <img src={logoMonogram} alt="Logan" className="h-12 w-12 mb-1 -ml-4 -mt-1 opacity-80 brightness-0 invert" />
